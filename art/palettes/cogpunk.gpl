@@ -1,0 +1,39 @@
+GIMP Palette
+Name: Cogpunk
+Columns: 6
+#
+ 43  26  14	Brass 0 #2b1a0e
+ 90  58  23	Brass 1 #5a3a17
+138  93  34	Brass 2 #8a5d22
+184 138  51	Brass 3 #b88a33
+223 185  78	Brass 4 #dfb94e
+246 231 161	Brass 5 #f6e7a1
+ 42  18  12	Copper 0 #2a120c
+ 94  40  23	Copper 1 #5e2817
+147  68  31	Copper 2 #93441f
+196 104  58	Copper 3 #c4683a
+233 160 107	Copper 4 #e9a06b
+ 21  22  28	Iron 0 #15161c
+ 46  50  59	Iron 1 #2e323b
+ 79  85  98	Iron 2 #4f5562
+127 135 148	Iron 3 #7f8794
+183 191 202	Iron 4 #b7bfca
+ 23  52  48	Verdigris 0 #173430
+ 42  94  82	Verdigris 1 #2a5e52
+ 71 145 126	Verdigris 2 #47917e
+140 201 176	Verdigris 3 #8cc9b0
+ 47  27  20	Leather 0 #2f1b14
+ 91  54  38	Leather 1 #5b3626
+138  90  60	Leather 2 #8a5a3c
+138 144 150	Steam 0 #8a9096
+195 200 205	Steam 1 #c3c8cd
+238 241 243	Steam 2 #eef1f3
+255 255 255	Steam 3 #ffffff
+ 77  20  10	Ember 0 #4d140a
+163  48  26	Ember 1 #a3301a
+236 113  40	Ember 2 #ec7128
+255 199  90	Ember 3 #ffc75a
+ 34  26  69	Aether 0 #221a45
+ 70  58 147	Aether 1 #463a93
+124 107 224	Aether 2 #7c6be0
+198 189 255	Aether 3 #c6bdff

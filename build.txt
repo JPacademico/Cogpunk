@@ -1,0 +1,7 @@
+displayName = Cogpunk
+author = TBD
+version = 0.1.0
+hideCode = false
+hideResources = false
+includeSource = true
+buildIgnore = *.csproj, *.user, *.md, *.aseprite, *.ase, *.py, *.ps1, global.json, obj\*, bin\*, .vs\*, art\*, docs\*, tools\*, reference\*

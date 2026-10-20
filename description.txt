@@ -1,0 +1,4 @@
+Cogpunk: a steampunk overhaul of brass, steam and clockwork.
+New Mechanist class, weapons, armor, biomes, enemies and bosses. Built for co-op.
+
+Early development build: the framework is in place, content is coming.

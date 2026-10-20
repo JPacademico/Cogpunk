@@ -1,0 +1,12 @@
+bin/
+obj/
+*.tmod
+.vs/
+.idea/
+*.user
+*.suo
+.claude/settings.local.json
+reference/
+__pycache__/
+Thumbs.db
+Desktop.ini

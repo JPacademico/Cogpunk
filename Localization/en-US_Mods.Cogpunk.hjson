@@ -1,0 +1,27 @@
+# English (source of truth). tModLoader adds keys for new content here automatically;
+# mirror every new key into pt-BR_Mods.Cogpunk.hjson in the same change.
+
+Configs: {
+	CogpunkClientConfig: {
+		DisplayName: Cogpunk: Client Settings
+
+		Headers: {
+			Visuals: Visuals
+		}
+
+		ScreenShake: {
+			Label: Screen shake
+			Tooltip: Camera shake from explosions, bosses and heavy weapons.
+		}
+
+		EffectDensity: {
+			Label: Effect density
+			Tooltip: Amount of optional steam, spark and smoke particles. Lower it if you get frame drops.
+		}
+
+		ReduceFlashing: {
+			Label: Reduce flashing
+			Tooltip: Tones down bright flashes and strobing effects.
+		}
+	}
+}

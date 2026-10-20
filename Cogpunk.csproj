@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Import tModLoader mod properties (tModLoader rewrites ..\tModLoader.targets on every launch) -->
+	<Import Project="..\tModLoader.targets" />
+
+	<PropertyGroup>
+		<AssemblyName>Cogpunk</AssemblyName>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+</Project>

@@ -1,0 +1,26 @@
+# Português (Brasil). Mantenha as mesmas chaves do en-US_Mods.Cogpunk.hjson.
+
+Configs: {
+	CogpunkClientConfig: {
+		DisplayName: Cogpunk: Configurações do Cliente
+
+		Headers: {
+			Visuals: Visual
+		}
+
+		ScreenShake: {
+			Label: Tremor de tela
+			Tooltip: Tremor da câmera causado por explosões, chefes e armas pesadas.
+		}
+
+		EffectDensity: {
+			Label: Densidade de efeitos
+			Tooltip: Quantidade de partículas opcionais de vapor, faíscas e fumaça. Diminua se o jogo travar.
+		}
+
+		ReduceFlashing: {
+			Label: Reduzir clarões
+			Tooltip: Suaviza clarões fortes e efeitos piscantes.
+		}
+	}
+}
