@@ -128,6 +128,7 @@ MUST:
 6. **Progression gates:** nothing beats the next vanilla gate's power, and recipes only use materials available at that tier.
 7. **Hostile projectile damage** can end up scaled twice by game mode, so never pass `NPC.damage` blindly. Follow ExampleMod `MinionBossBody` (`int damage = NPC.damage / 2;`) and **measure** the damage taken in each mode.
 8. Vanilla scales debuff durations on players in Expert and Master, so account for that.
+9. **Crit (user rule, 2026-10-23):** every weapon has the vanilla **4% base crit** unless the user asks for another value. Leave `Item.crit = 0` (the player's Generic 4% supplies it; `Item.crit = 4` means 8%). Summon damage skips vanilla's crit roll (`SummonDamageClass.UseStandardCritCalcs` is false), so minions roll `Projectile.CritChance` themselves in `ModifyHitNPC` (`modifiers.SetCrit()`), and the summon item adds the hidden `CritChance` tooltip line back (see `MiceBot`/`MiceBotMinion`).
 
 | Tier | Gate (already beaten) | Example anchors (pick the same class or role) | Boss anchor | Initial TTK target |
 |---|---|---|---|---|
@@ -161,11 +162,19 @@ MUST:
 3. Light comes from the **top-left**. Use 3–5 shades per material ramp. The outline is ramp index 0 (the darkest shade of that material). Selective lighter outlining on the lit side is allowed, but no pure-black outlines.
 4. Banned: pillow shading, banding, gradients, filters, soft brushes, blur, orphan pixels, and jaggy lines (keep line steps consistent).
 5. Color caps per sprite: **items ≤ 16, enemies ≤ 32, bosses ≤ 48**.
-6. Follow the sheet specs and orientation rules in SETUP §8.4: vertical sheets with equal frames and 2 px padding; tiles on an 18 px stride; walls on a 36 px stride; armor Head/Legs 40×1120 and Body 360×224; NPCs face left; arrows point up; swords and staffs point top-right; guns point right.
-7. **No semi-transparent pixels.** Glows go in a `_Glow` texture with additive drawing. Fades happen in code.
-8. **Animation:** time frames in game ticks (60 per second), keep volume consistent (no popping), use smears for swings, add anticipation frames before telegraphed attacks, and give small mobs 2–4-frame idle loops.
-9. Readability: the silhouette must read at 100% zoom on both dark (cavern) and light (sky) backgrounds.
-10. Commit the source `.aseprite` at `art/<same path as Content>/` and the 2× PNG next to its `.cs`. AI-generated art (SpriteCook and similar) is **concept only** and must be redrawn or cleaned up.
+6. **Terrain sheets** are generated from `art/templates/terrain_exposure.json`, which records which sides of each of the 240 standard frames are exposed (see `tile_frame()` in `art/scrap/make_scrap_art.py`). Never copy vanilla or template pixels.
+7. **Seamless blocks (the clump look of vanilla ores and stone).** Tiles of the same block must merge into one clump with no visible grid:
+   - No per-tile bevel, seam or border. Outlines only appear on exposed sides, which is the clump's perimeter, and the exposure table already handles that.
+   - Details (cogs, rivets, plates) sit at least 1 px inside the tile.
+   - Tile edges are plain background texture with the same brightness as the interior, so every variant can sit next to every other.
+   - Rim shading on exposed edges stays in the block's own ramp.
+   - `python -P tools/check_tile_seams.py <sheet>` must pass (seam ratio ≤ 1.25, edge bias ≤ 0.06). Then preview a mass with `tools/sim/terrain.py`.
+   - Applies to every block sheet. Rusted Scrap went from seam ratio 3.25 to 0.71 under this rule.
+8. Follow the sheet specs and orientation rules in SETUP §8.4: vertical sheets with equal frames and 2 px padding; tiles on an 18 px stride; walls on a 36 px stride; armor Head/Legs 40×1120 and Body 360×224; NPCs face left; arrows point up; swords and staffs point top-right; guns point right.
+9. **No semi-transparent pixels.** Glows go in a `_Glow` texture with additive drawing. Fades happen in code.
+10. **Animation:** time frames in game ticks (60 per second), keep volume consistent (no popping), use smears for swings, add anticipation frames before telegraphed attacks, and give small mobs 2–4-frame idle loops.
+11. Readability: the silhouette must read at 100% zoom on both dark (cavern) and light (sky) backgrounds.
+12. Commit the source (`.aseprite`, or the generator script under `art/`) at `art/<same path as Content>/` and the 2× PNG next to its `.cs`. AI-generated art (SpriteCook and similar) is **concept only** and must be redrawn or cleaned up.
 
 Verify: `python -P tools/check_sprite.py <png...> --palette art/palettes/cogpunk.gpl --max-colors <cap>` must exit 0. Then check a 2× preview over dark and light backgrounds. For animated sprites, also make the D5 GIF.
 
@@ -182,6 +191,7 @@ MUST:
 1. **Pick the cheapest method that shows the behavior:**
    - **Animated sprites** (items, projectiles, NPCs, tiles, glows): `python -P tools/sheet2gif.py <sheet> --frames N --ticks T --contact <tmp.png>`, using the same frame count and ticks-per-frame as the code.
    - **Motion and behavior** (projectile paths, attack patterns, boss phases, telegraphs, dust bursts): an offline simulation, for example a Python/Pillow script that composites the real sprites over a plain or biome-colored background. It replays the AI's timing and math tick by tick (60 ticks = 1 s), using the same constants as the C# code.
+   - **Blocks:** `tools/sim/terrain.py` assembles real tile frames with Terraria's framing (from `art/templates/terrain_exposure.json`). Use it to show a new block in context.
    - **Static visuals:** a PNG of the sprite at 2× zoom over dark and light backgrounds. Compose several related sprites into one sheet when that's clearer.
    - In-game capture (`tools/record-gif.ps1`, ScreenToGif) is optional. Use it only when a simulation can't represent the behavior faithfully.
 2. **Deliver it:** show the GIF or PNG in the response (send it to the user as a file) **and/or** save it to `docs/media/YYYY-MM-DD_<area>-<feature>[-fix].gif|png` (Git LFS for GIFs). Mention the path or attachment in the report.
@@ -235,7 +245,7 @@ Simulation scripts are throwaway unless reusable. Reusable ones go in `tools/sim
 
 The structure was chosen after comparing Calamity (type-based, 60+ top-level folders), Starlight River (`Core/` + type-based `Content/`) and Spirit Reforged (feature-based `Content/<Feature>/`):
 
-- **`Core/`** is the engine, with no player-facing content. It contains `Networking/` (`CogpunkPacket`, `PacketRegistry`), `Safety/` (`SafeSpawn`, `SafeLog`, `TileSafety`, `MathSafety`, `SpawnBudgetSystem`), `Templates/` (abstract bases, `StateMachineNPC`, `TextureFallback`), `Systems/` (`WorldFlagSystem`, `CrossMod`), `WorldGeneration/` (`SafeGenPass`, `GenPassUtils`) and `Configs/`. When a new cross-cutting mechanic is needed (UI framework, particles, primitives), add `Core/<Area>/`.
+- **`Core/`** is the engine, with no player-facing content. It contains `Networking/` (`CogpunkPacket`, `PacketRegistry`), `Safety/` (`SafeSpawn`, `SafeLog`, `TileSafety`, `MathSafety`, `SpawnBudgetSystem`), `Templates/` (abstract bases, `StateMachineNPC`, `TextureFallback`), `Systems/` (`WorldFlagSystem`, `CrossMod`), `WorldGeneration/` (`SafeGenPass`, `GenPassUtils`), `Visuals/` (`AnimatedEquip`), `UI/` (`BiomeTitleSystem`, `BossTitleSystem`), `Hooks/` (`SceneOverlayRegistry`: the one reflection touch, see §3.8) and `Configs/`. When a new cross-cutting mechanic is needed (UI framework, particles, primitives), add `Core/<Area>/`.
 - **`Content/<Slice>/`** holds one folder per cohesive piece of content: a biome (`Content/Foundry/`), a boss (`Content/Bosses/Boilerheart/`), the class (`Content/Mechanist/`), a shared material set (`Content/Materials/`). Inside a slice, use type subfolders as needed: `Items/`, `Tiles/`, `Walls/`, `NPCs/`, `Projectiles/`, `Buffs/`, `Biome/`, `WorldGen/`, `Gores/`, plus the slice's own `ModSystem`/`ModPlayer` at its root. A slice must not depend on another slice's internals. Shared code moves to `Core/`.
 - **`Assets/`** holds only shared assets (placeholder, shared effects, sounds, music). A content texture sits next to its `.cs`.
 - A tiny boilerplate companion class may share a file with its main class (a placed tile and its item). Two or more companions means split the file.
@@ -255,6 +265,8 @@ The structure was chosen after comparing Calamity (type-based, 60+ top-level fol
 - Player projectiles are created in `Shoot` / `UseItem` on the owner. Any later client-side change goes through `if (Projectile.owner == Main.myPlayer) { …; Projectile.netUpdate = true; }`.
 - Animated held weapons use `Item.noUseGraphic = true` + `Item.channel = true` + a held projectile with `Main.projFrames[Type] = n`.
 - Projectile frames: `if (++Projectile.frameCounter >= T) { Projectile.frameCounter = 0; Projectile.frame = (Projectile.frame + 1) % Main.projFrames[Type]; }`
+- **Trinkets and accessories:** every pre-Hardmode one that isn't a boss drop sets `CogpunkSets.ScrappyTrunkTrinket[Type] = true;` in `SetStaticDefaults`, so the Scrappy Trunks that replace 20% of Wooden Chests can hold it (`Content/Furniture/ScrappyTrunkLoot`).
+- **Mechanical enemies:** Cogpunk robots and machines set `CogpunkSets.Mechanical[Type] = true;` (the Screwdriver's +50%).
 
 ### 3.4 NPC / boss AI state machine (template)
 
@@ -299,12 +311,16 @@ public class Boilerheart : StateMachineNPC
 - Boss setup: `NPC.boss = true`, `NPC.BossBar`, `Music`, `NPCID.Sets.MPAllowedEnemies[Type] = true`, `NPCID.Sets.BossBestiaryPriority.Add(Type)`, and debuff immunities through `NPCID.Sets.SpecificDebuffImmunity`.
 - Loot goes in `ModifyNPCLoot` only: `LeadingConditionRule(new Conditions.NotExpert())` for Classic drops, `ItemDropRule.BossBag`, `MasterModeCommonDrop` (relic), `MasterModeDropOnAllPlayers` (pet). Everything else goes in `OnKill`.
 - Animate in `FindFrame(int frameHeight)` with `Main.npcFrameCount[Type] = n` set in `SetStaticDefaults`. Keep it purely visual.
+- **Boss intros** (first used by Trash-Tr0m, 2026-10-23): an `Emerge` state whose synced timer drives everything on each client: the sprite drawn clipped at a ground line in `PreDraw` (even pixel steps), `BossTitleSystem.Show(DisplayName, epithet, hold)` once per client (a `localAI` flag), a camera lock in `ModSystem.ModifyScreenPosition` for players within range, `PunchCameraModifier` shakes behind the `ScreenShake` config, `dontTakeDamage` and no contact damage until it ends. One-shot intro sounds remember the last tick played (`localAI`) so a timer resync never repeats them. A boss summoned by world interaction (a sealed chest) sends a `CogpunkPacket` that the server validates and answers with `SafeSpawn.TryNewNPC(..., critical: true)`.
 
 ### 3.5 Biomes, tiles, world generation
 - `ModBiome`: `IsBiomeActive` reads a tile count gathered in `ModSystem.TileCountsAvailable(ReadOnlySpan<int> tileCounts)`. Also set `Music`, backgrounds, `WaterStyle`, and the bestiary icon (`_Icon`).
 - Spawns: `SpawnChance(NPCSpawnInfo info) => info.Player.InModBiome<FoundryBiome>() ? 0.25f : 0f;` (tune it in D3).
 - World generation: `ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)`. Find the vanilla pass by name (for example `"Shinies"`), insert a `GenPass` after it, and use only `WorldGen.genRand`. Set `progress.Message` from localization.
 - Animated tiles use `AnimationFrameHeight` + `AnimateTile(ref int frame, ref int frameCounter)`, kept O(1).
+- **Replacing a vanilla region** (the Junkyard replaces the left beach/ocean): insert one late `SafeGenPass` after "Micro Biomes" (Calamity's Sulphurous Sea uses the same slot), rebuild the whole strip (`GenVars.leftBeachEnd` = 300–380 tiles on every world size), unregister `Main.chest`/`Main.sign` entries inside it first. **Keep vanilla's big structures out instead of shrinking around them** (2026-10-22): right after "Reset" mirror a left Dungeon to the right (`JunkyardLayoutPass`: every side-dependent pick is made in Reset, mirroring uses no RNG), right after "Terrain" claim the footprint with `GenVars.structures.AddProtectedStructure` so every `CanPlace`-aware structure stays out (`JunkyardReservePass`), and swap the vanilla "Shimmer" pass for a capped wrapper that places it past the footprint and falls back to vanilla (`ShimmerPlacementPass`, via `GenPassUtils.Replace`); `ShimmerMakeBiome` and the Dungeon never ask the structure map. After reserving, `CanPlace` always fails inside your own area, so the region's last safety net scans tiles (dungeon/temple brick and walls, Shimmer liquid) instead. No custom liquids in 1.4.4 (no ModLiquid; liquid arrays are sized `LiquidID.Count` = 4). **A biome liquid is vanilla water restyled the Calamity way** (2026-10-23, Sulphurous Sea pattern): `ModBiome.WaterStyle` returns a `ModWaterStyle` (client-only; textures: water 48x1360 = 16 frames of 80 px + the calm surface strip at y 1280, `_Block` 306x16, `_Slope` 72x16; waterfall 512x40; droplet gore 18x300; from `art/junkyard/make_tar_art.py`), and a `ModPlayer` applies the liquid's effect while `Player.wet` inside the biome (see `Content/Junkyard/Tar/`). Vanilla draws water opaque in a background pass and at 60% in front of entities, so keep the texture opaque. Only for something that must not behave like water, fall back to non-solid tiles drawn by a vanilla `Overlay` at `RenderLayers.Entities` (register/unregister through `Core/Hooks/SceneOverlayRegistry`). Store the region as rectangles in a `ModSystem` (saved by name, sent in `NetSend`) and test them in `IsBiomeActive`: O(1), no tile counting.
+- **Biome intro title:** `BiomeTitleSystem.Show(DisplayName)` from `ModBiome.OnEnter`, guarded by `player.whoAmI == Main.myPlayer` (client-local UI, nothing synced).
+- **Spawn pools:** a biome that hosts only Cogpunk creatures removes entry 0 (vanilla's own choice) in `GlobalNPC.EditSpawnPool`, tested on the spawn tile, keeping invasions and pillar zones (`JunkyardSpawnRules`).
 
 ### 3.6 Animations: quick API
 | Object | API |
@@ -314,6 +330,7 @@ public class Boilerheart : StateMachineNPC
 | NPC | `Main.npcFrameCount[Type] = n;` + `FindFrame` |
 | Tile | `AnimationFrameHeight`, `AnimateTile`, `AnimateIndividualTile` |
 | Glow | `_Glow` texture drawn in `PostDraw` with full brightness or additive blend |
+| Armor (worn) | `AnimatedEquip.Register(this, EquipType.X, frames, ticks)` in the item's `Load()`, plus `<Name>_<Type>_<n>.png` copies of the equip sheet (n = 1..frames-1). Frame 0 stays the `[AutoloadEquip]` texture. Swapped in `FrameEffects`; shows frame 0 while paused. Preview: `tools/sim/armor_preview.py`; armor layout shapes: `art/templates/armor_layout.json`. |
 
 ### 3.7 Localization & cross-mod
 - tModLoader keeps adding keys to `Localization/en-US_Mods.Cogpunk.hjson`. Mirror every new key into `pt-BR_Mods.Cogpunk.hjson` in the same change.
@@ -341,6 +358,7 @@ Prefer public tModLoader hooks. IL edits, `On_` detours and reflection on vanill
 | `while (!found) { … }` in world generation | `for (int attempt = 0; attempt < MaxAttempts && !found; attempt++)` |
 | `Mod.Logger.Warn(...)` inside `AI`/`Update` | `SafeLog.Warn(key, format, arg)` (rate-limited, deferred formatting) |
 | `Vector2.Normalize(v)` | `v.SafeNormalize(Vector2.Zero)` |
+| Per-tile bevel or seam lines on a block (a visible grid) | D4 rule 7: seamless interior, outline only on exposed sides, `check_tile_seams.py` |
 | "Done" without a GIF for an animated change | D5: build a GIF from the frames or a simulation, self-review it, and attach it or save it to `docs/media/` |
 | Balance numbers picked by feel | D3: anchor + CSV row |
 
@@ -352,7 +370,7 @@ Prefer public tModLoader hooks. IL edits, `On_` detours and reflection on vanill
 - [ ] **D1** Hot paths reviewed. No allocations, LINQ or uncached assets. Visuals client-only. Profiled if it's a boss or a many-entity system.
 - [ ] **D2** Singleplayer ✔ · Host + client ✔ · Dedicated server ✔ or n/a, with sync points listed.
 - [ ] **D3** `docs/balance/*.csv` row with anchor, numbers, delta % and modes tested.
-- [ ] **D4** `check_sprite.py` passes for every new or changed PNG. `.aseprite` source committed.
+- [ ] **D4** `check_sprite.py` passes for every new or changed PNG, and `check_tile_seams.py` for every block sheet. `.aseprite` source committed.
 - [ ] **D5** GIF (from frames or a simulation) or PNG for static visuals, self-reviewed, then shown in the response and/or saved to `docs/media/`. Otherwise, "no visual component".
 - [ ] Builds with 0 errors and 0 new warnings. en-US + pt-BR keys added. No vanilla name collisions. No hard content-mod dependency.
 

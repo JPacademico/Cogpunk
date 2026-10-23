@@ -389,6 +389,10 @@ boss,tier,anchor_boss,life_classic,defense,contact_dmg,proj_dmg,target_ttk_s,ttk
 ```
 npc,biome,tier,anchor_npc,life,defense,contact_dmg,proj_dmg,spawn_chance,banner,tested_on
 ```
+`hazards.csv` (environmental damage: tar, gas, hot pipes...)
+```
+hazard,biome,tier,anchor_vanilla,damage,interval_ticks,dps,anchor_dps,effects,linger_ticks,delta_pct,tradeoff_note,tested_on
+```
 `eff_dps = damage × (60 / use_time) × (1 + crit/100) × shots_per_use`, where base crit is 4%. Write any hit-rate or pierce assumptions in `tradeoff_note`. `delta_pct = (eff_dps / anchor_eff_dps − 1) × 100`.
 
 ### 8.9 Tool scripts (`tools/`; create in M0)
@@ -530,6 +534,8 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+**`tools/check_tile_seams.py`** enforces the D4 seamless-block rule. It lays out random grids of a sheet's joined frames, compares luminance steps across tile boundaries with steps inside tiles, and measures per-tile edge bias. Exit code 1 means a visible grid.
 
 **Visual proof without the game (default for D5):** use `sheet2gif.py` for sprite animations. For motion and attack patterns, write a small Pillow script in `tools/sim/` that pastes the real sprites onto a background, steps the same constants tick by tick (60 ticks = 1 s), and saves a GIF the same way `sheet2gif.py` does. Then show the result in the response and/or save it to `docs/media/`.
 

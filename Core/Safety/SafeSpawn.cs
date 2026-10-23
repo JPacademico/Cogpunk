@@ -104,6 +104,38 @@ namespace Cogpunk.Core.Safety
 		}
 
 		/// <summary>
+		/// Spawns one dust puff of the tile at (<paramref name="x"/>, <paramref name="y"/>), using the dust vanilla picks for
+		/// that tile when it is hit (<c>WorldGen.KillTile_MakeTileDust</c>: every vanilla tile plus <c>ModTile.DustType</c>;
+		/// it only makes dust, the tile is not touched). Client-side visual: always <c>false</c> on a dedicated server, for
+		/// coordinates outside the world, or for an empty tile.
+		/// </summary>
+		public static bool TryTileDust(int x, int y) {
+			if (Main.dedServ || !TileSafety.TryGetTile(x, y, out Tile tile) || !tile.HasTile) {
+				return false;
+			}
+			int index = WorldGen.KillTile_MakeTileDust(x, y, tile);
+			return index >= 0 && index < Main.maxDust;
+		}
+
+		/// <summary>Spawns gore. Always <c>false</c> on a dedicated server (gore is visual only, D1).</summary>
+		public static bool TryNewGore(IEntitySource source, Vector2 position, Vector2 velocity, int type, out Gore gore, float scale = 1f) {
+			gore = null;
+			if (Main.dedServ) {
+				return false;
+			}
+			if (type <= 0 || type >= GoreLoader.GoreCount) {
+				SafeLog.Warn("Spawn.Gore.BadType", "Refused gore spawn with invalid type {0}.", type);
+				return false;
+			}
+			int index = Gore.NewGore(source, position, velocity, type, scale);
+			if (index < 0 || index >= Main.maxGore) {
+				return false;
+			}
+			gore = Main.gore[index];
+			return true;
+		}
+
+		/// <summary>
 		/// Drops an item into the world from server-side logic (NPC/tile/world code). <b>Server or singleplayer only.</b>
 		/// To give an item directly to a player, use <c>player.QuickSpawnItem</c> instead.
 		/// </summary>

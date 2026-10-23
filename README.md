@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Status** | M0 scaffolding: the engine framework (`Core/`) compiles clean, no gameplay content yet (2026-10-20) |
+| **Status** | M0 framework done. First content: the Rusted Scrap slice (block, world gen, materials, Scrappybot pet, Scrap Bomb, Scrap armor), 2026-10-21; the Junkyard biome (replaces the left beach), 2026-10-22; Junkyard tar pool and spawn rules, first boss Trash-Tr0m (summon + intro; attacks pending), 2026-10-23 |
 | **Platform** | tModLoader stable (1.4.4 line, monthly `v2026.MM.x` releases), C# / .NET 8 |
 | **Mode support** | Singleplayer, host-and-play and dedicated-server multiplayer |
 | **Languages** | English (source), Brazilian Portuguese (`pt-BR`) |

@@ -1,0 +1,872 @@
+{
+  "Cogpunk.csproj": {
+    "mtime": 1792515071.396032,
+    "ast_hash": "a8aa16349dafa83b8fabbe3f02e064f7",
+    "semantic_hash": "a8aa16349dafa83b8fabbe3f02e064f7"
+  },
+  "CogpunkMod.cs": {
+    "mtime": 1792515095.8314073,
+    "ast_hash": "25395342cc47715377b3c83b213052cc",
+    "semantic_hash": "25395342cc47715377b3c83b213052cc"
+  },
+  "Content/Scrap/Generation/RustedScrapWorldGen.cs": {
+    "mtime": 1792594432.959784,
+    "ast_hash": "3b2a14134548241c1b0669f38f73c406",
+    "semantic_hash": "3b2a14134548241c1b0669f38f73c406"
+  },
+  "Content/Scrap/Generation/ScrapMoundPass.cs": {
+    "mtime": 1792594817.7165172,
+    "ast_hash": "19baf9255b8e2d58a1ad11358197316f",
+    "semantic_hash": "19baf9255b8e2d58a1ad11358197316f"
+  },
+  "Content/Scrap/Generation/ScrapNodePass.cs": {
+    "mtime": 1792594433.0983047,
+    "ast_hash": "22a4fe813966890f43fcd7186ce7db3a",
+    "semantic_hash": "22a4fe813966890f43fcd7186ce7db3a"
+  },
+  "Content/Scrap/Items/RustedCog.cs": {
+    "mtime": 1792690947.546668,
+    "ast_hash": "3b0bb84bf13d0a4940fae24d05df6676",
+    "semantic_hash": "3b0bb84bf13d0a4940fae24d05df6676"
+  },
+  "Content/Scrap/Items/RustedMetal.cs": {
+    "mtime": 1792690947.6193628,
+    "ast_hash": "044c3a64d4c0fab8780066a8dd638157",
+    "semantic_hash": "044c3a64d4c0fab8780066a8dd638157"
+  },
+  "Content/Scrap/Items/RustedScrap.cs": {
+    "mtime": 1792690942.799015,
+    "ast_hash": "9de7fdd7559a896d6778bc01e82af341",
+    "semantic_hash": "9de7fdd7559a896d6778bc01e82af341"
+  },
+  "Content/Scrap/Pets/Scrappybot.cs": {
+    "mtime": 1792594553.4563215,
+    "ast_hash": "ce9d2c8968a10d8eb67f170e0dd3b5b1",
+    "semantic_hash": "ce9d2c8968a10d8eb67f170e0dd3b5b1"
+  },
+  "Content/Scrap/Pets/ScrappybotBuff.cs": {
+    "mtime": 1792594553.6424627,
+    "ast_hash": "99ade5a2c5caa83417047c0453099c87",
+    "semantic_hash": "99ade5a2c5caa83417047c0453099c87"
+  },
+  "Content/Scrap/Pets/ScrappybotPet.cs": {
+    "mtime": 1792594553.8957143,
+    "ast_hash": "191a003a26c65fcff7ead6e22baa4e66",
+    "semantic_hash": "191a003a26c65fcff7ead6e22baa4e66"
+  },
+  "Content/Scrap/Tiles/RustedScrapTile.cs": {
+    "mtime": 1792613213.7726917,
+    "ast_hash": "991336c6c70a7f4c0dddd0aa9dfc8165",
+    "semantic_hash": "991336c6c70a7f4c0dddd0aa9dfc8165"
+  },
+  "Content/Scrap/Weapons/ScrapBomb.cs": {
+    "mtime": 1792613093.3879695,
+    "ast_hash": "bc9eac8673326e30e8351d2af078e5f3",
+    "semantic_hash": "bc9eac8673326e30e8351d2af078e5f3"
+  },
+  "Content/Scrap/Weapons/ScrapBombProjectile.cs": {
+    "mtime": 1792613106.8504574,
+    "ast_hash": "b364a310bde8efd835507a75478db74a",
+    "semantic_hash": "b364a310bde8efd835507a75478db74a"
+  },
+  "Core/Configs/CogpunkClientConfig.cs": {
+    "mtime": 1792515259.678895,
+    "ast_hash": "f66aac7a96da18d745bb42506213f8ac",
+    "semantic_hash": "f66aac7a96da18d745bb42506213f8ac"
+  },
+  "Core/Networking/CogpunkPacket.cs": {
+    "mtime": 1792515095.9086912,
+    "ast_hash": "2dbd62a9fd64d50ccea5a3dfc9c4e330",
+    "semantic_hash": "2dbd62a9fd64d50ccea5a3dfc9c4e330"
+  },
+  "Core/Networking/PacketRegistry.cs": {
+    "mtime": 1792515210.5124433,
+    "ast_hash": "1ec35de3ba34c058bfb381f2abd0fcae",
+    "semantic_hash": "1ec35de3ba34c058bfb381f2abd0fcae"
+  },
+  "Core/Safety/MathSafety.cs": {
+    "mtime": 1792515191.3640194,
+    "ast_hash": "5fd90c020792216b5c4cd5bed330568e",
+    "semantic_hash": "5fd90c020792216b5c4cd5bed330568e"
+  },
+  "Core/Safety/SafeLog.cs": {
+    "mtime": 1792515210.2202272,
+    "ast_hash": "e116015025711bb90c219d3bd9e18cc0",
+    "semantic_hash": "e116015025711bb90c219d3bd9e18cc0"
+  },
+  "Core/Safety/SafeSpawn.cs": {
+    "mtime": 1792756937.4072092,
+    "ast_hash": "38e5c25568ccc93c31f3a003801d56ba",
+    "semantic_hash": "38e5c25568ccc93c31f3a003801d56ba"
+  },
+  "Core/Safety/SpawnBudgetSystem.cs": {
+    "mtime": 1792515191.2074106,
+    "ast_hash": "434b35a343a2cec26ee9cba235b17b52",
+    "semantic_hash": "434b35a343a2cec26ee9cba235b17b52"
+  },
+  "Core/Safety/TileSafety.cs": {
+    "mtime": 1792515191.4377384,
+    "ast_hash": "f7bb521e2edb73f00590f48c14244c75",
+    "semantic_hash": "f7bb521e2edb73f00590f48c14244c75"
+  },
+  "Core/Systems/CrossMod.cs": {
+    "mtime": 1792515259.6033669,
+    "ast_hash": "6176756e9d468f03c75ebd1e41b5543c",
+    "semantic_hash": "6176756e9d468f03c75ebd1e41b5543c"
+  },
+  "Core/Systems/VanillaRecipeGroups.cs": {
+    "mtime": 1792679094.905372,
+    "ast_hash": "2ff506d7b334161586324a9a036beca8",
+    "semantic_hash": "2ff506d7b334161586324a9a036beca8"
+  },
+  "Core/Systems/WorldFlagSystem.cs": {
+    "mtime": 1792515580.7238543,
+    "ast_hash": "e82b468a36d4f63e73e0a49fce11a35d",
+    "semantic_hash": "e82b468a36d4f63e73e0a49fce11a35d"
+  },
+  "Core/Templates/CogpunkBaseTypes.cs": {
+    "mtime": 1792515259.2896297,
+    "ast_hash": "d3e9edd2d8790897a04bbe910d99f2f0",
+    "semantic_hash": "d3e9edd2d8790897a04bbe910d99f2f0"
+  },
+  "Core/Templates/StateMachineNPC.cs": {
+    "mtime": 1792515259.357033,
+    "ast_hash": "32415dbe547dda8d4e0bdbe76485b80b",
+    "semantic_hash": "32415dbe547dda8d4e0bdbe76485b80b"
+  },
+  "Core/Templates/TextureFallback.cs": {
+    "mtime": 1792515259.2126336,
+    "ast_hash": "6ecb5db73d7e90d2e130fa057e212ac0",
+    "semantic_hash": "6ecb5db73d7e90d2e130fa057e212ac0"
+  },
+  "Core/WorldGeneration/GenPassUtils.cs": {
+    "mtime": 1792690566.7836008,
+    "ast_hash": "38f9c404f24ada96bbd1a392e8616b94",
+    "semantic_hash": "38f9c404f24ada96bbd1a392e8616b94"
+  },
+  "Core/WorldGeneration/SafeGenPass.cs": {
+    "mtime": 1792515259.4227512,
+    "ast_hash": "065f03c352badfe423d653aa2414fc1c",
+    "semantic_hash": "065f03c352badfe423d653aa2414fc1c"
+  },
+  "Properties/launchSettings.json": {
+    "mtime": 1792515071.4348633,
+    "ast_hash": "1b98d48e4e97dabc6fe23431421c6eb8",
+    "semantic_hash": "1b98d48e4e97dabc6fe23431421c6eb8"
+  },
+  "art/scaffold/make_scaffold_art.py": {
+    "mtime": 1792515318.0784006,
+    "ast_hash": "90fbf0c2f3beb36480238bb0c85bf51d",
+    "semantic_hash": "90fbf0c2f3beb36480238bb0c85bf51d"
+  },
+  "art/scrap/make_scrap_art.py": {
+    "mtime": 1792613197.1495461,
+    "ast_hash": "0270ab052272cb5d6af8ceb713a62b8f",
+    "semantic_hash": "0270ab052272cb5d6af8ceb713a62b8f"
+  },
+  "art/templates/terrain_exposure.json": {
+    "mtime": 1792594047.418101,
+    "ast_hash": "216cd8dcf7685c50735686615fe2d2be",
+    "semantic_hash": "216cd8dcf7685c50735686615fe2d2be"
+  },
+  "global.json": {
+    "mtime": 1792515071.5708404,
+    "ast_hash": "55fd0d199de78da7bd7ec7be9680c944",
+    "semantic_hash": "55fd0d199de78da7bd7ec7be9680c944"
+  },
+  "tools/check_sprite.py": {
+    "mtime": 1792515071.6838417,
+    "ast_hash": "c9c8f6582807eeb553f48f34f2fe3a6e",
+    "semantic_hash": "c9c8f6582807eeb553f48f34f2fe3a6e"
+  },
+  "tools/check_tile_seams.py": {
+    "mtime": 1792605086.7318375,
+    "ast_hash": "08cd15557da3f353c59c80f3c454e26b",
+    "semantic_hash": "08cd15557da3f353c59c80f3c454e26b"
+  },
+  "tools/record-gif.ps1": {
+    "mtime": 1792515365.2422996,
+    "ast_hash": "d9b2c5b87a56cef2496e050bfd82bafb",
+    "semantic_hash": "d9b2c5b87a56cef2496e050bfd82bafb"
+  },
+  "tools/sheet2gif.py": {
+    "mtime": 1792515071.69958,
+    "ast_hash": "befdb6c38c2cdcb302d2435dc5186658",
+    "semantic_hash": "befdb6c38c2cdcb302d2435dc5186658"
+  },
+  "tools/sim/scrap_bomb_sim.py": {
+    "mtime": 1792613228.76656,
+    "ast_hash": "3145bb3447a3e2932895e0a5563f751d",
+    "semantic_hash": "3145bb3447a3e2932895e0a5563f751d"
+  },
+  "tools/sim/scrappybot_sim.py": {
+    "mtime": 1792594662.7699046,
+    "ast_hash": "7b3fe05eb1996338ebfb7faf7deb73aa",
+    "semantic_hash": "7b3fe05eb1996338ebfb7faf7deb73aa"
+  },
+  "tools/sim/terrain.py": {
+    "mtime": 1792594662.5275283,
+    "ast_hash": "3f81892297bc71e34f24c36334c624d8",
+    "semantic_hash": "3f81892297bc71e34f24c36334c624d8"
+  },
+  ".claude/skills/cogpunk-dev/SKILL.md": {
+    "mtime": 1792757161.7107959,
+    "ast_hash": "ef4ff5341c86641dbcdf0be749a44ed8",
+    "semantic_hash": "ef4ff5341c86641dbcdf0be749a44ed8"
+  },
+  "CLAUDE.md": {
+    "mtime": 1792605575.4204113,
+    "ast_hash": "4f82ffdc112ecfcbb66758d00515eb57",
+    "semantic_hash": "4f82ffdc112ecfcbb66758d00515eb57"
+  },
+  "README.md": {
+    "mtime": 1792680853.256528,
+    "ast_hash": "f0284b1270fc4960007274f51b162646",
+    "semantic_hash": "f0284b1270fc4960007274f51b162646"
+  },
+  "SETUP.md": {
+    "mtime": 1792605575.4214215,
+    "ast_hash": "ede7c19342753b16a64a0b7712ecf729",
+    "semantic_hash": "ede7c19342753b16a64a0b7712ecf729"
+  },
+  "build.txt": {
+    "mtime": 1792515071.471697,
+    "ast_hash": "0973a1a15d1160e83da34eba201f0c03",
+    "semantic_hash": "0973a1a15d1160e83da34eba201f0c03"
+  },
+  "description.txt": {
+    "mtime": 1792515071.5035737,
+    "ast_hash": "867e2de11679338926186d63e209b94c",
+    "semantic_hash": "867e2de11679338926186d63e209b94c"
+  },
+  "description_workshop.txt": {
+    "mtime": 1792515071.5389183,
+    "ast_hash": "8dd61f2ab0bbfc88ebc0f681337f7242",
+    "semantic_hash": "8dd61f2ab0bbfc88ebc0f681337f7242"
+  },
+  "docs/balance/loadouts.md": {
+    "mtime": 1792515365.433358,
+    "ast_hash": "a2f1d967556ca044e69a460573f59b7e",
+    "semantic_hash": "a2f1d967556ca044e69a460573f59b7e"
+  },
+  "Assets/Textures/Placeholder.png": {
+    "mtime": 1792515318.3235228,
+    "ast_hash": "d9eeac53e286f33f43dc47984c1969d0",
+    "semantic_hash": "d9eeac53e286f33f43dc47984c1969d0"
+  },
+  "Content/Scrap/Items/RustedCog.png": {
+    "mtime": 1792605588.0046961,
+    "ast_hash": "bcee8566be6615af6f20402d7bd67a1d",
+    "semantic_hash": "bcee8566be6615af6f20402d7bd67a1d"
+  },
+  "Content/Scrap/Items/RustedMetal.png": {
+    "mtime": 1792605588.0068064,
+    "ast_hash": "4244dffd036254468749e62143e9f137",
+    "semantic_hash": "4244dffd036254468749e62143e9f137"
+  },
+  "Content/Scrap/Items/RustedScrap.png": {
+    "mtime": 1792613197.362691,
+    "ast_hash": "d85dfef7d8e545471da85c6d06d37468",
+    "semantic_hash": "d85dfef7d8e545471da85c6d06d37468"
+  },
+  "Content/Scrap/Pets/Scrappybot.png": {
+    "mtime": 1792605588.0159814,
+    "ast_hash": "3555cb9a406c9c54fdc45224bac74e9e",
+    "semantic_hash": "3555cb9a406c9c54fdc45224bac74e9e"
+  },
+  "Content/Scrap/Pets/ScrappybotBuff.png": {
+    "mtime": 1792605588.0139513,
+    "ast_hash": "9a0e7bf863e0985972d31ac1ad9aeebf",
+    "semantic_hash": "9a0e7bf863e0985972d31ac1ad9aeebf"
+  },
+  "Content/Scrap/Pets/ScrappybotPet.png": {
+    "mtime": 1792605588.012445,
+    "ast_hash": "6422ad5f5df8591ab765c9340f294e15",
+    "semantic_hash": "6422ad5f5df8591ab765c9340f294e15"
+  },
+  "Content/Scrap/Tiles/RustedScrapTile.png": {
+    "mtime": 1792613197.3616924,
+    "ast_hash": "c7891047c93edaf7d02b6689ac6eeee8",
+    "semantic_hash": "c7891047c93edaf7d02b6689ac6eeee8"
+  },
+  "Content/Scrap/Weapons/ScrapBomb.png": {
+    "mtime": 1792613197.3716953,
+    "ast_hash": "a05a67d8fe517b0211fa6e1e6569ef5b",
+    "semantic_hash": "a05a67d8fe517b0211fa6e1e6569ef5b"
+  },
+  "Content/Scrap/Weapons/ScrapBombProjectile.png": {
+    "mtime": 1792613197.3726914,
+    "ast_hash": "a3c3f9fb6ebbc655b6fa22da9b819dcf",
+    "semantic_hash": "a3c3f9fb6ebbc655b6fa22da9b819dcf"
+  },
+  "docs/media/2026-10-20_scaffold-icons.png": {
+    "mtime": 1792515327.137931,
+    "ast_hash": "b39f7156b012210c51de192b50ae4c4b",
+    "semantic_hash": "b39f7156b012210c51de192b50ae4c4b"
+  },
+  "docs/media/2026-10-21_scrap-bomb.gif": {
+    "mtime": 1792605545.9115663,
+    "ast_hash": "a1fabe78be58e9cc48f80f1c71954800",
+    "semantic_hash": "a1fabe78be58e9cc48f80f1c71954800"
+  },
+  "docs/media/2026-10-21_scrap-overview.png": {
+    "mtime": 1792605588.4307332,
+    "ast_hash": "efb526780859f86138ec53898ef08c94",
+    "semantic_hash": "efb526780859f86138ec53898ef08c94"
+  },
+  "docs/media/2026-10-21_scrap-scrappybot.gif": {
+    "mtime": 1792594685.199521,
+    "ast_hash": "41c3ec172783c5728405fad579a3b21a",
+    "semantic_hash": "41c3ec172783c5728405fad579a3b21a"
+  },
+  "docs/media/2026-10-21_scrap-tile-seamless.png": {
+    "mtime": 1792605301.8559875,
+    "ast_hash": "a5e4b677496d68df6baa4cabbe70d300",
+    "semantic_hash": "a5e4b677496d68df6baa4cabbe70d300"
+  },
+  "icon.png": {
+    "mtime": 1792515318.3198857,
+    "ast_hash": "328a6330dbdfdd3461098d59d2a00217",
+    "semantic_hash": "328a6330dbdfdd3461098d59d2a00217"
+  },
+  "icon_small.png": {
+    "mtime": 1792515318.3219428,
+    "ast_hash": "79315fa4621560607ed4847645efe87e",
+    "semantic_hash": "79315fa4621560607ed4847645efe87e"
+  },
+  "Content/Furniture/ScrappyTrunk.cs": {
+    "mtime": 1792680456.0108163,
+    "ast_hash": "89dc8909ea67fcf6e399ef7cb95bf539",
+    "semantic_hash": "89dc8909ea67fcf6e399ef7cb95bf539"
+  },
+  "Content/Furniture/ScrappyTrunkTile.cs": {
+    "mtime": 1792680066.0052123,
+    "ast_hash": "a6ae9ab39d174387b9c02178ebd386e8",
+    "semantic_hash": "a6ae9ab39d174387b9c02178ebd386e8"
+  },
+  "Content/Junkyard/Generation/JunkyardPass.cs": {
+    "mtime": 1792690631.2553115,
+    "ast_hash": "48acc8fed246369b90be3626050c9fa2",
+    "semantic_hash": "48acc8fed246369b90be3626050c9fa2"
+  },
+  "Content/Junkyard/Items/PolishedMetal.cs": {
+    "mtime": 1792679969.0898378,
+    "ast_hash": "5e05762fef1346002ee13749fb8810c7",
+    "semantic_hash": "5e05762fef1346002ee13749fb8810c7"
+  },
+  "Content/Junkyard/JunkyardBiome.cs": {
+    "mtime": 1792679951.081938,
+    "ast_hash": "3a9efd78f82ecf62f95b71b2fa499aa0",
+    "semantic_hash": "3a9efd78f82ecf62f95b71b2fa499aa0"
+  },
+  "Content/Junkyard/JunkyardSystem.cs": {
+    "mtime": 1792690590.112612,
+    "ast_hash": "3377867602a283e085b53d5dfb3f12d0",
+    "semantic_hash": "3377867602a283e085b53d5dfb3f12d0"
+  },
+  "Content/Junkyard/Tiles/PolishedMetalTile.cs": {
+    "mtime": 1792690640.8970964,
+    "ast_hash": "75f40beb3c23cbce8d29015f39d417f9",
+    "semantic_hash": "75f40beb3c23cbce8d29015f39d417f9"
+  },
+  "Content/Scrap/Armor/ScrapArmorPlayer.cs": {
+    "mtime": 1792699305.784783,
+    "ast_hash": "78d281140fe56d730ba425958df03117",
+    "semantic_hash": "78d281140fe56d730ba425958df03117"
+  },
+  "Content/Scrap/Armor/ScrapBreastplate.cs": {
+    "mtime": 1792679060.8215842,
+    "ast_hash": "180a6f58aa5fcb6eb3f433a117874856",
+    "semantic_hash": "180a6f58aa5fcb6eb3f433a117874856"
+  },
+  "Content/Scrap/Armor/ScrapCogProjectile.cs": {
+    "mtime": 1792690927.425512,
+    "ast_hash": "210242f68635993b87e7f464e1d4d2e1",
+    "semantic_hash": "210242f68635993b87e7f464e1d4d2e1"
+  },
+  "Content/Scrap/Armor/ScrapHelmet.cs": {
+    "mtime": 1792699305.7867818,
+    "ast_hash": "63c42283861fda94e4159c3eee2fb312",
+    "semantic_hash": "63c42283861fda94e4159c3eee2fb312"
+  },
+  "Content/Scrap/Armor/ScrapLeggings.cs": {
+    "mtime": 1792679060.962279,
+    "ast_hash": "f4347573c610729a71976caaaa02d42a",
+    "semantic_hash": "f4347573c610729a71976caaaa02d42a"
+  },
+  "Core/UI/BiomeTitleSystem.cs": {
+    "mtime": 1792679933.199812,
+    "ast_hash": "53d7848dc88f87c01517a75033db06ad",
+    "semantic_hash": "53d7848dc88f87c01517a75033db06ad"
+  },
+  "Core/Visuals/AnimatedEquip.cs": {
+    "mtime": 1792614018.4241178,
+    "ast_hash": "2b504815429cce48c7593cee636a6bf2",
+    "semantic_hash": "2b504815429cce48c7593cee636a6bf2"
+  },
+  "art/furniture/make_furniture_art.py": {
+    "mtime": 1792680430.5493135,
+    "ast_hash": "0e6fd4b3810324b9dfe7aa67dab66385",
+    "semantic_hash": "0e6fd4b3810324b9dfe7aa67dab66385"
+  },
+  "art/junkyard/make_junkyard_art.py": {
+    "mtime": 1792690881.6160138,
+    "ast_hash": "29f64ad5584ceb0385dc102a71136223",
+    "semantic_hash": "29f64ad5584ceb0385dc102a71136223"
+  },
+  "art/scrap/make_scrap_armor.py": {
+    "mtime": 1792614142.371491,
+    "ast_hash": "41116e7e162e89524c73b0c382192c90",
+    "semantic_hash": "41116e7e162e89524c73b0c382192c90"
+  },
+  "art/templates/armor_layout.json": {
+    "mtime": 1792613506.8214011,
+    "ast_hash": "3e25cd74d5389459ad6fc233b8444ba5",
+    "semantic_hash": "3e25cd74d5389459ad6fc233b8444ba5"
+  },
+  "art/ui/make_ui_art.py": {
+    "mtime": 1792680441.848943,
+    "ast_hash": "7e4f1ac1b41854cc4f4752e3400b9b60",
+    "semantic_hash": "7e4f1ac1b41854cc4f4752e3400b9b60"
+  },
+  "tools/sim/armor_preview.py": {
+    "mtime": 1792679162.8607144,
+    "ast_hash": "7d605963a06cb6278166f7f150e1b6a1",
+    "semantic_hash": "7d605963a06cb6278166f7f150e1b6a1"
+  },
+  "tools/sim/biome_title_sim.py": {
+    "mtime": 1792680667.8015604,
+    "ast_hash": "901a70f027817baddd5b180b64dc0cf2",
+    "semantic_hash": "901a70f027817baddd5b180b64dc0cf2"
+  },
+  "tools/sim/junkyard_effects_sim.py": {
+    "mtime": 1792691073.5050719,
+    "ast_hash": "34286e8148dd1327bb771508b52410a1",
+    "semantic_hash": "34286e8148dd1327bb771508b52410a1"
+  },
+  "tools/sim/junkyard_sim.py": {
+    "mtime": 1792691245.294939,
+    "ast_hash": "ec5c017de2f1718a9afd653460d64905",
+    "semantic_hash": "ec5c017de2f1718a9afd653460d64905"
+  },
+  "tools/sim/scrap_cog_volley_sim.py": {
+    "mtime": 1792700013.3060942,
+    "ast_hash": "344c784c980b6f038810a5b415545e47",
+    "semantic_hash": "344c784c980b6f038810a5b415545e47"
+  },
+  "Assets/UI/BiomeTitleOrnament.png": {
+    "mtime": 1792680442.3006952,
+    "ast_hash": "c95076da8dc50df810c602c42eef01fb",
+    "semantic_hash": "c95076da8dc50df810c602c42eef01fb"
+  },
+  "Content/Furniture/ScrappyTrunk.png": {
+    "mtime": 1792680442.7309132,
+    "ast_hash": "5ab924cdaae47f21c7bd19061822cf80",
+    "semantic_hash": "5ab924cdaae47f21c7bd19061822cf80"
+  },
+  "Content/Furniture/ScrappyTrunkTile.png": {
+    "mtime": 1792680442.7258854,
+    "ast_hash": "fcc7d6e7dcdce8698244e88264821bef",
+    "semantic_hash": "fcc7d6e7dcdce8698244e88264821bef"
+  },
+  "Content/Furniture/ScrappyTrunkTile_Highlight.png": {
+    "mtime": 1792680442.7278924,
+    "ast_hash": "5963da8d3e8559ce5ce463650cb939b3",
+    "semantic_hash": "5963da8d3e8559ce5ce463650cb939b3"
+  },
+  "Content/Junkyard/Items/PolishedMetal.png": {
+    "mtime": 1792680483.689909,
+    "ast_hash": "e1b980b4354a8879353ae42699025598",
+    "semantic_hash": "e1b980b4354a8879353ae42699025598"
+  },
+  "Content/Junkyard/JunkyardBiome_Icon.png": {
+    "mtime": 1792680483.696423,
+    "ast_hash": "263022bdbdebb2f5fdd7314084c90fa1",
+    "semantic_hash": "263022bdbdebb2f5fdd7314084c90fa1"
+  },
+  "Content/Junkyard/Tiles/PolishedMetalTile.png": {
+    "mtime": 1792680483.68789,
+    "ast_hash": "e0a0e7ac8e46df6c2b1c7fd6675d609c",
+    "semantic_hash": "e0a0e7ac8e46df6c2b1c7fd6675d609c"
+  },
+  "Content/Scrap/Armor/ScrapBreastplate.png": {
+    "mtime": 1792614142.6456935,
+    "ast_hash": "cb376496628a2df11cedac2373c3c635",
+    "semantic_hash": "cb376496628a2df11cedac2373c3c635"
+  },
+  "Content/Scrap/Armor/ScrapBreastplate_Body.png": {
+    "mtime": 1792614142.5786269,
+    "ast_hash": "1ca64bf7a6ff3659707ce8c8bce82634",
+    "semantic_hash": "1ca64bf7a6ff3659707ce8c8bce82634"
+  },
+  "Content/Scrap/Armor/ScrapBreastplate_Body_1.png": {
+    "mtime": 1792614142.5956242,
+    "ast_hash": "482b7a86dfd338e2adee4946f3ac9c48",
+    "semantic_hash": "482b7a86dfd338e2adee4946f3ac9c48"
+  },
+  "Content/Scrap/Armor/ScrapBreastplate_Body_2.png": {
+    "mtime": 1792614142.6146252,
+    "ast_hash": "d7219b6035d3cf65db11f96df98bc74f",
+    "semantic_hash": "d7219b6035d3cf65db11f96df98bc74f"
+  },
+  "Content/Scrap/Armor/ScrapBreastplate_Body_3.png": {
+    "mtime": 1792614142.631683,
+    "ast_hash": "80d5969ad6d7137ed66c7141846f6de3",
+    "semantic_hash": "80d5969ad6d7137ed66c7141846f6de3"
+  },
+  "Content/Scrap/Armor/ScrapHelmet.png": {
+    "mtime": 1792614142.6401825,
+    "ast_hash": "ca05ad32137ce27e0fbbe34b7d6fe161",
+    "semantic_hash": "ca05ad32137ce27e0fbbe34b7d6fe161"
+  },
+  "Content/Scrap/Armor/ScrapHelmet_Head.png": {
+    "mtime": 1792614142.5716293,
+    "ast_hash": "60f111dc874f6bd87f1c10d25df5e7c3",
+    "semantic_hash": "60f111dc874f6bd87f1c10d25df5e7c3"
+  },
+  "Content/Scrap/Armor/ScrapHelmet_Head_1.png": {
+    "mtime": 1792614142.587629,
+    "ast_hash": "d24b7129ee71ce3492e9c52874481939",
+    "semantic_hash": "d24b7129ee71ce3492e9c52874481939"
+  },
+  "Content/Scrap/Armor/ScrapHelmet_Head_2.png": {
+    "mtime": 1792614142.6076267,
+    "ast_hash": "259f14d9ab3623d69fa63d78cbdeb472",
+    "semantic_hash": "259f14d9ab3623d69fa63d78cbdeb472"
+  },
+  "Content/Scrap/Armor/ScrapHelmet_Head_3.png": {
+    "mtime": 1792614142.6236596,
+    "ast_hash": "763023c84474685329ab21bd159dd1be",
+    "semantic_hash": "763023c84474685329ab21bd159dd1be"
+  },
+  "Content/Scrap/Armor/ScrapLeggings.png": {
+    "mtime": 1792614142.6466942,
+    "ast_hash": "55a031ef6933debf5c241a850aa1069a",
+    "semantic_hash": "55a031ef6933debf5c241a850aa1069a"
+  },
+  "Content/Scrap/Armor/ScrapLeggings_Legs.png": {
+    "mtime": 1792614142.5846248,
+    "ast_hash": "78eba3341385182711ebc1579ebc8660",
+    "semantic_hash": "78eba3341385182711ebc1579ebc8660"
+  },
+  "Content/Scrap/Armor/ScrapLeggings_Legs_1.png": {
+    "mtime": 1792614142.6026268,
+    "ast_hash": "589dbd0dda744c69f8d21e819d687f63",
+    "semantic_hash": "589dbd0dda744c69f8d21e819d687f63"
+  },
+  "Content/Scrap/Armor/ScrapLeggings_Legs_2.png": {
+    "mtime": 1792614142.6196258,
+    "ast_hash": "a55b46e54d9bb6fc6619abbd0355cf10",
+    "semantic_hash": "a55b46e54d9bb6fc6619abbd0355cf10"
+  },
+  "Content/Scrap/Armor/ScrapLeggings_Legs_3.png": {
+    "mtime": 1792614142.6381805,
+    "ast_hash": "bd5b2c838b53fce971d33e51d687550e",
+    "semantic_hash": "bd5b2c838b53fce971d33e51d687550e"
+  },
+  "docs/media/2026-10-21_scrap-armor.gif": {
+    "mtime": 1792679463.068684,
+    "ast_hash": "9cc210d86683921c8ab0c0b16200de0c",
+    "semantic_hash": "9cc210d86683921c8ab0c0b16200de0c"
+  },
+  "docs/media/2026-10-21_scrap-armor.png": {
+    "mtime": 1792679463.0984194,
+    "ast_hash": "c1ca9baab7c116b876624b807d821fa7",
+    "semantic_hash": "c1ca9baab7c116b876624b807d821fa7"
+  },
+  "docs/media/2026-10-21_scrap-bomb-buff.gif": {
+    "mtime": 1792613230.3975565,
+    "ast_hash": "0b3e3e03428a21667f9774f9a90ce4fa",
+    "semantic_hash": "0b3e3e03428a21667f9774f9a90ce4fa"
+  },
+  "docs/media/2026-10-21_scrap-tile-recolor.png": {
+    "mtime": 1792613197.9508407,
+    "ast_hash": "f235ea67ebeb1e860ac809fc9443eb9b",
+    "semantic_hash": "f235ea67ebeb1e860ac809fc9443eb9b"
+  },
+  "docs/media/2026-10-22_junkyard-cache-glow.gif": {
+    "mtime": 1792680747.4206493,
+    "ast_hash": "d19d465126e315ce12d4f08c4c2b6a1c",
+    "semantic_hash": "d19d465126e315ce12d4f08c4c2b6a1c"
+  },
+  "docs/media/2026-10-22_junkyard-overview.png": {
+    "mtime": 1792680614.4933481,
+    "ast_hash": "f82a14e0a037bd3fcf48fcdf308bc5ad",
+    "semantic_hash": "f82a14e0a037bd3fcf48fcdf308bc5ad"
+  },
+  "docs/media/2026-10-22_junkyard-sludge.gif": {
+    "mtime": 1792680742.5016508,
+    "ast_hash": "3abe374ee331ce42214b40f313653fa3",
+    "semantic_hash": "3abe374ee331ce42214b40f313653fa3"
+  },
+  "docs/media/2026-10-22_junkyard-surface.png": {
+    "mtime": 1792680614.7289522,
+    "ast_hash": "dd6914a93401e4e9c7022e50462463d5",
+    "semantic_hash": "dd6914a93401e4e9c7022e50462463d5"
+  },
+  "docs/media/2026-10-22_junkyard-title.gif": {
+    "mtime": 1792680676.8968072,
+    "ast_hash": "6856b61c34e0ffbac8530b398a52bbcc",
+    "semantic_hash": "6856b61c34e0ffbac8530b398a52bbcc"
+  },
+  "docs/media/2026-10-22_scrap-armor-cog-volley.gif": {
+    "mtime": 1792679461.5029695,
+    "ast_hash": "57e88c33a254c3cbdd843ee05b0cf2dc",
+    "semantic_hash": "57e88c33a254c3cbdd843ee05b0cf2dc"
+  },
+  "docs/media/2026-10-22_scrap-armor-walk-offset-check.png": {
+    "mtime": 1792679473.0724342,
+    "ast_hash": "1766c87bf83ad4739db09d65c8d87aea",
+    "semantic_hash": "1766c87bf83ad4739db09d65c8d87aea"
+  },
+  "Content/Furniture/Generation/ScrappyTrunkPass.cs": {
+    "mtime": 1792757120.2385955,
+    "ast_hash": "5ef1595674a81bb434020ee19981749e",
+    "semantic_hash": "5ef1595674a81bb434020ee19981749e"
+  },
+  "Content/Furniture/ScrappyTrunkLoot.cs": {
+    "mtime": 1792757098.6783805,
+    "ast_hash": "799f3bf59e3b52b6f481304129f5f1fd",
+    "semantic_hash": "799f3bf59e3b52b6f481304129f5f1fd"
+  },
+  "Content/Junkyard/Generation/JunkyardLayoutPass.cs": {
+    "mtime": 1792690508.9544456,
+    "ast_hash": "96c88ddc10e07284cdb189e20218f825",
+    "semantic_hash": "96c88ddc10e07284cdb189e20218f825"
+  },
+  "Content/Junkyard/Generation/JunkyardReservePass.cs": {
+    "mtime": 1792690521.0159318,
+    "ast_hash": "d71e8aa70b471a7ad32e54c98255e08a",
+    "semantic_hash": "d71e8aa70b471a7ad32e54c98255e08a"
+  },
+  "Content/Junkyard/Generation/ShimmerPlacementPass.cs": {
+    "mtime": 1792690554.3063936,
+    "ast_hash": "eb38b0ddaf52e9ab9b4b64476ce97d21",
+    "semantic_hash": "eb38b0ddaf52e9ab9b4b64476ce97d21"
+  },
+  "Content/Junkyard/Items/Junkbait.cs": {
+    "mtime": 1792691009.1460252,
+    "ast_hash": "eb070c8b420e259499f3847375f5ca4c",
+    "semantic_hash": "eb070c8b420e259499f3847375f5ca4c"
+  },
+  "Content/Junkyard/PetroleumOverlay.cs": {
+    "mtime": 1792691323.2986374,
+    "ast_hash": "da8a3ddfe5adb29a63de82e9b5ad41be",
+    "semantic_hash": "da8a3ddfe5adb29a63de82e9b5ad41be"
+  },
+  "Content/Junkyard/PetroleumPlayer.cs": {
+    "mtime": 1792690427.5359256,
+    "ast_hash": "5969cb26056e5b32c02fd8d056dae59f",
+    "semantic_hash": "5969cb26056e5b32c02fd8d056dae59f"
+  },
+  "Content/Junkyard/Tiles/PetroleumTile.cs": {
+    "mtime": 1792690405.5346568,
+    "ast_hash": "c514494b66afb1850ca748030e8553ed",
+    "semantic_hash": "c514494b66afb1850ca748030e8553ed"
+  },
+  "Content/Scrap/Minions/MiceBot.cs": {
+    "mtime": 1792757040.3934717,
+    "ast_hash": "20604cab79b22c1f68f96e34ce46dc1c",
+    "semantic_hash": "20604cab79b22c1f68f96e34ce46dc1c"
+  },
+  "Content/Scrap/Minions/MiceBotBuff.cs": {
+    "mtime": 1792699426.5845783,
+    "ast_hash": "b09483f19cf8021eb2293820e0f02869",
+    "semantic_hash": "b09483f19cf8021eb2293820e0f02869"
+  },
+  "Content/Scrap/Minions/MiceBotMinion.cs": {
+    "mtime": 1792757360.2170372,
+    "ast_hash": "073da1a102713e48117815156552ef7c",
+    "semantic_hash": "073da1a102713e48117815156552ef7c"
+  },
+  "Content/Scrap/Weapons/ScrappyBow.cs": {
+    "mtime": 1792699393.380533,
+    "ast_hash": "38b2d96c77d1908ab10b76d510cf7e90",
+    "semantic_hash": "38b2d96c77d1908ab10b76d510cf7e90"
+  },
+  "Content/Scrap/Weapons/ScrappyWand.cs": {
+    "mtime": 1792699381.1158643,
+    "ast_hash": "8f2542000219771471b119b51c9359fe",
+    "semantic_hash": "8f2542000219771471b119b51c9359fe"
+  },
+  "Content/Scrap/Weapons/ScrappyWandBolt.cs": {
+    "mtime": 1792699381.2973893,
+    "ast_hash": "d859f868268af62c81ee9dac48fe509f",
+    "semantic_hash": "d859f868268af62c81ee9dac48fe509f"
+  },
+  "Content/Scrap/Weapons/Screwdriver.cs": {
+    "mtime": 1792756908.7763853,
+    "ast_hash": "b63fc279d9ae3053c01b181a01f9e616",
+    "semantic_hash": "b63fc279d9ae3053c01b181a01f9e616"
+  },
+  "Content/Scrap/Weapons/ScrewdriverProjectile.cs": {
+    "mtime": 1792756908.7763853,
+    "ast_hash": "c055a0d3cac6390e43d74dd28fcec7fc",
+    "semantic_hash": "c055a0d3cac6390e43d74dd28fcec7fc"
+  },
+  "Core/Hooks/SceneOverlayRegistry.cs": {
+    "mtime": 1792690438.8806145,
+    "ast_hash": "f3824db2d52ad3054ce4844192e1fe37",
+    "semantic_hash": "f3824db2d52ad3054ce4844192e1fe37"
+  },
+  "Core/Systems/CogpunkSets.cs": {
+    "mtime": 1792757089.4992616,
+    "ast_hash": "c0642c74fefba4d92094adaf62a98655",
+    "semantic_hash": "c0642c74fefba4d92094adaf62a98655"
+  },
+  "art/scrap/make_scrap_weapons.py": {
+    "mtime": 1792756921.6682136,
+    "ast_hash": "6b3f3230de62c06a329164a322c51905",
+    "semantic_hash": "6b3f3230de62c06a329164a322c51905"
+  },
+  "tools/sim/junkyard_layout_sim.py": {
+    "mtime": 1792691216.4749165,
+    "ast_hash": "69d19b370a231b5d291280ef69c062a7",
+    "semantic_hash": "69d19b370a231b5d291280ef69c062a7"
+  },
+  "tools/sim/mice_bot_burrow_sim.py": {
+    "mtime": 1792757311.950912,
+    "ast_hash": "39289dd143c754873236decc31703a48",
+    "semantic_hash": "39289dd143c754873236decc31703a48"
+  },
+  "tools/sim/scrap_arsenal_sim.py": {
+    "mtime": 1792757189.051519,
+    "ast_hash": "93165e2f73c6838fe367225f30ab9977",
+    "semantic_hash": "93165e2f73c6838fe367225f30ab9977"
+  },
+  "tools/sim/scrappy_trunk_sim.py": {
+    "mtime": 1792757348.5891695,
+    "ast_hash": "e87bda3c3df0adc6563461363d491bdb",
+    "semantic_hash": "e87bda3c3df0adc6563461363d491bdb"
+  },
+  "Content/Junkyard/Items/Junkbait.png": {
+    "mtime": 1792690882.0819757,
+    "ast_hash": "85cd2e6082f352d5d44ed7001873d0ea",
+    "semantic_hash": "85cd2e6082f352d5d44ed7001873d0ea"
+  },
+  "Content/Junkyard/Tiles/PetroleumTile.png": {
+    "mtime": 1792690882.0809674,
+    "ast_hash": "1552f322acb4dfc6866571d254a9a46e",
+    "semantic_hash": "1552f322acb4dfc6866571d254a9a46e"
+  },
+  "Content/Scrap/Minions/MiceBot.png": {
+    "mtime": 1792756922.0698085,
+    "ast_hash": "14db89478c93281465b038eca72055a8",
+    "semantic_hash": "14db89478c93281465b038eca72055a8"
+  },
+  "Content/Scrap/Minions/MiceBotBuff.png": {
+    "mtime": 1792756922.0718093,
+    "ast_hash": "c1353d8438c7c5c2d42fe00831713b58",
+    "semantic_hash": "c1353d8438c7c5c2d42fe00831713b58"
+  },
+  "Content/Scrap/Minions/MiceBotMinion.png": {
+    "mtime": 1792756922.0678558,
+    "ast_hash": "fa107a77cfd536c516fba4c5242bcbe7",
+    "semantic_hash": "fa107a77cfd536c516fba4c5242bcbe7"
+  },
+  "Content/Scrap/Weapons/ScrappyBow.png": {
+    "mtime": 1792756922.0628095,
+    "ast_hash": "34119e94aa219128b7e7c1eb03f88b65",
+    "semantic_hash": "34119e94aa219128b7e7c1eb03f88b65"
+  },
+  "Content/Scrap/Weapons/ScrappyWand.png": {
+    "mtime": 1792756922.0618162,
+    "ast_hash": "43b55020f980430e039ad13fbab208a2",
+    "semantic_hash": "43b55020f980430e039ad13fbab208a2"
+  },
+  "Content/Scrap/Weapons/ScrappyWandBolt.png": {
+    "mtime": 1792756922.0628095,
+    "ast_hash": "c077668812b31a8331f631b3cd553ef2",
+    "semantic_hash": "c077668812b31a8331f631b3cd553ef2"
+  },
+  "Content/Scrap/Weapons/Screwdriver.png": {
+    "mtime": 1792756922.0588114,
+    "ast_hash": "88c57236e5f80aa923db25ce1e4cf2eb",
+    "semantic_hash": "88c57236e5f80aa923db25ce1e4cf2eb"
+  },
+  "Content/Scrap/Weapons/ScrewdriverProjectile.png": {
+    "mtime": 1792756922.0598075,
+    "ast_hash": "84606bff61f590ff9af29f5924d7c1c7",
+    "semantic_hash": "84606bff61f590ff9af29f5924d7c1c7"
+  },
+  "docs/media/2026-10-22_junkyard-junkbait.png": {
+    "mtime": 1792691274.547667,
+    "ast_hash": "6425f6ed8fdbf7a20ac32cd66e98d571",
+    "semantic_hash": "6425f6ed8fdbf7a20ac32cd66e98d571"
+  },
+  "docs/media/2026-10-22_junkyard-petroleum-overview.png": {
+    "mtime": 1792691246.3071988,
+    "ast_hash": "96e3adde9b602c3e46e52ef7cdc88534",
+    "semantic_hash": "96e3adde9b602c3e46e52ef7cdc88534"
+  },
+  "docs/media/2026-10-22_junkyard-petroleum-surface.png": {
+    "mtime": 1792691246.4827447,
+    "ast_hash": "35357a85c28e950b35e31e314c7e021f",
+    "semantic_hash": "35357a85c28e950b35e31e314c7e021f"
+  },
+  "docs/media/2026-10-22_junkyard-petroleum.gif": {
+    "mtime": 1792691083.7356641,
+    "ast_hash": "06ac9e2c68fd21606d8ab14a614837ef",
+    "semantic_hash": "06ac9e2c68fd21606d8ab14a614837ef"
+  },
+  "docs/media/2026-10-22_junkyard-structure-clearance.png": {
+    "mtime": 1792691223.082905,
+    "ast_hash": "906ddb716fa26e1b07147ca4f2b117de",
+    "semantic_hash": "906ddb716fa26e1b07147ca4f2b117de"
+  },
+  "docs/media/2026-10-22_scrap-armor-cog-aim.gif": {
+    "mtime": 1792700017.8452487,
+    "ast_hash": "85a85149ac24ef634d23078d867a3baa",
+    "semantic_hash": "85a85149ac24ef634d23078d867a3baa"
+  },
+  "docs/media/2026-10-22_scrap-armor-cog-lob.gif": {
+    "mtime": 1792691165.3395686,
+    "ast_hash": "87eb12e09a4a9b1a2041162933821d07",
+    "semantic_hash": "87eb12e09a4a9b1a2041162933821d07"
+  },
+  "docs/media/2026-10-22_scrap-arsenal-sprites.png": {
+    "mtime": 1792700049.908365,
+    "ast_hash": "e29cd702d1097a7cecb79d6cf7c57cc2",
+    "semantic_hash": "e29cd702d1097a7cecb79d6cf7c57cc2"
+  },
+  "docs/media/2026-10-22_scrap-bow.gif": {
+    "mtime": 1792699881.6220658,
+    "ast_hash": "eff66d2a507eabbf688c1c0547ad20b6",
+    "semantic_hash": "eff66d2a507eabbf688c1c0547ad20b6"
+  },
+  "docs/media/2026-10-22_scrap-mice-bot.gif": {
+    "mtime": 1792699936.928565,
+    "ast_hash": "992f4e706d5608d26f120c259f779e6b",
+    "semantic_hash": "992f4e706d5608d26f120c259f779e6b"
+  },
+  "docs/media/2026-10-22_scrap-screwdriver.gif": {
+    "mtime": 1792699939.6259587,
+    "ast_hash": "9f8dd4d7694b7d9bce3dcda8189f4827",
+    "semantic_hash": "9f8dd4d7694b7d9bce3dcda8189f4827"
+  },
+  "docs/media/2026-10-22_scrap-wand.gif": {
+    "mtime": 1792699878.1624584,
+    "ast_hash": "97cea60bf83b8a257299c11082a38b46",
+    "semantic_hash": "97cea60bf83b8a257299c11082a38b46"
+  },
+  "docs/media/2026-10-23_furniture-scrappy-trunk-loot.png": {
+    "mtime": 1792757349.6657782,
+    "ast_hash": "9d4bfe8d296ee1283888fc7bd2d101c2",
+    "semantic_hash": "9d4bfe8d296ee1283888fc7bd2d101c2"
+  },
+  "docs/media/2026-10-23_scrap-mice-bot-burrow.gif": {
+    "mtime": 1792757325.518533,
+    "ast_hash": "2620cfd0c827c2358bdae4bc6ae1b646",
+    "semantic_hash": "2620cfd0c827c2358bdae4bc6ae1b646"
+  },
+  "docs/media/2026-10-23_scrap-screwdriver-sprites.png": {
+    "mtime": 1792757360.1796067,
+    "ast_hash": "fbe5dc3f0c508048e6a235f7f6e72027",
+    "semantic_hash": "fbe5dc3f0c508048e6a235f7f6e72027"
+  },
+  "docs/media/2026-10-23_scrap-screwdriver.gif": {
+    "mtime": 1792757191.8199935,
+    "ast_hash": "579dd2a894cd7565e402bcc8bca49944",
+    "semantic_hash": "579dd2a894cd7565e402bcc8bca49944"
+  }
+}

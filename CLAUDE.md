@@ -9,7 +9,7 @@ Overview: [README.md](README.md) · Toolchain and scaffolding specs: [SETUP.md](
 1. **D1 Optimization:** no allocations, LINQ or uncached assets in per-tick or draw code. Visuals run on clients only (`!Main.dedServ`). Sync only on change.
 2. **D2 Co-op compatibility:** the server decides NPC, world and random outcomes. Player projectiles are owner-only. Test singleplayer, host + client, and a dedicated server when there is server logic.
 3. **D3 Balance:** every combat stat gets a row in `docs/balance/*.csv` against a same-tier vanilla anchor (±15% effective DPS) and is tested in Classic, Expert and Master.
-4. **D4 Pixel art:** drawn at 1× and exported 2× nearest-neighbor, Cogpunk palette only, lit from the top-left, ramp-colored outlines, no mixels or semi-transparent pixels. `tools/check_sprite.py` must pass.
+4. **D4 Pixel art:** drawn at 1× and exported 2× nearest-neighbor, Cogpunk palette only, lit from the top-left, ramp-colored outlines, no mixels or semi-transparent pixels. `tools/check_sprite.py` must pass. **Blocks connect seamlessly** like vanilla ores: no per-tile seams or bevels, outlines only on the clump's exposed edges, and `tools/check_tile_seams.py` must pass.
 5. **D5 Visual proof:** any feature or fix with an animated result **must include a GIF**. Static sprites need a PNG. Build it from the animation frames (`tools/sheet2gif.py`) or a lightweight offline simulation that uses the real sprites and constants; in-game capture is **not** required. Show it in the response and/or save it to `docs/media/YYYY-MM-DD_<area>-<feature>.gif|png`, and self-review it before reporting.
 
 ## Facts that are easy to get wrong

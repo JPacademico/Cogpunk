@@ -25,3 +25,211 @@ Configs: {
 		}
 	}
 }
+
+Items: {
+	RustedScrap: {
+		DisplayName: Rusted Scrap
+		Tooltip: Compacted junk. Something useful might still be buried inside.
+	}
+
+	RustedCog: {
+		DisplayName: Rusted Cog
+		Tooltip: Eaten by rust, but it still wants to turn.
+	}
+
+	RustedMetal: {
+		DisplayName: Rusted Metal
+		Tooltip: A torn, riveted plate. Good metal under the rust.
+	}
+
+	Scrappybot: {
+		DisplayName: Scrappybot
+		Tooltip: Summons Scrappybot, a rusty little robot that powers down to recharge
+	}
+
+	ScrapBomb: {
+		DisplayName: Scrap Bomb
+		Tooltip:
+			'''
+			Explodes on impact, dealing {0} blast damage in a {1} tile radius
+			A direct hit deals its full damage plus the blast
+			Does not destroy tiles
+			'''
+	}
+
+	ScrapHelmet: {
+		DisplayName: Scrap Helmet
+		Tooltip:
+			'''
+			Displays the most valuable ore around you
+			A dented pot with a goggle bolted on. The cog still turns.
+			'''
+		SetBonus:
+			'''
+			{0}% increased movement speed
+			While moving, lobs a bouncing cog every {1} seconds ({2} damage)
+			It flies at the nearest enemy, or out behind you when none is near
+			'''
+	}
+
+	ScrapBreastplate: {
+		DisplayName: Scrap Breastplate
+		Tooltip:
+			'''
+			{0}% increased damage
+			Riveted together from whatever the heap gave up
+			'''
+	}
+
+	ScrapLeggings: {
+		DisplayName: Scrap Leggings
+		Tooltip:
+			'''
+			{0}% reduced fall damage
+			Rusty, but there's still a spring in them
+			'''
+	}
+
+	PolishedMetal: {
+		DisplayName: Polished Metal
+		Tooltip: Welded, patched-up plating. Too hard for most pickaxes.
+	}
+
+	ScrappyTrunk: {
+		DisplayName: Scrappy Trunk
+		Tooltip: ""
+	}
+
+	Junkbait: {
+		DisplayName: Junkbait
+		Tooltip:
+			'''
+			A greasy ball of scrap with a little robot rattling inside
+			Nothing in the Junkyard is hungry enough for it... yet
+			'''
+	}
+
+	Screwdriver: {
+		DisplayName: Screwdriver
+		Tooltip:
+			'''
+			Hits on the thrust and again on the way back
+			{0}% more damage to mechanical enemies
+			'Righty-tighty, lefty-loosey, stabby-stabby'
+			'''
+	}
+
+	ScrappyWand: {
+		DisplayName: Scrappy Wand
+		Tooltip:
+			'''
+			Fires a burst of {0} sparks
+			Only the first one goes where you aim
+			'''
+	}
+
+	ScrappyBow: {
+		DisplayName: Scrappy Bow
+		Tooltip:
+			'''
+			Looses {0} to {1} arrows for the price of one
+			Only the first arrow flies true
+			'''
+	}
+
+	MiceBot: {
+		DisplayName: Mice-bot
+		Tooltip:
+			'''
+			Summons a clockwork mouse to fight for you
+			Takes half a minion slot
+			Digs through thin walls and floors to reach enemies
+			'Wind it up and let it go'
+			'''
+	}
+}
+
+Buffs: {
+	ScrappybotBuff: {
+		DisplayName: Scrappybot
+		Description: A rusty little robot is following you
+	}
+
+	MiceBotBuff: {
+		DisplayName: Mice-bot
+		Description: A clockwork mouse is biting your enemies
+	}
+
+	TarPlague: {
+		DisplayName: Tar Plague
+		Description: Steaming tar is eating through you. Get out!
+	}
+}
+
+NPCs: {
+	TrashTr0m: {
+		DisplayName: Trash-Tr0m
+		Epithet: Colossus of the Scrapheap
+		Bestiary: The top half of a construction titan, torn off at the waist and welded back together from whatever the Junkyard had. It sleeps under the scrap, guarding a cache it can no longer remember filling.
+		CacheGuarded: The cache won't budge. Something is still guarding it...
+		CacheUnsealed: The Junkyard Cache's seal grinds open!
+	}
+}
+
+Junkyard: {
+	TarDeath: "{0} sank into the tar."
+}
+
+Projectiles: {
+	ScrappybotPet: {
+		DisplayName: Scrappybot
+	}
+
+	ScrapBombProjectile: {
+		DisplayName: Scrap Bomb
+	}
+
+	ScrapCogProjectile: {
+		DisplayName: Scrap Cog
+	}
+
+	ScrewdriverProjectile: {
+		DisplayName: Screwdriver
+	}
+
+	ScrappyWandBolt: {
+		DisplayName: Scrappy Spark
+	}
+
+	MiceBotMinion: {
+		DisplayName: Mice-bot
+	}
+}
+
+Tiles: {
+	RustedScrapTile: {
+		MapEntry: Rusted Scrap
+	}
+
+	PolishedMetalTile: {
+		MapEntry: Polished Metal
+	}
+
+	ScrappyTrunkTile: {
+		MapEntry0: Scrappy Trunk
+		MapEntry1: Junkyard Cache
+	}
+}
+
+WorldGen: {
+	ScrapNodes: Burying rusted scrap
+	ScrapMounds: Dumping scrap heaps
+	Junkyard: Dumping the Junkyard
+	ScrappyTrunks: Rusting some old chests
+}
+
+Biomes: {
+	JunkyardBiome: {
+		DisplayName: The Junkyard
+	}
+}

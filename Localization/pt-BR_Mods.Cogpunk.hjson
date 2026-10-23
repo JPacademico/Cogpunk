@@ -24,3 +24,211 @@ Configs: {
 		}
 	}
 }
+
+Items: {
+	RustedScrap: {
+		DisplayName: Sucata Enferrujada
+		Tooltip: Lixo compactado. Algo útil ainda pode estar enterrado aí dentro.
+	}
+
+	RustedCog: {
+		DisplayName: Engrenagem Enferrujada
+		Tooltip: Corroída pela ferrugem, mas ainda quer girar.
+	}
+
+	RustedMetal: {
+		DisplayName: Metal Enferrujado
+		Tooltip: Uma chapa rebitada e rasgada. Metal bom por baixo da ferrugem.
+	}
+
+	Scrappybot: {
+		DisplayName: Scrappybot
+		Tooltip: Invoca o Scrappybot, um robozinho enferrujado que desliga para recarregar
+	}
+
+	ScrapBomb: {
+		DisplayName: Bomba de Sucata
+		Tooltip:
+			'''
+			Explode ao impacto, causando {0} de dano de explosão em um raio de {1} blocos
+			Um acerto direto causa o dano total mais a explosão
+			Não destrói blocos
+			'''
+	}
+
+	ScrapHelmet: {
+		DisplayName: Capacete de Sucata
+		Tooltip:
+			'''
+			Mostra o minério mais valioso ao seu redor
+			Uma panela amassada com um óculos aparafusado. A engrenagem ainda gira.
+			'''
+		SetBonus:
+			'''
+			{0}% de velocidade de movimento
+			Em movimento, lança uma engrenagem quicante a cada {1} segundos ({2} de dano)
+			Ela voa no inimigo mais próximo, ou para trás de você se não houver nenhum
+			'''
+	}
+
+	ScrapBreastplate: {
+		DisplayName: Peitoral de Sucata
+		Tooltip:
+			'''
+			{0}% de dano aumentado
+			Rebitado com o que o monte de sucata tinha para dar
+			'''
+	}
+
+	ScrapLeggings: {
+		DisplayName: Perneiras de Sucata
+		Tooltip:
+			'''
+			{0}% de dano de queda reduzido
+			Enferrujadas, mas ainda com mola
+			'''
+	}
+
+	PolishedMetal: {
+		DisplayName: Metal Polido
+		Tooltip: Chapas soldadas e remendadas. Duras demais para a maioria das picaretas.
+	}
+
+	ScrappyTrunk: {
+		DisplayName: Baú de Sucata
+		Tooltip: ""
+	}
+
+	Junkbait: {
+		DisplayName: Isca de Sucata
+		Tooltip:
+			'''
+			Uma bola de sucata engraxada com um robozinho chacoalhando dentro
+			Nada no Ferro-Velho está com fome o bastante para isso... ainda
+			'''
+	}
+
+	Screwdriver: {
+		DisplayName: Chave de Fenda
+		Tooltip:
+			'''
+			Acerta na estocada e de novo na volta
+			{0}% de dano a mais contra inimigos mecânicos
+			'Aperta pra direita, solta pra esquerda, espeta pra frente'
+			'''
+	}
+
+	ScrappyWand: {
+		DisplayName: Varinha de Sucata
+		Tooltip:
+			'''
+			Dispara uma rajada de {0} faíscas
+			Só a primeira vai para onde você mira
+			'''
+	}
+
+	ScrappyBow: {
+		DisplayName: Arco de Sucata
+		Tooltip:
+			'''
+			Solta de {0} a {1} flechas pelo preço de uma
+			Só a primeira flecha voa certeira
+			'''
+	}
+
+	MiceBot: {
+		DisplayName: Rato-Robô
+		Tooltip:
+			'''
+			Invoca um ratinho de corda para lutar por você
+			Ocupa meio espaço de lacaio
+			Cava através de paredes e pisos finos para alcançar inimigos
+			'Dê corda e solte'
+			'''
+	}
+}
+
+Buffs: {
+	ScrappybotBuff: {
+		DisplayName: Scrappybot
+		Description: Um robozinho enferrujado está seguindo você
+	}
+
+	MiceBotBuff: {
+		DisplayName: Rato-Robô
+		Description: Um ratinho de corda está mordendo seus inimigos
+	}
+
+	TarPlague: {
+		DisplayName: Praga do Piche
+		Description: O piche fervente está corroendo você. Saia daí!
+	}
+}
+
+NPCs: {
+	TrashTr0m: {
+		DisplayName: Trash-Tr0m
+		Epithet: Colosso do Ferro-Velho
+		Bestiary: A metade de cima de um titã de obras, arrancada na cintura e soldada de novo com o que o Ferro-Velho tinha. Dorme sob a sucata, guardando um esconderijo que já nem lembra de ter enchido.
+		CacheGuarded: O esconderijo não cede. Algo ainda o protege...
+		CacheUnsealed: O lacre do Esconderijo do Ferro-Velho se abre rangendo!
+	}
+}
+
+Junkyard: {
+	TarDeath: "{0} afundou no piche."
+}
+
+Projectiles: {
+	ScrappybotPet: {
+		DisplayName: Scrappybot
+	}
+
+	ScrapBombProjectile: {
+		DisplayName: Bomba de Sucata
+	}
+
+	ScrapCogProjectile: {
+		DisplayName: Engrenagem de Sucata
+	}
+
+	ScrewdriverProjectile: {
+		DisplayName: Chave de Fenda
+	}
+
+	ScrappyWandBolt: {
+		DisplayName: Faísca de Sucata
+	}
+
+	MiceBotMinion: {
+		DisplayName: Rato-Robô
+	}
+}
+
+Tiles: {
+	RustedScrapTile: {
+		MapEntry: Sucata Enferrujada
+	}
+
+	PolishedMetalTile: {
+		MapEntry: Metal Polido
+	}
+
+	ScrappyTrunkTile: {
+		MapEntry0: Baú de Sucata
+		MapEntry1: Esconderijo do Ferro-Velho
+	}
+}
+
+WorldGen: {
+	ScrapNodes: Enterrando sucata enferrujada
+	ScrapMounds: Despejando montes de sucata
+	Junkyard: Despejando o Ferro-Velho
+	ScrappyTrunks: Enferrujando alguns baús velhos
+}
+
+Biomes: {
+	JunkyardBiome: {
+		DisplayName: O Ferro-Velho
+	}
+}
