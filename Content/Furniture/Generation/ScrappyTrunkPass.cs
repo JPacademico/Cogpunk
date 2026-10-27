@@ -14,17 +14,15 @@ namespace Cogpunk.Content.Furniture.Generation
 	/// Turns <see cref="ReplaceChance"/> in 100 of the world's plain Wooden Chests (surface and underground) into Scrappy
 	/// Trunks filled by <see cref="ScrappyTrunkLoot"/>. Runs after vanilla's last pass, so every chest vanilla (and earlier
 	/// mods) placed exists.
-	/// <para>Only the plain Wooden Chest qualifies (<c>TileID.Containers</c> style 0): never Gold, Water (coral), biome,
-	/// locked or modded chests. A chest with wire on it is skipped too, which leaves the trapped Dead Man's Chests alone.
-	/// The swap keeps the chest's slot in <c>Main.chest</c> and its 2x2 frames (a style-0 trunk has the same frames), and
-	/// only changes the tile type and the items, so nothing else in the world moves.</para>
+	/// <para>Only the plain Wooden Chest qualifies (<see cref="WoodenChests.IsPlain"/>: style 0, no wire). The swap keeps
+	/// the chest's slot in <c>Main.chest</c> and its 2x2 frames (a style-0 trunk has the same frames), and only changes the
+	/// tile type and the items, so nothing else in the world moves.</para>
 	/// <para>D0: one bounded loop over <c>Main.maxChests</c>; every coordinate goes through <see cref="TileSafety"/>; a
 	/// failure is caught by <see cref="SafeGenPass"/>. Server or singleplayer only (world generation), saved with the world.</para>
 	/// </summary>
 	internal sealed class ScrappyTrunkPass : SafeGenPass
 	{
 		public const int ReplaceChance = 20;             // percent
-		private const int ChestStyleWidth = 36;          // 2 tiles x 18 px per chest style
 
 		public ScrappyTrunkPass() : base("Cogpunk: Scrappy Trunks", 1.0) {
 		}
@@ -40,7 +38,7 @@ namespace Cogpunk.Content.Furniture.Generation
 					progress.Set(i / (double)Main.maxChests);
 				}
 				Chest chest = Main.chest[i];
-				if (chest == null || !IsPlainWoodenChest(chest.x, chest.y)) {
+				if (chest == null || !WoodenChests.IsPlain(chest.x, chest.y)) {
 					continue;
 				}
 				candidates++;
@@ -49,27 +47,13 @@ namespace Cogpunk.Content.Furniture.Generation
 				}
 				for (int dx = 0; dx < 2; dx++) {
 					for (int dy = 0; dy < 2; dy++) {
-						Main.tile[chest.x + dx, chest.y + dy].TileType = trunk;   // bounds checked by IsPlainWoodenChest
+						Main.tile[chest.x + dx, chest.y + dy].TileType = trunk;   // bounds checked by WoodenChests.IsPlain
 					}
 				}
 				ScrappyTrunkLoot.Fill(chest, WorldGen.genRand, trinkets);
 				replaced++;
 			}
 			SafeLog.Info("WorldGen.ScrappyTrunks", $"Scrappy Trunks: {replaced} of {candidates} Wooden Chests replaced.");
-		}
-
-		/// <summary>All four cells of the chest at (x, y) are an unwired style-0 <c>TileID.Containers</c> tile.</summary>
-		private static bool IsPlainWoodenChest(int x, int y) {
-			for (int dx = 0; dx < 2; dx++) {
-				for (int dy = 0; dy < 2; dy++) {
-					if (!TileSafety.TryGetTile(x + dx, y + dy, out Tile tile, TileSafety.EditMargin) || !tile.HasTile
-						|| tile.TileType != TileID.Containers || tile.TileFrameX / ChestStyleWidth != 0
-						|| tile.RedWire || tile.BlueWire || tile.GreenWire || tile.YellowWire || tile.HasActuator) {
-						return false;
-					}
-				}
-			}
-			return true;
 		}
 	}
 

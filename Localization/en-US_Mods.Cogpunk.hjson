@@ -105,7 +105,16 @@ Items: {
 		Tooltip:
 			'''
 			A greasy ball of scrap with a little robot rattling inside
-			Nothing in the Junkyard is hungry enough for it... yet
+			Use in the Junkyard to lure out Trash-Tr0m
+			'''
+	}
+
+	LostKey: {
+		DisplayName: Lost Key
+		Tooltip:
+			'''
+			Opens the Junkyard Cache
+			'It has been chewed on'
 			'''
 	}
 
@@ -147,6 +156,140 @@ Items: {
 			'Wind it up and let it go'
 			'''
 	}
+
+	TrashTr0mBag: {
+		DisplayName: Treasure Bag ({$Mods.Cogpunk.NPCs.TrashTr0m.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+	}
+
+	Tetanus: {
+		DisplayName: Tetanus
+		Tooltip:
+			'''
+			A quick thrust that hits on the way out and again on the way back, wherever you aim
+			Hold right click to draw it back and charge: +{0}% damage every half second, up to +{1}%
+			The charged lunge also hits going out and coming back
+			Inflicts Tetanus: the target takes {2}% more damage
+			'Mind the rust'
+			'''
+	}
+
+	ScrapLauncher: {
+		DisplayName: Scrap Launcher
+		Tooltip:
+			'''
+			Uses bullets as ammo, but fires chewed scrap that flies straight across the screen
+			Right click to lob a big scrap ball that bounces once
+			'Open wide'
+			'''
+	}
+
+	Scrapmancer: {
+		DisplayName: Scrapmancer
+		Tooltip:
+			'''
+			Slams a junk shockwave along the ground towards the cursor
+			It rolls a whole screen, pierces every enemy and knocks them flying
+			Needs ground beneath you
+			'''
+	}
+
+	Tr0mheadStaff: {
+		DisplayName: Tr0mhead
+		Tooltip:
+			'''
+			Summons a Tr0mhead sentry that inhales nearby enemies and chews them
+			Sucks for up to {0} seconds, then vents steam for {1} seconds
+			'It's still hungry'
+			'''
+	}
+
+	PolisherSchematic: {
+		DisplayName: Polisher Schematic
+		Tooltip:
+			'''
+			Lets you build a Rust Polisher at an anvil
+			Not consumed
+			'Most of the instructions are grease stains'
+			'''
+	}
+
+	RustPolisher: {
+		DisplayName: Rust Polisher
+		Tooltip: Used to polish rusted metal and to craft Polished armor and Brass Containers
+	}
+
+	MysteriousMap: {
+		DisplayName: Mysterious Map
+		Tooltip:
+			'''
+			While held, an arrow points the way to something hidden in this world
+			'The ink is still wet'
+			'''
+	}
+
+	TarDrop: {
+		DisplayName: Tar Drop
+		Tooltip: A glob of the Junkyard's tar. Still warm.
+	}
+
+	PolishedHelmet: {
+		DisplayName: Polished Helmet
+		Tooltip:
+			'''
+			{0}% increased mechanist critical strike chance
+			A buffed-up boiler cap with a pressure gauge for a crest
+			'''
+		SetBonus: Mechanist weapons use {0}% less steam
+	}
+
+	PolishedChestplate: {
+		DisplayName: Polished Chestplate
+		Tooltip:
+			'''
+			Increases maximum steam by {0}
+			A little boiler rides on the back
+			'''
+	}
+
+	PolishedPants: {
+		DisplayName: Polished Pants
+		Tooltip:
+			'''
+			{0}% increased movement speed
+			Piston knees, freshly greased
+			'''
+	}
+
+	TrapperChain: {
+		DisplayName: Trapper Chain
+		Tooltip:
+			'''
+			Flings a bear trap on a chain that bites every enemy caught in its jaws
+			Ready to throw again as soon as the trap is back
+			'Still smells like the jungle'
+			'''
+	}
+
+	GlassContainer: {
+		DisplayName: Glass Container
+		Tooltip:
+			'''
+			Increases maximum steam by {0}
+			Only one steam container can be worn
+			'Handle with care'
+			'''
+	}
+
+	BrassContainer: {
+		DisplayName: Brass Container
+		Tooltip:
+			'''
+			Increases maximum steam by {0}
+			{1}% increased mechanist damage
+			Only one steam container can be worn
+			'''
+	}
 }
 
 Buffs: {
@@ -164,15 +307,41 @@ Buffs: {
 		DisplayName: Tar Plague
 		Description: Steaming tar is eating through you. Get out!
 	}
+
+	TetanusDebuff: {
+		DisplayName: Tetanus
+		Description: Taking 10% more damage
+	}
+
+	Overheat: {
+		DisplayName: Overheated
+		Description: Your boiler is venting! No items, and you can't stop moving until your steam refills
+	}
 }
 
 NPCs: {
 	TrashTr0m: {
 		DisplayName: Trash-Tr0m
 		Epithet: Colossus of the Scrapheap
-		Bestiary: The top half of a construction titan, torn off at the waist and welded back together from whatever the Junkyard had. It sleeps under the scrap, guarding a cache it can no longer remember filling.
+		Bestiary: The top half of a construction titan, torn off at the waist and welded back together from whatever the Junkyard had. It drags itself after anything that moves, slams the ground hard enough to make it ripple, and inhales whatever it cannot catch. It sleeps under the scrap, guarding a cache it can no longer open: it swallowed the key long ago.
 		CacheGuarded: The cache won't budge. Something is still guarding it...
-		CacheUnsealed: The Junkyard Cache's seal grinds open!
+		KeyDropped: A chewed-up key clatters out of the wreck...
+		CacheLocked: The cache is locked tight. Trash-Tr0m's Lost Key opens it.
+	}
+
+	RustCollector: {
+		DisplayName: Rust Collector
+		Bestiary: A scrap bin on two rollers that never stopped doing its job. It charges at anything that might be rust, and it thinks everything might be rust. It cannot climb, but it never stops accelerating.
+	}
+
+	Trapper: {
+		DisplayName: Trapper
+		Bestiary: Half goblin, half clockwork, all hunter. It bolted a brass arm and a lens eye onto itself and took to the jungle with a sack of spike balls. It never lets its prey get close: it runs, turns, and seeds the ground with spikes.
+	}
+
+	LivingTar: {
+		DisplayName: Living Tar
+		Bestiary: Tar from the Junkyard pool that crawled out on its own. It hops like any slime, and every landing flings a hot glob of itself at whoever it is chasing.
 	}
 }
 
@@ -204,6 +373,54 @@ Projectiles: {
 	MiceBotMinion: {
 		DisplayName: Mice-bot
 	}
+
+	TrashTr0mShockwave: {
+		DisplayName: Shockwave
+	}
+
+	TrashTr0mChewedScrap: {
+		DisplayName: Chewed Scrap
+	}
+
+	TrashTr0mScrapBall: {
+		DisplayName: Scrap Ball
+	}
+
+	TetanusProjectile: {
+		DisplayName: Tetanus
+	}
+
+	ScrapLauncherChunk: {
+		DisplayName: Chewed Scrap
+	}
+
+	ScrapLauncherBall: {
+		DisplayName: Scrap Ball
+	}
+
+	ScrapmancerWave: {
+		DisplayName: Junk Shockwave
+	}
+
+	Tr0mheadSentry: {
+		DisplayName: Tr0mhead
+	}
+
+	TarGlob: {
+		DisplayName: Tar Glob
+	}
+
+	TrashTr0mCog: {
+		DisplayName: Loose Cog
+	}
+
+	TrapperSpikeBall: {
+		DisplayName: Spike Ball
+	}
+
+	TrapperChainProjectile: {
+		DisplayName: Trapper Chain
+	}
 }
 
 Tiles: {
@@ -219,6 +436,10 @@ Tiles: {
 		MapEntry0: Scrappy Trunk
 		MapEntry1: Junkyard Cache
 	}
+
+	RustPolisherTile: {
+		MapEntry: Rust Polisher
+	}
 }
 
 WorldGen: {
@@ -226,10 +447,32 @@ WorldGen: {
 	ScrapMounds: Dumping scrap heaps
 	Junkyard: Dumping the Junkyard
 	ScrappyTrunks: Rusting some old chests
+	GlassContainers: Hiding glass steam tanks
+}
+
+UI: {
+	BossDefeated: Defeated
+}
+
+DamageClasses: {
+	MechanistDamage: {
+		DisplayName: mechanist damage
+	}
+}
+
+Mechanist: {
+	SteamCost: Uses {0} steam
+	SteamHover: "Steam: {0}/{1}"
+	NoTank: No steam tank!
+	NoTankTooltip: Needs a steam tank: wear Mechanist armor or a steam container
 }
 
 Biomes: {
 	JunkyardBiome: {
 		DisplayName: The Junkyard
 	}
+}
+
+DropConditions: {
+	TrashTr0mFirstKill: Only from the first defeat in a world
 }

@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Status** | M0 framework done. First content: the Rusted Scrap slice (block, world gen, materials, Scrappybot pet, Scrap Bomb, Scrap armor), 2026-10-21; the Junkyard biome (replaces the left beach), 2026-10-22; Junkyard tar pool and spawn rules, first boss Trash-Tr0m (summon + intro; attacks pending), 2026-10-23 |
+| **Status** | M0 framework done. First content: the Rusted Scrap slice (block, world gen, materials, Scrappybot pet, Scrap Bomb, Scrap armor), 2026-10-21; the Junkyard biome (replaces the left beach), 2026-10-22; Junkyard tar pool and spawn rules, first boss Trash-Tr0m (summon + intro), 2026-10-23; Trash-Tr0m's full fight (3/4-view multiplane rework, crawl, slam, suction, Lost Key, Junkbait summon, death cinematic), 2026-10-26; then its loot (treasure bag, Tetanus, Scrap Launcher, Scrapmancer, Tr0mhead Staff), in-between animation frames, the cache's Polisher Schematic (Rust Polisher station) and Mysterious Map, and the Junkyard's first enemies (Rust Collector, Living Tar), 2026-10-26 |
 | **Platform** | tModLoader stable (1.4.4 line, monthly `v2026.MM.x` releases), C# / .NET 8 |
 | **Mode support** | Singleplayer, host-and-play and dedicated-server multiplayer |
 | **Languages** | English (source), Brazilian Portuguese (`pt-BR`) |
@@ -26,7 +26,7 @@ These are the conditions that count as success. Each one maps to a [Core Directi
 2. **A complete new class.** A *Mechanist* class (working name) with its own resource, playable from start to finish with weapons, armor, and accessories at every tier.
 3. **Co-op first.** Every feature works on a dedicated server and in host-and-play with 2+ players, with no desyncs, duplicate drops, or "ghost" projectiles. *(D2)*
 4. **Light on performance.** No allocations in per-tick code. Boss fights with several players run at a steady 60 FPS on the team's reference PC. *(D1)*
-5. **Fair balance.** Every combat number is checked against a vanilla anchor of the same tier, in Classic, Expert, and Master. *(D3)*
+5. **Fair balance, built for Expert.** Cogpunk is meant to be played on Expert: every combat number is the Expert value, checked against a vanilla anchor of the same tier in Expert. Classic and Master scale from it the way vanilla does, and boss treasure bags drop only in Expert and Master. *(D3)*
 6. **Vanilla-grade pixel art.** All art is hand-made: drawn at 1×, exported at 2×, with a locked palette and no mixels. *(D4)*
 7. **Proven visually.** Every animated feature or fix comes with a GIF, and every static sprite with a PNG. Both are built from the animation frames or a quick simulation, so no in-game recording is needed. *(D5)*
 
@@ -35,7 +35,7 @@ These are the conditions that count as success. Each one maps to a [Core Directi
 | Pillar | Meaning in practice |
 |---|---|
 | **Brass & Steam** | Industrial, clockwork, pressure and heat. Materials are brass, copper, iron, verdigris and, late in the game, aether. Effects are steam puffs, sparks, rivets and gears. |
-| **Mechanical mastery** | Risk and reward through pressure management: build pressure up, vent it for burst damage, and overheat if you get greedy. |
+| **Mechanical mastery** | Risk and reward through steam management: every Mechanist attack spends steam, the tank only refills once you stop attacking, and firing on an empty tank overheats you. |
 | **Vanilla-faithful** | The mod reads, sounds, and plays like a Terraria update, not a different game. It respects vanilla UI, controls, and progression pacing. |
 | **Play together** | Bosses and events are designed for groups. They retarget, have readable telegraphs, and give every player their own loot. |
 
@@ -57,7 +57,7 @@ Every feature, fix, and asset must meet all six. **D0 is the most important and 
 | Area | What Cogpunk adds | tModLoader building blocks |
 |---|---|---|
 | **Weapons** | Steampunk weapons for melee, ranged, magic, and summoner, plus the Mechanist arsenal: steam firearms, piston gauntlets, and deployable automatons. Many use animated held projectiles. | `ModItem`, `ModProjectile` (held projectiles), `Item.DamageType` |
-| **Class system** | The *Mechanist* damage class with a **Steam Pressure** resource. Using weapons builds pressure, which boosts damage. A *Vent* hotkey releases a steam burst. Going past the limit causes *Overheat*, a temporary penalty. It has 3 archetypes: **Gunsmith** (ranged-style), **Brawler** (melee-style), and **Tinker** (sentries and automatons). | `DamageClass`, `ModPlayer` resource, `ModKeybind`, UI resource bar |
+| **Class system** | The *Mechanist* damage class with a **Steam** resource (built 2026-10-27, user-set): Mechanist weapons spend steam the way magic weapons spend mana. A player has no tank of their own: Mechanist armor and steam containers (Glass Container from Wooden Chests, Brass Container from the Rust Polisher) give the capacity. After 1.5 s without attacking it refills 10 every 0.5 s. Firing without enough steam causes *Overheat*: no items and no stopping until the tank is full again. A steampunk gauge sits left of the hearts. First set: Polished armor (Rust Polisher). It has 3 planned archetypes: **Gunsmith** (ranged-style), **Brawler** (melee-style), and **Tinker** (sentries and automatons). | `DamageClass`, `ModPlayer` resource, UI layer |
 | **Armors** | One set per tier for each archetype, plus vanilla-class sets, with set bonuses that interact with Pressure. | `[AutoloadEquip]` `_Head/_Body/_Legs`, `UpdateArmorSet` |
 | **Biomes** | 3 biomes. *The Foundry*: underground industrial ruins (pre-Hardmode). *Skyport*: floating docks and airship wrecks (Hardmode). *The Clockcore*: deep mechanical heart (late game). | `ModBiome`, tile counts, backgrounds, `ModWaterStyle`, world generation passes |
 | **Mobs** | 4–6 enemies per biome: crawlers, flyers, turrets, tanks, and casters, each with its own role and readable attacks. | `ModNPC`, `SpawnChance`, bestiary entries, banners |

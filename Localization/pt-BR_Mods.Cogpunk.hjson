@@ -104,7 +104,16 @@ Items: {
 		Tooltip:
 			'''
 			Uma bola de sucata engraxada com um robozinho chacoalhando dentro
-			Nada no Ferro-Velho está com fome o bastante para isso... ainda
+			Use no Ferro-Velho para atrair o Trash-Tr0m
+			'''
+	}
+
+	LostKey: {
+		DisplayName: Chave Perdida
+		Tooltip:
+			'''
+			Abre o Esconderijo do Ferro-Velho
+			'Alguém já mastigou isto'
 			'''
 	}
 
@@ -146,6 +155,140 @@ Items: {
 			'Dê corda e solte'
 			'''
 	}
+
+	TrashTr0mBag: {
+		DisplayName: Bolsa do Tesouro ({$Mods.Cogpunk.NPCs.TrashTr0m.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+	}
+
+	Tetanus: {
+		DisplayName: Tétano
+		Tooltip:
+			'''
+			Uma estocada rápida que acerta na ida e de novo na volta, para onde você mirar
+			Segure o botão direito para recolher e carregar: +{0}% de dano a cada meio segundo, até +{1}%
+			A investida carregada também acerta na ida e na volta
+			Causa Tétano: o alvo sofre {2}% a mais de dano
+			'Cuidado com a ferrugem'
+			'''
+	}
+
+	ScrapLauncher: {
+		DisplayName: Lança-Sucata
+		Tooltip:
+			'''
+			Usa balas como munição, mas dispara sucata mastigada que voa reta pela tela inteira
+			Botão direito para arremessar uma grande bola de sucata que quica uma vez
+			'Abre a boca'
+			'''
+	}
+
+	Scrapmancer: {
+		DisplayName: Sucatamante
+		Tooltip:
+			'''
+			Golpeia o chão e lança uma onda de sucata na direção do cursor
+			Ela percorre uma tela inteira, atravessa todos os inimigos e os arremessa longe
+			Precisa de chão abaixo de você
+			'''
+	}
+
+	Tr0mheadStaff: {
+		DisplayName: Tr0mhead
+		Tooltip:
+			'''
+			Invoca uma sentinela Tr0mhead que suga e mastiga os inimigos próximos
+			Suga por até {0} segundos e depois solta vapor por {1} segundos
+			'Ainda está com fome'
+			'''
+	}
+
+	PolisherSchematic: {
+		DisplayName: Esquema do Polidor
+		Tooltip:
+			'''
+			Permite construir um Polidor de Ferrugem numa bigorna
+			Não é consumido
+			'A maior parte das instruções são manchas de graxa'
+			'''
+	}
+
+	RustPolisher: {
+		DisplayName: Polidor de Ferrugem
+		Tooltip: Usado para polir metal enferrujado e fabricar a armadura Polida e Recipientes de Latão
+	}
+
+	MysteriousMap: {
+		DisplayName: Mapa Misterioso
+		Tooltip:
+			'''
+			Enquanto estiver na mão, uma seta aponta o caminho para algo escondido neste mundo
+			'A tinta ainda está fresca'
+			'''
+	}
+
+	TarDrop: {
+		DisplayName: Gota de Piche
+		Tooltip: Uma bolota do piche do Ferro-Velho. Ainda está morna.
+	}
+
+	PolishedHelmet: {
+		DisplayName: Elmo Polido
+		Tooltip:
+			'''
+			{0}% de chance de acerto crítico de mecanista
+			Uma tampa de caldeira lustrada com um manômetro no topo
+			'''
+		SetBonus: Armas de mecanista usam {0}% menos vapor
+	}
+
+	PolishedChestplate: {
+		DisplayName: Peitoral Polido
+		Tooltip:
+			'''
+			Aumenta o vapor máximo em {0}
+			Uma caldeirinha vai nas costas
+			'''
+	}
+
+	PolishedPants: {
+		DisplayName: Calças Polidas
+		Tooltip:
+			'''
+			{0}% de velocidade de movimento
+			Joelhos de pistão, recém-engraxados
+			'''
+	}
+
+	TrapperChain: {
+		DisplayName: Corrente do Caçador
+		Tooltip:
+			'''
+			Arremessa uma armadilha de urso numa corrente que morde todo inimigo pego entre as mandíbulas
+			Pronta para outro arremesso assim que a armadilha volta
+			'Ainda tem cheiro de selva'
+			'''
+	}
+
+	GlassContainer: {
+		DisplayName: Recipiente de Vidro
+		Tooltip:
+			'''
+			Aumenta o vapor máximo em {0}
+			Só um recipiente de vapor pode ser usado
+			'Manuseie com cuidado'
+			'''
+	}
+
+	BrassContainer: {
+		DisplayName: Recipiente de Latão
+		Tooltip:
+			'''
+			Aumenta o vapor máximo em {0}
+			{1}% de dano de mecanista
+			Só um recipiente de vapor pode ser usado
+			'''
+	}
 }
 
 Buffs: {
@@ -163,15 +306,41 @@ Buffs: {
 		DisplayName: Praga do Piche
 		Description: O piche fervente está corroendo você. Saia daí!
 	}
+
+	TetanusDebuff: {
+		DisplayName: Tétano
+		Description: Sofrendo 10% a mais de dano
+	}
+
+	Overheat: {
+		DisplayName: Superaquecido
+		Description: Sua caldeira está soltando vapor! Sem itens, e você não consegue parar de se mover até o vapor encher de novo
+	}
 }
 
 NPCs: {
 	TrashTr0m: {
 		DisplayName: Trash-Tr0m
 		Epithet: Colosso do Ferro-Velho
-		Bestiary: A metade de cima de um titã de obras, arrancada na cintura e soldada de novo com o que o Ferro-Velho tinha. Dorme sob a sucata, guardando um esconderijo que já nem lembra de ter enchido.
+		Bestiary: A metade de cima de um titã de obras, arrancada na cintura e soldada de novo com o que o Ferro-Velho tinha. Arrasta-se atrás de tudo que se mexe, golpeia o chão até fazê-lo ondular e engole o que não consegue pegar. Dorme sob a sucata, guardando um esconderijo que já não consegue abrir: engoliu a chave há muito tempo.
 		CacheGuarded: O esconderijo não cede. Algo ainda o protege...
-		CacheUnsealed: O lacre do Esconderijo do Ferro-Velho se abre rangendo!
+		KeyDropped: Uma chave toda mastigada cai dos destroços...
+		CacheLocked: O baú está bem trancado. A Chave Perdida do Trash-Tr0m o abre.
+	}
+
+	RustCollector: {
+		DisplayName: Coletor de Ferrugem
+		Bestiary: Uma lixeira de sucata sobre dois roletes que nunca parou de trabalhar. Avança contra qualquer coisa que possa ser ferrugem, e acha que tudo pode ser ferrugem. Não consegue subir, mas nunca para de acelerar.
+	}
+
+	Trapper: {
+		DisplayName: Caçador
+		Bestiary: Meio goblin, meio engrenagem, todo caçador. Parafusou em si mesmo um braço de latão e um olho de lente e foi para a selva com um saco de bolas de espinhos. Nunca deixa a presa chegar perto: corre, se vira e semeia o chão de espinhos.
+	}
+
+	LivingTar: {
+		DisplayName: Piche Vivo
+		Bestiary: Piche da piscina do Ferro-Velho que rastejou para fora sozinho. Pula como qualquer geleia, e a cada pouso arremessa uma bolota quente de si mesmo em quem estiver perseguindo.
 	}
 }
 
@@ -203,6 +372,54 @@ Projectiles: {
 	MiceBotMinion: {
 		DisplayName: Rato-Robô
 	}
+
+	TrashTr0mShockwave: {
+		DisplayName: Onda de Choque
+	}
+
+	TrashTr0mChewedScrap: {
+		DisplayName: Sucata Mastigada
+	}
+
+	TrashTr0mScrapBall: {
+		DisplayName: Bola de Sucata
+	}
+
+	TetanusProjectile: {
+		DisplayName: Tétano
+	}
+
+	ScrapLauncherChunk: {
+		DisplayName: Sucata Mastigada
+	}
+
+	ScrapLauncherBall: {
+		DisplayName: Bola de Sucata
+	}
+
+	ScrapmancerWave: {
+		DisplayName: Onda de Sucata
+	}
+
+	Tr0mheadSentry: {
+		DisplayName: Tr0mhead
+	}
+
+	TarGlob: {
+		DisplayName: Bolota de Piche
+	}
+
+	TrashTr0mCog: {
+		DisplayName: Engrenagem Solta
+	}
+
+	TrapperSpikeBall: {
+		DisplayName: Bola de Espinhos
+	}
+
+	TrapperChainProjectile: {
+		DisplayName: Corrente do Caçador
+	}
 }
 
 Tiles: {
@@ -218,6 +435,10 @@ Tiles: {
 		MapEntry0: Baú de Sucata
 		MapEntry1: Esconderijo do Ferro-Velho
 	}
+
+	RustPolisherTile: {
+		MapEntry: Polidor de Ferrugem
+	}
 }
 
 WorldGen: {
@@ -225,10 +446,32 @@ WorldGen: {
 	ScrapMounds: Despejando montes de sucata
 	Junkyard: Despejando o Ferro-Velho
 	ScrappyTrunks: Enferrujando alguns baús velhos
+	GlassContainers: Escondendo tanques de vapor de vidro
+}
+
+UI: {
+	BossDefeated: Derrotado
+}
+
+DamageClasses: {
+	MechanistDamage: {
+		DisplayName: dano de mecanista
+	}
+}
+
+Mechanist: {
+	SteamCost: Usa {0} de vapor
+	SteamHover: "Vapor: {0}/{1}"
+	NoTank: Sem tanque de vapor!
+	NoTankTooltip: Precisa de um tanque de vapor: use armadura de Mecanista ou um recipiente de vapor
 }
 
 Biomes: {
 	JunkyardBiome: {
 		DisplayName: O Ferro-Velho
 	}
+}
+
+DropConditions: {
+	TrashTr0mFirstKill: Apenas na primeira derrota em cada mundo
 }

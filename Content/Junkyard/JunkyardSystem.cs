@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
+using Cogpunk.Content.Furniture;
 using Cogpunk.Content.Junkyard.Generation;
+using Cogpunk.Content.Junkyard.Items;
+using Cogpunk.Content.Junkyard.Map;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.WorldGeneration;
 using Microsoft.Xna.Framework;
@@ -72,6 +75,7 @@ namespace Cogpunk.Content.Junkyard
 			if (Main.netMode == NetmodeID.MultiplayerClient || !Exists) {
 				return;
 			}
+			AddMissingCacheItems();
 			int placeholder = ModContent.TileType<UnloadedNonSolidTile>();
 			Rectangle pool = PoolArea;
 			int converted = 0;
@@ -88,6 +92,58 @@ namespace Cogpunk.Content.Junkyard
 			if (converted > 0) {
 				SafeLog.Info("Junkyard.PetroleumMigrated", "Junkyard: an older world's Petroleum layer was turned into tar (pool water).");
 			}
+		}
+
+		/// <summary>What the Junkyard Cache holds besides materials (user-set 2026-10-26): the Polisher Schematic and the
+		/// Mysterious Map.</summary>
+		public static int[] CacheQuestItems() => new[] { ModContent.ItemType<PolisherSchematic>(), ModContent.ItemType<MysteriousMap>() };
+
+		/// <summary>
+		/// Worlds generated before the cache held the Polisher Schematic and the Mysterious Map: a cache that is still
+		/// locked (never opened, so its loot is untouched) gets whichever is missing, in its first empty slots. Idempotent
+		/// (an item already inside is never added twice), so it simply runs on every load: one pass over
+		/// <c>Main.maxChests</c> chest slots with an O(1) rectangle test each (D0, D1). Server or singleplayer; chest items
+		/// reach clients when they open the chest.
+		/// </summary>
+		private static void AddMissingCacheItems() {
+			int trunk = ModContent.TileType<ScrappyTrunkTile>();
+			int[] quest = CacheQuestItems();
+			for (int i = 0; i < Main.maxChests; i++) {
+				Chest chest = Main.chest[i];
+				if (chest == null || !ContainsTile(new Point(chest.x, chest.y))
+					|| !TileSafety.TryGetTile(chest.x, chest.y, out Tile tile) || !tile.HasTile || tile.TileType != trunk
+					|| !ScrappyTrunkTile.IsLocked(tile)) {
+					continue;
+				}
+				int added = 0;
+				foreach (int type in quest) {
+					added += EnsureItem(chest, type) ? 1 : 0;
+				}
+				if (added > 0) {
+					SafeLog.Info("Junkyard.CacheMigrated", "Junkyard: an older world's cache got the Polisher Schematic and the Mysterious Map.");
+				}
+			}
+		}
+
+		/// <summary>Puts one <paramref name="type"/> in the first empty slot unless the chest already holds one. True if added.</summary>
+		private static bool EnsureItem(Chest chest, int type) {
+			int empty = -1;
+			for (int k = 0; k < chest.item.Length; k++) {
+				Item item = chest.item[k];
+				if (item != null && !item.IsAir && item.type == type) {
+					return false;
+				}
+				if (empty < 0 && (item == null || item.IsAir)) {
+					empty = k;
+				}
+			}
+			if (empty < 0) {
+				return false;                                // a full cache: leave it alone
+			}
+			chest.item[empty] ??= new Item();
+			chest.item[empty].SetDefaults(type);
+			chest.item[empty].stack = 1;
+			return true;
 		}
 
 		public override void ClearWorld() {

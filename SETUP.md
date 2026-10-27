@@ -383,17 +383,21 @@ set,tier,anchor_set,head_def,body_def,legs_def,total_def,anchor_total_def,set_bo
 ```
 `bosses.csv`
 ```
-boss,tier,anchor_boss,life_classic,defense,contact_dmg,proj_dmg,target_ttk_s,ttk_1p_s,ttk_2p_s,ttk_4p_s,modes_tested,tested_on
+boss,tier,anchor_boss,life_expert,defense,contact_dmg,proj_dmg,target_ttk_s,ttk_1p_s,ttk_2p_s,ttk_4p_s,modes_tested,tested_on
 ```
 `npcs.csv`
 ```
 npc,biome,tier,anchor_npc,life,defense,contact_dmg,proj_dmg,spawn_chance,banner,tested_on
 ```
+`accessories.csv`
+```
+accessory,class,tier,source,anchor_vanilla,effects,anchor_effects,value_note,tested_on
+```
 `hazards.csv` (environmental damage: tar, gas, hot pipes...)
 ```
 hazard,biome,tier,anchor_vanilla,damage,interval_ticks,dps,anchor_dps,effects,linger_ticks,delta_pct,tradeoff_note,tested_on
 ```
-`eff_dps = damage × (60 / use_time) × (1 + crit/100) × shots_per_use`, where base crit is 4%. Write any hit-rate or pierce assumptions in `tradeoff_note`. `delta_pct = (eff_dps / anchor_eff_dps − 1) × 100`.
+**Every enemy and boss number is the Expert value** (user directive 2026-10-27, SKILL D3 rule 0): life, contact and projectile damage as a player sees them in an Expert world, with Classic and Master in brackets where useful, compared with the anchor's Expert stats. `eff_dps = damage × (60 / use_time) × (1 + crit/100) × shots_per_use`, where base crit is 4%. Write any hit-rate or pierce assumptions in `tradeoff_note`. `delta_pct = (eff_dps / anchor_eff_dps − 1) × 100`.
 
 ### 8.9 Tool scripts (`tools/`; create in M0)
 

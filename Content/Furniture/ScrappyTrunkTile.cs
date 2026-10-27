@@ -1,5 +1,6 @@
 using System;
 using Cogpunk.Content.Bosses.TrashTr0m;
+using Cogpunk.Content.Bosses.TrashTr0m.Items;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
@@ -20,11 +21,12 @@ namespace Cogpunk.Content.Furniture
 	/// <para>Style 0 is the craftable trunk. Style 1 is the <b>cache</b> that world generation buries (e.g. the Junkyard's
 	/// central heap): it pulses with a faint brass glow every <see cref="PulsePeriod"/> ticks and sparkles at the surface
 	/// above it, so players notice a buried one. Breaking a cache drops a normal trunk. All glow is client-side.</para>
-	/// <para>A cache is <b>sealed</b> until Trash-Tr0m is defeated (<see cref="TrashTr0mSystem.Downed"/>): it reports
-	/// itself locked (<see cref="IsLockedChest"/>), so quick-stacking skips it (decompiled <c>Chest.PutItemInNearbyChest</c>)
-	/// and no key opens it (<see cref="UnlockChest"/>), and right-clicking it wakes the boss
-	/// (<see cref="TrashTr0mSummon.Request"/>) instead of opening it. A chest with items can't be broken, so the loot
-	/// stays put.</para>
+	/// <para>A cache is <b>locked</b> (<see cref="IsLockedChest"/>, so quick-stacking skips it: decompiled
+	/// <c>Chest.PutItemInNearbyChest</c>) and only the <see cref="LostKey"/>, Trash-Tr0m's drop, opens it: right-clicking
+	/// with the key uses it up and unlocks the cache into a plain trunk (style 0, loot inside; vanilla <c>Chest.Unlock</c>
+	/// moves a modded chest one style back by default). Right-clicking without the key wakes its guardian, which bursts
+	/// up from under the heap (<see cref="TrashTr0mSummon.Request"/>), until the guardian's first defeat; from then on it
+	/// just stays locked until the key opens it. A chest with items can't be broken, so the loot stays put.</para>
 	/// </summary>
 	public class ScrappyTrunkTile : CogpunkTile
 	{
@@ -77,8 +79,8 @@ namespace Cogpunk.Content.Furniture
 
 		private static bool IsCache(Tile tile) => tile.TileFrameX / 36 == CacheStyle;
 
-		/// <summary>True for a cache whose guardian, Trash-Tr0m, hasn't been defeated in this world yet.</summary>
-		public static bool IsSealed(Tile tile) => IsCache(tile) && !TrashTr0mSystem.Downed;
+		/// <summary>True for a cache that hasn't been opened with the Lost Key yet.</summary>
+		public static bool IsLocked(Tile tile) => IsCache(tile);
 
 		public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
 
@@ -86,10 +88,14 @@ namespace Cogpunk.Content.Furniture
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 
-		public override bool IsLockedChest(int i, int j) => IsSealed(Main.tile[i, j]);
+		public override bool IsLockedChest(int i, int j) => IsLocked(Main.tile[i, j]);
 
-		// Only the guardian's defeat unseals a cache; keys never turn it into a plain trunk.
-		public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual) => false;
+		// Runs on the client that used the key and on the server (MessageID.LockAndUnlock); the default adjustment turns
+		// style 1 back into style 0. The key itself is checked and consumed in RightClick.
+		public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual) {
+			dustType = DustType;
+			return true;
+		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) {
 			num = 1;
@@ -173,8 +179,18 @@ namespace Cogpunk.Content.Furniture
 			if (tile.TileFrameY != 0) {
 				top--;
 			}
-			if (IsSealed(tile)) {
-				TrashTr0mSummon.Request(player, left, top);   // the cache stays shut; its guardian wakes up
+			if (IsLocked(tile)) {
+				int key = ModContent.ItemType<LostKey>();
+				if (player.HasItemInInventoryOrOpenVoidBag(key)) {
+					if (Chest.Unlock(left, top) && player.ConsumeItem(key, includeVoidBag: true)) {
+						if (Main.netMode == NetmodeID.MultiplayerClient) {
+							NetMessage.SendData(MessageID.LockAndUnlock, number2: 1f, number3: left, number4: top);   // 1 = unlock
+						}
+					}
+				}
+				else {
+					TrashTr0mSummon.Request(player, left, top);   // no key: stays shut (its guardian wakes up until first defeated)
+				}
 				return true;
 			}
 
@@ -234,7 +250,11 @@ namespace Cogpunk.Content.Furniture
 			}
 			int chest = Chest.FindChest(left, top);
 			player.cursorItemIconID = -1;
-			if (chest < 0) {
+			if (IsLocked(tile) && player.HasItemInInventoryOrOpenVoidBag(ModContent.ItemType<LostKey>())) {
+				player.cursorItemIconID = ModContent.ItemType<LostKey>();   // like vanilla's key icon over a locked chest
+				player.cursorItemIconText = "";
+			}
+			else if (chest < 0) {
 				player.cursorItemIconText = Language.GetTextValue("LegacyChestType.0");
 			}
 			else {

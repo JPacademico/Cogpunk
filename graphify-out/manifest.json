@@ -210,24 +210,24 @@
     "semantic_hash": "3f81892297bc71e34f24c36334c624d8"
   },
   ".claude/skills/cogpunk-dev/SKILL.md": {
-    "mtime": 1792757161.7107959,
-    "ast_hash": "ef4ff5341c86641dbcdf0be749a44ed8",
-    "semantic_hash": "ef4ff5341c86641dbcdf0be749a44ed8"
+    "mtime": 1793048617.7378035,
+    "ast_hash": "64ac26e2bb9fb4f353026ce2a4c759bd",
+    "semantic_hash": "64ac26e2bb9fb4f353026ce2a4c759bd"
   },
   "CLAUDE.md": {
-    "mtime": 1792605575.4204113,
-    "ast_hash": "4f82ffdc112ecfcbb66758d00515eb57",
-    "semantic_hash": "4f82ffdc112ecfcbb66758d00515eb57"
+    "mtime": 1793030298.190942,
+    "ast_hash": "16b54137bcc738e278fddce9381c95e5",
+    "semantic_hash": "16b54137bcc738e278fddce9381c95e5"
   },
   "README.md": {
-    "mtime": 1792680853.256528,
-    "ast_hash": "f0284b1270fc4960007274f51b162646",
-    "semantic_hash": "f0284b1270fc4960007274f51b162646"
+    "mtime": 1793048617.7398028,
+    "ast_hash": "b689bfa9b1458d92c309281d2e10d221",
+    "semantic_hash": "b689bfa9b1458d92c309281d2e10d221"
   },
   "SETUP.md": {
-    "mtime": 1792605575.4214215,
-    "ast_hash": "ede7c19342753b16a64a0b7712ecf729",
-    "semantic_hash": "ede7c19342753b16a64a0b7712ecf729"
+    "mtime": 1792770060.5554507,
+    "ast_hash": "d81ef98b88cbc85e5238adc3a6e939b7",
+    "semantic_hash": "d81ef98b88cbc85e5238adc3a6e939b7"
   },
   "build.txt": {
     "mtime": 1792515071.471697,
@@ -340,29 +340,29 @@
     "semantic_hash": "89dc8909ea67fcf6e399ef7cb95bf539"
   },
   "Content/Furniture/ScrappyTrunkTile.cs": {
-    "mtime": 1792680066.0052123,
-    "ast_hash": "a6ae9ab39d174387b9c02178ebd386e8",
-    "semantic_hash": "a6ae9ab39d174387b9c02178ebd386e8"
+    "mtime": 1793045393.3411646,
+    "ast_hash": "50e616ab7a95848f97e8d7031fc81fb7",
+    "semantic_hash": "50e616ab7a95848f97e8d7031fc81fb7"
   },
   "Content/Junkyard/Generation/JunkyardPass.cs": {
-    "mtime": 1792690631.2553115,
-    "ast_hash": "48acc8fed246369b90be3626050c9fa2",
-    "semantic_hash": "48acc8fed246369b90be3626050c9fa2"
+    "mtime": 1793046274.8006766,
+    "ast_hash": "6c77d2bf3ce6e3dea6bbfb81f923c69b",
+    "semantic_hash": "6c77d2bf3ce6e3dea6bbfb81f923c69b"
   },
   "Content/Junkyard/Items/PolishedMetal.cs": {
-    "mtime": 1792679969.0898378,
-    "ast_hash": "5e05762fef1346002ee13749fb8810c7",
-    "semantic_hash": "5e05762fef1346002ee13749fb8810c7"
+    "mtime": 1793046251.2965164,
+    "ast_hash": "0d6c8c926c9f04e58dbf33b7497502af",
+    "semantic_hash": "0d6c8c926c9f04e58dbf33b7497502af"
   },
   "Content/Junkyard/JunkyardBiome.cs": {
-    "mtime": 1792679951.081938,
-    "ast_hash": "3a9efd78f82ecf62f95b71b2fa499aa0",
-    "semantic_hash": "3a9efd78f82ecf62f95b71b2fa499aa0"
+    "mtime": 1792768187.068203,
+    "ast_hash": "a93084f78c23a7387ad3c961b5f397a3",
+    "semantic_hash": "a93084f78c23a7387ad3c961b5f397a3"
   },
   "Content/Junkyard/JunkyardSystem.cs": {
-    "mtime": 1792690590.112612,
-    "ast_hash": "3377867602a283e085b53d5dfb3f12d0",
-    "semantic_hash": "3377867602a283e085b53d5dfb3f12d0"
+    "mtime": 1793046274.8016777,
+    "ast_hash": "d127757338766daf2aa033a98c328873",
+    "semantic_hash": "d127757338766daf2aa033a98c328873"
   },
   "Content/Junkyard/Tiles/PolishedMetalTile.cs": {
     "mtime": 1792690640.8970964,
@@ -410,9 +410,9 @@
     "semantic_hash": "0e6fd4b3810324b9dfe7aa67dab66385"
   },
   "art/junkyard/make_junkyard_art.py": {
-    "mtime": 1792690881.6160138,
-    "ast_hash": "29f64ad5584ceb0385dc102a71136223",
-    "semantic_hash": "29f64ad5584ceb0385dc102a71136223"
+    "mtime": 1792768270.5976276,
+    "ast_hash": "d519692d279fc109cd0985e4e696bfbd",
+    "semantic_hash": "d519692d279fc109cd0985e4e696bfbd"
   },
   "art/scrap/make_scrap_armor.py": {
     "mtime": 1792614142.371491,
@@ -440,14 +440,14 @@
     "semantic_hash": "901a70f027817baddd5b180b64dc0cf2"
   },
   "tools/sim/junkyard_effects_sim.py": {
-    "mtime": 1792691073.5050719,
-    "ast_hash": "34286e8148dd1327bb771508b52410a1",
-    "semantic_hash": "34286e8148dd1327bb771508b52410a1"
+    "mtime": 1792769764.8627546,
+    "ast_hash": "68727ca099437ad2f04db56ade61b73c",
+    "semantic_hash": "68727ca099437ad2f04db56ade61b73c"
   },
   "tools/sim/junkyard_sim.py": {
-    "mtime": 1792691245.294939,
-    "ast_hash": "ec5c017de2f1718a9afd653460d64905",
-    "semantic_hash": "ec5c017de2f1718a9afd653460d64905"
+    "mtime": 1792770032.55088,
+    "ast_hash": "296e51d092dfe79145d38243f2270dac",
+    "semantic_hash": "296e51d092dfe79145d38243f2270dac"
   },
   "tools/sim/scrap_cog_volley_sim.py": {
     "mtime": 1792700013.3060942,
@@ -645,24 +645,9 @@
     "semantic_hash": "eb38b0ddaf52e9ab9b4b64476ce97d21"
   },
   "Content/Junkyard/Items/Junkbait.cs": {
-    "mtime": 1792691009.1460252,
-    "ast_hash": "eb070c8b420e259499f3847375f5ca4c",
-    "semantic_hash": "eb070c8b420e259499f3847375f5ca4c"
-  },
-  "Content/Junkyard/PetroleumOverlay.cs": {
-    "mtime": 1792691323.2986374,
-    "ast_hash": "da8a3ddfe5adb29a63de82e9b5ad41be",
-    "semantic_hash": "da8a3ddfe5adb29a63de82e9b5ad41be"
-  },
-  "Content/Junkyard/PetroleumPlayer.cs": {
-    "mtime": 1792690427.5359256,
-    "ast_hash": "5969cb26056e5b32c02fd8d056dae59f",
-    "semantic_hash": "5969cb26056e5b32c02fd8d056dae59f"
-  },
-  "Content/Junkyard/Tiles/PetroleumTile.cs": {
-    "mtime": 1792690405.5346568,
-    "ast_hash": "c514494b66afb1850ca748030e8553ed",
-    "semantic_hash": "c514494b66afb1850ca748030e8553ed"
+    "mtime": 1793029367.9771855,
+    "ast_hash": "49bd0d1402df43a54d831e0cb1b494e3",
+    "semantic_hash": "49bd0d1402df43a54d831e0cb1b494e3"
   },
   "Content/Scrap/Minions/MiceBot.cs": {
     "mtime": 1792757040.3934717,
@@ -743,11 +728,6 @@
     "mtime": 1792690882.0819757,
     "ast_hash": "85cd2e6082f352d5d44ed7001873d0ea",
     "semantic_hash": "85cd2e6082f352d5d44ed7001873d0ea"
-  },
-  "Content/Junkyard/Tiles/PetroleumTile.png": {
-    "mtime": 1792690882.0809674,
-    "ast_hash": "1552f322acb4dfc6866571d254a9a46e",
-    "semantic_hash": "1552f322acb4dfc6866571d254a9a46e"
   },
   "Content/Scrap/Minions/MiceBot.png": {
     "mtime": 1792756922.0698085,
@@ -868,5 +848,615 @@
     "mtime": 1792757191.8199935,
     "ast_hash": "579dd2a894cd7565e402bcc8bca49944",
     "semantic_hash": "579dd2a894cd7565e402bcc8bca49944"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m.cs": {
+    "mtime": 1793045393.339166,
+    "ast_hash": "ab48ef2168005ee93aebe7c8eb64307e",
+    "semantic_hash": "ab48ef2168005ee93aebe7c8eb64307e"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0mSummon.cs": {
+    "mtime": 1793045393.3401637,
+    "ast_hash": "d3f83648d8084e945bffdef72e175a4a",
+    "semantic_hash": "d3f83648d8084e945bffdef72e175a4a"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0mSystem.cs": {
+    "mtime": 1793045397.7108388,
+    "ast_hash": "38d0be751d22f391eb23ab6e6cf2e6da",
+    "semantic_hash": "38d0be751d22f391eb23ab6e6cf2e6da"
+  },
+  "Content/Junkyard/JunkyardSpawnRules.cs": {
+    "mtime": 1793046137.4860272,
+    "ast_hash": "545d952611a4811445da882497cb23d7",
+    "semantic_hash": "545d952611a4811445da882497cb23d7"
+  },
+  "Content/Junkyard/Tar/TarDroplet.cs": {
+    "mtime": 1792768093.6985717,
+    "ast_hash": "44021b9cf0aae22f6f9d548490d16d30",
+    "semantic_hash": "44021b9cf0aae22f6f9d548490d16d30"
+  },
+  "Content/Junkyard/Tar/TarPlague.cs": {
+    "mtime": 1792768160.8461514,
+    "ast_hash": "1dfdc1dbe41add9ef567ad6f23307d81",
+    "semantic_hash": "1dfdc1dbe41add9ef567ad6f23307d81"
+  },
+  "Content/Junkyard/Tar/TarPlayer.cs": {
+    "mtime": 1792768176.6521883,
+    "ast_hash": "30a36c5ef13d1f5f3ff455ba92b4f4f3",
+    "semantic_hash": "30a36c5ef13d1f5f3ff455ba92b4f4f3"
+  },
+  "Content/Junkyard/Tar/TarSplash.cs": {
+    "mtime": 1792768100.746238,
+    "ast_hash": "27566f0f1b31f6ec21ae4f21b22af2db",
+    "semantic_hash": "27566f0f1b31f6ec21ae4f21b22af2db"
+  },
+  "Content/Junkyard/Tar/TarSteam.cs": {
+    "mtime": 1792768127.151989,
+    "ast_hash": "646924627d8ee1712b6e86222a06e188",
+    "semantic_hash": "646924627d8ee1712b6e86222a06e188"
+  },
+  "Content/Junkyard/Tar/TarSteamSystem.cs": {
+    "mtime": 1792768148.6566586,
+    "ast_hash": "3cd180ab501583c47dcd836fe70c8760",
+    "semantic_hash": "3cd180ab501583c47dcd836fe70c8760"
+  },
+  "Content/Junkyard/Tar/TarWaterStyle.cs": {
+    "mtime": 1792768093.521165,
+    "ast_hash": "e1b75ed4e4ce72d36d26d3cb92dcf76d",
+    "semantic_hash": "e1b75ed4e4ce72d36d26d3cb92dcf76d"
+  },
+  "Core/UI/BossTitleSystem.cs": {
+    "mtime": 1793035685.946534,
+    "ast_hash": "0141b95676b2153b5c06cf4a880c6127",
+    "semantic_hash": "0141b95676b2153b5c06cf4a880c6127"
+  },
+  "art/bosses/trashtr0m/make_trashtr0m_art.py": {
+    "mtime": 1793047714.037393,
+    "ast_hash": "b116609ebf228aef328058c7ffd469db",
+    "semantic_hash": "b116609ebf228aef328058c7ffd469db"
+  },
+  "art/junkyard/make_tar_art.py": {
+    "mtime": 1792768336.7509222,
+    "ast_hash": "143249f88af044403dd45d7218578379",
+    "semantic_hash": "143249f88af044403dd45d7218578379"
+  },
+  "tools/sim/trashtr0m_sim.py": {
+    "mtime": 1793048389.5367472,
+    "ast_hash": "246e084750a7574e27812e5b89d5a5e6",
+    "semantic_hash": "246e084750a7574e27812e5b89d5a5e6"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m.png": {
+    "mtime": 1793047702.876418,
+    "ast_hash": "52b9109b531139184b95425df1d8b247",
+    "semantic_hash": "52b9109b531139184b95425df1d8b247"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m_Glow.png": {
+    "mtime": 1793047702.954542,
+    "ast_hash": "c108c9f394662f8fb85af20a8f05de77",
+    "semantic_hash": "c108c9f394662f8fb85af20a8f05de77"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m_Head_Boss.png": {
+    "mtime": 1793047704.2087674,
+    "ast_hash": "ae93dd8d4518fbaf1a7592b09ac84c76",
+    "semantic_hash": "ae93dd8d4518fbaf1a7592b09ac84c76"
+  },
+  "Content/Junkyard/Tar/TarDroplet.png": {
+    "mtime": 1792768340.602085,
+    "ast_hash": "951e1b54450aac6dda846cf3436f53c6",
+    "semantic_hash": "951e1b54450aac6dda846cf3436f53c6"
+  },
+  "Content/Junkyard/Tar/TarPlague.png": {
+    "mtime": 1792768340.611749,
+    "ast_hash": "ff435b76f5e593fabe51b3867fe0a331",
+    "semantic_hash": "ff435b76f5e593fabe51b3867fe0a331"
+  },
+  "Content/Junkyard/Tar/TarSplash.png": {
+    "mtime": 1792768340.603687,
+    "ast_hash": "e46f0674dd19dae309d21e1af6170f65",
+    "semantic_hash": "e46f0674dd19dae309d21e1af6170f65"
+  },
+  "Content/Junkyard/Tar/TarSteam.png": {
+    "mtime": 1792768340.6082149,
+    "ast_hash": "77c983ff70991df3d2dacd204c309126",
+    "semantic_hash": "77c983ff70991df3d2dacd204c309126"
+  },
+  "Content/Junkyard/Tar/TarWaterStyle.png": {
+    "mtime": 1792768340.5871973,
+    "ast_hash": "83e17474be175ae3ab7cb6ca7e37d482",
+    "semantic_hash": "83e17474be175ae3ab7cb6ca7e37d482"
+  },
+  "Content/Junkyard/Tar/TarWaterStyle_Block.png": {
+    "mtime": 1792768340.5907133,
+    "ast_hash": "47e8aa180bb6c1cacd077b9ae03c0427",
+    "semantic_hash": "47e8aa180bb6c1cacd077b9ae03c0427"
+  },
+  "Content/Junkyard/Tar/TarWaterStyle_Slope.png": {
+    "mtime": 1792768340.5952847,
+    "ast_hash": "c2703a12a50284a24832e979398b826a",
+    "semantic_hash": "c2703a12a50284a24832e979398b826a"
+  },
+  "Content/Junkyard/Tar/TarWaterfallStyle.png": {
+    "mtime": 1792768340.5988054,
+    "ast_hash": "18415ad57a3c2803c9a340c624f7e7e0",
+    "semantic_hash": "18415ad57a3c2803c9a340c624f7e7e0"
+  },
+  "docs/media/2026-10-23_boss-trashtr0m-idle.gif": {
+    "mtime": 1792769806.6020572,
+    "ast_hash": "73ffe985059d0a64a03831037e31e93a",
+    "semantic_hash": "73ffe985059d0a64a03831037e31e93a"
+  },
+  "docs/media/2026-10-23_boss-trashtr0m-intro.gif": {
+    "mtime": 1792770004.754844,
+    "ast_hash": "2613ac2e74d4ea909e2dd1e19363c8c7",
+    "semantic_hash": "2613ac2e74d4ea909e2dd1e19363c8c7"
+  },
+  "docs/media/2026-10-23_boss-trashtr0m-sprite.png": {
+    "mtime": 1792769994.144941,
+    "ast_hash": "f936ada4428a5ae0c623f8c80ce1b03d",
+    "semantic_hash": "f936ada4428a5ae0c623f8c80ce1b03d"
+  },
+  "docs/media/2026-10-23_junkyard-tar-overview.png": {
+    "mtime": 1792770033.2593517,
+    "ast_hash": "1279c7a1e1a27d24bd18fb578dfacb81",
+    "semantic_hash": "1279c7a1e1a27d24bd18fb578dfacb81"
+  },
+  "docs/media/2026-10-23_junkyard-tar-sprites.png": {
+    "mtime": 1792770179.7925236,
+    "ast_hash": "44edc139619c368684ba83dc75424187",
+    "semantic_hash": "44edc139619c368684ba83dc75424187"
+  },
+  "docs/media/2026-10-23_junkyard-tar-surface.png": {
+    "mtime": 1792770033.3751018,
+    "ast_hash": "f6825e155d6eccce348e64ccb62e68c4",
+    "semantic_hash": "f6825e155d6eccce348e64ccb62e68c4"
+  },
+  "docs/media/2026-10-23_junkyard-tar.gif": {
+    "mtime": 1792769770.1515155,
+    "ast_hash": "caec08dc42f6b322e83101847479ce27",
+    "semantic_hash": "caec08dc42f6b322e83101847479ce27"
+  },
+  "Content/Bosses/TrashTr0m/Buffs/TetanusDebuff.cs": {
+    "mtime": 1793045712.4563577,
+    "ast_hash": "479ea4471f585b1c991d1c9811838f86",
+    "semantic_hash": "479ea4471f585b1c991d1c9811838f86"
+  },
+  "Content/Bosses/TrashTr0m/Items/LostKey.cs": {
+    "mtime": 1793029341.7808044,
+    "ast_hash": "8814f1774b6742785b6e0a1c950ee381",
+    "semantic_hash": "8814f1774b6742785b6e0a1c950ee381"
+  },
+  "Content/Bosses/TrashTr0m/Items/TrashTr0mBag.cs": {
+    "mtime": 1793045374.593919,
+    "ast_hash": "e9eb6b01d3f28dd4acc070f26b5d92c9",
+    "semantic_hash": "e9eb6b01d3f28dd4acc070f26b5d92c9"
+  },
+  "Content/Bosses/TrashTr0m/Projectiles/TrashTr0mChewedScrap.cs": {
+    "mtime": 1793035873.9403617,
+    "ast_hash": "77ccea912cdd97650ec9db7cef25c660",
+    "semantic_hash": "77ccea912cdd97650ec9db7cef25c660"
+  },
+  "Content/Bosses/TrashTr0m/Projectiles/TrashTr0mScrapBall.cs": {
+    "mtime": 1793035873.9418714,
+    "ast_hash": "de1f8cdc6e564fb783c67976887ddbae",
+    "semantic_hash": "de1f8cdc6e564fb783c67976887ddbae"
+  },
+  "Content/Bosses/TrashTr0m/Projectiles/TrashTr0mShockwave.cs": {
+    "mtime": 1793035873.9403617,
+    "ast_hash": "ac36b8068e32a35dbf944f08bdbce5f8",
+    "semantic_hash": "ac36b8068e32a35dbf944f08bdbce5f8"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m.Attacks.cs": {
+    "mtime": 1793047811.296597,
+    "ast_hash": "1c824c294b77e515d6cf10563064d31e",
+    "semantic_hash": "1c824c294b77e515d6cf10563064d31e"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m.Hitboxes.cs": {
+    "mtime": 1793035926.5001311,
+    "ast_hash": "50483c2650e61d6c8009e58b8749361f",
+    "semantic_hash": "50483c2650e61d6c8009e58b8749361f"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m.Visuals.cs": {
+    "mtime": 1793048537.562516,
+    "ast_hash": "35c1dc0873a86a12838bc952ffba875d",
+    "semantic_hash": "35c1dc0873a86a12838bc952ffba875d"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0mLoot.cs": {
+    "mtime": 1793045374.5919938,
+    "ast_hash": "3e8f5a899a4795df3aef2f23f7651cd3",
+    "semantic_hash": "3e8f5a899a4795df3aef2f23f7651cd3"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0mPlayer.cs": {
+    "mtime": 1793035829.6729348,
+    "ast_hash": "6f1758e36ffcf910cd4c0d1ca1dd3d88",
+    "semantic_hash": "6f1758e36ffcf910cd4c0d1ca1dd3d88"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0mRigData.cs": {
+    "mtime": 1793047704.2057643,
+    "ast_hash": "f729a27826849e9a9f4947aae77f6c2b",
+    "semantic_hash": "f729a27826849e9a9f4947aae77f6c2b"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/ScrapLauncher.cs": {
+    "mtime": 1793047250.3288333,
+    "ast_hash": "317f075a395471f9bcb0349c50a7242a",
+    "semantic_hash": "317f075a395471f9bcb0349c50a7242a"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/ScrapLauncherBall.cs": {
+    "mtime": 1793045782.8233833,
+    "ast_hash": "d29f39227549a782b10a21a36fb82889",
+    "semantic_hash": "d29f39227549a782b10a21a36fb82889"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/ScrapLauncherChunk.cs": {
+    "mtime": 1793048532.594036,
+    "ast_hash": "055760cc2491444a7f4af22dc22729fc",
+    "semantic_hash": "055760cc2491444a7f4af22dc22729fc"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/Scrapmancer.cs": {
+    "mtime": 1793045798.966606,
+    "ast_hash": "72da4b18c23bc8da01e04020baab9be9",
+    "semantic_hash": "72da4b18c23bc8da01e04020baab9be9"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/ScrapmancerWave.cs": {
+    "mtime": 1793045821.5532253,
+    "ast_hash": "f7de9bf67b979c3b5e08a794f8f7c851",
+    "semantic_hash": "f7de9bf67b979c3b5e08a794f8f7c851"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/Tetanus.cs": {
+    "mtime": 1793045587.7249906,
+    "ast_hash": "cdfa47116f00f82ebf9c456aab28dc26",
+    "semantic_hash": "cdfa47116f00f82ebf9c456aab28dc26"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/TetanusProjectile.cs": {
+    "mtime": 1793045697.307871,
+    "ast_hash": "6295bdf05ddb02768f1852a6f58931a8",
+    "semantic_hash": "6295bdf05ddb02768f1852a6f58931a8"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/Tr0mheadSentry.cs": {
+    "mtime": 1793048641.9891162,
+    "ast_hash": "1cb31aafdfec6c447d862c529eb7ffd0",
+    "semantic_hash": "1cb31aafdfec6c447d862c529eb7ffd0"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/Tr0mheadStaff.cs": {
+    "mtime": 1793045835.5305676,
+    "ast_hash": "3892d69558c5efaaa34dadc8e0254382",
+    "semantic_hash": "3892d69558c5efaaa34dadc8e0254382"
+  },
+  "Content/Junkyard/Items/PolisherSchematic.cs": {
+    "mtime": 1793046241.4729388,
+    "ast_hash": "30d5805308b80ee1db03211cb075ded4",
+    "semantic_hash": "30d5805308b80ee1db03211cb075ded4"
+  },
+  "Content/Junkyard/Items/RustPolisher.cs": {
+    "mtime": 1793046241.5600562,
+    "ast_hash": "8b3a8b25d5c7c93282c415e1c89bbb46",
+    "semantic_hash": "8b3a8b25d5c7c93282c415e1c89bbb46"
+  },
+  "Content/Junkyard/Items/TarDrop.cs": {
+    "mtime": 1793046109.2039685,
+    "ast_hash": "05e81da510a1c82663936efb6524d114",
+    "semantic_hash": "05e81da510a1c82663936efb6524d114"
+  },
+  "Content/Junkyard/Map/MysteriousMap.cs": {
+    "mtime": 1793046221.028683,
+    "ast_hash": "8f27da32388f2467915a498c7e500d0c",
+    "semantic_hash": "8f27da32388f2467915a498c7e500d0c"
+  },
+  "Content/Junkyard/Map/MysteriousMapArrowLayer.cs": {
+    "mtime": 1793048527.7613647,
+    "ast_hash": "3e81da7d457fba754b4df79a3501ccb6",
+    "semantic_hash": "3e81da7d457fba754b4df79a3501ccb6"
+  },
+  "Content/Junkyard/NPCs/LivingTar.cs": {
+    "mtime": 1793046088.1076572,
+    "ast_hash": "61afbad205204a92a47d64df45e2d87f",
+    "semantic_hash": "61afbad205204a92a47d64df45e2d87f"
+  },
+  "Content/Junkyard/NPCs/RustCollector.cs": {
+    "mtime": 1793046050.9318113,
+    "ast_hash": "d7adfc03deff097eda52f293a82e7599",
+    "semantic_hash": "d7adfc03deff097eda52f293a82e7599"
+  },
+  "Content/Junkyard/Projectiles/TarGlob.cs": {
+    "mtime": 1793046109.0107114,
+    "ast_hash": "a5d6c0bf5c3a94c9f9f1280e1ad80747",
+    "semantic_hash": "a5d6c0bf5c3a94c9f9f1280e1ad80747"
+  },
+  "Content/Junkyard/Tiles/RustPolisherTile.cs": {
+    "mtime": 1793046241.6420982,
+    "ast_hash": "81abf44b74cde5e3f44349fe0e2fc3d6",
+    "semantic_hash": "81abf44b74cde5e3f44349fe0e2fc3d6"
+  },
+  "Core/Systems/BossFightSpawnRule.cs": {
+    "mtime": 1793035663.10714,
+    "ast_hash": "311a89fd27692ac4641be2335af67dea",
+    "semantic_hash": "311a89fd27692ac4641be2335af67dea"
+  },
+  "Core/Systems/MapTargetSystem.cs": {
+    "mtime": 1793046195.148031,
+    "ast_hash": "78264337ae34ddbae714c2792c6a3b1f",
+    "semantic_hash": "78264337ae34ddbae714c2792c6a3b1f"
+  },
+  "Core/Templates/BossNPC.cs": {
+    "mtime": 1793035662.9248068,
+    "ast_hash": "637192dbbe11e64bd42e92eaa81cec66",
+    "semantic_hash": "637192dbbe11e64bd42e92eaa81cec66"
+  },
+  "Core/Visuals/CinematicCamera.cs": {
+    "mtime": 1793028793.2357926,
+    "ast_hash": "ec7755bbde31577a0e567cf69c51d16b",
+    "semantic_hash": "ec7755bbde31577a0e567cf69c51d16b"
+  },
+  "Core/Visuals/DepthLayers.cs": {
+    "mtime": 1793047726.7389834,
+    "ast_hash": "8d11996c45dcf6068a38bd4d6fcc57b9",
+    "semantic_hash": "8d11996c45dcf6068a38bd4d6fcc57b9"
+  },
+  "art/bosses/trashtr0m/make_trashtr0m_loot.py": {
+    "mtime": 1793047235.6632204,
+    "ast_hash": "5b26aaac84a30191647ac48bbc082164",
+    "semantic_hash": "5b26aaac84a30191647ac48bbc082164"
+  },
+  "art/bosses/trashtr0m/rig.py": {
+    "mtime": 1793035271.7375007,
+    "ast_hash": "ba29bafc95b10710a621c890b6bd529e",
+    "semantic_hash": "ba29bafc95b10710a621c890b6bd529e"
+  },
+  "art/junkyard/make_junkyard_loot.py": {
+    "mtime": 1793047467.2100532,
+    "ast_hash": "886b99d20971898d7f3d39a544fba2db",
+    "semantic_hash": "886b99d20971898d7f3d39a544fba2db"
+  },
+  "tools/sim/junkyard_finds_sim.py": {
+    "mtime": 1793048342.1027484,
+    "ast_hash": "f03e227777c89dabfdb94a3395cceca3",
+    "semantic_hash": "f03e227777c89dabfdb94a3395cceca3"
+  },
+  "tools/sim/trashtr0m_loot_sim.py": {
+    "mtime": 1793048160.0920906,
+    "ast_hash": "ff658c58a4c639b5a5ad33a183dfc369",
+    "semantic_hash": "ff658c58a4c639b5a5ad33a183dfc369"
+  },
+  "docs/design/art-direction.md": {
+    "mtime": 1793048617.7388034,
+    "ast_hash": "c07fc0037926c8a03bd8908987d97868",
+    "semantic_hash": "c07fc0037926c8a03bd8908987d97868"
+  },
+  "Content/Bosses/TrashTr0m/Buffs/TetanusDebuff.png": {
+    "mtime": 1793047235.9770768,
+    "ast_hash": "36dfe1659eff4db7752d93f1c3996172",
+    "semantic_hash": "36dfe1659eff4db7752d93f1c3996172"
+  },
+  "Content/Bosses/TrashTr0m/Gores/TrashTr0m_GoreCrest.png": {
+    "mtime": 1793047704.3029659,
+    "ast_hash": "f52f8cb0c7890990cf5f2af3043d5786",
+    "semantic_hash": "f52f8cb0c7890990cf5f2af3043d5786"
+  },
+  "Content/Bosses/TrashTr0m/Gores/TrashTr0m_GoreGear.png": {
+    "mtime": 1793047704.3039625,
+    "ast_hash": "62821b30b1f63ad65d952db022e36a3e",
+    "semantic_hash": "62821b30b1f63ad65d952db022e36a3e"
+  },
+  "Content/Bosses/TrashTr0m/Gores/TrashTr0m_GoreJaw.png": {
+    "mtime": 1793047704.3019562,
+    "ast_hash": "84a37d98d4880538e570070c79c00c80",
+    "semantic_hash": "84a37d98d4880538e570070c79c00c80"
+  },
+  "Content/Bosses/TrashTr0m/Gores/TrashTr0m_GorePiston.png": {
+    "mtime": 1793047704.3039625,
+    "ast_hash": "94a200d0a30def6600b48d0d4e4977ad",
+    "semantic_hash": "94a200d0a30def6600b48d0d4e4977ad"
+  },
+  "Content/Bosses/TrashTr0m/Gores/TrashTr0m_GorePlate.png": {
+    "mtime": 1793047704.3049574,
+    "ast_hash": "30a8743a95379f1dce14ce4e1f7aa1fd",
+    "semantic_hash": "30a8743a95379f1dce14ce4e1f7aa1fd"
+  },
+  "Content/Bosses/TrashTr0m/Gores/TrashTr0m_GoreTyre.png": {
+    "mtime": 1793047704.300998,
+    "ast_hash": "1834e303d29b60c44d9e4d61459378b6",
+    "semantic_hash": "1834e303d29b60c44d9e4d61459378b6"
+  },
+  "Content/Bosses/TrashTr0m/Items/LostKey.png": {
+    "mtime": 1793047704.2819936,
+    "ast_hash": "ac84200eed9017bfcc5a07ac3a6b49d9",
+    "semantic_hash": "ac84200eed9017bfcc5a07ac3a6b49d9"
+  },
+  "Content/Bosses/TrashTr0m/Items/TrashTr0mBag.png": {
+    "mtime": 1793047235.8802874,
+    "ast_hash": "af65d3a34f7001453f6119185c276006",
+    "semantic_hash": "af65d3a34f7001453f6119185c276006"
+  },
+  "Content/Bosses/TrashTr0m/Projectiles/TrashTr0mChewedScrap.png": {
+    "mtime": 1793047704.2419934,
+    "ast_hash": "a567d7afb20744e4732ae4dd180bdd26",
+    "semantic_hash": "a567d7afb20744e4732ae4dd180bdd26"
+  },
+  "Content/Bosses/TrashTr0m/Projectiles/TrashTr0mScrapBall.png": {
+    "mtime": 1793047704.2769532,
+    "ast_hash": "05e8c6f7ac9b390c5ec660c654b47fc6",
+    "semantic_hash": "05e8c6f7ac9b390c5ec660c654b47fc6"
+  },
+  "Content/Bosses/TrashTr0m/Projectiles/TrashTr0mShockwave.png": {
+    "mtime": 1793047704.2366025,
+    "ast_hash": "9a66f6dfc4f3b992550c3833838e45d0",
+    "semantic_hash": "9a66f6dfc4f3b992550c3833838e45d0"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m_ArmFar.png": {
+    "mtime": 1793047703.2436166,
+    "ast_hash": "4e19179b91952a85f717fdb7f2a74d0d",
+    "semantic_hash": "4e19179b91952a85f717fdb7f2a74d0d"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m_ArmNear.png": {
+    "mtime": 1793047703.103106,
+    "ast_hash": "9015cd4c4899677b3cc023d909ffd13e",
+    "semantic_hash": "9015cd4c4899677b3cc023d909ffd13e"
+  },
+  "Content/Bosses/TrashTr0m/TrashTr0m_Page1.png": {
+    "mtime": 1793047702.9075487,
+    "ast_hash": "053d47b8fbef39255f1b240f8d715e01",
+    "semantic_hash": "053d47b8fbef39255f1b240f8d715e01"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/ScrapLauncher.png": {
+    "mtime": 1793047235.8922555,
+    "ast_hash": "af9c0d3b8e69a621b15fc7ca6993e115",
+    "semantic_hash": "af9c0d3b8e69a621b15fc7ca6993e115"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/ScrapLauncherBall.png": {
+    "mtime": 1793047235.9330723,
+    "ast_hash": "50784003a3f7ed017461944a25b9c01a",
+    "semantic_hash": "50784003a3f7ed017461944a25b9c01a"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/ScrapLauncherChunk.png": {
+    "mtime": 1793047235.898255,
+    "ast_hash": "bb66d92063831ef43564c8a0e45aa7c2",
+    "semantic_hash": "bb66d92063831ef43564c8a0e45aa7c2"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/Scrapmancer.png": {
+    "mtime": 1793047235.9360757,
+    "ast_hash": "f6249cafe9e809b271ed08ae491d6fe8",
+    "semantic_hash": "f6249cafe9e809b271ed08ae491d6fe8"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/ScrapmancerWave.png": {
+    "mtime": 1793047235.9640756,
+    "ast_hash": "bd7aa8b3828901b0547b40ce6db3c12c",
+    "semantic_hash": "bd7aa8b3828901b0547b40ce6db3c12c"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/Tetanus.png": {
+    "mtime": 1793047235.8832862,
+    "ast_hash": "4d8ae7495e81027937d44d0be81f0095",
+    "semantic_hash": "4d8ae7495e81027937d44d0be81f0095"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/TetanusFlash.png": {
+    "mtime": 1793047235.8892498,
+    "ast_hash": "f48e88c9509e75aa9759d4e24fe8044c",
+    "semantic_hash": "f48e88c9509e75aa9759d4e24fe8044c"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/TetanusProjectile.png": {
+    "mtime": 1793047235.8842475,
+    "ast_hash": "fade486389350dae73ae1a6406420c9a",
+    "semantic_hash": "fade486389350dae73ae1a6406420c9a"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/TetanusProjectile_Glow.png": {
+    "mtime": 1793047235.8862505,
+    "ast_hash": "caa3901816074138e91c75aa01bfb47a",
+    "semantic_hash": "caa3901816074138e91c75aa01bfb47a"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/Tr0mheadSentry.png": {
+    "mtime": 1793047235.9740758,
+    "ast_hash": "2dccf9c353ff9ef47cc543e1d9c3f63f",
+    "semantic_hash": "2dccf9c353ff9ef47cc543e1d9c3f63f"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/Tr0mheadSentry_Glow.png": {
+    "mtime": 1793047235.9760728,
+    "ast_hash": "d9a2ddefb26cf835518bfb544c813b66",
+    "semantic_hash": "d9a2ddefb26cf835518bfb544c813b66"
+  },
+  "Content/Bosses/TrashTr0m/Weapons/Tr0mheadStaff.png": {
+    "mtime": 1793047235.9650736,
+    "ast_hash": "0e7b6eea1a6782b5a7517f38041695ee",
+    "semantic_hash": "0e7b6eea1a6782b5a7517f38041695ee"
+  },
+  "Content/Junkyard/Gores/RustCollector_GorePanel.png": {
+    "mtime": 1793047447.0977297,
+    "ast_hash": "a321da0f7739dc61a135e772c2a7818c",
+    "semantic_hash": "a321da0f7739dc61a135e772c2a7818c"
+  },
+  "Content/Junkyard/Gores/RustCollector_GoreWheel.png": {
+    "mtime": 1793047447.0967321,
+    "ast_hash": "7024b9fb9a42109f34fe73d2e02fb05d",
+    "semantic_hash": "7024b9fb9a42109f34fe73d2e02fb05d"
+  },
+  "Content/Junkyard/Items/PolisherSchematic.png": {
+    "mtime": 1793047447.1037304,
+    "ast_hash": "9ba3744d94b82403b6a4ee3b88c84722",
+    "semantic_hash": "9ba3744d94b82403b6a4ee3b88c84722"
+  },
+  "Content/Junkyard/Items/RustPolisher.png": {
+    "mtime": 1793047447.1054811,
+    "ast_hash": "28df3cb441edef9464576a89b92897b7",
+    "semantic_hash": "28df3cb441edef9464576a89b92897b7"
+  },
+  "Content/Junkyard/Items/TarDrop.png": {
+    "mtime": 1793047447.1017292,
+    "ast_hash": "7a45ba55888d3f788309d0aac69a8a1f",
+    "semantic_hash": "7a45ba55888d3f788309d0aac69a8a1f"
+  },
+  "Content/Junkyard/Map/MysteriousMap.png": {
+    "mtime": 1793047447.1115255,
+    "ast_hash": "9aaae23d770c2405c40461b7db9618b7",
+    "semantic_hash": "9aaae23d770c2405c40461b7db9618b7"
+  },
+  "Content/Junkyard/Map/MysteriousMapArrow.png": {
+    "mtime": 1793047447.1450658,
+    "ast_hash": "1a2e8322f0edaed7e2971a67943790f0",
+    "semantic_hash": "1a2e8322f0edaed7e2971a67943790f0"
+  },
+  "Content/Junkyard/Map/MysteriousMapArrow_Glow.png": {
+    "mtime": 1793047447.1470683,
+    "ast_hash": "62954c30f71b28c063deb951c264d553",
+    "semantic_hash": "62954c30f71b28c063deb951c264d553"
+  },
+  "Content/Junkyard/NPCs/LivingTar.png": {
+    "mtime": 1793047447.0997303,
+    "ast_hash": "5c2c51bfbdb18adfc00866971589a68d",
+    "semantic_hash": "5c2c51bfbdb18adfc00866971589a68d"
+  },
+  "Content/Junkyard/NPCs/RustCollector.png": {
+    "mtime": 1793047447.095184,
+    "ast_hash": "197276a54bbf5d87ec09754a45d6badb",
+    "semantic_hash": "197276a54bbf5d87ec09754a45d6badb"
+  },
+  "Content/Junkyard/Projectiles/TarGlob.png": {
+    "mtime": 1793047447.1017292,
+    "ast_hash": "0dc673171c58f457b7543ef0b32de886",
+    "semantic_hash": "0dc673171c58f457b7543ef0b32de886"
+  },
+  "Content/Junkyard/Tiles/RustPolisherTile.png": {
+    "mtime": 1793047447.1105285,
+    "ast_hash": "a61f3d2fc5e30d30d2a0ba687df9566d",
+    "semantic_hash": "a61f3d2fc5e30d30d2a0ba687df9566d"
+  },
+  "docs/media/2026-10-26_junkyard-creatures.png": {
+    "mtime": 1793048342.3523884,
+    "ast_hash": "6b84d2c3eee33ad0113b55744dd24d61",
+    "semantic_hash": "6b84d2c3eee33ad0113b55744dd24d61"
+  },
+  "docs/media/2026-10-26_junkyard-living-tar.gif": {
+    "mtime": 1793048297.648136,
+    "ast_hash": "a96dd850d6e4686262373b401cbd5a9e",
+    "semantic_hash": "a96dd850d6e4686262373b401cbd5a9e"
+  },
+  "docs/media/2026-10-26_junkyard-mysterious-map.gif": {
+    "mtime": 1793048349.4513144,
+    "ast_hash": "d66bd2e1fe6aafe1eb309950c9a7ccbc",
+    "semantic_hash": "d66bd2e1fe6aafe1eb309950c9a7ccbc"
+  },
+  "docs/media/2026-10-26_junkyard-rust-collector.gif": {
+    "mtime": 1793048322.1503477,
+    "ast_hash": "44c002a394c1a248ec5127d8bd24c913",
+    "semantic_hash": "44c002a394c1a248ec5127d8bd24c913"
+  },
+  "docs/media/2026-10-26_junkyard-rust-polisher.gif": {
+    "mtime": 1793048343.7320971,
+    "ast_hash": "6f76346da2f85fd8bef6048a9f608594",
+    "semantic_hash": "6f76346da2f85fd8bef6048a9f608594"
+  },
+  "docs/media/2026-10-26_weapon-scrap-launcher.gif": {
+    "mtime": 1793048167.844277,
+    "ast_hash": "22a743bf6795d5658a4355b6cb4dc1af",
+    "semantic_hash": "22a743bf6795d5658a4355b6cb4dc1af"
+  },
+  "docs/media/2026-10-26_weapon-scrapmancer.gif": {
+    "mtime": 1793048170.4214003,
+    "ast_hash": "3963e61cc3c9cd390f6b78b5ff62ca08",
+    "semantic_hash": "3963e61cc3c9cd390f6b78b5ff62ca08"
+  },
+  "docs/media/2026-10-26_weapon-tetanus.gif": {
+    "mtime": 1793048164.3383782,
+    "ast_hash": "daf416c6861dbecdfa3a528bfa119b49",
+    "semantic_hash": "daf416c6861dbecdfa3a528bfa119b49"
+  },
+  "docs/media/2026-10-26_weapon-tr0mhead.gif": {
+    "mtime": 1793048178.2843783,
+    "ast_hash": "d6216c7a712c813b9d9351eb5d166bd7",
+    "semantic_hash": "d6216c7a712c813b9d9351eb5d166bd7"
   }
 }

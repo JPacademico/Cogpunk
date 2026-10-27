@@ -1,0 +1,232 @@
+using System;
+using Cogpunk.Core.Configs;
+using Cogpunk.Core.Safety;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+
+namespace Cogpunk.Content.Mechanist
+{
+	/// <summary>
+	/// The Mechanist's Steam (user-set 2026-10-27): what mana is to a mage. Mechanist weapons spend it
+	/// (<see cref="MechanistWeapon"/>); it refills only after the player has gone <see cref="RegenDelayTicks"/> (1.5 s)
+	/// without a Mechanist attack, then by <see cref="BaseRegenAmount"/> every <see cref="RegenIntervalTicks"/> (10 per
+	/// 0.5 s; gear raises <see cref="SteamRegen"/>). Trying to fire without enough of it <b>overheats</b> the player
+	/// (<see cref="Overheat"/>): no items, and they can't stop moving, until the tank has refilled completely.
+	/// <para>Capacity: <see cref="BaseSteamMax"/> (0: a player has no tank of their own) + <see cref="SteamMaxBonus"/>
+	/// (Mechanist armor and steam containers add to it every tick, like <c>statManaMax2</c>). Costs are scaled by
+	/// <see cref="SteamCostMultiplier"/> (the Polished set: -10%). Tuned 2026-10-27 (user): refill doubled, delay 2 s ->
+	/// 1.5 s, base capacity 100 -> 0.</para>
+	/// <para>D2: Steam is the owning client's (like the local mana counter, nobody else can see it); only the owner spends,
+	/// refills and overheats. The overheat shows to everyone through its buff, which vanilla syncs. D1: integer counters,
+	/// no allocation; effects client-only.</para>
+	/// </summary>
+	public sealed class SteamPlayer : ModPlayer
+	{
+		public const int BaseSteamMax = 0;               // only gear grants a tank (user-set)
+		public const int RegenDelayTicks = 90;           // 1.5 s without attacking
+		public const int RegenIntervalTicks = 30;        // then a refill every 0.5 s...
+		public const int BaseRegenAmount = 10;           // ...of 10 steam
+		public const int NoTankHintTicks = 60;           // the "no tank" hint repeats at most once a second
+		public const int OverheatBuffTicks = 60 * 60 * 10;   // the buff only mirrors the state: cleared when the tank is full
+		public const int GaugeLingerTicks = 180;         // the gauge stays up this long after the last reason to show it
+
+		/// <summary>Steam in the tank (owner only).</summary>
+		public int Steam = BaseSteamMax;
+
+		/// <summary>Capacity this tick: <see cref="BaseSteamMax"/> + <see cref="SteamMaxBonus"/>.</summary>
+		public int SteamMax = BaseSteamMax;
+
+		/// <summary>Added to the capacity by gear; reset every tick.</summary>
+		public int SteamMaxBonus;
+
+		/// <summary>Steam refilled per <see cref="RegenIntervalTicks"/>; reset to <see cref="BaseRegenAmount"/> every tick.</summary>
+		public int SteamRegen = BaseRegenAmount;
+
+		/// <summary>Multiplies every steam cost; reset to 1 every tick.</summary>
+		public float SteamCostMultiplier = 1f;
+
+		/// <summary>Overheated: set when a Mechanist weapon is used without enough steam, cleared when the tank is full.</summary>
+		public bool Overheated { get; private set; }
+
+		private int sinceAttack = RegenDelayTicks;
+		private int regenTimer;
+		private int gaugeTimer;
+		private int noTankHintTimer;
+		private static LocalizedText noTankText;
+
+		/// <summary>The gauge is shown while steam matters: a Mechanist weapon in hand, Mechanist gear on, a tank that isn't
+		/// full, an overheat, and for <see cref="GaugeLingerTicks"/> after.</summary>
+		public bool ShowGauge => gaugeTimer > 0;
+
+		/// <summary>0..1 how far the regen delay has run (the gauge's valve turns while waiting).</summary>
+		public float RegenWait => MathHelper.Clamp(sinceAttack / (float)RegenDelayTicks, 0f, 1f);
+
+		public override void SetStaticDefaults() {
+			noTankText = Mod.GetLocalization("Mechanist.NoTank");
+		}
+
+		public override void Unload() {
+			noTankText = null;
+		}
+
+		public override void Initialize() {
+			Steam = BaseSteamMax;
+			SteamMax = BaseSteamMax;
+			Overheated = false;
+		}
+
+		public override void ResetEffects() {
+			SteamMaxBonus = 0;
+			SteamRegen = BaseRegenAmount;
+			SteamCostMultiplier = 1f;
+		}
+
+		public override void UpdateDead() {
+			ResetEffects();
+			Overheated = false;
+		}
+
+		public override void OnRespawn() {
+			Steam = Math.Max(BaseSteamMax, SteamMax);   // capped to the real capacity on the next update
+			Overheated = false;
+			sinceAttack = RegenDelayTicks;
+		}
+
+		/// <summary>The cost of a Mechanist attack after <see cref="SteamCostMultiplier"/> (never negative; 1 minimum when
+		/// the base cost is above 0, so gear can't make a weapon free by rounding).</summary>
+		public int GetCost(int baseCost) {
+			if (baseCost <= 0) {
+				return 0;
+			}
+			float scaled = baseCost * Math.Max(0f, SteamCostMultiplier);
+			return Math.Max(1, (int)Math.Round(scaled));
+		}
+
+		/// <summary>Owner: a Mechanist attack happened (or was attempted): the refill waits another <see cref="RegenDelayTicks"/>.</summary>
+		public void NoteAttack() {
+			sinceAttack = 0;
+			regenTimer = 0;
+			gaugeTimer = GaugeLingerTicks;
+		}
+
+		/// <summary>Owner: pays for a Mechanist attack. Never goes below zero.</summary>
+		public void Spend(int baseCost) {
+			Steam = Math.Max(0, Steam - GetCost(baseCost));
+			NoteAttack();
+		}
+
+		/// <summary>Owner: fired without enough steam. Items lock and the player can't stop until the tank is full again.</summary>
+		public void TriggerOverheat() {
+			NoteAttack();
+			if (Overheated) {
+				return;
+			}
+			Overheated = true;
+			Player.AddBuff(ModContent.BuffType<Overheat>(), OverheatBuffTicks);
+			if (!Main.dedServ) {
+				SoundEngine.PlaySound(SoundID.Item34 with { Pitch = -0.3f, Volume = 0.8f }, Player.Center);   // the release valve
+				SoundEngine.PlaySound(SoundID.NPCHit53 with { Pitch = 0.4f, Volume = 0.5f }, Player.Center);
+				for (int i = 0; i < 16; i++) {
+					if (SafeSpawn.TryNewDust(Player.position, Player.width, Player.height / 2, DustID.Smoke, out Dust d, 0f, -2f, 80,
+						new Color(238, 241, 243), 1.4f)) {
+						d.velocity = Main.rand.NextVector2CircularEdge(3f, 2f) - new Vector2(0f, 1.5f);
+						d.noGravity = true;
+					}
+				}
+			}
+		}
+
+		/// <summary>Owner: tried to fire a weapon that costs more than the whole tank holds (no Mechanist gear yet).
+		/// Nothing fires and nothing overheats (a refill could never pay for it); a hint shows, at most once a second.</summary>
+		public void NoteNoTank() {
+			gaugeTimer = GaugeLingerTicks;
+			if (noTankHintTimer > 0 || Main.dedServ) {
+				return;
+			}
+			noTankHintTimer = NoTankHintTicks;
+			SoundEngine.PlaySound(SoundID.MenuTick with { Pitch = -0.6f }, Player.Center);   // a dry click: nothing to vent
+			if (noTankText != null) {
+				CombatText.NewText(Player.getRect(), new Color(195, 200, 205), noTankText.Value);
+			}
+		}
+
+		private void EndOverheat() {
+			Overheated = false;
+			int index = Player.FindBuffIndex(ModContent.BuffType<Overheat>());
+			if (index >= 0) {
+				Player.DelBuff(index);
+			}
+			if (!Main.dedServ) {
+				SoundEngine.PlaySound(SoundID.MaxMana with { Pitch = -0.5f }, Player.Center);
+			}
+		}
+
+		public override void PostUpdateMiscEffects() {
+			SteamMax = Math.Max(0, BaseSteamMax + SteamMaxBonus);
+			if (Player.whoAmI != Main.myPlayer) {
+				return;                                    // only the owner tracks its tank (D2)
+			}
+			if (noTankHintTimer > 0) {
+				noTankHintTimer--;
+			}
+			if (Player.creativeGodMode) {
+				Steam = SteamMax;                          // Journey god mode: infinite steam, like infinite mana
+			}
+			Steam = Math.Clamp(Steam, 0, SteamMax);
+			if (Player.ItemAnimationActive && Player.HeldItem.ModItem is MechanistWeapon) {
+				sinceAttack = 0;                           // still swinging/firing: no refill yet
+			}
+			if (sinceAttack < RegenDelayTicks) {
+				sinceAttack++;
+				regenTimer = 0;
+			}
+			else if (Steam < SteamMax) {
+				if (++regenTimer >= RegenIntervalTicks) {
+					regenTimer = 0;
+					Steam = Math.Min(SteamMax, Steam + Math.Max(0, SteamRegen));
+				}
+			}
+			else {
+				regenTimer = 0;
+			}
+			if (Overheated && Steam >= SteamMax) {
+				EndOverheat();
+			}
+			bool relevant = Overheated || Steam < SteamMax || SteamMaxBonus != 0 || SteamCostMultiplier != 1f
+				|| Player.HeldItem.ModItem is MechanistWeapon;
+			gaugeTimer = relevant ? GaugeLingerTicks : Math.Max(0, gaugeTimer - 1);
+		}
+
+		/// <summary>Overheated: the player can't stop. With no direction held they keep running the way they face; they can
+		/// still turn by holding the other way. Owner only (SetControls runs for the local player, decompiled Player.Update).</summary>
+		public override void SetControls() {
+			if (!Overheated || Player.whoAmI != Main.myPlayer || Player.dead) {
+				return;
+			}
+			if (!Player.controlLeft && !Player.controlRight) {
+				if (Player.direction < 0) {
+					Player.controlLeft = true;
+				}
+				else {
+					Player.controlRight = true;
+				}
+			}
+		}
+
+		/// <summary>Client effects while overheated (every client sees the buff): steam hissing out of the player.</summary>
+		internal void OverheatEffects() {
+			if (Main.dedServ || !Main.rand.NextBool(3) || !CogpunkClientConfig.RollEffect()) {
+				return;
+			}
+			if (SafeSpawn.TryNewDust(Player.position + new Vector2(0f, 6f), Player.width, 12, DustID.Smoke, out Dust d, 0f, -1.5f, 100,
+				new Color(238, 241, 243), 1.1f)) {
+				d.velocity.X = -Player.velocity.X * 0.2f + Main.rand.NextFloat(-0.6f, 0.6f);
+				d.noGravity = true;
+			}
+		}
+	}
+}

@@ -397,7 +397,8 @@ namespace Cogpunk.Content.Junkyard.Generation
 			}
 		}
 
-		/// <summary>Carves a small chamber in the central heap and places a glowing Scrappy Trunk cache with its loot.</summary>
+		/// <summary>Carves a small chamber in the central heap and places a glowing Scrappy Trunk cache with its loot: the Polisher
+		/// Schematic, the Mysterious Map, Rusted Cogs and Metal and 100 of one pre-Hardmode ore.</summary>
 		private void PlaceCache(int centreX, int floorY) {
 			ushort trunk = (ushort)ModContent.TileType<ScrappyTrunkTile>();
 			for (int attempt = 0; attempt < 3; attempt++) {
@@ -423,6 +424,9 @@ namespace Cogpunk.Content.Junkyard.Generation
 
 		private static void FillCache(Chest chest) {
 			int slot = 0;
+			foreach (int quest in JunkyardSystem.CacheQuestItems()) {
+				Add(chest, ref slot, quest, 1);             // the Polisher Schematic and the Mysterious Map
+			}
 			Add(chest, ref slot, ModContent.ItemType<RustedCog>(), WorldGen.genRand.Next(30, 53));
 			Add(chest, ref slot, ModContent.ItemType<RustedMetal>(), WorldGen.genRand.Next(20, 29));
 			Add(chest, ref slot, CacheOres[WorldGen.genRand.Next(CacheOres.Length)], 100);

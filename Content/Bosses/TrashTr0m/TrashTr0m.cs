@@ -1,20 +1,16 @@
 using System;
-using System.Collections.Generic;
+using System.IO;
+using Cogpunk.Content.Bosses.TrashTr0m.Items;
 using Cogpunk.Content.Junkyard;
-using Cogpunk.Core.Configs;
+using Cogpunk.Content.Scrap.Items;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Systems;
 using Cogpunk.Core.Templates;
-using Cogpunk.Core.UI;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Chat;
-using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
-using Terraria.Graphics.CameraModifiers;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -22,118 +18,172 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.Bosses.TrashTr0m
 {
 	/// <summary>
-	/// Trash-Tr0m, the Junkyard's guardian: the torn-off upper half of a giant construction robot (head, shoulders, torso
-	/// and arms, a grinder for a mouth, nothing below the ragged waist) welded back together from scrap. It sleeps in the
-	/// central heap and climbs out when someone tries to open the Junkyard Cache (<see cref="TrashTr0mSummon"/>); the
-	/// cache stays sealed until it dies (<see cref="TrashTr0mSystem.Downed"/>).
-	/// <para><b>This update:</b> the summon, the emergence intro and a placeholder fight (it stays planted in the heap,
-	/// turns to face its target and deals contact damage). Attacks, final stats and drops come in a later update; the
-	/// placeholder stats copy the Eye of Cthulhu (docs/balance/bosses.csv).</para>
-	/// <para><b>Emergence</b> (<see cref="Phase.Emerge"/>, <see cref="EmergeTicks"/> = 4 s): the heap rumbles
-	/// (<see cref="RumbleTicks"/>), the boss heaves itself up out of the ground (<see cref="RiseTicks"/>, the sprite is
-	/// drawn clipped at the ground line, so nothing moves through tiles), its name card appears once the head is out
-	/// (<see cref="TitleTick"/>) and it roars with its grinder spinning (<see cref="RoarTicks"/>). Every client within
-	/// <see cref="CameraLockRange"/> has its camera locked on it for the whole intro (<see cref="TrashTr0mSystem"/>).
-	/// It can't hurt or be hurt until the intro ends (D3 fairness).</para>
-	/// <para>D2: <see cref="StateMachineNPC"/> keeps state and timer in the synced <c>ai[0]</c>/<c>ai[1]</c> and only the
-	/// server changes state; the intro, camera, card, dust and sounds are all derived from them on each client, so a
-	/// player joining mid-intro sees the rest of it. <c>localAI[0]</c> and <c>localAI[1]</c> (not synced) only remember
-	/// that this client already showed the card and which intro tick it last played effects for. D0: the boss is spawned through <c>SafeSpawn</c> (critical) by the server; visuals use
-	/// <c>SafeSpawn</c> dust and bounds-checked tiles; nothing here loops without a fixed cap.</para>
+	/// Trash-Tr0m, the Junkyard's guardian and Cogpunk's first boss (T0): the torn-off upper half of a Devastator-style
+	/// construction titan, 7x the player's height, seen in a three-quarter side view.
+	/// <para><b>Loop</b> (user-set 2026-10-26): it crawls towards the closest player in the Junkyard for
+	/// <see cref="CrawlTicks"/> (2.5 s, hand over hand, moving only while a planted hand drags), then attacks, then crawls
+	/// again:</para>
+	/// <list type="bullet">
+	/// <item><b>Suck</b> (<see cref="Phase.Suck"/>) when any player is within its suction range: it opens its jaw for
+	/// <see cref="SuckTicks"/> (5 s) and inhales. Players are dragged towards the mouth (<see cref="TrashTr0mPlayer"/>: a
+	/// conveyor pull a player can only outrun at Hermes Boots speed) and friendly projectiles are swallowed. A player who
+	/// reaches the mouth is swallowed, chewed and spat high into the air and out behind it (user-set 2026-10-27) (<see cref="Phase.SwallowPlayer"/>,
+	/// <see cref="Phase.SpitPlayer"/>). Otherwise it gulps and spits the swallowed projectiles back as chewed scrap
+	/// (<see cref="Phase.SpitScrap"/>), or, if it caught nothing, one big ball of scrap (<see cref="Phase.SpitBall"/>).</item>
+	/// <item><b>Slam</b> (<see cref="Phase.SlamWindup"/>) when nobody is in range: it raises its near fist and smashes it
+	/// down; a fast ground shockwave runs away from the fist along the terrain (<see cref="Projectiles.TrashTr0mShockwave"/>),
+	/// jumped over at the right moment.</item>
+	/// </list>
+	/// <para><b>Cog volley</b> (user-set 2026-10-27), on its own all fight long: every <see cref="CogInterval"/> ticks
+	/// (1.5 s; <see cref="CogIntervalHalfLife"/>, 0.75 s, at half life) the exhaust stacks on its back cough a loose rusted
+	/// cog high into the air towards a player (<see cref="Projectiles.TrashTr0mCog"/>, 25 damage, bounces twice),
+	/// after a <see cref="CogTelegraphTicks"/>-tick rattle.</para>
+	/// <para><b>Enraged</b> below <see cref="EnrageLifeFraction"/> of its life: the suction reaches twice as far, and the
+	/// slam comes twice, the near fist and then the far claw, each with its own shockwave. The 2.5 s crawl between
+	/// attacks stays.</para>
+	/// <para>It only fights in the Junkyard: when no living player has been inside it for <see cref="LeaveGraceTicks"/>,
+	/// it burrows back into the ground and despawns (<see cref="Phase.Retreat"/>).</para>
+	/// <para>Spawn: it bursts out from under the Junkyard's central heap when the locked cache is touched, or out of the
+	/// ground in front of a player who uses <see cref="Junkyard.Items.Junkbait"/> (<see cref="TrashTr0mSummon"/>). Death:
+	/// a scripted breakdown with the camera locked (<see cref="Phase.Dying"/>, <see cref="BossNPC"/>); the first kill drops
+	/// the <see cref="LostKey"/> that opens the cache, which stays shut (no longer wakes it) from then on. Loot:
+	/// <see cref="TrashTr0mLoot"/>.</para>
+	/// <para>Stats (user-set 2026-10-26, docs/balance/bosses.csv), <b>Expert</b> values like every Cogpunk number
+	/// (user directive 2026-10-27, <see cref="ExpertStats"/>): 5000 life, +35% of that per extra player; contact 50, slam
+	/// 120, spat scrap 50, scrap ball 100, cog 25. Classic gets half, Master 1.5x (life: 6375, vanilla's 0.85 boss
+	/// adjustment). A spat player falls far enough for up to 200 fall damage (absolute, every mode).</para>
+	/// <para>Hitboxes (TrashTr0m.Hitboxes.cs): contact damage and hits use silhouette strips measured from the sprites,
+	/// not the whole NPC rectangle.</para>
+	/// <para>D2: <see cref="StateMachineNPC"/> keeps state and timer in <c>ai[0]</c>/<c>ai[1]</c>; <c>ai[2]</c> is the
+	/// state's argument (heap burst flag, which arm slams, eaten count, swallowed player, scrap left to spit) and
+	/// <c>ai[3]</c> the enraged flag; only the server changes them. Movement is root motion from the synced timer plus
+	/// terrain following, so every side computes the same path; the server resyncs once per crawl cycle. Player effects
+	/// are applied by the owning client from the synced state (<see cref="TrashTr0mPlayer"/>).</para>
 	/// </summary>
 	[AutoloadBossHead]
-	public class TrashTr0m : StateMachineNPC
+	public partial class TrashTr0m : BossNPC
 	{
 		public enum Phase
 		{
 			Emerge,
-			Idle,          // placeholder until the attack patterns exist
+			Crawl,
+			SlamWindup,
+			SlamRecover,
+			SuckWindup,
+			Suck,
+			SwallowPlayer,
+			SpitPlayer,
+			Gulp,
+			SpitScrap,
+			SpitBall,
+			Recover,                                       // kept for old saves/packets: hands straight over to the crawl
 			Retreat,
+			Dying,
 		}
 
-		// --- sprite sheet (art/bosses/trashtr0m/make_trashtr0m_art.py): vertical frames, 2 px padding -----------------
-		public const int FrameCount = 6;
-		public const int FrameWidth = 216;
-		public const int FrameHeight = 168;
-		public const int FrameStride = FrameHeight + 2;
-		public const int TicksPerFrame = 6;            // grinder spin, idle (10 frames/s)
-		public const int RoarTicksPerFrame = 3;        // grinder spin, roaring
+		// --- stats (docs/balance/bosses.csv): Expert values (ExpertStats: Classic half, Master 1.5x) ---------------------
+		public const int ExpertLife = 5000;                // single player; Classic 2500, Master 6375
+		public const float LifePerExtraPlayer = 0.35f;     // +35% of the mode's base life per additional player
+		public const int BaseDefense = 12;
+		public const int ExpertContactDamage = 50;         // Classic 25, Master 75
+		// Damage a player takes in Expert (ExpertStats.HostileProjectile halves the field: hostile hits are x2).
+		public const int SlamDamage = 120;
+		public const int ChewedScrapDamage = 50;
+		public const int ScrapBallDamage = 100;
+		public const int MaxSpitFallTiles = 45;            // vanilla fall damage = (tiles - 25 - extraFall) x 10 -> 200 max
+		public const float EnrageLifeFraction = 0.33f;
 
-		// Emitters on the sprite, in frame pixels of the left-facing sheet.
-		private static readonly Vector2 ExhaustA = new(164, 8);
-		private static readonly Vector2 ExhaustB = new(180, 16);
-		private static readonly Vector2 Mouth = new(93, 92);
-		private const int WaistLeft = 66, WaistRight = 154, WaistY = 150;
+		// --- size and pacing ----------------------------------------------------------------------------------------------
+		/// <summary>The NPC rectangle: the idle body's box measured from the sprite (TrashTr0mRigData.Body*), used as the
+		/// broad phase; the silhouette strips decide what actually touches (TrashTr0m.Hitboxes.cs).</summary>
+		public const int HitboxWidth = TrashTr0mRigData.BodyRight - TrashTr0mRigData.BodyLeft;
+		public const int HitboxHeight = -TrashTr0mRigData.BodyTop;
+		/// <summary>The rig origin sits this far behind the rectangle's centre (left-facing), so the rectangle is centred on
+		/// the body it measures.</summary>
+		public const int RigShiftX = (TrashTr0mRigData.BodyLeft + TrashTr0mRigData.BodyRight) / 2;
+		public const int CrawlTicks = 150;                 // 2.5 s of crawling between attacks (user-set)
+		public const int CrawlCycleTicks = 75;             // 12 frames in 75 ticks: two cycles fill the crawl exactly
+		public const float DespawnRange = 300f * 16f;
+		public const int LeaveGraceTicks = 60;             // a knockback over the border doesn't despawn it
+		public const int JunkyardCheckInterval = 10;
 
-		// --- intro -------------------------------------------------------------------------------------------------
+		// --- intro -----------------------------------------------------------------------------------------------------------
 		public const int RumbleTicks = 45;
+		public const int BurstTick = RumbleTicks;          // the heap blows apart
+		public const int BurstTicks = 4;                   // the tiles are cleared over this many ticks (D1: spread the work)
 		public const int RiseTicks = 135;
 		public const int RoarTicks = 60;
 		public const int EmergeTicks = RumbleTicks + RiseTicks + RoarTicks;   // 240 ticks = 4 s
-		public const int TitleTick = RumbleTicks + 90;                        // head and shoulders are out
+		public const int TitleTick = RumbleTicks + 90;
 		public const int TitleHoldTicks = EmergeTicks - TitleTick + 45;
 		public const int CameraEaseTicks = 30;
 		public const float CameraLockRange = 150f * 16f;
 		public const int RetreatTicks = 90;
-		public const float DespawnRange = 300f * 16f;
 
-		// --- placeholder stats (= Eye of Cthulhu, terraria.wiki.gg 1.4.4; balance pass in the attacks update) --------
-		public const int BaseLife = 2800;
-		public const int BaseDefense = 12;
-		public const int BaseContactDamage = 15;
+		// --- death -----------------------------------------------------------------------------------------------------------
+		public const int DeathTicks = 240;
+		public const int DeathSagTick = 40, DeathSlumpTick = 110, DeathDownTick = 150, DeathBlastTick = 200;
 
-		private static Asset<Texture2D> glow;
 		private static LocalizedText epithet;
 
 		private Phase CurrentPhase => (Phase)State;
 
-		public bool IsEmerging => CurrentPhase == Phase.Emerge;
+		/// <summary>The state's argument (synced): heap-burst flag, slamming arm, eaten projectiles, swallowed player, scrap left.</summary>
+		private ref float Arg => ref NPC.ai[2];
 
-		private bool IsRoaring => IsEmerging && Timer >= RumbleTicks + RiseTicks;
+		/// <summary>Below a third of its life (synced, set once by the server).</summary>
+		public bool Enraged => NPC.ai[3] == 1f;
 
+		// localAI (never synced): [0] title card shown, [1] last one-shot effect key, [2] gores thrown, [3] enrage effect played.
 		private ref float TitleShown => ref NPC.localAI[0];
 
-		// Highest intro tick this client has played effects for: a timer resync from the server can step Timer back a
-		// tick or two, and one-shot sounds must not play twice.
-		private ref float LastEffectTick => ref NPC.localAI[1];
+		private bool playerScaled;                          // life already scaled for players (Expert/Master hook ran)
+		private int outsideTicks;                           // server: how long no player has been in the Junkyard
 
-		private static readonly Color UnsealedColor = new(223, 185, 78);   // Brass 4, the cache's glow
+		public bool IsEmerging => CurrentPhase == Phase.Emerge;
 
-		/// <summary>Where the camera looks during the intro: the middle of the fully risen boss.</summary>
-		public Vector2 CameraFocus => NPC.Bottom - new Vector2(0f, FrameHeight * 0.55f);
+		public bool FromHeap => IsEmerging && Arg == 1f;
+
+		protected override int DyingState => (int)Phase.Dying;
+
+		protected override int DeathAnimationTicks => DeathTicks;
+
+		protected override int DefeatCardTick => DeathBlastTick;
+
+		/// <summary>The rig origin (the ground point under the body pivot) in the world: every sprite and rig point hangs from it.</summary>
+		public Vector2 RigOrigin => NPC.Bottom + new Vector2(RigShiftX * NPC.spriteDirection, 0f);
+
+		/// <summary>Where the camera looks during the intro and the death: the middle of the risen boss.</summary>
+		public Vector2 CameraFocus => RigOrigin - new Vector2(-NPC.spriteDirection * 40f, 150f);
 
 		public override void SetStaticDefaults() {
-			Main.npcFrameCount[Type] = FrameCount;
+			Main.npcFrameCount[Type] = 1;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;   // a machine
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, new NPCID.Sets.NPCBestiaryDrawModifiers() {
-				Scale = 0.5f,
-				PortraitScale = 0.7f,
-				Position = new Vector2(0f, 12f),
-				PortraitPositionYOverride = 8f,
+				Scale = 0.36f,
+				PortraitScale = 0.5f,
+				Position = new Vector2(10f, 30f),
+				PortraitPositionYOverride = 40f,
 			});
 			CogpunkSets.Mechanical[Type] = true;
 			epithet = this.GetLocalization("Epithet");
-
-			const string glowPath = "Cogpunk/Content/Bosses/TrashTr0m/TrashTr0m_Glow";
-			if (!Main.dedServ && ModContent.HasAsset(glowPath)) {
-				glow = ModContent.Request<Texture2D>(glowPath);
-			}
+			LoadVisuals();
 		}
 
 		public override void Unload() {
-			glow = null;
 			epithet = null;
+			UnloadVisuals();
 		}
 
 		public override void SetDefaults() {
-			NPC.width = 132;
-			NPC.height = 150;
-			NPC.lifeMax = BaseLife;
+			NPC.width = HitboxWidth;
+			NPC.height = HitboxHeight;
+			NPC.lifeMax = ExpertStats.Base(ExpertLife);    // Classic; vanilla x2 / x3 in Expert / Master, snapped below
 			NPC.defense = BaseDefense;
-			NPC.damage = BaseContactDamage;
+			NPC.damage = ExpertStats.Base(ExpertContactDamage);
 			NPC.knockBackResist = 0f;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
@@ -149,9 +199,47 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			}
 		}
 
-		// Same curve as the Eye of Cthulhu (decompiled NPC.ScaleStats_ApplyMultiplayerStats, type 4): Expert 3640, Master 4641.
+		/// <summary>
+		/// Expert and Master (vanilla only calls this hook there; decompiled <c>NPC.ScaleStats</c>): by now life and contact
+		/// damage are the <c>SetDefaults</c> values x2 (Expert) or x3 (Master). Expert lands exactly on
+		/// <see cref="ExpertLife"/> and <see cref="ExpertContactDamage"/>; Master keeps vanilla's 0.85 boss adjustment
+		/// (7500 x 0.85 = 6375); then +35% per extra player instead of vanilla's balance curve.
+		/// </summary>
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment) {
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.65f * balance * bossAdjustment);
+			NPC.lifeMax = (int)Math.Round(ExpertStats.Snap(NPC.lifeMax, ExpertLife) * bossAdjustment * PlayerFactor(numPlayers));
+			NPC.damage = ExpertStats.Snap(NPC.damage, ExpertContactDamage);
+			playerScaled = true;
+		}
+
+		/// <summary>Classic has no player scaling hook, so the server scales life when the boss spawns and sends the
+		/// result with the NPC (<see cref="SendExtraAI"/>).</summary>
+		public override void OnSpawn(Terraria.DataStructures.IEntitySource source) {
+			if (!playerScaled && Main.netMode != NetmodeID.MultiplayerClient) {
+				int players = Math.Max(1, NPC.GetActivePlayerCount());
+				NPC.lifeMax = (int)Math.Round(NPC.lifeMax * PlayerFactor(players));
+				NPC.life = NPC.lifeMax;
+				playerScaled = true;
+			}
+		}
+
+		public static float PlayerFactor(int players) => 1f + LifePerExtraPlayer * Math.Max(0, players - 1);
+
+		public override void SendExtraAI(BinaryWriter writer) {
+			writer.Write(NPC.lifeMax);
+			writer.Write(NPC.life >= NPC.lifeMax);
+			writer.Write((short)cogTimer);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader) {
+			int lifeMax = reader.ReadInt32();
+			bool full = reader.ReadBoolean();
+			cogTimer = Math.Clamp((int)reader.ReadInt16(), 0, CogInterval);   // the server's count: the telegraph lines up
+			if (lifeMax > 0 && lifeMax != NPC.lifeMax) {
+				NPC.lifeMax = lifeMax;                     // a client computes its own lifeMax; the server's is the truth
+				if (full) {
+					NPC.life = lifeMax;
+				}
+			}
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
@@ -161,52 +249,112 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			});
 		}
 
+		/// <summary>The Lost Key on the first kill only, a bag per player in Expert/Master, the bag's contents in Classic
+		/// (<see cref="TrashTr0mLoot"/>).</summary>
+		public override void ModifyNPCLoot(NPCLoot npcLoot) {
+			npcLoot.Add(ItemDropRule.ByCondition(new FirstKillCondition(), ModContent.ItemType<LostKey>()));
+			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<TrashTr0mBag>()));
+			LeadingConditionRule classic = new(new Conditions.NotExpert());
+			classic.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, TrashTr0mLoot.WeaponPool()));
+			classic.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RustedScrap>(), 1, TrashTr0mLoot.MinScrap, TrashTr0mLoot.MaxScrap));
+			npcLoot.Add(classic);
+		}
+
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot) {
 			cooldownSlot = ImmunityCooldownID.Bosses;
-			return CurrentPhase == Phase.Idle;
+			switch (CurrentPhase) {
+				case Phase.Crawl:
+				case Phase.SlamWindup:
+				case Phase.SlamRecover:
+				case Phase.Gulp:
+				case Phase.SpitScrap:
+				case Phase.SpitBall:
+					return true;
+				default:
+					return false;                          // intro, suck (it must not knock its meal away), swallow, death
+			}
 		}
 
 		// ------------------------------------------------------------------------------------------------------------
 		// State machine (every side; only the server changes state)
 		// ------------------------------------------------------------------------------------------------------------
 
-		protected override void UpdateState() {
-			NPC.velocity = Vector2.Zero;
-			NPC.dontTakeDamage = CurrentPhase != Phase.Idle;
+		protected override void UpdateBoss() {
+			TrashTr0mSystem.Track(NPC.whoAmI);
+			if (!Main.dedServ) {
+				ResetEffectKeys();
+			}
+			NPC.velocity.X = 0f;
+			NPC.dontTakeDamage = CurrentPhase == Phase.Emerge || CurrentPhase == Phase.Retreat || CurrentPhase == Phase.Dying;
 			switch (CurrentPhase) {
 				case Phase.Emerge:
+					NPC.velocity.Y = 0f;
 					DoEmerge();
-					break;
-				case Phase.Idle:
-					DoIdle();
-					break;
+					return;
 				case Phase.Retreat:
+					NPC.velocity.Y = 0f;
 					DoRetreat();
+					return;
+				case Phase.Dying:
+					DoDying();
+					break;
+				case Phase.Crawl:
+					DoCrawl();
+					break;
+				case Phase.SlamWindup:
+					DoSlamWindup();
+					break;
+				case Phase.SlamRecover:
+					if (Timer >= SlamRecoverTicks) {
+						EndAttack();
+					}
+					break;
+				case Phase.SuckWindup:
+					DoSuckWindup();
+					break;
+				case Phase.Suck:
+					DoSuck();
+					break;
+				case Phase.SwallowPlayer:
+					DoSwallowPlayer();
+					break;
+				case Phase.SpitPlayer:
+					DoSpitPlayer();
+					break;
+				case Phase.Gulp:
+					DoGulp();
+					break;
+				case Phase.SpitScrap:
+					DoSpitScrap();
+					break;
+				case Phase.SpitBall:
+					DoSpitBall();
 					break;
 				default:
-					ChangeState((int)Phase.Idle);       // an unknown state from a newer version: recover (D0)
+					EndAttack();                           // Recover, or an unknown state from a newer version (D0)
 					break;
+			}
+			if (CurrentPhase != Phase.Dying) {
+				UpdateCogs();
+				CheckEnrage();
+				CheckJunkyard();
+			}
+			FollowGround();
+			if (!Main.dedServ) {
+				StateEffects();
 			}
 		}
 
 		private void DoEmerge() {
 			if (!Main.dedServ) {
-				TrashTr0mSystem.TrackIntro(NPC.whoAmI);
 				EmergeEffects();
+			}
+			if (FromHeap && Timer >= BurstTick && Timer < BurstTick + BurstTicks && IsAuthority) {
+				TrashTr0mSummon.ClearHeapRows(NPC.Bottom, (int)Timer - BurstTick, BurstTicks);
 			}
 			FaceTarget();
 			if (Timer >= EmergeTicks && RetargetOrRetreat()) {
-				ChangeState((int)Phase.Idle);            // (RetargetOrRetreat already switched to Retreat if nobody is left)
-			}
-		}
-
-		private void DoIdle() {
-			if (!RetargetOrRetreat()) {
-				return;
-			}
-			FaceTarget();
-			if (!Main.dedServ) {
-				AmbientEffects();
+				StartCrawl();
 			}
 		}
 
@@ -222,240 +370,242 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			}
 		}
 
-		/// <summary>Server: keeps a living target within <see cref="DespawnRange"/>, or burrows back into the heap. True while fighting.</summary>
+		private void DoDying() {
+			if (!Main.dedServ) {
+				DeathEffects();
+			}
+			UpdateDeath();
+		}
+
+		protected override void OnDeathStarted() {
+			Arg = 0f;                                      // let go of anything it held (a swallowed player is released)
+			NPC.netUpdate = true;
+		}
+
+		/// <summary>Server: below a third of its life it enrages, once (synced in ai[3]).</summary>
+		private void CheckEnrage() {
+			if (IsAuthority && !Enraged && NPC.life <= NPC.lifeMax * EnrageLifeFraction) {
+				NPC.ai[3] = 1f;
+				NPC.netUpdate = true;
+			}
+		}
+
+		/// <summary>Server: burrow away when no living player has been in the Junkyard for <see cref="LeaveGraceTicks"/>.
+		/// Checked every <see cref="JunkyardCheckInterval"/> ticks (a loop over the players, D1). Worlds without a Junkyard
+		/// skip the rule.</summary>
+		private void CheckJunkyard() {
+			if (!IsAuthority || !JunkyardSystem.Exists || (int)Timer % JunkyardCheckInterval != 0) {
+				return;
+			}
+			outsideTicks = AnyPlayerInJunkyard() ? 0 : outsideTicks + JunkyardCheckInterval;
+			if (outsideTicks >= LeaveGraceTicks) {
+				outsideTicks = 0;
+				ChangeState((int)Phase.Retreat);
+			}
+		}
+
+		private static bool AnyPlayerInJunkyard() {
+			foreach (Player player in Main.ActivePlayers) {
+				if (!player.dead && JunkyardSystem.Contains(player.Center)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/// <summary>Every attack ends here: straight back to crawling (the 2.5 s between attacks), or away if nobody is left.</summary>
+		private void EndAttack() {
+			if (RetargetOrRetreat()) {
+				StartCrawl();
+			}
+		}
+
+		// --- crawl --------------------------------------------------------------------------------------------------------
+
+		/// <summary>Server: start crawling from the rest pose.</summary>
+		private void StartCrawl() {
+			if (!IsAuthority) {
+				return;
+			}
+			ChangeState((int)Phase.Crawl);
+			Arg = 0f;
+		}
+
+		/// <summary>Crawl steps taken by tick <paramref name="t"/>: 12 frames per <see cref="CrawlCycleTicks"/>, exact integers.</summary>
+		private static int CrawlStep(int t) => t * TrashTr0mRigData.CrawlFrames / CrawlCycleTicks;
+
+		/// <summary>Crawl frame for the current tick: the cycle starts and ends on the rest pose (both hands planted).</summary>
+		public int CrawlFrame => (TrashTr0mRigData.RestFrame + CrawlStep((int)Timer)) % TrashTr0mRigData.CrawlFrames;
+
+		private void DoCrawl() {
+			int t = (int)Timer;
+			int step = CrawlStep(t);
+			if (t > 0 && step != CrawlStep(t - 1)) {
+				// Root motion: on a frame change, the body moves exactly as far as the planted hands slide back.
+				int previous = (TrashTr0mRigData.RestFrame + step - 1) % TrashTr0mRigData.CrawlFrames;
+				if (TrashTr0mRigData.CrawlDrag[previous] != 0) {
+					NPC.velocity.X = NPC.spriteDirection * TrashTr0mRigData.CrawlStep;
+					if (!Main.dedServ) {
+						DragEffects();
+					}
+				}
+				if (step % TrashTr0mRigData.CrawlFrames == 0) {
+					// Back on the rest pose (both hands planted): retarget the closest player, turn, resync, maybe attack.
+					if (!RetargetOrRetreat()) {
+						return;
+					}
+					FaceTarget();
+					if (IsAuthority) {
+						NPC.netUpdate = true;              // once per cycle: correct any drift on clients
+						if (t >= CrawlTicks) {
+							PickAttack();
+						}
+					}
+				}
+			}
+			KeepInWorld();
+		}
+
+		/// <summary>Server: suck if any player is within suction range of the mouth, slam otherwise.</summary>
+		private void PickAttack() {
+			FaceTarget();
+			bool suck = AnyPlayerInSuckRange();
+			ChangeState((int)(suck ? Phase.SuckWindup : Phase.SlamWindup));
+			Arg = 0f;                                      // the slam starts with the near arm
+		}
+
+		/// <summary>Server: targets the closest living player, preferring players inside the Junkyard; burrows away only
+		/// if nobody is alive within <see cref="DespawnRange"/>. (Players all leaving the Junkyard is handled with a grace
+		/// period by <see cref="CheckJunkyard"/>.) True while fighting.</summary>
 		private bool RetargetOrRetreat() {
 			if (!IsAuthority) {
 				return true;
 			}
-			if (!HasTargetInRange()) {
-				int old = NPC.target;
-				NPC.TargetClosest(false);
-				if (NPC.target != old) {
-					NPC.netUpdate = true;
+			int inside = -1, anywhere = -1;
+			float insideDistance = DespawnRange * DespawnRange, anyDistance = insideDistance;
+			bool hasJunkyard = JunkyardSystem.Exists;
+			foreach (Player player in Main.ActivePlayers) {
+				if (player.dead) {
+					continue;
+				}
+				float d = Vector2.DistanceSquared(player.Center, NPC.Center);
+				if (d < anyDistance) {
+					anyDistance = d;
+					anywhere = player.whoAmI;
+				}
+				if (hasJunkyard && d < insideDistance && JunkyardSystem.Contains(player.Center)) {
+					insideDistance = d;
+					inside = player.whoAmI;
 				}
 			}
-			if (!HasTargetInRange()) {
+			int best = inside >= 0 ? inside : anywhere;
+			if (best < 0) {
 				ChangeState((int)Phase.Retreat);
 				return false;
 			}
+			if (best != NPC.target) {
+				NPC.target = best;
+				NPC.netUpdate = true;
+			}
 			return true;
-		}
-
-		private bool HasTargetInRange() {
-			return NPC.HasValidTarget && Vector2.DistanceSquared(Main.player[NPC.target].Center, NPC.Center) < DespawnRange * DespawnRange;
 		}
 
 		private void FaceTarget() {
 			if (NPC.target < 0 || NPC.target >= Main.maxPlayers || !Main.player[NPC.target].active) {
 				return;
 			}
-			NPC.direction = NPC.spriteDirection = Main.player[NPC.target].Center.X >= NPC.Center.X ? 1 : -1;
+			int dir = Main.player[NPC.target].Center.X >= NPC.Center.X ? 1 : -1;
+			NPC.direction = NPC.spriteDirection = dir;
+		}
+
+		private void KeepInWorld() {
+			float min = 60f * 16f;
+			float max = (Main.maxTilesX - 60) * 16f;
+			if (NPC.Center.X + NPC.velocity.X < min || NPC.Center.X + NPC.velocity.X > max) {
+				NPC.velocity.X = 0f;
+			}
+		}
+
+		// --- terrain following (every side; tiles are synced, so every side finds the same ground) ---------------------
+
+		public const int ClimbRows = 10;                   // how far above its bottom it looks for ground (it climbs ledges)
+		public const int DropRows = 24;
+		public const float ClimbSpeed = 3f;
+		public const float FallAcceleration = 0.4f;
+		public const float MaxFallSpeed = 12f;
+		private const float GroundSampleOffset = 8f * 16f;  // samples under the near hand, the body and the waist
+
+		private void FollowGround() {
+			float bottom = NPC.Bottom.Y;
+			float best = float.MaxValue;
+			bool walled = false;
+			for (int s = -1; s <= 1; s++) {
+				float x = NPC.Center.X + NPC.velocity.X + s * GroundSampleOffset;
+				float y = FindGround(x, bottom, out bool solidAbove);
+				walled |= solidAbove;
+				if (y < best) {
+					best = y;
+				}
+			}
+			if (best == float.MaxValue) {
+				best = walled ? bottom - ClimbRows * 16f : float.MaxValue;   // a wall taller than the window: keep climbing
+			}
+			float diff = best == float.MaxValue ? MaxFallSpeed : best - bottom;
+			if (diff < -0.5f) {
+				NPC.velocity.Y = Math.Max(diff, -ClimbSpeed);
+			}
+			else if (diff > 0.5f) {
+				NPC.velocity.Y = Math.Min(Math.Min(Math.Max(NPC.velocity.Y, 0f) + FallAcceleration, MaxFallSpeed), diff);
+			}
+			else {
+				NPC.velocity.Y = diff;
+			}
+		}
+
+		/// <summary>Top of the first solid surface in the column under <paramref name="worldX"/>, searched from
+		/// <see cref="ClimbRows"/> above <paramref name="bottom"/> to <see cref="DropRows"/> below; float.MaxValue if none.
+		/// At most ClimbRows + DropRows bounds-checked reads (D0).</summary>
+		private static float FindGround(float worldX, float bottom, out bool solidAtTop) {
+			int x = (int)(worldX / 16f);
+			int row = (int)(bottom / 16f);
+			int top = row - ClimbRows;
+			solidAtTop = IsGround(x, top) && IsGround(x, top - 1);
+			bool airAbove = !IsGround(x, top - 1);
+			for (int y = top; y <= row + DropRows; y++) {
+				bool ground = IsGround(x, y);
+				if (ground && airAbove) {
+					return y * 16f;
+				}
+				airAbove = !ground;
+			}
+			return float.MaxValue;
+		}
+
+		private static bool IsGround(int x, int y) {
+			if (!TileSafety.TryGetTile(x, y, out Tile tile, 1) || !tile.HasTile || tile.IsActuated) {
+				return false;
+			}
+			return Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType];
 		}
 
 		public override void OnKill() {
+			bool firstKill = !TrashTr0mSystem.Downed;                     // the Lost Key only drops on the first kill
 			NPC.SetEventFlagCleared(ref TrashTr0mSystem.DownedFlag, -1);   // vanilla sends WorldData after a boss kill
+			if (!firstKill) {
+				return;
+			}
+			Color keyColor = new(223, 185, 78);                          // Brass 4, the cache's glow
 			if (Main.netMode == NetmodeID.Server) {
-				ChatHelper.BroadcastChatMessage(NetworkText.FromKey(this.GetLocalizationKey("CacheUnsealed")), UnsealedColor);
+				ChatHelper.BroadcastChatMessage(NetworkText.FromKey(this.GetLocalizationKey("KeyDropped")), keyColor);
 			}
 			else if (Main.netMode == NetmodeID.SinglePlayer) {
-				Main.NewText(this.GetLocalization("CacheUnsealed").Value, UnsealedColor);
+				Main.NewText(this.GetLocalization("KeyDropped").Value, keyColor);
 			}
-		}
-
-		// ------------------------------------------------------------------------------------------------------------
-		// Intro timing, shared by the camera and the drawing
-		// ------------------------------------------------------------------------------------------------------------
-
-		/// <summary>0..1: how firmly <paramref name="viewer"/>'s camera is locked on the boss right now.</summary>
-		public float CameraLock(Player viewer) {
-			if (!IsEmerging || viewer == null || !viewer.active
-				|| Vector2.DistanceSquared(viewer.Center, CameraFocus) > CameraLockRange * CameraLockRange) {
-				return 0f;
-			}
-			float t = Timer;
-			float easeIn = t / CameraEaseTicks;
-			float easeOut = (EmergeTicks - t) / CameraEaseTicks;
-			return MathHelper.Clamp(Math.Min(easeIn, easeOut), 0f, 1f);
-		}
-
-		/// <summary>How many pixels of the sprite are still below the ground line (even, so the 2x art stays on its grid).</summary>
-		private int BuriedPixels() {
-			float buried;
-			switch (CurrentPhase) {
-				case Phase.Emerge:
-					if (Timer < RumbleTicks) {
-						return FrameHeight;
-					}
-					float p = MathHelper.Clamp((Timer - RumbleTicks) / RiseTicks, 0f, 1f);
-					float eased = 1f - (1f - p) * (1f - p);
-					eased += 0.035f * MathF.Sin(p * MathHelper.TwoPi * 3f) * (1f - p);   // three heaves, settling
-					buried = (1f - MathHelper.Clamp(eased, 0f, 1f)) * FrameHeight;
-					break;
-				case Phase.Retreat:
-					float q = MathHelper.Clamp(Timer / RetreatTicks, 0f, 1f);
-					buried = q * q * FrameHeight;
-					break;
-				default:
-					return 0;
-			}
-			return Math.Clamp((int)(buried * 0.5f) * 2, 0, FrameHeight);
-		}
-
-		/// <summary>A point on the sprite (frame pixels of the left-facing sheet) in world space, following the facing.</summary>
-		private Vector2 SpritePoint(Vector2 framePixel) {
-			float dx = framePixel.X - FrameWidth * 0.5f;
-			if (NPC.spriteDirection == 1) {
-				dx = -dx;
-			}
-			return NPC.Bottom + new Vector2(dx, framePixel.Y - FrameHeight + BuriedPixels());
-		}
-
-		// ------------------------------------------------------------------------------------------------------------
-		// Client visuals
-		// ------------------------------------------------------------------------------------------------------------
-
-		private void EmergeEffects() {
-			int t = (int)Timer;
-			if (t <= LastEffectTick) {
-				return;
-			}
-			LastEffectTick = t;
-			bool shake = CogpunkClientConfig.Instance?.ScreenShake ?? true;
-			if (t == 1) {
-				SoundEngine.PlaySound(SoundID.DeerclopsRubbleAttack with { Pitch = -0.5f }, NPC.Bottom);
-				if (shake) {
-					Main.instance.CameraModifiers.Add(new PunchCameraModifier(NPC.Bottom, Vector2.UnitY, 3f, 12f, RumbleTicks + RiseTicks, 2400f, "Cogpunk:TrashTr0mRumble"));
-				}
-			}
-			if (t < RumbleTicks + RiseTicks && t % 2 == 0) {
-				GroundDebris(t < RumbleTicks ? 1 : 3);
-			}
-			if (t == RumbleTicks || t == RumbleTicks + 45 || t == RumbleTicks + 90) {
-				SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -0.6f, Volume = 0.8f }, NPC.Bottom);   // a heave breaks the crust
-			}
-			if (t >= RumbleTicks && t < RumbleTicks + RiseTicks && t % 6 == 0) {
-				WaistSparks(2);
-			}
-			if (TitleShown == 0f && t >= TitleTick && Main.LocalPlayer != null
-				&& Vector2.DistanceSquared(Main.LocalPlayer.Center, CameraFocus) <= CameraLockRange * CameraLockRange) {
-				TitleShown = 1f;
-				BossTitleSystem.Show(DisplayName, epithet, TitleHoldTicks);
-			}
-			if (t == RumbleTicks + RiseTicks) {
-				SoundEngine.PlaySound(SoundID.Roar with { Pitch = -0.45f }, NPC.Center);
-				if (shake) {
-					Main.instance.CameraModifiers.Add(new PunchCameraModifier(NPC.Center, Vector2.UnitX, 9f, 10f, 40, 2400f, "Cogpunk:TrashTr0mRoar"));
-				}
-			}
-			if (IsRoaring && t % 15 == 0) {
-				SoundEngine.PlaySound(SoundID.Item22 with { Pitch = -0.4f, MaxInstances = 2 }, SpritePoint(Mouth));
-				ExhaustPuff(3);
-			}
-		}
-
-		private void AmbientEffects() {
-			uint t = Main.GameUpdateCount;
-			if ((t + (uint)NPC.whoAmI * 7) % 24 == 0) {
-				ExhaustPuff(1);
-			}
-			if (Main.rand.NextBool(20)) {
-				WaistSparks(1);
-			}
-		}
-
-		/// <summary>Scrap dust thrown up along the ground line under the boss (the heap breaking open).</summary>
-		private void GroundDebris(int count) {
-			if (!CogpunkClientConfig.RollEffect()) {
-				return;
-			}
-			int left = (int)((NPC.Bottom.X - FrameWidth * 0.4f) / 16f);
-			int width = Math.Max(1, (int)(FrameWidth * 0.8f / 16f));
-			int row = (int)(NPC.Bottom.Y / 16f);
-			for (int i = 0; i < count; i++) {
-				int x = left + Main.rand.Next(width);
-				if (!SafeSpawn.TryTileDust(x, row) && !SafeSpawn.TryTileDust(x, row - 1)) {
-					SafeSpawn.TryNewDust(new Vector2(x * 16f, row * 16f - 8f), 16, 8, DustID.Smoke, out _, 0f, -1.5f, 120, new Color(127, 135, 148));
-				}
-			}
-		}
-
-		private void WaistSparks(int count) {
-			for (int i = 0; i < count; i++) {
-				Vector2 at = SpritePoint(new Vector2(Main.rand.Next(WaistLeft, WaistRight), WaistY));
-				if (SafeSpawn.TryNewDust(at, 0, 0, DustID.Torch, out Dust spark, 0f, 0f, 0, default, 1.1f)) {
-					spark.position = at;
-					spark.velocity = new Vector2(Main.rand.NextFloat(-1.5f, 1.5f), Main.rand.NextFloat(0.5f, 2.5f));
-					spark.noGravity = false;
-				}
-			}
-		}
-
-		private void ExhaustPuff(int count) {
-			for (int i = 0; i < count; i++) {
-				Vector2 at = SpritePoint(Main.rand.NextBool() ? ExhaustA : ExhaustB);
-				if (CogpunkClientConfig.RollEffect() && SafeSpawn.TryNewDust(at - new Vector2(4f), 8, 8, DustID.Smoke, out Dust smoke, 0f, 0f, 100, new Color(195, 200, 205), 1.3f)) {
-					smoke.velocity = new Vector2(Main.rand.NextFloat(-0.4f, 0.4f), -Main.rand.NextFloat(1.5f, 2.5f));
-					smoke.noGravity = true;
-				}
-			}
-		}
-
-		public override void HitEffect(NPC.HitInfo hit) {
-			if (Main.dedServ) {
-				return;
-			}
-			int sparks = NPC.life > 0 ? 3 : 40;
-			for (int i = 0; i < sparks; i++) {
-				if (SafeSpawn.TryNewDust(NPC.position, NPC.width, NPC.height, NPC.life > 0 ? DustID.Iron : DustID.Torch, out Dust d)) {
-					d.velocity *= NPC.life > 0 ? 1f : 3f;
-				}
-			}
-			if (NPC.life <= 0) {
-				for (int i = 0; i < 20; i++) {
-					SafeSpawn.TryNewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, out _, 0f, -1f, 100, new Color(79, 85, 98), 2f);
-				}
-			}
-		}
-
-		// ------------------------------------------------------------------------------------------------------------
-		// Animation and drawing (clients)
-		// ------------------------------------------------------------------------------------------------------------
-
-		public override void FindFrame(int frameHeight) {
-			int ticks = IsRoaring ? RoarTicksPerFrame : TicksPerFrame;
-			if (++NPC.frameCounter >= ticks) {
-				NPC.frameCounter = 0;
-				int frame = (NPC.frame.Y / FrameStride + 1) % FrameCount;
-				NPC.frame.Y = frame * FrameStride;
-			}
-			NPC.frame.Width = FrameWidth;
-			NPC.frame.Height = FrameHeight;
-		}
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
-			int buried = NPC.IsABestiaryIconDummy ? 0 : BuriedPixels();
-			int visible = FrameHeight - buried;
-			if (visible <= 0) {
-				return false;
-			}
-			// Only the part above the ground line is drawn: the boss rises out of the heap, never through it.
-			Rectangle source = new(0, NPC.frame.Y, FrameWidth, visible);
-			Vector2 origin = new(FrameWidth * 0.5f, visible);
-			Vector2 position = NPC.Bottom - screenPos + new Vector2(0f, NPC.gfxOffY);
-			position = new Vector2(MathF.Round(position.X), MathF.Round(position.Y));
-			SpriteEffects effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-			spriteBatch.Draw(TextureAssets.Npc[Type].Value, position, source, NPC.GetAlpha(drawColor), 0f, origin, 1f, effects, 0f);
-			if (glow != null && glow.IsLoaded) {
-				// Eyes, furnace and throat: full brightness, pulsing (and flaring while it roars).
-				float pulse = IsRoaring ? 1f : 0.8f + 0.2f * MathF.Sin(Main.GlobalTimeWrappedHourly * 4f);
-				spriteBatch.Draw(glow.Value, position, source, Color.White * pulse * NPC.Opacity, 0f, origin, 1f, effects, 0f);
-			}
-			return false;
 		}
 
 		public override void BossHeadSlot(ref int index) {
-			if (IsEmerging && Timer < RumbleTicks) {
-				index = -1;                                  // still buried: no map icon yet
+			if ((IsEmerging && Timer < BurstTick) || (CurrentPhase == Phase.Retreat && Timer > RetreatTicks / 2)) {
+				index = -1;                                // under the ground: no map icon
 			}
 		}
 	}

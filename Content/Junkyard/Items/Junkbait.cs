@@ -1,3 +1,4 @@
+using Cogpunk.Content.Bosses.TrashTr0m;
 using Cogpunk.Content.Scrap.Items;
 using Cogpunk.Content.Scrap.Pets;
 using Cogpunk.Core.Systems;
@@ -9,10 +10,11 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.Junkyard.Items
 {
 	/// <summary>
-	/// Junkbait: a ball of scrap glazed in grease, with a Scrappybot rattling inside as the bait. The summon item of the
-	/// Junkyard's boss, which isn't in the mod yet: until it is, <see cref="CanUseItem"/> refuses every use, so the item is
-	/// never consumed for nothing. It already sorts, researches and is set up (hold-up use, consumable, stack of 20) like a
-	/// boss summon (ExampleMod 1.4.4 <c>MinionBossSummonItem</c>), so the boss only has to add <c>UseItem</c>.
+	/// Junkbait: a ball of scrap glazed in grease, with a Scrappybot rattling inside as the bait. Summons Trash-Tr0m, the
+	/// Junkyard's boss: usable inside the Junkyard while it isn't alive, it makes it claw its way out of the ground in front
+	/// of the player (<see cref="TrashTr0mSummon.RequestFromBait"/>; set up like ExampleMod 1.4.4's
+	/// <c>MinionBossSummonItem</c>: the owner asks, the server spawns). <see cref="CanUseItem"/> refuses a use that could
+	/// not summon, so the bait is never wasted.
 	/// <para>Recipe (anvil): <see cref="Scrappybot"/> + <see cref="ScrapCost"/> <see cref="RustedScrap"/> +
 	/// <see cref="BarCost"/> Copper (or Tin) Bars.</para>
 	/// </summary>
@@ -42,9 +44,13 @@ namespace Cogpunk.Content.Junkyard.Items
 			itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossSpawners;
 		}
 
-		// No boss to summon yet: refusing the use keeps the item from being consumed.
 		public override bool CanUseItem(Player player) {
-			return false;
+			return TrashTr0mSummon.CanUseBait(player);
+		}
+
+		public override bool? UseItem(Player player) {
+			TrashTr0mSummon.RequestFromBait(player);       // owner only; the server validates and spawns
+			return true;
 		}
 
 		public override void AddRecipes() {

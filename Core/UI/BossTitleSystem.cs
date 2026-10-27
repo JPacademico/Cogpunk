@@ -12,8 +12,9 @@ using Terraria.UI.Chat;
 namespace Cogpunk.Core.UI
 {
 	/// <summary>
-	/// Boss introduction card: the boss's name stamped large across the lower middle of the screen, with a smaller epithet
-	/// above it between two ember rules. The name lands with a short slam (it shrinks from <see cref="SlamScale"/> to
+	/// Boss title card: the boss's name stamped large across the lower middle of the screen, with a smaller line above it
+	/// between two ember rules: the epithet when it arrives (<see cref="Show"/>), "Defeated" when it dies
+	/// (<see cref="ShowDefeated"/>). The name lands with a short slam (it shrinks from <see cref="SlamScale"/> to
 	/// full size during the fade-in), holds, then fades out.
 	/// <para>Hostile colours (D3: Ember and Steam for hostile effects): ember name with an Ember 0 outline, steam-grey
 	/// epithet. Client-local like <see cref="BiomeTitleSystem"/>: the boss decides when each client calls
@@ -69,6 +70,15 @@ namespace Cogpunk.Core.UI
 			epithet = bossEpithet;
 			holdTicks = hold < 0 ? 0 : hold;
 			timer = 0;
+		}
+
+		/// <summary>Key of the second line of every boss's defeat card.</summary>
+		public const string DefeatedKey = "Mods.Cogpunk.UI.BossDefeated";
+
+		/// <summary>The defeat card (user rule, 2026-10-26: every boss): the boss's name and "Defeated", nothing else.
+		/// Local client only; <c>BossNPC</c> calls it during the death cinematic.</summary>
+		public static void ShowDefeated(LocalizedText bossName, int hold) {
+			Show(bossName, Language.GetText(DefeatedKey), hold);
 		}
 
 		public override void PostUpdateEverything() {
