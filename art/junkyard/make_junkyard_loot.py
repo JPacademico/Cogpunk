@@ -19,6 +19,8 @@ use hostile Ember for their lamps; the Mysterious Map's arrow uses friendly Bras
                                                                drips trailing behind (2026-10-27: it must read as a
                                                                projectile)
     Content/Junkyard/Items/TarDrop.png                 20x24   a glossy drop of tar
+    Content/Junkyard/Items/CondensedTar.png            28x22   (2026-10-30) four drops boiled down at a Solidifier: a hard
+                                                               brick of tar, glossy on top, a bubble caught in its face
     Content/Junkyard/Items/PolisherSchematic.png       32x28   a grease-stained blueprint of the polisher
     Content/Junkyard/Items/RustPolisher.png            48x50   item: the polisher
     Content/Junkyard/Tiles/RustPolisherTile.png        54x336  6 frames of a 3x3 tile (18 px stride, rows 16/16/18,
@@ -380,6 +382,32 @@ def tar_drop():
     return img(cv, 10, 12)
 
 
+CONDENSED_TAR = (        # 14x11: a brick of hardened tar in 3/4 view; its top catches the light, a bubble is trapped in its face
+    "...oooooooo...",
+    "..ommhhgmmmo..",
+    ".omhgmmmmmmmo.",
+    ".ommmmmgmmmdo.",
+    "oommmmmmmmddoo",
+    "odmmmddddddddo",
+    "oddddddddddddo",
+    "oddddddwgddddo",
+    "oddddddgoddddo",
+    ".oddddddddddo.",
+    "..oooooooooo..",
+)
+CONDENSED_COLOURS = {"o": I[0], "d": TAR, "m": LE[1], "g": I[2], "h": I[3], "w": WHITE}
+
+
+def condensed_tar():
+    """Condensed Tar (2026-10-30): the pixel map above (tar's own colours: Iron 0 outline, Leather 0/1, the Iron 2/3 gloss)."""
+    cv = Canvas()
+    for y, row in enumerate(CONDENSED_TAR):
+        for x, ch in enumerate(row):
+            if ch in CONDENSED_COLOURS:
+                cv.put(x, y, CONDENSED_COLOURS[ch])
+    return img(cv, 14, 11)
+
+
 # ================================================================================================
 # Polisher Schematic, Mysterious Map
 # ================================================================================================
@@ -560,6 +588,7 @@ def export_all():
     export(vertical(living_tar_frames(), pad=0), "Content/Junkyard/NPCs/LivingTar.png")
     export(vertical(tar_glob_frames()), "Content/Junkyard/Projectiles/TarGlob.png")
     export(tar_drop(), "Content/Junkyard/Items/TarDrop.png")
+    export(condensed_tar(), "Content/Junkyard/Items/CondensedTar.png")
     export(polisher_schematic(), "Content/Junkyard/Items/PolisherSchematic.png")
     export(img(polisher_picture(0), 24, 25), "Content/Junkyard/Items/RustPolisher.png")
     export(vertical(polisher_tile_frames(), pad=0), "Content/Junkyard/Tiles/RustPolisherTile.png")

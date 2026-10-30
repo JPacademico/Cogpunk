@@ -1,7 +1,8 @@
 """D5 preview of an armor set worn by a stand-in player, replaying vanilla's frame mapping (reusable for any armor).
 
     python -P tools/sim/armor_preview.py --head <X_Head.png> --body <X_Body.png> --legs <X_Legs.png> \
-        --out docs/media/<date>_<area>-<set>.gif [--png docs/media/<...>.png] [--anim-frames 4 --anim-ticks 6]
+        --out docs/media/<date>_<area>-<set>.gif [--png docs/media/<...>.png] [--anim-frames 4 --anim-ticks 6] \
+        [--back <X_Back.png>] [--skin] [--female]
 
 Equip-texture animation frames are picked up as <sheet>_1.png .. <sheet>_<n-1>.png (see Core/Visuals/AnimatedEquip).
 
@@ -14,11 +15,20 @@ Replayed from decompiled tModLoader v2026.08.3.0:
   (PlayerDrawSet.cs's `Position -= OffsetsPlayerHeadgear` is inside HeadOnlySetup, the map-icon path, not the body.)
 * Draw order: back arm, legs, torso, back shoulder, head, then front arm / front shoulder.
 * Shoulders are hidden in the jump frame (ArmorIDs.Body.Sets.showsShouldersWhileJumping is false for modded bodies).
+* --female: the torso and both shoulders come from rows 2-3 of the body sheet (CreateCompositeData: pt.Y += 2 when not
+  Male); the arms are the same for both.
+* --back (2026-10-30): a back equip such as a body's cape (ArmorIDs.Body.Sets.IncludedCapeBack), a 20-frame 40x56 strip
+  drawn behind everything (the BackAcc layer comes before Skin) with the body frame, centred like the body
+  (DrawPlayer_10_BackAcc: (width/2, height - 28 - 4 + 8) = the torso's centre); it carries the walk bob in its frames.
+* --skin (2026-10-30): a stand-in skin body (copper tones) cut from the template's full-coverage masks (torso, the arm
+  cells of the frame, the legs), drawn where vanilla draws the wearer's skin under armor that leaves it bare
+  (HidesTopSkin / HidesBottomSkin false, HidesHands false).
 
 Leaves out: lighting, dyes, rotated item-use arms (cols 7-8), hair, the real skin sprite (a plain stand-in face is
 drawn under the helmet), and walk-speed-dependent frame timing (fixed 3 ticks per walk frame).
 """
 import argparse
+import json
 import os
 from PIL import Image, ImageDraw
 
@@ -66,21 +76,62 @@ def stand_in_head(bob):
     return img
 
 
-def compose(head, body, legs, frame, bob):
+_LAYOUT = None
+SKIN = ((147, 68, 31, 255), (196, 104, 58, 255), (233, 160, 107, 255))   # stand-in skin: outline, body, lit
+
+
+def _layout():
+    global _LAYOUT
+    if _LAYOUT is None:
+        _LAYOUT = json.load(open(os.path.join(os.getcwd(), "art/templates/armor_layout.json"), encoding="utf-8"))
+    return _LAYOUT
+
+
+def skin_from_mask(mask):
+    """A 1x template mask as a 2x stand-in skin layer: outlined, lit on its top-left pixels."""
+    img = Image.new("RGBA", (FW, FH), (0, 0, 0, 0))
+    inside = {(x, y) for y, row in enumerate(mask) for x, ch in enumerate(row) if ch == "#"}
+    d = ImageDraw.Draw(img)
+    for (x, y) in inside:
+        edge = any((x + dx, y + dy) not in inside for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        lit = (x - 1, y) not in inside or (x, y - 1) not in inside
+        col = SKIN[2] if (lit and not edge) else (SKIN[0] if edge else SKIN[1])
+        d.rectangle([x * 2, y * 2, x * 2 + 1, y * 2 + 1], fill=col)
+    return img
+
+
+def skin_cell(col, row):
+    mask = _layout()["body_cells"].get("%d,%d" % (col, row))
+    return skin_from_mask(mask) if mask else Image.new("RGBA", (FW, FH), (0, 0, 0, 0))
+
+
+def compose(head, body, legs, frame, bob, back=None, skin=False, female=False):
     img = Image.new("RGBA", (FW, FH + 4), (0, 0, 0, 0))
     base = 2                                       # canvas margin so a lifted part never leaves the image
     lift = HEADGEAR_OFFSET[frame] - 2              # composite parts: 0, or -2 px in frames 7-9 / 14-16
     (fa_col, fa_row), shoulder_over = FRONT_ARM[frame]
-    torso = (1, 0) if frame == 5 else (0, 0)
-    layers = [(cell(body, fa_col, fa_row + 2), lift),           # back arm
-              (strip_frame(legs, frame), 0),
-              (cell(body, *torso), lift)]
+    g = 2 if female else 0                         # female torso and shoulders: rows 2-3
+    torso = (1, g) if frame == 5 else (0, g)
+    layers = []
+    if back is not None:
+        layers.append((strip_frame(back, frame), 0))            # the cape, behind everything
+    if skin:
+        layers.append((skin_cell(fa_col, fa_row + 2), lift))    # the back arm's skin
+    layers.append((cell(body, fa_col, fa_row + 2), lift))       # back arm
+    if skin:
+        layers.append((skin_from_mask(_layout()["legs"][frame]), 0))
+    layers.append((strip_frame(legs, frame), 0))
+    if skin:
+        layers.append((skin_cell(*torso), lift))
+    layers.append((cell(body, *torso), lift))
     if frame != 5:
-        layers.append((cell(body, 1, 1), lift))                 # back shoulder
+        layers.append((cell(body, 1, 1 + g), lift))             # back shoulder
     layers += [(stand_in_head(bob[frame]), 0), (strip_frame(head, frame), 0)]
-    front_arm = (cell(body, fa_col, fa_row), lift)
-    front_shoulder = [(cell(body, 0, 1), lift)] if frame != 5 else []
-    layers += ([front_arm] + front_shoulder) if shoulder_over else (front_shoulder + [front_arm])
+    front_arm = [(cell(body, fa_col, fa_row), lift)]
+    if skin:
+        front_arm.insert(0, (skin_cell(fa_col, fa_row), lift))
+    front_shoulder = [(cell(body, 0, 1 + g), lift)] if frame != 5 else []
+    layers += (front_arm + front_shoulder) if shoulder_over else (front_shoulder + front_arm)
     for layer, dy in layers:
         img.alpha_composite(layer, (0, base + dy))
     return img
@@ -97,12 +148,17 @@ def main():
     ap.add_argument("--anim-ticks", type=int, default=6)
     ap.add_argument("--zoom", type=int, default=3)
     ap.add_argument("--head-bob", default="0,0,0,0,0,0,0,-1,-1,-1,0,0,0,0,-1,-1,-1,0,0,0")
+    ap.add_argument("--back")
+    ap.add_argument("--skin", action="store_true")
+    ap.add_argument("--female", action="store_true")
     a = ap.parse_args()
     bob = [int(v) for v in a.head_bob.split(",")]
 
     heads = load_frames(a.head, a.anim_frames)
     bodies = load_frames(a.body, a.anim_frames)
     legs = load_frames(a.legs, a.anim_frames)
+    back = Image.open(a.back).convert("RGBA") if a.back else None
+    extra = dict(back=back, skin=a.skin, female=a.female)
 
     # Timeline in game ticks: idle, a walk cycle (3 ticks/frame) twice, a jump, an item swing (6 ticks/frame).
     timeline = [0] * 60 + [f for _ in range(2) for f in range(6, 20) for _t in range(3)] + [5] * 30
@@ -122,7 +178,7 @@ def main():
             x0 = i * (FW + pad * 2)
             d.rectangle([x0, 0, x0 + FW + pad * 2 - 1, H - 1], fill=bg)
             d.rectangle([x0, pad + FH + 2, x0 + FW + pad * 2 - 1, H - 1], fill=(91, 54, 38))
-            canvas.alpha_composite(compose(heads[anim], bodies[anim], legs[anim], frame, bob), (x0 + pad, pad))
+            canvas.alpha_composite(compose(heads[anim], bodies[anim], legs[anim], frame, bob, **extra), (x0 + pad, pad))
         d.text((2, H - 11), f"frame {frame:2d}  cog {anim}", fill=(238, 241, 243))
         gif.append(canvas.convert("RGB").resize((W * a.zoom, H * a.zoom), Image.NEAREST))
     gif[0].save(a.out, save_all=True, append_images=gif[1:], duration=50, loop=0)
@@ -134,7 +190,7 @@ def main():
         for i, (frame, anim) in enumerate(poses):
             for j, (bg, _name) in enumerate(backgrounds):
                 tile = Image.new("RGBA", (FW + 4, FH + 8), bg + (255,))
-                tile.alpha_composite(compose(heads[anim], bodies[anim], legs[anim], frame, bob), (2, 2))
+                tile.alpha_composite(compose(heads[anim], bodies[anim], legs[anim], frame, bob, **extra), (2, 2))
                 sheet.alpha_composite(tile, (i * (FW + 4), j * (FH + 8)))
         sheet.resize((sheet.width * a.zoom, sheet.height * a.zoom), Image.NEAREST).save(a.png)
         print(f"{a.png}: {len(poses)} poses")

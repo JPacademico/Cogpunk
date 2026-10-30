@@ -17,7 +17,7 @@ namespace Cogpunk.Content.Scrap.Armor
 	public sealed class ScrapArmorPlayer : ModPlayer
 	{
 		public const int CogInterval = 45;                  // 0.75 s
-		public const int CogDamage = 70;
+		public const int CogDamage = 40;                  // 70 -> 40 (user nerf, 2026-10-28)
 		public const float CogKnockback = 2f;
 		public const float CogSpeed = 10f;
 		public const float CogRange = 25 * 16f;             // the arc reaches about 21 tiles on flat ground, bounces carry it on

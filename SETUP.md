@@ -185,7 +185,8 @@ Cogpunk/                          ← repo root = C:\tML\ModSources\Cogpunk
 │  ├─ Networking/                 CogpunkPacket (one class per message), PacketRegistry (crash-safe dispatch)
 │  ├─ Safety/                     SafeSpawn, SpawnBudgetSystem, SafeLog, TileSafety, MathSafety   (D0)
 │  ├─ Templates/                  CogpunkItem/NPC/Projectile/Tile/Wall/Buff, StateMachineNPC, TextureFallback
-│  ├─ Systems/                    WorldFlagSystem (named, saved, synced flags), CrossMod (safe Mod.Call)
+│  ├─ Systems/                    WorldFlagSystem (named, saved, synced flags), CrossMod (safe Mod.Call), NPCHaste (area speed buffs)
+│  ├─ Events/                     CogpunkInvasion (vanilla-rule invasions), InvasionDirector, InvasionRules, InvasionProgressBar
 │  ├─ WorldGeneration/            SafeGenPass, GenPassUtils.InsertAfter
 │  └─ Configs/                    CogpunkClientConfig (visuals and accessibility only)
 ├─ Content/                       GAMEPLAY, one folder per feature slice (added from M1 on):
@@ -392,6 +393,10 @@ npc,biome,tier,anchor_npc,life,defense,contact_dmg,proj_dmg,spawn_chance,banner,
 `accessories.csv`
 ```
 accessory,class,tier,source,anchor_vanilla,effects,anchor_effects,value_note,tested_on
+```
+`events.csv` (invasions and events)
+```
+event,tier,gate,anchor_event,natural_start,size,roster,miniboss,kill_values,rates,tested_on
 ```
 `hazards.csv` (environmental damage: tar, gas, hot pipes...)
 ```

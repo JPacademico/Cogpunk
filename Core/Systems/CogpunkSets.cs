@@ -37,6 +37,15 @@ namespace Cogpunk.Core.Systems
 			.Description("Pre-Hardmode trinkets and accessories (not boss drops) that can be found in Cogpunk's Scrappy Trunks.")
 			.RegisterBoolSet(false);
 
+		/// <summary>
+		/// NPCs whose own AI applies <see cref="NPCHaste.FactorOf"/> (top speed, acceleration, animation rate), so
+		/// <see cref="NPCHaste"/> skips its generic extra step for them. Set it in <c>SetStaticDefaults</c> only if the AI
+		/// really reads the factor.
+		/// </summary>
+		public static bool[] SelfHasting = NPCID.Sets.Factory.CreateNamedSet("Cogpunk", nameof(SelfHasting))
+			.Description("NPCs that apply Cogpunk's haste (the Annoy-o-tron's alarm) in their own AI instead of the generic extra step.")
+			.RegisterBoolSet(false);
+
 		/// <summary>Bounds-checked lookup (D0): unknown or out-of-range types are simply not mechanical.</summary>
 		public static bool IsMechanical(NPC npc) {
 			int type = npc.type;

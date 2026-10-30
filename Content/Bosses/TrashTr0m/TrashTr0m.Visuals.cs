@@ -40,24 +40,14 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			if (Main.dedServ) {
 				return;
 			}
-			bodyPages = RequestPages(Path + "TrashTr0m", R.BodyPages);
-			glowPages = RequestPages(Path + "TrashTr0m_Glow", R.GlowPages);
-			nearPages = RequestPages(Path + "TrashTr0m_ArmNear", R.NearPages);
-			farPages = RequestPages(Path + "TrashTr0m_ArmFar", R.FarPages);
+			bodyPages = DepthLayers.RequestPages(Path + "TrashTr0m", R.BodyPages);
+			glowPages = DepthLayers.RequestPages(Path + "TrashTr0m_Glow", R.GlowPages);
+			nearPages = DepthLayers.RequestPages(Path + "TrashTr0m_ArmNear", R.NearPages);
+			farPages = DepthLayers.RequestPages(Path + "TrashTr0m_ArmFar", R.FarPages);
 			Mod mod = ModContent.GetInstance<CogpunkMod>();
 			for (int i = 0; i < goreNames.Length; i++) {
 				goreTypes[i] = mod.TryFind("TrashTr0m_Gore" + goreNames[i], out ModGore gore) ? gore.Type : 0;
 			}
-		}
-
-		/// <summary>A layer's pages (Name, Name_Page1, ...); a missing page stays null and its frames are simply not drawn (D0).</summary>
-		private static Asset<Texture2D>[] RequestPages(string path, int count) {
-			var pages = new Asset<Texture2D>[count];
-			for (int k = 0; k < count; k++) {
-				string name = k == 0 ? path : path + "_Page" + k;
-				pages[k] = ModContent.HasAsset(name) ? ModContent.Request<Texture2D>(name) : null;
-			}
-			return pages;
 		}
 
 		private static void UnloadVisuals() {

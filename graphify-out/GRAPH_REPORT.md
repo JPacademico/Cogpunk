@@ -1,305 +1,405 @@
-# Graph Report - .  (2026-10-27)
+# Graph Report - .  (2026-10-30)
 
 ## Corpus Check
-- 119 files · ~912,211 words
+- 210 files · ~1,381,727 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2378 nodes · 3935 edges · 246 communities (151 shown, 95 thin omitted)
-- Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 321 edges (avg confidence: 0.81)
-- Token cost: 0 input · 0 output
+- 4275 nodes · 8040 edges · 331 communities (224 shown, 107 thin omitted)
+- Extraction: 87% EXTRACTED · 13% INFERRED · 0% AMBIGUOUS · INFERRED: 1054 edges (avg confidence: 0.8)
+- Token cost: 452,806 input · 0 output
 
 ## Community Hubs (Navigation)
+- Tar Tyrant Art Generator
 - Trash-Tr0m Art Generator
-- Furniture Art Generator
-- Trash-Tr0m Simulator
-- Trash-Tr0m Loot Art
-- Junkyard Biome & Spawns
-- Trash-Tr0m Summon & Packets
-- Scrap Armor Preview
-- Junkyard World Generation
-- Trash-Tr0m Core AI
-- Pixel Paint Helpers
-- Mice-bot Minion AI
-- Living Tar Enemy
-- Weapon & Projectile Files
-- Scrap Bomb Item
-- Tr0mhead Sentry
-- Weapon Simulator
-- Rig Renderer
-- Tetanus Lance Projectile
-- Scrapmancer Staff
-- Scrap Launcher Ball
-- Trash-Tr0m Player Effects
-- Dev Rules & Directives
-- Trash-Tr0m Attacks
-- Project Docs & Build
-- Scrap Slice Files
-- Trash-Tr0m Files
-- Lost Key & Treasure Bag
-- Skill Directives D1-D5
-- Rig Shapes
-- Scrap Mound Worldgen
-- Animated Armor Equips
-- Scrappybot Pet
-- Mysterious Map Target
-- Junkyard Items
+- Archived Tar Tyrant Art
+- Junkyard Loot Art
+- Trash-Tr0m Fight Simulation
+- Armor Art Generators
+- Preview and Sim Tools
+- Scrap and Junkyard Items
+- Core Namespaces
+- Rig Shapes and Poses
+- Mech Army Art
+- Loot Simulations
+- Tar Tyrant Movement AI
+- Tyrant Armor and Condensed Tar
+- Polished Metal and Base Types
+- Mech Army Rig and Scrap Armor
+- Trash-Tr0m Ground AI
+- Trash-Tr0m Projectiles
+- Junkyard Worldgen Pass
+- Mice Bot Minion
+- Jaeger Enemy
+- Worldgen and Furniture
+- Tar Tyrant Simulation
+- Junkyard Biome and Title
 - Scrappy Trunk Tile
+- Trash-Tr0m Summoning
+- Tar and Scrap Dusts
+- Tr0mhead Sentry
+- Update Sims 2026-10-27
+- Scrap Armor Art
+- Safe Logging and Packets
+- Boombot Enemy
+- Tetanus Weapon
+- Puxa-frango Art
+- Invasion Framework
+- Tar Tyrant Loot
+- Tar Tyrant Attacks
+- Mech Army Simulation
+- Tar Tyrant Attack Sims
+- Art Direction Rules
+- Steam Dash
+- Project Overview Docs
+- Core Directives
+- Toolchain Setup
+- Trash-Tr0m Loot
+- Trash-Tr0m Mouth Grab
+- Steam Resource Spending
+- Scrap Armor Cog Volley
+- Player Hooks and Fishing
+- Tar Tyrant Effects
+- Scrap Launcher Projectiles
+- Junkyard Area Bounds
+- Annoy-O-Tron Enemy
+- Project Rules (CLAUDE.md)
 - Rust Collector Enemy
-- Tar Art Generator
-- Biome Title Banner
-- Mod Entry & Packets
-- Scrappy Trunk Worldgen
-- Boss Art Direction
-- World Flags
-- Trash-Tr0m Intro & Death FX
-- Scrap Launcher Gun
-- Scrap Helmet Set Bonus
-- SafeSpawn
-- Boss Title Card
-- Depth Layers Drawing
-- Tar Liquid Textures
-- Trash-Tr0m Head Model
-- Scrap Weapon Art
-- Trash-Tr0m Rig Points
-- Junkyard & Trunk Files
-- Scrap Armor Player
-- Scrap Cog Projectile
-- BossNPC Template
-- Content Base Types
-- Debuffs & Buffs
-- SafeLog
-- Trash-Tr0m Death Gores
-- Tetanus Item
-- Map Arrow Draw Layer
-- Scrappy Bow
-- Math Safety & State Machine
-- Tar Visual Proofs
-- Junkyard Simulator
-- Scaffold Art
-- Tetanus Debuff
-- Junkyard Layout Passes
-- Tar Player Damage
-- Tar Water Style
-- Scrappy Wand
-- Scrappy Wand Bolt
-- Screwdriver Item
-- Scrap Bomb Proofs
-- Trash-Tr0m Proof Media
-- Junkyard Architecture Docs
-- Affine Transforms
-- Screwdriver Projectile
-- TrashTr0mShockwave
-- TrashTr0m.Visuals
-- TrashTr0m.Hitboxes
-- ShimmerPlacementPass
-- ScrapBreastplate
-- RustedScrapWorldGen
-- GenPassUtils
-- CogpunkPacket
-- scrappybot sim
-- check tile seams
-- scrap cog volley sim
-- 2026 10 23 boss trashtr0m sprite
-- 2026 10 26 junkyard creatures
-- SKILL
-- TrashTr0mChewedScrap
-- TrashTr0mScrapBall
-- Tr0mheadStaff
-- ScrapLeggings
-- MiceBot
-- CinematicCamera
-- 2026 10 23 boss trashtr0m intro
-- 2026 10 23 junkyard tar
-- SKILL (2)
-- Placeholder
-- ScrapNodePass
-- TarWaterStyle
-- RustedScrap
-- Scrappybot
-- CogpunkSets
-- TextureFallback
-- 2026 10 23 boss trashtr0m idle
-- 2026 10 23 junkyard tar surface
-- CogpunkMod
-- CogpunkClientConfig
-- TrashTr0m.Visuals (2)
-- ScrappyTrunkTile
-- PolishedMetalTile
-- RustPolisher
-- TarDroplet
-- TarSteam
-- TarSteamSystem
-- SceneOverlayRegistry
-- BossFightSpawnRule
-- 2026 10 23 junkyard tar overview
-- junkyard layout sim
-- Tetanus
-- TrashTr0m ArmFar
-- TrashTr0mLoot
-- ScrappyTrunkPass
-- RustPolisherTile
-- TileSafety
-- SETUP
-- make trashtr0m art
-- RustedScrapTile
-- Tr0mheadStaff (2)
-- TarPlague
-- TarSteam (2)
-- SpawnBudgetSystem
-- VanillaRecipeGroups
-- BiomeTitleSystem
-- SafeGenPass
-- biome title sim
-- check sprite
-- TarDrop
-- ScrapLauncher
-- Tr0mheadStaff (3)
-- TarDroplet (2)
-- TarSplash
-- ScrappybotBuff
-- 2026 10 21 scrap overview
-- scrappy trunk sim
-- 2026 10 22 scrap armor cog aim
-- Scrapmancer
-- TrashTr0m
-- ScrappyTrunkTile (2)
-- RustCollector GorePanel
-- PolisherSchematic
-- MysteriousMap
-- RustCollector
-- RustedCog
-- RustedMetal
-- MiceBot (2)
-- AnimatedEquip
-- 2026 10 22 junkyard junkbait
-- 2026 10 22 junkyard petroleum overview
-- 2026 10 23 scrap screwdriver
-- sheet2gif
-- make trashtr0m art (2)
-- Cogpunk
-- 2026 10 22 scrap arsenal sprites
-- ScrappyTrunkTile (3)
-- Scrappybot (2)
-- ScrappybotBuff (2)
-- ScrappybotPet
-- ScrappybotPet (2)
-- Screwdriver
-- 2026 10 22 junkyard petroleum
-- 2026 10 22 junkyard structure clearance
-- 2026 10 23 furniture scrappy trunk loot
-- 2026 10 23 scrap mice bot burrow
-- media6 10 26 boss trashtr0m sprite
-- README
-- SETUP (2)
-- SKILL (3)
-- SKILL (4)
-- SKILL (5)
-- SKILL (6)
-- BestiaryDatabase
-- BestiaryEntry
-- BinaryReader
-- Chest
-- TrashTr0m (2)
-- Color
-- SpriteBatch
-- NPC
-- GameConfiguration
-- GenerationProgress
-- Junkbait
-- GenPass
-- float
-- GameTime
-- SpriteBatch (2)
-- string
-- Vector2
-- bool
-- Color (2)
-- float (2)
-- int
-- float (3)
-- Player
-- bool (2)
-- float (4)
-- int (2)
-- int (3)
-- SpriteBatch (3)
-- int (4)
-- ScrapBreastplate Body 2
-- ScrapBreastplate Body 3
-- ScrapHelmet Head 2
-- ScrapHelmet Head 3
-- ScrapLeggings Legs 2
-- ScrapLeggings Legs 3
-- EntitySource ItemUse WithAmmo
-- ScrappyBow
-- ScrappyWand
-- ScrappyWandBolt
-- 2026 10 22 scrap bow
-- 2026 10 22 scrap mice bot
-- 2026 10 22 scrap screwdriver
-- 2026 10 22 scrap wand
-- media6 10 26 boss trashtr0m intro
-- media6 10 26 boss trashtr0m leave
-- media6 10 26 boss trashtr0m loop
-- media6 10 26 boss trashtr0m loot
-- ItemGroup
-- NPCSpawnInfo
-- Overlay
-- Point
-- README (2)
-- README (3)
-- README (4)
-- SETUP (3)
-- SETUP (4)
-- SETUP (5)
-- SETUP (6)
-- SpriteBatch (4)
+- Scrap Bomb
+- Puxa-frango Enemy
+- Mechanist Gear Media
+- Scrap Art Generator
+- CogpunkProjectile Cluster
+- SafeGenPass Cluster
+- DepthLayers Cluster
+- ScrappybotPet Cluster
+- Proposed Progression Map Cluster
+- make_junkyard_loot Cluster
+- ScrapMoundPass Cluster
+- Trash-Tr0m loot sheet PNG Cluster
+- JunkyardSpawnRules Cluster
+- AlarmoboMinion Cluster
+- GridWalkerNPC Cluster
+- Xf Cluster
+- TarTyrantClaw Cluster
+- SteamContainer Cluster
+- TrapperChainProjectile Cluster
+- MapTargetSystem Cluster
+- BossTitleSystem Cluster
+- Tar Tyrant attack cycle proof GIF (g Cluster
+- TarTyrantRigData Cluster
+- MouthWorld Cluster
+- Trapper Cluster
+- JaegerGreaves Cluster
+- ScrewdriverProjectile Cluster
+- make_tar_art Cluster
+- TarTyrantBoneSpike Cluster
+- EmergeEffects Cluster
+- LivingTar Cluster
+- BoombotBlast Cluster
+- WorldFlagSystem Cluster
+- D3 Balance Cluster
+- Trash-Tr0m Cluster
+- make_scrap_weapons Cluster
+- TarTyrantBackBone Cluster
+- TrashTr0m.Visuals Cluster
+- TryNewProjectile Cluster
+- ScrapmancerWave Cluster
+- ModSystem Cluster
+- TarGlob Cluster
+- SteamDashSystem Cluster
+- InvasionProgressBar Cluster
+- RequestOptional Cluster
+- ChickenSnapper Cluster
+- InvasionRules Cluster
+- CogpunkPacket Cluster
+- Info Cluster
+- TyrantArmorPlayer Cluster
+- ScrapLauncher Cluster
+- Generate Cluster
+- NPCHaste Cluster
+- PolishedCog Cluster
+- MechanistWeapon Cluster
+- SteamGaugeSystem Cluster
+- Alarmobo minion sprite sheet (7-fram Cluster
+- RogueMiceBot Cluster
+- ScrapHelmet Cluster
+- ScrapBomb Cluster
+- Mech Army Invasion Cluster
+- Tyrant Skull helmet item icon: brown Cluster
+- TyrantClaw Cluster
+- TarTyrantBubble Cluster
+- TarTyrantGlob Cluster
+- Tar Tyrant main body sheet (tar-and- Cluster
+- TrashTr0mSystem Cluster
+- Scrapmancer Cluster
+- Tetanus Cluster
+- CogpunkNPC Cluster
+- TrapperSpikeBall Cluster
+- InsertAfter Cluster
+- MysteriousMapArrowLayer Cluster
+- JaegerArmorPlayer Cluster
+- ScrapCogProjectile Cluster
+- RustedScrap Cluster
+- MiceBot Cluster
+- ScrappyBow Cluster
+- Junkyard Tar Sprites Visual Proof Sh Cluster
+- make_scaffold_art Cluster
+- CogpunkProjectile Cluster 136
+- AlarmHeadDrop Cluster
+- Tr0mheadStaff Cluster
+- TarWaterStyle Cluster
+- JaegerHelmet Cluster
+- CogpunkerManual Cluster
+- AlarmHead Cluster
+- ScrappyWand Cluster
+- Screwdriver Cluster
+- Trash-Tr0m sprite sheet proof: far a Cluster
+- InvasionRules Cluster 146
+- IsFinite Cluster
+- BossNPC Cluster
+- scrap_bomb_sim Cluster
+- Mech Army enemy sprite sheets: clock Cluster
+- ScrapwormCritter Cluster
+- TouchesSilhouette Cluster
+- TetanusDebuff Cluster
+- TrashTr0mShockwave Cluster
+- TouchesSilhouette Cluster 155
+- Junkbait Cluster
+- Polished Chestplate (inventory icon Cluster
+- TrapperChain Cluster
+- ScrapBreastplate Cluster
+- InvasionDirector Cluster
+- scrappybot_sim Cluster
+- check_tile_seams Cluster
+- D5 visual proof for 2026-10-26 Junky Cluster
+- TarTyrantSystem Cluster
+- Register Cluster
+- AnimatedEquip Cluster
+- ScrapLeggings Cluster
+- Scrappybot Cluster
+- CinematicCamera Cluster
+- Junkyard Tar Visual Proof GIF (2026- Cluster
+- check_flicker Cluster
+- make_junkyard_art Cluster
+- make_cog Cluster
+- make_mecharmy_sounds Cluster
+- Scaffold Icons Preview Cluster
+- MechArmyInvasion Cluster
+- GlobalNPC Cluster
+- Junkyard Tar Surface Worldgen Render Cluster
+- make_furniture_art Cluster
+- Config File Contents (build.txt, glo Cluster
+- AlarmoboBuff Cluster
+- CogpunkClientConfig Cluster
+- Tetanus (rusted diagonal blade with  Cluster
+- Trash-Tr0m boss body sprite sheet (t Cluster
+- PreDraw Cluster
+- TarSteamSystem Cluster
+- SceneOverlayRegistry Cluster
+- Junkyard Tar Worldgen Overview (2026 Cluster
+- junkyard_layout_sim Cluster
+- SteamDashPacket Cluster
+- Action Cluster
+- Trash-Tr0m gore: steel cog gear Cluster
+- DoSuck Cluster
+- Steam Pressure resource (Mechanist c Cluster
+- Overheat Cluster
+- cs_array Cluster
+- Tar Tyrant Back Bone projectile shee Cluster
+- PreDraw Cluster 198
+- RustCollector (wheeled grey iron scr Cluster
+- Tar Plague Debuff Icon Cluster
+- SpawnBudgetSystem Cluster
+- PreDraw Cluster 202
+- check_sprite Cluster
+- Tar Tyrant Claw projectile sheet: la Cluster
+- PreDraw Cluster 205
+- Trash-Tr0m scrap ball projectile (4- Cluster
+- Scrap impact explosion animation (go Cluster
+- Throw Cluster
+- TarDroplet Cluster
+- Tar Drip Animation (form, fall, spla Cluster
+- TarWaterStyle Block Texture Cluster
+- TarWaterStyle Slope Texture Cluster
+- ModifyWorldGenTasks Cluster
+- Trapper Chain (Mechanist weapon Cluster
+- One Cluster
+- Boombot NPC sprite sheet (round iron Cluster
+- CrossMod Cluster
+- Scrap Content Overview Cluster
+- scrappy_trunk_sim Cluster
+- Tar Drop material icon (dark tar dro Cluster
+- Scrap Armor Set Bonus: Movement-Trig Cluster
+- OnHitPlayer Cluster
+- SetBestiary Cluster
+- SetBestiary Cluster 224
+- SetBestiary Cluster 225
+- Trapper (hunched jungle scavenger ca Cluster
+- Mysterious Map guidance arrow sheet  Cluster
+- OnHitPlayer Cluster 228
+- SetBestiary Cluster 229
+- Tar Waterfall Style Texture Cluster
+- Jaeger Chestplate item icon (teal pl Cluster
+- Jaeger Greaves item icon (teal boots Cluster
+- Jaeger Helmet item icon (teal visore Cluster
+- Rusted Cog Item Sprite Cluster
+- Rusted Metal Item Sprite Cluster
+- Mice-bot Minion Spritesheet (vertica Cluster
+- TextureFallback Cluster
+- AnimatedEquip Cluster 238
+- Junkbait Sprite & Recipe Preview (PN Cluster
+- Petroleum Pool Worldgen Overview (PN Cluster
+- Screwdriver Thrust Simulation (GIF Cluster
+- Trapper (Jungle enemy: 250 life, 35  Cluster
+- Tar Glob projectile Cluster
+- Tetanus held thrust (27 dmg, 8.5-til Cluster
+- sheet2gif Cluster
+- Microsoft.NET.Sdk Cluster
+- D5 Visual Proof via Offline Simulati Cluster
+- Scrapmancer (purple/blue clawed gaun Cluster
+- Tr0mhead sentry glow overlay sheet Cluster
+- Tr0mheadStaff sprite Cluster
+- Rust Polisher (animated crafting sta Cluster
+- Boombot gore: fuse lamp (bomb-top li Cluster
+- Rogue Mice-Bot gore: rusty orange mo Cluster
+- Mech Army Icon (brass cog with teal  Cluster
+- Rogue Mice Bot glow layer (eye pixel Cluster
+- Scrappybot Pet Item Sprite Cluster
+- 32x32 buff icon showing the Scrappyb Cluster
+- Vertical animation strip (~17 frames Cluster
+- Screwdriver Weapon Sprite (wooden ha Cluster
+- Puxa-frango claw gore (grey hooked c Cluster
+- loadouts Cluster
+- Petroleum Sinking Simulation (GIF Cluster
+- Junkyard Structure Clearance: 300 Ro Cluster
+- Scrappy Trunk Loot Proof (PNG Cluster
+- Mice-bot Burrow Simulation (GIF Cluster
+- Rust Collector GIF Cluster
+- Anti-patterns Table Cluster
+- BiomeTitleSystem Cluster
+- D0 No Crashes Cluster
+- Effective DPS Formula Cluster
+- InvasionDirector Cluster 271
+- InvasionItemGuard Cluster
+- InvasionProgressBar Cluster 273
+- Vanilla Anchor Tier Table (T0-T10 Cluster
+- CLAUDE.md Project Rules Cluster
+- Facts That Are Easy to Get Wrong Cluster
+- Tar Tyrant gore: curved rib bone Cluster
+- ItemLoot Cluster
+- Color Cluster
+- int Cluster
+- Community 281 Cluster
+- Color Cluster 282
+- float Cluster
+- int Cluster 284
+- Color Cluster 285
+- int Cluster 286
+- Community 287 Cluster
+- MultipliableFloat Cluster
+- Community 289 Cluster
+- Rectangle Cluster
+- ILoot Cluster
+- Tetanus debuff icon (rusty spike on  Cluster
+- Scrap Launcher ball projectile sprit Cluster
+- Scrap Launcher chunk projectile spri Cluster
+- Scrapmancer junk shockwave sprite Cluster
+- Tetanus flash ring effect sprite Cluster
+- Rust Collector gore panel (small gra Cluster
+- Junkbait Item Sprite (dark scrap bal Cluster
+- Polisher Schematic item icon (blue b Cluster
+- Polished Cog accessory sprite (shiny Cluster
+- TagCompound Cluster
+- Annoy-o-tron Beacon Gore (orange dom Cluster
+- Annoy-o-tron Speaker Gore (dark bras Cluster
+- Jaeger gore: steel fist with brass c Cluster
+- Jaeger gore: teal hazard-striped pau Cluster
+- TooltipLine Cluster
+- IDictionary Cluster
+- EntitySource_ItemUse_WithAmmo Cluster
+- DropAttemptInfo Cluster
+- Scrap Breastplate body cog-animation Cluster
+- Scrap Breastplate body cog-animation Cluster 311
+- Scrap Helmet head cog-animation fram Cluster
+- Scrap Helmet head cog-animation fram Cluster 313
+- Scrap Leggings legs cog-animation fr Cluster
+- Scrap Leggings legs cog-animation fr Cluster 315
+- Scrappy Bow Item Sprite (brass-limbe Cluster
+- Scrappy Wand Sprite (rusty copper-ti Cluster
+- Scrappy Wand Bolt Projectile Sprite  Cluster
+- Main.DrawSurfaceBG Parallax Formula Cluster
+- Decals Must Survive Mirroring Cluster
+- Yager Reference Walker Cluster
+- Scrappy Bow GIF (1-5 arrows per shot Cluster
+- Mice-bot Minion GIF (8 damage per bi Cluster
+- Screwdriver GIF (31-tick thrust, hit Cluster
+- Scrappy Wand GIF (3-bolt burst every Cluster
+- Rusted Scrap Slice Cluster
+- Scaffolding Folder Tree Cluster
+- Machine Audit (2026-10-20 Cluster
+- Core Toolchain Install (winget, IDE Cluster
 
 ## God Nodes (most connected - your core abstractions)
-1. `TrashTr0m` - 114 edges
-2. `Canvas` - 42 edges
-3. `Cogpunk.Core.Templates` - 35 edges
-4. `Canvas` - 34 edges
-5. `Xf` - 32 edges
-6. `MiceBotMinion` - 31 edges
-7. `Poly` - 30 edges
-8. `Tr0mheadSentry` - 29 edges
-9. `Ellipse` - 29 edges
-10. `Cogpunk.Core.Safety` - 28 edges
+1. `TrashTr0m` - 117 edges
+2. `Canvas` - 107 edges
+3. `TarTyrant` - 103 edges
+4. `Cogpunk.Core.Templates` - 102 edges
+5. `Xf` - 97 edges
+6. `Ellipse` - 96 edges
+7. `dome()` - 72 edges
+8. `Poly` - 70 edges
+9. `Cogpunk.Core.Safety` - 67 edges
+10. `Capsule` - 62 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Trash-Tr0m reference implementation` --semantically_similar_to--> `Trash-Tr0m boss`  [INFERRED] [semantically similar]
-  docs/design/art-direction.md → Content/Bosses/TrashTr0m/Items/TrashTr0mBag.png
-- `Junkyard biome title GIF: camera pan, banner triggers on entering (tick/outside readout)` --references--> `BiomeTitleSystem`  [INFERRED]
-  docs/media/2026-10-22_junkyard-title.gif → Core/UI/BiomeTitleSystem.cs
+- `Junkyard worldgen overview: deep pool 155 wide x 347 deep (floor y=652, 8 sludge rows) beside world border, junkyard 118, beach 19` --references--> `JunkyardPass`  [INFERRED]
+  docs/media/2026-10-22_junkyard-overview.png → Content/Junkyard/Generation/JunkyardPass.cs
 - `AnimatedEquip` --references--> `Scrap Breastplate body cog-animation frame 1`  [INFERRED]
   Core/Visuals/AnimatedEquip.cs → Content/Scrap/Armor/ScrapBreastplate_Body_1.png
 - `AnimatedEquip` --references--> `Scrap Leggings legs cog-animation frame 1`  [INFERRED]
   Core/Visuals/AnimatedEquip.cs → Content/Scrap/Armor/ScrapLeggings_Legs_1.png
 - `Junkyard cache glow GIF: chest inside heap pulses glow every 120 ticks with sparks` --references--> `ScrappyTrunkTile`  [INFERRED]
   docs/media/2026-10-22_junkyard-cache-glow.gif → Content/Furniture/ScrappyTrunkTile.cs
+- `Junkyard surface: pool rim, scrap heaps with puddles, central heap cache, beach with palm stand-ins` --references--> `JunkyardPass`  [INFERRED]
+  docs/media/2026-10-22_junkyard-surface.png → Content/Junkyard/Generation/JunkyardPass.cs
 
 ## Import Cycles
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Cogpunk Core Directives D0-D5** — _claude_skills_cogpunk_dev_skill_d0, _claude_skills_cogpunk_dev_skill_d1, _claude_skills_cogpunk_dev_skill_d2, _claude_skills_cogpunk_dev_skill_d3, _claude_skills_cogpunk_dev_skill_d4, _claude_skills_cogpunk_dev_skill_d5 [EXTRACTED 1.00]
-- **Detailed entity art and boss pipeline** — docs_design_art_direction_three_quarter_view, docs_design_art_direction_multiplane_layers, docs_design_art_direction_rig_generator, _claude_skills_cogpunk_dev_skill_depthlayers, _claude_skills_cogpunk_dev_skill_bossnpc, _claude_skills_cogpunk_dev_skill_cinematiccamera [INFERRED 0.85]
-- **Core crash-safe framework (D0)** — _claude_skills_cogpunk_dev_skill_safespawn, _claude_skills_cogpunk_dev_skill_safelog, _claude_skills_cogpunk_dev_skill_tilesafety, _claude_skills_cogpunk_dev_skill_cogpunkpacket, _claude_skills_cogpunk_dev_skill_safegenpass [EXTRACTED 1.00]
-- **Trash-Tr0m multiplane render layers** — content_bosses_trashtr0m_trashtr0m_armfar_sheet, content_bosses_trashtr0m_trashtr0m_sheet, content_bosses_trashtr0m_trashtr0m_armnear_sheet, content_bosses_trashtr0m_trashtr0m_glow_sheet [INFERRED 0.85]
-- **Trash-Tr0m death gores** — content_bosses_trashtr0m_gores_trashtr0m_gorecrest_sprite, content_bosses_trashtr0m_gores_trashtr0m_goregear_sprite, content_bosses_trashtr0m_gores_trashtr0m_gorejaw_sprite, content_bosses_trashtr0m_gores_trashtr0m_gorepiston_sprite, content_bosses_trashtr0m_gores_trashtr0m_goreplate_sprite, content_bosses_trashtr0m_gores_trashtr0m_goretyre_sprite [EXTRACTED 1.00]
-- **Trash-Tr0m hostile projectiles** — content_bosses_trashtr0m_projectiles_trashtr0mchewedscrap_sprite, content_bosses_trashtr0m_projectiles_trashtr0mscrapball_sprite, content_bosses_trashtr0m_projectiles_trashtr0mshockwave_sprite [EXTRACTED 1.00]
-- **Trash-Tr0m weapon drops** — concept_scrap_launcher_weapon, concept_scrapmancer_weapon, concept_tetanus_weapon, concept_tr0mhead_staff_weapon [INFERRED 0.85]
-- **Living Tar family (enemy, projectile, drop)** — content_junkyard_npcs_livingtar_sheet, content_junkyard_projectiles_targlob_sheet, content_junkyard_items_tardrop_icon [INFERRED 0.85]
-- **Rust Polisher station set (schematic, item, tile)** — content_junkyard_items_polisherschematic_icon, content_junkyard_items_rustpolisher_icon, content_junkyard_tiles_rustpolishertile_sheet [INFERRED 0.85]
-- **Rust Collector sprite set (enemy and gores)** — content_junkyard_npcs_rustcollector_sheet, content_junkyard_gores_rustcollector_gorepanel_sprite, content_junkyard_gores_rustcollector_gorewheel_sprite [INFERRED 0.85]
-- **Trash-Tr0m attack proof media** — docs_media_2026_10_26_boss_trashtr0m_slam, docs_media_2026_10_26_boss_trashtr0m_suck, docs_media_2026_10_26_boss_trashtr0m_spit, docs_media_2026_10_26_boss_trashtr0m_slam_enraged [INFERRED 0.85]
+- **Core Directives D0-D5** — _claude_skills_cogpunk_dev_skill_d0_no_crashes, _claude_skills_cogpunk_dev_skill_d1_optimization, _claude_skills_cogpunk_dev_skill_d2_coop, _claude_skills_cogpunk_dev_skill_d3_balance, _claude_skills_cogpunk_dev_skill_d4_pixel_art, _claude_skills_cogpunk_dev_skill_d5_visual_proof [EXTRACTED 1.00]
+- **Detailed-entity art direction (3/4 view, multiplane, death cinematic, Metal Slug detail)** — _claude_skills_cogpunk_dev_skill_three_quarter_view, _claude_skills_cogpunk_dev_skill_multiplane_layers, _claude_skills_cogpunk_dev_skill_death_cinematic, _claude_skills_cogpunk_dev_skill_metal_slug_detail, _claude_skills_cogpunk_dev_skill_stable_pixels [EXTRACTED 1.00]
+- **Crash-safe Core framework** — _claude_skills_cogpunk_dev_skill_safespawn, _claude_skills_cogpunk_dev_skill_safelog, _claude_skills_cogpunk_dev_skill_tilesafety, _claude_skills_cogpunk_dev_skill_mathsafety, _claude_skills_cogpunk_dev_skill_packetregistry, _claude_skills_cogpunk_dev_skill_safegenpass, _claude_skills_cogpunk_dev_skill_core_templates [EXTRACTED 1.00]
+- **Tar Tyrant death gore bones** — content_bosses_tartyrant_gores_tartyrant_goreclaw_sprite, content_bosses_tartyrant_gores_tartyrant_gorefemur_sprite, content_bosses_tartyrant_gores_tartyrant_gorehorn_sprite, content_bosses_tartyrant_gores_tartyrant_gorejaw_sprite, content_bosses_tartyrant_gores_tartyrant_gorerib_sprite, content_bosses_tartyrant_gores_tartyrant_goreskull_sprite, content_bosses_tartyrant_gores_tartyrant_gorevertebra_sprite [INFERRED 0.95]
+- **Tyrant armor set (skull, cape, sandals)** — content_bosses_tartyrant_armor_tyrantskull_sprite, content_bosses_tartyrant_armor_tyrantskull_head_sprite, content_bosses_tartyrant_armor_tyrantcape_sprite, content_bosses_tartyrant_armor_tyrantcape_back_sprite, content_bosses_tartyrant_armor_tyrantcape_body_sprite, content_bosses_tartyrant_armor_tyrantsandals_sprite, content_bosses_tartyrant_armor_tyrantsandals_legs_sprite [INFERRED 0.95]
+- **Tar Tyrant attack projectiles** — content_bosses_tartyrant_projectiles_tartyrantclaw_sprite, content_bosses_tartyrant_projectiles_tartyrantclaw_warning_sprite, content_bosses_tartyrant_projectiles_tartyrantbonespike_sprite, content_bosses_tartyrant_projectiles_tartyrantbackbone_sprite, content_bosses_tartyrant_npcs_tartyrantbubble_sprite [INFERRED 0.85]
+- **Tar Tyrant multiplane boss sprite set** — content_bosses_tartyrant_tartyrant_sprite, content_bosses_tartyrant_tartyrant_page1_sprite, content_bosses_tartyrant_tartyrant_far_sprite, content_bosses_tartyrant_tartyrant_far_page1_sprite, content_bosses_tartyrant_tartyrant_near_sprite, content_bosses_tartyrant_tartyrant_glow_sprite [INFERRED 0.95]
+- **Trash-Tr0m death gore pieces** — content_bosses_trashtr0m_gores_trashtr0m_gorecrest_sprite, content_bosses_trashtr0m_gores_trashtr0m_goregear_sprite, content_bosses_trashtr0m_gores_trashtr0m_gorejaw_sprite, content_bosses_trashtr0m_gores_trashtr0m_gorepiston_sprite, content_bosses_trashtr0m_gores_trashtr0m_goreplate_sprite, content_bosses_trashtr0m_gores_trashtr0m_goretyre_sprite [INFERRED 0.95]
+- **Trash-Tr0m attack projectiles** — content_bosses_trashtr0m_projectiles_trashtr0mchewedscrap_sprite, content_bosses_trashtr0m_projectiles_trashtr0mscrapball_sprite, content_bosses_trashtr0m_projectiles_trashtr0mshockwave_sprite [INFERRED 0.85]
+- **Trash-Tr0m multiplane depth layers (body, far arm, near arm, glow, extra page)** — content_bosses_trashtr0m_trashtr0m_sprite, content_bosses_trashtr0m_trashtr0m_page1_sprite, content_bosses_trashtr0m_trashtr0m_armfar_sprite, content_bosses_trashtr0m_trashtr0m_armnear_sprite, content_bosses_trashtr0m_trashtr0m_glow_sprite [INFERRED 0.95]
+- **Jaeger armor set (icons and equip sheets)** — content_mecharmy_armor_jaegerhelmet_sprite, content_mecharmy_armor_jaegerhelmet_head_sprite, content_mecharmy_armor_jaegerchestplate_sprite, content_mecharmy_armor_jaegerchestplate_body_sprite, content_mecharmy_armor_jaegergreaves_sprite, content_mecharmy_armor_jaegergreaves_legs_sprite [INFERRED 0.95]
+- **Jaeger death gores** — content_mecharmy_gores_jaeger_goreboot_sprite, content_mecharmy_gores_jaeger_gorefist_sprite, content_mecharmy_gores_jaeger_gorehead_sprite, content_mecharmy_gores_jaeger_gorepauldron_sprite, content_mecharmy_gores_jaeger_goreplate_sprite [INFERRED 0.95]
+- **Mech Army invasion enemy sprites** — content_mecharmy_npcs_jaeger_sprite, content_mecharmy_npcs_boombot_sprite, content_mecharmy_npcs_roguemicebot_sprite [INFERRED 0.85]
+- **Alarmobo minion layered render set** — content_mecharmy_minions_alarmobominion_sprite, content_mecharmy_minions_alarmobominion_far_sprite, content_mecharmy_minions_alarmobominion_near_sprite, content_mecharmy_minions_alarmobominion_glow_sprite, content_mecharmy_minions_alarmobominion_beacon_sprite, content_mecharmy_minions_alarmobominion_beaconglow_sprite [INFERRED 0.95]
+- **Trash-Tr0m 2026-10-28 rework proofs** — docs_media_2026_10_28_boss_trashtr0m_hitboxes_proof, docs_media_2026_10_28_boss_trashtr0m_inbetweens_proof, docs_media_2026_10_28_boss_trashtr0m_loop_proof, docs_media_2026_10_28_boss_trashtr0m_sprite_proof, docs_media_2026_10_28_boss_trashtr0m_suck_proof [INFERRED 0.95]
+- **Mech Army invasion proofs** — docs_media_2026_10_28_event_mech_army_alarm_proof, docs_media_2026_10_28_event_mech_army_alarmhead_proof, docs_media_2026_10_28_event_mech_army_boombot_proof, docs_media_2026_10_28_event_mech_army_jaeger_proof, docs_media_2026_10_28_event_mech_army_loot_proof, docs_media_2026_10_28_event_mech_army_progress_proof, docs_media_2026_10_28_event_mech_army_sprites_proof, docs_media_2026_10_28_event_mech_army_mice_vs_minion_proof [INFERRED 0.95]
+- **Puxa-frango three-layer parallax model** — content_underground_npcs_puxafrango_sprite, content_underground_npcs_puxafrango_far_sprite, content_underground_npcs_puxafrango_near_sprite [INFERRED 0.95]
+- **Tar Tyrant boss fight proofs** — docs_media_2026_10_30_boss_tartyrant_summon_proof, docs_media_2026_10_30_boss_tartyrant_attacks_proof, docs_media_2026_10_30_boss_tartyrant_bones_proof, docs_media_2026_10_30_boss_tartyrant_melt_proof, docs_media_2026_10_30_boss_tartyrant_rage_proof, docs_media_2026_10_30_boss_tartyrant_death_proof, docs_media_2026_10_30_boss_tartyrant_sprite_proof, docs_media_2026_10_30_boss_tartyrant_hitboxes_proof, docs_media_2026_10_30_boss_tartyrant_hitboxes_attacks_proof, docs_media_2026_10_30_boss_tartyrant_loot_proof [INFERRED 0.95]
+- **Tyrant armor set proofs** — docs_media_2026_10_30_boss_tartyrant_armor_animation, docs_media_2026_10_30_boss_tartyrant_armor_sheet, docs_media_2026_10_30_boss_tartyrant_armor_female_animation, docs_media_2026_10_30_boss_tartyrant_armor_female_sheet, docs_media_2026_10_30_boss_tartyrant_armor_claw_proof [INFERRED 0.95]
+- **Trash-Tr0m boss weapon drop set (melee, ranged, magic, summon)** — content_bosses_trashtr0m_weapons_tetanus_rusty_sword, content_bosses_trashtr0m_weapons_scraplauncher_scrap_cannon, content_bosses_trashtr0m_weapons_scrapmancer_clawed_gauntlet, content_bosses_trashtr0m_weapons_tr0mheadstaff_trash_can_head [INFERRED 0.85]
+- **Junkyard rust-themed content (RustCollector, its wheel gore, RustPolisher)** — content_junkyard_npcs_rustcollector_rustcollector_enemy, content_junkyard_gores_rustcollector_gorewheel_gorewheel_sprite, content_junkyard_items_rustpolisher_rustpolisher_sprite [INFERRED 0.75]
+- **Annoy-o-tron depth-layer stack (Far, base, Near, Glow)** — content_mecharmy_npcs_annoyotron_far, content_mecharmy_npcs_annoyotron, content_mecharmy_npcs_annoyotron_near, content_mecharmy_npcs_annoyotron_glow [EXTRACTED 1.00]
+- **Steam Pressure resource visuals: gauge, overheat debuff, container accessories** — content_mechanist_steamgauge_steam_gauge, content_mechanist_overheat_overheat_icon, content_mechanist_accessories_brasscontainer_brass_container, content_mechanist_accessories_glasscontainer_glass_container [INFERRED 0.75]
+- **Polished helmet, chestplate and pants form the Mechanist Polished armor set** — content_mechanist_armor_polishedhelmet_polished_helmet_icon, content_mechanist_armor_polishedchestplate_polished_chestplate_icon, content_mechanist_armor_polishedpants_polished_pants_icon [INFERRED 0.95]
+- **Worn equip sheets (head/body/legs) of the Polished set** — content_mechanist_armor_polishedhelmet_head_helmet_head_sheet, content_mechanist_armor_polishedchestplate_body_chestplate_body_sheet, content_mechanist_armor_polishedpants_legs_pants_legs_sheet [INFERRED 0.85]
+- **Trash-Tr0m loot table** — docs_media_2026_10_26_boss_trashtr0m_loot_treasure_bag, docs_media_2026_10_26_boss_trashtr0m_loot_tetanus, docs_media_2026_10_26_boss_trashtr0m_loot_scrap_launcher, docs_media_2026_10_26_boss_trashtr0m_loot_scrapmancer, docs_media_2026_10_26_boss_trashtr0m_loot_tr0mhead_staff [EXTRACTED 1.00]
+- **Trapper Chain sprite set (item, link, projectile)** — content_mechanist_weapons_trapperchain_sprite, content_mechanist_weapons_trapperchainlink_sprite, content_mechanist_weapons_trapperchainprojectile_sprite [INFERRED 0.95]
+- **Junkyard content visual proofs** — docs_media_2026_10_27_junkyard_rust_collector_rust_collector, docs_media_2026_10_27_junkyard_rust_polisher_rust_polisher, docs_media_2026_10_27_junkyard_tar_glob_tar_glob [INFERRED 0.85]
+- **Mechanist steam economy: containers fill the tank that Trapper Chain throws consume** — docs_media_2026_10_27_mechanist_steam_steam_tank, docs_media_2026_10_27_mechanist_steam_containers_glass_container, docs_media_2026_10_27_mechanist_steam_containers_brass_container, docs_media_2026_10_27_weapon_trapper_chain_trapper_chain [INFERRED 0.85]
+- **Living Tar family (enemy, projectile, drop)** — content_junkyard_npcs_livingtar_sheet, content_junkyard_items_tardrop_icon [INFERRED 0.85]
 - **Trash-Tr0m weapon proof GIFs** — docs_media_2026_10_26_weapon_scrap_launcher, docs_media_2026_10_26_weapon_scrapmancer, docs_media_2026_10_26_weapon_tetanus, docs_media_2026_10_26_weapon_tr0mhead [INFERRED 0.85]
 - **Junkyard content proof media** — docs_media_2026_10_26_junkyard_creatures, docs_media_2026_10_26_junkyard_living_tar, docs_media_2026_10_26_junkyard_mysterious_map, docs_media_2026_10_26_junkyard_rust_collector, docs_media_2026_10_26_junkyard_rust_polisher [INFERRED 0.85]
-- **Trash-Tr0m body composition** — docs_media_2026_10_23_boss_trashtr0m_idle_grinder_spin, docs_media_2026_10_23_boss_trashtr0m_idle_left_tire_arm, docs_media_2026_10_23_boss_trashtr0m_idle_right_claw_arm, docs_media_2026_10_23_boss_trashtr0m_idle_furnace_belly [INFERRED 0.85]
-- **Intro state HUD: camera lock, buried depth, invulnerability per tick** — docs_media_2026_10_23_boss_trashtr0m_intro_camera_lock, docs_media_2026_10_23_boss_trashtr0m_intro_buried_depth, docs_media_2026_10_23_boss_trashtr0m_intro_intro_invulnerability, docs_media_2026_10_23_boss_trashtr0m_intro_intro_tick_timeline [EXTRACTED 1.00]
-- **Trash-Tr0m visual proof panels (dark, light, glow + map icon)** — docs_media_2026_10_23_boss_trashtr0m_sprite_dark_background_view, docs_media_2026_10_23_boss_trashtr0m_sprite_light_background_view, docs_media_2026_10_23_boss_trashtr0m_sprite_glow_layer, docs_media_2026_10_23_boss_trashtr0m_sprite_map_icon [EXTRACTED 1.00]
 - **Ocean-side Junkyard layout: tar pool, junkyard, beach** — docs_media_2026_10_23_junkyard_tar_overview_tar_pool, docs_media_2026_10_23_junkyard_tar_overview_junkyard_strip, docs_media_2026_10_23_junkyard_tar_overview_beach [INFERRED 0.85]
 - **Tar ModLiquid texture set (water, block, slope, waterfall)** — docs_media_2026_10_23_junkyard_tar_sprites_water_cells, docs_media_2026_10_23_junkyard_tar_sprites_block, docs_media_2026_10_23_junkyard_tar_sprites_slope, docs_media_2026_10_23_junkyard_tar_sprites_waterfall [INFERRED 0.85]
 - **Tar particle effects (droplet, splash, steam)** — docs_media_2026_10_23_junkyard_tar_sprites_droplet, docs_media_2026_10_23_junkyard_tar_sprites_splash, docs_media_2026_10_23_junkyard_tar_sprites_steam [INFERRED 0.85]
@@ -324,637 +424,947 @@
 - **Scaffold art set (icon, small icon, placeholder)** — docs_media_2026_10_20_scaffold_icons_image, icon_image, icon_small_image, assets_textures_placeholder_image [INFERRED 0.85]
 - **Rusted Scrap world generation** — docs_media_2026_10_21_scrap_overview_image, docs_media_2026_10_21_scrap_overview_surface_heaps, docs_media_2026_10_21_scrap_overview_underground_nodes [INFERRED 0.85]
 
-## Communities (246 total, 95 thin omitted)
+## Communities (331 total, 107 thin omitted)
 
-### Community 0 - "Trash-Tr0m Art Generator"
-Cohesion: 0.07
-Nodes (73): body_mass(), body_xf(), boss_icon(), chewed_frames(), composite(), crop_frame(), draw_arm(), draw_body() (+65 more)
+### Community 0 - "Tar Tyrant Art Generator"
+Cohesion: 0.03
+Nodes (128): add(), arc_points(), back_bone(), back_bone_frames(), base_blobs(), base_xf(), bone_drop(), bubble_frame() (+120 more)
 
-### Community 1 - "Furniture Art Generator"
-Cohesion: 0.06
-Nodes (59): cache_variant(), cut_into_cells(), make_sheets(), outline(), Source for shared furniture sprites (D4). Run from the repo root: python -P…, 16x17 chest art -> 18x19 tile frame with 1-px gutters (8x8 top cells, 8x9…, make_metal_icon(), make_terrain_sheet() (+51 more)
+### Community 1 - "Trash-Tr0m Art Generator"
+Cohesion: 0.05
+Nodes (106): body_mass(), body_xf(), boss_icon(), chewed_frames(), crawl_contacts(), crop_frame(), draw_arm(), draw_body() (+98 more)
 
-### Community 2 - "Trash-Tr0m Simulator"
+### Community 2 - "Archived Tar Tyrant Art"
+Cohesion: 0.04
+Nodes (116): add(), arc_points(), back_bone(), back_bone_frames(), base_blobs(), base_xf(), bone_drop(), bubble_frame() (+108 more)
+
+### Community 3 - "Junkyard Loot Art"
+Cohesion: 0.05
+Nodes (73): blit(), boom_detail(), boom_section(), boss_cog_frames(), boxed(), exhaust(), export(), export_all() (+65 more)
+
+### Community 4 - "Trash-Tr0m Fight Simulation"
 Cohesion: 0.09
-Nodes (54): build_heap(), buried_pixels(), clear_band(), crawl_step(), darken(), draw_boss(), draw_cell(), far_hand() (+46 more)
+Nodes (57): build_heap(), buried_pixels(), clear_band(), crawl_step(), darken(), draw_boss(), draw_cell(), far_hand() (+49 more)
 
-### Community 3 - "Trash-Tr0m Loot Art"
+### Community 5 - "Armor Art Generators"
+Cohesion: 0.05
+Nodes (69): back_sheet(), bobbed_sheet(), body_sheet(), cape_frame(), cape_outline(), export_all(), icon(), legs_frame() (+61 more)
+
+### Community 6 - "Preview and Sim Tools"
+Cohesion: 0.06
+Nodes (57): Scrap Armor walk GIF: animated walk cycle on dark and sky backgrounds (frame/cog counter), Scrap Armor PNG: 12-frame walk sheet on dark and light backgrounds, Rusted Scrap tile recolor before/after: brighter orange rust flecks, seamless clumps, Junkyard worldgen overview: deep pool 155 wide x 347 deep (floor y=652, 8 sludge rows) beside world border, junkyard 118, beach 19, Repulsing sludge GIF: player bounced off 8 sludge rows above pool water (depth/vy readout), Junkyard surface: pool rim, scrap heaps with puddles, central heap cache, beach with palm stand-ins, Scrap armor walk offset check: old preview (bug) vs game-accurate head bob on frames 7-8, 14-15, cell() (+49 more)
+
+### Community 7 - "Scrap and Junkyard Items"
+Cohesion: 0.04
+Nodes (30): PolisherSchematic, RustPolisher, int, ItemGroup, TarDrop, PolishedChestplate, int, LocalizedText (+22 more)
+
+### Community 8 - "Core Namespaces"
 Cohesion: 0.08
-Nodes (52): blit(), boom_detail(), boom_section(), exhaust(), export(), export_all(), friendly_clump(), friendly_wave_frames() (+44 more)
+Nodes (17): Cogpunk.Content.Bosses.TrashTr0m.Projectiles, Cogpunk.Content.Scrap.Minions, Cogpunk.Content.Junkyard.Projectiles, Cogpunk, Cogpunk.Core.Templates, Cogpunk.Content.Junkyard.NPCs, Cogpunk.Core.Events, Cogpunk.Core.Configs (+9 more)
 
-### Community 4 - "Junkyard Biome & Spawns"
-Cohesion: 0.06
-Nodes (25): JunkyardBiome, ModWaterStyle, Player, JunkyardBiome icon (rusty scrap heap), JunkyardSpawnRules, float, int, NPC (+17 more)
+### Community 9 - "Rig Shapes and Poses"
+Cohesion: 0.05
+Nodes (29): Pose, Posed, A shape placed by its own transform, so parts in different transforms can be…, Pose, Posed, A shape placed by its own transform, so parts in different transforms can be…, BodyPose, _hash() (+21 more)
 
-### Community 5 - "Trash-Tr0m Summon & Packets"
-Cohesion: 0.06
-Nodes (21): CogpunkPacket, TrashTr0mBaitPacket, TrashTr0mSummon, TrashTr0mSummonPacket, BinaryReader, bool, Color, float (+13 more)
-
-### Community 6 - "Scrap Armor Preview"
+### Community 10 - "Mech Army Art"
 Cohesion: 0.07
-Nodes (43): body_idle(), Idle pose: back arm, torso, front arm and pauldron, composited like the game…, Scrap Armor walk GIF: animated walk cycle on dark and sky backgrounds (frame/cog counter), Scrap Armor PNG: 12-frame walk sheet on dark and light backgrounds, Junkyard cache glow GIF: chest inside heap pulses glow every 120 ticks with sparks, Repulsing sludge GIF: player bounced off 8 sludge rows above pool water (depth/vy readout), Scrap armor walk offset check: old preview (bug) vs game-accurate head bob on frames 7-8, 14-15, cell() (+35 more)
+Nodes (51): Canvas, One step down the pixel's own ramp, never onto its outline shade (ramp 0 stays…, A flying glob of tar, 14x14, pointing along heading_deg (0 = right, clockwise):…, tar_glob(), alarm_head_icon(), alarmobo_buff_icon(), annoy_frame(), beacon_frame() (+43 more)
 
-### Community 7 - "Junkyard World Generation"
-Cohesion: 0.08
-Nodes (21): JunkyardPass, Chest, float, int, Rectangle, Tile, GameConfiguration, GenerationProgress (+13 more)
-
-### Community 8 - "Trash-Tr0m Core AI"
-Cohesion: 0.06
-Nodes (20): TrashTr0m, float, int, Phase, BinaryReader, BinaryWriter, bool, float (+12 more)
-
-### Community 9 - "Pixel Paint Helpers"
-Cohesion: 0.09
-Nodes (36): fs(), Shader for a flat face with rig-space normal n (turned again by the part…, boxed(), hcyl(), A horizontal cylinder filling rows y0..y1 (inclusive): ramp-0 outline round it…, A lit box: ramp-0 outline, a lit top row, the body, a shaded bottom row., 36x20: the boss's jaw as the muzzle, its grinder gear on a riveted housing, its…, scrap_launcher() (+28 more)
-
-### Community 10 - "Mice-bot Minion AI"
+### Community 11 - "Loot Simulations"
 Cohesion: 0.11
-Nodes (12): MiceBotMinion, Mode, bool, Color, float, HitModifiers, int, NPC (+4 more)
+Nodes (40): creatures_png(), frames(), gif_text(), main(), polisher_frame(), D5 proofs for the Junkyard update of 2026-10-26: the Rust Collector, the Living…, One animation frame assembled from its 3x3 tile cells exactly as the game draws…, scene_collector() (+32 more)
 
-### Community 11 - "Living Tar Enemy"
+### Community 12 - "Tar Tyrant Movement AI"
 Cohesion: 0.06
-Nodes (18): CogpunkNPC, LivingTar, BestiaryDatabase, BestiaryEntry, float, HitInfo, HurtInfo, int (+10 more)
+Nodes (20): BossNPC, TarTyrant, float, int, Phase, BinaryReader, BinaryWriter, bool (+12 more)
 
-### Community 12 - "Weapon & Projectile Files"
-Cohesion: 0.09
-Nodes (11): PolisherSchematic, TarDrop, Cogpunk.Content.Bosses.TrashTr0m.Projectiles, Cogpunk.Content.Junkyard.Projectiles, Cogpunk.Content.Junkyard.Items, Cogpunk.Core.Templates, Cogpunk.Content.Junkyard.NPCs, Cogpunk.Content.Junkyard.Tiles (+3 more)
+### Community 13 - "Tyrant Armor and Condensed Tar"
+Cohesion: 0.05
+Nodes (24): CogpunkItem, TyrantCape, int, LocalizedText, Player, string, TyrantSandals, float (+16 more)
 
-### Community 13 - "Scrap Bomb Item"
+### Community 14 - "Polished Metal and Base Types"
+Cohesion: 0.05
+Nodes (22): PolishedMetal, int, PolishedMetal item sprite (steel block), TarPlague, float, Player, PolishedMetalTile, int (+14 more)
+
+### Community 15 - "Mech Army Rig and Scrap Armor"
 Cohesion: 0.07
-Nodes (18): ScrapBomb, float, int, LocalizedText, Player, Vector2, ScrapBomb item sprite (pipe bomb), ScrapBombProjectile (+10 more)
+Nodes (19): MechArmySounds, MechArmyRigData, byte, int, short, Annoy-o-tron (boxy brown radio/speaker bot, gold trim, round speaker grille, antenna; 7-frame vertical sheet), Annoy-o-tron Beacon Head (orange-red alarm dome lamp on base, 8 frames), Beacon Spinning Light (emissive orange band sweeping across lamp, 8-frame rotation with flare frame) (+11 more)
 
-### Community 14 - "Tr0mhead Sentry"
+### Community 16 - "Trash-Tr0m Ground AI"
+Cohesion: 0.06
+Nodes (18): TrashTr0m, float, int, Phase, BinaryReader, BinaryWriter, bool, float (+10 more)
+
+### Community 17 - "Trash-Tr0m Projectiles"
+Cohesion: 0.08
+Nodes (14): TrashTr0mCog, Color, float, int, Vector2, TrashTr0mScrapBall, Color, float (+6 more)
+
+### Community 18 - "Junkyard Worldgen Pass"
+Cohesion: 0.11
+Nodes (14): JunkyardPass, Chest, float, GameConfiguration, GenerationProgress, int, Rectangle, Tile (+6 more)
+
+### Community 19 - "Mice Bot Minion"
+Cohesion: 0.12
+Nodes (12): MiceBotMinion, Mode, bool, Color, float, HitInfo, HitModifiers, int (+4 more)
+
+### Community 20 - "Jaeger Enemy"
+Cohesion: 0.09
+Nodes (15): Jaeger, Phase, Asset, BestiaryDatabase, BestiaryEntry, float, HitInfo, HurtModifiers (+7 more)
+
+### Community 21 - "Worldgen and Furniture"
+Cohesion: 0.07
+Nodes (16): JunkyardLayoutPass, GameConfiguration, GenerationProgress, JunkyardReservePass, int, Rectangle, MysteriousMap, WoodenChests (+8 more)
+
+### Community 22 - "Tar Tyrant Simulation"
+Cohesion: 0.17
+Nodes (33): paste(), scale_rgb(), cell(), draw_boss(), draw_player(), draw_slime(), draw_vent(), hitbox_png() (+25 more)
+
+### Community 23 - "Junkyard Biome and Title"
+Cohesion: 0.07
+Nodes (21): BiomeTitleOrnament (brass gear-ended bar ornament), JunkyardBiome, ModWaterStyle, Player, JunkyardBiome icon (rusty scrap heap), BiomeTitleSystem, Asset, Color (+13 more)
+
+### Community 24 - "Scrappy Trunk Tile"
+Cohesion: 0.08
+Nodes (14): ScrappyTrunk, ScrappyTrunk item sprite (rusty chest), ScrappyTrunkTile, int, LocalizedText, Point, SpriteBatch, Tile (+6 more)
+
+### Community 25 - "Trash-Tr0m Summoning"
+Cohesion: 0.11
+Nodes (13): TrashTr0mBaitPacket, TrashTr0mSummon, TrashTr0mSummonPacket, BinaryReader, bool, Color, float, IEntitySource (+5 more)
+
+### Community 26 - "Tar and Scrap Dusts"
+Cohesion: 0.08
+Nodes (22): ScrapImpact, Color, Dust, int, Junkyard Tar, TarSplash, Tar Splash Droplets (dark frames), TarSplash Dust Sprite (+14 more)
+
+### Community 27 - "Tr0mhead Sentry"
 Cohesion: 0.10
 Nodes (12): SentryState, Tr0mheadSentry, Asset, Color, float, HitInfo, HitModifiers, int (+4 more)
 
-### Community 15 - "Weapon Simulator"
+### Community 28 - "Update Sims 2026-10-27"
 Cohesion: 0.20
-Nodes (22): backdrop(), collector_sprite(), consts(), Enemy, extension(), frames(), Gif, glow_over() (+14 more)
+Nodes (20): armor_png(), backdrop(), draw_gauge(), frame_img(), frames(), Gif, load(), main() (+12 more)
 
-### Community 16 - "Rig Renderer"
+### Community 29 - "Scrap Armor Art"
+Cohesion: 0.13
+Nodes (25): back_shoulder_cell(), body_idle(), cog4(), cog6(), crop_to_content(), helmet_frame(), legs_frame(), make_body_sheet() (+17 more)
+
+### Community 30 - "Safe Logging and Packets"
+Cohesion: 0.09
+Nodes (15): CogpunkMod, BinaryReader, BinaryReader, PacketRegistry, BinaryReader, bool, int, List (+7 more)
+
+### Community 31 - "Boombot Enemy"
+Cohesion: 0.12
+Nodes (9): Boombot, Phase, Asset, float, HitInfo, int, NPCLoot, Player (+1 more)
+
+### Community 32 - "Tetanus Weapon"
 Cohesion: 0.11
-Nodes (20): bolt(), _hash(), Info, level(), line(), lit(), A tiny 2D pixel-art renderer for Cogpunk's layered bosses (D4: drawn at 1x,…, Lighting intensity (-1..1) -> a ramp index in [lo, hi], hard steps. (+12 more)
-
-### Community 17 - "Tetanus Lance Projectile"
-Cohesion: 0.10
 Nodes (12): TetanusProjectile, Asset, Color, float, HitInfo, HitModifiers, int, NPC (+4 more)
 
-### Community 18 - "Scrapmancer Staff"
-Cohesion: 0.11
-Nodes (11): Scrapmancer, EntitySource_ItemUse_WithAmmo, float, int, Player, Vector2, ScrapmancerWave, Color (+3 more)
+### Community 33 - "Puxa-frango Art"
+Cohesion: 0.13
+Nodes (23): ik(), Two-bone IK: the elbow for a shoulder-hand pair (bend = +1 puts the elbow on…, Ring, arm(), claw(), crop(), export_all(), frame() (+15 more)
 
-### Community 19 - "Scrap Launcher Ball"
+### Community 34 - "Invasion Framework"
+Cohesion: 0.10
+Nodes (13): CogpunkInvasion, Asset, BinaryReader, BinaryWriter, bool, Color, float, int (+5 more)
+
+### Community 35 - "Tar Tyrant Loot"
+Cohesion: 0.08
+Nodes (13): SereneTear, int, LocalizedText, Player, TarTyrantBag, NPCLoot, TarTyrantLoot, int (+5 more)
+
+### Community 36 - "Tar Tyrant Attacks"
+Cohesion: 0.12
+Nodes (3): Player, Vector2, Vector2
+
+### Community 37 - "Mech Army Simulation"
+Cohesion: 0.18
+Nodes (26): arrays(), cell(), draw_jaeger(), draw_player(), draw_walker(), hit(), jaeger_part(), jaeger_strips() (+18 more)
+
+### Community 38 - "Tar Tyrant Attack Sims"
+Cohesion: 0.10
+Nodes (16): Bone, Bubble, lob(), point(), TarTyrant.UpdateVent / VentFrame, line for line: the count runs in the fighting…, One tick; True on the tick the volley flies., TarTyrantBackBone: a lob under Gravity, a bounce off the floor, shattered by…, TarTyrantBackBone.LobVelocity. (+8 more)
+
+### Community 39 - "Art Direction Rules"
+Cohesion: 0.12
+Nodes (25): tools/check_flicker.py, tools/check_sprite.py, Core/Visuals/DepthLayers, Bosses summoned by fishing (ModPlayer.CatchFish), Core/Templates/GridWalkerNPC, MechWalker, Multiplane parallax layers (<=3), art/bosses/trashtr0m/rig.py (two-bone IK rig) (+17 more)
+
+### Community 40 - "Steam Dash"
 Cohesion: 0.09
-Nodes (12): ScrapLauncherBall, Color, float, int, Vector2, ScrapLauncherChunk, Color, float (+4 more)
+Nodes (11): SteamDashPlayer, bool, Color, float, HurtInfo, int, NPC, Projectile (+3 more)
 
-### Community 20 - "Trash-Tr0m Player Effects"
+### Community 41 - "Project Overview Docs"
+Cohesion: 0.14
+Nodes (24): Biome liquid as restyled water (ModWaterStyle), Core/Hooks/SceneOverlayRegistry, cogpunk-dev SKILL.md (operating manual), Junkyard (replaces left beach), Mechanist Class & Steam, MechanistDamage, MechanistWeapon, Overheat (+16 more)
+
+### Community 42 - "Core Directives"
+Cohesion: 0.11
+Nodes (24): tools/check_tile_seams.py, Clear outdated proofs, art/palettes/cogpunk.gpl, D1 Optimization, D2 Co-op compatibility, D4 Pixel art, D5 Visual proof (GIF), Definition of Done (+16 more)
+
+### Community 43 - "Toolchain Setup"
+Cohesion: 0.13
+Nodes (24): D2 Co-op Compatibility, D4 Pixel Art, D5 Visual Proof, Ground Truth Facts, cogpunk-dev Skill (Operating Manual), Art Direction: Detailed Entities, build.txt Config, check_sprite.py (+16 more)
+
+### Community 44 - "Trash-Tr0m Loot"
+Cohesion: 0.09
+Nodes (10): LostKey, TrashTr0mBag, ItemLoot, FirstKillCondition, TrashTr0mLoot, DropAttemptInfo, ILoot, int (+2 more)
+
+### Community 45 - "Trash-Tr0m Mouth Grab"
 Cohesion: 0.12
 Nodes (7): Player, TrashTr0mPlayer, bool, float, int, PlayerDrawSet, PlayerDeathReason
 
-### Community 21 - "Dev Rules & Directives"
-Cohesion: 0.13
-Nodes (23): Anti-patterns to Fix Table, Boilerheart (state machine example), Boss intro (Emerge) pattern, BossTitleSystem, CogpunkPacket, Core/Content Slice Architecture, Core/Templates bases, CrossMod.TryCall (+15 more)
-
-### Community 23 - "Project Docs & Build"
-Cohesion: 0.10
-Nodes (22): cogpunk-dev Skill (Operating Manual), build.txt Mod Build Config, buildIgnore (art/docs/tools/py/ps1 excluded from .tmod), CLAUDE.md Project Rules, Balance Loadouts (D3 reference gear), T0 Tier Loadout (unfilled), Cogpunk Mod (README overview), build.txt (buildIgnore excludes art/docs/tools) (+14 more)
-
-### Community 24 - "Scrap Slice Files"
-Cohesion: 0.15
-Nodes (7): CrossMod, Cogpunk.Content.Scrap.Minions, Cogpunk.Content.Scrap.Items, Cogpunk.Content.Scrap.Armor, Cogpunk.Core.Safety, Cogpunk.Content.Scrap.Weapons, Cogpunk.Core.Systems
-
-### Community 25 - "Trash-Tr0m Files"
+### Community 46 - "Steam Resource Spending"
 Cohesion: 0.12
-Nodes (8): byte, TrashTr0mRigData, int, Cogpunk.Content.Junkyard, Cogpunk.Core.Visuals, Cogpunk.Core.UI, Cogpunk.Content.Bosses.TrashTr0m, short
+Nodes (6): SteamPlayer, bool, float, int, Item, LocalizedText
 
-### Community 26 - "Lost Key & Treasure Bag"
+### Community 47 - "Scrap Armor Cog Volley"
+Cohesion: 0.12
+Nodes (13): ScrapArmorPlayer, bool, float, HurtModifiers, int, NPC, Vector2, Scrap armor set bonus cog volley GIF: fires a cog every 45 ticks of movement at 140-HP dummies (+5 more)
+
+### Community 48 - "Player Hooks and Fishing"
+Cohesion: 0.09
+Nodes (14): AdvancedPopupRequest, ScrapwormFishing, Item, Vector2, TarPlayer, bool, float, int (+6 more)
+
+### Community 50 - "Scrap Launcher Projectiles"
+Cohesion: 0.10
+Nodes (11): Vector2, ScrapLauncherBall, Color, float, int, Vector2, ScrapLauncherChunk, Color (+3 more)
+
+### Community 51 - "Junkyard Area Bounds"
+Cohesion: 0.15
+Nodes (9): JunkyardSystem, BinaryReader, BinaryWriter, int, Point, Rectangle, string, TagCompound (+1 more)
+
+### Community 52 - "Annoy-O-Tron Enemy"
+Cohesion: 0.12
+Nodes (11): AnnoyOTron, Asset, Color, float, HitInfo, int, NPC, NPCLoot (+3 more)
+
+### Community 53 - "Project Rules (CLAUDE.md)"
+Cohesion: 0.13
+Nodes (21): AnimatedEquip, Architecture: Core/ engine + Content/<Slice>/, CogpunkPacket, Content/<Slice>/ feature slices, Core/ engine, Core/Templates bases (CogpunkItem/NPC/Projectile/Tile/Wall/Buff), D0 No crashes, guaranteed, GenPassUtils (+13 more)
+
+### Community 54 - "Rust Collector Enemy"
 Cohesion: 0.11
-Nodes (8): LostKey, TrashTr0mBag, NPCLoot, TrashTr0mLoot, int, Cogpunk.Content.Bosses.TrashTr0m.Items, ILoot, ItemLoot
+Nodes (11): Phase, RustCollector, BestiaryDatabase, BestiaryEntry, float, HitInfo, HurtModifiers, int (+3 more)
 
-### Community 27 - "Skill Directives D1-D5"
+### Community 55 - "Scrap Bomb"
+Cohesion: 0.14
+Nodes (10): ScrapBombProjectile, bool, Color, float, HitInfo, HitModifiers, int, NPC (+2 more)
+
+### Community 56 - "Puxa-frango Enemy"
+Cohesion: 0.10
+Nodes (13): Phase, PuxaFrango, Asset, float, HitInfo, HurtModifiers, IBestiaryInfoElement, int (+5 more)
+
+### Community 57 - "Mechanist Gear Media"
+Cohesion: 0.11
+Nodes (21): Rust Polisher GIF, Rust Polisher (crafting station, grinding wheel, 6 frames x 4 ticks, no steam stack), Chain (grapple claw) and Glass/Brass Containers, Mechanist Polished Armor PNG, Polished armor set (worn idle/jump/walk, helmet/chest/legs icons), Steam gauge and Overheat indicator, Polished Pants Fix GIF, Polished pants leg-frame fix (frame / cog index check) (+13 more)
+
+### Community 58 - "Scrap Art Generator"
+Cohesion: 0.16
+Nodes (17): crop(), draw_body(), draw_eye(), draw_head(), draw_treads(), make_bomb_sheet(), make_metal(), make_pet_frames() (+9 more)
+
+### Community 60 - "CogpunkProjectile Cluster"
+Cohesion: 0.11
+Nodes (10): TrashTr0mChewedScrap, Color, float, int, ScrappyWandBolt, Color, int, CogpunkProjectile (+2 more)
+
+### Community 61 - "SafeGenPass Cluster"
 Cohesion: 0.13
-Nodes (19): Cogpunk Development Skill (SKILL.md), Core vs Content architecture, D1 Optimization, D3 Balance, D5 Visual proof (GIF), Definition of Done and report template, Feature/Fix Report Template, Vanilla anchor tier table (+11 more)
+Nodes (13): ShimmerPlacementPass, GameConfiguration, GenerationProgress, int, string, GlassContainerPass, Chest, GameConfiguration (+5 more)
 
-### Community 28 - "Rig Shapes"
-Cohesion: 0.13
-Nodes (5): BodyPose, Minus, Ring, Shape, Union
+### Community 62 - "DepthLayers Cluster"
+Cohesion: 0.19
+Nodes (11): Color, Color, SpriteBatch, Vector2, DepthLayers, Color, float, int (+3 more)
 
-### Community 29 - "Scrap Mound Worldgen"
+### Community 63 - "ScrappybotPet Cluster"
+Cohesion: 0.17
+Nodes (9): PetState, ScrappybotPet, bool, Color, float, int, Player, Vector2 (+1 more)
+
+### Community 64 - "Proposed Progression Map Cluster"
+Cohesion: 0.12
+Nodes (19): Biome Liquid as Restyled Water, ExampleMod branch 1.4.4 reference map, 1.4.5 Port Readiness, SceneOverlayRegistry, Core/Templates/StateMachineNPC, Vanilla name collisions check, Workflow for every task, Boilerheart (+11 more)
+
+### Community 65 - "make_junkyard_loot Cluster"
+Cohesion: 0.22
+Nodes (18): condensed_tar(), export(), export_all(), living_tar_frames(), map_arrow_frames(), mysterious_map(), polisher_tile_frames(), Source for the Junkyard's creatures and finds of 2026-10-26 (D4). Run from the… (+10 more)
+
+### Community 66 - "ScrapMoundPass Cluster"
 Cohesion: 0.20
 Nodes (10): biome, ScrapMoundPass, SurfaceBiome, GameConfiguration, GenerationProgress, int, List, end (+2 more)
 
-### Community 30 - "Animated Armor Equips"
-Cohesion: 0.16
-Nodes (9): Scrap Helmet head cog-animation frame 1, Scrap Helmet head equip sheet (20 vertical frames), AnimatedEquip, Entry, int, List, Entry, EquipType (+1 more)
+### Community 67 - "Trash-Tr0m loot sheet PNG Cluster"
+Cohesion: 0.11
+Nodes (19): Treasure Bag sprite (brown scrap sack), Trash-Tr0m Loot PNG, Scrap Launcher, Scrapmancer, Tetanus (lance weapon + debuff), Tr0mhead Staff (summon: idle/opening/sucking/resting), Trash-Tr0m Treasure Bag, Trash-Tr0m loot sheet PNG (+11 more)
 
-### Community 31 - "Scrappybot Pet"
-Cohesion: 0.20
-Nodes (8): PetState, ScrappybotPet, bool, float, int, Player, Vector2, PetState
+### Community 68 - "JunkyardSpawnRules Cluster"
+Cohesion: 0.13
+Nodes (9): JunkyardSpawnRules, float, IDictionary, int, NPC, NPCSpawnInfo, Player, NPCSpawnInfo (+1 more)
 
-### Community 32 - "Mysterious Map Target"
+### Community 69 - "AlarmoboMinion Cluster"
+Cohesion: 0.15
+Nodes (8): AlarmoboMinion, Mode, Asset, bool, float, int, Player, Vector2
+
+### Community 70 - "GridWalkerNPC Cluster"
+Cohesion: 0.12
+Nodes (11): MechWalker, GridWalkerNPC, Asset, BestiaryDatabase, BestiaryEntry, float, IBestiaryInfoElement, int (+3 more)
+
+### Community 71 - "Xf Cluster"
+Cohesion: 0.11
+Nodes (13): The bait item (16x16 -> 32x32): the worm coiled into a loop, drill head up., worm_item(), 2x3 affine matrix mapping local -> rig space., self o child: apply child (a pose in this part's space) first, then self., Xf, polisher_picture(), polisher_schematic(), A blueprint (aether paper, steam linework) of the polisher's wheel and motor,… (+5 more)
+
+### Community 72 - "TarTyrantClaw Cluster"
+Cohesion: 0.14
+Nodes (8): TarTyrantClaw, Asset, Color, float, HurtInfo, int, Player, Rectangle
+
+### Community 73 - "SteamContainer Cluster"
+Cohesion: 0.12
+Nodes (10): BrassContainer, int, LocalizedText, Player, GlassContainer, int, SteamContainer, Item (+2 more)
+
+### Community 74 - "TrapperChainProjectile Cluster"
+Cohesion: 0.14
+Nodes (8): TrapperChainProjectile, Asset, Color, float, HitInfo, int, NPC, Vector2
+
+### Community 75 - "MapTargetSystem Cluster"
 Cohesion: 0.16
 Nodes (9): MapTargetSystem, BinaryReader, BinaryWriter, bool, float, int, Point, TagCompound (+1 more)
 
-### Community 33 - "Junkyard Items"
-Cohesion: 0.12
-Nodes (6): CogpunkItem, PolishedMetal, int, MysteriousMap, RustedCog, RustedMetal
-
-### Community 34 - "Scrappy Trunk Tile"
-Cohesion: 0.12
-Nodes (8): ScrappyTrunk item sprite (rusty chest), ScrappyTrunkTile, int, LocalizedText, Point, uint, ScrappyTrunkTile_Highlight (smart-cursor outline mask, near-blank), ScrappyTrunkTile sheet (2x2 chest frames, open/closed/locked)
-
-### Community 35 - "Rust Collector Enemy"
+### Community 76 - "BossTitleSystem Cluster"
 Cohesion: 0.14
-Nodes (8): Phase, RustCollector, float, HitInfo, int, NPCLoot, string, Phase
+Nodes (8): BossTitleSystem, Color, float, GameInterfaceLayer, int, List, LocalizedText, string
 
-### Community 36 - "Tar Art Generator"
+### Community 77 - "Tar Tyrant attack cycle proof GIF (g Cluster"
+Cohesion: 0.13
+Nodes (18): Puxa-frango stalking proof GIF (640 life, snap yank, drops Chicken Snapper), Trash-Tr0m loose cog every 150 ticks (2.5 s) proof GIF, Tyrant armor (skull/cape/sandals) worn animation GIF, Tyrant armor set bonus: tar claw erupts under closest enemy every 4 s (proof GIF), Tyrant armor (female body) worn animation GIF, dark/light backgrounds, Tyrant armor (female body) worn frame sheet PNG, Tyrant armor worn frame sheet PNG, Tar Tyrant attack cycle proof GIF (glob, bone spike, flung bone, bubble; Tar Plague) (+10 more)
+
+### Community 78 - "TarTyrantRigData Cluster"
+Cohesion: 0.18
+Nodes (6): TarTyrantRigData, int, short, Cogpunk.Content.Bosses.TarTyrant, Cogpunk.Content.Bosses.TarTyrant.NPCs, Cogpunk.Content.Bosses.TarTyrant.Projectiles
+
+### Community 80 - "Trapper Cluster"
+Cohesion: 0.13
+Nodes (9): Phase, Trapper, float, HitInfo, int, NPCLoot, NPCSpawnInfo, Player (+1 more)
+
+### Community 81 - "JaegerGreaves Cluster"
+Cohesion: 0.12
+Nodes (10): JaegerChestplate, int, LocalizedText, Player, JaegerGreaves, float, int, LocalizedText (+2 more)
+
+### Community 82 - "ScrewdriverProjectile Cluster"
+Cohesion: 0.12
+Nodes (9): ScrewdriverProjectile, Color, float, HitModifiers, NPC, Rectangle, CogpunkSets, bool (+1 more)
+
+### Community 83 - "make_tar_art Cluster"
 Cohesion: 0.19
 Nodes (12): body(), liquid_cell(), make_block(), make_slope(), make_steam(), make_water(), make_waterfall(), Source for the Junkyard's steaming tar (D4). Run from the repo root: python -P… (+4 more)
 
-### Community 37 - "Biome Title Banner"
-Cohesion: 0.14
-Nodes (9): Asset, BiomeTitleOrnament (brass gear-ended bar ornament), BiomeTitleSystem, Color, float, int, LocalizedText, string (+1 more)
-
-### Community 38 - "Mod Entry & Packets"
+### Community 84 - "TarTyrantBoneSpike Cluster"
 Cohesion: 0.15
-Nodes (8): CogpunkMod, BinaryReader, PacketRegistry, BinaryReader, bool, int, List, Mod
+Nodes (7): TarTyrantBoneSpike, Color, float, HurtInfo, int, Player, Rectangle
 
-### Community 39 - "Scrappy Trunk Worldgen"
+### Community 86 - "LivingTar Cluster"
+Cohesion: 0.14
+Nodes (7): LivingTar, bool, float, HitInfo, int, NPCLoot, NPCSpawnInfo
+
+### Community 87 - "BoombotBlast Cluster"
+Cohesion: 0.15
+Nodes (7): BoombotBlast, Color, float, HurtModifiers, int, Player, Rectangle
+
+### Community 88 - "WorldFlagSystem Cluster"
+Cohesion: 0.13
+Nodes (8): WorldFlagSystem, BinaryReader, BinaryWriter, bool, Dictionary, List, string, TagCompound
+
+### Community 89 - "D3 Balance Cluster"
+Cohesion: 0.16
+Nodes (15): Attack-Pattern Fairness, docs/balance/*.csv, 4% Base Crit Rule, Boss Bags Expert/Master Only, Boss treasure bags drop only in Expert/Master (ItemDropRule.BossBag), D3 Balance, Expert-first balance, Expert-First Balance Rule (+7 more)
+
+### Community 90 - "Trash-Tr0m Cluster"
 Cohesion: 0.18
+Nodes (15): Boss-Fight Rules, Bosses that move a player (conveyor pull), BossFightSpawnRule, BossNPC, BossTitleSystem, Core/Visuals/CinematicCamera, Themed boss death cinematic, InvasionRules (+7 more)
+
+### Community 91 - "make_scrap_weapons Cluster"
+Cohesion: 0.16
+Nodes (10): export(), draw_rod(), make_mouse_frames(), make_mouse_icon(), make_mouse_sheet(), make_scrappy_wand(), make_screwdriver_icon(), mouse() (+2 more)
+
+### Community 92 - "TarTyrantBackBone Cluster"
+Cohesion: 0.14
+Nodes (7): TarTyrantBackBone, Color, float, HurtInfo, int, Player, Vector2
+
+### Community 93 - "TrashTr0m.Visuals Cluster"
+Cohesion: 0.15
+Nodes (6): TrashTr0mRigData, byte, int, short, Cogpunk.Core.UI, Cogpunk.Content.Bosses.TrashTr0m
+
+### Community 94 - "TryNewProjectile Cluster"
+Cohesion: 0.17
+Nodes (9): SafeSpawn, IEntitySource, int, Item, NPC, Projectile, Rectangle, Vector2 (+1 more)
+
+### Community 95 - "ScrapmancerWave Cluster"
+Cohesion: 0.17
+Nodes (5): ScrapmancerWave, Color, HitModifiers, int, NPC
+
+### Community 96 - "ModSystem Cluster"
+Cohesion: 0.13
+Nodes (10): ScrappyTrunkWorldGen, GenPass, List, RustedScrapWorldGen, GenPass, List, VanillaRecipeGroups, string (+2 more)
+
+### Community 97 - "TarGlob Cluster"
+Cohesion: 0.15
+Nodes (7): TarGlob, Color, float, HurtInfo, int, Player, Vector2
+
+### Community 98 - "SteamDashSystem Cluster"
+Cohesion: 0.15
+Nodes (6): MechanistDamage, SteamDashSystem, Cogpunk.Content.Mechanist, DamageClass, ModKeybind, StatInheritanceData
+
+### Community 99 - "InvasionProgressBar Cluster"
+Cohesion: 0.16
+Nodes (7): InvasionProgressBar, GameInterfaceLayer, GameTime, int, List, SpriteBatch, string
+
+### Community 101 - "ChickenSnapper Cluster"
+Cohesion: 0.15
+Nodes (9): ChickenSnapper, int, LocalizedText, void, PuxaFrangoRigData, int, Cogpunk.Content.Underground.Items, Cogpunk.Content.Underground.NPCs (+1 more)
+
+### Community 102 - "InvasionRules Cluster"
+Cohesion: 0.19
+Nodes (8): IDictionary, NPCSpawnInfo, InvasionRules, IDictionary, int, NPCSpawnInfo, Player, uint
+
+### Community 103 - "CogpunkPacket Cluster"
+Cohesion: 0.16
+Nodes (6): InvasionStatePacket, CogpunkPacket, BinaryReader, Mod, Cogpunk.Core.Networking, ILoadable
+
+### Community 104 - "Info Cluster"
+Cohesion: 0.21
+Nodes (6): BitArray, Chest, ScrapNodePass, GameConfiguration, GenerationProgress, int
+
+### Community 105 - "TyrantArmorPlayer Cluster"
+Cohesion: 0.17
+Nodes (7): TyrantArmorPlayer, bool, float, int, Player, Vector2, Player
+
+### Community 106 - "ScrapLauncher Cluster"
+Cohesion: 0.22
+Nodes (6): ScrapLauncher, EntitySource_ItemUse_WithAmmo, float, int, Player, Vector2
+
+### Community 107 - "Generate Cluster"
+Cohesion: 0.21
 Nodes (9): ScrappyTrunkPass, GameConfiguration, GenerationProgress, int, ScrappyTrunkLoot, Chest, int, List (+1 more)
 
-### Community 40 - "Boss Art Direction"
-Cohesion: 0.18
-Nodes (14): Boss-fight rules, BossNPC template, CinematicCamera, D4 Pixel art, DepthLayers, Art direction: detailed entities, Themed death cinematics, Fluid motion in-betweens (+6 more)
+### Community 108 - "NPCHaste Cluster"
+Cohesion: 0.23
+Nodes (5): NPCHaste, Color, float, int, NPC
 
-### Community 41 - "World Flags"
+### Community 109 - "PolishedCog Cluster"
 Cohesion: 0.15
-Nodes (7): BinaryWriter, WorldFlagSystem, bool, Dictionary, List, string, TagCompound
+Nodes (6): PolishedCog, int, LocalizedText, Player, Cogpunk.Content.Mechanist.Generation, Cogpunk.Content.Mechanist.Accessories
 
-### Community 43 - "Scrap Launcher Gun"
-Cohesion: 0.18
-Nodes (8): ScrapLauncher, TrashTr0mArsenalPlayer, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
+### Community 110 - "MechanistWeapon Cluster"
+Cohesion: 0.19
+Nodes (5): MechanistWeapon, List, LocalizedText, Player, TooltipLine
 
-### Community 44 - "Scrap Helmet Set Bonus"
+### Community 111 - "SteamGaugeSystem Cluster"
+Cohesion: 0.17
+Nodes (8): SteamGaugeSystem, Asset, GameInterfaceLayer, int, List, LocalizedText, string, LegacyGameInterfaceLayer
+
+### Community 112 - "Alarmobo minion sprite sheet (7-fram Cluster"
+Cohesion: 0.17
+Nodes (13): Cogpunker Manual item sprite (brown book with brass cog emblem), Alarm Head item icon (teal alarm dome on brass base), Alarmobo minion buff icon (teal alarm dome), Alarmobo minion beacon layer (8-frame teal alarm dome), Alarmobo minion beacon glow layer (rotating light sweep frames), Alarmobo minion far parallax layer (dark tread strip), Alarmobo minion glow layer (single-pixel indicator light), Alarmobo minion near parallax layer (grey tread strip) (+5 more)
+
+### Community 113 - "RogueMiceBot Cluster"
 Cohesion: 0.15
+Nodes (8): Phase, RogueMiceBot, Asset, float, HitInfo, int, NPCLoot, Texture2D
+
+### Community 114 - "ScrapHelmet Cluster"
+Cohesion: 0.17
 Nodes (6): ScrapHelmet, int, Item, LocalizedText, Player, Scrap Helmet item icon (brass/rust helmet with dark visor)
 
-### Community 45 - "SafeSpawn"
-Cohesion: 0.19
-Nodes (9): SafeSpawn, int, Item, NPC, Rectangle, Vector2, Gore, IEntitySource (+1 more)
-
-### Community 46 - "Boss Title Card"
-Cohesion: 0.19
-Nodes (6): BossTitleSystem, Color, float, int, LocalizedText, string
-
-### Community 47 - "Depth Layers Drawing"
-Cohesion: 0.22
-Nodes (8): DepthLayers, Asset, Color, float, int, SpriteBatch, Texture2D, Vector2
-
-### Community 48 - "Tar Liquid Textures"
+### Community 115 - "ScrapBomb Cluster"
 Cohesion: 0.15
-Nodes (13): Junkyard region replacement worldgen, Tar Waterfall 16-Frame Animation Strip, Dark Tar Flow (brown-black viscous liquid), Tar Waterfall Style Texture, Liquid Drawn Behind Half Blocks, Tar Surface Highlight Strip, Tar Liquid (dark brown, opaque), TarWaterStyle Block Texture (+5 more)
+Nodes (9): ScrapBomb, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2, ScrapBomb item sprite (pipe bomb) (+1 more)
 
-### Community 49 - "Trash-Tr0m Head Model"
+### Community 116 - "Mech Army Invasion Cluster"
 Cohesion: 0.21
-Nodes (5): Head, The helmet: a box-like housing (front = face plate facing down-left, near side,…, A point on the face plate: u from its left edge to its right, v from top to…, Helmet: a verdigris cranium with a riveted crest, a heavy hazard-brass brow…, Poly
+Nodes (12): CogpunkInvasion, CogpunkSets, CrossMod.TryCall, NPCHaste, WorldFlagSystem, Boombot Blast Explosion Sheet, Boombot kamikaze explosion (fireball to dispersing smoke ring, 6 frames), Mech Army Invasion (+4 more)
 
-### Community 50 - "Scrap Weapon Art"
-Cohesion: 0.19
-Nodes (7): draw_rod(), make_mouse_frames(), make_scrappy_wand(), make_screwdriver_icon(), mouse(), Source for the scrap arsenal sprites (D4). Run from the repo root: python -P…, segments: list of (length, half_width, (outline, dark, mid, light)). origin =…
-
-### Community 52 - "Junkyard & Trunk Files"
+### Community 117 - "Tyrant Skull helmet item icon: brown Cluster"
 Cohesion: 0.17
-Nodes (4): ScrappyTrunk, Cogpunk.Content.Junkyard.Map, Cogpunk.Content.Junkyard.Generation, Cogpunk.Content.Furniture
+Nodes (12): Tyrant Cape back equip sheet: 20-frame player back cape animation, Tyrant Cape body equip sheet: shoulder/arm strap pieces on player body layout, Tyrant Cape item icon: dark brown tar-stained cape, Tyrant Sandals legs equip sheet: 20-frame player legs walk animation, Tyrant Sandals item icon: brown tar-bone sandals, Tyrant Skull head equip sheet: 20-frame horned skull helmet on player head, Tyrant Skull helmet item icon: brown horned T-rex skull, Tar Tyrant gore: curved bone horn (+4 more)
 
-### Community 53 - "Scrap Armor Player"
-Cohesion: 0.21
-Nodes (7): ScrapArmorPlayer, bool, float, int, NPC, Vector2, HurtModifiers
-
-### Community 54 - "Scrap Cog Projectile"
-Cohesion: 0.18
-Nodes (6): ScrapCogProjectile, Color, float, int, string, Vector2
-
-### Community 55 - "BossNPC Template"
-Cohesion: 0.21
-Nodes (7): BossNPC, bool, float, int, uint, Vector2, StateMachineNPC
-
-### Community 56 - "Content Base Types"
-Cohesion: 0.22
-Nodes (12): CogpunkBuff, CogpunkItem, CogpunkNPC, CogpunkProjectile, CogpunkTile, CogpunkWall, string, ModBuff (+4 more)
-
-### Community 57 - "Debuffs & Buffs"
-Cohesion: 0.17
-Nodes (6): CogpunkBuff, TarPlague, float, Player, MiceBotBuff, Player
-
-### Community 58 - "SafeLog"
-Cohesion: 0.21
-Nodes (6): SafeLog, Dictionary, int, Exception, ILog, object
-
-### Community 59 - "Trash-Tr0m Death Gores"
+### Community 118 - "TyrantClaw Cluster"
 Cohesion: 0.20
-Nodes (12): Gore Crest sprite (teal-green crest piece), Gore Gear sprite (grey cog with orange hub), Gore Jaw sprite (grey jaw with hazard stripes), Gore Piston sprite (copper piston rod), Gore Plate sprite (yellow hazard-striped plate), Gore Tyre sprite (dark tyre with yellow hub), Lost Key item sprite (spiked golden-cog key), Treasure Bag sprite (brown scrap sack) (+4 more)
+Nodes (5): TyrantClaw, Color, float, int, Rectangle
 
-### Community 60 - "Tetanus Item"
+### Community 119 - "TarTyrantBubble Cluster"
+Cohesion: 0.21
+Nodes (4): TarTyrantBubble, float, HitInfo, int
+
+### Community 120 - "TarTyrantGlob Cluster"
+Cohesion: 0.17
+Nodes (6): TarTyrantGlob, Color, float, HurtInfo, int, Player
+
+### Community 121 - "Tar Tyrant main body sheet (tar-and- Cluster"
+Cohesion: 0.20
+Nodes (12): Tar Tyrant tar glob projectile (3-frame spinning tar blob), Tar Tyrant tar puddle hazard (4-frame flat tar slick), Scrapworm summon sprite (curled rusty segmented worm), Scrapworm critter sprite (2-frame crawling scrap worm), Tar Tyrant far layer page 2 (back arm frames for collapse/death poses), Tar Tyrant far parallax layer (back tar arm and horn spines), Tar Tyrant glowmask sheet (eye glow and red mouth/flame cone), Tar Tyrant boss map head icon (bone skull) (+4 more)
+
+### Community 122 - "TrashTr0mSystem Cluster"
+Cohesion: 0.17
+Nodes (4): TrashTr0mSystem, int, string, uint
+
+### Community 123 - "Scrapmancer Cluster"
+Cohesion: 0.29
+Nodes (6): Scrapmancer, EntitySource_ItemUse_WithAmmo, float, int, Player, Vector2
+
+### Community 124 - "Tetanus Cluster"
 Cohesion: 0.20
 Nodes (7): Tetanus, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
 
-### Community 61 - "Map Arrow Draw Layer"
+### Community 125 - "CogpunkNPC Cluster"
+Cohesion: 0.20
+Nodes (5): CogpunkNPC, int, ExpertStats, float, ModNPC
+
+### Community 126 - "TrapperSpikeBall Cluster"
+Cohesion: 0.18
+Nodes (5): TrapperSpikeBall, Color, float, int, Vector2
+
+### Community 127 - "InsertAfter Cluster"
+Cohesion: 0.27
+Nodes (6): GenPass, List, GenPassUtils, GenPass, List, Func
+
+### Community 128 - "MysteriousMapArrowLayer Cluster"
 Cohesion: 0.18
 Nodes (7): MysteriousMapArrowLayer, Asset, float, int, PlayerDrawSet, PlayerDrawLayer, Position
 
-### Community 62 - "Scrappy Bow"
+### Community 129 - "JaegerArmorPlayer Cluster"
+Cohesion: 0.20
+Nodes (7): JaegerArmorPlayer, bool, float, HurtModifiers, int, NPC, uint
+
+### Community 130 - "ScrapCogProjectile Cluster"
+Cohesion: 0.20
+Nodes (6): ScrapCogProjectile, Color, float, int, string, Vector2
+
+### Community 131 - "RustedScrap Cluster"
+Cohesion: 0.17
+Nodes (6): RustedScrap, int, RustedScrap item sprite (rust chunk), RustedScrapTile, int, RustedScrapTile framing sheet (rust ore)
+
+### Community 132 - "MiceBot Cluster"
+Cohesion: 0.20
+Nodes (6): MiceBot, EntitySource_ItemUse_WithAmmo, List, Player, TooltipLine, Vector2
+
+### Community 133 - "ScrappyBow Cluster"
 Cohesion: 0.18
 Nodes (7): ScrappyBow, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
 
-### Community 63 - "Math Safety & State Machine"
-Cohesion: 0.26
-Nodes (3): MathSafety, Vector2, StateMachineNPC
-
-### Community 64 - "Tar Visual Proofs"
+### Community 134 - "Junkyard Tar Sprites Visual Proof Sh Cluster"
 Cohesion: 0.20
 Nodes (12): Tar _Block Texture, D5 Visual Proof Directive, Tar Droplet (15 frames), Dark/Light Background Readability Check, Junkyard Tar Sprites Visual Proof Sheet, Tar _Slope Texture, Tar Splash Dust, Tar Steam Stages (small/medium/large puffs) (+4 more)
 
-### Community 65 - "Junkyard Simulator"
-Cohesion: 0.38
-Nodes (11): creatures_png(), frames(), gif_text(), main(), polisher_frame(), D5 proofs for the Junkyard update of 2026-10-26: the Rust Collector, the Living…, One animation frame assembled from its 3x3 tile cells exactly as the game draws…, scene_collector() (+3 more)
-
-### Community 66 - "Scaffold Art"
+### Community 135 - "make_scaffold_art Cluster"
 Cohesion: 0.29
 Nodes (8): gear_mask(), hole_core(), make_icon(), make_small_icon(), Source for the scaffold sprites (icon.png, icon_small.png,…, Pixel-centre test: True where the gear (body + teeth, minus the hole) is solid., Flat brass face lit from the top-left: lit rim, shadowed rim, ramp-0 outline., shade_gear()
 
-### Community 67 - "Tetanus Debuff"
-Cohesion: 0.22
-Nodes (6): TetanusDebuff, TetanusGlobalNPC, float, HitModifiers, int, NPC
-
-### Community 68 - "Junkyard Layout Passes"
+### Community 136 - "CogpunkProjectile Cluster 136"
 Cohesion: 0.18
-Nodes (7): JunkyardLayoutPass, GameConfiguration, GenerationProgress, JunkyardReservePass, int, Rectangle, SafeGenPass
+Nodes (5): CogpunkProjectile, Vector2, TarTyrantPuddle, Color, int
 
-### Community 69 - "Tar Player Damage"
+### Community 137 - "AlarmHeadDrop Cluster"
 Cohesion: 0.18
-Nodes (6): TarPlayer, bool, float, int, LocalizedText, PlayerDrawSet
+Nodes (8): CommonDrop, AlarmHeadDrop, int, List, DropAttemptInfo, DropRateInfo, DropRateInfoChainFeed, ItemDropAttemptResult
 
-### Community 70 - "Tar Water Style"
+### Community 138 - "Tr0mheadStaff Cluster"
+Cohesion: 0.18
+Nodes (7): Tr0mheadStaff, EntitySource_ItemUse_WithAmmo, List, LocalizedText, Player, TooltipLine, Vector2
+
+### Community 139 - "TarWaterStyle Cluster"
 Cohesion: 0.18
 Nodes (5): TarWaterfallStyle, TarWaterStyle, Color, ModWaterfallStyle, ModWaterStyle
 
-### Community 71 - "Scrappy Wand"
+### Community 140 - "JaegerHelmet Cluster"
+Cohesion: 0.20
+Nodes (5): JaegerHelmet, int, Item, LocalizedText, Player
+
+### Community 141 - "CogpunkerManual Cluster"
+Cohesion: 0.20
+Nodes (5): CogpunkerManual, List, LocalizedText, Player, TooltipLine
+
+### Community 142 - "AlarmHead Cluster"
+Cohesion: 0.22
+Nodes (6): AlarmHead, int, LocalizedText, Player, Vector2, EntitySource_ItemUse_WithAmmo
+
+### Community 143 - "ScrappyWand Cluster"
 Cohesion: 0.18
 Nodes (7): ScrappyWand, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
 
-### Community 72 - "Scrappy Wand Bolt"
-Cohesion: 0.22
-Nodes (5): ScrappyWandBolt, Color, int, Color, Vector3
-
-### Community 73 - "Screwdriver Item"
+### Community 144 - "Screwdriver Cluster"
 Cohesion: 0.20
 Nodes (6): Screwdriver, EntitySource_ItemUse_WithAmmo, int, LocalizedText, Player, Vector2
 
-### Community 74 - "Scrap Bomb Proofs"
+### Community 145 - "Trash-Tr0m sprite sheet proof: far a Cluster"
+Cohesion: 0.20
+Nodes (11): Puxa-frango leg gore sprite (thin dark jointed metal limb), Chicken Snapper item sprite (grey grabber/claw tool with orange handle), Puxa-frango far parallax layer sheet (darker jointed legs/arm, 14 frames), Puxa-frango near parallax layer sheet (jointed legs/claw arm, 14 frames), Puxa-frango NPC body sheet (middle layer, 14 frames: grey boxy machine with claw head), Trash-Tr0m hitbox proof: NPC rect, silhouette strips, swallow box per pose (idle, slams, suck, raised fist, dying) plus projectile hitboxes; suction 40 tiles (80 enraged), Trash-Tr0m in-between frames proof: slam wind-up 45 ticks, enraged far claw 32 ticks, spitball at tick 24, death 240 ticks, Trash-Tr0m crawl loop GIF (2.5 s cycle, suction range ring, planted-hand drag on desert) (+3 more)
+
+### Community 146 - "InvasionRules Cluster 146"
+Cohesion: 0.22
+Nodes (5): InvasionItemGuard, InvasionKillCredit, Item, NPC, GlobalItem
+
+### Community 147 - "IsFinite Cluster"
+Cohesion: 0.29
+Nodes (3): MathSafety, Vector2, StateMachineNPC
+
+### Community 148 - "BossNPC Cluster"
+Cohesion: 0.24
+Nodes (5): BossNPC, bool, float, int, uint
+
+### Community 149 - "scrap_bomb_sim Cluster"
 Cohesion: 0.27
 Nodes (10): Blast radius 4 tiles (64 px), no tile damage, Scrap Bomb buff GIF: direct hit 43 + 32 blast, 5-tile (80px) radius vs Grenade 8x8, Direct hit 51 + 32 blast damage, Scrap Bomb Throw Simulation GIF, dummy_rect(), first_hit(), in_blast(), main() (+2 more)
 
-### Community 75 - "Trash-Tr0m Proof Media"
-Cohesion: 0.18
-Nodes (11): Death cinematic GIF (camera lock, lethal blow, 240-tick dying), Death cinematic, Hitboxes overlay PNG (NPC rect, silhouette strips, swallow box), In-between animation frames strip (slam, enraged slam, spit, death), Slam GIF (45-tick wind-up and recover), Slam attack, Enraged slam GIF (far claw follows), Spit GIF (scrap ball released at tick 24) (+3 more)
-
-### Community 76 - "Junkyard Architecture Docs"
-Cohesion: 0.24
-Nodes (10): Biome Liquid via ModWaterStyle (Tar), GenPassUtils (InsertAfter/Replace), Junkyard Vanilla Region Replacement, JunkyardSpawnRules, 1.4.5 Port Readiness, SafeGenPass, SceneOverlayRegistry (Core/Hooks), Junkyard Biome (replaces left beach) (+2 more)
-
-### Community 77 - "Affine Transforms"
+### Community 150 - "Mech Army enemy sprite sheets: clock Cluster"
 Cohesion: 0.20
-Nodes (4): 2x3 affine matrix mapping local -> rig space., self o child: apply child (a pose in this part's space) first, then self., The rotation part only (a scaled pose keeps unit normals unit)., Xf
+Nodes (11): Mech Army Annoy-o-tron alarm GIF: clockwork mice get +50% speed within 15 tiles, Alarm Head / Alarmobo minion GIF: +20% move, +10% attack speed per Alarmobo within 15 tiles, Boombot GIF: walking bomb, 70 Expert blast on touch, trip/stumble/roll then blast, Jaeger armor set animation GIF (teal mech armor on player, cog frame), Jaeger armor set worn-frames PNG on dark and light backgrounds, Jaeger walker mech GIF: walks 0.75 px/tick, contact 100 Expert, knockback 13, 0 px foot slip, Mech Army loot item sprites (alarm bell, Jaeger helmet/chest/legs, Cogpunker Manual book), Clockwork mouse enemy vs minion frames comparison (two rows of wind-up mice) (+3 more)
 
-### Community 78 - "Screwdriver Projectile"
+### Community 151 - "ScrapwormCritter Cluster"
+Cohesion: 0.20
+Nodes (6): CogpunkNPC, ScrapwormCritter, BestiaryDatabase, BestiaryEntry, float, NPCSpawnInfo
+
+### Community 152 - "TouchesSilhouette Cluster"
+Cohesion: 0.27
+Nodes (5): Item, MultipliableFloat, Player, Projectile, Rectangle
+
+### Community 153 - "TetanusDebuff Cluster"
 Cohesion: 0.22
-Nodes (5): CogpunkProjectile, ScrewdriverProjectile, Color, float, Rectangle
+Nodes (6): TetanusDebuff, TetanusGlobalNPC, float, HitModifiers, int, NPC
 
-### Community 79 - "TrashTr0mShockwave"
+### Community 154 - "TrashTr0mShockwave Cluster"
 Cohesion: 0.24
 Nodes (3): TrashTr0mShockwave, Color, int
 
-### Community 81 - "TrashTr0m.Hitboxes"
+### Community 155 - "TouchesSilhouette Cluster 155"
 Cohesion: 0.27
-Nodes (5): Player, Projectile, Rectangle, Item, MultipliableFloat
+Nodes (5): Item, MultipliableFloat, Player, Projectile, Rectangle
 
-### Community 82 - "ShimmerPlacementPass"
+### Community 156 - "Junkbait Cluster"
 Cohesion: 0.22
-Nodes (7): ShimmerPlacementPass, GameConfiguration, GenerationProgress, int, string, List, GenPass
+Nodes (4): Junkbait, int, ItemGroup, Player
 
-### Community 83 - "ScrapBreastplate"
+### Community 157 - "Polished Chestplate (inventory icon Cluster"
+Cohesion: 0.22
+Nodes (10): Polished Chestplate body equip sheet (torso + arm frames), Steel cuirass with brass trim and pressure-gauge plate, Polished Chestplate (inventory icon), Brass-banded steel dome helmet with dark visor, Polished Helmet head equip sheet (20 vertical frames), Polished Armor Set (Mechanist), Polished Helmet (inventory icon), Polished Pants legs equip sheet (20 walk/jump frames) (+2 more)
+
+### Community 158 - "TrapperChain Cluster"
+Cohesion: 0.22
+Nodes (7): TrapperChain, EntitySource_ItemUse_WithAmmo, float, int, Player, Vector2, MechanistWeapon
+
+### Community 159 - "ScrapBreastplate Cluster"
 Cohesion: 0.20
 Nodes (7): Scrap Breastplate body cog-animation frame 1, Scrap Breastplate body equip sheet (9x4 composite: torso with cog emblem, arm swing poses, shoulders), ScrapBreastplate, int, LocalizedText, Player, Scrap Breastplate item icon (rust-brown plated torso with grey rivets)
 
-### Community 84 - "RustedScrapWorldGen"
-Cohesion: 0.27
-Nodes (4): RustedScrapWorldGen, Cogpunk.Core.WorldGeneration, Cogpunk.Content.Scrap.Tiles, Cogpunk.Content.Scrap.Generation
+### Community 160 - "InvasionDirector Cluster"
+Cohesion: 0.31
+Nodes (3): InvasionDirector, bool, int
 
-### Community 85 - "GenPassUtils"
-Cohesion: 0.33
-Nodes (6): GenPass, List, GenPassUtils, GenPass, List, Func
-
-### Community 86 - "CogpunkPacket"
-Cohesion: 0.22
-Nodes (5): CogpunkPacket, BinaryReader, Mod, ILoadable, ModPacket
-
-### Community 87 - "scrappybot sim"
+### Community 161 - "scrappybot_sim Cluster"
 Cohesion: 0.27
 Nodes (9): Follow state: pet walks behind player over terrain, Scrappybot Pet Behavior Simulation GIF, draw_owner(), main(), owner_script(), D5 simulation of the Scrappybot pet: follow -> owner stands still -> power down…, Owner x position and velocity: walks right, stands still for 7 s, then walks…, Neutral placeholder for the player (no vanilla art is used). (+1 more)
 
-### Community 88 - "check tile seams"
+### Community 162 - "check_tile_seams Cluster"
 Cohesion: 0.29
 Nodes (9): After: seamless merged scrap texture, Before: visible per-tile seams on heap and cave node, Rusted Scrap Tile Seamless Before/After, edge_bias(), interior_frames(), luminance(), main(), Check that a block's tile sheet connects seamlessly (D4 "seamless blocks"… (+1 more)
 
-### Community 89 - "scrap cog volley sim"
-Cohesion: 0.29
-Nodes (6): Scrap armor set bonus cog volley GIF: fires a cog every 45 ticks of movement at 140-HP dummies, aim_lob(), main(), D5 simulation of the Scrap armor set bonus: while the player moves, a Scrap Cog…, ScrapArmorPlayer.AimLob: low-arc launch velocity through (dx, dy) (y down), 45…, Slime
-
-### Community 90 - "2026 10 23 boss trashtr0m sprite"
-Cohesion: 0.24
-Nodes (10): Trash-Tr0m Sprite Visual Proof Sheet, D4 Pixel Art Rules (palette, top-left lighting, 2x export), D5 Visual Proof Directive (static sprite PNG), Sprite on Dark Background (with ground), _Glow Layer (eyes, throat, furnace), Sprite on Light Sky Background, Trash-Tr0m Boss Map Icon, Player Reference Figure (scale comparison) (+2 more)
-
-### Community 91 - "2026 10 26 junkyard creatures"
+### Community 163 - "D5 visual proof for 2026-10-26 Junky Cluster"
 Cohesion: 0.31
 Nodes (10): Junkyard creatures and items sprite sheet (Rust Collector frames, Living Tar, gores, Polisher Schematic, Rust Polisher, Mysterious Map, 16-heading arrow), Living Tar simulation: 60 life, contact 5, tar glob 4 + Tar Plague 120 ticks, range 28 tiles, Mysterious Map simulation: compass arrow with 16 pre-rendered headings, 22.5 deg apart, Rust Collector simulation: rolling accel 0.05->0.22 over 150 ticks, max 7.5, skid 0.28, wall stun, Rust Polisher simulation: 3x3 station, 6 frames x 4 ticks, 2 Rusted Metal -> Polished Metal, schematic recipe, D5 visual proof for 2026-10-26 Junkyard and Trash-Tr0m update, Scrap Launcher simulation: bullets as ammo, every 3rd shot big scrap ball x2.5 = 50, bounces once, Scrapmancer simulation: ground junk shockwave, 16 px/tick for 120 ticks, pierces all, climbs 3 tiles (+2 more)
 
-### Community 92 - "SKILL"
+### Community 164 - "TarTyrantSystem Cluster"
 Cohesion: 0.22
-Nodes (9): ExampleMod 1.4.4 reference map, Mechanist class and Steam Pressure, MechanistDamage DamageClass, PressurePlayer (Steam Pressure ModPlayer), Vent Keybind, Mechanist Archetypes (Gunsmith/Brawler/Tinker), Mechanist Class, Steam Pressure Resource (Vent/Overheat) (+1 more)
+Nodes (4): TarTyrantSystem, int, string, uint
 
-### Community 93 - "TrashTr0mChewedScrap"
-Cohesion: 0.22
-Nodes (4): TrashTr0mChewedScrap, Color, float, int
+### Community 165 - "Register Cluster"
+Cohesion: 0.25
+Nodes (4): Entry, int, ModItem, EquipType
 
-### Community 94 - "TrashTr0mScrapBall"
-Cohesion: 0.22
-Nodes (4): TrashTr0mScrapBall, Color, float, int
+### Community 166 - "AnimatedEquip Cluster"
+Cohesion: 0.28
+Nodes (5): Scrap Helmet head cog-animation frame 1, Scrap Helmet head equip sheet (20 vertical frames), AnimatedEquip, List, Entry
 
-### Community 95 - "Tr0mheadStaff"
-Cohesion: 0.22
-Nodes (5): Tr0mheadStaff, EntitySource_ItemUse_WithAmmo, LocalizedText, Player, Vector2
-
-### Community 96 - "ScrapLeggings"
+### Community 167 - "ScrapLeggings Cluster"
 Cohesion: 0.22
 Nodes (6): ScrapLeggings, LocalizedText, Player, Scrap Leggings legs cog-animation frame 1, Scrap Leggings legs equip sheet (20 vertical walk/jump frames), Scrap Leggings item icon (pair of rust-brown boots)
 
-### Community 97 - "MiceBot"
-Cohesion: 0.28
-Nodes (4): MiceBot, EntitySource_ItemUse_WithAmmo, Player, Vector2
+### Community 168 - "Scrappybot Cluster"
+Cohesion: 0.25
+Nodes (4): Scrappybot, EntitySource_ItemUse_WithAmmo, Player, Vector2
 
-### Community 98 - "CinematicCamera"
+### Community 169 - "CinematicCamera Cluster"
 Cohesion: 0.25
 Nodes (4): CinematicCamera, float, uint, Vector2
 
-### Community 99 - "2026 10 23 boss trashtr0m intro"
-Cohesion: 0.28
-Nodes (9): Trash-Tr0m Intro Visual Proof GIF, Buried Depth (rise out of heap, 168 px start), Camera Lock (intro pan), Central Scrap Heap Arena, D5 Visual Proof Directive (offline simulation), Intro Invulnerability, Intro Tick Timeline (negative ticks pre-fight), Boss Summon and Emergence Intro Sequence (+1 more)
-
-### Community 100 - "2026 10 23 junkyard tar"
+### Community 170 - "Junkyard Tar Visual Proof GIF (2026- Cluster"
 Cohesion: 0.33
 Nodes (9): Junkyard Tar Visual Proof GIF (2026-10-23), Junkyard Biome Terrain (sand, stone, scrap pile), Offline Simulation (D5 Visual Proof), Player HP Bar (100/100 start), Steam Rising From Tar (VFX), Tar Plague Damage Ticks, Tar Pool (dark liquid pit), Tar Movement Slow (speed px/tick) (+1 more)
 
-### Community 101 - "SKILL (2)"
-Cohesion: 0.29
-Nodes (8): tools/check_tile_seams.py, D5 Visual Proof (GIF), Seamless block rule, art/templates/terrain_exposure.json, tools/sim/terrain.py, Rusted Scrap Slice, tools/record-gif.ps1 (untested draft), tools/sheet2gif.py
+### Community 171 - "check_flicker Cluster"
+Cohesion: 0.36
+Nodes (8): analyse(), composite(), frame_image(), main(), opaque(), parse(), Flicker check for generated multiplane sprites (D4, user 2026-10-29: "the boss…, Per triple (i-1, i, i+1): (flashes, toggles, interior size, flash marks, toggle…
 
-### Community 102 - "Placeholder"
+### Community 172 - "make_junkyard_art Cluster"
+Cohesion: 0.32
+Nodes (6): make_metal_icon(), make_terrain_sheet(), Source for the Junkyard slice sprites (D4). Run from the repo root: python -P…, The item reads as a single welded cube: square corners instead of the terrain…, 8x8 art for one terrain frame. exposure = 'TRBL' with 'o'/'d' (exposed) or '-'…, terrain_frame()
+
+### Community 173 - "make_cog Cluster"
+Cohesion: 0.36
+Nodes (7): make_biome_icon(), make_cog(), 12x12 rusted gear: 8 teeth, worn brass showing through the rust on the lit side., brass_cog(), left_half(), make_ornament(), Source for shared UI sprites (D4). Run from the repo root: python -P…
+
+### Community 174 - "make_mecharmy_sounds Cluster"
+Cohesion: 0.39
+Nodes (6): beep(), fade(), Source for the Mech Army's sound effects, 2026-10-27. Run from the repo root:…, A band-limited square wave (odd harmonics only, below Nyquist): buzzy but not…, siren(), square()
+
+### Community 175 - "Scaffold Icons Preview Cluster"
 Cohesion: 0.29
 Nodes (8): Placeholder Texture Sprite, Missing-texture fallback (gray checker with gold question mark), Icons shown on dark and light backgrounds, Scaffold Icons Preview, Brass cog with glowing orange core on dark slate frame, Cogpunk Mod Icon, Small brass cog with orange core (mod browser icon), Cogpunk Small Mod Icon
 
-### Community 103 - "ScrapNodePass"
-Cohesion: 0.36
-Nodes (5): BitArray, ScrapNodePass, GameConfiguration, GenerationProgress, int
-
-### Community 104 - "TarWaterStyle"
-Cohesion: 0.29
-Nodes (8): Junkyard Tar, Tar Splash Droplets (dark frames), TarSplash Dust Sprite, Tar Liquid Animation Frames (16 x 48x80), Calm Surface Strip, Dark Reddish-Brown Tar Body Fill, Grey-Blue Surface/Slope Highlight Strips, Tar Water Style Texture Sheet
-
-### Community 105 - "RustedScrap"
+### Community 176 - "MechArmyInvasion Cluster"
 Cohesion: 0.25
-Nodes (4): RustedScrap, int, RustedScrap item sprite (rust chunk), RustedScrapTile framing sheet (rust ore)
+Nodes (7): CogpunkInvasion, MechArmyInvasion, Color, float, int, NPCSpawnInfo, IDictionary
 
-### Community 106 - "Scrappybot"
-Cohesion: 0.29
-Nodes (4): Scrappybot, EntitySource_ItemUse_WithAmmo, Player, Vector2
-
-### Community 107 - "CogpunkSets"
+### Community 177 - "GlobalNPC Cluster"
 Cohesion: 0.25
-Nodes (5): HitModifiers, NPC, CogpunkSets, bool, NPC
+Nodes (5): BossFightSpawnRule, NPC, Player, Vector2, GlobalNPC
 
-### Community 108 - "TextureFallback"
-Cohesion: 0.25
-Nodes (3): BinaryReader, TextureFallback, string
-
-### Community 109 - "2026 10 23 boss trashtr0m idle"
-Cohesion: 0.29
-Nodes (8): Trash-Tr0m Idle Animation GIF, D5 Visual Proof Requirement, Furnace Belly Glow (lower vents), Grinder Maw Spin (central fan/grinder with glowing core), Left Arm (tire shoulder, yellow segmented limb, rusty pipe fist), Cogpunk Pixel Art Style (2x nearest, top-left light, ramp outlines), Right Arm (hazard-striped rusty block, claw grabber), Trash-Tr0m Boss (junk-heap mech)
-
-### Community 110 - "2026 10 23 junkyard tar surface"
+### Community 178 - "Junkyard Tar Surface Worldgen Render Cluster"
 Cohesion: 0.46
 Nodes (8): Junkyard Tar Surface Worldgen Render (2026-10-23), Beach Edge with Palm Stand-ins, Buried Cache (in central heap), Tar Pool Stone Rim Wall, Junkyard Sand Surface Layer, Junkyard Scrap Heaps, Tar Pool, Surface Tar Puddles
 
-### Community 111 - "CogpunkMod"
-Cohesion: 0.29
-Nodes (3): Cogpunk, Cogpunk.Core.Networking, Cogpunk.Core.Configs
+### Community 179 - "make_furniture_art Cluster"
+Cohesion: 0.43
+Nodes (6): cache_variant(), cut_into_cells(), make_sheets(), outline(), Source for shared furniture sprites (D4). Run from the repo root: python -P…, 16x17 chest art -> 18x19 tile frame with 1-px gutters (8x8 top cells, 8x9…
 
-### Community 112 - "CogpunkClientConfig"
+### Community 180 - "Config File Contents (build.txt, glo Cluster"
+Cohesion: 0.33
+Nodes (7): build.txt Mod Build Config, buildIgnore (art/docs/tools/py/ps1 excluded from .tmod), Mod Description (in-game), Steam Workshop Description, Vision, Config File Contents (build.txt, global.json, .gitignore, .gitattributes), Mod Identity (internal name Cogpunk)
+
+### Community 181 - "AlarmoboBuff Cluster"
+Cohesion: 0.29
+Nodes (3): CogpunkBuff, AlarmoboBuff, Player
+
+### Community 182 - "CogpunkClientConfig Cluster"
 Cohesion: 0.29
 Nodes (5): ConfigScope, CogpunkClientConfig, bool, float, ModConfig
 
-### Community 115 - "PolishedMetalTile"
+### Community 183 - "Tetanus (rusted diagonal blade with  Cluster"
 Cohesion: 0.29
-Nodes (4): PolishedMetal item sprite (steel block), PolishedMetalTile, int, PolishedMetalTile framing sheet (grey metal plates)
+Nodes (7): Rusty spinning cog projectile (4-frame rotation, copper/brown), TrashTr0mCog sprite sheet, Tetanus (rusted diagonal blade with brass guard, melee), Tetanus sprite, TetanusProjectile_Glow sheet (6 frames of gold/blue glint highlights), Tetanus held/thrust projectile (horizontal rusty blade with brass hilt), TetanusProjectile sprite
 
-### Community 116 - "RustPolisher"
+### Community 184 - "Trash-Tr0m boss body sprite sheet (t Cluster"
+Cohesion: 0.33
+Nodes (7): Trash-Tr0m far arm sheet (rust-orange lattice crane arm with grey claw, back parallax layer), Trash-Tr0m near arm sheet (yellow hydraulic arm with saw-disc shoulder and grey fist, front parallax layer), Trash-Tr0m glowmask sheet (emissive headlight slits and orange furnace grille), Trash-Tr0m boss map/head icon, Trash-Tr0m extra body page sheet (8 additional chomp/attack frames), Trash-Tr0m boss body sprite sheet (teal-domed rusty garbage-truck mech, 3/4 view, jaw open/close frames), Condensed Tar item icon (dark brown tar lump)
+
+### Community 187 - "SceneOverlayRegistry Cluster"
 Cohesion: 0.29
-Nodes (3): RustPolisher, int, ItemGroup
+Nodes (4): SceneOverlayRegistry, GameTime, Cogpunk.Core.Hooks, Overlay
 
-### Community 117 - "TarDroplet"
-Cohesion: 0.29
-Nodes (3): TarDroplet, Cogpunk.Content.Junkyard.Tar, ModGore
-
-### Community 118 - "TarSteam"
-Cohesion: 0.38
-Nodes (4): TarSteam, float, int, Dust
-
-### Community 120 - "SceneOverlayRegistry"
-Cohesion: 0.29
-Nodes (4): SceneOverlayRegistry, GameTime, Overlay, Cogpunk.Core.Hooks
-
-### Community 121 - "BossFightSpawnRule"
-Cohesion: 0.29
-Nodes (4): BossFightSpawnRule, NPC, Player, GlobalNPC
-
-### Community 122 - "2026 10 23 junkyard tar overview"
+### Community 188 - "Junkyard Tar Worldgen Overview (2026 Cluster"
 Cohesion: 0.43
 Nodes (7): Junkyard Tar Worldgen Overview (2026-10-23), Beach Segment (19 wide), Junkyard Rust Heaps, Junkyard Strip with Scrap Heaps (118 wide), Tar Pool Floor (halfway to underworld, y=652), Deep Steaming Tar Pool (155 wide, 347 deep), World Border Unreachable Zone (x<40)
 
-### Community 123 - "junkyard layout sim"
+### Community 189 - "junkyard_layout_sim Cluster"
 Cohesion: 0.48
 Nodes (6): cogpunk(), cuts_reserve(), main(), D5 simulation: how the Junkyard keeps vanilla's big structures away…, roll_world(), vanilla_shimmer()
 
-### Community 124 - "Tetanus"
-Cohesion: 0.33
-Nodes (6): Tetanus weapon, Tetanus debuff icon (rusty spike on grey), Tetanus item sprite (rusted lance), Tetanus flash ring effect sprite, Tetanus projectile glow overlay, Tetanus held lance projectile sprite
-
-### Community 125 - "TrashTr0m ArmFar"
-Cohesion: 0.33
-Nodes (6): Trash-Tr0m far arm sheet (orange crane arm with claw), Trash-Tr0m near arm sheet (yellow arm with buzzsaw and fist), Trash-Tr0m glow layer (windows, vent grille, furnace), Trash-Tr0m boss map head icon, Trash-Tr0m body sprite sheet (page 1, 8 frames), Trash-Tr0m body sprite sheet (page 0, 20 frames)
-
-### Community 126 - "TrashTr0mLoot"
-Cohesion: 0.33
-Nodes (3): FirstKillCondition, DropAttemptInfo, IItemDropRuleCondition
-
-### Community 127 - "ScrappyTrunkPass"
-Cohesion: 0.33
-Nodes (4): ScrappyTrunkWorldGen, GenPass, List, Cogpunk.Content.Furniture.Generation
-
-### Community 129 - "TileSafety"
-Cohesion: 0.33
-Nodes (3): TileSafety, int, Tile
-
-### Community 130 - "SETUP"
+### Community 190 - "SteamDashPacket Cluster"
 Cohesion: 0.40
-Nodes (5): Attack-Pattern Fairness Rules, tools/check_sprite.py, Cogpunk Master Palette (cogpunk.gpl), pixel-mcp (Aseprite MCP), Sprite Specifications (2x scale, 18px tile stride, armor sheets)
+Nodes (3): CogpunkPacket, SteamDashPacket, BinaryReader
 
-### Community 131 - "make trashtr0m art"
+### Community 191 - "Action Cluster"
+Cohesion: 0.40
+Nodes (4): CommandCaller, CommandType, MechArmyCommand, ModCommand
+
+### Community 192 - "Trash-Tr0m gore: steel cog gear Cluster"
+Cohesion: 0.33
+Nodes (6): Trash-Tr0m gore: teal crest plate, Trash-Tr0m gore: steel cog gear, Trash-Tr0m gore: hazard-striped jaw piece, Trash-Tr0m gore: brass piston rod, Trash-Tr0m gore: hazard-striped armor plate, Trash-Tr0m gore: tyre wheel with brass hub
+
+### Community 194 - "Steam Pressure resource (Mechanist c Cluster"
+Cohesion: 0.47
+Nodes (6): Brass Container accessory icon (brass-capped steam canister), Glass Container accessory icon (glass steam jar), Overheat debuff, Overheat Debuff Icon (brass pressure gauge, red needle), Steam Gauge UI Sheet (empty tube, steam fill, overheat fill, brass frame parts), Steam Pressure resource (Mechanist class)
+
+### Community 196 - "cs_array Cluster"
 Cohesion: 0.40
 Nodes (5): cs_array(), hit_strips(), n vertical strips over a frame's opaque pixels (above the ground line), each…, C# tables for the drawing, the AI points and the hitboxes. All values in game…, write_rig_data()
 
-### Community 132 - "RustedScrapTile"
+### Community 197 - "Tar Tyrant Back Bone projectile shee Cluster"
 Cohesion: 0.40
-Nodes (3): CogpunkTile, RustedScrapTile, int
+Nodes (5): Tar Tyrant gore: bone femur, Tar Tyrant gore: vertebra bone, Tar Tyrant Bubble NPC sheet: dark tar bubble growing and swelling over 14 frames, Tar Tyrant Back Bone projectile sheet: flung spinning bone and cross-shaped vertebra frames, Tar Tyrant Bone Spike projectile sheet: bone spike erupting from tar puddle and retracting
 
-### Community 133 - "Tr0mheadStaff (2)"
+### Community 199 - "RustCollector (wheeled grey iron scr Cluster"
 Cohesion: 0.40
-Nodes (3): List, List, TooltipLine
+Nodes (5): RustCollector wheel gore (small dark wheel with brass hub), RustPolisher item sprite (grey dome tank and brass/wood box on a dark bench), RustCollector (wheeled grey iron scrap cart loaded with rusty junk, 12-frame rolling animation), RustCollector NPC sprite sheet, TarGlob projectile sprite (dark brown tar blob, ~28 tumbling/rotation frames)
 
-### Community 134 - "TarPlague"
+### Community 200 - "Tar Plague Debuff Icon Cluster"
 Cohesion: 0.50
 Nodes (5): Tar Plague Debuff, Tar Plague Debuff Icon, Junkyard Biome Tar, Dark Tar Droplet Motif, Toxic Green Accent (plague/sickness cue)
 
-### Community 135 - "TarSteam (2)"
-Cohesion: 0.50
-Nodes (4): Three Growth Stages: small wisp, mound, dispersing cloud (rows), Pale Grey Steam Palette, Steam Puff Rising Off Tar, Two Puff Variants (columns)
-
-### Community 137 - "VanillaRecipeGroups"
-Cohesion: 0.40
-Nodes (3): VanillaRecipeGroups, string, ModSystem
-
-### Community 138 - "BiomeTitleSystem"
-Cohesion: 0.40
-Nodes (3): List, List, GameInterfaceLayer
-
-### Community 139 - "SafeGenPass"
+### Community 202 - "PreDraw Cluster 202"
 Cohesion: 0.70
-Nodes (3): SafeGenPass, GameConfiguration, GenerationProgress
+Nodes (3): Color, SpriteBatch, Vector2
 
-### Community 140 - "biome title sim"
-Cohesion: 0.50
-Nodes (4): Junkyard biome title GIF: camera pan, banner triggers on entering (tick/outside readout), main(), opacity(), D5 simulation of the biome title banner (Core/UI/BiomeTitleSystem.cs): the…
-
-### Community 141 - "check sprite"
+### Community 203 - "check_sprite Cluster"
 Cohesion: 0.60
 Nodes (4): check(), load_gpl(), main(), Check sprites against the Cogpunk pixel-art rules (D4). Exit code 1 if any file…
 
-### Community 142 - "TarDrop"
+### Community 204 - "Tar Tyrant Claw projectile sheet: la Cluster"
 Cohesion: 0.50
-Nodes (4): Junkyard tar theme, Tar Drop material icon (dark tar droplet), Living Tar enemy sheet (dark tar slime, 2 frames), Tar Glob projectile sheet (3 frames of tar droplet)
+Nodes (4): Tyrant Claw sheet: tar pillar erupting from ground topped by bone claw fingers (rise, grasp, sink frames), Tar Tyrant gore: bone claw hand with grey talons, Tar Tyrant Claw projectile sheet: large tar pillar with bone claw hand erupting from ground (two columns of rise/grab/sink frames), Tar Tyrant Claw warning sheet: orange exclamation telegraph marker frames
 
-### Community 143 - "ScrapLauncher"
+### Community 205 - "PreDraw Cluster 205"
 Cohesion: 0.50
-Nodes (4): Scrap Launcher weapon, Scrap Launcher item sprite (junk-built gun with teal chunk), Scrap Launcher ball projectile sprite, Scrap Launcher chunk projectile sprite
+Nodes (3): Color, SpriteBatch, Vector2
 
-### Community 144 - "Tr0mheadStaff (3)"
+### Community 206 - "Trash-Tr0m scrap ball projectile (4- Cluster"
 Cohesion: 0.50
-Nodes (4): Tr0mhead Staff weapon, Tr0mhead sentry glow overlay sheet, Tr0mhead sentry animation sheet (10 frames, green head on tripod), Tr0mhead Staff item sprite (toothy green head on staff)
+Nodes (4): Lost Key item (brass gear-headed key), Trash-Tr0m chewed scrap projectile (3-frame small scrap chunk), Trash-Tr0m scrap ball projectile (4-frame rolling compacted junk ball), Trash-Tr0m shockwave projectile (4-frame dirt mound with debris)
 
-### Community 145 - "TarDroplet (2)"
+### Community 207 - "Scrap impact explosion animation (go Cluster"
+Cohesion: 0.50
+Nodes (4): Scrap impact explosion animation (gold spark burst, expanding ring with debris, fading blue dashed shockwave), ScrapImpact sprite sheet, Scrap Launcher (brass/teal junk cannon, ranged), ScrapLauncher sprite
+
+### Community 210 - "Tar Drip Animation (form, fall, spla Cluster"
 Cohesion: 0.50
 Nodes (4): Tar Drip Animation (form, fall, splash frames), Tar Droplet Splash Frames, TarDroplet Sprite Sheet, Junkyard Tar Liquid
 
-### Community 148 - "2026 10 21 scrap overview"
+### Community 211 - "TarWaterStyle Block Texture Cluster"
+Cohesion: 0.50
+Nodes (4): Liquid Drawn Behind Half Blocks, Tar Surface Highlight Strip, Tar Liquid (dark brown, opaque), TarWaterStyle Block Texture
+
+### Community 212 - "TarWaterStyle Slope Texture Cluster"
+Cohesion: 0.50
+Nodes (4): Liquid Behind Sloped Tiles Rendering, Tar Liquid (dark brown viscous fluid), TarWaterStyle Slope Texture, Tar Slope Variants (4 frames)
+
+### Community 213 - "ModifyWorldGenTasks Cluster"
+Cohesion: 0.50
+Nodes (3): GlassContainerWorldGen, GenPass, List
+
+### Community 214 - "Trapper Chain (Mechanist weapon Cluster"
+Cohesion: 0.67
+Nodes (4): TrapperChain Item Sprite, Trapper Chain (Mechanist weapon), TrapperChain Link Sprite, TrapperChain Projectile Sprite (2 frames, claw head)
+
+### Community 216 - "Boombot NPC sprite sheet (round iron Cluster"
+Cohesion: 0.50
+Nodes (4): Boombot far parallax layer (far leg/limb frames), Boombot glow layer (fuse sparks), Boombot near parallax layer (near leg/limb frames), Boombot NPC sprite sheet (round iron bomb-bot with lit fuse, walk and tumble frames)
+
+### Community 218 - "Scrap Content Overview Cluster"
 Cohesion: 0.50
 Nodes (4): Extractinator table from Rusted Scrap: Rusted Cog 66%, Rusted Metal 33%, Scrappybot 1%, Scrap Content Overview, Surface scrap heaps, heights 3-6, one per left-side biome, Underground silt nodes converted (1 in 10); needs Gold/Platinum pickaxe (55%)
 
-### Community 149 - "scrappy trunk sim"
+### Community 219 - "scrappy_trunk_sim Cluster"
 Cohesion: 0.67
 Nodes (3): fill(), main(), D5 replay of the Scrappy Trunk world-generation rules…
 
-### Community 150 - "2026 10 22 scrap armor cog aim"
+### Community 220 - "Tar Drop material icon (dark tar dro Cluster"
+Cohesion: 0.67
+Nodes (3): Junkyard tar theme, Tar Drop material icon (dark tar droplet), Living Tar enemy sheet (dark tar slime, 2 frames)
+
+### Community 221 - "Scrap Armor Set Bonus: Movement-Trig Cluster"
 Cohesion: 1.00
 Nodes (3): Scrap Armor Set Bonus: Movement-Triggered Cogs, Scrap Armor Cog Aim GIF (set bonus: cogs aimed at nearest slime, every 45 ticks of movement), Scrap Armor Cog Lob GIF (set bonus: lobs a cog ahead while moving)
 
-### Community 151 - "Scrapmancer"
+### Community 226 - "Trapper (hunched jungle scavenger ca Cluster"
 Cohesion: 0.67
-Nodes (3): Scrapmancer weapon, Scrapmancer item sprite (rusty scepter with purple orb), Scrapmancer junk shockwave sprite
+Nodes (3): Trapper (hunched jungle scavenger carrying a large brown pack, 12-frame walk cycle), Trapper NPC sprite sheet, TrapperSpikeBall projectile sprite (4-frame dark iron spiked ball)
 
-### Community 154 - "RustCollector GorePanel"
-Cohesion: 0.67
-Nodes (3): Rust Collector gore panel (small gray metal plate), Rust Collector gore wheel (small dark wheel with yellow hub), Rust Collector enemy sheet (rolling scrap bin, wheel animation frames)
-
-### Community 155 - "PolisherSchematic"
-Cohesion: 0.67
-Nodes (3): Polisher Schematic item icon (blue blueprint with gear), Rust Polisher item icon (buffing machine on dark base), Rust Polisher tile sheet (animated 3x3 crafting station, 6 frames)
-
-### Community 156 - "MysteriousMap"
+### Community 227 - "Mysterious Map guidance arrow sheet  Cluster"
 Cohesion: 0.67
 Nodes (3): Mysterious Map item icon (parchment map), Mysterious Map arrow glow sheet (16 headings, faint violet marks), Mysterious Map guidance arrow sheet (16 headings, gold arrow with gear)
 
-### Community 158 - "RustedCog"
+### Community 230 - "Tar Waterfall Style Texture Cluster"
+Cohesion: 0.67
+Nodes (3): Tar Waterfall 16-Frame Animation Strip, Dark Tar Flow (brown-black viscous liquid), Tar Waterfall Style Texture
+
+### Community 231 - "Jaeger Chestplate item icon (teal pl Cluster"
+Cohesion: 0.67
+Nodes (3): Jaeger Chestplate body equip sheet (torso and arm frames), Jaeger Chestplate item icon (teal plated armor), Jaeger gore: teal chest plate with brass warning emblem
+
+### Community 232 - "Jaeger Greaves item icon (teal boots Cluster"
+Cohesion: 0.67
+Nodes (3): Jaeger Greaves legs equip sheet (20-frame walk column), Jaeger Greaves item icon (teal boots), Jaeger gore: grey steel boot
+
+### Community 233 - "Jaeger Helmet item icon (teal visore Cluster"
+Cohesion: 0.67
+Nodes (3): Jaeger Helmet head equip sheet (20-frame column), Jaeger Helmet item icon (teal visored helmet), Jaeger gore: teal helmeted head with brass crest
+
+### Community 234 - "Rusted Cog Item Sprite Cluster"
 Cohesion: 0.67
 Nodes (3): Extractinator drop from Rusted Scrap (66%), Rusted Cog Item Sprite, Rusty orange gear icon (crafting material)
 
-### Community 159 - "RustedMetal"
+### Community 235 - "Rusted Metal Item Sprite Cluster"
 Cohesion: 0.67
 Nodes (3): Extractinator drop from Rusted Scrap (33%), Rusted Metal Item Sprite, Rusty copper-colored metal plate with rivets
 
-### Community 160 - "MiceBot (2)"
+### Community 236 - "Mice-bot Minion Spritesheet (vertica Cluster"
 Cohesion: 0.67
 Nodes (3): Mice-bot Summon Item Sprite (rusty clockwork mouse), Mice-bot Buff Icon (clockwork mouse), Mice-bot Minion Spritesheet (vertical walk/burrow frames)
 
-### Community 162 - "2026 10 22 junkyard junkbait"
+### Community 239 - "Junkbait Sprite & Recipe Preview (PN Cluster"
 Cohesion: 0.67
 Nodes (3): Junkbait Sprite & Recipe Preview (PNG), Junkbait Recipe (Scrappybot + 10 Rusted Scrap + 10 Copper/Tin Bar @ Anvil), Junkbait Not Usable Until Junkyard Boss Exists (Never Consumed)
 
-### Community 163 - "2026 10 22 junkyard petroleum overview"
+### Community 240 - "Petroleum Pool Worldgen Overview (PN Cluster"
 Cohesion: 0.67
 Nodes (3): Petroleum Pool Worldgen Overview (PNG), Junkyard Surface: Pool Rim, Heaps, Puddles, Cache, Beach (PNG), Deep Petroleum Pool Layout (155 wide, 347 deep, 8 petroleum rows, floor halfway to underworld, past x<40 world border)
 
-### Community 164 - "2026 10 23 scrap screwdriver"
+### Community 241 - "Screwdriver Thrust Simulation (GIF Cluster"
 Cohesion: 0.67
 Nodes (3): Screwdriver Thrust Simulation (GIF), Screwdriver Sprites Proof (PNG), Screwdriver 31-tick thrust to 6.5 tiles, hits on extend and retract
 
+### Community 242 - "Trapper (Jungle enemy: 250 life, 35  Cluster"
+Cohesion: 0.67
+Nodes (3): Jungle Trapper GIF, Trapper spike balls: bounce, lie on ground 10 s, fade in last 1 s, Trapper (Jungle enemy: 250 life, 35 contact, stalking state)
+
+### Community 243 - "Tar Glob projectile Cluster"
+Cohesion: 0.67
+Nodes (3): Tar Glob GIF, 16 pre-rendered headings x 2 wobbles picked from velocity (no runtime rotation), Tar Glob projectile
+
+### Community 244 - "Tetanus held thrust (27 dmg, 8.5-til Cluster"
+Cohesion: 0.67
+Nodes (3): Tetanus Spear Proof GIF, Tetanus debuff (+10% damage taken), Tetanus held thrust (27 dmg, 8.5-tile reach, aim anywhere, hits out and back)
+
 ## Ambiguous Edges - Review These
-- `Config File Contents (build.txt, global.json, .gitignore, .gitattributes)` → `buildIgnore (art/docs/tools/py/ps1 excluded from .tmod)`  [AMBIGUOUS]
-  build.txt · relation: conceptually_related_to
 - `ScrapBombProjectile` → `ScrapBombProjectile sprite (2-frame pipe bomb, lit fuse)`  [AMBIGUOUS]
   Content/Scrap/Weapons/ScrapBombProjectile.png · relation: references
+- `Config File Contents (build.txt, global.json, .gitignore, .gitattributes)` → `buildIgnore (art/docs/tools/py/ps1 excluded from .tmod)`  [AMBIGUOUS]
+  build.txt · relation: conceptually_related_to
 - `Grey-Blue Surface/Slope Highlight Strips` → `Calm Surface Strip`  [AMBIGUOUS]
   Content/Junkyard/Tar/TarWaterStyle.png · relation: conceptually_related_to
 - `Living Tar simulation: 60 life, contact 5, tar glob 4 + Tar Plague 120 ticks, range 28 tiles` → `Tr0mhead sentry simulation: jaw drops on enemy in 18-tile reach`  [AMBIGUOUS]
   docs/media/2026-10-26_weapon-tr0mhead.gif · relation: conceptually_related_to
+- `SteamPlayer` → `Pressure vs Steam terminology`  [AMBIGUOUS]
+  README.md · relation: conceptually_related_to
+- `Mech Army Invasion` → `Out of Scope`  [AMBIGUOUS]
+  README.md · relation: conceptually_related_to
+- `Out of Scope` → `Mech Army event`  [AMBIGUOUS]
+  README.md · relation: conceptually_related_to
+- `RustCollector (wheeled grey iron scrap cart loaded with rusty junk, 12-frame rolling animation)` → `TarGlob projectile sprite (dark brown tar blob, ~28 tumbling/rotation frames)`  [AMBIGUOUS]
+  Content/Junkyard/Projectiles/TarGlob.png · relation: calls
+- `Polished Pants (Mechanist leg armor)` → `Steam Tank (base capacity 0 without Mechanist gear)`  [AMBIGUOUS]
+  docs/media/2026-10-27_mechanist-steam.gif · relation: conceptually_related_to
+- `Serene Tear item icon: pale lavender teardrop gem` → `Tar Tyrant treasure bag icon: brown tar sack`  [AMBIGUOUS]
+  Content/Bosses/TarTyrant/Items/TarTyrantBag.png · relation: references
+- `Lost Key item (brass gear-headed key)` → `Trash-Tr0m scrap ball projectile (4-frame rolling compacted junk ball)`  [AMBIGUOUS]
+  Content/Bosses/TrashTr0m/Items/LostKey.png · relation: conceptually_related_to
+- `Trash-Tr0m boss body sprite sheet (teal-domed rusty garbage-truck mech, 3/4 view, jaw open/close frames)` → `Condensed Tar item icon (dark brown tar lump)`  [AMBIGUOUS]
+  Content/Junkyard/Items/CondensedTar.png · relation: conceptually_related_to
+- `Cogpunker Manual item sprite (brown book with brass cog emblem)` → `Jaeger NPC body sprite sheet (teal armored mech torso with siren lamp, hazard-striped base, 28 frames)`  [AMBIGUOUS]
+  Content/MechArmy/Items/CogpunkerManual.png · relation: conceptually_related_to
+- `Alarm Head item icon (teal alarm dome on brass base)` → `Jaeger NPC body sprite sheet (teal armored mech torso with siren lamp, hazard-striped base, 28 frames)`  [AMBIGUOUS]
+  Content/MechArmy/Minions/AlarmHead.png · relation: conceptually_related_to
+- `Tar Tyrant loot PNG (Tyrant Skull/Cape/Sandals, Serene Tear, treasure bag, map head, gores)` → `Condensed Tar PNG (4 Tar Drops at Solidifier; Polished Metal material)`  [AMBIGUOUS]
+  docs/media/2026-10-30_junkyard-condensed-tar.png · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **194 isolated node(s):** `Microsoft.NET.Sdk`, `Cogpunk`, `SurfaceBiome`, `PetState`, `CLAUDE.md Project Rules` (+189 more)
+- **294 isolated node(s):** `Microsoft.NET.Sdk`, `Cogpunk`, `SentryState`, `Cogpunk.Content.Furniture.Generation`, `Cogpunk.Content.Jungle.NPCs` (+289 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **95 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **107 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What is the exact relationship between `Config File Contents (build.txt, global.json, .gitignore, .gitattributes)` and `buildIgnore (art/docs/tools/py/ps1 excluded from .tmod)`?**
-  _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
 - **What is the exact relationship between `ScrapBombProjectile` and `ScrapBombProjectile sprite (2-frame pipe bomb, lit fuse)`?**
   _Edge tagged AMBIGUOUS (relation: references) - confidence is low._
+- **What is the exact relationship between `Config File Contents (build.txt, global.json, .gitignore, .gitattributes)` and `buildIgnore (art/docs/tools/py/ps1 excluded from .tmod)`?**
+  _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
 - **What is the exact relationship between `Grey-Blue Surface/Slope Highlight Strips` and `Calm Surface Strip`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
 - **What is the exact relationship between `Living Tar simulation: 60 life, contact 5, tar glob 4 + Tar Plague 120 ticks, range 28 tiles` and `Tr0mhead sentry simulation: jaw drops on enemy in 18-tile reach`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `Cogpunk.Core.Templates` connect `Weapon & Projectile Files` to `BossFightSpawnRule`, `Tetanus Debuff`, `Scrap Launcher Gun`, `TextureFallback`, `Scrapmancer Staff`, `Scrap Launcher Ball`, `Junkyard & Trunk Files`, `RustPolisher`, `Content Base Types`, `Trash-Tr0m Files`, `Lost Key & Treasure Bag`, `Math Safety & State Machine`, `Tr0mheadStaff`?**
-  _High betweenness centrality (0.151) - this node is a cross-community bridge._
-- **Why does `Cogpunk.Content.Junkyard.Tar` connect `TarDroplet` to `Tar Water Style`, `TarSteam (2)`, `TarSplash`, `Trash-Tr0m Files`, `Debuffs & Buffs`?**
-  _High betweenness centrality (0.131) - this node is a cross-community bridge._
-- **Why does `Junkyard Tar` connect `TarWaterStyle` to `Tar Liquid Textures`, `TarSteam (2)`?**
-  _High betweenness centrality (0.128) - this node is a cross-community bridge._
+- **What is the exact relationship between `SteamPlayer` and `Pressure vs Steam terminology`?**
+  _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
+- **What is the exact relationship between `Mech Army Invasion` and `Out of Scope`?**
+  _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
+- **What is the exact relationship between `Out of Scope` and `Mech Army event`?**
+  _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._

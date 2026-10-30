@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Cogpunk.Core.Visuals
 {
@@ -92,8 +93,51 @@ namespace Cogpunk.Core.Visuals
 			}
 			float left = flip ? anchor.X - (width - originX) * scale : anchor.X - originX * scale;
 			Vector2 position = new(left, anchor.Y + (buried - originY) * scale);
+			if (scale != 1f) {
+				position = new Vector2(MathF.Round(position.X), MathF.Round(position.Y));   // a scaled sprite (Tar Tyrant shrinking) on whole pixels
+			}
 			spriteBatch.Draw(texture, position, source, color, 0f, Vector2.Zero, scale,
 				flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+		}
+
+		/// <summary>A layer's atlas pages (<c>Name</c>, <c>Name_Page1</c>, ...), requested once; a missing page stays null and
+		/// its frames are simply not drawn (D0). Clients only: returns null on a dedicated server.</summary>
+		public static Asset<Texture2D>[] RequestPages(string path, int count) {
+			if (Main.dedServ || count <= 0) {
+				return null;
+			}
+			var pages = new Asset<Texture2D>[count];
+			for (int k = 0; k < count; k++) {
+				string name = k == 0 ? path : path + "_Page" + k;
+				pages[k] = ModContent.HasAsset(name) ? ModContent.Request<Texture2D>(name) : null;
+			}
+			return pages;
+		}
+
+		/// <summary>A texture if it exists, requested once; null on a dedicated server or when the file is missing (D0).</summary>
+		public static Asset<Texture2D> RequestOptional(string path) {
+			return !Main.dedServ && ModContent.HasAsset(path) ? ModContent.Request<Texture2D>(path) : null;
+		}
+
+		/// <summary>
+		/// A small layered walker: the same <paramref name="frame"/> of its far, middle and near grid sheets (vertical, equal
+		/// cells, <paramref name="padding"/> px under each), far to near, with the far plane a little darker. The parallax is
+		/// horizontal only (at most <paramref name="maxShift"/> px): a walker's feet stay on the ground line. A null sheet
+		/// is skipped. <paramref name="maxShift"/> 0 (the bestiary) draws the planes stacked.
+		/// </summary>
+		public static void DrawWalker(SpriteBatch spriteBatch, Texture2D far, Texture2D middle, Texture2D near, int frame, int cellWidth,
+			int cellHeight, int padding, int originX, int originY, Vector2 anchor, Color light, bool flip, float maxShift, float scale = 1f) {
+			Vector2 farShift = new(Shift(anchor, Far, maxShift).X, 0f);
+			Vector2 nearShift = new(Shift(anchor, Near, maxShift).X, 0f);
+			if (far != null) {
+				DrawCell(spriteBatch, far, frame, 1, cellWidth, cellHeight, padding, originX, originY, anchor + farShift, 0, Tint(light, Far), flip, scale);
+			}
+			if (middle != null) {
+				DrawCell(spriteBatch, middle, frame, 1, cellWidth, cellHeight, padding, originX, originY, anchor, 0, light, flip, scale);
+			}
+			if (near != null) {
+				DrawCell(spriteBatch, near, frame, 1, cellWidth, cellHeight, padding, originX, originY, anchor + nearShift, 0, light, flip, scale);
+			}
 		}
 
 		/// <summary>

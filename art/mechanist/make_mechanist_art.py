@@ -25,6 +25,7 @@ Outputs (Content/Mechanist/):
     Weapons/TrapperChainLink.png         8x10      one chain link (vertical; rotated along the chain in code like vanilla)
     Accessories/GlassContainer.png       20x28     item: a small glass steam tank with iron caps (2026-10-27)
     Accessories/BrassContainer.png       32x32     item: the same tank caged in brass, with a valve wheel (2026-10-27)
+    Accessories/PolishedCog.png          28x28     item: a rusted cog buffed back to a shine, steel-rimmed hub (2026-10-28)
 """
 import json
 import math
@@ -604,6 +605,22 @@ def _fit(cv, w, h):
     return img(cv, w, h, (w - bw) // 2 - x0, (h - bh) // 2 - y0)
 
 
+def polished_cog_icon():
+    """Polished Cog (14x14 -> 28x28): eight brass teeth round a bright brass ring, a polished steel hub with a hole,
+    a hard steam-white glint top-left (it was buffed back from rust)."""
+    cv = Canvas()
+    c = (6.5, 6.5)
+    teeth = Union(*[Capsule(c, (c[0] + math.cos(math.radians(a)) * 6.4, c[1] + math.sin(math.radians(a)) * 6.4), 1.3)
+                    for a in range(0, 360, 45)])
+    cv.part(Xf(), Ellipse(c[0], c[1], 5.0, 5.0) | teeth, "brass", dome(4.5, 4.0, 7.5, lo=1, hi=5, gain=1.4), rust=0.0)
+    cv.part(Xf(), Ellipse(c[0], c[1], 3.0, 3.0), "iron", dome(5.5, 5.5, 3.5, lo=2, hi=4, gain=1.3), rust=0.0)
+    for (x, y) in ((6, 6), (7, 6), (6, 7), (7, 7)):
+        cv.put(x, y, I[0])                                     # the axle hole
+    for (x, y, col) in ((3, 2, WHITE), (4, 2, S[2]), (2, 3, S[2])):
+        cv.put(x, y, col)
+    return boss.to_image(cv.px, -0, -0, 14, 14)
+
+
 # ================================================================================================
 def export_all():
     lexport(head_sheet(), OUT + "Armor/PolishedHelmet_Head.png")
@@ -620,6 +637,7 @@ def export_all():
     boss.export(chain_link(), OUT + "Weapons/TrapperChainLink.png")
     lexport(container_icon(GLASS_CONTAINER), OUT + "Accessories/GlassContainer.png")
     lexport(container_icon(BRASS_CONTAINER), OUT + "Accessories/BrassContainer.png")
+    boss.export(polished_cog_icon(), OUT + "Accessories/PolishedCog.png")
 
 
 if __name__ == "__main__":

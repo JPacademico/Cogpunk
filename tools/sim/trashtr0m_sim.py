@@ -13,8 +13,9 @@ Writes <date>_boss-trashtr0m-<scene>.gif|png:
              swallowed, chewed and spat up; the fall-damage cap is replayed (vanilla formula) and printed. The runner's
              arrows are swallowed on the way.
     spit     the gulp and spit-back volleys of what it swallowed, then (nothing swallowed) the scrap ball lob.
-    cogs     (2026-10-27) the automatic cog volley: a cog every 1.5 s from the stacks on its back after a 30-tick
-             telegraph, lobbed high towards the player, two bounces; then at half life every 0.75 s.
+    cogs     (2026-10-27) the automatic cog volley: a cog from the stacks on its back after a 30-tick telegraph, lobbed
+             high towards the player, two bounces; every 2.5 s at any life, enraged too (the user's nerf of 2026-10-29;
+             it was 1.5 s, 0.75 s from half life).
              (The suck scene now spits the swallowed player out behind the boss.)
     intro    Junkyard Cache -> the heap bursts (tiles cleared in 4 bands, the pedestal kept), the player is thrown back,
              the boss heaves out of the ground under the camera lock and roars; title card.
@@ -1402,9 +1403,10 @@ def inbetweens_png(out, font):
 
 
 def scene_cogs(out, font):
-    """2026-10-27: the automatic cog volley. Every CogInterval ticks (CogIntervalHalfLife at half life) the stacks on its
-    back rattle and puff for CogTelegraphTicks, then cough a loose cog high into the air towards the target
-    (TrashTr0m.CogVelocity, +-CogScatter): it comes down on the player, bounces twice and breaks on the third tile."""
+    """2026-10-27: the automatic cog volley. Every CogInterval ticks (2.5 s since the user's nerf of 2026-10-29, at any
+    life and enraged too) the stacks on its back rattle and puff for CogTelegraphTicks, then cough a loose cog high into
+    the air towards the target (TrashTr0m.CogVelocity, +-CogScatter): it comes down on the player, bounces twice and
+    breaks on the third tile. The second half of the scene is below a third of its life (enraged): the same pace."""
     sheets = Sheets()
     sc = Scene(font)
     W, ground = 3600, 760
@@ -1420,13 +1422,11 @@ def scene_cogs(out, font):
     rng = random.Random(5)
     cogs, parts = [], []
     cog_timer = 0
-    total = 270 + 210
+    total = 2 * 3 * K["CogInterval"] + 30
     hits = []
     for tick in range(total):
-        half = tick >= 270
-        interval = K["CogIntervalHalfLife"] if half else K["CogInterval"]
-        if tick == 270:
-            cog_timer = 0
+        half = tick >= 3 * K["CogInterval"]
+        interval = K["CogInterval"]
         cog_timer += 1
         tele = cog_timer - (interval - K["CogTelegraphTicks"])
         if 0 <= tele < K["CogTelegraphTicks"] and tele % 3 == 0:
@@ -1478,7 +1478,8 @@ def scene_cogs(out, font):
             for (ht, amount, kind) in player.damage:
                 if tick - ht < 40:
                     sc.text(img, (int(player.x - cam_x), int(player.y - 60 - cam_y - (tick - ht))), str(amount), fill=(255, 199, 90), font=sc.big)
-            sc.text(img, (16, 12), ("Half life or less: a cog every %d ticks (0.75 s)" if half else "A loose cog every %d ticks (1.5 s), all fight long") % interval, font=sc.big)
+            sc.text(img, (16, 12), ("Enraged (a third of its life): still a cog every %d ticks (%.1f s)" if half else
+                                    "A loose cog every %d ticks (%.1f s), all fight long") % (interval, interval / 60.0), font=sc.big)
             sc.text(img, (16, 44), "%d-tick telegraph (the stacks hiss and puff), lobbed high towards the player (+-%d px), 2 bounces, 25 damage (Expert)" % (
                 K["CogTelegraphTicks"], K["CogScatter"]))
             sc.push(img)

@@ -24,6 +24,12 @@ RAMP = {
     "steam": [(138, 144, 150), (195, 200, 205), (238, 241, 243), (255, 255, 255)],
     "ember": [(77, 20, 10), (163, 48, 26), (236, 113, 40), (255, 199, 90)],
     "aether": [(34, 26, 69), (70, 58, 147), (124, 107, 224), (198, 189, 255)],
+    # Glossy tar (2026-10-28, Tar Tyrant): the Junkyard tar's own colours (art/junkyard/make_tar_art.py): Iron 0 outline,
+    # Leather 0 body, Leather 1 warm depth, then the cold Iron 2 / Iron 3 gloss of a wet surface.
+    "tar": [(21, 22, 28), (47, 27, 20), (91, 54, 38), (79, 85, 98), (127, 135, 148)],
+    # Tar-stained fossil bone (2026-10-29, Tar Tyrant rework): Leather 0 outline, Leather 1 / Leather 2 stained shadows,
+    # Steam 1 for the dry lit faces and Brass 5 for the cream glints. Existing palette colours only.
+    "bone": [(47, 27, 20), (91, 54, 38), (138, 90, 60), (195, 200, 205), (246, 231, 161)],
 }
 WHITE = RAMP["steam"][3]
 COLOR_INDEX = {}
@@ -218,6 +224,7 @@ def lit(nx, ny, nz):
 RUST_DEFAULT = {"iron": 0.46, "brass": 0.42, "verd": 0.24, "copper": 0.0}
 RUST_BOTTOM_BIAS = 0.2                               # rust gathers towards the bottom of each part (water runs down)
 RUST_SCALE = 0.72                                     # global multiplier: the trash feel
+RUST_TOP = 3                                          # brightest rust shade (copper[3]); never the peach highlight
 
 
 def _hash(ix, iy, seed):
@@ -286,18 +293,29 @@ class Canvas:
                     mask.add((x, y))
         return mask
 
-    def part(self, xf, shape, ramp, shade, outline=True, shadow=None, glow=False, depth=0, clip=None, rust=None):
+    def part(self, xf, shape, ramp, shade, outline=True, shadow=None, glow=False, depth=0, clip=None, rust=None, seed=None,
+             merge=None):
         """Paints a shape. shade(info) -> ramp index for each interior pixel (info: see Info). Returns the interior
         pixel set (rig space) for details. shadow=(dx, dy): darkens what lies that far below-right first. depth > 0
         darkens the whole part that many ramp steps (the far layer of a multiplane sprite). rust (0..1, default by
         material, RUST_DEFAULT): patches of the interior turn to the copper ramp at the same shade, the worst of them
         one step darker, with short drips running down; the noise lives in the part's own space, so the patches stay
-        put on a moving part. Lone rust pixels are cleaned up (D4: no orphan pixels)."""
+        put on a moving part. Lone rust pixels are cleaned up (D4: no orphan pixels).
+        Stable rust (2026-10-28, the user saw Trash-Tr0m's rust change colour and place between frames): the noise seed
+        comes from the material and the part's left and bottom edges in its own space (or `seed`), not from its whole
+        box, so a part whose top moves (a breathing stack) keeps its pattern; the bottom bias is measured in the part's
+        own space too, and the rust shade stops one step below the highlight (copper's peach top shade flickered on
+        and off as the lighting bands moved). A part that moves must be placed by its transform, not by baking the
+        pose into its shape's coordinates, or its rust slides over it.
+        merge (2026-10-29, Tar Tyrant): rig pixels of the same material already painted (a blob of tar flowing into the
+        mass under it); the part draws no outline where it touches them, so the two read as one surface."""
         mask = self.raster(xf, shape)
         if clip is not None:
             mask &= clip
         if not mask:
             return set()
+        if merge:
+            merge = merge - mask
         if shadow:
             sx, sy = shadow
             steps = max(abs(sx), abs(sy))
@@ -307,7 +325,13 @@ class Canvas:
                     cast.add((x + round(sx * k / steps), y + round(sy * k / steps)))
             for q in cast - mask:
                 self.darken(*q)
-        edge = {p for p in mask if any((p[0] + ox, p[1] + oy) not in mask for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)))} if outline else set()
+        if not outline:
+            edge = set()
+        elif merge:
+            edge = {p for p in mask if any((p[0] + ox, p[1] + oy) not in mask and (p[0] + ox, p[1] + oy) not in merge
+                                           for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
+        else:
+            edge = {p for p in mask if any((p[0] + ox, p[1] + oy) not in mask for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
         inner = mask - edge
         info = Info(xf, mask, inner)
         r = RAMP[ramp]
@@ -315,13 +339,12 @@ class Canvas:
         amount = 0.0 if glow else (RUST_DEFAULT.get(ramp, 0.0) if rust is None else rust) * RUST_SCALE
         scale = math.sqrt(abs(xf.a * xf.d - xf.b * xf.c)) or 1.0
         bx0, by0, bx1, by1 = shape.bbox()
-        seed = int(bx0 * 7 + by0 * 13 + bx1 * 17 + by1 * 19 + len(ramp) * 31) & 0xFFFF
+        if seed is None:
+            seed = (int(math.floor(bx0)) * 7 + int(math.floor(by1)) * 19 + sum(map(ord, ramp)) * 31) & 0xFFFF
         cu = RAMP["copper"]
         rusted = {}
         base = {}
-        my0 = min(q[1] for q in mask)
-        my1 = max(q[1] for q in mask)
-        span = max(1, my1 - my0)
+        span = max(1e-6, by1 - by0)
         for p in mask:
             if p in edge:
                 put(p[0], p[1], r[0])
@@ -333,10 +356,11 @@ class Canvas:
                 k = max(0, min(len(r) - 1, k))
                 put(p[0], p[1], r[k])
                 if amount > 0.0:
-                    n = rust_noise(info.lx * scale, info.ly * scale, seed) + RUST_BOTTOM_BIAS * (p[1] - my0) / span
+                    low = min(1.0, max(0.0, (info.ly - by0) / span))
+                    n = rust_noise(info.lx * scale, info.ly * scale, seed) + RUST_BOTTOM_BIAS * low
                     if n > 1.0 - amount * 0.62:
                         deep = n > 1.0 - amount * 0.25
-                        kk = max(1, min(len(cu) - 1, k - (1 if deep else 0)))
+                        kk = max(1, min(RUST_TOP, k - (1 if deep else 0)))
                         rusted[p] = cu[kk]
                         base[p] = r[k]
         if rusted:
@@ -380,6 +404,21 @@ class Info:
 
 
 # --- shaders (factories returning shade(info) -> index) -------------------------------------------------------------
+# Stable lighting (2026-10-29, the user saw Tar Tyrant's colours flicker between frames): by default a shader turns the
+# part's local normals into rig space before lighting them, so a part that tilts a degree or two between frames moves its
+# shading bands across its pixels and they boil. `fixed=True` lights the part in its own space (the light stays painted
+# on it like a texture: right for parts that only wobble); `snap=deg` turns the normals by the part's angle rounded to
+# that step (right for limbs and spin frames: the light follows big turns, never small ones). Default: the old behaviour.
+def _turn(xf, v, fixed, snap):
+    if fixed:
+        return v
+    if snap:
+        a = round(math.degrees(math.atan2(xf.c, xf.a)) / snap) * snap
+        ca, sa = math.cos(math.radians(a)), math.sin(math.radians(a))
+        return (ca * v[0] - sa * v[1], sa * v[0] + ca * v[1])
+    return xf.rvec(v)
+
+
 def flat(k, bevel=True, hi=None):
     def shade(i):
         v = k + (i.bevel() if bevel else 0)
@@ -387,12 +426,12 @@ def flat(k, bevel=True, hi=None):
     return shade
 
 
-def face(normal, lo=1, hi=None, gain=1.2, bias=0.0, bevel=True, ramp_len=5):
+def face(normal, lo=1, hi=None, gain=1.2, bias=0.0, bevel=True, ramp_len=5, fixed=False, snap=None):
     """A flat face whose local normal (nx, ny, nz) is turned by the part's transform."""
     hi = ramp_len - 1 if hi is None else hi
 
     def shade(i):
-        wx, wy = i.xf.rvec((normal[0], normal[1]))
+        wx, wy = _turn(i.xf, (normal[0], normal[1]), fixed, snap)
         k = level(lit(wx, wy, normal[2]), lo, hi, gain, bias)
         if bevel:
             k += i.bevel()
@@ -400,18 +439,18 @@ def face(normal, lo=1, hi=None, gain=1.2, bias=0.0, bevel=True, ramp_len=5):
     return shade
 
 
-def dome(cx, cy, r, lo=1, hi=4, gain=1.25, bias=0.0, bevel=False):
+def dome(cx, cy, r, lo=1, hi=4, gain=1.25, bias=0.0, bevel=False, fixed=False, snap=None):
     """A sphere-ish bulge centred on a local point."""
     def shade(i):
         dx, dy = (i.lx - cx) / r, (i.ly - cy) / r
         d2 = min(1.0, dx * dx + dy * dy)
-        wx, wy = i.xf.rvec((dx, dy))
+        wx, wy = _turn(i.xf, (dx, dy), fixed, snap)
         k = level(lit(wx, wy, math.sqrt(1.0 - d2)), lo, hi, gain, bias)
         return max(lo, min(hi, k + (i.bevel() if bevel else 0)))
     return shade
 
 
-def cyl(p0, p1, r, lo=1, hi=4, gain=1.4, bias=0.0, bands=0, band_lo=None):
+def cyl(p0, p1, r, lo=1, hi=4, gain=1.4, bias=0.0, bands=0, band_lo=None, fixed=False, snap=None):
     """A cylinder along a local axis; bands > 0 adds corrugation rings every `bands` px along the axis."""
     (x0, y0), (x1, y1) = p0, p1
     ax, ay = x1 - x0, y1 - y0
@@ -422,7 +461,7 @@ def cyl(p0, p1, r, lo=1, hi=4, gain=1.4, bias=0.0, bands=0, band_lo=None):
     def shade(i):
         s = ((i.lx - x0) * nx + (i.ly - y0) * ny) / r
         s = max(-1.0, min(1.0, s))
-        wx, wy = i.xf.rvec((s * nx, s * ny))
+        wx, wy = _turn(i.xf, (s * nx, s * ny), fixed, snap)
         k = level(lit(wx, wy, math.sqrt(1.0 - s * s)), lo, hi, gain, bias)
         if bands:
             t = (i.lx - x0) * ux + (i.ly - y0) * uy
@@ -508,10 +547,32 @@ def stripes(cv, region, period=3, a=None, b=None, slope=1):
         cv.put(x, y, a if ((x + slope * y) // period) % 2 == 0 else b)
 
 
-def grime(cv, region, rng, amount, colors):
-    """Rust and dirt as short vertical streaks running down from a seam (2-3 px), never lone pixels (D4)."""
+def grime(cv, region, rng, amount, colors, xf=None):
+    """Rust and dirt as short vertical streaks running down from a seam (2-3 px), never lone pixels (D4).
+    With `xf` (the region's part transform) the streaks are stable (2026-10-28): each one starts on a fixed cell of the
+    part's own space and takes its length and colour from a hash of that cell, so an animated part keeps the same
+    streaks in the same places on every frame. Without it they are picked with `rng` (fine for a single still)."""
     pts = sorted(region)
     if not pts:
+        return
+    if xf is not None:
+        local = [xf.inv((x + 0.5, y + 0.5)) for (x, y) in pts]
+        lx0, lx1 = int(math.floor(min(q[0] for q in local))), int(math.floor(max(q[0] for q in local)))
+        ly0, ly1 = int(math.floor(min(q[1] for q in local))), int(math.floor(max(q[1] for q in local)))
+        scale = abs(xf.a * xf.d - xf.b * xf.c) or 1.0
+        chance = amount * 0.4 / scale                    # about one start per amount*0.4 pixels, whatever the scale
+        seed = (sum(sum(c) for c in colors) * 13 + int(amount * 10000)) & 0xFFFF
+        for ly in range(ly0, ly1 + 1):
+            for lx in range(lx0, lx1 + 1):
+                if _hash(lx, ly, seed) >= chance:
+                    continue
+                fx, fy = xf.fwd((lx + 0.5, ly + 0.5))
+                x, y = int(math.floor(fx)), int(math.floor(fy))
+                col = colors[int(_hash(lx, ly, seed + 3) * len(colors)) % len(colors)]
+                length = 2 + (1 if _hash(lx, ly, seed + 7) < 0.5 else 0)
+                if all((x, y + k) in region for k in range(length)):
+                    for k in range(length):
+                        cv.put(x, y + k, col)
         return
     for _ in range(int(len(pts) * amount * 0.4)):
         x, y = pts[rng.randrange(len(pts))]

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cogpunk.Core.Events;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -20,7 +21,8 @@ namespace Cogpunk.Content.Junkyard
 	/// Junkyard gets exactly vanilla's jungle modifiers (decompiled <c>NPC.SpawnNPC</c>: spawnRate x0.4 and maxSpawns x1.5
 	/// with no town NPCs nearby, x0.55/x1.4 with one, x0.7/x1.3 with two, x0.85/x1.2 with more). tModLoader calls
 	/// <c>EditSpawnRate</c> after vanilla's own modifiers. Spawns still happen only outside the screen: vanilla's safe range
-	/// (<c>NPC.safeRangeX/Y</c>) is untouched.</para>
+	/// (<c>NPC.safeRangeX/Y</c>) is untouched. Inside a Cogpunk invasion's zone the invasion's own rate applies instead
+	/// (<see cref="CogpunkInvasion"/>), as vanilla's invasion rate overrides the biome rates.</para>
 	/// </summary>
 	public sealed class JunkyardSpawnRules : GlobalNPC
 	{
@@ -44,7 +46,7 @@ namespace Cogpunk.Content.Junkyard
 		}
 
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns) {
-			if (player == null || !JunkyardSystem.Contains(player.Center)) {
+			if (player == null || !JunkyardSystem.Contains(player.Center) || CogpunkInvasion.ZoneOf(player) != null) {
 				return;
 			}
 			float town = player.townNPCs;

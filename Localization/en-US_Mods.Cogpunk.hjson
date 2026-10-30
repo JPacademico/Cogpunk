@@ -233,6 +233,11 @@ Items: {
 		Tooltip: A glob of the Junkyard's tar. Still warm.
 	}
 
+	CondensedTar: {
+		DisplayName: Condensed Tar
+		Tooltip: Four drops of tar, boiled down until they hold their shape.
+	}
+
 	PolishedHelmet: {
 		DisplayName: Polished Helmet
 		Tooltip:
@@ -290,6 +295,142 @@ Items: {
 			Only one steam container can be worn
 			'''
 	}
+
+	AlarmHead: {
+		DisplayName: Alarm Head
+		Tooltip:
+			'''
+			Summons an Alarmobô that follows you and never stops ringing
+			Every player within {2} tiles of it gets {0}% movement speed and {1}% attack speed
+			Several Alarmobôs stack
+			'It only ever wanted to warn someone'
+			'''
+	}
+
+	CogpunkerManual: {
+		DisplayName: Cogpunker Manual
+		Tooltip:
+			'''
+			Permanently increases maximum steam by {0}
+			Teaches the steam dash: a burst of steam that projectiles pass through
+			Costs {1} steam, ready again after {2} seconds. Double tap left or right, or use the key below
+			Enemies you dash into still hit you
+			Can only be read once per character
+			'''
+		Learned: Steam dash learned!
+		AlreadyRead: You have already read this manual
+		DashKey: "Steam dash key: {0}"
+		DashKeyUnbound: unbound (set it in Controls)
+	}
+
+	JaegerHelmet: {
+		DisplayName: Jaeger Helmet
+		Tooltip:
+			'''
+			{0}% increased melee damage
+			The visor still glows
+			'''
+		SetBonus:
+			'''
+			Immune to knockback and {0}% increased knockback
+			Enemies you touch take {1} melee damage
+			{2}% reduced movement speed
+			'''
+	}
+
+	JaegerChestplate: {
+		DisplayName: Jaeger Chestplate
+		Tooltip:
+			'''
+			{0}% less damage taken from touching enemies
+			The reactor is still warm
+			'''
+	}
+
+	JaegerGreaves: {
+		DisplayName: Jaeger Greaves
+		Tooltip:
+			'''
+			Increased jump height
+			{0}% increased melee critical strike chance
+			'''
+	}
+
+	PolishedCog: {
+		DisplayName: Polished Cog
+		Tooltip:
+			'''
+			{0}% increased movement speed while overheated
+			'Rust buffed off, teeth sharpened: it spins faster when the boiler blows'
+			'''
+	}
+
+	ChickenSnapper: {
+		DisplayName: Chicken Snapper
+		Tooltip:
+			'''
+			{0}% increased melee critical strike chance
+			{1}% increased melee speed
+			'It still twitches shut when something feathery walks by'
+			'''
+	}
+
+	Scrapworm: {
+		DisplayName: Scrapworm
+		Tooltip:
+			'''
+			Use it as fishing bait in the Junkyard's tar...
+			Nothing else will bite it
+			'''
+	}
+
+	TarTyrantBag: {
+		DisplayName: Treasure Bag ({$Mods.Cogpunk.NPCs.TarTyrant.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+	}
+
+	SereneTear: {
+		DisplayName: Serene Tear
+		Tooltip:
+			'''
+			Mana costs are paid with steam first, and with mana once the steam runs out
+			Immunity to Overheat
+			{0}% increased steam regeneration
+			'It fell from no eye. The tar wept it'
+			'''
+	}
+
+	TyrantSkull: {
+		DisplayName: Tyrant Skull
+		Tooltip:
+			'''
+			{0}% increased magic damage
+			{1}% increased magic critical strike chance
+			'''
+		SetBonus:
+			'''
+			Every {0} seconds a tar claw erupts from the ground under the closest enemy
+			The claw deals {1} magic damage to every enemy it catches
+			'''
+	}
+
+	TyrantCape: {
+		DisplayName: Tyrant Cape
+		Tooltip:
+			'''
+			{0}% reduced mana and steam cost
+			'Still wet'
+			'''
+	}
+
+	TyrantSandals: {
+		DisplayName: Tyrant Sandals
+		Tooltip:
+			'''
+			{0}% increased movement speed and jump height
+			Twice that while out of steam
+			'''
+	}
 }
 
 Buffs: {
@@ -317,6 +458,11 @@ Buffs: {
 		DisplayName: Overheated
 		Description: Your boiler is venting! No items, and you can't stop moving until your steam refills
 	}
+
+	AlarmoboBuff: {
+		DisplayName: Alarmobô
+		Description: "{0} Alarmobô in range: +{1}% movement speed, +{2}% attack speed"
+	}
 }
 
 NPCs: {
@@ -342,6 +488,46 @@ NPCs: {
 	LivingTar: {
 		DisplayName: Living Tar
 		Bestiary: Tar from the Junkyard pool that crawled out on its own. It hops like any slime, and every landing flings a hot glob of itself at whoever it is chasing.
+	}
+
+	RogueMiceBot: {
+		DisplayName: Rogue Mice-bot
+		Bestiary: A clockwork mouse that slipped its winding key and never came back. The Mech Army winds them up by the dozen; they race in faster than you can walk and pounce with their steel teeth bared.
+	}
+
+	Boombot: {
+		DisplayName: Boombot
+		Bestiary: A bomb with legs and one job. It beeps faster the closer it gets, and the moment it touches you it goes off. Shot down first, it only fizzles.
+	}
+
+	AnnoyOTron: {
+		DisplayName: Annoy-o-tron
+		Bestiary: An alarm box on treads with a spinning emergency beacon for a head. It never fights. It follows the army around, screaming, and every machine that hears it moves half again as fast.
+	}
+
+	Jaeger: {
+		DisplayName: Jaeger
+		Bestiary: The Mech Army's walking fortress, six times taller than a person and armoured like a boiler. It marches slowly and never stops, and whatever it walks into is thrown across the field. It only takes the field once the battle is half won.
+	}
+
+	TarTyrant: {
+		DisplayName: Tar Tyrant
+		Epithet: Monarch of the Mire
+		Bestiary: The Junkyard's tar pool is older than the Junkyard. Something enormous drowned in it long ago, and the tar kept its bones and learned to move them. It wears the old skull as a face, flings its own bones at whatever comes near, and every wound it takes sheds tar that crawls off on its own. Only a worm made of scrap is tempting enough to fish it out.
+	}
+
+	TarTyrantBubble: {
+		DisplayName: Tar Bubble
+	}
+
+	ScrapwormCritter: {
+		DisplayName: Scrapworm
+		Bestiary: A worm that ate so much buried scrap it turned into scrap itself. It is harmless and rare, and something in the Junkyard's tar would very much like to eat it.
+	}
+
+	PuxaFrango: {
+		DisplayName: Puxa-frango
+		Bestiary: A hunched, creaking machine that stalks the caves on spindly legs. It used to guard a henhouse; now it guards nothing and grabs everything. When its claws open wide, it is about to lunge, and it pulls whatever it catches in close.
 	}
 }
 
@@ -421,6 +607,38 @@ Projectiles: {
 	TrapperChainProjectile: {
 		DisplayName: Trapper Chain
 	}
+
+	BoombotBlast: {
+		DisplayName: Boombot Blast
+	}
+
+	AlarmoboMinion: {
+		DisplayName: Alarmobô
+	}
+
+	TarTyrantGlob: {
+		DisplayName: Tar Glob
+	}
+
+	TarTyrantPuddle: {
+		DisplayName: Tar Puddle
+	}
+
+	TarTyrantBoneSpike: {
+		DisplayName: Fossil Spike
+	}
+
+	TarTyrantBackBone: {
+		DisplayName: Flung Bone
+	}
+
+	TyrantClaw: {
+		DisplayName: Tyrant Claw
+	}
+
+	TarTyrantClaw: {
+		DisplayName: Tar Claw
+	}
 }
 
 Tiles: {
@@ -475,4 +693,31 @@ Biomes: {
 
 DropConditions: {
 	TrashTr0mFirstKill: Only from the first defeat in a world
+}
+
+Events: {
+	MechArmyInvasion: {
+		DisplayName: Mech Army
+		ApproachingWest: The Mech Army is approaching from the west!
+		ApproachingEast: The Mech Army is approaching from the east!
+		Arrived: The Mech Army has arrived!
+		Defeated: The Mech Army has been defeated!
+	}
+
+	Command: {
+		Description: Starts, stops, wins or shows the Mech Army invasion (testing)
+		ConsoleOnly: In multiplayer, only the server console can use this command.
+		Started: The Mech Army has been called.
+		CantStart: The Mech Army can't start now: another invasion or event is running.
+		Stopped: The Mech Army has been stopped.
+		Won: The Mech Army will be defeated next tick.
+		NotRunning: The Mech Army isn't running.
+		Status: "Mech Army: {0} of {1} left ({2}% cleared)."
+	}
+}
+
+Keybinds: {
+	SteamDash: {
+		DisplayName: Steam Dash
+	}
 }

@@ -17,9 +17,14 @@ namespace Cogpunk.Content.Mechanist
 	/// 0.5 s; gear raises <see cref="SteamRegen"/>). Trying to fire without enough of it <b>overheats</b> the player
 	/// (<see cref="Overheat"/>): no items, and they can't stop moving, until the tank has refilled completely.
 	/// <para>Capacity: <see cref="BaseSteamMax"/> (0: a player has no tank of their own) + <see cref="SteamMaxBonus"/>
-	/// (Mechanist armor and steam containers add to it every tick, like <c>statManaMax2</c>). Costs are scaled by
+	/// (Mechanist armor and steam containers add to it every tick, like <c>statManaMax2</c>) + <see cref="SteamMaxInnate"/>
+	/// (permanent upgrades: the Cogpunker Manual's +20, 2026-10-28; it alone doesn't keep the gauge up). Costs are scaled by
 	/// <see cref="SteamCostMultiplier"/> (the Polished set: -10%). Tuned 2026-10-27 (user): refill doubled, delay 2 s ->
 	/// 1.5 s, base capacity 100 -> 0.</para>
+	/// <para>Steam as mana (the Serene Tear, 2026-10-29): with <see cref="SteamAsMana"/> a mana cost the tank can cover is
+	/// paid in steam instead (<see cref="ModifyManaCost"/> zeroes it, <see cref="OnConsumeMana"/> takes the steam), and mana
+	/// pays once the steam runs short; <see cref="OverheatImmune"/> turns an overheat into a plain refusal to fire;
+	/// <see cref="SteamRegenMultiplier"/> scales the refill (the fraction carries over to the next refill).</para>
 	/// <para>D2: Steam is the owning client's (like the local mana counter, nobody else can see it); only the owner spends,
 	/// refills and overheats. The overheat shows to everyone through its buff, which vanilla syncs. D1: integer counters,
 	/// no allocation; effects client-only.</para>
@@ -37,17 +42,29 @@ namespace Cogpunk.Content.Mechanist
 		/// <summary>Steam in the tank (owner only).</summary>
 		public int Steam = BaseSteamMax;
 
-		/// <summary>Capacity this tick: <see cref="BaseSteamMax"/> + <see cref="SteamMaxBonus"/>.</summary>
+		/// <summary>Capacity this tick: <see cref="BaseSteamMax"/> + <see cref="SteamMaxBonus"/> + <see cref="SteamMaxInnate"/>.</summary>
 		public int SteamMax = BaseSteamMax;
 
 		/// <summary>Added to the capacity by gear; reset every tick.</summary>
 		public int SteamMaxBonus;
+
+		/// <summary>Added to the capacity by permanent upgrades (re-added every tick in PostUpdateEquips); reset every tick.</summary>
+		public int SteamMaxInnate;
 
 		/// <summary>Steam refilled per <see cref="RegenIntervalTicks"/>; reset to <see cref="BaseRegenAmount"/> every tick.</summary>
 		public int SteamRegen = BaseRegenAmount;
 
 		/// <summary>Multiplies every steam cost; reset to 1 every tick.</summary>
 		public float SteamCostMultiplier = 1f;
+
+		/// <summary>Multiplies the steam each refill adds; reset to 1 every tick (the Serene Tear: +0.15).</summary>
+		public float SteamRegenMultiplier = 1f;
+
+		/// <summary>Mana costs are paid from the steam tank first (the Serene Tear); reset every tick.</summary>
+		public bool SteamAsMana;
+
+		/// <summary>Never overheats: a Mechanist weapon without enough steam just doesn't fire (the Serene Tear); reset every tick.</summary>
+		public bool OverheatImmune;
 
 		/// <summary>Overheated: set when a Mechanist weapon is used without enough steam, cleared when the tank is full.</summary>
 		public bool Overheated { get; private set; }
@@ -56,6 +73,8 @@ namespace Cogpunk.Content.Mechanist
 		private int regenTimer;
 		private int gaugeTimer;
 		private int noTankHintTimer;
+		private float regenCarry;
+		private bool measuringMana;
 		private static LocalizedText noTankText;
 
 		/// <summary>The gauge is shown while steam matters: a Mechanist weapon in hand, Mechanist gear on, a tank that isn't
@@ -81,8 +100,12 @@ namespace Cogpunk.Content.Mechanist
 
 		public override void ResetEffects() {
 			SteamMaxBonus = 0;
+			SteamMaxInnate = 0;
 			SteamRegen = BaseRegenAmount;
 			SteamCostMultiplier = 1f;
+			SteamRegenMultiplier = 1f;
+			SteamAsMana = false;
+			OverheatImmune = false;
 		}
 
 		public override void UpdateDead() {
@@ -119,8 +142,23 @@ namespace Cogpunk.Content.Mechanist
 			NoteAttack();
 		}
 
+		/// <summary>Owner: pays a flat <paramref name="amount"/> (no cost multiplier: not a weapon) if the tank holds it; false
+		/// (nothing spent) otherwise. Like an attack, it restarts the refill delay.</summary>
+		public bool TrySpendFlat(int amount) {
+			if (amount < 0 || Steam < amount) {
+				return false;
+			}
+			Steam -= amount;
+			NoteAttack();
+			return true;
+		}
+
 		/// <summary>Owner: fired without enough steam. Items lock and the player can't stop until the tank is full again.</summary>
 		public void TriggerOverheat() {
+			if (OverheatImmune) {
+				gaugeTimer = GaugeLingerTicks;             // no vent and no extra wait: it fires again once the refill covers it
+				return;
+			}
 			NoteAttack();
 			if (Overheated) {
 				return;
@@ -166,7 +204,7 @@ namespace Cogpunk.Content.Mechanist
 		}
 
 		public override void PostUpdateMiscEffects() {
-			SteamMax = Math.Max(0, BaseSteamMax + SteamMaxBonus);
+			SteamMax = Math.Max(0, BaseSteamMax + SteamMaxBonus + SteamMaxInnate);
 			if (Player.whoAmI != Main.myPlayer) {
 				return;                                    // only the owner tracks its tank (D2)
 			}
@@ -187,18 +225,54 @@ namespace Cogpunk.Content.Mechanist
 			else if (Steam < SteamMax) {
 				if (++regenTimer >= RegenIntervalTicks) {
 					regenTimer = 0;
-					Steam = Math.Min(SteamMax, Steam + Math.Max(0, SteamRegen));
+					float amount = Math.Max(0, SteamRegen) * Math.Max(0f, SteamRegenMultiplier) + regenCarry;
+					int whole = (int)amount;
+					regenCarry = amount - whole;
+					Steam = Math.Min(SteamMax, Steam + whole);
 				}
 			}
 			else {
 				regenTimer = 0;
 			}
-			if (Overheated && Steam >= SteamMax) {
+			if (Overheated && (Steam >= SteamMax || OverheatImmune)) {
 				EndOverheat();
 			}
 			bool relevant = Overheated || Steam < SteamMax || SteamMaxBonus != 0 || SteamCostMultiplier != 1f
 				|| Player.HeldItem.ModItem is MechanistWeapon;
 			gaugeTimer = relevant ? GaugeLingerTicks : Math.Max(0, gaugeTimer - 1);
+		}
+
+		/// <summary>The mana cost of <paramref name="item"/> as if steam paid nothing (every other reduction applied).</summary>
+		private int ManaCostWithoutSteam(Item item) {
+			measuringMana = true;
+			int cost = Player.GetManaCost(item);
+			measuringMana = false;
+			return cost;
+		}
+
+		/// <summary>Owner, with <see cref="SteamAsMana"/>: a mana cost the steam tank holds costs no mana (decompiled
+		/// <c>Player.GetManaCost</c>: <c>(int)(item.mana * reduce * mult)</c>; <c>Player.CheckMana</c> then pays 0 and calls
+		/// <see cref="OnConsumeMana"/>, which takes the steam). A cost the tank can't cover is left alone: mana pays it.</summary>
+		public override void ModifyManaCost(Item item, ref float reduce, ref float mult) {
+			if (!SteamAsMana || measuringMana || Player.whoAmI != Main.myPlayer) {
+				return;
+			}
+			int cost = ManaCostWithoutSteam(item);
+			if (cost > 0 && Steam >= cost) {
+				mult = 0f;
+			}
+		}
+
+		/// <summary>Owner: a use whose mana cost the steam covered (0 mana paid): one steam per point of mana. Like an
+		/// attack, it restarts the refill delay.</summary>
+		public override void OnConsumeMana(Item item, int manaConsumed) {
+			if (!SteamAsMana || manaConsumed != 0 || Player.whoAmI != Main.myPlayer) {
+				return;
+			}
+			int cost = ManaCostWithoutSteam(item);
+			if (cost > 0) {
+				TrySpendFlat(cost);
+			}
 		}
 
 		/// <summary>Overheated: the player can't stop. With no direction held they keep running the way they face; they can

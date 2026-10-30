@@ -25,7 +25,7 @@ namespace Cogpunk.Content.Jungle.NPCs
 	/// <para>Stats (user-set 2026-10-27, Expert values like every Cogpunk number, see <see cref="ExpertStats"/>;
 	/// docs/balance/npcs.csv; anchor Man Eater): 250 life, 35 contact damage, spike balls 20. Drops 1-10
 	/// Spiky Balls, 1-2 Rusted Metal and, 5% of the time, the Mechanist's <see cref="TrapperChain"/>. Spawns in the jungle
-	/// (surface and underground), rarely.</para>
+	/// (surface and underground), rarely, and with the Mech Army invasion (Content/MechArmy).</para>
 	/// <para>D2: <see cref="StateMachineNPC"/> state/timer in <c>ai[0]</c>/<c>ai[1]</c>, <c>ai[2]</c> the throw cooldown
 	/// (every side counts it), <c>ai[3]</c> the flee direction. The server picks the target, the state and throws; walking
 	/// runs on every side from the synced state (vanilla collision). D1: no allocation; at most <see cref="MaxBallsEach"/>
@@ -62,6 +62,7 @@ namespace Cogpunk.Content.Jungle.NPCs
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[Type] = FrameCount;
 			CogpunkSets.Mechanical[Type] = true;          // half machine: the Screwdriver bonus applies
+			CogpunkSets.SelfHasting[Type] = true;         // Walk applies the Annoy-o-tron's alarm (NPCHaste)
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, new NPCID.Sets.NPCBestiaryDrawModifiers() { Velocity = 1f });
 		}
 
@@ -164,14 +165,17 @@ namespace Cogpunk.Content.Jungle.NPCs
 		}
 
 		/// <summary>Accelerates towards <paramref name="dir"/> x <paramref name="speed"/> (0 = stop), steps up single tiles and
-		/// jumps when a wall blocks it (vanilla collision; same inputs on every side).</summary>
+		/// jumps when a wall blocks it (vanilla collision; same inputs on every side). An Annoy-o-tron's alarm
+		/// (<see cref="NPCHaste"/>) raises the speed and acceleration by half.</summary>
 		private void Walk(int dir, float speed) {
-			float want = dir * speed;
+			float haste = NPCHaste.FactorOf(NPC);
+			float want = dir * speed * haste;
+			float accel = Accel * haste;
 			if (NPC.velocity.X < want) {
-				NPC.velocity.X = Math.Min(want, NPC.velocity.X + Accel);
+				NPC.velocity.X = Math.Min(want, NPC.velocity.X + accel);
 			}
 			else if (NPC.velocity.X > want) {
-				NPC.velocity.X = Math.Max(want, NPC.velocity.X - Accel);
+				NPC.velocity.X = Math.Max(want, NPC.velocity.X - accel);
 			}
 			Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
 			if (dir != 0 && NPC.collideX && NPC.velocity.Y == 0f) {

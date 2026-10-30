@@ -232,6 +232,11 @@ Items: {
 		Tooltip: Uma bolota do piche do Ferro-Velho. Ainda está morna.
 	}
 
+	CondensedTar: {
+		DisplayName: Piche Condensado
+		Tooltip: Quatro gotas de piche, fervidas até manterem a forma.
+	}
+
 	PolishedHelmet: {
 		DisplayName: Elmo Polido
 		Tooltip:
@@ -289,6 +294,142 @@ Items: {
 			Só um recipiente de vapor pode ser usado
 			'''
 	}
+
+	AlarmHead: {
+		DisplayName: Cabeça de Alarme
+		Tooltip:
+			'''
+			Invoca um Alarmobô que segue você e nunca para de tocar
+			Todo jogador a até {2} blocos dele ganha {0}% de velocidade de movimento e {1}% de velocidade de ataque
+			Vários Alarmobôs se acumulam
+			'Ele só queria avisar alguém'
+			'''
+	}
+
+	CogpunkerManual: {
+		DisplayName: Manual do Cogpunker
+		Tooltip:
+			'''
+			Aumenta o vapor máximo em {0} permanentemente
+			Ensina a investida a vapor: uma rajada de vapor que projéteis atravessam
+			Custa {1} de vapor e fica pronta de novo após {2} segundos. Toque duas vezes para a esquerda ou direita, ou use a tecla abaixo
+			Inimigos em que você investe ainda acertam você
+			Só pode ser lido uma vez por personagem
+			'''
+		Learned: Investida a vapor aprendida!
+		AlreadyRead: Você já leu este manual
+		DashKey: "Tecla da investida a vapor: {0}"
+		DashKeyUnbound: sem tecla (defina em Controles)
+	}
+
+	JaegerHelmet: {
+		DisplayName: Capacete de Jaeger
+		Tooltip:
+			'''
+			{0}% de dano corpo a corpo
+			O visor ainda brilha
+			'''
+		SetBonus:
+			'''
+			Imune a repulsão e {0}% de repulsão a mais
+			Inimigos em que você encosta sofrem {1} de dano corpo a corpo
+			{2}% de velocidade de movimento a menos
+			'''
+	}
+
+	JaegerChestplate: {
+		DisplayName: Peitoral de Jaeger
+		Tooltip:
+			'''
+			{0}% menos dano ao encostar em inimigos
+			O reator ainda está quente
+			'''
+	}
+
+	JaegerGreaves: {
+		DisplayName: Grevas de Jaeger
+		Tooltip:
+			'''
+			Pulo mais alto
+			{0}% de chance de acerto crítico corpo a corpo
+			'''
+	}
+
+	PolishedCog: {
+		DisplayName: Engrenagem Polida
+		Tooltip:
+			'''
+			{0}% de velocidade de movimento enquanto superaquecido
+			'Sem ferrugem e com os dentes afiados: gira mais rápido quando a caldeira estoura'
+			'''
+	}
+
+	ChickenSnapper: {
+		DisplayName: Pinça Pega-Frango
+		Tooltip:
+			'''
+			{0}% de chance de acerto crítico corpo a corpo
+			{1}% de velocidade corpo a corpo
+			'Ela ainda se fecha sozinha quando algo com penas passa por perto'
+			'''
+	}
+
+	Scrapworm: {
+		DisplayName: Minhoca de Sucata
+		Tooltip:
+			'''
+			Use como isca de pesca no piche do Ferro-Velho...
+			Nada mais vai morder
+			'''
+	}
+
+	TarTyrantBag: {
+		DisplayName: Bolsa do Tesouro ({$Mods.Cogpunk.NPCs.TarTyrant.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+	}
+
+	SereneTear: {
+		DisplayName: Gota Serena
+		Tooltip:
+			'''
+			Os custos de mana são pagos primeiro com vapor, e com mana quando o vapor acaba
+			Imunidade a Superaquecido
+			{0}% de aumento na regeneração de vapor
+			'Não caiu de olho nenhum. Foi o piche que a chorou'
+			'''
+	}
+
+	TyrantSkull: {
+		DisplayName: Crânio do Tirano
+		Tooltip:
+			'''
+			{0}% de aumento no dano mágico
+			{1}% de chance de acerto crítico mágico
+			'''
+		SetBonus:
+			'''
+			A cada {0} segundos uma garra de piche irrompe do chão sob o inimigo mais próximo
+			A garra causa {1} de dano mágico a cada inimigo que pegar
+			'''
+	}
+
+	TyrantCape: {
+		DisplayName: Capa do Tirano
+		Tooltip:
+			'''
+			{0}% de redução no custo de mana e de vapor
+			'Ainda molhada'
+			'''
+	}
+
+	TyrantSandals: {
+		DisplayName: Sandálias do Tirano
+		Tooltip:
+			'''
+			{0}% de aumento na velocidade de movimento e na altura do pulo
+			O dobro quando o vapor acaba
+			'''
+	}
 }
 
 Buffs: {
@@ -316,6 +457,11 @@ Buffs: {
 		DisplayName: Superaquecido
 		Description: Sua caldeira está soltando vapor! Sem itens, e você não consegue parar de se mover até o vapor encher de novo
 	}
+
+	AlarmoboBuff: {
+		DisplayName: Alarmobô
+		Description: "{0} Alarmobô por perto: +{1}% de velocidade de movimento, +{2}% de velocidade de ataque"
+	}
 }
 
 NPCs: {
@@ -341,6 +487,46 @@ NPCs: {
 	LivingTar: {
 		DisplayName: Piche Vivo
 		Bestiary: Piche da piscina do Ferro-Velho que rastejou para fora sozinho. Pula como qualquer geleia, e a cada pouso arremessa uma bolota quente de si mesmo em quem estiver perseguindo.
+	}
+
+	RogueMiceBot: {
+		DisplayName: Rato-Robô Renegado
+		Bestiary: Um rato de corda que soltou a chave e nunca mais voltou. O Exército Mecânico dá corda neles às dúzias; eles correm mais rápido do que você anda e saltam com os dentes de aço à mostra.
+	}
+
+	Boombot: {
+		DisplayName: Bombobô
+		Bestiary: Uma bomba com pernas e uma única tarefa. Apita mais rápido quanto mais perto chega, e explode no instante em que encosta em você. Se for abatido antes, só faz um estalo.
+	}
+
+	AnnoyOTron: {
+		DisplayName: Alarmobô
+		Bestiary: Uma caixa de alarme sobre esteiras, com um giroflex de emergência no lugar da cabeça. Nunca luta. Segue o exército gritando, e toda máquina que o ouve fica metade mais rápida.
+	}
+
+	Jaeger: {
+		DisplayName: Jaeger
+		Bestiary: A fortaleza ambulante do Exército Mecânico, seis vezes mais alta que uma pessoa e blindada como uma caldeira. Marcha devagar e nunca para, e arremessa longe o que estiver no caminho. Só entra em campo quando a batalha já está pela metade.
+	}
+
+	TarTyrant: {
+		DisplayName: Tirano de Piche
+		Epithet: Monarca do Lodaçal
+		Bestiary: O poço de piche do Ferro-Velho é mais velho que o Ferro-Velho. Algo enorme se afogou nele há muito tempo, e o piche guardou seus ossos e aprendeu a movê-los. Ele usa o velho crânio como rosto, arremessa os próprios ossos em quem chega perto, e cada ferida que leva solta piche que sai rastejando sozinho. Só uma minhoca feita de sucata é tentadora o bastante para pescá-lo.
+	}
+
+	TarTyrantBubble: {
+		DisplayName: Bolha de Piche
+	}
+
+	ScrapwormCritter: {
+		DisplayName: Minhoca de Sucata
+		Bestiary: Uma minhoca que comeu tanta sucata enterrada que virou sucata. É inofensiva e rara, e algo no piche do Ferro-Velho adoraria comê-la.
+	}
+
+	PuxaFrango: {
+		DisplayName: Puxa-frango
+		Bestiary: Uma máquina corcunda e rangente que espreita as cavernas sobre pernas finas. Antes ela guardava um galinheiro; agora não guarda nada e agarra tudo. Quando as garras se abrem, ela vai dar o bote, e puxa para perto o que pegar.
 	}
 }
 
@@ -420,6 +606,38 @@ Projectiles: {
 	TrapperChainProjectile: {
 		DisplayName: Corrente do Caçador
 	}
+
+	BoombotBlast: {
+		DisplayName: Explosão do Bombobô
+	}
+
+	AlarmoboMinion: {
+		DisplayName: Alarmobô
+	}
+
+	TarTyrantGlob: {
+		DisplayName: Bolha de Piche
+	}
+
+	TarTyrantPuddle: {
+		DisplayName: Poça de Piche
+	}
+
+	TarTyrantBoneSpike: {
+		DisplayName: Espinho Fóssil
+	}
+
+	TarTyrantBackBone: {
+		DisplayName: Osso Arremessado
+	}
+
+	TyrantClaw: {
+		DisplayName: Garra do Tirano
+	}
+
+	TarTyrantClaw: {
+		DisplayName: Garra de Piche
+	}
 }
 
 Tiles: {
@@ -474,4 +692,31 @@ Biomes: {
 
 DropConditions: {
 	TrashTr0mFirstKill: Apenas na primeira derrota em cada mundo
+}
+
+Events: {
+	MechArmyInvasion: {
+		DisplayName: Exército Mecânico
+		ApproachingWest: O Exército Mecânico está se aproximando pelo oeste!
+		ApproachingEast: O Exército Mecânico está se aproximando pelo leste!
+		Arrived: O Exército Mecânico chegou!
+		Defeated: O Exército Mecânico foi derrotado!
+	}
+
+	Command: {
+		Description: Inicia, para, vence ou mostra a invasão do Exército Mecânico (testes)
+		ConsoleOnly: No multijogador, só o console do servidor pode usar este comando.
+		Started: O Exército Mecânico foi convocado.
+		CantStart: O Exército Mecânico não pode começar agora: outra invasão ou evento está em andamento.
+		Stopped: O Exército Mecânico foi interrompido.
+		Won: O Exército Mecânico será derrotado no próximo tick.
+		NotRunning: O Exército Mecânico não está em andamento.
+		Status: "Exército Mecânico: faltam {0} de {1} ({2}% concluído)."
+	}
+}
+
+Keybinds: {
+	SteamDash: {
+		DisplayName: Investida a Vapor
+	}
 }

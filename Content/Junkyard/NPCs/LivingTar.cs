@@ -26,6 +26,8 @@ namespace Cogpunk.Content.Junkyard.NPCs
 	/// <para>D2: vanilla's slime AI runs on every side from the synced <c>ai[]</c>; only the server (or singleplayer)
 	/// notices the landing and throws the glob. The landing flag and the throw cooldown live in <c>localAI[2]</c> and
 	/// <c>localAI[3]</c>, which the slime AI never touches for a Blue Slime.</para>
+	/// <para>Tar Tyrant sheds them (every 2% of its life, and two from every bubble that bursts, 2026-10-29): those are
+	/// <see cref="FromBoss"/> and drop nothing (<see cref="PreKill"/>), or one fight would rain Gel and Tar Drops.</para>
 	/// </summary>
 	public class LivingTar : CogpunkNPC
 	{
@@ -35,6 +37,9 @@ namespace Cogpunk.Content.Junkyard.NPCs
 		public const int Life = 60, ContactDamage = 5, Defense = 2;      // Expert (user-set)
 		/// <summary>Glob damage in Expert (Classic half, Master 1.5x: <see cref="ExpertStats.HostileProjectile"/>).</summary>
 		public const int GlobDamage = 4;
+
+		/// <summary>Server: shed by Tar Tyrant (set right after its spawn; loot runs on the server only).</summary>
+		public bool FromBoss;
 
 		private ref float WasAirborne => ref NPC.localAI[3];
 		private ref float Cooldown => ref NPC.localAI[2];
@@ -70,6 +75,8 @@ namespace Cogpunk.Content.Junkyard.NPCs
 			npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 5));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarDrop>(), 1, 1, 5));
 		}
+
+		public override bool PreKill() => !FromBoss;      // no coins, items or hearts (decompiled NPC.NPCLoot: PreKill gates them all)
 
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo) {
 			target.AddBuff(ModContent.BuffType<TarPlague>(), TarTicks);

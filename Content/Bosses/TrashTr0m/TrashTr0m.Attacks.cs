@@ -71,11 +71,9 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 		public const float ScrapBallGravity = TrashTr0mScrapBall.Gravity;
 
 		// --- cog volley (automatic, all fight long) -------------------------------------------------------------------
-		/// <summary>A cog every 1.5 s (user-set 2026-10-27)...</summary>
-		public const int CogInterval = 90;
-		/// <summary>...and every 0.75 s at half life or less.</summary>
-		public const int CogIntervalHalfLife = 45;
-		public const float CogFastLifeFraction = 0.5f;
+		/// <summary>A cog every 2.5 s, all fight long, enraged too (user nerf 2026-10-29; it was 1.5 s, and 0.75 s from half
+		/// life, since 2026-10-27).</summary>
+		public const int CogInterval = 150;
 		/// <summary>The stack rattles and puffs this long before each cog (telegraph >= 30 ticks at T0, D3).</summary>
 		public const int CogTelegraphTicks = 30;
 		/// <summary>The exhaust stacks on its back (rig px, left-facing): the cogs come out of their tops.</summary>
@@ -91,9 +89,6 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 
 		private int cogTimer;                              // every side counts it; the server's is sent in ExtraAI
 
-		/// <summary>The current gap between cogs (shorter at half life).</summary>
-		public int CurrentCogInterval => NPC.life <= NPC.lifeMax * CogFastLifeFraction ? CogIntervalHalfLife : CogInterval;
-
 		/// <summary>The top of the exhaust stacks in the world.</summary>
 		public Vector2 CogStackWorld => RigToWorld(CogStackX, CogStackY);
 
@@ -105,11 +100,10 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 				return;
 			}
 			cogTimer++;
-			int interval = CurrentCogInterval;
-			if (!Main.dedServ && cogTimer >= interval - CogTelegraphTicks && cogTimer < interval) {
-				CogTelegraph(cogTimer - (interval - CogTelegraphTicks));
+			if (!Main.dedServ && cogTimer >= CogInterval - CogTelegraphTicks && cogTimer < CogInterval) {
+				CogTelegraph(cogTimer - (CogInterval - CogTelegraphTicks));
 			}
-			if (cogTimer < interval) {
+			if (cogTimer < CogInterval) {
 				return;
 			}
 			cogTimer = 0;

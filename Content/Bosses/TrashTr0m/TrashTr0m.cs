@@ -35,9 +35,10 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 	/// jumped over at the right moment.</item>
 	/// </list>
 	/// <para><b>Cog volley</b> (user-set 2026-10-27), on its own all fight long: every <see cref="CogInterval"/> ticks
-	/// (1.5 s; <see cref="CogIntervalHalfLife"/>, 0.75 s, at half life) the exhaust stacks on its back cough a loose rusted
-	/// cog high into the air towards a player (<see cref="Projectiles.TrashTr0mCog"/>, 25 damage, bounces twice),
-	/// after a <see cref="CogTelegraphTicks"/>-tick rattle.</para>
+	/// (2.5 s at any life, enraged too: the user's nerf of 2026-10-29; it was 1.5 s, then 0.75 s from half life) the
+	/// exhaust stacks on its back cough a loose rusted cog high into the air towards a player
+	/// (<see cref="Projectiles.TrashTr0mCog"/>, 25 damage, bounces twice), after a <see cref="CogTelegraphTicks"/>-tick
+	/// rattle.</para>
 	/// <para><b>Enraged</b> below <see cref="EnrageLifeFraction"/> of its life: the suction reaches twice as far, and the
 	/// slam comes twice, the near fist and then the far claw, each with its own shockwave. The 2.5 s crawl between
 	/// attacks stays.</para>

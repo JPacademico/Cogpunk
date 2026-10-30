@@ -92,14 +92,15 @@ def body_xf(pose):
 
 
 def exhaust_stacks(cv, xf, pose):
-    for base, top, r in STACKS:
-        top = (top[0], top[1] + pose.breathe)
+    rxf = xf.then(Xf.pose(0.0, (0.0, 0.0), (0.0, pose.breathe)))   # the rim rides the breath (its rust with it)
+    for base, top0, r in STACKS:
+        top = (top0[0], top0[1] + pose.breathe)
         inner = cv.part(xf, Capsule(base, top, r), "iron", cyl(base, top, r, lo=1, hi=4, gain=1.5), shadow=(1, 1))
         ux, uy = top[0] - base[0], top[1] - base[1]
         ln = math.hypot(ux, uy)
         ux, uy = ux / ln, uy / ln
-        rim_a, rim_b = (top[0] - ux * 1.5, top[1] - uy * 1.5), (top[0] + ux * 2.5, top[1] + uy * 2.5)
-        cv.part(xf, Capsule(rim_a, rim_b, r + 1.4), "brass", cyl(rim_a, rim_b, r + 1.4, lo=2, hi=5, gain=1.6))
+        rim_a, rim_b = (top0[0] - ux * 1.5, top0[1] - uy * 1.5), (top0[0] + ux * 2.5, top0[1] + uy * 2.5)
+        cv.part(rxf, Capsule(rim_a, rim_b, r + 1.4), "brass", cyl(rim_a, rim_b, r + 1.4, lo=2, hi=5, gain=1.6))
         mx, my = P(xf, (top[0] + ux * 2.5, top[1] + uy * 2.5))
         for dx in (-1, 0, 1):
             cv.put(mx + dx, my, I[0])
@@ -130,7 +131,7 @@ def mixer_drum(cv, xf, pose, rng):
         hin = cv.part(xf, Capsule((c[0] + nx * rr, c[1] + ny * rr), (c[0] - nx * rr, c[1] - ny * rr), 1.6), "brass", flat(3))
         for s_ in (-0.6, 0.0, 0.6):
             rivet(cv, xf, (c[0] + nx * rr * s_, c[1] + ny * rr * s_), "brass", hin)
-    grime(cv, inner, rng, 0.05, [V[0], C[1], LE[0]])
+    grime(cv, inner, rng, 0.05, [V[0], C[1], LE[0]], xf=xf)
     cv.part(xf, Ellipse(b[0] + ux * 2, b[1] + uy * 2, 5.5, 8.0), "iron", flat(1, bevel=False))
     cv.part(xf, Ellipse(b[0] + ux * 2.5, b[1] + uy * 2.5, 3.0, 5.0), "leather", flat(1, bevel=False), outline=False)
 
@@ -180,7 +181,7 @@ def body_mass(cv, xf, pose, rng):
     stripes(cv, strip, 3, B[4], I[0], slope=1)
     for k in range(5):
         rivet(cv, xf, (50 + k * 7.5, -73 + k * 0.6), "brass", pin)
-    grime(cv, pin - strip, rng, 0.04, [B[1], C[1]])
+    grime(cv, pin - strip, rng, 0.04, [B[1], C[1]], xf=xf)
     rad = Poly([(14, -112), (38, -114), (40, -92), (16, -90)])
     rin = cv.part(xf, rad, "iron", flat(1, bevel=False))
     for p in rin:
@@ -190,7 +191,7 @@ def body_mass(cv, xf, pose, rng):
     ruin = cv.part(xf, rust, "copper", fs(N_SIDE, hi=3, gain=1.1, bias=-0.15))
     for q in ((15, -51), (32, -51), (17, -34), (32, -34)):
         rivet(cv, xf, q, "copper", ruin)
-    grime(cv, ruin, rng, 0.08, [C[1], C[3]])
+    grime(cv, ruin, rng, 0.08, [C[1], C[3]], xf=xf)
     verd = Poly([(52, -110), (66, -108), (72, -88), (54, -88)])
     vin = cv.part(xf, verd, "verd", fs(N_SIDE, hi=3, gain=1.1, bias=-0.1))
     weld(cv, xf, (8, -58), (40, -56), side)
@@ -199,7 +200,7 @@ def body_mass(cv, xf, pose, rng):
         rivet(cv, xf, (8 + k * 8, -118 + k * 0.8), "iron", side)
     for k in range(6):
         rivet(cv, xf, (86, -68 + k * 5), "iron", side)
-    grime(cv, side - pin - rin - ruin - vin, rng, 0.005, [I[1], C[1]])
+    grime(cv, side - pin - rin - ruin - vin, rng, 0.005, [I[1], C[1]], xf=xf)
     # a recessed machinery gap along the chest-side seam: dark, with a gear turning in it
     gap = Poly([(36, -86), (46, -88), (48, -58), (38, -56)])
     gin = cv.part(xf, gap, "iron", flat(0, bevel=False))
@@ -243,8 +244,7 @@ def body_mass(cv, xf, pose, rng):
 def yoke(cv, xf, pose, rng):
     """The shoulder yoke: a great rounded armour shell over the shoulders - the hunch of the silhouette."""
     cx, cy, rx, ry, ang = HUMP
-    cy += pose.breathe
-    yx = xf.then(Xf.pose(ang, (cx, cy)))
+    yx = xf.then(Xf.pose(ang, (cx, cy), (0.0, pose.breathe)))      # breathing moves the shell, so its rust rides along
     cut = box(cx - rx - 2, cy + ry * 0.55, cx + rx + 2, cy + ry + 2)
     shell = Ellipse(cx, cy, rx, ry) - cut
     yin = cv.part(yx, shell, "verd", dome(cx - rx * 0.35, cy - ry * 0.55, rx * 1.15, lo=1, hi=3, gain=1.35, bias=0.2), shadow=(3, 3))
@@ -265,7 +265,7 @@ def yoke(cv, xf, pose, rng):
             u = (ex - cx) / rx
             ey = cy + ry * off - ry * 0.55 * (1 - u * u) + ry * 0.55 + 3
             rivet(cv, yx, (ex, ey), "verd", yin)
-    grime(cv, yin - rim_band, rng, 0.004, [V[0]])
+    grime(cv, yin - rim_band, rng, 0.004, [V[0]], xf=yx)
     for (x, y) in ((cx - rx * 0.5, cy - ry * 0.62), (cx - rx * 0.46, cy - ry * 0.7), (cx - rx * 0.42, cy - ry * 0.76)):
         q = P(yx, (x, y))
         if q in yin:
@@ -307,7 +307,8 @@ class Head:
 
 def neck(cv, xf, pose):
     a, b = (NECK[0] + 16, NECK[1] - 4), (-40 + pose.head[0], -76 + pose.head[1])
-    cv.part(xf, Capsule(a, b, 12.0, 10.0), "iron", cyl(a, b, 11.0, lo=1, hi=3, gain=1.3, bands=3), shadow=(1, 2))
+    # its far end follows the head: a fixed seed keeps its rust from re-rolling as it stretches
+    cv.part(xf, Capsule(a, b, 12.0, 10.0), "iron", cyl(a, b, 11.0, lo=1, hi=3, gain=1.3, bands=3), shadow=(1, 2), seed=0x4E4B)
 
 
 def head(cv, bxf, pose, rng):
@@ -329,7 +330,7 @@ def head(cv, bxf, pose, rng):
     for k in range(5):
         rivet(cv, xf, h.n(0.1 + k * 0.2, 0.07), "verd", near)
         rivet(cv, xf, h.n(0.9, 0.15 + k * 0.16), "verd", near)
-    grime(cv, near, rng, 0.02, [V[0], C[1]])
+    grime(cv, near, rng, 0.02, [V[0], C[1]], xf=xf)
     # eye slot: a dark recess under the brow; three narrow eyes with hot cores
     slot = cv.raster(xf, Poly([h.f(-0.02, 0.15), h.f(1.0, 0.1), h.f(1.0, 0.27), h.f(-0.02, 0.3)])) & front
     for p in slot:
@@ -382,18 +383,14 @@ def jaw_and_mouth(cv, xf, h, pose, rng):
     if pose.jaw > 0.05:
         jl, jr = jxf.fwd(lerp(up_l, lo_l, 0.15)), jxf.fwd(lerp(up_r, lo_r, 0.15))
         cav = Poly([xf.fwd(up_l), xf.fwd((up_r[0] + 4, up_r[1])), xf.fwd(h.n(0.1, 0.95)), (jr[0], jr[1]), (jl[0], jl[1])])
-        cin = cv.part(Xf(), cav, "iron", flat(0, bevel=False), outline=False)
+        cin = cv.part(Xf(), cav, "iron", flat(0, bevel=False), outline=False, rust=0.0)
         mx, my = xf.fwd(mouth_local)
         for p in cin:
+            # A dark throat with the vortex arms turning in it. The ember circle that glowed in the middle was cut
+            # (user, 2026-10-28: ugly and unnecessary; the suction already reads).
             d = math.hypot(p[0] + 0.5 - mx, (p[1] + 0.5 - my) * 1.2)
             ang = math.atan2(p[1] + 0.5 - my, p[0] + 0.5 - mx)
-            if d < 2.5 * pose.jaw + 1:
-                cv.put_glow(p[0], p[1], E[3])
-            elif d < 5.0 * pose.jaw + 1.5:
-                cv.put_glow(p[0], p[1], E[2])
-            elif d < 8.5 * pose.jaw + 2:
-                cv.put_glow(p[0], p[1], E[1])
-            elif int(ang * 2.0 / math.pi * 3 + d * 0.35 + pose.grind * 0.75) % 3 == 0:
+            if d >= 2.0 and int(ang * 2.0 / math.pi * 3 + d * 0.35 + pose.grind * 0.75) % 3 == 0:
                 cv.put(p[0], p[1], I[1])                  # the vortex arms, turning with the grinder
         for (dxf, pa, pb, sgn) in ((xf, up_l, up_r, 1), (jxf, lerp(up_l, lo_l, 0.14), lerp(up_r, lo_r, 0.14), -1)):
             pa2 = (pa[0] + 2, pa[1] + 3.0 * sgn)
@@ -431,11 +428,11 @@ def jaw_and_mouth(cv, xf, h, pose, rng):
     for k in range(3):
         seam(cv, jxf, lerp(lerp(up_l, lo_l, 0.25), lerp(up_r, lo_r, 0.25), 0.2 + k * 0.3),
              lerp(lerp(up_l, lo_l, 0.65), lerp(up_r, lo_r, 0.65), 0.2 + k * 0.3), "iron", jin, dark=0, light=3)
-    grime(cv, jin - chin - lipb, rng, 0.02, [I[1], C[1]])
+    grime(cv, jin - chin - lipb, rng, 0.02, [I[1], C[1]], xf=jxf)
     # the jaw ram on the cheek: cylinder on the helmet, chrome rod down to the jaw
     r0 = h.n(0.45, 0.45)
     r1 = xf.inv(jxf.fwd((up_r[0] + 7, up_r[1] + 20)))
-    cv.part(xf, Capsule(r0, lerp(r0, r1, 0.6), 2.6), "iron", cyl(r0, r1, 2.6, lo=2, hi=4, gain=1.6))
+    cv.part(xf, Capsule(r0, lerp(r0, r1, 0.6), 2.6), "iron", cyl(r0, r1, 2.6, lo=2, hi=4, gain=1.6), seed=0x7A11)
     cv.part(xf, Capsule(lerp(r0, r1, 0.55), r1, 1.3), "steam", flat(2, bevel=False))
     cv.part(xf, Ellipse(h.hinge[0], h.hinge[1], 3.4, 3.4), "brass", dome(h.hinge[0], h.hinge[1], 3.4, lo=2, hi=5))
     return xf.fwd(mouth_local)
@@ -501,7 +498,7 @@ def near_arm(cv, shoulder, wrist, hand_angle=0.0, bend=1, rng=None, stub=False):
         rivet(cv, fx, (lf * (0.1 + k * 0.11), -8.5), "brass", fore)
     for k in range(4):
         bolt(cv, fx, (lf * (0.12 + k * 0.13), 6), "brass", plate)
-    grime(cv, fore - band, rng, 0.02, [B[1], C[1]])
+    grime(cv, fore - band, rng, 0.02, [B[1], C[1]], xf=fx)
     hydraulic(cv, fx, (lf * 0.08, 14.0), (lf * 0.85, 15.5), 3.6)
     # fist: knuckles forward-down, flat on the ground when planted
     hx = Xf.pose(hand_angle, (0.0, 0.0), wrist).then(Xf(AS, 0, 0, AS, 0, 0))
@@ -517,13 +514,14 @@ def near_arm(cv, shoulder, wrist, hand_angle=0.0, bend=1, rng=None, stub=False):
     for (x, y) in ((-9, 13), (-1, 13), (6, 13)):
         rivet(cv, hx, (x, y), "iron", bk)
     # elbow: a toothed gear with a brass hub
-    teeth = Union(*[Capsule(elbow, (elbow[0] + math.cos(math.radians(a)) * 14.5, elbow[1] + math.sin(math.radians(a)) * 14.5), 2.6)
+    exf = Xf.pose(0.0, (0.0, 0.0), elbow)                 # parts that ride on a joint: placed by a translation (stable rust)
+    teeth = Union(*[Capsule((0.0, 0.0), (math.cos(math.radians(a)) * 14.5, math.sin(math.radians(a)) * 14.5), 2.6)
                     for a in range(0, 360, 36)])
-    cv.part(Xf(), Ellipse(elbow[0], elbow[1], 12.0, 12.0) | teeth, "iron", dome(elbow[0] - 3, elbow[1] - 3, 14.5, lo=1, hi=4, gain=1.1), shadow=(2, 2))
+    cv.part(exf, Ellipse(0.0, 0.0, 12.0, 12.0) | teeth, "iron", dome(-3, -3, 14.5, lo=1, hi=4, gain=1.1), shadow=(2, 2))
     for k in range(6):
         a = math.radians(k * 60 + 30)
         rivet(cv, Xf(), (elbow[0] + math.cos(a) * 8.5, elbow[1] + math.sin(a) * 8.5), "iron")
-    cv.part(Xf(), Ellipse(elbow[0], elbow[1], 5.4, 5.4), "brass", dome(elbow[0] - 1, elbow[1] - 1, 5.4, lo=2, hi=5))
+    cv.part(exf, Ellipse(0.0, 0.0, 5.4, 5.4), "brass", dome(-1, -1, 5.4, lo=2, hi=5))
     # upper arm: brass boom with a ram on its outer face
     ux = seg_xf(shoulder, elbow)
     lu = math.hypot(elbow[0] - shoulder[0], elbow[1] - shoulder[1])
@@ -533,12 +531,12 @@ def near_arm(cv, shoulder, wrist, hand_angle=0.0, bend=1, rng=None, stub=False):
     for k in range(6):
         rivet(cv, ux, (lu * (0.16 + k * 0.13), -8.0), "brass", up)
     stripes(cv, cv.raster(ux, box(lu * 0.7, -13, lu * 0.84, 13)) & up, 3, B[4], I[0])
-    grime(cv, up, rng, 0.02, [B[1], C[1]])
+    grime(cv, up, rng, 0.02, [B[1], C[1]], xf=ux)
     hydraulic(cv, ux, (lu * 0.05, -14.5), (lu * 0.95, -13.0), 3.4)
     # pauldron: a tractor tyre bolted over the shoulder, brass hub with lug nuts
     cx, cy = shoulder[0] + 2, shoulder[1] - 4
-    tyre = Ring(cx, cy, 10.0, 25.0)
-    tin = cv.part(Xf(), tyre, "iron", dome(cx - 5, cy - 6, 27, lo=1, hi=3, gain=1.1, bias=-0.2), shadow=(3, 3))
+    txf = Xf.pose(0.0, (0.0, 0.0), (cx, cy))
+    tin = cv.part(txf, Ring(0.0, 0.0, 10.0, 25.0), "iron", dome(-5, -6, 27, lo=1, hi=3, gain=1.1, bias=-0.2), shadow=(3, 3))
     for k in range(22):
         a = math.radians(k * (360 / 22) + 6)
         for r in (21.5, 23.0):
@@ -550,7 +548,7 @@ def near_arm(cv, shoulder, wrist, hand_angle=0.0, bend=1, rng=None, stub=False):
         q = (int(math.floor(cx + math.cos(a) * 17.5)), int(math.floor(cy + math.sin(a) * 17.5)))
         if q in tin:
             cv.put(q[0], q[1], I[3])
-    hub = cv.part(Xf(), Ellipse(cx, cy, 10.5, 10.5), "brass", dome(cx - 2, cy - 2, 11, lo=1, hi=5, gain=1.2))
+    hub = cv.part(txf, Ellipse(0.0, 0.0, 10.5, 10.5), "brass", dome(-2, -2, 11, lo=1, hi=5, gain=1.2))
     for k in range(6):
         a = math.radians(k * 60 - 90)
         bolt(cv, Xf(), (cx + math.cos(a) * 6.4 - 0.5, cy + math.sin(a) * 6.4 - 0.5), "iron", hub)
@@ -574,7 +572,7 @@ def far_arm(cv, shoulder, wrist, hand_angle=0.0, bend=1, rng=None):
         seam(cv, fx, (lf * u, -11), (lf * u, 11), "copper", fore, dark=1, light=3)
     for k in range(5):
         rivet(cv, fx, (lf * (0.12 + k * 0.17), -6.5), "copper", fore)
-    grime(cv, fore, rng, 0.03, [C[1], LE[0]])
+    grime(cv, fore, rng, 0.03, [C[1], LE[0]], xf=fx)
     hydraulic(cv, fx, (lf * 0.12, -12.0), (lf * 0.8, -12.5), 3.2, depth=d)
     # claw: a palm block and three prongs digging into the ground
     hx = Xf.pose(hand_angle, (0.0, 0.0), wrist).then(Xf(AS, 0, 0, AS, 0, 0))
@@ -585,11 +583,12 @@ def far_arm(cv, shoulder, wrist, hand_angle=0.0, bend=1, rng=None):
     for x in (-12, -4, 4):
         rivet(cv, hx, (x, -1), "iron", palm)
     # winch elbow
-    cv.part(Xf(), Ellipse(elbow[0], elbow[1], 11.0, 11.0), "iron", dome(elbow[0] - 3, elbow[1] - 3, 12, lo=1, hi=4), shadow=(1, 1), depth=d)
+    exf = Xf.pose(0.0, (0.0, 0.0), elbow)
+    cv.part(exf, Ellipse(0.0, 0.0, 11.0, 11.0), "iron", dome(-3, -3, 12, lo=1, hi=4), shadow=(1, 1), depth=d)
     for p in cv.raster(Xf(), Ellipse(elbow[0], elbow[1], 8.0, 8.0)):
         if (p[0] + p[1]) % 3 == 0:
             cv.put(p[0], p[1], LE[1])
-    cv.part(Xf(), Ellipse(elbow[0], elbow[1], 3.4, 3.4), "brass", flat(3), depth=d)
+    cv.part(exf, Ellipse(0.0, 0.0, 3.4, 3.4), "brass", flat(3), depth=d)
     # upper arm: a lattice crane boom (two rails and cross bracing)
     ux = seg_xf(shoulder, elbow)
     lu = math.hypot(elbow[0] - shoulder[0], elbow[1] - shoulder[1])
@@ -603,7 +602,9 @@ def far_arm(cv, shoulder, wrist, hand_angle=0.0, bend=1, rng=None):
     # dump-bed pauldron
     pts = [(shoulder[0] - 24, shoulder[1] - 9), (shoulder[0] + 21, shoulder[1] - 18), (shoulder[0] + 27, shoulder[1] + 6),
            (shoulder[0] - 18, shoulder[1] + 15)]
-    pin = cv.part(Xf(), Poly(pts), "copper", face((-0.3, -0.6, 0.75), lo=1, hi=4, gain=1.2, ramp_len=5), shadow=(2, 2), depth=d)
+    sxf = Xf.pose(0.0, (0.0, 0.0), shoulder)
+    pin = cv.part(sxf, Poly([(x - shoulder[0], y - shoulder[1]) for (x, y) in pts]), "copper",
+                  face((-0.3, -0.6, 0.75), lo=1, hi=4, gain=1.2, ramp_len=5), shadow=(2, 2), depth=d)
     stripes(cv, cv.raster(Xf(), Poly([pts[3], pts[2], lerp(pts[2], pts[1], 0.3), lerp(pts[3], pts[0], 0.3)])) & pin, 3, B[3], I[0])
     return elbow, wrist
 
