@@ -4,6 +4,7 @@ animations"). Run from the repo root:
     python -P tools/check_flicker.py <RigData.cs> <layer base path> [--seq Name ...] [--limit PCT] [--out sheet.png]
 
     e.g. python -P tools/check_flicker.py Content/Bosses/TarTyrant/TarTyrantRigData.cs Content/Bosses/TarTyrant/TarTyrant
+         python -P tools/check_flicker.py Content/Desert/NPCs/CoghawkRigData.cs Content/Desert/NPCs/Coghawk
 
 It reads the frame tables (FarFrames, BodyFrames, NearFrames: page, x, y, w, h, origin x, origin y per frame) and the
 sequences (`Name0 = first, NameFrames = count`) of a generated *RigData.cs, places every plane of every frame at the rig
@@ -15,6 +16,10 @@ changes without the shape moving:
 * flashes: toggles whose middle colour B is nowhere in that pixel's 3x3 art-pixel neighbourhood in the frames before
   and after. Motion can't explain those: a shading band, a rust spot or a highlight changed colour in place. This is
   the flicker the user saw (2026-10-29), and it is what fails a sequence.
+
+Grid sheets (2026-11-03: the small layered enemies, DepthLayers.DrawWalker) work too: a RigData with CellWidth,
+CellHeight, OriginX and OriginY and no frame tables is read as equal cells stacked with 2 px under each, and a sequence
+may be written `Walk = 0, WalkFrames = 6` as well as `Walk0 = 0`. Walk and flap cycles count as loops.
 
 Loops (Idle, Move) wrap around and must stay under --loop-limit percent of their interior (default 0.5: a loop plays
 for seconds on end, so any flicker shows); other sequences under --limit (default 1.5: a one-frame smear in a swing may
@@ -29,7 +34,8 @@ import sys
 
 from PIL import Image
 
-LOOPS = ("Idle", "Move")
+LOOPS = ("Idle", "Move", "Walk", "Flap")
+GRID_PADDING = 2                                             # px under each cell of a grid sheet
 
 
 def parse(path):
@@ -46,21 +52,36 @@ def parse(path):
     seqs = {}
     sheets = [k[:-len("FrameCount")] for k in consts if k.endswith("FrameCount") and k != "FrameCount"]
     for k, v in consts.items():
-        if k.endswith("Frames") and k[:-6] + "0" in consts:
+        if k.endswith("Frames") and k != "Frames" and (k[:-6] + "0" in consts or k[:-6] in consts):
             name = k[:-6]
             if any(name.startswith(sheet) and name != sheet for sheet in sheets):
                 continue                                     # a run of another sheet (SpikeRise0 of the spike sheet...)
-            seqs[name] = (consts[name + "0"], v)
+            seqs[name] = (consts[name + "0"] if name + "0" in consts else consts[name], v)
     return arrays, consts, seqs
 
 
 PLANES = (("Far", "_Far"), ("Body", ""), ("Near", "_Near"))
 
 
+def is_grid(arrays, consts):
+    return "CellWidth" in consts and not any(layer + "Frames" in arrays for layer, _ in PLANES)
+
+
 def frame_image(arrays, consts, base, frame, cache, only=None):
     planes = []
+    grid = is_grid(arrays, consts)
     for layer, suffix in PLANES:
         if only is not None and layer != only:
+            continue
+        if grid:
+            path = base + suffix + ".png"
+            if path not in cache:
+                cache[path] = Image.open(path).convert("RGBA") if os.path.exists(path) else None
+            sheet = cache[path]
+            if sheet is not None:
+                cw, ch = consts["CellWidth"], consts["CellHeight"]
+                y = frame * (ch + GRID_PADDING)
+                planes.append((sheet.crop((0, y, cw, y + ch)), consts["OriginX"], consts["OriginY"]))
             continue
         table = arrays.get(layer + "Frames")
         if table is None:
@@ -152,8 +173,8 @@ def main():
             print("[ok] %s: %d frames (nothing to compare)" % (name, count))
             continue
         res = None
-        for layer, _ in PLANES:                              # plane by plane, summed
-            if layer + "Frames" not in arrays:
+        for layer, suffix in PLANES:                         # plane by plane, summed
+            if (layer + "Frames" not in arrays) if not is_grid(arrays, consts) else not os.path.exists(args.base + suffix + ".png"):
                 continue
             r = analyse([composite(frame_image(arrays, consts, args.base, first + k, cache, layer)) for k in range(count)])
             res = r if res is None else [(a[0] + b[0], a[1] + b[1], a[2] + b[2], a[3] + b[3], a[4] + b[4]) for a, b in zip(res, r)]

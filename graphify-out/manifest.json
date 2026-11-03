@@ -210,9 +210,9 @@
     "semantic_hash": "3f81892297bc71e34f24c36334c624d8"
   },
   ".claude/skills/cogpunk-dev/SKILL.md": {
-    "mtime": 1793368238.7274165,
-    "ast_hash": "268ac30f7bb85e8681b30017237c5bd0",
-    "semantic_hash": "268ac30f7bb85e8681b30017237c5bd0"
+    "mtime": 1793393710.7370934,
+    "ast_hash": "3b47e8525cb809e245b9615a94d1f412",
+    "semantic_hash": "3b47e8525cb809e245b9615a94d1f412"
   },
   "CLAUDE.md": {
     "mtime": 1793195217.7215905,
@@ -220,9 +220,9 @@
     "semantic_hash": "06598cf32abf1333e4a3f255a873f333"
   },
   "README.md": {
-    "mtime": 1793368238.7264166,
-    "ast_hash": "dcf818b34eba1587c603ff140b7377e6",
-    "semantic_hash": "dcf818b34eba1587c603ff140b7377e6"
+    "mtime": 1793393710.718364,
+    "ast_hash": "038cfe011353651065bf4206e39fcf0b",
+    "semantic_hash": "038cfe011353651065bf4206e39fcf0b"
   },
   "SETUP.md": {
     "mtime": 1793134414.5395765,
@@ -695,9 +695,9 @@
     "semantic_hash": "f3824db2d52ad3054ce4844192e1fe37"
   },
   "Core/Systems/CogpunkSets.cs": {
-    "mtime": 1793132565.3161333,
-    "ast_hash": "f1b0e2bfc2166a4efc236ebdb0fd7ff4",
-    "semantic_hash": "f1b0e2bfc2166a4efc236ebdb0fd7ff4"
+    "mtime": 1793391409.1171517,
+    "ast_hash": "3d0d7a0291f251193db2f83f5a7195a7",
+    "semantic_hash": "3d0d7a0291f251193db2f83f5a7195a7"
   },
   "art/scrap/make_scrap_weapons.py": {
     "mtime": 1792756921.6682136,
@@ -875,9 +875,9 @@
     "semantic_hash": "44021b9cf0aae22f6f9d548490d16d30"
   },
   "Content/Junkyard/Tar/TarPlague.cs": {
-    "mtime": 1792768160.8461514,
-    "ast_hash": "1dfdc1dbe41add9ef567ad6f23307d81",
-    "semantic_hash": "1dfdc1dbe41add9ef567ad6f23307d81"
+    "mtime": 1793391275.973652,
+    "ast_hash": "a4c580855ae527efdd2bf7ae88c40c6a",
+    "semantic_hash": "a4c580855ae527efdd2bf7ae88c40c6a"
   },
   "Content/Junkyard/Tar/TarPlayer.cs": {
     "mtime": 1792768176.6521883,
@@ -1085,9 +1085,9 @@
     "semantic_hash": "f7de9bf67b979c3b5e08a794f8f7c851"
   },
   "Content/Bosses/TrashTr0m/Weapons/Tetanus.cs": {
-    "mtime": 1793111405.3373148,
-    "ast_hash": "87de15bd74eba340db321033a71ee2ad",
-    "semantic_hash": "87de15bd74eba340db321033a71ee2ad"
+    "mtime": 1793391319.780026,
+    "ast_hash": "4ce87d322b0cf8bf477330743f08a8db",
+    "semantic_hash": "4ce87d322b0cf8bf477330743f08a8db"
   },
   "Content/Bosses/TrashTr0m/Weapons/TetanusProjectile.cs": {
     "mtime": 1793111413.5884085,
@@ -1195,9 +1195,9 @@
     "semantic_hash": "a9b3b9235e997773a7e688af14cd901c"
   },
   "tools/sim/trashtr0m_loot_sim.py": {
-    "mtime": 1793113109.2299314,
-    "ast_hash": "acfdf49f8489bee395345e72d891f657",
-    "semantic_hash": "acfdf49f8489bee395345e72d891f657"
+    "mtime": 1793393226.7793868,
+    "ast_hash": "30b1b62ffd2c4a9417e8c3a1cb526568",
+    "semantic_hash": "30b1b62ffd2c4a9417e8c3a1cb526568"
   },
   "docs/design/art-direction.md": {
     "mtime": 1793304815.0757043,
@@ -1434,11 +1434,6 @@
     "ast_hash": "3963e61cc3c9cd390f6b78b5ff62ca08",
     "semantic_hash": "3963e61cc3c9cd390f6b78b5ff62ca08"
   },
-  "docs/media/2026-10-26_weapon-tetanus.gif": {
-    "mtime": 1793048164.3383782,
-    "ast_hash": "daf416c6861dbecdfa3a528bfa119b49",
-    "semantic_hash": "daf416c6861dbecdfa3a528bfa119b49"
-  },
   "docs/media/2026-10-26_weapon-tr0mhead.gif": {
     "mtime": 1793048178.2843783,
     "ast_hash": "d6216c7a712c813b9d9351eb5d166bd7",
@@ -1605,9 +1600,9 @@
     "semantic_hash": "22bc3266c671d4c20ae6a6799587a3e3"
   },
   "Core/Systems/NPCHaste.cs": {
-    "mtime": 1793132565.3161333,
-    "ast_hash": "081d645c0523013f78f6ef430b51db95",
-    "semantic_hash": "081d645c0523013f78f6ef430b51db95"
+    "mtime": 1793391304.752396,
+    "ast_hash": "e5630d08b34b4009638443504fba6458",
+    "semantic_hash": "e5630d08b34b4009638443504fba6458"
   },
   "Core/Templates/ExpertStats.cs": {
     "mtime": 1793122630.8593886,
@@ -1899,11 +1894,6 @@
     "ast_hash": "ac99d18756bd6e3d641c59ac6e8a9875",
     "semantic_hash": "ac99d18756bd6e3d641c59ac6e8a9875"
   },
-  "docs/media/2026-10-27_weapon-tetanus.gif": {
-    "mtime": 1793112719.5620797,
-    "ast_hash": "15f293111c19d78185c62e545fb509ba",
-    "semantic_hash": "15f293111c19d78185c62e545fb509ba"
-  },
   "docs/media/2026-10-27_weapon-tr0mhead.gif": {
     "mtime": 1793112679.3484247,
     "ast_hash": "bf7c0c47d0e557b68a60f08947b385bb",
@@ -1970,9 +1960,9 @@
     "semantic_hash": "6c4ac367706b7123fdd2d17e3d8dc7f0"
   },
   "Content/Bosses/TarTyrant/TarTyrantRigData.cs": {
-    "mtime": 1793367374.2274575,
-    "ast_hash": "ca63a23303edaf668e5215a013169cbd",
-    "semantic_hash": "ca63a23303edaf668e5215a013169cbd"
+    "mtime": 1793391000.6235142,
+    "ast_hash": "cfe68c1c823198a4c25900a1c376f851",
+    "semantic_hash": "cfe68c1c823198a4c25900a1c376f851"
   },
   "Content/Bosses/TarTyrant/TarTyrantSystem.cs": {
     "mtime": 1793201971.87861,
@@ -2030,9 +2020,9 @@
     "semantic_hash": "3fa3b939e05767637dd871aac25a6b3e"
   },
   "Content/MechArmy/NPCs/Jaeger.cs": {
-    "mtime": 1793194350.6454742,
-    "ast_hash": "75f57c604f7bd0cb932d71014e70df1a",
-    "semantic_hash": "75f57c604f7bd0cb932d71014e70df1a"
+    "mtime": 1793393024.6852038,
+    "ast_hash": "a1ec762baddf97281c225e8ea89a75ea",
+    "semantic_hash": "a1ec762baddf97281c225e8ea89a75ea"
   },
   "Content/Mechanist/Accessories/PolishedCog.cs": {
     "mtime": 1793201187.2121,
@@ -2075,9 +2065,9 @@
     "semantic_hash": "4a98b2f44e5eb7826c05769dac68cf26"
   },
   "art/bosses/tartyrant/make_tartyrant_art.py": {
-    "mtime": 1793367322.4125261,
-    "ast_hash": "2a61ec53c0ea1b300658e212daa1594a",
-    "semantic_hash": "2a61ec53c0ea1b300658e212daa1594a"
+    "mtime": 1793390941.8871424,
+    "ast_hash": "d8cd40dc20c0293b56eaa88dff787ff9",
+    "semantic_hash": "d8cd40dc20c0293b56eaa88dff787ff9"
   },
   "art/mecharmy/make_jaeger_armor.py": {
     "mtime": 1793194119.7584717,
@@ -2095,9 +2085,9 @@
     "semantic_hash": "1bacdf9af4bd28484769816a6f00545c"
   },
   "tools/sim/tartyrant_sim.py": {
-    "mtime": 1793368080.4056485,
-    "ast_hash": "56c59ea6994b7459a74e57d0857ce434",
-    "semantic_hash": "56c59ea6994b7459a74e57d0857ce434"
+    "mtime": 1793391178.1528556,
+    "ast_hash": "969fd406ea02d2d1bd91e168ced85740",
+    "semantic_hash": "969fd406ea02d2d1bd91e168ced85740"
   },
   "Content/Bosses/TarTyrant/Items/TarTyrantBag.png": {
     "mtime": 1793367372.6010256,
@@ -2125,14 +2115,14 @@
     "semantic_hash": "93a7c1e9b1f853f729e33b6ecb4d7470"
   },
   "Content/Bosses/TarTyrant/TarTyrant.png": {
-    "mtime": 1793367371.4385357,
-    "ast_hash": "31f83d6f4926bbeeaa588e3e20748496",
-    "semantic_hash": "31f83d6f4926bbeeaa588e3e20748496"
+    "mtime": 1793390998.3765297,
+    "ast_hash": "1095aeddcc3664ec18c58018225c72ea",
+    "semantic_hash": "1095aeddcc3664ec18c58018225c72ea"
   },
   "Content/Bosses/TarTyrant/TarTyrant_Far.png": {
-    "mtime": 1793367371.8546474,
-    "ast_hash": "fc3a2c45fe5cb40dce5da3fb18fdf505",
-    "semantic_hash": "fc3a2c45fe5cb40dce5da3fb18fdf505"
+    "mtime": 1793390998.7227342,
+    "ast_hash": "f389bb8ad0b157fe381a9e57c9c4906a",
+    "semantic_hash": "f389bb8ad0b157fe381a9e57c9c4906a"
   },
   "Content/Bosses/TarTyrant/TarTyrant_Glow.png": {
     "mtime": 1793367371.5485785,
@@ -2589,15 +2579,10 @@
     "ast_hash": "d07f7a96484492c1ccda81bc93f84094",
     "semantic_hash": "d07f7a96484492c1ccda81bc93f84094"
   },
-  "Content/Bosses/TarTyrant/TarTyrant_Far_Page1.png": {
-    "mtime": 1793367371.8755755,
-    "ast_hash": "4be44f67a64b79a7460f900f251a503b",
-    "semantic_hash": "4be44f67a64b79a7460f900f251a503b"
-  },
   "Content/Bosses/TarTyrant/TarTyrant_Page1.png": {
-    "mtime": 1793367371.5374606,
-    "ast_hash": "2fa02c97d9096fb6ac6304e9b4867f5b",
-    "semantic_hash": "2fa02c97d9096fb6ac6304e9b4867f5b"
+    "mtime": 1793390998.4658449,
+    "ast_hash": "a737e7e6e0ddfeb71804abdbb0530016",
+    "semantic_hash": "a737e7e6e0ddfeb71804abdbb0530016"
   },
   "Content/Bosses/TarTyrant/TarTyrant_Vent.png": {
     "mtime": 1793367372.378773,
@@ -2640,19 +2625,19 @@
     "semantic_hash": "e1cbcfbfc0f1accb71259fb7243b374e"
   },
   "docs/media/2026-10-30_boss-tartyrant-attacks.gif": {
-    "mtime": 1793368097.1011522,
-    "ast_hash": "4abf3ec7f5309684768a66f26dde7dc6",
-    "semantic_hash": "4abf3ec7f5309684768a66f26dde7dc6"
+    "mtime": 1793391217.208322,
+    "ast_hash": "94a4b0e0ec5a39b0b36b7bc2155b4d2a",
+    "semantic_hash": "94a4b0e0ec5a39b0b36b7bc2155b4d2a"
   },
   "docs/media/2026-10-30_boss-tartyrant-bones.gif": {
-    "mtime": 1793368112.8297198,
-    "ast_hash": "86f492c4488a7445f8847fd89d2deb27",
-    "semantic_hash": "86f492c4488a7445f8847fd89d2deb27"
+    "mtime": 1793391227.8357964,
+    "ast_hash": "6d518697fd96a15866d1c3f717aab9b6",
+    "semantic_hash": "6d518697fd96a15866d1c3f717aab9b6"
   },
   "docs/media/2026-10-30_boss-tartyrant-death.gif": {
-    "mtime": 1793368132.0635734,
-    "ast_hash": "94ec9b8ffe9ad30486c507cba1804631",
-    "semantic_hash": "94ec9b8ffe9ad30486c507cba1804631"
+    "mtime": 1793391245.4966993,
+    "ast_hash": "eec70ee8d520c7446ff40f502ab79b68",
+    "semantic_hash": "eec70ee8d520c7446ff40f502ab79b68"
   },
   "docs/media/2026-10-30_boss-tartyrant-hitboxes-attacks.png": {
     "mtime": 1793368132.7034588,
@@ -2660,9 +2645,9 @@
     "semantic_hash": "5acd5453858a42668bb4ec7f54e6245b"
   },
   "docs/media/2026-10-30_boss-tartyrant-hitboxes.png": {
-    "mtime": 1793368132.686893,
-    "ast_hash": "679f1696a472f29d97ad512734c01dd9",
-    "semantic_hash": "679f1696a472f29d97ad512734c01dd9"
+    "mtime": 1793391094.2138433,
+    "ast_hash": "05e7b1cc420aed53f1cc946a6b842d67",
+    "semantic_hash": "05e7b1cc420aed53f1cc946a6b842d67"
   },
   "docs/media/2026-10-30_boss-tartyrant-loot.png": {
     "mtime": 1793368132.7411683,
@@ -2670,28 +2655,273 @@
     "semantic_hash": "19d572959322ec054ffa619c1370c3dd"
   },
   "docs/media/2026-10-30_boss-tartyrant-melt.gif": {
-    "mtime": 1793368115.6972337,
-    "ast_hash": "5e2a47cef908a8bce708bc55e00e8a2d",
-    "semantic_hash": "5e2a47cef908a8bce708bc55e00e8a2d"
+    "mtime": 1793391230.3203611,
+    "ast_hash": "3d3a59749b212eda324af735f7ff4ce1",
+    "semantic_hash": "3d3a59749b212eda324af735f7ff4ce1"
   },
   "docs/media/2026-10-30_boss-tartyrant-rage.gif": {
-    "mtime": 1793368125.6981535,
-    "ast_hash": "2005e454f547951927b5e31765599278",
-    "semantic_hash": "2005e454f547951927b5e31765599278"
+    "mtime": 1793391239.765054,
+    "ast_hash": "d16f46dfa2c1549c07c0982eb0077d81",
+    "semantic_hash": "d16f46dfa2c1549c07c0982eb0077d81"
   },
   "docs/media/2026-10-30_boss-tartyrant-sprite.png": {
-    "mtime": 1793368132.611358,
-    "ast_hash": "71d379ab265acf979758a7735820b320",
-    "semantic_hash": "71d379ab265acf979758a7735820b320"
+    "mtime": 1793391094.1482482,
+    "ast_hash": "48f9419bc65d302bcd5f2bb3c375c6fb",
+    "semantic_hash": "48f9419bc65d302bcd5f2bb3c375c6fb"
   },
   "docs/media/2026-10-30_boss-tartyrant-summon.gif": {
-    "mtime": 1793368085.9495642,
-    "ast_hash": "9a0b818f25c567380c329d2f12c1868f",
-    "semantic_hash": "9a0b818f25c567380c329d2f12c1868f"
+    "mtime": 1793391207.7395666,
+    "ast_hash": "d6de95ed202c3e5c7d63317c7c0b337f",
+    "semantic_hash": "d6de95ed202c3e5c7d63317c7c0b337f"
   },
   "docs/media/2026-10-30_junkyard-condensed-tar.png": {
     "mtime": 1793368194.018891,
     "ast_hash": "d4e6163e8bbb4d7c4ff318dd0e106fb4",
     "semantic_hash": "d4e6163e8bbb4d7c4ff318dd0e106fb4"
+  },
+  "Content/Junkyard/Tar/TarPlagueNPC.cs": {
+    "mtime": 1793391276.2067814,
+    "ast_hash": "ac8f83522102f982f454d037639adf86",
+    "semantic_hash": "ac8f83522102f982f454d037639adf86"
+  },
+  "Content/Junkyard/Weapons/MetalClash.cs": {
+    "mtime": 1793392638.2585008,
+    "ast_hash": "69bcc4adecaf386f79a2a7f6bde45c84",
+    "semantic_hash": "69bcc4adecaf386f79a2a7f6bde45c84"
+  },
+  "Content/Junkyard/Weapons/MetalWrench.cs": {
+    "mtime": 1793392471.564569,
+    "ast_hash": "efa4a27cf9a80623e488a2a6d0f01fc4",
+    "semantic_hash": "efa4a27cf9a80623e488a2a6d0f01fc4"
+  },
+  "Content/Junkyard/Weapons/MetalWrenchGuard.cs": {
+    "mtime": 1793392586.1540167,
+    "ast_hash": "5c40bfdd590d25976acf02863156f764",
+    "semantic_hash": "5c40bfdd590d25976acf02863156f764"
+  },
+  "Content/Junkyard/Weapons/MetalWrenchPlayer.cs": {
+    "mtime": 1793393741.5964382,
+    "ast_hash": "65fa9b826875f87d77dc2b04d54fe5c6",
+    "semantic_hash": "65fa9b826875f87d77dc2b04d54fe5c6"
+  },
+  "Content/Junkyard/Weapons/TarBoneStaff.cs": {
+    "mtime": 1793392797.7089908,
+    "ast_hash": "eea8f7ee16b9b09800f7f2d1fe78840e",
+    "semantic_hash": "eea8f7ee16b9b09800f7f2d1fe78840e"
+  },
+  "Content/Junkyard/Weapons/TarShower.cs": {
+    "mtime": 1793393133.5585415,
+    "ast_hash": "80fb3c4bcdab1979d39a929c803dc0ac",
+    "semantic_hash": "80fb3c4bcdab1979d39a929c803dc0ac"
+  },
+  "Content/Junkyard/Weapons/TarShowerBigGlob.cs": {
+    "mtime": 1793392986.7922354,
+    "ast_hash": "9cef896f24d882b134902227f07a8a56",
+    "semantic_hash": "9cef896f24d882b134902227f07a8a56"
+  },
+  "Content/Junkyard/Weapons/TarShowerCharge.cs": {
+    "mtime": 1793392944.0303078,
+    "ast_hash": "6bd4b0cc8f3ec0ea0a0f67ab2e4fd7d1",
+    "semantic_hash": "6bd4b0cc8f3ec0ea0a0f67ab2e4fd7d1"
+  },
+  "Content/Junkyard/Weapons/TarShowerGlob.cs": {
+    "mtime": 1793392961.6691272,
+    "ast_hash": "15955b1a876996c217a46ba4dc17d49c",
+    "semantic_hash": "15955b1a876996c217a46ba4dc17d49c"
+  },
+  "Content/Junkyard/Weapons/TarSlimeBuff.cs": {
+    "mtime": 1793392721.42804,
+    "ast_hash": "ef6d260b82d883124f18f525af9dafa0",
+    "semantic_hash": "ef6d260b82d883124f18f525af9dafa0"
+  },
+  "Content/Junkyard/Weapons/TarSlimeMinion.cs": {
+    "mtime": 1793393024.6852038,
+    "ast_hash": "cebc3143c10e39c39663c6ecdb6a9323",
+    "semantic_hash": "cebc3143c10e39c39663c6ecdb6a9323"
+  },
+  "Content/Junkyard/Weapons/TarSlimeShot.cs": {
+    "mtime": 1793392782.7450988,
+    "ast_hash": "9e797a5024e1f48db311b1647d44ea22",
+    "semantic_hash": "9e797a5024e1f48db311b1647d44ea22"
+  },
+  "Content/Junkyard/Weapons/TarSpray.cs": {
+    "mtime": 1793393133.5585415,
+    "ast_hash": "5112f7ec200adac5ca62acee98703e1d",
+    "semantic_hash": "5112f7ec200adac5ca62acee98703e1d"
+  },
+  "Content/Junkyard/Weapons/TarStain.cs": {
+    "mtime": 1793393014.11027,
+    "ast_hash": "07ac2fa07d800c51396cbd4e976f747b",
+    "semantic_hash": "07ac2fa07d800c51396cbd4e976f747b"
+  },
+  "Content/Junkyard/Weapons/Tarmancer.cs": {
+    "mtime": 1793392721.2555845,
+    "ast_hash": "b1baee5941e1859d76c922131e15f697",
+    "semantic_hash": "b1baee5941e1859d76c922131e15f697"
+  },
+  "Content/Junkyard/Weapons/TyrantSkullBolt.cs": {
+    "mtime": 1793392841.7168736,
+    "ast_hash": "13ca112370d9dca4636dde01b69bb481",
+    "semantic_hash": "13ca112370d9dca4636dde01b69bb481"
+  },
+  "Content/Junkyard/Weapons/WrenchParryCooldown.cs": {
+    "mtime": 1793392682.7675905,
+    "ast_hash": "0918930c5a174a394785cad32f4f0e56",
+    "semantic_hash": "0918930c5a174a394785cad32f4f0e56"
+  },
+  "Content/Junkyard/Weapons/WrenchRiposteBuff.cs": {
+    "mtime": 1793392682.7124796,
+    "ast_hash": "f9ae9f272c4a29f9353de550fd33d608",
+    "semantic_hash": "f9ae9f272c4a29f9353de550fd33d608"
+  },
+  "Core/Hooks/SlowMotionHooks.cs": {
+    "mtime": 1793391443.117218,
+    "ast_hash": "462f474e35d9a5c5fdc71a1fc313e34d",
+    "semantic_hash": "462f474e35d9a5c5fdc71a1fc313e34d"
+  },
+  "Core/Systems/SlowMotion.cs": {
+    "mtime": 1793391409.220621,
+    "ast_hash": "0ba5ea907bc0c4275ed99bbe65877b52",
+    "semantic_hash": "0ba5ea907bc0c4275ed99bbe65877b52"
+  },
+  "art/junkyard/make_tar_weapon_sounds.py": {
+    "mtime": 1793392616.9356875,
+    "ast_hash": "1231d3195d3fd70d728003651369441c",
+    "semantic_hash": "1231d3195d3fd70d728003651369441c"
+  },
+  "art/junkyard/make_tar_weapons.py": {
+    "mtime": 1793392370.7647836,
+    "ast_hash": "8fa905d18df82eb5851a20d75f9d423b",
+    "semantic_hash": "8fa905d18df82eb5851a20d75f9d423b"
+  },
+  "tools/sim/tar_weapons_sim.py": {
+    "mtime": 1793393619.0641718,
+    "ast_hash": "c29dd77b37da5e38f5827c9c80bfd6a0",
+    "semantic_hash": "c29dd77b37da5e38f5827c9c80bfd6a0"
+  },
+  "Content/Junkyard/Weapons/MetalClash.png": {
+    "mtime": 1793392371.1090536,
+    "ast_hash": "eabe957be317edd1fac8d04387f9c680",
+    "semantic_hash": "eabe957be317edd1fac8d04387f9c680"
+  },
+  "Content/Junkyard/Weapons/MetalWrench.png": {
+    "mtime": 1793392371.1075456,
+    "ast_hash": "d89522886b8822810e37a85f0820559a",
+    "semantic_hash": "d89522886b8822810e37a85f0820559a"
+  },
+  "Content/Junkyard/Weapons/TarBoneStaff.png": {
+    "mtime": 1793392371.1158197,
+    "ast_hash": "34075623f3af49b95867cb0104304d3d",
+    "semantic_hash": "34075623f3af49b95867cb0104304d3d"
+  },
+  "Content/Junkyard/Weapons/TarShower.png": {
+    "mtime": 1793392371.1189318,
+    "ast_hash": "3f76c39d2c59e974b82045363874311d",
+    "semantic_hash": "3f76c39d2c59e974b82045363874311d"
+  },
+  "Content/Junkyard/Weapons/TarShowerBigGlob.png": {
+    "mtime": 1793392371.1239069,
+    "ast_hash": "948bbe267d6252ac62f1f6ece34d18b5",
+    "semantic_hash": "948bbe267d6252ac62f1f6ece34d18b5"
+  },
+  "Content/Junkyard/Weapons/TarShowerCharge.png": {
+    "mtime": 1793392371.1258683,
+    "ast_hash": "0963f889430c0d48dceaf417bcb11a68",
+    "semantic_hash": "0963f889430c0d48dceaf417bcb11a68"
+  },
+  "Content/Junkyard/Weapons/TarShowerGlob.png": {
+    "mtime": 1793392371.1214652,
+    "ast_hash": "5011ddbac37361a03d39838b1ff21736",
+    "semantic_hash": "5011ddbac37361a03d39838b1ff21736"
+  },
+  "Content/Junkyard/Weapons/TarSlimeBuff.png": {
+    "mtime": 1793392371.113763,
+    "ast_hash": "226124620ae755504dd9910d495b88e5",
+    "semantic_hash": "226124620ae755504dd9910d495b88e5"
+  },
+  "Content/Junkyard/Weapons/TarSlimeMinion.png": {
+    "mtime": 1793392371.113234,
+    "ast_hash": "106f38ed1b34d291ad556ae29a5a59f4",
+    "semantic_hash": "106f38ed1b34d291ad556ae29a5a59f4"
+  },
+  "Content/Junkyard/Weapons/TarSlimeShot.png": {
+    "mtime": 1793392371.1147735,
+    "ast_hash": "adbd55b259b1c8dddd925082ba5e800f",
+    "semantic_hash": "adbd55b259b1c8dddd925082ba5e800f"
+  },
+  "Content/Junkyard/Weapons/TarSpray.png": {
+    "mtime": 1793392371.1204565,
+    "ast_hash": "ea140434be22f55a836489406bc167e0",
+    "semantic_hash": "ea140434be22f55a836489406bc167e0"
+  },
+  "Content/Junkyard/Weapons/TarStain.png": {
+    "mtime": 1793392371.1249206,
+    "ast_hash": "e8f96f230d5ed78d82d954273c058449",
+    "semantic_hash": "e8f96f230d5ed78d82d954273c058449"
+  },
+  "Content/Junkyard/Weapons/Tarmancer.png": {
+    "mtime": 1793392371.1122274,
+    "ast_hash": "245b61b0d5ccfd326071f93f16f26cd8",
+    "semantic_hash": "245b61b0d5ccfd326071f93f16f26cd8"
+  },
+  "Content/Junkyard/Weapons/TyrantSkullBlast.png": {
+    "mtime": 1793392371.118409,
+    "ast_hash": "c6e372be10fc05f22c82e1f7cf43e7b7",
+    "semantic_hash": "c6e372be10fc05f22c82e1f7cf43e7b7"
+  },
+  "Content/Junkyard/Weapons/TyrantSkullBolt.png": {
+    "mtime": 1793392371.1169038,
+    "ast_hash": "d7e907dc83c791917a2f5544ea4c1e30",
+    "semantic_hash": "d7e907dc83c791917a2f5544ea4c1e30"
+  },
+  "Content/Junkyard/Weapons/WrenchParryCooldown.png": {
+    "mtime": 1793392371.1106448,
+    "ast_hash": "22842a4d76193654b5cc2ba54bd34e0f",
+    "semantic_hash": "22842a4d76193654b5cc2ba54bd34e0f"
+  },
+  "Content/Junkyard/Weapons/WrenchRiposteBuff.png": {
+    "mtime": 1793392371.1106448,
+    "ast_hash": "15296e9ff3e6128f10c1f7496d0523fa",
+    "semantic_hash": "15296e9ff3e6128f10c1f7496d0523fa"
+  },
+  "docs/media/2026-10-30_boss-tartyrant-tail-fix.gif": {
+    "mtime": 1793391189.033129,
+    "ast_hash": "ffc6b3dfdb504bc7871b53e4b83d0dc6",
+    "semantic_hash": "ffc6b3dfdb504bc7871b53e4b83d0dc6"
+  },
+  "docs/media/2026-10-30_weapon-metal-wrench.gif": {
+    "mtime": 1793393564.561574,
+    "ast_hash": "d3d6a0a70f1b9a93cbb7f4d530d1763d",
+    "semantic_hash": "d3d6a0a70f1b9a93cbb7f4d530d1763d"
+  },
+  "docs/media/2026-10-30_weapon-tar-bone-staff.gif": {
+    "mtime": 1793393639.4662063,
+    "ast_hash": "6db779ba493f02b37be3711284ded4ed",
+    "semantic_hash": "6db779ba493f02b37be3711284ded4ed"
+  },
+  "docs/media/2026-10-30_weapon-tar-shower.gif": {
+    "mtime": 1793393651.8883357,
+    "ast_hash": "656b677c74cd06810a7699bc0bb0f189",
+    "semantic_hash": "656b677c74cd06810a7699bc0bb0f189"
+  },
+  "docs/media/2026-10-30_weapon-tarmancer.gif": {
+    "mtime": 1793393630.3880422,
+    "ast_hash": "40b5164721416821680b1a2602ef6db7",
+    "semantic_hash": "40b5164721416821680b1a2602ef6db7"
+  },
+  "docs/media/2026-10-30_weapon-tetanus.gif": {
+    "mtime": 1793393232.4891798,
+    "ast_hash": "aaa58a582a55b4e14ef637f54c2a3c05",
+    "semantic_hash": "aaa58a582a55b4e14ef637f54c2a3c05"
+  },
+  "docs/media/2026-10-30_weapons-tar-sprites.png": {
+    "mtime": 1793393410.002309,
+    "ast_hash": "019c13e36a297a583be4fdf498114309",
+    "semantic_hash": "019c13e36a297a583be4fdf498114309"
+  },
+  "Assets/Sounds/Weapons/MetalClash.wav": {
+    "mtime": 1793392617.5711749,
+    "ast_hash": "7591dda007e3cef29d00fa409b143e07",
+    "semantic_hash": "7591dda007e3cef29d00fa409b143e07"
   }
 }

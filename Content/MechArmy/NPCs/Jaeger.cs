@@ -86,6 +86,7 @@ namespace Cogpunk.Content.MechArmy.NPCs
 			Main.npcFrameCount[Type] = 1;
 			CogpunkSets.Mechanical[Type] = true;
 			CogpunkSets.SelfHasting[Type] = true;
+			CogpunkSets.Miniboss[Type] = true;           // the Mech Army's heavyweight (the Metal Wrench's riposte treats it as one)
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, new NPCID.Sets.NPCBestiaryDrawModifiers() {

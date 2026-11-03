@@ -20,7 +20,7 @@ namespace Cogpunk.Content.Junkyard.Tar
 	/// </summary>
 	public sealed class TarPlayer : ModPlayer
 	{
-		public const int TickDamage = 20;
+		public const int TickDamage = 10;              // halved 2026-11-03 (user: "half tar poisoning damage"), was 20
 		public const int TickInterval = 30;             // half a second
 		public const int LingerTicks = 40;              // a brief dip costs one tick, never two
 		private const float TarTintR = 0.48f, TarTintG = 0.45f, TarTintB = 0.42f;
@@ -30,6 +30,10 @@ namespace Cogpunk.Content.Junkyard.Tar
 
 		/// <summary>Set every tick by <see cref="TarPlague.Update"/>; read by the damage tick and the draw tint.</summary>
 		public bool Plagued;
+
+		/// <summary>Extra ticks of Tar Plague this player's hits give enemies (<see cref="TarPlague.InflictOn"/>); gear adds to
+		/// it every tick (the Tyrant set: +90) and it resets in <see cref="ResetEffects"/>.</summary>
+		public int PlagueBonusTicks;
 
 		private int tickTimer;
 
@@ -43,6 +47,7 @@ namespace Cogpunk.Content.Junkyard.Tar
 
 		public override void ResetEffects() {
 			Plagued = false;
+			PlagueBonusTicks = 0;
 		}
 
 		// After the equip updates, so an item's buffImmune[TarPlague] (the future diving gear) is already set and AddBuff

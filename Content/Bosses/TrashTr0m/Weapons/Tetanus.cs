@@ -18,8 +18,9 @@ namespace Cogpunk.Content.Bosses.TrashTr0m.Weapons
 	/// <item><b>Left click</b>: a quick thrust (<see cref="TetanusProjectile"/>, mode <see cref="TetanusProjectile.Quick"/>)
 	/// that hits on the way out and again on the way back, like the <c>Screwdriver</c>.</item>
 	/// <item><b>Right click, held</b>: the lance is drawn back and charges, +<see cref="ChargeStepPercent"/>% damage per
-	/// <see cref="ChargeStepTicks"/> ticks held (0.5 s), up to +<see cref="MaxChargePercent"/>%; letting go lunges it out in
-	/// one piercing strike that also hits twice, going out and coming back (user-set 2026-10-27).</item>
+	/// <see cref="ChargeStepTicks"/> ticks held (0.25 s; 0.5 s until the user's buff of 2026-10-30, "halfs the necessary
+	/// time to full charge it"), up to +<see cref="MaxChargePercent"/>% at 1.25 s; letting go lunges it out in one piercing
+	/// strike that also hits twice, going out and coming back (user-set 2026-10-27).</item>
 	/// </list>
 	/// Every hit gives the target <see cref="TetanusDebuff"/> (+<see cref="TetanusDebuff.DamageTakenPercent"/>% damage
 	/// taken) for <see cref="DebuffTicks"/> ticks. Balance: docs/balance/weapons.csv (anchor: The Rotted Fork).
@@ -28,9 +29,9 @@ namespace Cogpunk.Content.Bosses.TrashTr0m.Weapons
 	{
 		public const int UseTime = 24;
 		public const float ReachTiles = 8.5f;
-		public const int ChargeStepTicks = 30;          // +20% per 0.5 s held
+		public const int ChargeStepTicks = 15;          // +20% per 0.25 s held (user, 2026-10-30: half the time to a full charge)
 		public const int ChargeStepPercent = 20;
-		public const int MaxChargeSteps = 5;            // +100% at 2.5 s
+		public const int MaxChargeSteps = 5;            // +100% at 1.25 s
 		public const int MaxChargePercent = ChargeStepPercent * MaxChargeSteps;
 		public const int DebuffTicks = 120;
 

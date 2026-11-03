@@ -21,6 +21,10 @@ bones"): the redraw's build (a narrower base, a chest leaning forward over a hum
 strands of tar running off its back into the pool, NECK_TUBE / REAR_STRANDS) and its horns (a brow horn and its far
 pair, a nose horn, two frill spikes at the back of the skull) on this design's colours, skull and bones. The 2026-10-29
 generator is kept in art/bosses/tartyrant/previous/.
+The tail (user, 2026-10-30, second request: the strands "look out of place and visually disruptive (that extra line of tar
+on the back going up)"): the three strands are gone (the version with them is commit 222cfdd); a haunch fills the back
+again so the mass stays one hunched shape, and a short tail of tar (TAIL) lies on the pool behind it, dragging a pixel or
+two behind the ooze (Pose.tail, whole pixels).
 
 Stable pixels (user, 2026-10-29; tools/check_flicker.py measures it): the mass is two parts, a lower body that stays put
 and an upper body (hump, throat, skull, spines, ribs, femur) moved by whole pixels in the loops; each is lit in its own
@@ -40,8 +44,8 @@ roar, its bones working loose, the slump, the settling, the last bubble). About 
 48 colours.
 
 Also: the attack sprites (tar bubble, spit glob, tar puddle, bone spike with its warning patch, the enrage claw with its
-warning patch, the "!" sign, the bones it flings out of its back and the vent they burst out of), the Tyrant armor's
-set-bonus claw (the enrage claw cut down to a player's size), gores (skull, jaw, claw, rib, femur, vertebra), the map
+warning patch, the "!" sign, the bones it flings out of its back and the vent they burst out of), gores (skull, jaw,
+claw, rib, femur, vertebra; the Tyrant armor's set-bonus claw went with the 2026-11-03 summoner rework), the map
 head, the treasure bag, the Serene Tear (Gota Serena) accessory, and the Scrapworm (critter sheet + bait item). The
 Tyrant armor pieces themselves: art/bosses/tartyrant/make_tyrant_armor.py.
 """
@@ -61,7 +65,6 @@ from make_trashtr0m_art import (seg_xf, pack_layer, page_name, export, to_image,
 
 ROOT = os.getcwd()
 OUT = "Content/Bosses/TarTyrant/"
-ARMOR_OUT = OUT + "Armor/"
 I, B, C, E, S, LE, T, BN, AE = (RAMP[k] for k in ("iron", "brass", "copper", "ember", "steam", "leather", "tar", "bone", "aether"))
 LIGHT_DIR = (-0.6, -0.8)                                     # towards the light, rig space (top-left)
 LIMB_SNAP = 45.0                                             # limbs and spin frames: light follows turns in 45-degree steps
@@ -269,8 +272,8 @@ VENT = (12.0, -91.0)                                          # the top of the h
 
 DEFAULTS = dict(up=(0.0, 0.0), squash=0.0, lean=0.0, shake=0, head=(0.0, 0.0), tilt=0.0, jaw=0.06, near=REST_NEAR, grip=0.2,
                 far=REST_FAR, far_grip=0.3, stretch=1.0, melt=0.0, sag=0.0, spread=0.0, bones=1.0, tar=1.0, inflate=0.0, eyes=1.0,
-                mouth_glow=0.0, drip=0, ripple=0.0, bubble=0.0, plunge=0.0, fall=0.0)
-DISCRETE = ("drip", "shake")
+                mouth_glow=0.0, drip=0, ripple=0.0, bubble=0.0, plunge=0.0, fall=0.0, tail=(0, 0))
+DISCRETE = ("drip", "shake", "tail")
 
 
 class Pose:
@@ -334,33 +337,39 @@ def place(p, xf, pt, angle, sag_turn=0.0):
 # The mass
 # ================================================================================================
 NECK_TUBE = ((-16.0, -64.0), (-28.0, -72.0), 14.0, 11.0)          # the neck of tar from the chest up to the skull
-# tar running off its back into the pool, sagging outwards as it slides (top, sag, foot, top radius, foot radius)
-REAR_STRANDS = (((30.0, -54.0), (45.0, -32.0), (40.0, -1.0), 4.0, 7.0), ((42.0, -42.0), (55.0, -22.0), (54.0, -1.0), 3.5, 6.5))
-FAR_STRAND = ((47.0, -60.0), (63.0, -34.0), (61.0, -1.0), 3.5, 6.0)  # their far pair (the far plane)
+# the tail (2026-10-30, in place of the strands up its back): from the haunch, it sags onto the pool and lies there, thin
+# and short (root, sag, tip, root radius, tip radius; the root is buried in the base, the tip stays inside the idle box)
+TAIL = ((38.0, -9.0), (53.0, -4.5), (64.5, -3.5), 6.5, 1.8)
 
 
-def strand_points(spec, n=8):
-    """Points and radii along a strand's quadratic curve, top to foot."""
-    a, m, b, r0, r1 = spec
+def tail_points(p, n=8):
+    """Points and radii along the tail's quadratic curve, root to tip: it tapers evenly; the tip (and half as much the
+    sag) drags by p.tail whole pixels."""
+    a, m, b, r0, r1 = TAIL
+    tx, ty = p.tail
+    m = (m[0] + (tx // 2), m[1])
+    b = (b[0] + tx, b[1] + ty)
     out = []
     for j in range(n + 1):
         t = j / n
         out.append((((1 - t) ** 2 * a[0] + 2 * (1 - t) * t * m[0] + t * t * b[0], (1 - t) ** 2 * a[1] + 2 * (1 - t) * t * m[1] + t * t * b[1]),
-                    lerp(r0, r1, t * t)))
+                    lerp(r0, r1, t)))
     return out
 
 
-def strand_shapes(xf, spec):
-    pts = strand_points(spec)
+def tail_shapes(xf, p):
+    pts = tail_points(p)
     return [Posed(xf, Capsule(pts[j][0], pts[j + 1][0], pts[j][1], pts[j + 1][1])) for j in range(len(pts) - 1)]
 
 
 def base_blobs(p):
-    """The lower body as ellipses in mass space: (centre, rx, ry): the base flowing into the puddle and the belly (the
-    hunched build of 2026-10-30, narrower than the first mound)."""
+    """The lower body as ellipses in mass space: (centre, rx, ry): the base flowing into the puddle, the belly (the
+    hunched build of 2026-10-30, narrower than the first mound) and the haunch under the hump (2026-10-30, second
+    request: it fills the back where the strands were, so the hump still hangs over it)."""
     inf = p.inflate
     return (((4.0, -10.0), 46.0, 12.0),
-            ((-2.0, -32.0 - 1.0 * inf), 32.0 + 2.0 * inf, 26.0 + 2.0 * inf))
+            ((-2.0, -32.0 - 1.0 * inf), 32.0 + 2.0 * inf, 26.0 + 2.0 * inf),
+            ((28.0, -27.0), 20.0, 21.0))
 
 
 def upper_blobs(p):
@@ -401,10 +410,7 @@ def mass(cv, p, bx, ux, pin):
     """The tar mound: the lower body and the upper body, two parts that flow into each other without a seam (one
     surface), each lit in its own space. Returns the tar's pixels."""
     lows = base_blobs(p)
-    beads = [(strand_points(sp)[5][0], strand_points(sp)[5][1] + 1.4) for sp in REAR_STRANDS]   # a bead of tar sliding down each strand
-    base = Union(*([Posed(bx, Ellipse(c[0], c[1], rx, ry)) for c, rx, ry in lows] +
-                   [sh for sp in REAR_STRANDS for sh in strand_shapes(bx, sp)] +
-                   [Posed(bx, Ellipse(c[0], c[1], r, r * 1.15)) for c, r in beads]))
+    base = Union(*([Posed(bx, Ellipse(c[0], c[1], rx, ry)) for c, rx, ry in lows] + tail_shapes(bx, p)))
     base_in = cv.part(Xf(), base, "tar", space_dome(bx, -20.0, -92.0, 84.0, lo=1, hi=2, gain=1.35, bias=-0.15), rust=0.0, merge=pin)
     ups = upper_blobs(p)
     upper = Union(*([Posed(ux, Ellipse(c[0], c[1], rx, ry)) for c, rx, ry in ups] + [Posed(ux, Capsule(*NECK_TUBE))]))
@@ -420,11 +426,15 @@ def mass(cv, p, bx, ux, pin):
     for c, rx, ry in ups:
         crescent(cv, ux, c, rx, ry, rim & up_in)
         reflect(cv, ux, c, rx, ry, up_in)
-    for sp, (c, r) in zip(REAR_STRANDS, beads):                       # the strands' wet sheen on their lit side
-        pts = strand_points(sp)
-        for (q0, r0), (q1, r1) in zip(pts[1:4], pts[2:5]):
-            gloss_line(cv, bx.fwd((q0[0] - r0 * 0.5, q0[1] - r0 * 0.3)), bx.fwd((q1[0] - r1 * 0.5, q1[1] - r1 * 0.3)), base_in, 3)
-        crescent(cv, bx, c, r, r * 1.15, base_in, 0.9, (1.0, 1.2), 0.45)
+    tail = tail_points(p)                                           # the tail's wet sheen along its top, out to the tip
+    for (q0, r0), (q1, r1) in zip(tail[3:7], tail[4:8]):
+        gloss_line(cv, bx.fwd((q0[0], q0[1] - r0 * 0.55)), bx.fwd((q1[0], q1[1] - r1 * 0.55)), base_in, 3)
+    # it lies on the pool, which would swallow its outline (they merge): a dark line where it rests on the tar
+    tail_px = set().union(*(cv.raster(Xf(), sh) for sh in tail_shapes(bx, p)))
+    tail_px -= set().union(*(cv.raster(Xf(), Posed(bx, Ellipse(c[0], c[1], rx, ry))) for c, rx, ry in lows))
+    for q in tail_px & base_in:
+        if (q[0], q[1] + 1) not in tail_px:
+            cv.put(q[0], q[1], T[0])
     for (xf, region, c, rx, ry) in ((bx, base_in, (-24.0, -36.0), 8.0, 7.0), (ux, up_in, (26.0, -50.0), 9.0, 8.0), (bx, base_in, (37.0, -26.0), 5.0, 6.0),
                                     (ux, up_in, (-24.0, -70.0), 7.0, 6.0)):
         crescent(cv, xf, c, rx, ry, region, 1.0, (1.4, 1.6), 0.7)
@@ -447,9 +457,7 @@ def mass(cv, p, bx, ux, pin):
                 cv.put(q[0] + dx, q[1] + dy, T[3] if dy < 0 or dx < 0 else T[0])
     for k, (qx, qy) in enumerate(((-32.0, -36.0), (-18.0, -34.0))):     # tar dripping off the chest's overhang
         drip(cv, *P(ux, (qx, qy)), 1 + (p.drip + 2 * k) % 3)
-    for k, sp in enumerate(REAR_STRANDS):                               # and off the strands' sagging bellies
-        q, r = strand_points(sp)[3]
-        drip(cv, *P(bx, (q[0] + r * 0.7, q[1] + r * 0.5)), 1 + (p.drip + k) % 3)
+    drip(cv, *P(ux, (36.0, -50.0)), 1 + (p.drip + 1) % 3)               # and off the hump where it hangs over the haunch
     return tar
 
 
@@ -778,8 +786,6 @@ def femur_back_xf(p, ux):
 def frame(p):
     far, mid, near, glow = Canvas(), Canvas(), Canvas(), Canvas()
     bx, ux = base_xf(p), upper_xf(p)
-    far.part(Xf(), Union(*strand_shapes(bx, FAR_STRAND)), "tar", space_dome(bx, -20.0, -92.0, 84.0, lo=1, hi=2, gain=1.35, bias=-0.15), depth=1,
-             rust=0.0)
     far_arm(far, p, bx)
     pin = puddle(mid, p)
     for (pt, ang, ln, bow) in BACK_RIBS:                    # the far side's ribs arch up out of the back (the mass hides their roots)
@@ -863,8 +869,10 @@ UP_MOVE = ((0, 0), (-1, 0), (-2, -1), (-2, -1), (-1, 0), (0, 0), (1, -1), (1, -1
 HAND_MOVE = ((0, 0), (-4, -5), (-8, -8), (-10, -3), (-8, 1), (-4, 1), (-1, 1), (1, 0))
 FAR_MOVE = ((4, 0), (3, 0), (0, 0), (-3, -3), (-4, -4), (-3, -3), (0, 0), (3, 0))
 GRIP_MOVE = (0.2, 0.4, 0.5, 0.4, 0.2, 0.2, 0.2, 0.2)
+TAIL_MOVE = ((0, 0), (1, 0), (2, 0), (2, 0), (1, 0), (0, 0), (-1, 0), (-1, 0))   # the tail drags behind the lurch, flat on the pool
 add("Move", [IDLE.but(up=UP_MOVE[k], head=(UP_MOVE[(k - 1) % 8][0], 0), near=(REST_NEAR[0] + HAND_MOVE[k][0], REST_NEAR[1] + HAND_MOVE[k][1]),
-                      far=(REST_FAR[0] + FAR_MOVE[k][0], REST_FAR[1] + FAR_MOVE[k][1]), grip=GRIP_MOVE[k], drip=k, ripple=k / 4.0, spread=0.05)
+                      far=(REST_FAR[0] + FAR_MOVE[k][0], REST_FAR[1] + FAR_MOVE[k][1]), grip=GRIP_MOVE[k], drip=k, ripple=k / 4.0, spread=0.05,
+                      tail=TAIL_MOVE[k])
              for k in range(8)])
 
 # burp: it swells and rears its head back, then heaves the bubbles out of its throat (10)
@@ -1120,10 +1128,8 @@ def spike_frames():
 CLAW_W, CLAW_H = 72, 96
 CLAW_SEQ = ("Warn", 4), ("Rise", 4), ("Grab", 3), ("Sink", 4)
 CLAW_ROWS = 8                                                # two columns: one column of 15 frames would be 2910 px tall (D0: 2048 max)
-# The Tyrant armor's set bonus (2026-10-29): the same claw at 0.62 of the size, a short boil instead of the long warning
-TYRANT_CLAW_SCALE = 0.62
-TYRANT_CLAW_W, TYRANT_CLAW_H = 46, 62
-TYRANT_CLAW_SEQ = ("Warn", 2), ("Rise", 4), ("Grab", 3), ("Sink", 4)
+# (2026-11-03: the Tyrant armor's claw set bonus, the same claw at 0.62 of the size, is gone with the summoner rework;
+# claw_frames() still takes a scale, size and sequence for it.)
 
 
 def columns(frames, rows, pad=1):
@@ -1581,10 +1587,6 @@ def write_rig_data(path, layers, frames):
     L.append("\t\tpublic const int VentWidth = %d, VentHeight = %d, VentOriginX = %d, VentOriginY = %d, VentFrameCount = %d;" % (
         VENT_W * 2, VENT_H * 2, VENT_OX * 2, VENT_OY * 2, n))
     L.append("\t\tpublic const int %s;" % parts)
-    n, parts = runs("TyrantClaw", TYRANT_CLAW_SEQ)
-    L.append("\t\t/// <summary>The Tyrant armor's set-bonus claw (Armor/TyrantClaw.png, one column, the bottom row on the ground).</summary>")
-    L.append("\t\tpublic const int TyrantClawWidth = %d, TyrantClawHeight = %d, TyrantClawFrameCount = %d;" % (TYRANT_CLAW_W * 2, TYRANT_CLAW_H * 2, n))
-    L.append("\t\tpublic const int %s;" % parts)
     L.append("\t\tpublic const int WormWidth = 32, WormHeight = 16;")
     L.append("\t}")
     L.append("}")
@@ -1613,7 +1615,6 @@ def export_all():
     export(vertical(warn_frames()), OUT + "Projectiles/TarTyrantClaw_Warning.png")
     export(vertical(back_bone_frames()), OUT + "Projectiles/TarTyrantBackBone.png")
     export(vertical(vent_frames()), OUT + "TarTyrant_Vent.png")
-    export(vertical(claw_frames(TYRANT_CLAW_SCALE, TYRANT_CLAW_W, TYRANT_CLAW_H, TYRANT_CLAW_SEQ)), ARMOR_OUT + "TyrantClaw.png")
     for name, im in gore_images().items():
         export(im, OUT + "Gores/" + name + ".png")
     export(head_icon(), OUT + "TarTyrant_Head_Boss.png")

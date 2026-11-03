@@ -3,7 +3,7 @@ built from the real sprite sheets, the generated rig data and the constants pars
 tick (60 ticks = 1 s).
 
     python -P tools/sim/tartyrant_sim.py --out docs/media --date 2026-10-29 [--only summon,attacks,bones,melt,rage,death,sprite,hitboxes,loot,
-                                                                                armor,puxa]
+                                                                                puxa]
 
 Writes:
     <date>_boss-tartyrant-summon.gif    a Scrapworm on the hook in the Junkyard's tar: the bite, the reel, the boss rising
@@ -27,9 +27,9 @@ Writes:
     <date>_boss-tartyrant-hitboxes.png  the hit strips (red) over frames at full size and at the 51% it ends at, and the
                                         attack hitboxes over their sprites.
     <date>_boss-tartyrant-loot.png      the Tyrant armor pieces, the Serene Tear, the treasure bag, the map head and the gores.
-    <date>_boss-tartyrant-armor-claw.gif  the Tyrant armor's set bonus: a claw out of the ground under the closest enemy every
-                                        4 s (5 tiles, every enemy in it); one flying high is passed over. (The worn armor's
-                                        own GIF and PNG come from tools/sim/armor_preview.py.)
+    (The Tyrant armor's claw set bonus and its GIF are gone since the 2026-11-03 summoner rework; the new set bonus is
+    shown with the Tar Whip in tools/sim/tar_weapons_sim.py. The worn armor's GIF and PNG come from
+    tools/sim/armor_preview.py.)
     <date>_underground-puxa-frango.gif  (2026-10-28, unchanged) the Puxa-frango stalking, crouching, lunging and snapping.
 
 Leaves out: lighting, music, the camera lock (the view is fixed), real dust (simple squares), tile collision beyond a
@@ -59,7 +59,6 @@ KG = consts(D + "Projectiles/TarTyrantGlob.cs")
 KP = consts(RIG, D + "Projectiles/TarTyrantPuddle.cs")
 KS = consts(RIG, D + "Projectiles/TarTyrantBoneSpike.cs")
 KV = consts(RIG, D + "Projectiles/TarTyrantBackBone.cs")
-KT = consts(RIG, D + "Armor/TyrantClaw.cs", D + "Armor/TyrantArmorPlayer.cs", D + "Armor/TyrantSkull.cs")
 TABLES = arrays(D + "TarTyrant.Visuals.cs")
 TABLES.update(arrays(D + "TarTyrant.Attacks.cs"))
 KC = consts(RIG, D + "Projectiles/TarTyrantClaw.cs")
@@ -627,86 +626,6 @@ def tyrant_player(flip=False):
     return TYRANT_PLAYER.transpose(Image.FLIP_LEFT_RIGHT) if flip else TYRANT_PLAYER
 
 
-def scene_armor(out, font):
-    """The Tyrant armor's set bonus (TyrantArmorPlayer): charged every ClawInterval ticks, it waits for the closest enemy in
-    range with ground within GroundReach tiles under it and erupts a TyrantClaw there (every enemy in its 5 tiles, once).
-    Three Living Tar (their Expert life) come at the player, a bat flies over them high (passed over: no ground in reach)."""
-    W, H, G = 1200, 460, 420
-    gif = Gif(font)
-    bg = pool_backdrop(W, H, G, 0)
-    px = 200.0
-    life = consts("Content/Junkyard/NPCs/LivingTar.cs")["Life"]               # Expert
-    slimes = [[620.0, 0.0, life], [700.0, 0.0, life], [980.0, 0.0, life]]      # x, hop, life
-    bat = [760.0, G - 8 * 16 - 40.0]
-    claws, pops = [], []
-    timer = KT["ClawInterval"] - 40
-    for tick in range(3 * KT["ClawInterval"] + 60):
-        for s in slimes:
-            if s[2] > 0 and s[0] > px + 60:
-                s[0] -= 0.7
-            s[1] = max(0.0, 6 * math.sin(tick * 0.12 + s[0] * 0.01))
-        bat[0] -= 0.9
-        bat[1] = G - 8 * 16 - 40 + 10 * math.sin(tick * 0.08)
-        if timer < KT["ClawInterval"]:
-            timer += 1
-        else:
-            alive = [s for s in slimes if s[2] > 0 and abs(s[0] - px) <= KT["ClawRange"]]
-            if alive:
-                target = min(alive, key=lambda s: abs(s[0] - px))
-                claws.append([target[0], 0])
-                timer = 0
-        for c in claws:
-            c[1] += 1
-            if c[1] == KT["HurtStart"]:
-                for s in slimes:
-                    if s[2] > 0 and abs(s[0] - c[0]) < KT["HitboxWidth"] / 2 + 14:
-                        s[2] -= KT["ClawDamage"]
-                        pops.append([s[0], G - 60, 0, str(KT["ClawDamage"])])
-        claws = [c for c in claws if c[1] < KT["Lifetime"]]
-        pops = [[a, b, c + 1, t] for a, b, c, t in pops if c < 45]
-        if tick % TPF:
-            continue
-        fr = bg.copy()
-        d = ImageDraw.Draw(fr)
-        for c in claws:
-            age = c[1]
-            if age < KT["WarnTicks"]:
-                k = R["TyrantClawWarn0"] + min(R["TyrantClawWarnFrames"] - 1, age // KT["WarnFrameTicks"])
-            else:
-                e = age - KT["WarnTicks"]
-                if e < KT["RiseTicks"]:
-                    k = R["TyrantClawRise0"] + min(R["TyrantClawRiseFrames"] - 1, e // KT["RiseFrameTicks"])
-                elif e < KT["RiseTicks"] + KT["GrabTicks"]:
-                    k = R["TyrantClawGrab0"] + min(R["TyrantClawGrabFrames"] - 1, (e - KT["RiseTicks"]) // KT["GrabFrameTicks"])
-                else:
-                    k = R["TyrantClawSink0"] + min(R["TyrantClawSinkFrames"] - 1, (e - KT["RiseTicks"] - KT["GrabTicks"]) // KT["SinkFrameTicks"])
-            paste(fr, cell(D + "Armor/TyrantClaw.png", k, R["TyrantClawWidth"], R["TyrantClawHeight"]), round(c[0] - R["TyrantClawWidth"] / 2),
-                  G - R["TyrantClawHeight"] + 2)
-            if KT["HurtStart"] <= age < KT["HurtEnd"]:
-                d.rectangle([c[0] - KT["HitboxWidth"] / 2, G - KT["HitboxHeight"], c[0] + KT["HitboxWidth"] / 2 - 1, G - 1], outline=(255, 40, 40, 255))
-        for s in slimes:
-            if s[2] > 0:
-                paste(fr, cell("Content/Junkyard/NPCs/LivingTar.png", 0 if s[1] < 1 else 1, 32, 22), round(s[0] - 16), round(G - 22 - s[1]))
-        d.ellipse([bat[0] - 10, bat[1] - 5, bat[0] + 10, bat[1] + 5], fill=(46, 50, 59, 255))
-        d.polygon([(bat[0] - 10, bat[1]), (bat[0] - 24, bat[1] - 8 + 6 * ((tick // 6) % 2)), (bat[0] - 8, bat[1] - 3)], fill=(46, 50, 59, 255))
-        d.polygon([(bat[0] + 10, bat[1]), (bat[0] + 24, bat[1] - 8 + 6 * ((tick // 6) % 2)), (bat[0] + 8, bat[1] - 3)], fill=(46, 50, 59, 255))
-        gif.text(fr, (int(bat[0]) - 70, int(bat[1]) - 34), "too high: passed over", fill=(195, 200, 205))
-        im = tyrant_player()
-        paste(fr, im, round(px - im.width / 2), G - im.height + 4)
-        for a, b, c, t in pops:
-            gif.text(fr, (int(a) - 14, int(b - c * 0.5)), t, fill=EMBER, big=True)
-        bar = 160 * timer / KT["ClawInterval"]
-        d.rectangle([12, 62, 172, 70], outline=(195, 200, 205, 255))
-        d.rectangle([12, 62, 12 + bar, 70], fill=EMBER + (255,))
-        gif.text(fr, (180, 56), "charged: waiting for an enemy" if timer >= KT["ClawInterval"] else "next claw in %.1f s" % ((KT["ClawInterval"] - timer) / 60.0))
-        gif.text(fr, (12, 8), "Tyrant armor set bonus: every %d s a tar claw erupts under the closest enemy (%d tiles, every enemy in it)" % (
-            KT["ClawInterval"] // 60, KT["HitboxWidth"] // 16), big=True)
-        gif.text(fr, (12, 34), "%d magic damage (scaled by magic damage, magic crit); range %d tiles, the enemy within %d tiles of the ground" % (
-            KT["ClawDamage"], KT["ClawRange"] // 16, KT["GroundReach"]))
-        gif.push(fr, scale=0.85)
-    gif.save(out)
-
-
 def scene_melt(out, font):
     W, H, G = 1500, 470, 430
     gif = Gif(font)
@@ -754,6 +673,44 @@ def scene_melt(out, font):
         gif.text(fr, (12, 8), "Melt: " + label, big=True)
         gif.text(fr, (12, 34), "the rise hurts from its 4th frame (bones out): contact %d in Expert; untouchable while under" % K["ExpertContactDamage"])
         gif.push(fr, scale=0.6)
+    gif.save(out)
+
+
+def scene_tail(out, font):
+    """2026-10-30 fix (user): the strands of tar up its back are gone; a short tail lies on the pool and drags behind the
+    ooze. At game scale over a cavern and a sky backdrop: idle, ooze left at OozeSpeed (the Move frames, 6 ticks each),
+    turn, ooze back, idle."""
+    W, H, G = 640, 330, 292
+    gif = Gif(font)
+    dark = pool_backdrop(W, H, G, W)
+    d = ImageDraw.Draw(dark)
+    d.rectangle([0, 0, W, G - 1], fill=(36, 40, 48, 255))
+    light = pool_backdrop(W, H, G, W)
+    seq = [("idle", t) for t in range(64)] + [("left", t) for t in range(150)] + [("idle", t) for t in range(24)] + \
+          [("right", t) for t in range(150)] + [("idle", t) for t in range(40)]
+    bx = 430.0
+    for tick, (mode, t) in enumerate(seq):
+        moving = mode != "idle"
+        if mode == "left":
+            bx -= K["OozeSpeed"]
+        elif mode == "right":
+            bx += K["OozeSpeed"]
+        flip = mode == "right" or (mode == "idle" and tick > 64 + 150 + 24 + 150)
+        f = resolve("Idle", t, moving=moving)
+        if tick % TPF:
+            continue
+        frames_ = []
+        for bg, label in ((dark, "cavern"), (light, "sky")):
+            fr = bg.copy()
+            draw_boss(fr, f, round(bx), G, flip, W)
+            gif.text(fr, (10, 6), "2026-10-30 fix: no strands up its back, a short tail on the pool", big=True)
+            gif.text(fr, (10, 30), "%s  |  %s frame %d  |  ooze %.1f px/tick (OozeSpeed)" % (
+                label, "Move" if moving else "Idle", (f - R["Move0"]) if moving else (f - R["Idle0"]), K["OozeSpeed"]))
+            frames_.append(fr)
+        both = Image.new("RGBA", (W, H * 2))
+        both.alpha_composite(frames_[0], (0, 0))
+        both.alpha_composite(frames_[1], (0, H))
+        gif.push(both)
     gif.save(out)
 
 
@@ -1091,12 +1048,12 @@ def main():
             ("attacks", lambda: scene_attacks(p("boss-tartyrant-attacks.gif"), args.font)),
             ("bones", lambda: scene_bones(p("boss-tartyrant-bones.gif"), args.font)),
             ("melt", lambda: scene_melt(p("boss-tartyrant-melt.gif"), args.font)),
+            ("tail", lambda: scene_tail(p("boss-tartyrant-tail-fix.gif"), args.font)),
             ("rage", lambda: scene_rage(p("boss-tartyrant-rage.gif"), args.font)),
             ("death", lambda: scene_death(p("boss-tartyrant-death.gif"), args.font)),
             ("sprite", lambda: sprite_png(p("boss-tartyrant-sprite.png"), args.font)),
             ("hitboxes", lambda: hitbox_png(p("boss-tartyrant-hitboxes.png"), args.font)),
             ("loot", lambda: loot_png(p("boss-tartyrant-loot.png"), args.font)),
-            ("armor", lambda: scene_armor(p("boss-tartyrant-armor-claw.gif"), args.font)),
             ("puxa", lambda: scene_puxa(p("underground-puxa-frango.gif"), args.font))]
     for name, job in jobs:
         if only is None or name in only:

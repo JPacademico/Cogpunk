@@ -1,4 +1,3 @@
-using Cogpunk.Content.Mechanist;
 using Cogpunk.Core.Templates;
 using Terraria;
 using Terraria.ID;
@@ -7,10 +6,9 @@ using Terraria.ModLoader;
 
 namespace Cogpunk.Content.Bosses.TarTyrant.Armor
 {
-	/// <summary>Tyrant Cape (user-set 2026-10-29): <see cref="Defense"/> defense and -<see cref="CostReduction"/>% mana and
-	/// steam cost (vanilla's <c>Player.manaCost</c>, and <see cref="SteamPlayer.SteamCostMultiplier"/> as the Polished set's
-	/// -10% steam cost). Steam the Serene Tear pays for a spell is the spell's mana cost after this cut. Set bonus:
-	/// <see cref="TyrantSkull"/>.
+	/// <summary>Tyrant Cape: <see cref="Defense"/> defense, +<see cref="MinionSlots"/> minion slot (user-set 2026-11-03,
+	/// the summoner rework; the Obsidian Shirt's own bonus) and +<see cref="SummonDamage"/>% summon damage. Until
+	/// 2026-11-03 it cut mana and steam costs 10% (the mage set). Set bonus: <see cref="TyrantSkull"/>.
 	/// <para>Berserker look (user, 2026-10-30: "make the cape leave the chest naked (bra if female character) only with the
 	/// cape"): the body sheet only draws a collar and a bone clasp (and, in the female torso cells, a bra), so vanilla's own
 	/// skin shows on the chest and arms (<c>ArmorIDs.Body.Sets.HidesTopSkin</c> is false by default; <c>HidesHands</c>
@@ -26,11 +24,12 @@ namespace Cogpunk.Content.Bosses.TarTyrant.Armor
 	public class TyrantCape : CogpunkItem
 	{
 		public const int Defense = 7;
-		public const int CostReduction = 10;            // percent, mana and steam
+		public const int MinionSlots = 1;               // user-set
+		public const int SummonDamage = 5;              // percent
 		public const string CapeEquipName = "TyrantCapeBack";
 		public const string CapeTexture = "Cogpunk/Content/Bosses/TarTyrant/Armor/TyrantCape_Back";
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(CostReduction);
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MinionSlots, SummonDamage);
 
 		public override void Load() {
 			if (Main.dedServ || !ModContent.HasAsset(CapeTexture)) {
@@ -57,8 +56,8 @@ namespace Cogpunk.Content.Bosses.TarTyrant.Armor
 		}
 
 		public override void UpdateEquip(Player player) {
-			player.manaCost -= CostReduction / 100f;
-			player.GetModPlayer<SteamPlayer>().SteamCostMultiplier -= CostReduction / 100f;
+			player.maxMinions += MinionSlots;
+			player.GetDamage(DamageClass.Summon) += SummonDamage / 100f;
 		}
 	}
 }

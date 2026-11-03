@@ -166,7 +166,7 @@ Items: {
 		Tooltip:
 			'''
 			Uma estocada rápida que acerta na ida e de novo na volta, para onde você mirar
-			Segure o botão direito para recolher e carregar: +{0}% de dano a cada meio segundo, até +{1}%
+			Segure o botão direito para recolher e carregar: +{0}% de dano a cada quarto de segundo, até +{1}%
 			A investida carregada também acerta na ida e na volta
 			Causa Tétano: o alvo sofre {2}% a mais de dano
 			'Cuidado com a ferrugem'
@@ -401,15 +401,11 @@ Items: {
 
 	TyrantSkull: {
 		DisplayName: Crânio do Tirano
-		Tooltip:
-			'''
-			{0}% de aumento no dano mágico
-			{1}% de chance de acerto crítico mágico
-			'''
+		Tooltip: "{0}% de aumento no dano de invocação"
 		SetBonus:
 			'''
-			A cada {0} segundos uma garra de piche irrompe do chão sob o inimigo mais próximo
-			A garra causa {1} de dano mágico a cada inimigo que pegar
+			{0}% de aumento na velocidade dos chicotes
+			A Praga do Piche que você inflige nos inimigos dura {1} segundos a mais
 			'''
 	}
 
@@ -417,7 +413,8 @@ Items: {
 		DisplayName: Capa do Tirano
 		Tooltip:
 			'''
-			{0}% de redução no custo de mana e de vapor
+			Aumenta em {0} o número máximo de lacaios
+			{1}% de aumento no dano de invocação
 			'Ainda molhada'
 			'''
 	}
@@ -426,8 +423,70 @@ Items: {
 		DisplayName: Sandálias do Tirano
 		Tooltip:
 			'''
-			{0}% de aumento na velocidade de movimento e na altura do pulo
-			O dobro quando o vapor acaba
+			{0}% de aumento no dano de invocação
+			{1}% de aumento na velocidade de movimento
+			'''
+	}
+
+	MetalWrench: {
+		DisplayName: Chave Inglesa de Metal
+		Tooltip:
+			'''
+			{0}% a mais de dano contra inimigos mecânicos
+			Botão direito para aparar: por {1} segundo, um ataque inimigo ricocheteia na chave e não causa nada
+			Aparar prepara um contra-ataque: seu próximo golpe causa {3}x de dano
+			Um contra-ataque num chefe ou mini-chefe desacelera o tempo por um instante
+			O aparo leva {2} segundos para se recuperar
+			'Todo problema parece um parafuso solto'
+			'''
+	}
+
+	Tarmancer: {
+		DisplayName: Pichemante
+		Tooltip:
+			'''
+			Invoca uma geleia de piche que cospe bolotas de piche nos seus inimigos
+			O piche os desacelera e os corrói
+			'Isso nunca sai'
+			'''
+	}
+
+	TarBoneStaff: {
+		DisplayName: Cajado de Osso de Piche
+		Tooltip:
+			'''
+			Lança um crânio de tirano lento que caça o inimigo mais próximo
+			Ele morde e estoura, ferindo todos os inimigos ao redor
+			'''
+	}
+
+	TarShower: {
+		DisplayName: Ducha de Piche
+		Tooltip:
+			'''
+			Usa gel como munição, mas borrifa piche que desacelera e corrói os inimigos
+			Segure o botão direito para inchar uma bola de piche no bocal: até {1}% de dano em {0} segundos
+			Carregada por completo, atravessa todos os inimigos e deixa {2} blocos de piche onde cai
+			'''
+	}
+
+	TarWhip: {
+		DisplayName: Chicote de Piche
+		Tooltip:
+			'''
+			{0} de dano de marcação para invocações
+			Suas invocações vão focar nos inimigos atingidos
+			Cobre os inimigos atingidos com a Praga do Piche por {1} segundos
+			'''
+	}
+
+	RustedNail: {
+		DisplayName: Prego Enferrujado
+		Tooltip:
+			'''
+			Inimigos que tocam em você sofrem {0} de dano
+			e pegam Tétano: {1}% a mais de dano recebido por {2} segundos
+			'Tomou a vacina?'
 			'''
 	}
 }
@@ -461,6 +520,26 @@ Buffs: {
 	AlarmoboBuff: {
 		DisplayName: Alarmobô
 		Description: "{0} Alarmobô por perto: +{1}% de velocidade de movimento, +{2}% de velocidade de ataque"
+	}
+
+	TarSlimeBuff: {
+		DisplayName: Geleia de Piche
+		Description: Uma geleia de piche está cuspindo nos seus inimigos
+	}
+
+	WrenchRiposteBuff: {
+		DisplayName: Contra-ataque
+		Description: Seu próximo golpe com a Chave Inglesa de Metal causa {0}x de dano
+	}
+
+	WrenchParryCooldown: {
+		DisplayName: Chave se Recuperando
+		Description: Você ainda não pode aparar de novo ({0} segundos depois de um aparo)
+	}
+
+	TarWhipDebuff: {
+		DisplayName: Chicoteado com Piche
+		Description: Invocações causam mais dano a este inimigo
 	}
 }
 
@@ -527,6 +606,16 @@ NPCs: {
 	PuxaFrango: {
 		DisplayName: Puxa-frango
 		Bestiary: Uma máquina corcunda e rangente que espreita as cavernas sobre pernas finas. Antes ela guardava um galinheiro; agora não guarda nada e agarra tudo. Quando as garras se abrem, ela vai dar o bote, e puxa para perto o que pegar.
+	}
+
+	Coghawk: {
+		DisplayName: Falcão-Engrenagem
+		Bestiary: Um falcão de latão e ferro rebitado, movido pela engrenagem no peito. Ele circula alto sobre as dunas até escolher a presa, solta um grito e mergulha num rasante que raspa a areia. Quem continua no chão leva as garras.
+	}
+
+	Splasher: {
+		DisplayName: Esguichador
+		Bestiary: Um robô a caldeira que enferruja só de olhar para uma nuvem, então alguém parafusou um guarda-chuva na cabeça dele. Ele só aparece na chuva, mantém distância, bombeia a pistola d'água e encharca quem estiver na tempestade com ele.
 	}
 }
 
@@ -631,12 +720,56 @@ Projectiles: {
 		DisplayName: Osso Arremessado
 	}
 
-	TyrantClaw: {
-		DisplayName: Garra do Tirano
-	}
-
 	TarTyrantClaw: {
 		DisplayName: Garra de Piche
+	}
+
+	MetalWrenchGuard: {
+		DisplayName: Chave Inglesa de Metal
+	}
+
+	MetalClash: {
+		DisplayName: Choque
+	}
+
+	TarSlimeMinion: {
+		DisplayName: Geleia de Piche
+	}
+
+	TarSlimeShot: {
+		DisplayName: Bolota de Piche
+	}
+
+	TyrantSkullBolt: {
+		DisplayName: Crânio de Tirano
+	}
+
+	TarSpray: {
+		DisplayName: Borrifo de Piche
+	}
+
+	TarShowerCharge: {
+		DisplayName: Bola de Piche
+	}
+
+	TarShowerGlob: {
+		DisplayName: Bolota de Piche
+	}
+
+	TarShowerBigGlob: {
+		DisplayName: Bolotona de Piche
+	}
+
+	TarStain: {
+		DisplayName: Mancha de Piche
+	}
+
+	TarWhipProjectile: {
+		DisplayName: Chicote de Piche
+	}
+
+	SplasherWater: {
+		DisplayName: Água
 	}
 }
 
@@ -665,6 +798,7 @@ WorldGen: {
 	Junkyard: Despejando o Ferro-Velho
 	ScrappyTrunks: Enferrujando alguns baús velhos
 	GlassContainers: Escondendo tanques de vapor de vidro
+	RustedNails: Deixando pregos enferrujados em baús velhos
 }
 
 UI: {

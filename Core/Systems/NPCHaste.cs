@@ -7,25 +7,29 @@ using Terraria.ModLoader;
 namespace Cogpunk.Core.Systems
 {
 	/// <summary>
-	/// A short movement-speed buff on enemies (+<c>(Factor - 1)</c>, 50%), refreshed by whatever grants it (the
-	/// Annoy-o-tron's alarm, user-set 2026-10-27: "increasing their speed by 50%"). NPCs have no speed stat, so:
+	/// Short movement-speed changes on enemies, refreshed by whatever grants them: a haste (x<see cref="Factor"/>, the
+	/// Annoy-o-tron's alarm, user-set 2026-10-27: "increasing their speed by 50%") and a slow (x<see cref="SlowFactor"/>,
+	/// the Tar Plague, 2026-10-30: "keep the slow"); both at once multiply. NPCs have no speed stat, so:
 	/// <list type="bullet">
 	/// <item>Cogpunk NPCs that set <see cref="CogpunkSets.SelfHasting"/> read <see cref="FactorOf"/> in their own AI (top
 	/// speed, acceleration, animation rate: a walker's root motion stays exact).</item>
-	/// <item>Every other enemy gets an extra half step each tick in <c>PostAI</c>, after its AI has chosen its velocity and
-	/// before vanilla moves it (decompiled <c>NPC.UpdateNPC_Inner</c>: <c>AI()</c>, then <c>UpdateCollision()</c>), through
-	/// vanilla's tile collision (<c>Collision.TileCollision</c>, like vanilla's conveyor-belt nudge): horizontal only for
-	/// walkers (no higher jumps or faster falls), both axes for fliers and ghosts. Its velocity is untouched, so its AI is
-	/// never confused.</item>
+	/// <item>Every other enemy gets the difference as an extra part of a step each tick in <c>PostAI</c> (half a step more
+	/// when hasted, half a step back when slowed), after its AI has chosen its velocity and before vanilla moves it
+	/// (decompiled <c>NPC.UpdateNPC_Inner</c>: <c>AI()</c>, then <c>UpdateCollision()</c>), through vanilla's tile collision
+	/// (<c>Collision.TileCollision</c>, like vanilla's conveyor-belt nudge): horizontal only for walkers (no higher jumps or
+	/// faster falls), both axes for fliers and ghosts. Its velocity is untouched, so its AI is never confused.</item>
 	/// </list>
-	/// Not for bosses, town NPCs, critters, projectile NPCs or worm segments. The grant is computed the same way on every
-	/// side from synced positions (no packet); the server's positions win as usual (D2). D1: one int per NPC, no allocation.
+	/// Not for bosses, town NPCs, critters, projectile NPCs or worm segments (the slow also skips worm heads and NPCs counted
+	/// as bosses: their AI times its moves). The grant is computed the same way on every side from synced state (positions,
+	/// buffs; no packet); the server's positions win as usual (D2). D1: two ints per NPC, no allocation.
 	/// </summary>
 	public sealed class NPCHaste : GlobalNPC
 	{
 		public const float Factor = 1.5f;
+		public const float SlowFactor = 0.5f;
 
 		private int ticks;
+		private int slowTicks;
 
 		public override bool InstancePerEntity => true;
 
@@ -45,20 +49,48 @@ namespace Cogpunk.Core.Systems
 			return true;
 		}
 
+		/// <summary>Slows <paramref name="npc"/> for at least <paramref name="duration"/> ticks; false if it can't be slowed.</summary>
+		public static bool ApplySlow(NPC npc, int duration) {
+			if ((npc.realLife >= 0 && npc.realLife != npc.whoAmI) || npc.aiStyle == NPCAIStyleID.Worm
+				|| (npc.type > NPCID.None && npc.type < NPCID.Sets.ShouldBeCountedAsBoss.Length && NPCID.Sets.ShouldBeCountedAsBoss[npc.type])
+				|| !npc.TryGetGlobalNPC(out NPCHaste haste)) {
+				return false;
+			}
+			if (haste.slowTicks < duration) {
+				haste.slowTicks = duration;
+			}
+			return true;
+		}
+
 		public static bool IsHasted(NPC npc) => npc.TryGetGlobalNPC(out NPCHaste haste) && haste.ticks > 0;
 
-		/// <summary><see cref="Factor"/> while hasted, else 1: for <see cref="CogpunkSets.SelfHasting"/> NPCs.</summary>
-		public static float FactorOf(NPC npc) => IsHasted(npc) ? Factor : 1f;
+		public static bool IsSlowed(NPC npc) => npc.TryGetGlobalNPC(out NPCHaste haste) && haste.slowTicks > 0;
+
+		/// <summary>The speed multiplier now (<see cref="Factor"/> hasted, <see cref="SlowFactor"/> slowed, both multiply; 1
+		/// otherwise): for <see cref="CogpunkSets.SelfHasting"/> NPCs.</summary>
+		public static float FactorOf(NPC npc) {
+			if (!npc.TryGetGlobalNPC(out NPCHaste haste)) {
+				return 1f;
+			}
+			return haste.Current;
+		}
+
+		private float Current => (ticks > 0 ? Factor : 1f) * (slowTicks > 0 ? SlowFactor : 1f);
 
 		public override void PostAI(NPC npc) {
-			if (ticks <= 0) {
+			if (ticks <= 0 && slowTicks <= 0) {
 				return;
 			}
-			ticks--;
-			if (CogpunkSets.SelfHasting[npc.type]) {
+			float k = Current - 1f;
+			if (ticks > 0) {
+				ticks--;
+			}
+			if (slowTicks > 0) {
+				slowTicks--;
+			}
+			if (CogpunkSets.SelfHasting[npc.type] || k == 0f) {
 				return;
 			}
-			float k = Factor - 1f;
 			Vector2 extra = npc.noGravity ? npc.velocity * k : new Vector2(npc.velocity.X * k, 0f);
 			if (extra == Vector2.Zero || !MathSafety.IsFinite(extra)) {
 				return;

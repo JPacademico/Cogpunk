@@ -167,7 +167,7 @@ Items: {
 		Tooltip:
 			'''
 			A quick thrust that hits on the way out and again on the way back, wherever you aim
-			Hold right click to draw it back and charge: +{0}% damage every half second, up to +{1}%
+			Hold right click to draw it back and charge: +{0}% damage every quarter second, up to +{1}%
 			The charged lunge also hits going out and coming back
 			Inflicts Tetanus: the target takes {2}% more damage
 			'Mind the rust'
@@ -402,15 +402,11 @@ Items: {
 
 	TyrantSkull: {
 		DisplayName: Tyrant Skull
-		Tooltip:
-			'''
-			{0}% increased magic damage
-			{1}% increased magic critical strike chance
-			'''
+		Tooltip: "{0}% increased summon damage"
 		SetBonus:
 			'''
-			Every {0} seconds a tar claw erupts from the ground under the closest enemy
-			The claw deals {1} magic damage to every enemy it catches
+			{0}% increased whip speed
+			Tar Plague you inflict on enemies lasts {1} seconds longer
 			'''
 	}
 
@@ -418,7 +414,8 @@ Items: {
 		DisplayName: Tyrant Cape
 		Tooltip:
 			'''
-			{0}% reduced mana and steam cost
+			Increases your max number of minions by {0}
+			{1}% increased summon damage
 			'Still wet'
 			'''
 	}
@@ -427,8 +424,70 @@ Items: {
 		DisplayName: Tyrant Sandals
 		Tooltip:
 			'''
-			{0}% increased movement speed and jump height
-			Twice that while out of steam
+			{0}% increased summon damage
+			{1}% increased movement speed
+			'''
+	}
+
+	MetalWrench: {
+		DisplayName: Metal Wrench
+		Tooltip:
+			'''
+			{0}% more damage to mechanical enemies
+			Right click to parry: for {1} second, an enemy attack clangs off the wrench and does nothing
+			A parry readies a riposte: your next swing deals {3}x damage
+			A riposte on a boss or a mini-boss slows down time for a moment
+			The parry needs {2} seconds to recover
+			'Every problem looks like a loose bolt'
+			'''
+	}
+
+	Tarmancer: {
+		DisplayName: Tarmancer
+		Tooltip:
+			'''
+			Summons a tar slime that spits globs of tar at your enemies
+			The tar slows them and eats through them
+			'It never washes off'
+			'''
+	}
+
+	TarBoneStaff: {
+		DisplayName: Tar Bone Staff
+		Tooltip:
+			'''
+			Looses a slow tyrant skull that hunts the nearest enemy
+			It bites, then bursts, hurting every enemy around it
+			'''
+	}
+
+	TarShower: {
+		DisplayName: Tar-Shower
+		Tooltip:
+			'''
+			Uses gel as ammo, but sprays tar that slows enemies and eats through them
+			Hold right click to swell a ball of tar at the nozzle: up to {1}% damage after {0} seconds
+			Fully charged, it flies through every enemy and leaves {2} tiles of tar where it lands
+			'''
+	}
+
+	TarWhip: {
+		DisplayName: Tar Whip
+		Tooltip:
+			'''
+			{0} summon tag damage
+			Your summons will focus struck enemies
+			Coats struck enemies in Tar Plague for {1} seconds
+			'''
+	}
+
+	RustedNail: {
+		DisplayName: Rusted Nail
+		Tooltip:
+			'''
+			Enemies that touch you take {0} damage
+			and get Tetanus: {1}% more damage taken for {2} seconds
+			'Make sure your shots are up to date'
 			'''
 	}
 }
@@ -462,6 +521,26 @@ Buffs: {
 	AlarmoboBuff: {
 		DisplayName: Alarmobô
 		Description: "{0} Alarmobô in range: +{1}% movement speed, +{2}% attack speed"
+	}
+
+	TarSlimeBuff: {
+		DisplayName: Tar Slime
+		Description: A tar slime is spitting at your enemies
+	}
+
+	WrenchRiposteBuff: {
+		DisplayName: Riposte
+		Description: Your next Metal Wrench swing deals {0}x damage
+	}
+
+	WrenchParryCooldown: {
+		DisplayName: Wrench Recovering
+		Description: You can't parry again yet ({0} seconds after a parry)
+	}
+
+	TarWhipDebuff: {
+		DisplayName: Tar-Whipped
+		Description: Summons deal more damage to this enemy
 	}
 }
 
@@ -528,6 +607,16 @@ NPCs: {
 	PuxaFrango: {
 		DisplayName: Puxa-frango
 		Bestiary: A hunched, creaking machine that stalks the caves on spindly legs. It used to guard a henhouse; now it guards nothing and grabs everything. When its claws open wide, it is about to lunge, and it pulls whatever it catches in close.
+	}
+
+	Coghawk: {
+		DisplayName: Coghawk
+		Bestiary: A hawk of brass and riveted iron, wound up round the cog in its chest. It circles high over the dunes until it has picked its prey, screeches once, and drops into a swoop that skims the sand. Whatever stays on the ground gets the talons.
+	}
+
+	Splasher: {
+		DisplayName: Splasher
+		Bestiary: A boiler robot that rusts if it so much as looks at a cloud, so somebody bolted an umbrella to its head. It only comes out in the rain, keeps its distance, pumps its water gun and soaks whoever is out in the storm with it.
 	}
 }
 
@@ -632,12 +721,56 @@ Projectiles: {
 		DisplayName: Flung Bone
 	}
 
-	TyrantClaw: {
-		DisplayName: Tyrant Claw
-	}
-
 	TarTyrantClaw: {
 		DisplayName: Tar Claw
+	}
+
+	MetalWrenchGuard: {
+		DisplayName: Metal Wrench
+	}
+
+	MetalClash: {
+		DisplayName: Clash
+	}
+
+	TarSlimeMinion: {
+		DisplayName: Tar Slime
+	}
+
+	TarSlimeShot: {
+		DisplayName: Tar Glob
+	}
+
+	TyrantSkullBolt: {
+		DisplayName: Tyrant Skull
+	}
+
+	TarSpray: {
+		DisplayName: Tar Spray
+	}
+
+	TarShowerCharge: {
+		DisplayName: Tar Ball
+	}
+
+	TarShowerGlob: {
+		DisplayName: Tar Glob
+	}
+
+	TarShowerBigGlob: {
+		DisplayName: Big Tar Glob
+	}
+
+	TarStain: {
+		DisplayName: Tar Stain
+	}
+
+	TarWhipProjectile: {
+		DisplayName: Tar Whip
+	}
+
+	SplasherWater: {
+		DisplayName: Water
 	}
 }
 
@@ -666,6 +799,7 @@ WorldGen: {
 	Junkyard: Dumping the Junkyard
 	ScrappyTrunks: Rusting some old chests
 	GlassContainers: Hiding glass steam tanks
+	RustedNails: Dropping rusted nails in old chests
 }
 
 UI: {

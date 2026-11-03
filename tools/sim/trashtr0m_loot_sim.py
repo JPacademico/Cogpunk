@@ -6,9 +6,10 @@ constants parsed straight out of the C# files, replaying the weapons tick by tic
 Writes <date>_weapon-<scene>.gif|png:
     loot      PNG: the bag, the four weapons, the held lance, the sentry's frames and every new effect, at 2x zoom over a
               dark and a light background.
-    tetanus   (2026-10-27) the 8.5-tile lance aimed in any direction: quick thrusts right, up at a flier and down-left
-              behind the player (each hits going out and coming back), then a 2.5 s charge aimed up-right and the charged
-              lunge, which now also hits going out and coming back (27 x 2.0, then x1.1 under Tetanus).
+    tetanus   (2026-10-27, charge halved 2026-10-30) the 8.5-tile lance aimed in any direction: quick thrusts right, up at
+              a flier and down-left behind the player (each hits going out and coming back), then a full charge aimed up-right
+              (1.25 s since 2026-10-30, ChargeStepTicks x MaxChargeSteps) and the charged lunge, which also hits going out
+              and coming back (27 x 2.0, then x1.1 under Tetanus).
     launcher  (2026-10-27) left click: chewed scrap flying dead straight across a whole 1920 px screen (no gravity);
               right click: the big ball on a gravity arc (one bounce), 31 ticks apart; every hit bursts (impact sheet).
     held      PNG: the smaller Scrap Launcher held at three aims, placed the way vanilla draws guns.
@@ -210,8 +211,8 @@ def rotated(sprite, angle, flip_v):
 
 def scene_tetanus(out, font):
     """2026-10-27: an 8.5-tile lance aimed in any direction. Quick thrusts right, up at a flier, down-left behind the
-    player (each hits going out and coming back), then a 2.5 s charge aimed up-right and the charged lunge, which now
-    also hits twice."""
+    player (each hits going out and coming back), then a full charge aimed up-right (1.25 s since 2026-10-30) and the
+    charged lunge, which also hits twice."""
     lance = load(W_DIR + "TetanusProjectile.png")
     L = K["Length"]
     glow = frames(W_DIR + "TetanusProjectile_Glow.png", lance.width, 18, 20, 6)
