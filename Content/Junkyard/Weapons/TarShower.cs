@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Cogpunk.Content.Junkyard.Items;
+using Cogpunk.Content.Mechanist;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
@@ -19,15 +21,17 @@ namespace Cogpunk.Content.Junkyard.Weapons
 	/// <list type="bullet">
 	/// <item><b>Left click</b>: a mid-range spray of tar (<see cref="TarSpray"/>, four bursts a use, ~16 tiles) that coats
 	/// what it touches in the Tar Plague.</item>
-	/// <item><b>Right click, held</b>: a ball of tar swells at the nozzle (<see cref="TarShowerCharge"/>), up to
-	/// x<see cref="MaxChargeMultiplier"/> damage at <see cref="MaxChargeTicks"/> ticks (2.5 s); let go and it flies. At full
-	/// charge it is the big glob (<see cref="TarShowerBigGlob"/>): it falls on an arc, goes through every enemy in its way and
-	/// leaves a <see cref="TarStain"/> 6 tiles wide where it lands, plaguing every enemy that touches it; a lesser charge
-	/// throws a smaller glob (<see cref="TarShowerGlob"/>) for its share of the damage.</item>
+	/// <item><b>Right click, held</b>: for <see cref="ChargeSteamCost"/> steam (user, 2026-11-04; a steam skill,
+	/// <see cref="ISteamSkill"/>: paid when the charge starts, by a Mechanist weapon's rules, so it needs a steam tank and an
+	/// empty one overheats; the Spring Gloves count it), a ball of tar swells at the nozzle (<see cref="TarShowerCharge"/>),
+	/// up to x<see cref="MaxChargeMultiplier"/> damage at <see cref="MaxChargeTicks"/> ticks (2.5 s); let go and it flies. At
+	/// full charge it is the big glob (<see cref="TarShowerBigGlob"/>): it falls on an arc, goes through every enemy in its
+	/// way and leaves a <see cref="TarStain"/> 6 tiles wide for 5 s where it lands, plaguing every enemy that touches it; a
+	/// lesser charge throws a smaller glob (<see cref="TarShowerGlob"/>) for its share of the damage.</item>
 	/// </list>
 	/// Only the owner fires (D2). Balance: docs/balance/weapons.csv (anchor: Bee's Knees).
 	/// </summary>
-	public class TarShower : CogpunkItem
+	public class TarShower : CogpunkItem, ISteamSkill
 	{
 		public const int UseTime = 8, UseAnimationTicks = 32;
 		public const int MaxChargeTicks = 150;            // 2.5 s (user-set)
@@ -35,8 +39,16 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		public const float SpraySpeed = 9.3f;             // ~16 tiles over TarSpray.Lifetime at its drag (user, 2026-11-03: +4 tiles; 7 was ~12)
 		public const float SpraySpread = 0.07f;           // radians each way
 		public const float MuzzleDistance = 36f;          // from the hand to the nozzle
+		public const int ChargeSteamCost = 10;            // user-set 2026-11-04
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MaxChargeTicks / 60f, (int)(MaxChargeMultiplier * 100f), TarStain.WidthTiles);
+		public int SkillSteamCost => ChargeSteamCost;
+
+		/// <summary>The alt use is the charge (vanilla turns a pending right click into <c>altFunctionUse</c> 1, then 2 once
+		/// the use starts, back to 0 when it ends), so its damage counts the charge's steam for the Spring Gloves.</summary>
+		public int SteamForUse(Player player) => player.altFunctionUse != 0 ? player.GetModPlayer<SteamPlayer>().GetCost(ChargeSteamCost) : 0;
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MaxChargeTicks / 60f, (int)(MaxChargeMultiplier * 100f), TarStain.WidthTiles,
+			ChargeSteamCost, TarStain.Lifetime / 60f);
 
 		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;
@@ -65,8 +77,19 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		public override bool AltFunctionUse(Player player) => true;
 
 		// One charge at a time; the alt use only spawns it (one shot a use, see UseTimeMultiplier) and the charge holds the gun.
+		// The owner decides whether the steam covers it (the hint or the overheat when it doesn't, D2: other clients follow).
 		public override bool CanUseItem(Player player) {
-			return player.altFunctionUse != 2 || player.ownedProjectileCounts[ModContent.ProjectileType<TarShowerCharge>()] < 1;
+			if (player.altFunctionUse != 2) {
+				return true;
+			}
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<TarShowerCharge>()] >= 1) {
+				return false;
+			}
+			return player.whoAmI != Main.myPlayer || player.GetModPlayer<SteamPlayer>().CanPayAttack(ChargeSteamCost);
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+			SteamSkillTooltip.AddNoTankLine(Mod, tooltips, ChargeSteamCost);
 		}
 
 		public override float UseTimeMultiplier(Player player) => player.altFunctionUse == 2 ? UseAnimationTicks / (float)UseTime : 1f;
@@ -78,8 +101,11 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
 			Vector2 direction = velocity.SafeNormalize(Vector2.UnitX * player.direction);
 			if (player.altFunctionUse == 2) {
-				SafeSpawn.TryNewProjectile(source, player.MountedCenter, direction, ModContent.ProjectileType<TarShowerCharge>(), damage, knockback,
-					out _, player.whoAmI);
+				// the steam is paid as the charge starts (CanUseItem checked it this tick); a refused spawn costs nothing (D0)
+				if (SafeSpawn.TryNewProjectile(source, player.MountedCenter, direction, ModContent.ProjectileType<TarShowerCharge>(), damage, knockback,
+					out _, player.whoAmI)) {
+					player.GetModPlayer<SteamPlayer>().Spend(ChargeSteamCost);
+				}
 				return false;
 			}
 			Vector2 muzzle = direction * MuzzleDistance;

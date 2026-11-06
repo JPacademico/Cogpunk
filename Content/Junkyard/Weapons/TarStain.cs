@@ -24,7 +24,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 	{
 		public const int WidthTiles = 6;
 		public const int HitboxWidth = WidthTiles * 16, HitboxHeight = 12;
-		public const int Lifetime = 300;
+		public const int Lifetime = 300;                    // 5 s (user-set 2026-11-04; it already was)
 		public const int FadeTicks = 30;
 		public const int PlagueTicks = 120;
 		public const int CheckInterval = 10;

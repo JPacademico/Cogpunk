@@ -708,7 +708,9 @@ def main():
     only = set(args.only.split(",")) if args.only else None
     p = lambda name: os.path.join(args.out, args.date + "_" + name)   # noqa: E731
     jobs = [("sprites", lambda: sprites_png(p("weapons-tar-sprites.png"), args.font)),
-            ("wrench", lambda: scene_wrench(p("weapon-metal-wrench.gif"), args.font)),
+            # the Metal Wrench swings as a slam since 2026-11-05b: its proof is update_2026_11_05b_sim.scene_wrench (scene_wrench
+            # below is the old vanilla-arc swing, kept for its parry and riposte scenes)
+            ("wrench", lambda: __import__("update_2026_11_05b_sim").scene_wrench(p("weapon-metal-wrench.gif"), args.font)),
             ("tarmancer", lambda: scene_tarmancer(p("weapon-tarmancer.gif"), args.font)),
             ("staff", lambda: scene_staff(p("weapon-tar-bone-staff.gif"), args.font)),
             ("shower", lambda: scene_shower(p("weapon-tar-shower.gif"), args.font)),

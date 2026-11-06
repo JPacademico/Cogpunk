@@ -266,6 +266,16 @@ Items: {
 			'''
 	}
 
+	CogLauncher: {
+		DisplayName: Cog-launcher
+		Tooltip:
+			'''
+			Fires a spinning cog that passes through {0} enemies and rebounds off {1} walls
+			A cog that comes back through an enemy it already cut deals {2}% more damage
+			'A musket that learned to share'
+			'''
+	}
+
 	TrapperChain: {
 		DisplayName: Trapper Chain
 		Tooltip:
@@ -434,7 +444,7 @@ Items: {
 		Tooltip:
 			'''
 			{0}% more damage to mechanical enemies
-			Right click to parry: for {1} second, an enemy attack clangs off the wrench and does nothing
+			Right click to parry for {4} steam: for {1} second, an enemy attack clangs off the wrench and does nothing
 			A parry readies a riposte: your next swing deals {3}x damage
 			A riposte on a boss or a mini-boss slows down time for a moment
 			The parry needs {2} seconds to recover
@@ -466,8 +476,8 @@ Items: {
 		Tooltip:
 			'''
 			Uses gel as ammo, but sprays tar that slows enemies and eats through them
-			Hold right click to swell a ball of tar at the nozzle: up to {1}% damage after {0} seconds
-			Fully charged, it flies through every enemy and leaves {2} tiles of tar where it lands
+			Hold right click to swell a ball of tar at the nozzle for {3} steam: up to {1}% damage after {0} seconds
+			Fully charged, it flies through every enemy and leaves {2} tiles of tar where it lands for {4} seconds
 			'''
 	}
 
@@ -489,6 +499,126 @@ Items: {
 			and get Tetanus: {1}% more damage taken for {2} seconds
 			'Make sure your shots are up to date'
 			'''
+	}
+
+	SpringGloves: {
+		DisplayName: Spring Gloves
+		Tooltip:
+			'''
+			Attacks gain {0}% damage and knockback for every point of steam they use
+			Counts Mechanist weapons, spells paid with steam and steam-powered weapon skills
+			'Wind up, let fly'
+			'''
+	}
+
+	BrassSandstone: {
+		DisplayName: Brass Sandstone
+		Tooltip: Desert stone shot through with old brass.
+	}
+
+	TarnishedBrassOre: {
+		DisplayName: Tarnished Brass Ore
+		Tooltip: Brass gone green with age. It still shines once it's smelted.
+	}
+
+	TarnishedBrassBar: {
+		DisplayName: Tarnished Brass Bar
+		Tooltip: 'Polish not included'
+	}
+
+	WeatheredPlank: {
+		DisplayName: Weathered Planks
+		Tooltip: Sun-bleached boards from a town that went underground.
+	}
+
+	TarnishedBrassPlating: {
+		DisplayName: Tarnished Brass Plating
+		Tooltip: Riveted sheets for roofs and signs.
+	}
+
+	BrassSandstoneWall: {
+		DisplayName: Brass Sandstone Wall
+		Tooltip: ""
+	}
+
+	WeatheredPlankWall: {
+		DisplayName: Weathered Plank Wall
+		Tooltip: ""
+	}
+
+	SharkEye: {
+		DisplayName: Shark Eye
+		Tooltip:
+			'''
+			{0}% increased melee critical strike chance
+			'It never blinks, and it never stops looking for blood'
+			'''
+	}
+
+	HawkEye: {
+		DisplayName: Hawk Eye
+		Tooltip:
+			'''
+			{0}% increased ranged critical strike chance
+			'It picks out a target from the top of a dune'
+			'''
+	}
+
+	SheriffBadge: {
+		DisplayName: Sheriff Badge
+		Tooltip:
+			'''
+			Deputizes a sheriff star that rides over your head and fights for you
+			Each star takes one minion slot
+			Stars fly at your enemies and come back, hitting everything in their way
+			'The law is whoever is holding the badge'
+			'''
+	}
+
+	SheriffsRevolver: {
+		DisplayName: Sheriff's Revolver
+		Tooltip:
+			'''
+			Fires a fast brass bullet that ricochets once, off a wall or off an enemy, towards the nearest foe in sight
+			A ricochet hits for 50% more damage
+			Holds {0} rounds and takes {1} seconds to reload once they are spent, even when holstered
+			Right click to fan every round left in a third of a second for {2} steam
+			'In this town, the law shoots first'
+			'''
+		Rounds: "{0}/{1} rounds in the cylinder"
+	}
+
+	SheriffsKey: {
+		DisplayName: Sheriff's Key
+		Tooltip: Opens the locked Brass Strongbox in Old Brass Town's bank
+	}
+
+	BrassStrongbox: {
+		DisplayName: Brass Strongbox
+		Tooltip: A riveted brass chest from the old bank's vault
+	}
+
+	BrokenWhistle: {
+		DisplayName: Broken Whistle
+		Tooltip:
+			'''
+			A train conductor's whistle, cracked from end to end
+			Something inside it still wants to blow
+			'''
+	}
+
+	CursedWhistle: {
+		DisplayName: Cursed Whistle
+		Tooltip:
+			'''
+			Summons the Cursed Conductor
+			Can only be blown in Old Brass Town
+			'''
+	}
+
+	CursedConductorBag: {
+		DisplayName: Treasure Bag ({$Mods.Cogpunk.NPCs.CursedConductor.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 	}
 }
 
@@ -541,6 +671,16 @@ Buffs: {
 	TarWhipDebuff: {
 		DisplayName: Tar-Whipped
 		Description: Summons deal more damage to this enemy
+	}
+
+	SheriffStarBuff: {
+		DisplayName: Sheriff Stars
+		Description: The law rides over your head
+	}
+
+	ConductorCurse: {
+		DisplayName: Conductor's Curse
+		Description: You take 25% more damage from the ghost train and its ghosts
 	}
 }
 
@@ -617,6 +757,59 @@ NPCs: {
 	Splasher: {
 		DisplayName: Splasher
 		Bestiary: A boiler robot that rusts if it so much as looks at a cloud, so somebody bolted an umbrella to its head. It only comes out in the rain, keeps its distance, pumps its water gun and soaks whoever is out in the storm with it.
+	}
+
+	BeatBoxer: {
+		DisplayName: Beat-Boxer
+		Bestiary: A sparring robot wired to a jukebox, still waiting for the next bout in the halls of the Dungeon. It keeps time on the speakers bolted to its shoulders and throws its spring-loaded gloves in pairs, one-two, hard enough to send you flying.
+	}
+
+	Friendobo: {
+		DisplayName: Friendobô
+		Bestiary: An old bartender robot in a top hat and a monocle. He kept a saloon somewhere long ago, and he is still polishing the same glass. He moved in once the Mech Army stopped marching, and he trades in scrap and in the trinkets that wake the big machines.
+		Chat1: Welcome, welcome! Mind the floor, I polished it this century.
+		Chat2: What'll it be? I've got rusted cogs, rusted scrap and more rusted cogs.
+		Chat3: This monocle? Pure brass. The eye behind it, less so.
+		Chat4: I used to tend bar in a town down under the desert. Brass everywhere. Then the sand came in, and the customers stopped coming out.
+		Chat5: Careful with that top hat, friend. There's a spare spring in it.
+		Chat6: Every machine that wakes up angry had something that called it. I sell those, once you have beaten the beast yourself.
+		ChatTavernkeep: The Tavernkeep and I trade tips. He says my ale tastes like oil. It is oil.
+		ChatMechanic: The Mechanic offered to oil my joints. Kind of them. A bit too eager with the wrench, though.
+	}
+
+	Cogtuna: {
+		DisplayName: Cogtuna
+		Bestiary: A great tuna of riveted iron that never has to surface: a boiler breathes for it, and the furnace in its throat glows whenever it opens its jaws. Its plates turn most blades aside, it hits like a dropped anchor, and it will not leave the water to chase you.
+	}
+
+	BrassBandit: {
+		DisplayName: Brass Bandit
+		Bestiary: An outlaw robot of dusty brass that still holds up the streets of Old Brass Town. It shoots on sight, fans all six chambers of its rusty revolver, then turns tail and runs to reload. Even a bandit knows when it is out of bullets.
+	}
+
+	Sheriff: {
+		DisplayName: Sheriff
+		Bestiary: The last lawman of Old Brass Town, still keeping the peace long after the townsfolk left. Three sheriff stars ride over his hat and fly out at whoever breaks the law; his revolver is the only clean thing left in town. He never runs, not even to reload.
+	}
+
+	MechanicalBull: {
+		DisplayName: Mechanical Bull
+		Bestiary: A steam rodeo bull that threw its last rider decades ago and never stopped bucking. When it lowers its horns and paws the ground, get out of the way: once it starts its charge it does not turn.
+	}
+
+	Dinamitrom: {
+		DisplayName: Dinamitrom
+		Bestiary: A powder keg that somebody gave legs. It hops around the old mine with its fuse lit, and when it spots you it crouches and leaps. Shoot it before it lands.
+	}
+
+	CursedConductor: {
+		DisplayName: Cursed Conductor
+		Epithet: The Last Stop
+		Bestiary: The conductor of the line that once ran under Old Brass Town, still keeping time for a train that left the rails a hundred years ago. The crash took his legs and the curse took the rest; a turbine bolted where his legs were pumps soot to keep him aloft, and his whistle still calls the train, and the train still comes. Leave his town and he will chase you to the end of the line.
+	}
+
+	ConductorGhost: {
+		DisplayName: Cursed Ghost
 	}
 }
 
@@ -772,6 +965,46 @@ Projectiles: {
 	SplasherWater: {
 		DisplayName: Water
 	}
+
+	SpringPunch: {
+		DisplayName: Spring Punch
+	}
+
+	RustyBullet: {
+		DisplayName: Rusty Bullet
+	}
+
+	SheriffStar: {
+		DisplayName: Sheriff Star
+	}
+
+	DinamitromBlast: {
+		DisplayName: Dynamite Blast
+	}
+
+	SheriffStarMinion: {
+		DisplayName: Sheriff Star
+	}
+
+	SheriffsBullet: {
+		DisplayName: Sheriff's Bullet
+	}
+
+	GhostTrain: {
+		DisplayName: Ghost Train
+	}
+
+	ConductorFlame: {
+		DisplayName: Cursed Bolt
+	}
+
+	GhostRift: {
+		DisplayName: Ghost Rift
+	}
+
+	CogLauncherCog: {
+		DisplayName: Cog
+	}
 }
 
 Tiles: {
@@ -791,6 +1024,27 @@ Tiles: {
 	RustPolisherTile: {
 		MapEntry: Rust Polisher
 	}
+
+	BrassSandstoneTile: {
+		MapEntry: Brass Sandstone
+	}
+
+	TarnishedBrassOreTile: {
+		MapEntry: Tarnished Brass Ore
+	}
+
+	WeatheredPlankTile: {
+		MapEntry: Weathered Planks
+	}
+
+	TarnishedBrassPlatingTile: {
+		MapEntry: Tarnished Brass Plating
+	}
+
+	BrassStrongboxTile: {
+		MapEntry0: Brass Strongbox
+		MapEntry1: Locked Brass Strongbox
+	}
 }
 
 WorldGen: {
@@ -800,6 +1054,7 @@ WorldGen: {
 	ScrappyTrunks: Rusting some old chests
 	GlassContainers: Hiding glass steam tanks
 	RustedNails: Dropping rusted nails in old chests
+	OldBrassTown: Building an old brass town
 }
 
 UI: {
@@ -823,6 +1078,16 @@ Biomes: {
 	JunkyardBiome: {
 		DisplayName: The Junkyard
 	}
+
+	OldBrassTownBiome: {
+		DisplayName: Old Brass Town
+	}
+}
+
+Conditions: {
+	DownedTrashTr0m: After Trash-Tr0m has been defeated
+	DownedTarTyrant: After the Tar Tyrant has been defeated
+	DownedCursedConductor: After the Cursed Conductor has been defeated
 }
 
 DropConditions: {

@@ -8,10 +8,11 @@ ramp 0 of its own material (rig.py parts, the rod rasteriser of art/bosses/trash
 details on top). Friendly effects use Brass, Steam and Aether (D3 colour coding); tar keeps its own ramp (rig.RAMP["tar"]),
 the bone Tar Tyrant's (rig.RAMP["bone"]). Outputs (Content/Junkyard/Weapons/):
 
-    MetalWrench.png             68x68   item and swing (redrawn 2026-11-03, user: "a big thick metal wrench", the Blade
-                                        of Grass's 1.4.4 sprite size): an open-end wrench of polished steel, a big jaw,
-                                        an I-beam shaft, the handle end dipped in condensed tar; points to the top right
-                                        like every sword
+    MetalWrench.png             68x68   item and swing (redrawn twice on 2026-11-03: "a big thick metal wrench" at the
+                                        Blade of Grass's 1.4.4 sprite size, then the user's own reference image): a pipe
+                                        wrench of polished steel, a long silver handle with a hanging hole, the frame and
+                                        its heel jaw, the knurled nut, the hook jaw; points to the top right like every
+                                        sword (the reference points top-left: mirrored)
     MetalClash.png              64x394  6 frames (stride 66): the clash, a starburst of brass and white with sparks flying
     WrenchRiposteBuff.png       32x32   buff icon: the wrench with a spark at its jaw (the empowered riposte)
     WrenchParryCooldown.png     32x32   debuff icon: the wrench under a turning arrow (the parry is cooling down)
@@ -195,22 +196,25 @@ TAR_GLOSS = (T[3], T[4])
 
 
 # ================================================================================================
-# Metal Wrench (redrawn 2026-11-03, user: "a big thick metal wrench the size of a sword like the Blade of Grass"; the
-# first one, thin with a cog pommel, read as a robot arm: art/junkyard/previous/make_tar_weapons_2026-10-30.py)
+# Metal Wrench: a pipe wrench from the user's reference image (2026-11-03, second request). Earlier looks, kept in
+# art/junkyard/previous/: the thin one with a cog pommel (make_tar_weapons_2026-10-30.py, "it looks like a robot arm")
+# and the thick open-end wrench of the same morning (make_tar_weapons_2026-11-03.py).
 # ================================================================================================
-# An open-end wrench of polished steel, 34x34 art (68x68 in game, the Blade of Grass's 1.4.4 sprite): a big open-end
-# jaw at the top right, a heavy I-beam shaft with a recessed channel, the handle end dipped in condensed tar at the
-# bottom left (where the hand holds it in a swing). It is built in its own space, u along the wrench from the handle
-# end and v across it, and placed at -45 degrees, so every edge is a clean 45-degree staircase. The
-# top-left light falls on the wrench from exactly -v (screen (-1, -1) is local (0, -1) at this angle).
+# 34x34 art (68x68 in game, the Blade of Grass's 1.4.4 sprite size): a long silver handle with a hanging hole at the
+# bottom left (where the hand holds it in a swing), the frame and its heel jaw, the knurled adjusting nut on the hook
+# jaw's shank, the hook jaw across the head, the mouth opening to the top left (the reference points top-left and opens
+# right: mirrored). It is built in its own space, u along the wrench from the handle end and v across it, and placed
+# at -45 degrees, so every edge is a clean 45-degree staircase. The top-left light falls on the wrench from exactly -v
+# (screen (-1, -1) is local (0, -1) at this angle).
 WRENCH_SIZE = 34
-WRENCH_START = (1.84, 32.2)                                 # screen point of local (0, 0)
-GRIP_U0, GRIP_U1, GRIP_W = 0.6, 13.0, 3.8                   # the handle end, dipped in condensed tar
-SHAFT_W = 3.4                                               # the I-beam shaft
-CHANNEL_U0, CHANNEL_U1 = 15.0, 23.5                         # its recessed channel
-NECK_U0, NECK_U1, NECK_W = 24.5, 27.5, 5.2                  # the shaft flares into the head
-HEAD_U, HEAD_R, JAW_U = 34.0, 7.0, 3.0                      # the open end: a disc and straight jaws reaching JAW_U past it
-MOUTH_W = 2.0                                               # half the jaw's opening
+WRENCH_START = (3.4, 33.1)                                  # screen point of local (0, 0)
+HANDLE_U0, HANDLE_U1, HANDLE_W0, HANDLE_W1 = 0.6, 20.5, 2.2, 3.0   # the handle: its end, the frame, half-widths there
+HOLE_U = 2.7                                                # the hanging hole near its end
+FRAME_U0, FRAME_U1, FRAME_W = 19.5, 28.0, 5.0               # the frame the heel jaw is part of
+HEEL_U0, HEEL_V = 24.0, -8.6                                # the heel jaw: from here to the frame's top, out to HEEL_V (-v)
+NUT_U0, NUT_U1, NUT_V0, NUT_V1 = 28.0, 31.6, -1.4, 5.6      # the knurled adjusting nut round the hook jaw's shank
+SHANK_V0, SHANK_V1 = 1.0, 4.8                               # the hook jaw's shank, along the +v side
+HOOK_U0, HOOK_U1, HOOK_V = 32.0, 36.4, -9.2                 # the hook jaw: across the head, its teeth facing the heel
 GRIP_HAND_U = 6.5                                           # where the hand holds it (MetalWrenchGuard.GripInset)
 
 
@@ -220,73 +224,67 @@ def wrench_xf(scale=1.0, start=WRENCH_START):
     return Xf(k, k, -k, k, start[0], start[1])
 
 
-def wrench_shapes(mouth_w=MOUTH_W):
-    head = Union(Ellipse(HEAD_U, 0.0, HEAD_R, HEAD_R),
-                 Poly([(HEAD_U, -HEAD_R), (HEAD_U + JAW_U, -HEAD_R), (HEAD_U + JAW_U + 1.6, -HEAD_R + 1.6),
-                       (HEAD_U + JAW_U + 1.6, HEAD_R - 1.6), (HEAD_U + JAW_U, HEAD_R), (HEAD_U, HEAD_R)]))
-    mouth = Union(Ellipse(HEAD_U + 0.4, 0.0, mouth_w, mouth_w), box(HEAD_U + 0.4, -mouth_w, HEAD_U + JAW_U + 4.0, mouth_w))
-    body = Union(box(GRIP_U1 - 3.0, -SHAFT_W, NECK_U0, SHAFT_W),
-                 Poly([(NECK_U0, -SHAFT_W), (NECK_U1, -NECK_W), (NECK_U1 + 2.0, -NECK_W), (NECK_U1 + 2.0, NECK_W),
-                       (NECK_U1, NECK_W), (NECK_U0, SHAFT_W)]),
-                 head) - mouth
-    grip = box(GRIP_U0 + 2.0, -GRIP_W, GRIP_U1, GRIP_W) | Ellipse(GRIP_U0 + 2.0, 0.0, 2.0, GRIP_W - 0.2)
-    return body, mouth, grip
+def wrench_shapes():
+    """Three parts: the hook jaw with its shank (behind), the handle with the frame and its heel jaw, the nut (in front)."""
+    body = Union(Poly([(HANDLE_U0 + 1.6, -HANDLE_W0), (HANDLE_U1, -HANDLE_W1), (HANDLE_U1, HANDLE_W1), (HANDLE_U0 + 1.6, HANDLE_W0)]),
+                 Ellipse(HANDLE_U0 + 1.6, 0.0, 1.6, HANDLE_W0),
+                 Poly([(FRAME_U0, -HANDLE_W1), (FRAME_U0 + 3.0, -FRAME_W), (FRAME_U1, -FRAME_W), (FRAME_U1, FRAME_W),
+                       (FRAME_U0, HANDLE_W1 + 0.4)]),
+                 box(HEEL_U0, HEEL_V, FRAME_U1, -FRAME_W + 0.5)) - Ellipse(HOLE_U, 0.0, 0.6, 0.6)
+    hook = Union(box(FRAME_U0 + 1.0, SHANK_V0, HOOK_U1, SHANK_V1),
+                 box(HOOK_U0, HOOK_V + 0.6, HOOK_U1, SHANK_V1),
+                 Poly([(HOOK_U0 - 0.9, HOOK_V), (HOOK_U1, HOOK_V), (HOOK_U1, HOOK_V + 2.0), (HOOK_U0, HOOK_V + 2.0)]))
+    nut = box(NUT_U0, NUT_V0, NUT_U1, NUT_V1)
+    return body, hook, nut
 
 
-def wrench_parts(scale=1.0, start=WRENCH_START, detail=True, mouth_w=MOUTH_W):
-    """The wrench as a canvas: the steel body (one part, one outline), the tar grip over it, polish and glints."""
+def teeth(cv, xf, inner, u, v0, v1, facing):
+    """Teeth along a jaw face at u (a dark notch every other pixel), facing +u (1) or -u (-1)."""
+    for k, v in enumerate([v0 + 0.5 + n for n in range(int(v1 - v0))]):
+        q = P(xf, (u - 0.6 * facing, v))
+        if q in inner and k % 2 == 0:
+            cv.put(q[0], q[1], I[1])
+
+
+def wrench_parts(scale=1.0, start=WRENCH_START, detail=True):
+    """The pipe wrench (the user's reference, 2026-11-03) as a canvas: the hook jaw and its shank behind, the handle with
+    the frame and its heel jaw, the knurled nut in front; polished steel lit from -v (the top-left)."""
     xf = wrench_xf(scale, start)
     cv = Canvas()
-    body, mouth, grip = wrench_shapes(mouth_w)
-    mask = cv.raster(xf, body)
+    body, hook, nut = wrench_shapes()
 
-    def jaw_wall(i):
-        """+1: the jaw wall that faces the light (the +v jaw's inner face), -1: the shadowed one, 0: not a wall."""
-        for (ox, oy) in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            q = (i.x + ox, i.y + oy)
-            if q not in mask:
-                lx, ly = xf.inv((q[0] + 0.5, q[1] + 0.5))
-                if mouth.inside(lx, ly):
-                    return 1 if i.ly > 0.0 else -1
-        return 0
-
-    def shade(i):
+    def body_shade(i):
         u, v = i.lx, i.ly
-        bev = i.bevel()
-        if u > NECK_U0:                                     # neck and head: a flat face, bevelled; the jaw walls
-            wall = jaw_wall(i)
-            if wall:
-                return 4 if wall > 0 else 1
-            return max(1, min(4, (3 if v < 0.0 else 2) + bev))
-        if CHANNEL_U0 < u < CHANNEL_U1 and -0.7 < v < 0.7:  # the I-beam's channel: a groove, its lower lip lit
-            return 1 if v < 0.0 else 3
-        if v < -SHAFT_W + 0.8:
+        if math.hypot(u - HOLE_U, v) < 1.3:
+            return 3 if v > 0.2 else 2                      # round the hole: its far wall catches the light
+        if u < FRAME_U0:                                    # the handle: a lit edge, the silver face, the shadow edge
+            w = HANDLE_W0 + (HANDLE_W1 - HANDLE_W0) * max(0.0, min(1.0, (u - HANDLE_U0) / (HANDLE_U1 - HANDLE_U0)))
+            return 4 if v < 0.4 else (3 if v < w - 0.9 else 2)
+        if v < -FRAME_W + 0.5:                              # the heel jaw
+            return 4 if u < HEEL_U0 + 1.2 else 3
+        return 4 if v < 0.0 else (3 if v < 2.4 else 2)
+
+    def hook_shade(i):
+        if i.ly < 0.0:
             return 4
-        if v < 0.0:
-            return 3
-        return 2 if v < SHAFT_W - 0.8 else 1
+        return 3 if i.ly < 2.6 else 2
 
-    inner = cv.part(xf, body, "iron", shade, rust=0.0)
-
-    def grip_shade(i):
-        v = i.ly
-        if v < -GRIP_W + 0.9:
-            return 3                                        # the cold gloss of wet tar on the lit edge
-        return 2 if v < -GRIP_W + 1.6 else 1
-    gin = cv.part(xf, grip, "tar", grip_shade, rust=0.0)
-    # a brass collar where the dip ends (it holds the tar on), lit on its top-left edge
-    cv.part(xf, box(GRIP_U1 - 0.6, -GRIP_W + 0.1, GRIP_U1 + 2.4, GRIP_W - 0.1), "brass",
-            lambda i: 5 if i.ly < -GRIP_W + 1.0 else (4 if i.ly < -0.8 else (3 if i.ly < 1.4 else 2)), rust=0.0)
+    kin = cv.part(xf, hook, "iron", hook_shade, rust=0.0)
+    bin_ = cv.part(xf, body, "iron", body_shade, rust=0.0)
+    nin = cv.part(xf, nut, "iron", lambda i: 3 if int(math.floor(i.ly + 1.0)) % 2 == 0 else 2, rust=0.0)   # the knurling
     despeckle(cv)                                           # before the details: a glint is one pixel on purpose
     if detail:
-        for u in (GRIP_U0 + 3.0, GRIP_U0 + 4.0, GRIP_U0 + 8.5):   # gloss along the grip
-            q = P(xf, (u, -GRIP_W + 0.9))
-            if q in gin:
-                cv.put(q[0], q[1], T[4])
-        for (u, v) in ((HEAD_U - 3.4, -HEAD_R + 1.4), (HEAD_U - 2.0, -HEAD_R + 1.2), (21.0, -SHAFT_W + 0.4), (HEAD_U + JAW_U, -HEAD_R + 1.2)):
+        teeth(cv, xf, bin_, FRAME_U1, HEEL_V, -FRAME_W + 0.5, 1)
+        teeth(cv, xf, kin, HOOK_U0, HOOK_V + 0.6, NUT_V0, -1)
+        for (u, v) in ((u_, -1.5) for u_ in range(5, 19)):  # a steam-white shine along the handle's lit face
+            q = P(xf, (u, v))
+            if q in bin_:
+                cv.put(q[0], q[1], S[2])
+        for (u, v) in ((12.0, -1.7), (HOOK_U0 + 1.4, HOOK_V + 0.6), (FRAME_U0 + 4.0, -FRAME_W + 0.6), (HEEL_U0 + 0.6, HEEL_V + 0.6)):
             q = P(xf, (u, v))                               # white glints on the polished lit edges
-            if q in inner:
+            if q in bin_ or q in kin:
                 cv.put(q[0], q[1], WHITE)
+    del nin
     return cv
 
 
@@ -355,37 +353,33 @@ def clash_frames():
 # Buff icons (16x16)
 # ================================================================================================
 def small_wrench(cv):
-    """The icons' wrench (16x16): the same design in integer bands along the diagonal x + y = 16 (s across it, t along
-    it), since a scaled-down copy of the big one loses its jaw: tar grip, brass collar, steel shaft lit on its top-left
-    line, a round head with its mouth open to the top right. Returns the jaw's tip (where the riposte's spark goes)."""
-    hc = (11.5, 4.5)
-    mask, grip, collar = set(), set(), set()
+    """The icons' pipe wrench (16x16) in integer bands along the diagonal x + y = 16 (s across it, t along it), since a
+    scaled-down copy of the big one loses its jaws: the silver handle lit on its top-left line, the frame with the heel
+    jaw, the hook jaw across the head, the mouth open to the top left. Returns the hook's tip (the riposte's spark)."""
+    mask, dark = set(), set()
     for y in range(16):
         for x in range(16):
-            cx, cy = x + 0.5, y + 0.5
-            s_, t_ = cx + cy - 16.0, cx - cy
-            hs, ht = (cx - hc[0]) + (cy - hc[1]), (cx - hc[0]) - (cy - hc[1])
-            handle = abs(s_) <= 2.4 and -12.0 <= t_ <= 4.0
-            head = math.hypot(cx - hc[0], cy - hc[1]) <= 3.9
-            if (handle or head) and not (ht > 0.6 and abs(hs) < 1.6):
+            s_, t_ = x + y + 1.0 - 16.0, x - y
+            handle = abs(s_) <= 2.0 and -13.0 <= t_ <= 2.0
+            frame = -3.0 <= s_ <= 3.0 and 1.0 <= t_ <= 5.0
+            heel = -5.0 <= s_ <= -3.0 and 3.0 <= t_ <= 5.0
+            hook = -5.0 <= s_ <= 3.0 and 8.0 <= t_ <= 10.0
+            shank = 1.0 <= s_ <= 3.0 and 4.0 <= t_ <= 10.0
+            if handle or frame or heel or hook or shank:
                 mask.add((x, y))
-                if handle and not head and t_ < -4.5:
-                    grip.add((x, y))
-                elif handle and not head and t_ < -2.5:
-                    collar.add((x, y))
+                if shank and 5.0 <= t_ <= 7.0:
+                    dark.add((x, y))                         # the knurled nut
     edge = edge_of(mask)
     for (x, y) in mask:
         s_ = x + y + 1.0 - 16.0
         if (x, y) in edge:
             col = I[0]
-        elif (x, y) in grip:
-            col = T[3] if s_ < -0.5 else T[1]
-        elif (x, y) in collar:
-            col = B[4] if s_ < -0.5 else B[2]
+        elif (x, y) in dark:
+            col = I[2] if (x + y) % 2 else I[3]
         else:
-            col = I[4] if s_ < -1.5 else (I[3] if s_ < 0.5 else I[2])
+            col = S[2] if s_ < -1.5 else (I[4] if s_ < 0.5 else I[3])
         cv.put(x, y, col)
-    return (14, 1)
+    return (11, 3)
 
 
 def riposte_icon():

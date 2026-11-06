@@ -47,20 +47,7 @@ namespace Cogpunk.Content.Mechanist
 			if (player.whoAmI != Main.myPlayer) {
 				return true;                                   // the owner decided (D2)
 			}
-			SteamPlayer steam = player.GetModPlayer<SteamPlayer>();
-			if (steam.Overheated) {
-				return false;
-			}
-			int cost = steam.GetCost(SteamCost);
-			if (steam.SteamMax < cost) {
-				steam.NoteNoTank();
-				return false;
-			}
-			if (steam.Steam < cost) {
-				steam.TriggerOverheat();
-				return false;
-			}
-			return true;
+			return player.GetModPlayer<SteamPlayer>().CanPayAttack(SteamCost);   // the hint or the overheat when it can't
 		}
 
 		public override bool? UseItem(Player player) {

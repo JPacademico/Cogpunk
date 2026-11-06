@@ -22,6 +22,10 @@ namespace Cogpunk.Content.MechArmy.NPCs
 			CogpunkSets.SelfHasting[Type] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;   // machines
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+			// Vanilla skips all mode scaling for an NPC with no contact damage (decompiled NPC.ScaleStats: returns when
+			// damage == 0 unless NeedsExpertScaling), so the Boombot and the Annoy-o-tron (contact 0) kept their Classic life
+			// in Expert and Master until 2026-11-04; this lets SetExpertStats land on their Expert life.
+			NPCID.Sets.NeedsExpertScaling[Type] = true;
 		}
 	}
 }

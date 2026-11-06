@@ -37,3 +37,47 @@ Columns: 6
  70  58 147	Aether 1 #463a93
 124 107 224	Aether 2 #7c6be0
 198 189 255	Aether 3 #c6bdff
+# 2026-11-05 pixel-art study (docs/design/pixel-art-study.md): long ramps for Metal Slug-level shading.
+# Steel/Gilt/Hide extend Iron/Brass/Leather with in-between shades; Crimson, Denim, Ghost, Oak, Ivory are new materials.
+ 61  66  78	Steel 2 #3d424e
+102 109 123	Steel 4 #666d7b
+155 163 175	Steel 6 #9ba3af
+224 230 236	Steel 8 #e0e6ec
+114  74  27	Gilt 2 #724a1b
+162 116  42	Gilt 4 #a2742a
+205 163  63	Gilt 6 #cda33f
+255 250 222	Gilt 9 #fffade
+113  70  47	Hide 2 #71462f
+165 113  76	Hide 4 #a5714c
+194 142  98	Hide 5 #c28e62
+222 180 132	Hide 6 #deb484
+ 44  12  18	Crimson 0 #2c0c12
+ 84  20  28	Crimson 1 #54141c
+126  30  36	Crimson 2 #7e1e24
+168  44  42	Crimson 3 #a82c2a
+206  74  56	Crimson 4 #ce4a38
+236 122  88	Crimson 5 #ec7a58
+ 18  21  38	Denim 0 #121526
+ 31  38  68	Denim 1 #1f2644
+ 46  58 100	Denim 2 #2e3a64
+ 66  86 136	Denim 3 #425688
+ 96 122 172	Denim 4 #607aac
+144 168 208	Denim 5 #90a8d0
+ 10  34  32	Ghost 0 #0a2220
+ 18  70  58	Ghost 1 #12463a
+ 30 114  88	Ghost 2 #1e7258
+ 58 166 118	Ghost 3 #3aa676
+118 220 162	Ghost 4 #76dca2
+196 250 214	Ghost 5 #c4fad6
+ 40  21  14	Oak 0 #28150e
+ 76  40  22	Oak 1 #4c2816
+110  60  30	Oak 2 #6e3c1e
+146  86  42	Oak 3 #92562a
+180 116  60	Oak 4 #b4743c
+212 154  90	Oak 5 #d49a5a
+ 52  38  30	Ivory 0 #34261e
+104  84  64	Ivory 1 #685440
+152 132 104	Ivory 2 #988468
+196 180 150	Ivory 3 #c4b496
+228 218 192	Ivory 4 #e4dac0
+250 246 230	Ivory 5 #faf6e6

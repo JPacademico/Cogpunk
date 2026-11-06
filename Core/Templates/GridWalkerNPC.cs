@@ -46,6 +46,10 @@ namespace Cogpunk.Core.Templates
 		/// <summary>The glow sheet's brightness this frame (0 hides it).</summary>
 		protected virtual float GlowStrength => 1f;
 
+		/// <summary>Where the cells' origin is drawn, in world space: the hitbox's bottom centre for a walker (its feet).
+		/// A swimmer with no feet (the Cogtuna, 2026-11-04) puts its origin under its centre instead.</summary>
+		protected virtual Vector2 DrawAnchor => NPC.Bottom;
+
 		protected bool Grounded => NPC.velocity.Y == 0f;
 
 		protected Player Target => NPC.HasValidTarget ? Main.player[NPC.target] : null;
@@ -115,7 +119,7 @@ namespace Cogpunk.Core.Templates
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
 			bool dummy = NPC.IsABestiaryIconDummy;
 			float scale = dummy ? NPC.scale : 1f;
-			Vector2 anchor = NPC.Bottom - screenPos + new Vector2(0f, NPC.gfxOffY);
+			Vector2 anchor = DrawAnchor - screenPos + new Vector2(0f, NPC.gfxOffY);
 			anchor = new Vector2(MathF.Round(anchor.X), MathF.Round(anchor.Y));
 			bool flip = NPC.spriteDirection == 1;              // the art faces left
 			Color light = NPC.GetAlpha(drawColor);

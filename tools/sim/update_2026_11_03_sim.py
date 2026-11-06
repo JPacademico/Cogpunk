@@ -387,12 +387,13 @@ def main():
     a.add_argument("--out", default="docs/media")
     a.add_argument("--only")
     a.add_argument("--font", default="C:/Windows/Fonts/arialbd.ttf")
+    a.add_argument("--date", default="2026-11-03", help="the date in the file names (re-rendering a redrawn model: D5 rule 6)")
     args = a.parse_args()
     only = set(args.only.split(",")) if args.only else None
-    jobs = [("sprites", lambda: sprites_png(os.path.join(args.out, "2026-11-03_enemies-sprites.png"), args.font)),
-            ("coghawk", lambda: scene_coghawk(os.path.join(args.out, "2026-11-03_desert-coghawk.gif"), args.font)),
-            ("splasher", lambda: scene_splasher(os.path.join(args.out, "2026-11-03_rain-splasher.gif"), args.font)),
-            ("nail", lambda: scene_nail(os.path.join(args.out, "2026-11-03_underground-rusted-nail.gif"), args.font))]
+    jobs = [("sprites", lambda: sprites_png(os.path.join(args.out, args.date + "_enemies-sprites.png"), args.font)),
+            ("coghawk", lambda: scene_coghawk(os.path.join(args.out, args.date + "_desert-coghawk.gif"), args.font)),
+            ("splasher", lambda: scene_splasher(os.path.join(args.out, args.date + "_rain-splasher.gif"), args.font)),
+            ("nail", lambda: scene_nail(os.path.join(args.out, args.date + "_underground-rusted-nail.gif"), args.font))]
     for name, job in jobs:
         if only is None or name in only:
             job()

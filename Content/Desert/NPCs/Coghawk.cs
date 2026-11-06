@@ -1,4 +1,5 @@
 using System;
+using Cogpunk.Content.Desert.Items;
 using Cogpunk.Content.Scrap.Items;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Systems;
@@ -29,7 +30,8 @@ namespace Cogpunk.Content.Desert.NPCs
 	/// <para>Stats (Expert, D3 rule 0; docs/balance/npcs.csv; anchor the Vulture, decompiled 1.4.4 NPC 61: 40 life, 4
 	/// defense, 15 contact in Classic = 80 / 4 / 30 in Expert): <see cref="Life"/> life, <see cref="Defense"/> defense,
 	/// <see cref="ContactDamage"/> contact. Spawns on the desert's surface (<see cref="SpawnWeight"/>), day and night. Drops
-	/// the Vulture's coins and 1-2 Rusted Cogs.</para>
+	/// the Vulture's coins, 1-2 Rusted Cogs and, 1 in <see cref="HawkEyeOdds"/> (user-set 10%, 2026-11-04), the
+	/// <see cref="HawkEye"/>.</para>
 	/// <para>D2: <c>ai[0]</c>/<c>ai[1]</c> state and timer; the server targets and decides; during the windup <c>ai[2]</c> is
 	/// the swoop's side, during the swoop <c>ai[2]</c> = side x the low point's x and <c>ai[3]</c> its y (locked by the server,
 	/// synced with the state change); every side steers along the same arc from them. D0: the ground search is bounded and
@@ -55,6 +57,7 @@ namespace Cogpunk.Content.Desert.NPCs
 		public const int GroundSearchTiles = 8;
 		public const int FlapTicks = 5, ScreechTicks = 4;
 		public const float SpawnWeight = 0.15f;
+		public const int HawkEyeOdds = 10;                 // 10% (user-set 2026-11-04)
 
 		private static Asset<Texture2D> far, near, glow;
 		private static readonly string[] GoreNames = { "Coghawk_GoreHead", "Coghawk_GoreWing", "Coghawk_GoreCog" };
@@ -107,6 +110,7 @@ namespace Cogpunk.Content.Desert.NPCs
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RustedCog>(), 1, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HawkEye>(), HawkEyeOdds));
 		}
 
 		protected override void UpdateState() {

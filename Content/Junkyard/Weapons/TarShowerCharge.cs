@@ -1,5 +1,6 @@
 using System;
 using Cogpunk.Content.Junkyard.Tar;
+using Cogpunk.Content.Mechanist;
 using Cogpunk.Core.Configs;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Templates;
@@ -19,6 +20,9 @@ namespace Cogpunk.Content.Junkyard.Weapons
 	/// rim at full), the gun stays aimed at the cursor, and the damage climbs from x1 to
 	/// x<see cref="TarShower.MaxChargeMultiplier"/> over <see cref="TarShower.MaxChargeTicks"/> ticks. Letting go throws it:
 	/// a <see cref="TarShowerBigGlob"/> at full charge, else a <see cref="TarShowerGlob"/> for its share.
+	/// <para>The charge cost <see cref="TarShower.ChargeSteamCost"/> steam when it started (its damage already holds the Spring
+	/// Gloves' bonus for it: <see cref="TarShower.SteamForUse"/>); while it is held the steam doesn't refill, as while a
+	/// Mechanist weapon fires (<see cref="SteamPlayer.NoteAttack"/>).</para>
 	/// <para>D2: <c>ai[0]</c> = charge ticks (every side counts them); the owner aims (synced only when the aim has moved more
 	/// than <see cref="AimResync"/> radians) and decides the release. The gun itself is drawn by vanilla (the player keeps
 	/// using it); this draws the ball. D1: no allocation; effects client-side and throttled.</para>
@@ -73,6 +77,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 				ChargeTicks++;
 			}
 			if (Projectile.owner == Main.myPlayer) {
+				player.GetModPlayer<SteamPlayer>().NoteAttack();   // still attacking: no refill yet
 				FollowAim(player);
 				if (!player.controlUseTile) {
 					Release(player);

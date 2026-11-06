@@ -26,7 +26,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		private const float GuardAngle = -1.4f;           // held up across the body, head high
 		private const float ArmAngle = -1.05f;            // the front arm raised forward
 		private const float SpriteAxis = -MathHelper.PiOver4;   // the item sprite points to the top right
-		private const float GripInset = 13f;              // the hand on the tar grip, this far in from the corner (make_tar_weapons.wrench_grip_inset)
+		private const float GripInsetX = 16f, GripInsetY = 11f;   // the hand on the handle, in from the bottom-left corner (make_tar_weapons.wrench_grip_inset)
 
 		public override string Texture => "Cogpunk/Content/Junkyard/Weapons/MetalWrench";
 
@@ -79,7 +79,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		public override bool PreDraw(ref Color lightColor) {
 			Texture2D texture = TextureAssets.Projectile[Type].Value;
 			bool left = Projectile.direction < 0;
-			Vector2 origin = left ? new Vector2(texture.Width - GripInset, texture.Height - GripInset) : new Vector2(GripInset, texture.Height - GripInset);
+			Vector2 origin = left ? new Vector2(texture.Width - GripInsetX, texture.Height - GripInsetY) : new Vector2(GripInsetX, texture.Height - GripInsetY);
 			Vector2 position = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 			Main.EntitySpriteDraw(texture, position, null, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, 1f,
 				left ? SpriteEffects.FlipHorizontally : SpriteEffects.None);

@@ -265,6 +265,16 @@ Items: {
 			'''
 	}
 
+	CogLauncher: {
+		DisplayName: Lança-Engrenagens
+		Tooltip:
+			'''
+			Dispara uma engrenagem giratória que atravessa {0} inimigos e ricocheteia em {1} paredes
+			Uma engrenagem que volta por um inimigo que já cortou causa {2}% a mais de dano
+			'Um mosquete que aprendeu a dividir'
+			'''
+	}
+
 	TrapperChain: {
 		DisplayName: Corrente do Caçador
 		Tooltip:
@@ -433,7 +443,7 @@ Items: {
 		Tooltip:
 			'''
 			{0}% a mais de dano contra inimigos mecânicos
-			Botão direito para aparar: por {1} segundo, um ataque inimigo ricocheteia na chave e não causa nada
+			Botão direito para aparar por {4} de vapor: por {1} segundo, um ataque inimigo ricocheteia na chave e não causa nada
 			Aparar prepara um contra-ataque: seu próximo golpe causa {3}x de dano
 			Um contra-ataque num chefe ou mini-chefe desacelera o tempo por um instante
 			O aparo leva {2} segundos para se recuperar
@@ -465,8 +475,8 @@ Items: {
 		Tooltip:
 			'''
 			Usa gel como munição, mas borrifa piche que desacelera e corrói os inimigos
-			Segure o botão direito para inchar uma bola de piche no bocal: até {1}% de dano em {0} segundos
-			Carregada por completo, atravessa todos os inimigos e deixa {2} blocos de piche onde cai
+			Segure o botão direito para inchar uma bola de piche no bocal por {3} de vapor: até {1}% de dano em {0} segundos
+			Carregada por completo, atravessa todos os inimigos e deixa {2} blocos de piche onde cai por {4} segundos
 			'''
 	}
 
@@ -488,6 +498,126 @@ Items: {
 			e pegam Tétano: {1}% a mais de dano recebido por {2} segundos
 			'Tomou a vacina?'
 			'''
+	}
+
+	SpringGloves: {
+		DisplayName: Luvas de Mola
+		Tooltip:
+			'''
+			Ataques ganham {0}% de dano e repulsão para cada ponto de vapor que usam
+			Vale para armas de Mecanista, magias pagas com vapor e habilidades de arma a vapor
+			'Dê corda e solte'
+			'''
+	}
+
+	BrassSandstone: {
+		DisplayName: Arenito de Latão
+		Tooltip: Pedra do deserto rajada de latão antigo.
+	}
+
+	TarnishedBrassOre: {
+		DisplayName: Minério de Latão Manchado
+		Tooltip: Latão esverdeado pelo tempo. Ainda brilha depois de fundido.
+	}
+
+	TarnishedBrassBar: {
+		DisplayName: Barra de Latão Manchado
+		Tooltip: 'Polimento não incluso'
+	}
+
+	WeatheredPlank: {
+		DisplayName: Tábuas Desgastadas
+		Tooltip: Tábuas desbotadas pelo sol, de uma cidade que foi parar no subsolo.
+	}
+
+	TarnishedBrassPlating: {
+		DisplayName: Chapa de Latão Manchado
+		Tooltip: Chapas rebitadas para telhados e letreiros.
+	}
+
+	BrassSandstoneWall: {
+		DisplayName: Parede de Arenito de Latão
+		Tooltip: ""
+	}
+
+	WeatheredPlankWall: {
+		DisplayName: Parede de Tábuas Desgastadas
+		Tooltip: ""
+	}
+
+	SharkEye: {
+		DisplayName: Olho de Tubarão
+		Tooltip:
+			'''
+			{0}% de chance de acerto crítico corpo a corpo
+			'Nunca pisca, e nunca para de procurar sangue'
+			'''
+	}
+
+	HawkEye: {
+		DisplayName: Olho de Falcão
+		Tooltip:
+			'''
+			{0}% de chance de acerto crítico à distância
+			'Escolhe um alvo do alto de uma duna'
+			'''
+	}
+
+	SheriffBadge: {
+		DisplayName: Distintivo do Xerife
+		Tooltip:
+			'''
+			Nomeia uma estrela de xerife que voa sobre sua cabeça e luta por você
+			Cada estrela ocupa um espaço de lacaio
+			As estrelas voam até seus inimigos e voltam, acertando tudo no caminho
+			'A lei é quem estiver com o distintivo'
+			'''
+	}
+
+	SheriffsRevolver: {
+		DisplayName: Revólver do Xerife
+		Tooltip:
+			'''
+			Dispara uma bala de latão veloz que ricocheteia uma vez, numa parede ou num inimigo, rumo ao inimigo mais próximo à vista
+			Um ricochete acerta com 50% a mais de dano
+			Guarda {0} balas e leva {1} segundos para recarregar quando elas acabam, mesmo guardado no coldre
+			Botão direito para disparar todas as balas que restam em um terço de segundo por {2} de vapor
+			'Nesta cidade, a lei atira primeiro'
+			'''
+		Rounds: "{0}/{1} balas no tambor"
+	}
+
+	SheriffsKey: {
+		DisplayName: Chave do Xerife
+		Tooltip: Abre o Cofre de Latão trancado no banco da Velha Cidade de Latão
+	}
+
+	BrassStrongbox: {
+		DisplayName: Cofre de Latão
+		Tooltip: Um baú de latão rebitado do cofre do velho banco
+	}
+
+	BrokenWhistle: {
+		DisplayName: Apito Quebrado
+		Tooltip:
+			'''
+			O apito de um condutor de trem, rachado de ponta a ponta
+			Algo dentro dele ainda quer apitar
+			'''
+	}
+
+	CursedWhistle: {
+		DisplayName: Apito Amaldiçoado
+		Tooltip:
+			'''
+			Invoca o Condutor Amaldiçoado
+			Só pode ser soprado na Velha Cidade de Latão
+			'''
+	}
+
+	CursedConductorBag: {
+		DisplayName: Bolsa do Tesouro ({$Mods.Cogpunk.NPCs.CursedConductor.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 	}
 }
 
@@ -540,6 +670,16 @@ Buffs: {
 	TarWhipDebuff: {
 		DisplayName: Chicoteado com Piche
 		Description: Invocações causam mais dano a este inimigo
+	}
+
+	SheriffStarBuff: {
+		DisplayName: Estrelas do Xerife
+		Description: A lei voa sobre a sua cabeça
+	}
+
+	ConductorCurse: {
+		DisplayName: Maldição do Condutor
+		Description: Você recebe 25% a mais de dano do trem fantasma e de seus fantasmas
 	}
 }
 
@@ -616,6 +756,59 @@ NPCs: {
 	Splasher: {
 		DisplayName: Esguichador
 		Bestiary: Um robô a caldeira que enferruja só de olhar para uma nuvem, então alguém parafusou um guarda-chuva na cabeça dele. Ele só aparece na chuva, mantém distância, bombeia a pistola d'água e encharca quem estiver na tempestade com ele.
+	}
+
+	BeatBoxer: {
+		DisplayName: Beat-Boxer
+		Bestiary: Um robô de treino ligado a uma jukebox, ainda esperando a próxima luta nos corredores da Masmorra. Marca o ritmo nos alto-falantes presos aos ombros e solta as luvas de mola em pares, um-dois, com força para te arremessar longe.
+	}
+
+	Friendobo: {
+		DisplayName: Friendobô
+		Bestiary: Um velho robô barman de cartola e monóculo. Ele cuidava de um saloon em algum lugar, há muito tempo, e ainda está lustrando o mesmo copo. Mudou-se quando o Exército Mecânico parou de marchar e negocia sucata e as bugigangas que acordam as grandes máquinas.
+		Chat1: Bem-vindo, bem-vindo! Cuidado com o chão, eu encerei neste século.
+		Chat2: O que vai ser? Tenho engrenagens enferrujadas, sucata enferrujada e mais engrenagens enferrujadas.
+		Chat3: Este monóculo? Latão puro. O olho atrás dele, nem tanto.
+		Chat4: Eu cuidava de um bar numa cidade lá embaixo do deserto. Latão por toda parte. Aí a areia entrou, e os fregueses pararam de sair.
+		Chat5: Cuidado com essa cartola, amigo. Tem uma mola sobrando aí dentro.
+		Chat6: Toda máquina que acorda de mau humor teve algo que a chamou. Eu vendo isso, depois que você mesmo derrotar a fera.
+		ChatTavernkeep: Eu e o Taberneiro trocamos dicas. Ele diz que minha cerveja tem gosto de óleo. É óleo.
+		ChatMechanic: A Mecânica se ofereceu para lubrificar minhas juntas. Muito gentil. Um pouco animada demais com a chave inglesa, porém.
+	}
+
+	Cogtuna: {
+		DisplayName: Atum-Engrenagem
+		Bestiary: Um grande atum de ferro rebitado que nunca precisa subir à tona: uma caldeira respira por ele, e a fornalha na garganta brilha sempre que abre as mandíbulas. Suas placas desviam a maioria das lâminas, ele bate como uma âncora jogada ao mar, e não sai da água para te perseguir.
+	}
+
+	BrassBandit: {
+		DisplayName: Bandido de Latão
+		Bestiary: Um robô fora da lei de latão empoeirado que ainda assalta as ruas da Velha Cidade de Latão. Atira assim que te vê, esvazia as seis câmaras do revólver enferrujado e depois foge para recarregar. Até um bandido sabe quando as balas acabaram.
+	}
+
+	Sheriff: {
+		DisplayName: Xerife
+		Bestiary: O último homem da lei da Velha Cidade de Latão, mantendo a paz muito depois de os moradores irem embora. Três estrelas de xerife flutuam sobre o chapéu e voam contra quem desrespeita a lei; o revólver dele é a única coisa limpa que restou na cidade. Ele nunca foge, nem para recarregar.
+	}
+
+	MechanicalBull: {
+		DisplayName: Touro Mecânico
+		Bestiary: Um touro de rodeio a vapor que derrubou o último peão há décadas e nunca parou de pular. Quando ele baixa os chifres e cava o chão, saia da frente: depois que começa a investida, ele não faz curva.
+	}
+
+	Dinamitrom: {
+		DisplayName: Dinamitrom
+		Bestiary: Um barril de pólvora que alguém botou em cima de pernas. Ele pula pela velha mina com o pavio aceso, e quando te vê se agacha e salta. Atire nele antes que aterrisse.
+	}
+
+	CursedConductor: {
+		DisplayName: Condutor Amaldiçoado
+		Epithet: A Última Parada
+		Bestiary: O condutor da linha que um dia passou sob a Velha Cidade de Latão, ainda marcando a hora de um trem que saiu dos trilhos há cem anos. O desastre levou suas pernas e a maldição levou o resto; uma turbina aparafusada onde ficavam as pernas bombeia fuligem para mantê-lo no ar, e seu apito ainda chama o trem, e o trem ainda vem. Saia da cidade dele e ele te persegue até o fim da linha.
+	}
+
+	ConductorGhost: {
+		DisplayName: Fantasma Amaldiçoado
 	}
 }
 
@@ -771,6 +964,46 @@ Projectiles: {
 	SplasherWater: {
 		DisplayName: Água
 	}
+
+	SpringPunch: {
+		DisplayName: Soco de Mola
+	}
+
+	RustyBullet: {
+		DisplayName: Bala Enferrujada
+	}
+
+	SheriffStar: {
+		DisplayName: Estrela de Xerife
+	}
+
+	DinamitromBlast: {
+		DisplayName: Explosão de Dinamite
+	}
+
+	SheriffStarMinion: {
+		DisplayName: Estrela de Xerife
+	}
+
+	SheriffsBullet: {
+		DisplayName: Bala do Xerife
+	}
+
+	GhostTrain: {
+		DisplayName: Trem Fantasma
+	}
+
+	ConductorFlame: {
+		DisplayName: Projétil Amaldiçoado
+	}
+
+	GhostRift: {
+		DisplayName: Fenda Fantasma
+	}
+
+	CogLauncherCog: {
+		DisplayName: Engrenagem
+	}
 }
 
 Tiles: {
@@ -790,6 +1023,27 @@ Tiles: {
 	RustPolisherTile: {
 		MapEntry: Polidor de Ferrugem
 	}
+
+	BrassSandstoneTile: {
+		MapEntry: Arenito de Latão
+	}
+
+	TarnishedBrassOreTile: {
+		MapEntry: Minério de Latão Manchado
+	}
+
+	WeatheredPlankTile: {
+		MapEntry: Tábuas Desgastadas
+	}
+
+	TarnishedBrassPlatingTile: {
+		MapEntry: Chapa de Latão Manchado
+	}
+
+	BrassStrongboxTile: {
+		MapEntry0: Cofre de Latão
+		MapEntry1: Cofre de Latão Trancado
+	}
 }
 
 WorldGen: {
@@ -799,6 +1053,7 @@ WorldGen: {
 	ScrappyTrunks: Enferrujando alguns baús velhos
 	GlassContainers: Escondendo tanques de vapor de vidro
 	RustedNails: Deixando pregos enferrujados em baús velhos
+	OldBrassTown: Erguendo uma velha cidade de latão
 }
 
 UI: {
@@ -822,6 +1077,16 @@ Biomes: {
 	JunkyardBiome: {
 		DisplayName: O Ferro-Velho
 	}
+
+	OldBrassTownBiome: {
+		DisplayName: Velha Cidade de Latão
+	}
+}
+
+Conditions: {
+	DownedTrashTr0m: Depois que Trash-Tr0m for derrotado
+	DownedTarTyrant: Depois que o Tirano de Piche for derrotado
+	DownedCursedConductor: Depois que o Condutor Amaldiçoado for derrotado
 }
 
 DropConditions: {

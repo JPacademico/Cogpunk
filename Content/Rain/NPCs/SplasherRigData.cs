@@ -6,7 +6,7 @@ namespace Cogpunk.Content.Rain.NPCs
 	/// frames, from the origin, facing left.</summary>
 	public static class SplasherRigData
 	{
-		public const int CellWidth = 80, CellHeight = 72, OriginX = 40, OriginY = 70, Frames = 12;
+		public const int CellWidth = 84, CellHeight = 72, OriginX = 42, OriginY = 70, Frames = 12;
 		public const int Walk = 0, WalkFrames = 6, Idle = 6, Aim = 8, Shoot = 10;
 		/// <summary>Game px a planted foot slides back per walk frame (the stride over half the cycle).</summary>
 		public const int WalkStep = 3;

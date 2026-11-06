@@ -19,7 +19,8 @@ changes without the shape moving:
 
 Grid sheets (2026-11-03: the small layered enemies, DepthLayers.DrawWalker) work too: a RigData with CellWidth,
 CellHeight, OriginX and OriginY and no frame tables is read as equal cells stacked with 2 px under each, and a sequence
-may be written `Walk = 0, WalkFrames = 6` as well as `Walk0 = 0`. Walk and flap cycles count as loops.
+may be written `Walk = 0, WalkFrames = 6` as well as `Walk0 = 0`. Walk and flap cycles swing limbs and wings on purpose, so
+they are judged like any non-loop sequence (--limit), not as subtle loops.
 
 Loops (Idle, Move) wrap around and must stay under --loop-limit percent of their interior (default 0.5: a loop plays
 for seconds on end, so any flicker shows); other sequences under --limit (default 1.5: a one-frame smear in a swing may
@@ -34,7 +35,7 @@ import sys
 
 from PIL import Image
 
-LOOPS = ("Idle", "Move", "Walk", "Flap")
+LOOPS = ("Idle", "Move")
 GRID_PADDING = 2                                             # px under each cell of a grid sheet
 
 
@@ -80,8 +81,10 @@ def frame_image(arrays, consts, base, frame, cache, only=None):
             sheet = cache[path]
             if sheet is not None:
                 cw, ch = consts["CellWidth"], consts["CellHeight"]
-                y = frame * (ch + GRID_PADDING)
-                planes.append((sheet.crop((0, y, cw, y + ch)), consts["OriginX"], consts["OriginY"]))
+                cols = max(1, consts.get("Columns", 1))           # a boss's grid wraps into columns (2026-11-04)
+                x = frame % cols * (cw + GRID_PADDING)
+                y = frame // cols * (ch + GRID_PADDING)
+                planes.append((sheet.crop((x, y, x + cw, y + ch)), consts["OriginX"], consts["OriginY"]))
             continue
         table = arrays.get(layer + "Frames")
         if table is None:

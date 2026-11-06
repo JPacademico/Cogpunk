@@ -18,6 +18,8 @@ namespace Cogpunk.Core.Systems
 
 		/// <summary>Gold Bar or Platinum Bar.</summary>
 		public const string GoldBar = nameof(ItemID.GoldBar);
+		/// <summary>The Musket or The Undertaker (the evil biomes' twin guns: a Crimson world has no Musket).</summary>
+		public const string Musket = nameof(ItemID.Musket);
 
 		public override void AddRecipeGroups() {
 			// "LegacyMisc.37" is the game's own localized word for "Any".
@@ -27,6 +29,9 @@ namespace Cogpunk.Core.Systems
 			RecipeGroup.RegisterGroup(GoldBar, new RecipeGroup(
 				() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.GoldBar)}",
 				ItemID.GoldBar, ItemID.PlatinumBar));
+			RecipeGroup.RegisterGroup(Musket, new RecipeGroup(
+				() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.Musket)}",
+				ItemID.Musket, ItemID.TheUndertaker));
 		}
 	}
 }

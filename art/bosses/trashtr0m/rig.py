@@ -30,6 +30,20 @@ RAMP = {
     # Tar-stained fossil bone (2026-10-29, Tar Tyrant rework): Leather 0 outline, Leather 1 / Leather 2 stained shadows,
     # Steam 1 for the dry lit faces and Brass 5 for the cream glints. Existing palette colours only.
     "bone": [(47, 27, 20), (91, 54, 38), (138, 90, 60), (195, 200, 205), (246, 231, 161)],
+    # Long ramps (2026-11-05, docs/design/pixel-art-study.md: vanilla Terraria's NPCs model each material with a median of
+    # 6 shades, up to 16, in 8-14 L* steps; ours had 3-5 in 15-20 L* steps, which made them flat). Steel/gilt/hide extend
+    # iron/brass/leather with in-between shades (their shared colours keep their old ramp in COLOR_INDEX, so older art
+    # regenerates unchanged); crimson, denim, ghost, oak and ivory are new materials.
+    "steel": [(21, 22, 28), (46, 50, 59), (61, 66, 78), (79, 85, 98), (102, 109, 123), (127, 135, 148), (155, 163, 175),
+              (183, 191, 202), (224, 230, 236)],
+    "gilt": [(43, 26, 14), (90, 58, 23), (114, 74, 27), (138, 93, 34), (162, 116, 42), (184, 138, 51), (205, 163, 63),
+             (223, 185, 78), (246, 231, 161), (255, 250, 222)],
+    "hide": [(47, 27, 20), (91, 54, 38), (113, 70, 47), (138, 90, 60), (165, 113, 76), (194, 142, 98), (222, 180, 132)],
+    "crimson": [(44, 12, 18), (84, 20, 28), (126, 30, 36), (168, 44, 42), (206, 74, 56), (236, 122, 88)],
+    "denim": [(18, 21, 38), (31, 38, 68), (46, 58, 100), (66, 86, 136), (96, 122, 172), (144, 168, 208)],
+    "ghost": [(10, 34, 32), (18, 70, 58), (30, 114, 88), (58, 166, 118), (118, 220, 162), (196, 250, 214)],
+    "oak": [(40, 21, 14), (76, 40, 22), (110, 60, 30), (146, 86, 42), (180, 116, 60), (212, 154, 90)],
+    "ivory": [(52, 38, 30), (104, 84, 64), (152, 132, 104), (196, 180, 150), (228, 218, 192), (250, 246, 230)],
 }
 WHITE = RAMP["steam"][3]
 COLOR_INDEX = {}
@@ -207,10 +221,23 @@ def box(x0, y0, x1, y1):
 # ================================================================================================
 # Lighting helpers
 # ================================================================================================
-def level(intensity, lo, hi, gain=1.0, bias=0.0):
-    """Lighting intensity (-1..1) -> a ramp index in [lo, hi], hard steps."""
+def level(intensity, lo, hi, gain=1.0, bias=0.0, dither=None):
+    """Lighting intensity (-1..1) -> a ramp index in [lo, hi], hard steps. dither=(lx, ly, width) (2026-11-05, the
+    pixel-art study): within `width` (0..0.5 of a step) of a band boundary, a part-space checker takes the next shade,
+    so long ramps blend like vanilla's hand shading instead of banding; the checker lives in the part's own space, so it
+    stays put on a moving part (D4 rule 17)."""
     v = (intensity * gain + bias + 1.0) * 0.5
-    return max(lo, min(hi, lo + int(v * (hi - lo + 1))))
+    f = v * (hi - lo + 1)
+    k = lo + int(f)
+    if dither is not None:
+        lx, ly, width = dither
+        frac = f - int(f)
+        if ((int(math.floor(lx)) + int(math.floor(ly))) & 1) == 0:
+            if frac > 1.0 - width:
+                k += 1
+            elif frac < width:
+                k -= 1
+    return max(lo, min(hi, k))
 
 
 def lit(nx, ny, nz):
@@ -426,31 +453,31 @@ def flat(k, bevel=True, hi=None):
     return shade
 
 
-def face(normal, lo=1, hi=None, gain=1.2, bias=0.0, bevel=True, ramp_len=5, fixed=False, snap=None):
+def face(normal, lo=1, hi=None, gain=1.2, bias=0.0, bevel=True, ramp_len=5, fixed=False, snap=None, dither=0.0):
     """A flat face whose local normal (nx, ny, nz) is turned by the part's transform."""
     hi = ramp_len - 1 if hi is None else hi
 
     def shade(i):
         wx, wy = _turn(i.xf, (normal[0], normal[1]), fixed, snap)
-        k = level(lit(wx, wy, normal[2]), lo, hi, gain, bias)
+        k = level(lit(wx, wy, normal[2]), lo, hi, gain, bias, (i.lx, i.ly, dither) if dither else None)
         if bevel:
             k += i.bevel()
         return max(1, min(ramp_len - 1, k))
     return shade
 
 
-def dome(cx, cy, r, lo=1, hi=4, gain=1.25, bias=0.0, bevel=False, fixed=False, snap=None):
+def dome(cx, cy, r, lo=1, hi=4, gain=1.25, bias=0.0, bevel=False, fixed=False, snap=None, dither=0.0):
     """A sphere-ish bulge centred on a local point."""
     def shade(i):
         dx, dy = (i.lx - cx) / r, (i.ly - cy) / r
         d2 = min(1.0, dx * dx + dy * dy)
         wx, wy = _turn(i.xf, (dx, dy), fixed, snap)
-        k = level(lit(wx, wy, math.sqrt(1.0 - d2)), lo, hi, gain, bias)
+        k = level(lit(wx, wy, math.sqrt(1.0 - d2)), lo, hi, gain, bias, (i.lx, i.ly, dither) if dither else None)
         return max(lo, min(hi, k + (i.bevel() if bevel else 0)))
     return shade
 
 
-def cyl(p0, p1, r, lo=1, hi=4, gain=1.4, bias=0.0, bands=0, band_lo=None, fixed=False, snap=None):
+def cyl(p0, p1, r, lo=1, hi=4, gain=1.4, bias=0.0, bands=0, band_lo=None, fixed=False, snap=None, dither=0.0):
     """A cylinder along a local axis; bands > 0 adds corrugation rings every `bands` px along the axis."""
     (x0, y0), (x1, y1) = p0, p1
     ax, ay = x1 - x0, y1 - y0
@@ -462,7 +489,7 @@ def cyl(p0, p1, r, lo=1, hi=4, gain=1.4, bias=0.0, bands=0, band_lo=None, fixed=
         s = ((i.lx - x0) * nx + (i.ly - y0) * ny) / r
         s = max(-1.0, min(1.0, s))
         wx, wy = _turn(i.xf, (s * nx, s * ny), fixed, snap)
-        k = level(lit(wx, wy, math.sqrt(1.0 - s * s)), lo, hi, gain, bias)
+        k = level(lit(wx, wy, math.sqrt(1.0 - s * s)), lo, hi, gain, bias, (i.lx, i.ly, dither) if dither else None)
         if bands:
             t = (i.lx - x0) * ux + (i.ly - y0) * uy
             if int(math.floor(t)) % bands == 0:
@@ -597,3 +624,105 @@ def ik(shoulder, hand, l1, l2, bend=1):
     mx, my = sx + ux * a, sy + uy * a
     ex, ey = mx + bend * h * uy, my - bend * h * ux
     return (ex, ey), (sx + ux * min(d, l1 + l2), sy + uy * min(d, l1 + l2))
+
+
+# ================================================================================================
+# Detail helpers (2026-11-05, docs/design/pixel-art-study.md: vanilla's NPCs change colour between 3 of 4 neighbouring
+# pixels, in small one-shade steps; ours changed in 1 of 2, in big jumps)
+# ================================================================================================
+def ramp_len(name):
+    return len(RAMP[name])
+
+
+def shaded(kind, ramp, *args, lo=1, hi=None, **kw):
+    """face/dome/cyl over the whole of a long ramp: `shaded("dome", "gilt", cx, cy, r, fixed=True, dither=0.2)`. The
+    top shade is kept for glints (hi = len - 2) unless given; dither (0..0.5) blends the band edges with a part-space
+    checker (level())."""
+    n = len(RAMP[ramp])
+    hi = n - 2 if hi is None else hi
+    if kind == "face":
+        return face(*args, lo=lo, hi=hi, ramp_len=n, **kw)
+    return {"dome": dome, "cyl": cyl}[kind](*args, lo=lo, hi=hi, **kw)
+
+
+def texture(shade, kind, seed=0, density=0.14, lo=1, hi=None):
+    """Material texture in the part's own space (stable on a moving part, D4 rule 17), one shade either way:
+    "speckle" (worn leather, cast iron), "weave" (cloth: a diagonal twill), "grain" (wood: wavy lines along x),
+    "brushed" (metal: short streaks along x), "felt" (hats: sparse darker flecks)."""
+    def fn(i):
+        k = shade(i)
+        x, y = int(math.floor(i.lx)), int(math.floor(i.ly))
+        top = hi if hi is not None else 99
+        if kind == "speckle":
+            h = _hash(x, y, seed)
+            if h < density:
+                k += 1 if _hash(x, y, seed + 1) < 0.5 else -1
+        elif kind == "weave":
+            if (x + y * 2) % 4 == 0 and _hash(x, y, seed) < density * 4:
+                k -= 1
+        elif kind == "grain":
+            w = int(math.floor(i.ly + 0.8 * math.sin(i.lx * 0.55 + seed)))
+            if w % 3 == 0 and _hash(x // 3, w, seed) < 0.75:
+                k -= 1
+        elif kind == "brushed":
+            if _hash(x // 3, y, seed) < density and _hash(x, y, seed + 2) < 0.8:
+                k += 1
+        elif kind == "felt":
+            if _hash(x, y, seed) < density * 0.6:
+                k -= 1
+        return max(lo, min(top, k))
+    return fn
+
+
+def selout(cv, steps=1):
+    """Selective outline on the lit side: a silhouette pixel in its ramp's darkest shade whose open side faces the
+    light (up or left) and whose inner neighbour is lit takes the next shade, as vanilla's outlines do (the study:
+    vanilla outlines average L* 15, never black)."""
+    changes = {}
+    for (x, y), col in cv.px.items():
+        if (x, y) in cv.glow or col not in COLOR_INDEX:
+            continue
+        ramp, idx = COLOR_INDEX[col]
+        if idx != 0:
+            continue
+        up, left = (x, y - 1) not in cv.px, (x - 1, y) not in cv.px
+        if not (up or left):
+            continue
+        inner = cv.px.get((x, y + 1)) if up else cv.px.get((x + 1, y))
+        if inner is None or inner not in COLOR_INDEX or COLOR_INDEX[inner][1] < 2:
+            continue
+        changes[(x, y)] = RAMP[ramp][min(len(RAMP[ramp]) - 1, steps)]
+    cv.px.update(changes)
+
+
+def soften_orphans(cv, keep_dl=16.0):
+    """Despeckle that keeps texture: a lone pixel (no 4-neighbour of its colour, all four filled) stays when it is
+    within keep_dl lightness of its neighbours' majority (one shade of texture, as vanilla's), and takes that majority
+    otherwise (noise, D4 rule 4)."""
+    def lum(c):
+        r, g, b = (v / 255.0 for v in c)
+        def lin(u):
+            return u / 12.92 if u <= 0.04045 else ((u + 0.055) / 1.055) ** 2.4
+        yy = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
+        return 116 * (yy ** (1 / 3)) - 16 if yy > 0.008856 else 903.3 * yy
+    changes = {}
+    for (x, y), col in cv.px.items():
+        if (x, y) in cv.glow:
+            continue
+        nb = [cv.px.get((x + 1, y)), cv.px.get((x - 1, y)), cv.px.get((x, y + 1)), cv.px.get((x, y - 1))]
+        if None in nb or col in nb:
+            continue
+        major = max(set(nb), key=nb.count)
+        if abs(lum(col) - lum(major)) > keep_dl:
+            changes[(x, y)] = major
+    cv.px.update(changes)
+
+
+def glint(cv, x, y, ramp, cross=False):
+    """A specular glint: the ramp's top shade, with a one-shade cross round it on bigger metal."""
+    r = RAMP[ramp]
+    cv.put(x, y, r[-1])
+    if cross:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            if (x + dx, y + dy) in cv.px:
+                cv.put(x + dx, y + dy, r[-2])

@@ -1,3 +1,4 @@
+using Cogpunk.Content.Mechanist;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -12,16 +13,19 @@ namespace Cogpunk.Content.Junkyard.Weapons
 	/// <list type="bullet">
 	/// <item><b>Guard</b>: a right click with the wrench in hand, idle, under the same conditions vanilla checks before a
 	/// right-click feature (decompiled <c>Player.ItemCheck_ManageRightClickFeatures</c>: not over the UI, no tile or NPC
-	/// interaction this tick, a fresh press), and not cooling down. It lasts <see cref="MetalWrench.ParryTicks"/>; a
-	/// <see cref="MetalWrenchGuard"/> shows it to everyone.</item>
+	/// interaction this tick, a fresh press), and not cooling down; it costs <see cref="MetalWrench.ParrySteamCost"/> steam
+	/// (user, 2026-11-04: <see cref="SteamPlayer.TryPayAttack"/>, a Mechanist weapon's rules: no tank, no parry and a hint;
+	/// too little steam, an overheat), and the click is used up either way so a refusal can't repeat every tick. It lasts
+	/// <see cref="MetalWrench.ParryTicks"/>; a <see cref="MetalWrenchGuard"/> shows it to everyone.</item>
 	/// <item><b>Parry</b>: vanilla asks the hit player's own client before every dodgeable hit (decompiled
 	/// <c>Player.Hurt</c>: <c>PlayerLoader.FreeDodge</c> only when <c>whoAmI == Main.myPlayer</c>), which is where contact
 	/// and hostile projectile hits on a player are decided. A hit from an NPC or a hostile projectile during the guard is
 	/// refused: a <see cref="MetalClash"/> where it struck, the riposte buff, the cooldown, and vanilla's usual hurt
 	/// immunity (40 ticks, 80 with a Cross Necklace) so the same enemy can't land a second later.</item>
 	/// <item><b>Riposte</b>: the next swing (<see cref="MetalWrench.UseItem"/>) carries it to its end, whether it lands or
-	/// not; every NPC it hits takes x<see cref="MetalWrench.RiposteMultiplier"/>; the first boss or mini-boss it hits sets
-	/// off a boss clash (<see cref="MetalClash"/> mode 1: every side slows down when it arrives).</item>
+	/// not; every NPC it hits takes x<see cref="MetalWrench.RiposteMultiplier"/>, plus the Spring Gloves' bonus for the steam
+	/// the parry took (<see cref="RiposteSteam"/>); the first boss or mini-boss it hits sets off a boss clash
+	/// (<see cref="MetalClash"/> mode 1: every side slows down when it arrives).</item>
 	/// </list>
 	/// D2: the state is the owner's; others see the guard projectile, the clash projectile and the two buffs (vanilla
 	/// sends the local player's buff list whenever it changes, decompiled <c>Main</c>: <c>NetMessage.SendData(50)</c>).
@@ -33,6 +37,11 @@ namespace Cogpunk.Content.Junkyard.Weapons
 
 		private int guardTicks;
 		private int guardProjectile = -1;
+		private int guardSteam;
+
+		/// <summary>The steam the parry behind the ready riposte took (after discounts): what the Spring Gloves count for the
+		/// riposte swing (owner).</summary>
+		public int RiposteSteam { get; private set; }
 
 		/// <summary>The swing in progress carries the riposte (owner).</summary>
 		public bool RiposteSwing { get; private set; }
@@ -63,6 +72,9 @@ namespace Cogpunk.Content.Junkyard.Weapons
 				return true;
 			}
 			Main.mouseRightRelease = false;                 // the click is used up, as vanilla does with its own
+			if (!Player.GetModPlayer<SteamPlayer>().TryPayAttack(MetalWrench.ParrySteamCost, out guardSteam)) {
+				return true;                                // no tank (a hint) or too little steam (an overheat): no guard
+			}
 			guardTicks = MetalWrench.ParryTicks;
 			guardProjectile = -1;
 			if (SafeSpawn.TryNewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.Zero,
@@ -83,6 +95,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 
 		private void EndRiposte() {
 			RiposteSwing = false;
+			RiposteSteam = 0;
 			riposteClashed = riposteShown = false;
 			Player.ClearBuff(ModContent.BuffType<WrenchRiposteBuff>());
 		}
@@ -95,6 +108,8 @@ namespace Cogpunk.Content.Junkyard.Weapons
 
 		public override void UpdateDead() {
 			guardTicks = 0;
+			guardSteam = 0;
+			RiposteSteam = 0;
 			RiposteSwing = false;
 			riposteClashed = riposteShown = false;
 		}
@@ -137,6 +152,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 				ModContent.ProjectileType<MetalClash>(), 0, 0f, out _, Player.whoAmI, ai0: MetalClash.ParryMode);
 			Player.SetImmuneTimeForAllTypes(Player.longInvince ? 80 : 40);
 			Player.AddBuff(ModContent.BuffType<WrenchRiposteBuff>(), MetalWrench.RiposteBuffTicks);
+			RiposteSteam = guardSteam;
 			EndGuard();
 			return true;
 		}

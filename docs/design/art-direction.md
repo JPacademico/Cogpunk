@@ -55,10 +55,19 @@ Every boss dies on screen: a scripted, themed breakdown that **locks the camera 
 - Wear that fits the theme: Trash-Tr0m is rusted (`rig.py` rust: patches of the copper ramp at the same shade, gathering towards the bottom of each part, with short drips; the noise lives in each part's own space so patches stay on a moving limb).
 - Colour cap: bosses 48 colours from the Cogpunk palette (Trash-Tr0m's body sheet uses 29).
 
+### Measured against vanilla (2026-11-05)
+
+`docs/design/pixel-art-study.md` measured 38 vanilla NPC frames against ours and turned the gap into targets and tools:
+- Proportions: about 2.5 heads tall, thick limbs, big props.
+- Long palette ramps in small steps, with band dither and part-space texture.
+- Coloured outlines, lighter on the lit side.
+- Small props drawn as one silhouette.
+- `tools/check_detail.py` (D4 rule 18).
+
 ## Checklist for a new detailed entity
 
 1. Sketch the 3/4 silhouette and decide the layer split (≤ 3).
 2. Write a generator under `art/<same path as Content>/` that renders all poses and the `*RigData.cs`.
 3. Draw with `DepthLayers` and take AI points from the rig data.
 4. Bosses: inherit `BossNPC`, give the intro and the death cinematic `CinematicCamera` locks.
-5. `check_sprite.py` on every sheet, plus a D5 simulation that replays the AI with the real sheets (and measures root-motion slip for walkers or crawlers).
+5. `check_sprite.py` and `check_detail.py` on every sheet, plus a D5 simulation that replays the AI with the real sheets (and measures root-motion slip for walkers or crawlers).

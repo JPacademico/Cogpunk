@@ -25,6 +25,10 @@ namespace Cogpunk.Content.Mechanist
 	/// paid in steam instead (<see cref="ModifyManaCost"/> zeroes it, <see cref="OnConsumeMana"/> takes the steam), and mana
 	/// pays once the steam runs short; <see cref="OverheatImmune"/> turns an overheat into a plain refusal to fire;
 	/// <see cref="SteamRegenMultiplier"/> scales the refill (the fraction carries over to the next refill).</para>
+	/// <para>Steam-costing skills of other classes (user, 2026-11-04: the Metal Wrench's parry, the Tar-Shower's charge;
+	/// <see cref="ISteamSkill"/>) pay through <see cref="TryPayAttack"/>, by the same rules as a Mechanist weapon.
+	/// <see cref="SteamForUse"/> tells what a use takes from the tank (a Mechanist weapon, a spell the steam pays for, a
+	/// skill), which is what the Spring Gloves count.</para>
 	/// <para>D2: Steam is the owning client's (like the local mana counter, nobody else can see it); only the owner spends,
 	/// refills and overheats. The overheat shows to everyone through its buff, which vanilla syncs. D1: integer counters,
 	/// no allocation; effects client-only.</para>
@@ -75,6 +79,8 @@ namespace Cogpunk.Content.Mechanist
 		private int noTankHintTimer;
 		private float regenCarry;
 		private bool measuringMana;
+		private int paidItemType = -1;                 // the last mana payment (OnConsumeMana): which item, and the steam it took
+		private int paidSteam;
 		private static LocalizedText noTankText;
 
 		/// <summary>The gauge is shown while steam matters: a Mechanist weapon in hand, Mechanist gear on, a tank that isn't
@@ -140,6 +146,70 @@ namespace Cogpunk.Content.Mechanist
 		public void Spend(int baseCost) {
 			Steam = Math.Max(0, Steam - GetCost(baseCost));
 			NoteAttack();
+		}
+
+		/// <summary>Owner: whether an attack costing <paramref name="baseCost"/> (before the multiplier) can be paid now, by a
+		/// Mechanist weapon's rules. A refusal does what it does for a Mechanist weapon: nothing while overheated; the "No steam
+		/// tank!" hint when the whole tank is smaller than the cost (no refill could ever pay); an overheat (or, with
+		/// <see cref="OverheatImmune"/>, a plain refusal) when the tank is merely short.</summary>
+		public bool CanPayAttack(int baseCost) {
+			if (Overheated) {
+				return false;
+			}
+			int cost = GetCost(baseCost);
+			if (SteamMax < cost) {
+				NoteNoTank();
+				return false;
+			}
+			if (Steam < cost) {
+				TriggerOverheat();
+				return false;
+			}
+			return true;
+		}
+
+		/// <summary>Owner: pays a steam-costing attack that isn't a Mechanist weapon's item use (a weapon skill,
+		/// <see cref="ISteamSkill"/>) if <see cref="CanPayAttack"/> allows it. <paramref name="paid"/> is the steam taken
+		/// (after the multiplier), which the skill's payoff hands to the Spring Gloves.</summary>
+		public bool TryPayAttack(int baseCost, out int paid) {
+			paid = 0;
+			if (!CanPayAttack(baseCost)) {
+				return false;
+			}
+			paid = GetCost(baseCost);
+			Spend(baseCost);
+			return true;
+		}
+
+		/// <summary>Owner: the steam the use of <paramref name="item"/> that is starting or under way takes from the tank (what
+		/// the Spring Gloves count): a steam skill's cost during the skill (<see cref="ISteamSkill.SteamForUse"/>), a
+		/// Mechanist weapon's cost, or, with <see cref="SteamAsMana"/>, the mana cost the steam pays. Summoning items count
+		/// nothing: the steam pays for the summon, not for the minion's attacks (vanilla recomputes a minion's damage from the
+		/// class bonus alone, never from the weapon's). Read from <c>ModifyWeaponDamage</c>, which vanilla calls before it pays
+		/// for a use (decompiled <c>Player.ItemCheck_Inner</c>: <c>GetWeaponDamage</c> first, then <c>ItemCheck_CheckCanUse</c>
+		/// and its <c>ItemCheck_PayMana</c>), so a use about to start counts what the tank would pay, and later ticks of the
+		/// same use count what it did pay. D1: field reads and one <c>GetManaCost</c>.</summary>
+		public int SteamForUse(Item item) {
+			if (item == null || item.IsAir) {
+				return 0;
+			}
+			if (item.ModItem is ISteamSkill skill) {
+				int s = skill.SteamForUse(Player);
+				if (s > 0) {
+					return s;
+				}
+			}
+			if (item.ModItem is MechanistWeapon weapon) {
+				return GetCost(weapon.SteamCost);
+			}
+			if (!SteamAsMana || item.mana <= 0 || item.DamageType.CountsAsClass(DamageClass.Summon)) {
+				return 0;
+			}
+			if (Player.ItemAnimationActive && item.type == paidItemType) {
+				return paidSteam;                          // the use under way: what it paid
+			}
+			int cost = ManaCostWithoutSteam(item);
+			return cost > 0 && Steam >= cost ? cost : 0;  // about to start (or a tooltip): what the tank would pay
 		}
 
 		/// <summary>Owner: pays a flat <paramref name="amount"/> (no cost multiplier: not a weapon) if the tank holds it; false
@@ -238,7 +308,7 @@ namespace Cogpunk.Content.Mechanist
 				EndOverheat();
 			}
 			bool relevant = Overheated || Steam < SteamMax || SteamMaxBonus != 0 || SteamCostMultiplier != 1f
-				|| Player.HeldItem.ModItem is MechanistWeapon;
+				|| Player.HeldItem.ModItem is MechanistWeapon || (SteamMax > 0 && Player.HeldItem.ModItem is ISteamSkill);
 			gaugeTimer = relevant ? GaugeLingerTicks : Math.Max(0, gaugeTimer - 1);
 		}
 
@@ -264,14 +334,20 @@ namespace Cogpunk.Content.Mechanist
 		}
 
 		/// <summary>Owner: a use whose mana cost the steam covered (0 mana paid): one steam per point of mana. Like an
-		/// attack, it restarts the refill delay.</summary>
+		/// attack, it restarts the refill delay. Every payment is recorded (which item, the steam it took: 0 when mana paid),
+		/// so <see cref="SteamForUse"/> knows what the use under way paid.</summary>
 		public override void OnConsumeMana(Item item, int manaConsumed) {
-			if (!SteamAsMana || manaConsumed != 0 || Player.whoAmI != Main.myPlayer) {
+			if (Player.whoAmI != Main.myPlayer) {
+				return;
+			}
+			paidItemType = item?.type ?? -1;
+			paidSteam = 0;
+			if (!SteamAsMana || manaConsumed != 0 || item == null) {
 				return;
 			}
 			int cost = ManaCostWithoutSteam(item);
-			if (cost > 0) {
-				TrySpendFlat(cost);
+			if (cost > 0 && TrySpendFlat(cost)) {
+				paidSteam = cost;
 			}
 		}
 

@@ -3,7 +3,9 @@
     python -P art/rain/make_splasher_art.py [--preview FILE]
 
 Design (user, 2026-11-03: "spawns in the rain, a robot with an umbrella on the head that shoots a water gun, mid
-range"): a squat iron walker with a bucket head and one ember lens (hostile), an umbrella bolted to the top of its head
+range"): a squat iron walker with a copper diving-helmet head (redrawn 2026-11-04, user: "a detailed face, it looked just
+like a blank square": a riveted porthole with two ember eyes glowing behind its glass, a side port, a brass collar, an air
+hose; the 2026-11-03 bucket head is in art/rain/previous/) and a pressure gauge on its chest, an umbrella bolted to the top of its head
 (red canopy panels on iron ribs, a brass ferrule), a riveted water tank with a sight glass on its back and a hose from it
 to a pump-action water gun of brass held in its near hand. Three-quarter view facing left (D4 rule 13), lit from the
 top-left.
@@ -32,13 +34,15 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "bosses", "trashtr0m"))
 sys.path.insert(0, os.path.join(HERE, "..", "mecharmy"))
-from rig import RAMP, WHITE, Xf, Poly, Ellipse, Capsule, Ring, Union, box, Canvas, flat, dome, cyl, face, rivet, line, ik  # noqa: E402
+from rig import (RAMP, WHITE, Xf, Poly, Ellipse, Capsule, Ring, Union, box, Canvas, flat, dome, cyl, face, rivet, line, ik,  # noqa: E402
+                 texture, selout, soften_orphans, glint)
 from make_trashtr0m_art import export, to_image, vertical  # noqa: E402
 from make_mecharmy_art import fit_cell, grid_layer  # noqa: E402
 
 ROOT = os.getcwd()
 OUT = "Content/Rain/"
 I, B, C, E, S = (RAMP[k] for k in ("iron", "brass", "copper", "ember", "steam"))
+ST, G, K = (RAMP[k] for k in ("steel", "gilt", "crimson"))   # the long ramps (2026-11-05 redraw)
 THIGH, SHIN = 4.2, 4.2
 UPPER, FORE = 4.0, 4.0
 HIP_Y = -8.0
@@ -74,34 +78,40 @@ class Pose:
 
 
 def limb(cv, a, b, r, ramp, depth):
-    cv.part(Xf(), Capsule(a, b, r), ramp, cyl(a, b, r, lo=1, hi=4, snap=45), depth=depth, rust=0.0)
+    """A thick capsule limb over a long ramp (far plane: one flat tone, D4 rule 17)."""
+    n = len(RAMP[ramp])
+    if depth > 0:
+        cv.part(Xf(), Capsule(a, b, r), ramp, flat(max(2, n // 2 - 1), bevel=False), rust=0.0)
+        return
+    cv.part(Xf(), Capsule(a, b, r), ramp, cyl(a, b, r, lo=max(2, n // 3), hi=n - 1, snap=45), rust=0.0)
 
 
 def leg(cv, hip, foot, lift, depth):
     ankle = (foot, -1.6 - lift)
     knee, ankle = ik(hip, ankle, THIGH, SHIN, -1)                 # the knee forward (left)
-    limb(cv, hip, knee, 1.4, "iron", depth)
-    limb(cv, knee, ankle, 1.2, "brass", depth)                    # a brass piston shin
+    limb(cv, hip, knee, 2.1, "steel", depth)
+    limb(cv, knee, ankle, 1.8, "gilt", depth)                     # a brass piston shin
     ax, ay = ankle
-    cv.part(Xf(), Poly([(ax + 1.8, ay - 0.4), (ax - 1.6, ay - 0.8), (ax - 3.2, ay + 0.8), (ax - 3.0, ay + 1.7), (ax + 2.0, ay + 1.7)]),
-            "iron", flat(2), depth=depth, rust=0.0)               # a flat iron foot, toes forward
-    cv.put(int(math.floor(knee[0])), int(math.floor(knee[1])), B[max(1, 4 - depth)])   # the knee bolt
+    cv.part(Xf(), Poly([(ax + 2.0, ay - 1.0), (ax - 1.8, ay - 1.4), (ax - 3.6, ay + 0.6), (ax - 3.4, ay + 1.9), (ax + 2.2, ay + 1.9)]),
+            "steel", flat(3, bevel=False) if depth else face((-0.5, -0.5, 0.7), lo=2, hi=6, ramp_len=9, fixed=True), rust=0.0)   # the foot
+    if depth == 0:
+        cv.put(int(math.floor(knee[0])), int(math.floor(knee[1])), G[8])   # the knee bolt
 
 
 def water_gun(cv, grip, angle, pump, recoil, depth):
     """A pump-action water gun pointing left from the grip: a brass body, an iron barrel and flared nozzle, a copper
     reservoir on top, a brass pump handle under the barrel that slides back by `pump`. Returns the muzzle point."""
     xf = Xf.pose(angle, (0.0, 0.0), (grip[0] + recoil, grip[1]))
-    cv.part(xf, box(-1.2, -0.4, 1.0, 3.2), "iron", flat(2), depth=depth, rust=0.0)                       # the grip
-    cv.part(xf, Poly([(-6.0, -2.4), (2.4, -2.4), (2.8, -0.6), (1.6, 0.6), (-6.0, 0.6)]), "brass",
-            face((0.0, -0.6, 0.8), lo=2, hi=5, gain=1.3, snap=45), depth=depth, rust=0.0)                   # the body
-    cv.part(xf, Ellipse(-2.0, -3.6, 2.6, 1.6), "copper", dome(-3.0, -4.4, 3.0, lo=2, hi=4, snap=45), depth=depth, rust=0.0)  # reservoir
-    cv.part(xf, box(-11.0, -1.8, -6.0, -0.2), "iron", cyl((-11.0, -1.0), (-6.0, -1.0), 0.8, lo=2, hi=4, snap=45), depth=depth, rust=0.0)
-    cv.part(xf, Poly([(-13.0, -2.6), (-11.0, -2.0), (-11.0, 0.0), (-13.0, 0.6)]), "iron", flat(3), depth=depth, rust=0.0)   # nozzle
+    cv.part(xf, box(-1.4, -0.6, 1.2, 3.6), "steel", face((-0.5, -0.3, 0.8), lo=2, hi=5, ramp_len=9, snap=45), rust=0.0)   # the grip
+    cv.part(xf, Poly([(-6.4, -2.8), (2.6, -2.8), (3.0, -0.6), (1.8, 1.0), (-6.4, 1.0)]), "gilt",
+            face((0.0, -0.6, 0.8), lo=3, hi=8, ramp_len=10, gain=1.3, snap=45), rust=0.0)                  # the body
+    cv.part(xf, Ellipse(-2.0, -4.0, 2.8, 1.9), "copper", dome(-3.0, -4.8, 3.2, lo=2, hi=4, snap=45), rust=0.0)    # the reservoir
+    cv.part(xf, box(-11.0, -2.2, -6.0, 0.2), "steel", cyl((-11.0, -1.0), (-6.0, -1.0), 1.2, lo=3, hi=8, snap=45), rust=0.0)
+    cv.part(xf, Poly([(-13.4, -3.0), (-11.0, -2.4), (-11.0, 0.4), (-13.4, 1.0)]), "steel", flat(6), rust=0.0)   # the nozzle
     px = -9.0 + 2.2 * pump
-    cv.part(xf, box(px, 0.2, px + 3.0, 1.8), "brass", flat(3), depth=depth, rust=0.0)                   # the pump handle
-    q = P(xf, (-3.0, -4.2))
-    cv.put(q[0], q[1], S[2])                                                                            # glint on the reservoir
+    cv.part(xf, box(px, 0.4, px + 3.2, 2.4), "gilt", flat(6), rust=0.0)                                # the pump handle
+    q = P(xf, (-3.2, -4.8))
+    cv.put(q[0], q[1], S[3])                                                                            # glint on the reservoir
     return xf.fwd((-13.4, -1.0))
 
 
@@ -110,7 +120,7 @@ def umbrella(cv, top, bob, depth=0):
     dome lit from the top-left; seams drawn as lines read as glyphs at this size), iron rib tips poking out of its rim,
     a brass ferrule on top."""
     tx, ty = top[0], top[1] + bob
-    cv.part(Xf(), box(tx - 0.5, ty - 4.0, tx + 0.6, ty + 0.5), "brass", flat(3), depth=depth, rust=0.0)
+    cv.part(Xf(), box(tx - 0.6, ty - 4.0, tx + 0.8, ty + 0.5), "gilt", flat(6), rust=0.0)
     cy = ty - 4.0
     rx, ry = 11.0, 5.2
     canopy = Ellipse(tx, cy + 0.6, rx, ry) - box(tx - rx - 1.0, cy + 0.6, tx + rx + 1.0, cy + ry + 2.0)
@@ -121,53 +131,82 @@ def umbrella(cv, top, bob, depth=0):
     ribs = [tx - rx + k * (2 * rx) / 6.0 for k in range(7)]
     for (x, y) in mask:
         if (x, y) in edge:
-            cv.put(x, y, E[0])
+            cv.put(x, y, K[0])
             continue
         nx, ny = (x + 0.5 - tx) / rx, (y + 0.5 - (cy + 0.6)) / ry
         light = nx * 0.8 + ny * 1.1                          # a dome lit from the top-left (in its own space: it never turns)
-        k = 3 if light < -0.75 else (2 if light < 0.1 else 1)
+        k = 5 if light < -0.85 else (4 if light < -0.3 else (3 if light < 0.35 else 2))
         rx_at = tx + (x + 0.5 - tx) * ry / max(0.6, ry - (y + 0.5 - (cy - ry)))
         panel = sum(1 for b in ribs if b < rx_at)
         if panel % 2 == 0:
             k = max(1, k - 1)                                # alternate panels a shade darker
-        cv.put(x, y, E[k])
+        cv.put(x, y, K[k])
     for bx in ribs:
-        cv.put(int(math.floor(bx)), int(math.floor(cy + 1.6)), I[3])          # the rib tips
-    cv.part(Xf(), Ellipse(tx, cy - ry + 0.4, 1.1, 1.0), "brass", flat(4), depth=depth, rust=0.0)   # the ferrule
+        cv.put(int(math.floor(bx)), int(math.floor(cy + 1.6)), ST[7])         # the rib tips
+    cv.part(Xf(), Ellipse(tx, cy - ry + 0.4, 1.2, 1.1), "gilt", flat(8), rust=0.0)   # the ferrule
 
 
 def body(mid, glow, pose):
     """Torso, tank, head and umbrella. Returns the near and far shoulders."""
     oy = pose.bob
     # the water tank on its back: a riveted iron drum, brass bands, a sight glass of water
-    tank = mid.part(Xf(), box(2.4, -17.0 + oy, 7.6, -8.6 + oy), "iron", cyl((5.0, -17.0 + oy), (5.0, -8.6 + oy), 2.6, lo=1, hi=3, fixed=True),
+    tank = mid.part(Xf(), box(2.4, -17.0 + oy, 7.6, -8.6 + oy), "steel", cyl((5.0, -17.0 + oy), (5.0, -8.6 + oy), 2.6, lo=2, hi=7, fixed=True),
                     rust=0.0)
     for y in (-15.0, -10.6):
-        mid.part(Xf(), box(2.0, y + oy, 8.0, y + 1.0 + oy), "brass", flat(3), rust=0.0)
+        mid.part(Xf(), box(2.0, y + oy, 8.0, y + 1.0 + oy), "gilt", flat(6), rust=0.0)
     for y in range(int(-13 + oy), int(-11 + oy)):
         mid.put(6, y, S[1] if y % 2 else S[2])                        # the sight glass: water in it
-    # the torso: a rounded box of iron, lit on its top and front, a brass belly plate with rivets
-    torso = mid.part(Xf(), Union(box(-5.0, -17.0 + oy, 3.6, -8.0 + oy), Ellipse(-0.7, -17.0 + oy, 4.3, 1.6)), "iron",
-                     face((-0.45, -0.5, 0.74), lo=2, hi=4, gain=1.2, bias=0.15, fixed=True), shadow=(1, 1), rust=0.0)
-    plate = mid.part(Xf(), box(-4.2, -13.0 + oy, 1.4, -9.4 + oy), "brass", flat(3), rust=0.0)
+    # the torso: a rounded box of iron, lit on its top and front, a brass belly plate with rivets, a pressure gauge
+    torso = mid.part(Xf(), Union(box(-5.4, -17.4 + oy, 3.8, -8.0 + oy), Ellipse(-0.8, -17.4 + oy, 4.6, 1.6)), "steel",
+                     face((-0.45, -0.5, 0.74), lo=3, hi=7, ramp_len=9, gain=1.25, bias=0.2, fixed=True), shadow=(1, 1), rust=0.0)
+    plate = mid.part(Xf(), box(-4.4, -13.0 + oy, 1.6, -9.2 + oy), "gilt", face((-0.4, -0.6, 0.7), lo=4, hi=8, ramp_len=10, fixed=True), rust=0.0)
     for x in (-3.2, 0.4):
         rivet(mid, Xf(), (x, -12.2 + oy), "brass", plate)
+    for y in (-15.8, -14.2):                                           # rivets down the chest's front seam
+        rivet(mid, Xf(), (-4.0, y + oy), "iron", torso)
+    gauge = mid.part(Xf(), Ellipse(-1.6, -15.2 + oy, 1.8, 1.7), "gilt", flat(6), rust=0.0)   # the pressure gauge: a brass bezel...
+    g = P(Xf(), (-1.6, -15.2 + oy))
+    for (dx, dy, col) in ((0, 0, S[2]), (-1, 0, S[2]), (0, -1, S[3]), (-1, -1, S[3])):
+        mid.put(g[0] + dx, g[1] + dy, col)                             # ...a white dial...
+    mid.put(g[0] - 1, g[1], I[0])                                       # ...and its needle in the red
+    mid.put(g[0], g[1] - 1, E[1])
+    del gauge
     for y in range(int(-16 + oy), int(-8 + oy)):                       # the hose from the tank round the back
         if (3, y) in torso:
             mid.put(3, y, C[1] if y % 2 else C[2])
-    # the head: a bucket of iron with one ember lens and a grille, the umbrella bolted on top
+    # the head: a copper diving helmet (user, 2026-11-04: "a detailed face, it looked just like a blank square"): a big
+    # riveted porthole in front with two ember eyes glowing behind its glass and a wet glint, a small side port, a brass
+    # collar bolted to the shoulders, the air hose from the tank to the back of the helmet, the umbrella bolted on top
     hc = (-1.2, -20.4 + oy)
-    head = mid.part(Xf(), Union(box(hc[0] - 3.6, hc[1] - 2.6, hc[0] + 3.4, hc[1] + 2.4), Ellipse(hc[0] - 0.1, hc[1] - 2.6, 3.5, 1.4)), "iron",
-                    face((-0.5, -0.45, 0.74), lo=2, hi=4, gain=1.25, bias=0.2, fixed=True), shadow=(1, 1), rust=0.0)
-    ex, ey = P(Xf(), (hc[0] - 2.4, hc[1] - 0.6))
-    mid.put(ex - 1, ey, I[0])
-    for (dx, dy, col) in ((0, 0, E[3]), (1, 0, E[2]), (0, 1, E[2]), (1, 1, E[1])):
-        mid.put_glow(ex + dx, ey + dy, col)
-        glow.put_glow(ex + dx, ey + dy, col)
-    for x in range(int(hc[0] - 3), int(hc[0] + 1)):                  # the grille mouth
-        q = (x, int(hc[1] + 1.6))
+    collar = mid.part(Xf(), Union(box(hc[0] - 3.6, hc[1] + 1.8, hc[0] + 3.6, hc[1] + 3.8), Ellipse(hc[0], hc[1] + 2.8, 4.0, 1.0)), "gilt",
+                      face((-0.4, -0.6, 0.7), lo=3, hi=7, ramp_len=10, fixed=True), rust=0.0)
+    for x in (-2.6, 0.0, 2.4):
+        rivet(mid, Xf(), (hc[0] + x, hc[1] + 2.4), "brass", collar)
+    head = mid.part(Xf(), Ellipse(hc[0], hc[1] - 0.8, 4.8, 4.4), "copper", dome(hc[0] - 1.8, hc[1] - 2.6, 5.2, lo=1, hi=4, gain=1.35, bias=0.35, fixed=True),
+                    shadow=(1, 1), rust=0.0)
+    port_c = (hc[0] - 1.2, hc[1] - 0.4)                                # the front porthole, on the helmet's face
+    pc = P(Xf(), port_c)
+    ring = [(-2, -1), (-2, 0), (-2, 1), (-1, -2), (0, -2), (1, -2), (2, -1), (2, 0), (2, 1), (-1, 2), (0, 2), (1, 2)]
+    for (dx, dy) in ring:
+        mid.put(pc[0] + dx, pc[1] + dy, G[8] if (dy < 0 or dx < 0) else G[4])     # its brass rim, lit top-left
+    for (dx, dy) in ((-1, -1), (0, -1), (1, -1), (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1), (1, 1)):
+        mid.put(pc[0] + dx, pc[1] + dy, ST[3] if dy < 0 else ST[1])      # the dark glass
+    for (dx, dy, col) in ((-1, 0, E[3]), (1, 0, E[3]), (-1, 1, E[1]), (1, 1, E[1])):
+        mid.put_glow(pc[0] + dx, pc[1] + dy, col)                        # two ember eyes behind it
+        glow.put_glow(pc[0] + dx, pc[1] + dy, col)
+    mid.put(pc[0] - 1, pc[1] - 1, S[2])                                  # a wet glint on the glass
+    for (dx, dy) in ((-3, 0), (0, -3), (3, 0), (0, 3)):
+        q = (pc[0] + dx, pc[1] + dy)
         if q in head:
-            mid.put(q[0], q[1], I[0] if x % 2 else I[1])
+            mid.put(q[0], q[1], G[9] if dy <= 0 else G[5])               # the porthole's four bolts
+    sp = P(Xf(), (hc[0] + 2.4, hc[1] - 1.4))                             # the side port
+    for (dx, dy, col) in ((0, 0, I[1]), (1, 0, I[1]), (0, -1, B[4]), (1, -1, B[3]), (-1, 0, B[3]), (2, 0, B[2]), (0, 1, B[2]), (1, 1, B[2])):
+        q = (sp[0] + dx, sp[1] + dy)
+        if q in head:
+            mid.put(q[0], q[1], col)
+    for k in range(4):                                                   # the air hose to the back of the helmet
+        q = P(Xf(), (hc[0] + 4.0 + k * 0.4, hc[1] + 0.4 + k * 1.2))
+        mid.put(q[0], q[1], C[2] if k % 2 else C[1])
     umbrella(mid, (hc[0] + 0.4, hc[1] - 3.6), pose.umbrella)
     del tank, torso
     return (-3.4, -15.6 + oy), (1.2, -15.8 + oy)
@@ -183,14 +222,15 @@ def frame(pose):
     gx, gy = pose.gun[0] + pose.recoil, pose.gun[1] + pose.bob
     pump_hand = (gx - 6.0 + 2.2 * pose.pump, gy + 1.8)
     elbow, wrist = ik(sh_far, pump_hand, UPPER, FORE, 1)
-    limb(far, sh_far, elbow, 1.2, "iron", 1)
-    limb(far, elbow, wrist, 1.1, "iron", 1)
+    limb(far, sh_far, elbow, 1.9, "steel", 1)
+    limb(far, elbow, wrist, 1.7, "steel", 1)
     muzzle = water_gun(near, (gx, gy), pose.gun_angle, pose.pump, 0, 0)
     elbow, wrist = ik(sh_near, (gx + 0.4, gy + 1.0), UPPER, FORE, 1)
-    limb(near, sh_near, elbow, 1.3, "iron", 0)
-    limb(near, elbow, wrist, 1.2, "iron", 0)
+    limb(near, sh_near, elbow, 2.0, "steel", 0)
+    limb(near, elbow, wrist, 1.8, "steel", 0)
     for cv in (far, mid, near):
-        despeckle(cv)
+        soften_orphans(cv, 14.0)
+        selout(cv)
     return far, mid, near, glow, muzzle
 
 
