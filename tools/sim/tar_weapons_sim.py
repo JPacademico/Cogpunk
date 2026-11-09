@@ -20,9 +20,10 @@ Writes:
                                         reach marked) plaguing two walkers; then a 2.5 s charge (the ball's five sizes and
                                         the full rim), the big glob arcing through both enemies, its 6-tile stain, a third
                                         enemy walking into it.
-    <date>_weapon-tar-whip.gif          (2026-11-03) the Tar Whip's lash (Projectile.FillWhipControlPoints replayed) on
-                                        three walkers: 29, then -10% each, 2 s of Tar Plague; then in the Tyrant set: 25%
-                                        faster lashes and 3.5 s of plague (the timers over the enemies).
+    <date>_weapon-tar-whip.gif          (2026-11-03, the set's numbers 2026-11-06) the Tar Whip's lash
+                                        (Projectile.FillWhipControlPoints replayed) on three walkers: 29, then -10% each, 2 s
+                                        of Tar Plague; then in the Tyrant set: the cape's +12% faster lashes and 3.5 s of
+                                        plague (the timers over the enemies).
 
 Leaves out: lighting, vanilla's exact item and arm drawing (the player is a standing sprite, the swing is the item sprite
 turned about the hand by vanilla's style-1 formula), tile collision beyond a flat floor, enemy AI (they walk), defense,
@@ -558,7 +559,7 @@ def scene_shower(out, font):
 # Tar Whip (2026-11-03) and the Tyrant set's bonus
 # ================================================================================================
 KWH = consts(D + "TarWhip.cs", D + "TarWhipProjectile.cs", D + "TarWhipDebuff.cs")
-KTY = consts("Content/Bosses/TarTyrant/Armor/TyrantSkull.cs")
+KTY = consts("Content/Bosses/TarTyrant/Armor/TyrantSkull.cs", "Content/Bosses/TarTyrant/Armor/TyrantCape.cs")   # the whip speed is the cape's since 2026-11-06
 
 
 def rot_about(p, c, a):
@@ -632,8 +633,8 @@ def draw_whip(img, sheet_img, pts, sprite_dir):
 
 def scene_whip(out, font):
     """Lashes at three walkers: 29 damage, -10% for each further enemy in one lash, the tag (+7 for minions), 2 s of Tar
-    Plague a lash. Then the same in the Tyrant set: whips 25% faster (24 ticks a lash instead of 30) and the plague 1.5 s
-    longer (3.5 s); the timers over the enemies show it."""
+    Plague a lash. Then the same in the Tyrant set: whips 12% faster (the cape's, 27 ticks a lash instead of 30) and the
+    plague 1.5 s longer (3.5 s, the set bonus); the timers over the enemies show it."""
     import tartyrant_sim as tts
     sheet_img = load(D + "TarWhipProjectile.png")
     W, H, G = 700, 300, 250
@@ -692,7 +693,7 @@ def scene_whip(out, font):
                     else:
                         gif.text(img, (10, 8), "In the Tyrant set: whips +%d%% speed (%d-tick lash), the plague +%.1f s (%.1f s)" % (
                             KTY["WhipSpeed"], anim, KTY["PlagueBonusTicks"] / 60, (KWH["PlagueTicks"] + KTY["PlagueBonusTicks"]) / 60), fill=AETHER)
-                        gif.text(img, (10, 28), "Tyrant set: +15% / +1 minion +5% / +15% summon damage, 17 defense")
+                        gif.text(img, (10, 28), "Tyrant set: +%d%% summon and magic damage, +1 minion, the tar claw, 17 defense" % KTY["Damage"])
                     gif.push(img)
                 tick += 1
     gif.save(out)

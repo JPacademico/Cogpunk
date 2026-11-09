@@ -28,9 +28,16 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 	/// telegraph, <see cref="AimTicks"/> ticks, the hammer cocked), fires <see cref="Shots"/> rounds one every
 	/// <see cref="ShotInterval"/> ticks at the target as it is then (within <see cref="MaxAimAngle"/> of level), then stands
 	/// his ground and reloads for <see cref="ReloadTicks"/> ticks (a lawman doesn't run: that is his opening).
-	/// <para>His three <see cref="SheriffStar"/>s float over his hat on their own clock: every <see cref="StarCycle"/> ticks
-	/// (2 s) they flash and chime for <see cref="StarTelegraph"/> ticks, then fly at the target one after another
-	/// (<see cref="StarStagger"/> ticks apart, each at where the target was as it left) and come back to their places.</para>
+	/// <para>His three <see cref="SheriffStar"/>s float over his hat on their own clock (reworked 2026-11-06, user: "higher
+	/// range to hit players but attack more slowly and different: one star every 2 seconds; stars that don't hit a player
+	/// cling to the terrain where they landed and come back to the sheriff, dealing damage to the players on the way back,
+	/// after the third shot"). A volley of <see cref="StarCycle"/> ticks: star k flashes and chimes for
+	/// <see cref="StarTelegraph"/> ticks and flies at the target's spot at <see cref="LaunchTick"/>(k), one every
+	/// <see cref="StarShotInterval"/> ticks (2 s), with <see cref="SheriffStar.OutTicks"/> ticks of reach (36 tiles; it was
+	/// 13.5). A star that touches a player flies home; one that misses sticks in the first block it meets (or hangs where its
+	/// reach ends). After the third shot the stuck stars rattle for <see cref="RecallTelegraph"/> ticks, a dotted line marking
+	/// the way home, and at <see cref="RecallTick"/> they tear loose and fly back through everything, hurting every player on
+	/// the line.</para>
 	/// <para>Stats (Expert, D3 rule 0; docs/balance/npcs.csv; anchor the Dark Mage, the Old One's Army's pre-Hardmode
 	/// mini-boss, decompiled 1.4.4 NPC 564: 800 life, 18 defense, 40 contact in Classic = 1600 / 18 / 80 in Expert):
 	/// <see cref="Life"/> life, <see cref="Defense"/> defense, no knockback (the user's "hard to kill"),
@@ -39,9 +46,10 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 	/// Wrench's riposte clashes on him). Drops 1 in <see cref="BadgeOdds"/> the <see cref="SheriffBadge"/>, 4-8 Tarnished Brass
 	/// Bars and his coins.</para>
 	/// <para>D2: <c>ai[0]</c>/<c>ai[1]</c> state and timer, <c>ai[2]</c> the shots fired, <c>ai[3]</c> the stars' clock
-	/// (every side counts it; the server's value rides each sync); the server targets, decides, fires and keeps his stars (a
-	/// fixed scan every <see cref="StarCheckInterval"/> ticks respawns a missing one through <see cref="SafeSpawn"/>). D1: no
-	/// allocation; sounds and dust on clients.</para>
+	/// (every side counts it, whether or not he has a target, so stuck stars always come home; the server's value rides
+	/// each sync); the server targets, decides, fires, launches the stars and keeps them (a fixed scan every
+	/// <see cref="StarCheckInterval"/> ticks respawns a missing one through <see cref="SafeSpawn"/>). D1: no allocation;
+	/// sounds and dust on clients.</para>
 	/// </summary>
 	public class Sheriff : GridWalkerNPC
 	{
@@ -64,9 +72,14 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 		public const float LevelBand = 0.22f;
 		public const int MuzzleFlashTicks = 5;
 		public const int StarCount = 3;                                     // user-set
-		public const int StarCycle = 120;                                   // "every 2 seconds" (user-set)
-		public const int StarTelegraph = 30;
-		public const int StarStagger = 8;
+		public const int StarShotInterval = 120;                            // "one star every 2 seconds" (user-set 2026-11-06)
+		public const int StarTelegraph = 30;                                // each throw's flash (D3: >= 30 at T0-T4)
+		public const int RecallTelegraph = 30;                              // the stuck stars rattle, their way home marked
+		public const int RecallTelegraphTick = StarTelegraph + (StarCount - 1) * StarShotInterval + SheriffStar.OutTicks;
+		public const int RecallTick = RecallTelegraphTick + RecallTelegraph;   // "after the third shot" (user-set)
+		public const int RecallWindow = 90;                                 // the way back: 36 tiles at 12 px/tick is 48 ticks
+		public const int StarCycle = RecallTick + RecallWindow;             // 438 ticks: 3 throws and the recall
+		public const float StarEngageRange = 40f * 16f;                     // a throw needs the target this close (its reach: 36 tiles)
 		public const int StarCheckInterval = 60;
 		public const float SpawnWeight = 0.04f;                             // "a rare spawn" (user-set)
 		public const int BadgeOdds = 3;
@@ -78,8 +91,20 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 		private Phase CurrentPhase => (Phase)State;
 		private ref float ShotsFired => ref NPC.ai[2];
 
-		/// <summary>The stars' clock (0 .. <see cref="StarCycle"/> - 1): their telegraph, launches and returns follow it.</summary>
+		/// <summary>The stars' clock (0 .. <see cref="StarCycle"/> - 1): their telegraphs, throws and the recall follow it.</summary>
 		public ref float StarClock => ref NPC.ai[3];
+
+		/// <summary>The clock tick star <paramref name="slot"/> is thrown at: one every <see cref="StarShotInterval"/>
+		/// ticks, each after its own <see cref="StarTelegraph"/>.</summary>
+		public static int LaunchTick(int slot) => StarTelegraph + slot * StarShotInterval;
+
+		/// <summary>He has a target close enough to throw at (every side: the target and positions are synced).</summary>
+		public bool StarsArmed {
+			get {
+				Player target = Target;
+				return target != null && Vector2.DistanceSquared(target.Center, NPC.Center) < StarEngageRange * StarEngageRange;
+			}
+		}
 
 		protected override int CellWidth => R.CellWidth;
 		protected override int CellHeight => R.CellHeight;
@@ -141,25 +166,20 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SheriffBadge>(), BadgeOdds));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.LawHat>(), Items.LawHat.DropOdds));   // user-set 2026-11-09: 20%
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarnishedBrassBar>(), 1, 4, 8));
 		}
 
 		protected override void UpdateState() {
 			Retarget();
 			Player target = Target;
-			if (target != null) {
-				if (++StarClock >= StarCycle) {
-					StarClock = 0f;
-				}
-			}
-			else {
-				StarClock = 0f;                             // nobody to chase: the stars just float
+			// The clock always runs: with nobody to throw at no star leaves (SheriffStar checks StarsArmed), but stars
+			// already stuck in the terrain still come home at the recall.
+			if (++StarClock >= StarCycle || StarClock < 0f) {
+				StarClock = 0f;
 			}
 			if (IsAuthority && Timer % StarCheckInterval == 0f) {
 				KeepStars();
-			}
-			if (!Main.dedServ && target != null) {
-				StarSounds();
 			}
 			float dx = target != null ? target.Center.X - NPC.Center.X : 0f;
 			int dir = target != null ? (dx >= 0f ? 1 : -1) : (NPC.direction == 0 ? -1 : NPC.direction);
@@ -227,19 +247,6 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 				if ((present & (1 << slot)) == 0) {
 					SafeSpawn.TryNewProjectile(NPC.GetSource_FromAI(), StarHome(slot), Vector2.Zero, type, damage, 2f, out _, Main.myPlayer,
 						NPC.whoAmI, slot);
-				}
-			}
-		}
-
-		/// <summary>Clients: the stars' chime as their telegraph starts and a whoosh as each one flies.</summary>
-		private void StarSounds() {
-			int clock = (int)StarClock;
-			if (clock == 1) {
-				SoundEngine.PlaySound(SoundID.MaxMana with { Pitch = 0.5f, Volume = 0.8f, MaxInstances = 2 }, NPC.Center);
-			}
-			for (int slot = 0; slot < StarCount; slot++) {
-				if (clock == StarTelegraph + slot * StarStagger) {
-					SoundEngine.PlaySound(SoundID.Item1 with { Pitch = 0.7f, Volume = 0.6f, MaxInstances = 3 }, StarHome(slot));
 				}
 			}
 		}

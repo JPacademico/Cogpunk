@@ -6,9 +6,10 @@ using Terraria.ModLoader;
 
 namespace Cogpunk.Content.Bosses.TarTyrant.Armor
 {
-	/// <summary>Tyrant Cape: <see cref="Defense"/> defense, +<see cref="MinionSlots"/> minion slot (user-set 2026-11-03,
-	/// the summoner rework; the Obsidian Shirt's own bonus) and +<see cref="SummonDamage"/>% summon damage. Until
-	/// 2026-11-03 it cut mana and steam costs 10% (the mage set). Set bonus: <see cref="TyrantSkull"/>.
+	/// <summary>Tyrant Cape: <see cref="Defense"/> defense, +<see cref="WhipSpeed"/>% whip speed (vanilla's own whip-speed
+	/// stat, the attack speed of <c>DamageClass.SummonMeleeSpeed</c>) and -<see cref="ManaCost"/>% mana cost (user-set
+	/// 2026-11-06, the summoner-mage rework; from 2026-11-03 it gave +1 minion slot and +5% summon damage, before that -10%
+	/// mana and steam costs). Set bonus: <see cref="TyrantSkull"/>.
 	/// <para>Berserker look (user, 2026-10-30: "make the cape leave the chest naked (bra if female character) only with the
 	/// cape"): the body sheet only draws a collar and a bone clasp (and, in the female torso cells, a bra), so vanilla's own
 	/// skin shows on the chest and arms (<c>ArmorIDs.Body.Sets.HidesTopSkin</c> is false by default; <c>HidesHands</c>
@@ -24,12 +25,12 @@ namespace Cogpunk.Content.Bosses.TarTyrant.Armor
 	public class TyrantCape : CogpunkItem
 	{
 		public const int Defense = 7;
-		public const int MinionSlots = 1;               // user-set
-		public const int SummonDamage = 5;              // percent
+		public const int WhipSpeed = 12;                // percent, user-set
+		public const int ManaCost = 10;                 // percent less, user-set
 		public const string CapeEquipName = "TyrantCapeBack";
 		public const string CapeTexture = "Cogpunk/Content/Bosses/TarTyrant/Armor/TyrantCape_Back";
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MinionSlots, SummonDamage);
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(WhipSpeed, ManaCost);
 
 		public override void Load() {
 			if (Main.dedServ || !ModContent.HasAsset(CapeTexture)) {
@@ -56,8 +57,8 @@ namespace Cogpunk.Content.Bosses.TarTyrant.Armor
 		}
 
 		public override void UpdateEquip(Player player) {
-			player.maxMinions += MinionSlots;
-			player.GetDamage(DamageClass.Summon) += SummonDamage / 100f;
+			player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += WhipSpeed / 100f;
+			player.manaCost -= ManaCost / 100f;
 		}
 	}
 }

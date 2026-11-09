@@ -1,3 +1,4 @@
+using System;
 using Cogpunk.Core.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -23,7 +24,20 @@ namespace Cogpunk.Core.Templates
 	/// <para><b>No natural spawns during a boss fight</b> (user rule, 2026-10-26): every living boss reports itself each
 	/// tick (<see cref="IsFightNear"/>), and <c>Core/Systems/BossFightSpawnRule</c> stops natural spawns for players
 	/// within <see cref="SpawnBlockRange"/> of it. Minions a boss spawns itself are not natural spawns and still appear.</para>
-	/// <para>D0: nothing here loops past a fixed bound or spawns; a boss that is already dying ignores further lethal hits.</para>
+	/// <para><b>Targeting</b> (user rule, 2026-11-09: "they should target the most damaging player (dps) and change target
+	/// every 5 seconds (can't choose the same target)"): the server credits every hit to the player who struck it
+	/// (<see cref="HitEffect"/>: vanilla sets <c>lastInteraction</c> to the attacker just before the strike, decompiled
+	/// <c>MessageBuffer</c> case 28 and <c>NPC.StrikeNPC</c>), lets the totals fade (<see cref="DamageDecay"/> every
+	/// <see cref="DamageDecayInterval"/> ticks: a running DPS that halves in about 3 s), and every
+	/// <see cref="TargetSwitchTicks"/> ticks switches to the top damage dealer among the <i>other</i> players a boss may target
+	/// (<see cref="CanTarget"/>; ties, as before anyone has hurt it, go to <see cref="TargetTieBreak"/>: the closest by
+	/// default). Alone, a player stays the target. A target that dies or leaves is replaced at once (the clock restarts).
+	/// Bosses never pick their own target any more: where they used to retarget they call <see cref="EnsureTarget"/>.
+	/// <b>Floaty bosses</b> (<see cref="Floaty"/>, the Cursed Conductor) keep within the Blade of Grass's reach of a target
+	/// that fights in melee (<see cref="Combat.MeleeFocus"/>, same rule).</para>
+	/// <para>D0: nothing here loops past a fixed bound or spawns; a boss that is already dying ignores further lethal hits.
+	/// D2: the server decides the target and syncs <c>NPC.target</c> (vanilla's SyncNPC) only when it changes. D1: the damage
+	/// table is one array per boss, made on its first hit (a ModNPC clone shares fields set on its template).</para>
 	/// </summary>
 	public abstract class BossNPC : StateMachineNPC
 	{
@@ -41,8 +55,19 @@ namespace Cogpunk.Core.Templates
 		private static readonly uint[] fightTick = new uint[MaxTrackedFights];
 		private static readonly int[] fightNpc = { -1, -1, -1, -1 };
 
+		/// <summary>Ticks between target switches (user-set 2026-11-09: every 5 s).</summary>
+		public const int TargetSwitchTicks = 300;
+
+		/// <summary>Recent damage fades by <see cref="DamageDecay"/> every this many ticks.</summary>
+		public const int DamageDecayInterval = 30;
+
+		/// <summary>0.891 every half second: recent damage halves in about 3 s (a running DPS).</summary>
+		public const float DamageDecay = 0.891f;
+
 		private bool finishing;
 		private bool defeatCardShown;
+		private float[] damageBy;                          // server: recent damage per player
+		private int targetTicks;                           // server: ticks on the current target
 
 		/// <summary>The state index of the death cinematic.</summary>
 		protected abstract int DyingState { get; }
@@ -58,9 +83,135 @@ namespace Cogpunk.Core.Templates
 		/// <summary>The boss's own per-tick logic (every side), called by the sealed <see cref="UpdateState"/>.</summary>
 		protected abstract void UpdateBoss();
 
+		/// <summary>A boss that floats at a distance from its target (the Cursed Conductor): it must come within the Blade of
+		/// Grass's reach of a target that fights in melee (user rule 2026-11-09; each floaty boss does it in its own
+		/// movement, with <see cref="Combat.MeleeFocus"/> and <see cref="Combat.MeleeGear.BladeOfGrassReach"/>).</summary>
+		public virtual bool Floaty => false;
+
 		protected sealed override void UpdateState() {
 			ReportFight();
+			UpdateTargeting();
 			UpdateBoss();
+		}
+
+		/// <summary>Vanilla's hit hook, sealed to credit the hit to its player first (see <see cref="BossHitEffect"/>).</summary>
+		public sealed override void HitEffect(NPC.HitInfo hit) {
+			CreditHit(hit);
+			BossHitEffect(hit);
+		}
+
+		/// <summary>The boss's own hit effects (dust, gore, sounds), on every side, after the hit is credited.</summary>
+		protected virtual void BossHitEffect(NPC.HitInfo hit) {
+		}
+
+		// --- targeting: the top damage dealer, a different one every TargetSwitchTicks ------------------------------------
+
+		/// <summary>Server: may <paramref name="player"/> be the target? By default: alive and within <see cref="TargetRange"/>.</summary>
+		protected virtual bool CanTarget(Player player) {
+			return player != null && player.active && !player.dead
+				&& Vector2.DistanceSquared(player.Center, NPC.Center) <= TargetRange * TargetRange;
+		}
+
+		/// <summary>How far a target may be (the default <see cref="CanTarget"/>).</summary>
+		protected virtual float TargetRange => 250f * 16f;
+
+		/// <summary>Server: how a player ranks among equal damage (lower first): the distance by default.</summary>
+		protected virtual float TargetTieBreak(Player player) => Vector2.DistanceSquared(player.Center, NPC.Center);
+
+		/// <summary>Server: the damage <paramref name="player"/> has done lately (0 on clients).</summary>
+		protected float RecentDamage(int player) {
+			return damageBy != null && player >= 0 && player < damageBy.Length ? damageBy[player] : 0f;
+		}
+
+		private void CreditHit(NPC.HitInfo hit) {
+			int who = NPC.lastInteraction;
+			if (!IsAuthority || IsDying || hit.Damage <= 0 || who < 0 || who >= Main.maxPlayers) {
+				return;
+			}
+			damageBy ??= new float[Main.maxPlayers];
+			damageBy[who] += hit.Damage;
+		}
+
+		/// <summary>Server: the player to target: the most recent damage, ties to <see cref="TargetTieBreak"/>; never
+		/// <paramref name="exclude"/> (pass -1 to allow anyone). -1 when nobody can be targeted.</summary>
+		protected int BestTarget(int exclude) {
+			int best = -1;
+			float bestDamage = -1f, bestTie = float.MaxValue;
+			foreach (Player player in Main.ActivePlayers) {
+				if (player.whoAmI == exclude || !CanTarget(player)) {
+					continue;
+				}
+				float hurt = RecentDamage(player.whoAmI);
+				float tie = TargetTieBreak(player);
+				if (hurt > bestDamage + 0.5f || (Math.Abs(hurt - bestDamage) <= 0.5f && tie < bestTie)) {
+					best = player.whoAmI;
+					bestDamage = hurt;
+					bestTie = tie;
+				}
+			}
+			return best;
+		}
+
+		/// <summary>The synced target when it is a living, active player (every side), else null.</summary>
+		protected Player CurrentTarget => NPC.target >= 0 && NPC.target < Main.maxPlayers && Main.player[NPC.target].active
+			&& !Main.player[NPC.target].dead ? Main.player[NPC.target] : null;
+
+		/// <summary>Server: keeps a valid target: the current one while <see cref="CanTarget"/> holds, else the best one now.
+		/// False when there is nobody to target (the boss leaves, retreats or waits). True on clients.</summary>
+		protected bool EnsureTarget() {
+			if (!IsAuthority) {
+				return true;
+			}
+			Player current = CurrentTarget;
+			if (current != null && CanTarget(current)) {
+				return true;
+			}
+			int best = BestTarget(-1);
+			if (best < 0) {
+				return false;
+			}
+			SetTarget(best);
+			return true;
+		}
+
+		private void SetTarget(int player) {
+			targetTicks = 0;
+			if (NPC.target != player) {
+				NPC.target = player;
+				NPC.netUpdate = true;
+			}
+		}
+
+		/// <summary>Server, every tick: the damage fades; a lost target is replaced at once; every
+		/// <see cref="TargetSwitchTicks"/> the target becomes the top damage dealer among the others (alone, the same).</summary>
+		private void UpdateTargeting() {
+			if (!IsAuthority || IsDying) {
+				return;
+			}
+			if (damageBy != null && Main.GameUpdateCount % DamageDecayInterval == 0) {
+				for (int i = 0; i < damageBy.Length; i++) {
+					Player player = Main.player[i];
+					damageBy[i] = player.active && !player.dead ? damageBy[i] * DamageDecay : 0f;
+				}
+			}
+			Player current = CurrentTarget;
+			if (current == null || !CanTarget(current)) {
+				int best = BestTarget(-1);
+				if (best >= 0) {
+					SetTarget(best);
+				}
+				return;
+			}
+			if (++targetTicks < TargetSwitchTicks) {
+				return;
+			}
+			int next = BestTarget(NPC.target);                   // "can't choose the same target"
+			if (next >= 0) {
+				SetTarget(next);
+			}
+			else {
+				targetTicks = 0;                                 // nobody else: keep this one, look again in 5 s
+			}
 		}
 
 		public sealed override bool CheckDead() {

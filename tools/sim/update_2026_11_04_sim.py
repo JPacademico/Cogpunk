@@ -14,8 +14,7 @@ Writes:
                                              lunge misses a player who swam out of its line.
     2026-11-04_oldbrasstown-bandit.gif        the Brass Bandit: in sight, it draws (30 ticks), fans six shots at the player
                                              as they are then, runs away to reload (2.5 s) and comes back for more.
-    2026-11-04_oldbrasstown-sheriff.gif       the Sheriff: his three stars flash on their 2 s clock and fly at the player one
-                                             after another, then home back over his hat; six shots, then he reloads standing.
+    (retired) the Sheriff's 2026-11-04 star volley; his stars were reworked on 2026-11-06: tools/sim/update_2026_11_06_sim.py --only sheriff
     2026-11-04_oldbrasstown-bull.gif          the Mechanical Bull: it paws the ground (45 ticks), charges straight, rams the
                                              player (100, knockback x2: thrown about 20 tiles); the next charge is jumped over
                                              and it slams into a wall, stunned.
@@ -894,7 +893,6 @@ def main():
     jobs = [("punch", lambda: scene_punch(os.path.join(args.out, "2026-11-04_dungeon-beat-boxer-punch.gif"), args.font)),
             ("cogtuna", lambda: scene_cogtuna(os.path.join(args.out, args.date + "_ocean-cogtuna.gif"), args.font)),
             ("bandit", lambda: scene_bandit(os.path.join(args.out, args.date + "_oldbrasstown-bandit.gif"), args.font)),
-            ("sheriff", lambda: scene_sheriff(os.path.join(args.out, args.date + "_oldbrasstown-sheriff.gif"), args.font)),
             ("bull", lambda: scene_bull(os.path.join(args.out, args.date + "_oldbrasstown-bull.gif"), args.font)),
             ("dinamitrom", lambda: scene_dinamitrom(os.path.join(args.out, args.date + "_oldbrasstown-dinamitrom.gif"), args.font)),
             ("badge", lambda: scene_badge(os.path.join(args.out, "2026-11-04_oldbrasstown-sheriff-badge.gif"), args.font)),

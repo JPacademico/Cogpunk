@@ -475,40 +475,31 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			Arg = 0f;                                      // the slam starts with the near arm
 		}
 
-		/// <summary>Server: targets the closest living player, preferring players inside the Junkyard; burrows away only
-		/// if nobody is alive within <see cref="DespawnRange"/>. (Players all leaving the Junkyard is handled with a grace
-		/// period by <see cref="CheckJunkyard"/>.) True while fighting.</summary>
+		/// <summary>Server: a living player within <see cref="DespawnRange"/> can be its target.</summary>
+		protected override bool CanTarget(Player player) {
+			return player != null && player.active && !player.dead
+				&& Vector2.DistanceSquared(player.Center, NPC.Center) <= DespawnRange * DespawnRange;
+		}
+
+		/// <summary>Among equal damage (no one has hurt it yet): the closest, players inside the Junkyard first.</summary>
+		protected override float TargetTieBreak(Player player) {
+			float d = Vector2.DistanceSquared(player.Center, NPC.Center);
+			return !JunkyardSystem.Exists || JunkyardSystem.Contains(player.Center) ? d : d * 4f;
+		}
+
+		/// <summary>Server: keeps a target (since 2026-11-09 the shared rule picks it: the top damage dealer, a different
+		/// one every 5 s, <see cref="BossNPC"/>); burrows away only if nobody is alive within <see cref="DespawnRange"/>.
+		/// (Players all leaving the Junkyard is handled with a grace period by <see cref="CheckJunkyard"/>.) True while
+		/// fighting.</summary>
 		private bool RetargetOrRetreat() {
 			if (!IsAuthority) {
 				return true;
 			}
-			int inside = -1, anywhere = -1;
-			float insideDistance = DespawnRange * DespawnRange, anyDistance = insideDistance;
-			bool hasJunkyard = JunkyardSystem.Exists;
-			foreach (Player player in Main.ActivePlayers) {
-				if (player.dead) {
-					continue;
-				}
-				float d = Vector2.DistanceSquared(player.Center, NPC.Center);
-				if (d < anyDistance) {
-					anyDistance = d;
-					anywhere = player.whoAmI;
-				}
-				if (hasJunkyard && d < insideDistance && JunkyardSystem.Contains(player.Center)) {
-					insideDistance = d;
-					inside = player.whoAmI;
-				}
+			if (EnsureTarget()) {
+				return true;
 			}
-			int best = inside >= 0 ? inside : anywhere;
-			if (best < 0) {
-				ChangeState((int)Phase.Retreat);
-				return false;
-			}
-			if (best != NPC.target) {
-				NPC.target = best;
-				NPC.netUpdate = true;
-			}
-			return true;
+			ChangeState((int)Phase.Retreat);
+			return false;
 		}
 
 		private void FaceTarget() {

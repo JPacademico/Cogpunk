@@ -115,9 +115,9 @@
     "semantic_hash": "6176756e9d468f03c75ebd1e41b5543c"
   },
   "Core/Systems/VanillaRecipeGroups.cs": {
-    "mtime": 1792679094.905372,
-    "ast_hash": "2ff506d7b334161586324a9a036beca8",
-    "semantic_hash": "2ff506d7b334161586324a9a036beca8"
+    "mtime": 1793892992.5325537,
+    "ast_hash": "00c9f41df817218c21acafe71f178b9c",
+    "semantic_hash": "00c9f41df817218c21acafe71f178b9c"
   },
   "Core/Systems/WorldFlagSystem.cs": {
     "mtime": 1792515580.7238543,
@@ -210,9 +210,9 @@
     "semantic_hash": "3f81892297bc71e34f24c36334c624d8"
   },
   ".claude/skills/cogpunk-dev/SKILL.md": {
-    "mtime": 1793737226.2136178,
-    "ast_hash": "a13b4958916a3b5826972fcc50b03dd3",
-    "semantic_hash": "a13b4958916a3b5826972fcc50b03dd3"
+    "mtime": 1793911315.377075,
+    "ast_hash": "a5dc61310a2e573f683068315cd1ec1c",
+    "semantic_hash": "a5dc61310a2e573f683068315cd1ec1c"
   },
   "CLAUDE.md": {
     "mtime": 1793195217.7215905,
@@ -220,9 +220,9 @@
     "semantic_hash": "06598cf32abf1333e4a3f255a873f333"
   },
   "README.md": {
-    "mtime": 1793737195.148172,
-    "ast_hash": "8830bd6c9cd304f976e747b634e31f97",
-    "semantic_hash": "8830bd6c9cd304f976e747b634e31f97"
+    "mtime": 1793971790.7495677,
+    "ast_hash": "3b450f92f31741b049252b654e9e6133",
+    "semantic_hash": "3b450f92f31741b049252b654e9e6133"
   },
   "SETUP.md": {
     "mtime": 1793134414.5395765,
@@ -1180,9 +1180,9 @@
     "semantic_hash": "907efde8c6181df5f740d04ada0c0ef5"
   },
   "art/bosses/trashtr0m/rig.py": {
-    "mtime": 1793303312.219374,
-    "ast_hash": "bb621972ac127fdc2071f497fba0476f",
-    "semantic_hash": "bb621972ac127fdc2071f497fba0476f"
+    "mtime": 1793891519.531908,
+    "ast_hash": "4afb89ee19d999328ce3f89e7ba47f74",
+    "semantic_hash": "4afb89ee19d999328ce3f89e7ba47f74"
   },
   "art/junkyard/make_junkyard_loot.py": {
     "mtime": 1793368013.6840603,
@@ -1200,9 +1200,9 @@
     "semantic_hash": "30b1b62ffd2c4a9417e8c3a1cb526568"
   },
   "docs/design/art-direction.md": {
-    "mtime": 1793304815.0757043,
-    "ast_hash": "c84bdc197b86ef5d221ca5301dd8bb45",
-    "semantic_hash": "c84bdc197b86ef5d221ca5301dd8bb45"
+    "mtime": 1793894766.0683217,
+    "ast_hash": "c0d903a8e397678267233f8e9179ca79",
+    "semantic_hash": "c0d903a8e397678267233f8e9179ca79"
   },
   "Content/Bosses/TrashTr0m/Buffs/TetanusDebuff.png": {
     "mtime": 1793112155.277243,
@@ -1490,9 +1490,9 @@
     "semantic_hash": "c9acc2f5f602c8178ea7e996f491d987"
   },
   "Content/MechArmy/NPCs/MechWalker.cs": {
-    "mtime": 1793202165.8179643,
-    "ast_hash": "9bf662713c83a610b42ae88cf801a04c",
-    "semantic_hash": "9bf662713c83a610b42ae88cf801a04c"
+    "mtime": 1793806736.2727158,
+    "ast_hash": "ac179ff93b2309d271eae6ed1f6cd7d5",
+    "semantic_hash": "ac179ff93b2309d271eae6ed1f6cd7d5"
   },
   "Content/MechArmy/NPCs/RogueMiceBot.cs": {
     "mtime": 1793194321.6782873,
@@ -1545,9 +1545,9 @@
     "semantic_hash": "e77066de8b06168a5e3da180e65d0fa9"
   },
   "Content/Mechanist/MechanistWeapon.cs": {
-    "mtime": 1793122738.5878797,
-    "ast_hash": "a1c8ac2869cf8b78725f2db8a496e76a",
-    "semantic_hash": "a1c8ac2869cf8b78725f2db8a496e76a"
+    "mtime": 1793804302.7645073,
+    "ast_hash": "d2aeef2baba7c4185c81c87dcabb7022",
+    "semantic_hash": "d2aeef2baba7c4185c81c87dcabb7022"
   },
   "Content/Mechanist/Overheat.cs": {
     "mtime": 1793111148.7981865,
@@ -1560,9 +1560,9 @@
     "semantic_hash": "7c53e86771abeb8dc4e383c1275356c3"
   },
   "Content/Mechanist/SteamPlayer.cs": {
-    "mtime": 1793288124.6456985,
-    "ast_hash": "73dde322e81796f90d51ce336dcc224d",
-    "semantic_hash": "73dde322e81796f90d51ce336dcc224d"
+    "mtime": 1793804295.5651534,
+    "ast_hash": "eccb959abec95ff134f4eba756e1693a",
+    "semantic_hash": "eccb959abec95ff134f4eba756e1693a"
   },
   "Content/Mechanist/Weapons/TrapperChain.cs": {
     "mtime": 1793122788.8318136,
@@ -2060,9 +2060,9 @@
     "semantic_hash": "7061a137f47aa235d157b27a15af36fb"
   },
   "Core/Templates/GridWalkerNPC.cs": {
-    "mtime": 1793202165.8179643,
-    "ast_hash": "4a98b2f44e5eb7826c05769dac68cf26",
-    "semantic_hash": "4a98b2f44e5eb7826c05769dac68cf26"
+    "mtime": 1793892887.8313067,
+    "ast_hash": "2c806e5c94aca57eb7d4504d3464a711",
+    "semantic_hash": "2c806e5c94aca57eb7d4504d3464a711"
   },
   "art/bosses/tartyrant/make_tartyrant_art.py": {
     "mtime": 1793719311.9712412,
@@ -2460,9 +2460,9 @@
     "semantic_hash": "f57b4a0132041a260950c6faa17f7d54"
   },
   "tools/check_flicker.py": {
-    "mtime": 1793733282.2479687,
-    "ast_hash": "97326d3e2ad1ea4d0175f7237f0ba91a",
-    "semantic_hash": "97326d3e2ad1ea4d0175f7237f0ba91a"
+    "mtime": 1793822176.6158838,
+    "ast_hash": "4664ccd7c47a84fbb7b88d01f1d16afc",
+    "semantic_hash": "4664ccd7c47a84fbb7b88d01f1d16afc"
   },
   "Content/Bosses/TarTyrant/Armor/TyrantCape.png": {
     "mtime": 1793367798.6954694,
@@ -2670,9 +2670,9 @@
     "semantic_hash": "69bcc4adecaf386f79a2a7f6bde45c84"
   },
   "Content/Junkyard/Weapons/MetalWrench.cs": {
-    "mtime": 1793732851.6978521,
-    "ast_hash": "e2aceb9dcbdcc082c8885683c2234e45",
-    "semantic_hash": "e2aceb9dcbdcc082c8885683c2234e45"
+    "mtime": 1793909508.4387805,
+    "ast_hash": "b4193524fc7f943c84199b942b7b18b3",
+    "semantic_hash": "b4193524fc7f943c84199b942b7b18b3"
   },
   "Content/Junkyard/Weapons/MetalWrenchGuard.cs": {
     "mtime": 1793732851.6978521,
@@ -2680,9 +2680,9 @@
     "semantic_hash": "4a6a44ccc5680d8ee372b13b8479cf02"
   },
   "Content/Junkyard/Weapons/MetalWrenchPlayer.cs": {
-    "mtime": 1793393741.5964382,
-    "ast_hash": "65fa9b826875f87d77dc2b04d54fe5c6",
-    "semantic_hash": "65fa9b826875f87d77dc2b04d54fe5c6"
+    "mtime": 1793804370.729443,
+    "ast_hash": "be3edaafa1c9108a648eb0501174f59f",
+    "semantic_hash": "be3edaafa1c9108a648eb0501174f59f"
   },
   "Content/Junkyard/Weapons/TarBoneStaff.cs": {
     "mtime": 1793392797.7089908,
@@ -2690,9 +2690,9 @@
     "semantic_hash": "eea8f7ee16b9b09800f7f2d1fe78840e"
   },
   "Content/Junkyard/Weapons/TarShower.cs": {
-    "mtime": 1793717459.0215864,
-    "ast_hash": "aa6fb2a32e8d73ef1407abdb11625264",
-    "semantic_hash": "aa6fb2a32e8d73ef1407abdb11625264"
+    "mtime": 1793804393.776434,
+    "ast_hash": "8297ee1fb0c5c7407962998051790839",
+    "semantic_hash": "8297ee1fb0c5c7407962998051790839"
   },
   "Content/Junkyard/Weapons/TarShowerBigGlob.cs": {
     "mtime": 1793716794.555249,
@@ -2700,9 +2700,9 @@
     "semantic_hash": "23c73a685fbae41b88283927047d5ad7"
   },
   "Content/Junkyard/Weapons/TarShowerCharge.cs": {
-    "mtime": 1793392944.0303078,
-    "ast_hash": "6bd4b0cc8f3ec0ea0a0f67ab2e4fd7d1",
-    "semantic_hash": "6bd4b0cc8f3ec0ea0a0f67ab2e4fd7d1"
+    "mtime": 1793804405.3380663,
+    "ast_hash": "e2891c00009e23dfdc09d8331ece7a6b",
+    "semantic_hash": "e2891c00009e23dfdc09d8331ece7a6b"
   },
   "Content/Junkyard/Weapons/TarShowerGlob.cs": {
     "mtime": 1793716794.5542414,
@@ -2730,9 +2730,9 @@
     "semantic_hash": "dac7f54f008ded0278d3b16fa44d2b7c"
   },
   "Content/Junkyard/Weapons/TarStain.cs": {
-    "mtime": 1793716794.5661662,
-    "ast_hash": "894ab1ee5dd1c4dc9f19a9f17dd48f42",
-    "semantic_hash": "894ab1ee5dd1c4dc9f19a9f17dd48f42"
+    "mtime": 1793804405.3380663,
+    "ast_hash": "8af35ba2d0fb57f99e21e263de2e97d0",
+    "semantic_hash": "8af35ba2d0fb57f99e21e263de2e97d0"
   },
   "Content/Junkyard/Weapons/Tarmancer.cs": {
     "mtime": 1793392721.2555845,
@@ -2775,9 +2775,9 @@
     "semantic_hash": "a80a9a552d319f254d5ed4fb545a059a"
   },
   "tools/sim/tar_weapons_sim.py": {
-    "mtime": 1793718992.4098513,
-    "ast_hash": "3cd3260e951ea5d86e6e34e31406b64f",
-    "semantic_hash": "3cd3260e951ea5d86e6e34e31406b64f"
+    "mtime": 1793911347.1093774,
+    "ast_hash": "ccb6776028c583c3b8123ceac9a8fcd0",
+    "semantic_hash": "ccb6776028c583c3b8123ceac9a8fcd0"
   },
   "Content/Junkyard/Weapons/MetalClash.png": {
     "mtime": 1793392371.1090536,
@@ -2880,9 +2880,9 @@
     "semantic_hash": "7591dda007e3cef29d00fa409b143e07"
   },
   "Content/Desert/NPCs/Coghawk.cs": {
-    "mtime": 1793718148.899452,
-    "ast_hash": "9bc40531007fedac883c42873998198f",
-    "semantic_hash": "9bc40531007fedac883c42873998198f"
+    "mtime": 1793805270.1181548,
+    "ast_hash": "b372132fa768727ba2949569ab6ae36c",
+    "semantic_hash": "b372132fa768727ba2949569ab6ae36c"
   },
   "Content/Desert/NPCs/CoghawkRigData.cs": {
     "mtime": 1793718757.9267595,
@@ -2890,9 +2890,9 @@
     "semantic_hash": "42d17bd392c5ee1f6b8867f22a283595"
   },
   "Content/Dungeon/Items/SpringGloves.cs": {
-    "mtime": 1793733016.1244142,
-    "ast_hash": "73fd68f435a6980bd6555ffb02960200",
-    "semantic_hash": "73fd68f435a6980bd6555ffb02960200"
+    "mtime": 1793804322.178823,
+    "ast_hash": "376bdda2ef72585ada3b68d00cb5b6f3",
+    "semantic_hash": "376bdda2ef72585ada3b68d00cb5b6f3"
   },
   "Content/Dungeon/NPCs/BeatBoxer.cs": {
     "mtime": 1793732964.3822508,
@@ -2900,9 +2900,9 @@
     "semantic_hash": "4c762cd2b4f841157de0ed12bf6a7c92"
   },
   "Content/Dungeon/NPCs/BeatBoxerRigData.cs": {
-    "mtime": 1793733247.8992584,
-    "ast_hash": "a581c48d67da8091e522e06d88ab0d6c",
-    "semantic_hash": "a581c48d67da8091e522e06d88ab0d6c"
+    "mtime": 1793819841.091266,
+    "ast_hash": "64efab72b4f174f12f01c32bd69f4b13",
+    "semantic_hash": "64efab72b4f174f12f01c32bd69f4b13"
   },
   "Content/Dungeon/Projectiles/SpringPunch.cs": {
     "mtime": 1793736253.5722659,
@@ -2925,14 +2925,14 @@
     "semantic_hash": "9ec2a54d7d818bafcab61d33e7ab36aa"
   },
   "Content/OldBrassTown/Generation/OldBrassTownBlueprints.cs": {
-    "mtime": 1793734927.8480637,
-    "ast_hash": "7e27feb3d1353a2f31c8cbd6a75c7c24",
-    "semantic_hash": "7e27feb3d1353a2f31c8cbd6a75c7c24"
+    "mtime": 1793820937.5093744,
+    "ast_hash": "47474448206e67fcee6f13853207b8d1",
+    "semantic_hash": "47474448206e67fcee6f13853207b8d1"
   },
   "Content/OldBrassTown/Generation/OldBrassTownPass.cs": {
-    "mtime": 1793737119.5444286,
-    "ast_hash": "31a37afe5a651c25798240b31ca776c1",
-    "semantic_hash": "31a37afe5a651c25798240b31ca776c1"
+    "mtime": 1793820937.5083735,
+    "ast_hash": "6ae53835d5b2c5168b6e2f5fd1450e5d",
+    "semantic_hash": "6ae53835d5b2c5168b6e2f5fd1450e5d"
   },
   "Content/OldBrassTown/Items/BrassSandstone.cs": {
     "mtime": 1793733919.4822037,
@@ -2970,9 +2970,9 @@
     "semantic_hash": "08e2fbbfbe0c44be53fdfbfd4236c7c3"
   },
   "Content/OldBrassTown/OldBrassTownBiome.cs": {
-    "mtime": 1793734953.742245,
-    "ast_hash": "15f9ab4dfc3f89ed38960b0c86ba6f61",
-    "semantic_hash": "15f9ab4dfc3f89ed38960b0c86ba6f61"
+    "mtime": 1793807598.939145,
+    "ast_hash": "2ac1dc04c2c102bdaec21fbbe3273ffe",
+    "semantic_hash": "2ac1dc04c2c102bdaec21fbbe3273ffe"
   },
   "Content/OldBrassTown/OldBrassTownSystem.cs": {
     "mtime": 1793735227.055618,
@@ -2985,9 +2985,9 @@
     "semantic_hash": "368b461bfdecaa75940b59de2ca9f9ce"
   },
   "Content/OldBrassTown/Tiles/TarnishedBrassOreTile.cs": {
-    "mtime": 1793735217.151086,
-    "ast_hash": "33c8a06e1b7269648f1a8a689b724e93",
-    "semantic_hash": "33c8a06e1b7269648f1a8a689b724e93"
+    "mtime": 1793892675.113922,
+    "ast_hash": "2607ae0bf410d7f6501691ca23be9e59",
+    "semantic_hash": "2607ae0bf410d7f6501691ca23be9e59"
   },
   "Content/OldBrassTown/Tiles/TarnishedBrassPlatingTile.cs": {
     "mtime": 1793735217.277657,
@@ -3015,9 +3015,9 @@
     "semantic_hash": "9a7f532b0e08c2d7790b9663658d6904"
   },
   "Content/Rain/NPCs/SplasherRigData.cs": {
-    "mtime": 1793718732.5920987,
-    "ast_hash": "e24618e7508c9009f140a3d27d6cfb18",
-    "semantic_hash": "e24618e7508c9009f140a3d27d6cfb18"
+    "mtime": 1793892565.8244715,
+    "ast_hash": "4272af8e6030b07137e78d73be4aa652",
+    "semantic_hash": "4272af8e6030b07137e78d73be4aa652"
   },
   "Content/Rain/Projectiles/SplasherWater.cs": {
     "mtime": 1793718353.7077641,
@@ -3025,9 +3025,9 @@
     "semantic_hash": "a29d551748a80e2c042f1c6acb7f83bc"
   },
   "Content/Town/Friendobo.cs": {
-    "mtime": 1793733481.6057446,
-    "ast_hash": "95c87b586595e6c8bab0ca600bb30774",
-    "semantic_hash": "95c87b586595e6c8bab0ca600bb30774"
+    "mtime": 1793823581.5600967,
+    "ast_hash": "0391cd6ad93ec812838fdff5d0ef89b0",
+    "semantic_hash": "0391cd6ad93ec812838fdff5d0ef89b0"
   },
   "Content/Underground/Generation/RustedNailPass.cs": {
     "mtime": 1793717809.1130545,
@@ -3055,9 +3055,9 @@
     "semantic_hash": "23b51ea5c636ba91838433b8de30f0ff"
   },
   "art/dungeon/make_beatboxer_art.py": {
-    "mtime": 1793733247.4877286,
-    "ast_hash": "fb00b0ab296f89e6869b75bda54af3fb",
-    "semantic_hash": "fb00b0ab296f89e6869b75bda54af3fb"
+    "mtime": 1793819840.390115,
+    "ast_hash": "a1f6bd377680aa48726e40eb6db40631",
+    "semantic_hash": "a1f6bd377680aa48726e40eb6db40631"
   },
   "art/junkyard/previous/make_tar_weapons_2026-10-30.py": {
     "mtime": 1793716835.4073973,
@@ -3080,14 +3080,14 @@
     "semantic_hash": "2e40279ebd5c95bfb64b393f4f6f8557"
   },
   "art/rain/make_splasher_art.py": {
-    "mtime": 1793718732.1312506,
-    "ast_hash": "5329f2c60d81be448adc5e17f9010b8f",
-    "semantic_hash": "5329f2c60d81be448adc5e17f9010b8f"
+    "mtime": 1793892565.3972912,
+    "ast_hash": "e524fad85ce47a7f877eb9848717ccab",
+    "semantic_hash": "e524fad85ce47a7f877eb9848717ccab"
   },
   "art/town/make_friendobo_art.py": {
-    "mtime": 1793735904.2963312,
-    "ast_hash": "2ad91cce76f1cd482fa85b3866f6e128",
-    "semantic_hash": "2ad91cce76f1cd482fa85b3866f6e128"
+    "mtime": 1793807308.8633869,
+    "ast_hash": "9a80275f8f0b7bd39fa821d2f3115c86",
+    "semantic_hash": "9a80275f8f0b7bd39fa821d2f3115c86"
   },
   "art/town/previous/make_friendobo_art_2026-11-03.py": {
     "mtime": 1793735666.411207,
@@ -3100,19 +3100,19 @@
     "semantic_hash": "b3e93825988cb3f8ef97260a95f79ae0"
   },
   "tools/sim/old_brass_town_sim.py": {
-    "mtime": 1793737037.5973287,
-    "ast_hash": "b11b22b36a2d6a161b8438d1ea2633af",
-    "semantic_hash": "b11b22b36a2d6a161b8438d1ea2633af"
+    "mtime": 1793821178.642441,
+    "ast_hash": "3bee946f6187c041657f534f5c14bd36",
+    "semantic_hash": "3bee946f6187c041657f534f5c14bd36"
   },
   "tools/sim/update_2026_11_03_sim.py": {
-    "mtime": 1793719377.446525,
-    "ast_hash": "3248219cada1e4d2f4a035b5905be2db",
-    "semantic_hash": "3248219cada1e4d2f4a035b5905be2db"
+    "mtime": 1793807630.6819155,
+    "ast_hash": "c21030bc6af4a38114d3f42e6d3e1bbb",
+    "semantic_hash": "c21030bc6af4a38114d3f42e6d3e1bbb"
   },
   "tools/sim/update_2026_11_03b_sim.py": {
-    "mtime": 1793736511.4384851,
-    "ast_hash": "ded34a235c3315b8545681c878076073",
-    "semantic_hash": "ded34a235c3315b8545681c878076073"
+    "mtime": 1793807703.8800077,
+    "ast_hash": "f51024b74ee2bb1907dfdcb5e5fbefce",
+    "semantic_hash": "f51024b74ee2bb1907dfdcb5e5fbefce"
   },
   "Content/Desert/Gores/Coghawk_GoreCog.png": {
     "mtime": 1793718757.9383075,
@@ -3175,9 +3175,9 @@
     "semantic_hash": "64c224a9a435f1dd3ebc54cce5442306"
   },
   "Content/Dungeon/NPCs/BeatBoxer_Far.png": {
-    "mtime": 1793733247.8885975,
-    "ast_hash": "4836f3673de53251e42849559950f3b3",
-    "semantic_hash": "4836f3673de53251e42849559950f3b3"
+    "mtime": 1793819841.079672,
+    "ast_hash": "971a18a060dc4f798d7a0e466b5fb08a",
+    "semantic_hash": "971a18a060dc4f798d7a0e466b5fb08a"
   },
   "Content/Dungeon/NPCs/BeatBoxer_Glow.png": {
     "mtime": 1793733247.898753,
@@ -3304,50 +3304,15 @@
     "ast_hash": "4855c35ab8f5925abe4089cfd46e0d6e",
     "semantic_hash": "4855c35ab8f5925abe4089cfd46e0d6e"
   },
-  "docs/media/2026-11-03_dungeon-beat-boxer.gif": {
-    "mtime": 1793737148.4583354,
-    "ast_hash": "d8e81fea8aa19c38b63860c27d40724c",
-    "semantic_hash": "d8e81fea8aa19c38b63860c27d40724c"
-  },
-  "docs/media/2026-11-03_dungeon-town-sprites.png": {
-    "mtime": 1793737136.5187619,
-    "ast_hash": "9d1861c599dd0884f644ba009a260cd5",
-    "semantic_hash": "9d1861c599dd0884f644ba009a260cd5"
-  },
-  "docs/media/2026-11-03_enemies-sprites.png": {
-    "mtime": 1793719377.8343298,
-    "ast_hash": "51fa95a467ba0ac1f134615a363e2fde",
-    "semantic_hash": "51fa95a467ba0ac1f134615a363e2fde"
-  },
   "docs/media/2026-11-03_oldbrasstown-blocks.png": {
     "mtime": 1793737163.0942047,
     "ast_hash": "ed414b55e2797da66f098ed552141c6b",
     "semantic_hash": "ed414b55e2797da66f098ed552141c6b"
   },
-  "docs/media/2026-11-03_oldbrasstown-town.png": {
-    "mtime": 1793737163.0121558,
-    "ast_hash": "6aa4502beb8c734e58431387d4282e58",
-    "semantic_hash": "6aa4502beb8c734e58431387d4282e58"
-  },
-  "docs/media/2026-11-03_rain-splasher.gif": {
-    "mtime": 1793719139.4241922,
-    "ast_hash": "4dac71462cf9a383e51ea33c0ce5499b",
-    "semantic_hash": "4dac71462cf9a383e51ea33c0ce5499b"
-  },
-  "docs/media/2026-11-03_town-friendobo.gif": {
-    "mtime": 1793737157.4188476,
-    "ast_hash": "8729500200dddafacb5b851b5048828d",
-    "semantic_hash": "8729500200dddafacb5b851b5048828d"
-  },
   "docs/media/2026-11-03_underground-rusted-nail.gif": {
     "mtime": 1793719189.4191153,
     "ast_hash": "f6daf450946488830d2c7309f2a268d0",
     "semantic_hash": "f6daf450946488830d2c7309f2a268d0"
-  },
-  "docs/media/2026-11-03_weapon-metal-wrench.gif": {
-    "mtime": 1793732875.643588,
-    "ast_hash": "a3e7b018f82cb19bd42eb073658b54ee",
-    "semantic_hash": "a3e7b018f82cb19bd42eb073658b54ee"
   },
   "docs/media/2026-11-03_weapon-tar-shower.gif": {
     "mtime": 1793718942.6864324,
@@ -3368,5 +3333,1015 @@
     "mtime": 1793732868.026302,
     "ast_hash": "a737874647d572f327f6dc068e0246d2",
     "semantic_hash": "a737874647d572f327f6dc068e0246d2"
+  },
+  "Content/Bosses/CursedConductor/Buffs/ConductorCurse.cs": {
+    "mtime": 1793893481.3046842,
+    "ast_hash": "bd7b9c1ef1e53b84f21c6d11a3e1813d",
+    "semantic_hash": "bd7b9c1ef1e53b84f21c6d11a3e1813d"
+  },
+  "Content/Bosses/CursedConductor/ConductorFightPlayer.cs": {
+    "mtime": 1793893481.4350643,
+    "ast_hash": "f2cdc4f4551795125e608484efe14427",
+    "semantic_hash": "f2cdc4f4551795125e608484efe14427"
+  },
+  "Content/Bosses/CursedConductor/CursedConductor.Visuals.cs": {
+    "mtime": 1793910168.676891,
+    "ast_hash": "6cde3ec9b8098c513075e1ba2f1ad324",
+    "semantic_hash": "6cde3ec9b8098c513075e1ba2f1ad324"
+  },
+  "Content/Bosses/CursedConductor/CursedConductor.cs": {
+    "mtime": 1793910089.0077224,
+    "ast_hash": "1561ea167c941bf3a12f567ff4958d62",
+    "semantic_hash": "1561ea167c941bf3a12f567ff4958d62"
+  },
+  "Content/Bosses/CursedConductor/CursedConductorLoot.cs": {
+    "mtime": 1793823581.5790944,
+    "ast_hash": "950f7f68c68c05ac80e058c05cde465f",
+    "semantic_hash": "950f7f68c68c05ac80e058c05cde465f"
+  },
+  "Content/Bosses/CursedConductor/CursedConductorRigData.cs": {
+    "mtime": 1793971664.2580628,
+    "ast_hash": "de1e8ecba9e0aea741968902720a0ee4",
+    "semantic_hash": "de1e8ecba9e0aea741968902720a0ee4"
+  },
+  "Content/Bosses/CursedConductor/CursedConductorSystem.cs": {
+    "mtime": 1793822407.2631886,
+    "ast_hash": "3727a02126012ee57d52f57671cb9536",
+    "semantic_hash": "3727a02126012ee57d52f57671cb9536"
+  },
+  "Content/Bosses/CursedConductor/Items/CursedConductorBag.cs": {
+    "mtime": 1793822706.3958342,
+    "ast_hash": "cc0bfb7ae4783027a16c6c3c14fc87c3",
+    "semantic_hash": "cc0bfb7ae4783027a16c6c3c14fc87c3"
+  },
+  "Content/Bosses/CursedConductor/Items/CursedWhistle.cs": {
+    "mtime": 1793823581.5800974,
+    "ast_hash": "20eedad28e2c014cdd0fe98db950a745",
+    "semantic_hash": "20eedad28e2c014cdd0fe98db950a745"
+  },
+  "Content/Bosses/CursedConductor/NPCs/ConductorGhost.cs": {
+    "mtime": 1793893700.5483673,
+    "ast_hash": "8f134e08167ff844a270a8199e4d754e",
+    "semantic_hash": "8f134e08167ff844a270a8199e4d754e"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/ConductorFlame.cs": {
+    "mtime": 1793893700.3241675,
+    "ast_hash": "8602dad1f4e0da86fa794494de7decb9",
+    "semantic_hash": "8602dad1f4e0da86fa794494de7decb9"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/GhostRift.cs": {
+    "mtime": 1793893700.427229,
+    "ast_hash": "895bdcd61b69d039d0503d35df239863",
+    "semantic_hash": "895bdcd61b69d039d0503d35df239863"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/GhostTrain.cs": {
+    "mtime": 1793893633.8437855,
+    "ast_hash": "0fc816422ff2c0c0b3930d8244cd7f87",
+    "semantic_hash": "0fc816422ff2c0c0b3930d8244cd7f87"
+  },
+  "Content/Desert/Items/HawkEye.cs": {
+    "mtime": 1793805156.3191838,
+    "ast_hash": "154c20cc69972707dffafa226619c0fb",
+    "semantic_hash": "154c20cc69972707dffafa226619c0fb"
+  },
+  "Content/Junkyard/Weapons/MetalWrenchSmearLayer.cs": {
+    "mtime": 1793909538.4046235,
+    "ast_hash": "f05d4a86dc5d6ef8739da5ba654e2436",
+    "semantic_hash": "f05d4a86dc5d6ef8739da5ba654e2436"
+  },
+  "Content/Mechanist/ISteamSkill.cs": {
+    "mtime": 1793804269.6964557,
+    "ast_hash": "78c3098c3ce1d1e1bd9e29e65b72f95d",
+    "semantic_hash": "78c3098c3ce1d1e1bd9e29e65b72f95d"
+  },
+  "Content/Mechanist/SteamSkillTooltip.cs": {
+    "mtime": 1793804336.238149,
+    "ast_hash": "3340285b6bfd95067b857f7b9ff24168",
+    "semantic_hash": "3340285b6bfd95067b857f7b9ff24168"
+  },
+  "Content/Mechanist/Weapons/CogLauncher.cs": {
+    "mtime": 1793909247.9166985,
+    "ast_hash": "84f8a29112dbe866d6e1f6abf5b76d07",
+    "semantic_hash": "84f8a29112dbe866d6e1f6abf5b76d07"
+  },
+  "Content/Mechanist/Weapons/CogLauncherCog.cs": {
+    "mtime": 1793909233.6869202,
+    "ast_hash": "e960cb5d82fe41bf401a292b89dc112b",
+    "semantic_hash": "e960cb5d82fe41bf401a292b89dc112b"
+  },
+  "Content/Mechanist/Weapons/CogLauncherLayer.cs": {
+    "mtime": 1793909264.7547476,
+    "ast_hash": "df95cdb2f8eb7b009c1c92d258c14891",
+    "semantic_hash": "df95cdb2f8eb7b009c1c92d258c14891"
+  },
+  "Content/Ocean/Items/SharkEye.cs": {
+    "mtime": 1793892887.830299,
+    "ast_hash": "00c1f000e272f204bae10a25782d45d3",
+    "semantic_hash": "00c1f000e272f204bae10a25782d45d3"
+  },
+  "Content/Ocean/NPCs/Cogtuna.cs": {
+    "mtime": 1793892887.8282278,
+    "ast_hash": "a41588cc4b7a1b1f61db63737ebf005d",
+    "semantic_hash": "a41588cc4b7a1b1f61db63737ebf005d"
+  },
+  "Content/Ocean/NPCs/CogtunaRigData.cs": {
+    "mtime": 1793892887.829234,
+    "ast_hash": "7347aa6faefeccfe2e9f40fde9d3e7d9",
+    "semantic_hash": "7347aa6faefeccfe2e9f40fde9d3e7d9"
+  },
+  "Content/OldBrassTown/Generation/OldBrassTownChests.cs": {
+    "mtime": 1793820937.5093744,
+    "ast_hash": "8891cfea3d72f41be074a5e8612ccab4",
+    "semantic_hash": "8891cfea3d72f41be074a5e8612ccab4"
+  },
+  "Content/OldBrassTown/Items/BrassStrongbox.cs": {
+    "mtime": 1793820072.3801055,
+    "ast_hash": "339d9c556245f9f1f6a7c871f04fee05",
+    "semantic_hash": "339d9c556245f9f1f6a7c871f04fee05"
+  },
+  "Content/OldBrassTown/Items/BrokenWhistle.cs": {
+    "mtime": 1793820666.7299767,
+    "ast_hash": "6479d87aa3c1bc2f8cba183efc78d798",
+    "semantic_hash": "6479d87aa3c1bc2f8cba183efc78d798"
+  },
+  "Content/OldBrassTown/Items/SheriffsKey.cs": {
+    "mtime": 1793820072.5843966,
+    "ast_hash": "559d08fe426baebac9933131f55a9b79",
+    "semantic_hash": "559d08fe426baebac9933131f55a9b79"
+  },
+  "Content/OldBrassTown/Minions/SheriffBadge.cs": {
+    "mtime": 1793808014.8698783,
+    "ast_hash": "5724a07f1a1fe5971493b17144353408",
+    "semantic_hash": "5724a07f1a1fe5971493b17144353408"
+  },
+  "Content/OldBrassTown/Minions/SheriffStarBuff.cs": {
+    "mtime": 1793806334.504865,
+    "ast_hash": "e08c3502c04ac1062d75b02b82bd0483",
+    "semantic_hash": "e08c3502c04ac1062d75b02b82bd0483"
+  },
+  "Content/OldBrassTown/Minions/SheriffStarMinion.cs": {
+    "mtime": 1793806396.4850464,
+    "ast_hash": "5b9c8d47da467113a9f5d0065126f77c",
+    "semantic_hash": "5b9c8d47da467113a9f5d0065126f77c"
+  },
+  "Content/OldBrassTown/NPCs/BrassBandit.cs": {
+    "mtime": 1793807742.7615845,
+    "ast_hash": "03f09d42963480777c98dbde9b542260",
+    "semantic_hash": "03f09d42963480777c98dbde9b542260"
+  },
+  "Content/OldBrassTown/NPCs/BrassBanditRigData.cs": {
+    "mtime": 1793892618.5756345,
+    "ast_hash": "721ee4c929f5c95cbf5b444feecde8af",
+    "semantic_hash": "721ee4c929f5c95cbf5b444feecde8af"
+  },
+  "Content/OldBrassTown/NPCs/Dinamitrom.cs": {
+    "mtime": 1793806942.699644,
+    "ast_hash": "b002c9d19e97f23ca49fe5a8ec1fc6c4",
+    "semantic_hash": "b002c9d19e97f23ca49fe5a8ec1fc6c4"
+  },
+  "Content/OldBrassTown/NPCs/DinamitromRigData.cs": {
+    "mtime": 1793892473.9855173,
+    "ast_hash": "ec15c7cab5d438571db3720f39e6f6c3",
+    "semantic_hash": "ec15c7cab5d438571db3720f39e6f6c3"
+  },
+  "Content/OldBrassTown/NPCs/MechanicalBull.cs": {
+    "mtime": 1793908738.3529668,
+    "ast_hash": "f60f3b934c92081fadc3ce011d14ca59",
+    "semantic_hash": "f60f3b934c92081fadc3ce011d14ca59"
+  },
+  "Content/OldBrassTown/NPCs/MechanicalBullRigData.cs": {
+    "mtime": 1793908709.7111356,
+    "ast_hash": "1d6867b0ba5aaee5326afdaf0cac7fca",
+    "semantic_hash": "1d6867b0ba5aaee5326afdaf0cac7fca"
+  },
+  "Content/OldBrassTown/NPCs/Sheriff.cs": {
+    "mtime": 1793807742.7615845,
+    "ast_hash": "28f21cec3d7af0eb8ff7d7acb44f3478",
+    "semantic_hash": "28f21cec3d7af0eb8ff7d7acb44f3478"
+  },
+  "Content/OldBrassTown/NPCs/SheriffRigData.cs": {
+    "mtime": 1793892647.4367878,
+    "ast_hash": "0598a88dac6e71659e87167b758551b6",
+    "semantic_hash": "0598a88dac6e71659e87167b758551b6"
+  },
+  "Content/OldBrassTown/OldBrassTownSpawnRules.cs": {
+    "mtime": 1793805796.1461725,
+    "ast_hash": "9f43bae79e00e2ce6b000d644e97de26",
+    "semantic_hash": "9f43bae79e00e2ce6b000d644e97de26"
+  },
+  "Content/OldBrassTown/Projectiles/DinamitromBlast.cs": {
+    "mtime": 1793806954.289528,
+    "ast_hash": "18b4329f118f00d32385cf2fc6db4087",
+    "semantic_hash": "18b4329f118f00d32385cf2fc6db4087"
+  },
+  "Content/OldBrassTown/Projectiles/RustyBullet.cs": {
+    "mtime": 1793892763.884416,
+    "ast_hash": "13c6d76937ad8b9e5a5f4705a48c431c",
+    "semantic_hash": "13c6d76937ad8b9e5a5f4705a48c431c"
+  },
+  "Content/OldBrassTown/Projectiles/SheriffStar.cs": {
+    "mtime": 1793806309.3854985,
+    "ast_hash": "9c3fb61d280852a33c8e7af71bf180d2",
+    "semantic_hash": "9c3fb61d280852a33c8e7af71bf180d2"
+  },
+  "Content/OldBrassTown/Tiles/BrassStrongboxTile.cs": {
+    "mtime": 1793820072.1735852,
+    "ast_hash": "02d6eb468a1e38df1c70e4c9751060a0",
+    "semantic_hash": "02d6eb468a1e38df1c70e4c9751060a0"
+  },
+  "Content/OldBrassTown/Weapons/RevolverCylinderLayer.cs": {
+    "mtime": 1793820294.57155,
+    "ast_hash": "febafad9adfe84b3832844ed1537b7ed",
+    "semantic_hash": "febafad9adfe84b3832844ed1537b7ed"
+  },
+  "Content/OldBrassTown/Weapons/SheriffsBullet.cs": {
+    "mtime": 1793892763.8833392,
+    "ast_hash": "467f00368a55aeac1139ceffa8959d0c",
+    "semantic_hash": "467f00368a55aeac1139ceffa8959d0c"
+  },
+  "Content/OldBrassTown/Weapons/SheriffsRevolver.cs": {
+    "mtime": 1793908896.088549,
+    "ast_hash": "44ee04d52f639b6e23e32ade9a37e1d1",
+    "semantic_hash": "44ee04d52f639b6e23e32ade9a37e1d1"
+  },
+  "Content/OldBrassTown/Weapons/SheriffsRevolverPlayer.cs": {
+    "mtime": 1793820294.2484503,
+    "ast_hash": "b0420f952e9a190b09bdc3f58ed6efaf",
+    "semantic_hash": "b0420f952e9a190b09bdc3f58ed6efaf"
+  },
+  "Core/Combat/SwingPose.cs": {
+    "mtime": 1793909418.5079129,
+    "ast_hash": "35e9ad4257916d29458132872147f092",
+    "semantic_hash": "35e9ad4257916d29458132872147f092"
+  },
+  "Core/Visuals/SmokeTrails.cs": {
+    "mtime": 1793892729.9890616,
+    "ast_hash": "157c4d9d39aaa559a4cbd5a1f6ca9674",
+    "semantic_hash": "157c4d9d39aaa559a4cbd5a1f6ca9674"
+  },
+  "art/bosses/cursedconductor/make_conductor_art.py": {
+    "mtime": 1793971637.3451679,
+    "ast_hash": "b3e9212a4c2ff511f8ac81d2a13522ff",
+    "semantic_hash": "b3e9212a4c2ff511f8ac81d2a13522ff"
+  },
+  "art/bosses/cursedconductor/previous/make_conductor_art_2026-11-04.py": {
+    "mtime": 1793891571.8008955,
+    "ast_hash": "875a01a36c3627dd4f9adbb910b0c9f9",
+    "semantic_hash": "875a01a36c3627dd4f9adbb910b0c9f9"
+  },
+  "art/bosses/cursedconductor/previous/make_conductor_art_2026-11-05.py": {
+    "mtime": 1793908668.0082023,
+    "ast_hash": "d43ff0a346e5b319bbaac197f5e48c0e",
+    "semantic_hash": "d43ff0a346e5b319bbaac197f5e48c0e"
+  },
+  "art/bosses/cursedconductor/previous/make_conductor_art_2026-11-05b.py": {
+    "mtime": 1793971536.1966658,
+    "ast_hash": "d824b6a323323108b5f63aa8a6ce73e1",
+    "semantic_hash": "d824b6a323323108b5f63aa8a6ce73e1"
+  },
+  "art/desert/make_hawk_eye_art.py": {
+    "mtime": 1793805258.233668,
+    "ast_hash": "2a5c474c4f402b341897479c9cc4b78d",
+    "semantic_hash": "2a5c474c4f402b341897479c9cc4b78d"
+  },
+  "art/dungeon/previous/make_beatboxer_art_2026-11-03.py": {
+    "mtime": 1793804456.479416,
+    "ast_hash": "fb00b0ab296f89e6869b75bda54af3fb",
+    "semantic_hash": "fb00b0ab296f89e6869b75bda54af3fb"
+  },
+  "art/mechanist/make_cog_launcher_art.py": {
+    "mtime": 1793909160.4116302,
+    "ast_hash": "542e5b27e53d28054be4f214527cad2c",
+    "semantic_hash": "542e5b27e53d28054be4f214527cad2c"
+  },
+  "art/mechanist/previous/make_cog_launcher_art_2026-11-05.py": {
+    "mtime": 1793908668.0690832,
+    "ast_hash": "47dc007c555b05ec0b67043e4ae0a81e",
+    "semantic_hash": "47dc007c555b05ec0b67043e4ae0a81e"
+  },
+  "art/ocean/make_cogtuna_art.py": {
+    "mtime": 1793892897.455307,
+    "ast_hash": "5c9498d3bca836e67f35defe47cfd198",
+    "semantic_hash": "5c9498d3bca836e67f35defe47cfd198"
+  },
+  "art/oldbrasstown/make_bandit_art.py": {
+    "mtime": 1793892156.5737867,
+    "ast_hash": "6a3bf50e6f7e79b29615b3782db1f06a",
+    "semantic_hash": "6a3bf50e6f7e79b29615b3782db1f06a"
+  },
+  "art/oldbrasstown/make_bull_art.py": {
+    "mtime": 1793908709.0527837,
+    "ast_hash": "da71166371b68de70ed5b3f03201afd8",
+    "semantic_hash": "da71166371b68de70ed5b3f03201afd8"
+  },
+  "art/oldbrasstown/make_dinamitrom_art.py": {
+    "mtime": 1793892473.604002,
+    "ast_hash": "21185ad23642b9744bffd26c97f0e909",
+    "semantic_hash": "21185ad23642b9744bffd26c97f0e909"
+  },
+  "art/oldbrasstown/make_revolver_art.py": {
+    "mtime": 1793908873.655971,
+    "ast_hash": "30c60b27405c10d13e2b26a057894f1d",
+    "semantic_hash": "30c60b27405c10d13e2b26a057894f1d"
+  },
+  "art/oldbrasstown/make_sheriff_art.py": {
+    "mtime": 1793892646.9103043,
+    "ast_hash": "2a6b08308d1bb44328409ce272146a58",
+    "semantic_hash": "2a6b08308d1bb44328409ce272146a58"
+  },
+  "art/oldbrasstown/make_strongbox_art.py": {
+    "mtime": 1793819961.367374,
+    "ast_hash": "9d7126a5a6cb2332cb334ab88a44f9cb",
+    "semantic_hash": "9d7126a5a6cb2332cb334ab88a44f9cb"
+  },
+  "art/oldbrasstown/previous/make_bandit_art_2026-11-04.py": {
+    "mtime": 1793891571.5170572,
+    "ast_hash": "765700b4ec292dbb34a84687d7f15e6a",
+    "semantic_hash": "765700b4ec292dbb34a84687d7f15e6a"
+  },
+  "art/oldbrasstown/previous/make_bull_art_2026-11-04.py": {
+    "mtime": 1793891571.5836587,
+    "ast_hash": "6dd960cc060c40773e9dd1904b57aa1d",
+    "semantic_hash": "6dd960cc060c40773e9dd1904b57aa1d"
+  },
+  "art/oldbrasstown/previous/make_bull_art_2026-11-05.py": {
+    "mtime": 1793908667.951206,
+    "ast_hash": "5f97e59f9507631504ae976533f8f5f1",
+    "semantic_hash": "5f97e59f9507631504ae976533f8f5f1"
+  },
+  "art/oldbrasstown/previous/make_dinamitrom_art_2026-11-04.py": {
+    "mtime": 1793891571.6171672,
+    "ast_hash": "e0ab4108493760edea4cc139574dfdd4",
+    "semantic_hash": "e0ab4108493760edea4cc139574dfdd4"
+  },
+  "art/oldbrasstown/previous/make_revolver_art_2026-11-04.py": {
+    "mtime": 1793891571.6496835,
+    "ast_hash": "b0781f0f3467b3d246975ae229fb9779",
+    "semantic_hash": "b0781f0f3467b3d246975ae229fb9779"
+  },
+  "art/oldbrasstown/previous/make_revolver_art_2026-11-05.py": {
+    "mtime": 1793908667.9792013,
+    "ast_hash": "35e4607db7bffb18b0862e7b9bddbf16",
+    "semantic_hash": "35e4607db7bffb18b0862e7b9bddbf16"
+  },
+  "art/oldbrasstown/previous/make_sheriff_art_2026-11-04.py": {
+    "mtime": 1793891571.5518591,
+    "ast_hash": "fa62521dc7c27ab4a6de20b14441a3f8",
+    "semantic_hash": "fa62521dc7c27ab4a6de20b14441a3f8"
+  },
+  "art/oldbrasstown/previous/westbots.py": {
+    "mtime": 1793891571.681709,
+    "ast_hash": "ce7a1b16f0a3746ed905d651ccbe58f3",
+    "semantic_hash": "ce7a1b16f0a3746ed905d651ccbe58f3"
+  },
+  "art/oldbrasstown/westbots.py": {
+    "mtime": 1793892617.495845,
+    "ast_hash": "540bf310e84bd31bb3f45103f3f1e60e",
+    "semantic_hash": "540bf310e84bd31bb3f45103f3f1e60e"
+  },
+  "art/rain/previous/make_splasher_art_2026-11-03.py": {
+    "mtime": 1793804456.5077136,
+    "ast_hash": "5329f2c60d81be448adc5e17f9010b8f",
+    "semantic_hash": "5329f2c60d81be448adc5e17f9010b8f"
+  },
+  "art/rain/previous/make_splasher_art_2026-11-04.py": {
+    "mtime": 1793891571.7247932,
+    "ast_hash": "975420bd023a387dd6d41fa29323c947",
+    "semantic_hash": "975420bd023a387dd6d41fa29323c947"
+  },
+  "art/town/previous/make_friendobo_art_2026-11-03b.py": {
+    "mtime": 1793804456.534999,
+    "ast_hash": "2ad91cce76f1cd482fa85b3866f6e128",
+    "semantic_hash": "2ad91cce76f1cd482fa85b3866f6e128"
+  },
+  "tools/check_boss_loot.py": {
+    "mtime": 1793910228.950086,
+    "ast_hash": "8a359d40169e1bebd0aacb41e58d0ec7",
+    "semantic_hash": "8a359d40169e1bebd0aacb41e58d0ec7"
+  },
+  "tools/check_detail.py": {
+    "mtime": 1793891424.524163,
+    "ast_hash": "8dd2f171c968b28c94b25d6c120c7d2a",
+    "semantic_hash": "8dd2f171c968b28c94b25d6c120c7d2a"
+  },
+  "tools/sim/smoke.py": {
+    "mtime": 1793894014.9662592,
+    "ast_hash": "6a4679194ce5fc34462bf50ffd08f23f",
+    "semantic_hash": "6a4679194ce5fc34462bf50ffd08f23f"
+  },
+  "tools/sim/update_2026_11_04_sim.py": {
+    "mtime": 1793894140.8423254,
+    "ast_hash": "a68726c7fc056b9b00d75b8e18b9536f",
+    "semantic_hash": "a68726c7fc056b9b00d75b8e18b9536f"
+  },
+  "tools/sim/update_2026_11_04b_sim.py": {
+    "mtime": 1793910348.9037352,
+    "ast_hash": "5eba03b1d7942eb594294208c988f48d",
+    "semantic_hash": "5eba03b1d7942eb594294208c988f48d"
+  },
+  "tools/sim/update_2026_11_05_sim.py": {
+    "mtime": 1793971747.6228647,
+    "ast_hash": "44c8c3b861fe8695616caf8f02e2f7eb",
+    "semantic_hash": "44c8c3b861fe8695616caf8f02e2f7eb"
+  },
+  "tools/sim/update_2026_11_05b_sim.py": {
+    "mtime": 1793971747.6243713,
+    "ast_hash": "e2aa003e59bb573a45092821b4ced70f",
+    "semantic_hash": "e2aa003e59bb573a45092821b4ced70f"
+  },
+  "docs/design/melee-mechanics-study.md": {
+    "mtime": 1793911243.668483,
+    "ast_hash": "a5cdd5d83a276a780590b359cbc09e8b",
+    "semantic_hash": "a5cdd5d83a276a780590b359cbc09e8b"
+  },
+  "docs/design/pixel-art-study.md": {
+    "mtime": 1793894752.7601278,
+    "ast_hash": "a15b601d080e51462f93e3459de508d1",
+    "semantic_hash": "a15b601d080e51462f93e3459de508d1"
+  },
+  "Content/Bosses/CursedConductor/Buffs/ConductorCurse.png": {
+    "mtime": 1793971664.4445958,
+    "ast_hash": "ffbd144330fa7ee402d99fee02c066ac",
+    "semantic_hash": "ffbd144330fa7ee402d99fee02c066ac"
+  },
+  "Content/Bosses/CursedConductor/CursedConductor.png": {
+    "mtime": 1793971664.2283413,
+    "ast_hash": "5ed5a6c57c9f34ea8fca7355ad3cba3f",
+    "semantic_hash": "5ed5a6c57c9f34ea8fca7355ad3cba3f"
+  },
+  "Content/Bosses/CursedConductor/CursedConductor_Glow.png": {
+    "mtime": 1793971664.2535172,
+    "ast_hash": "f89211931cb21cbc2fc2f91247a72633",
+    "semantic_hash": "f89211931cb21cbc2fc2f91247a72633"
+  },
+  "Content/Bosses/CursedConductor/CursedConductor_Head_Boss.png": {
+    "mtime": 1793971664.2605917,
+    "ast_hash": "1ce7093b8c26f202804bed3a10258e8d",
+    "semantic_hash": "1ce7093b8c26f202804bed3a10258e8d"
+  },
+  "Content/Bosses/CursedConductor/CursedConductor_Near.png": {
+    "mtime": 1793971664.2439167,
+    "ast_hash": "866c3a757c170428840797c16415558a",
+    "semantic_hash": "866c3a757c170428840797c16415558a"
+  },
+  "Content/Bosses/CursedConductor/CursedConductor_Rotor.png": {
+    "mtime": 1793971664.2545352,
+    "ast_hash": "385475fc009c13eecce7086e11f03288",
+    "semantic_hash": "385475fc009c13eecce7086e11f03288"
+  },
+  "Content/Bosses/CursedConductor/CursedConductor_Smoke.png": {
+    "mtime": 1793971664.256055,
+    "ast_hash": "2082a5e7482c91ef2fe308b5fe183e76",
+    "semantic_hash": "2082a5e7482c91ef2fe308b5fe183e76"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_Bit0.png": {
+    "mtime": 1793971664.4445958,
+    "ast_hash": "714172f620ff4b620a57effd6294502e",
+    "semantic_hash": "714172f620ff4b620a57effd6294502e"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_Bit1.png": {
+    "mtime": 1793971664.4461055,
+    "ast_hash": "e14f75a14693fad79ba30f091667726b",
+    "semantic_hash": "e14f75a14693fad79ba30f091667726b"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_Bit2.png": {
+    "mtime": 1793971664.4471126,
+    "ast_hash": "18d29e6ba67b13c576f8501363995d60",
+    "semantic_hash": "18d29e6ba67b13c576f8501363995d60"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_Bit3.png": {
+    "mtime": 1793971664.4471126,
+    "ast_hash": "b9944d3053f678f3ef35b8543a94a596",
+    "semantic_hash": "b9944d3053f678f3ef35b8543a94a596"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_Bit4.png": {
+    "mtime": 1793971664.4486802,
+    "ast_hash": "3f3b22674a2b57d9f541a1d21111af4d",
+    "semantic_hash": "3f3b22674a2b57d9f541a1d21111af4d"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_Bit5.png": {
+    "mtime": 1793971664.4497435,
+    "ast_hash": "1aaa03dff0dbacb6ca05f8dedbb559e0",
+    "semantic_hash": "1aaa03dff0dbacb6ca05f8dedbb559e0"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_GoreCap.png": {
+    "mtime": 1793971664.4528234,
+    "ast_hash": "3d8152b577f46f2b2d3274e560c83c09",
+    "semantic_hash": "3d8152b577f46f2b2d3274e560c83c09"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_GoreCoat.png": {
+    "mtime": 1793971664.455328,
+    "ast_hash": "c716fc5e4d30ed0ac3262c39f0f0388b",
+    "semantic_hash": "c716fc5e4d30ed0ac3262c39f0f0388b"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_GoreHead.png": {
+    "mtime": 1793971664.4538226,
+    "ast_hash": "fbde97f8fb2437de0e65ebdb36a84b01",
+    "semantic_hash": "fbde97f8fb2437de0e65ebdb36a84b01"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_GoreLantern.png": {
+    "mtime": 1793971664.455328,
+    "ast_hash": "e9f06cbf704464f88d2991e4657d61c3",
+    "semantic_hash": "e9f06cbf704464f88d2991e4657d61c3"
+  },
+  "Content/Bosses/CursedConductor/Gores/CursedConductor_GoreTurbine.png": {
+    "mtime": 1793971664.4563334,
+    "ast_hash": "5fb9c5accfff0367486878cc471ac76c",
+    "semantic_hash": "5fb9c5accfff0367486878cc471ac76c"
+  },
+  "Content/Bosses/CursedConductor/Items/CursedConductorBag.png": {
+    "mtime": 1793971664.4395883,
+    "ast_hash": "cc558a10114cd2e24399a96423a8d9a3",
+    "semantic_hash": "cc558a10114cd2e24399a96423a8d9a3"
+  },
+  "Content/Bosses/CursedConductor/Items/CursedWhistle.png": {
+    "mtime": 1793908873.9082036,
+    "ast_hash": "2145f668116836afe2beee7788649bbc",
+    "semantic_hash": "2145f668116836afe2beee7788649bbc"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/ConductorFlame.png": {
+    "mtime": 1793971664.4375339,
+    "ast_hash": "9fa21129fec7fd74fb0c4499f6c3c3d9",
+    "semantic_hash": "9fa21129fec7fd74fb0c4499f6c3c3d9"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/GhostRift.png": {
+    "mtime": 1793971664.441597,
+    "ast_hash": "7a9281203b51b934d938b75a2f34d8a6",
+    "semantic_hash": "7a9281203b51b934d938b75a2f34d8a6"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/GhostTrain.png": {
+    "mtime": 1793971664.343202,
+    "ast_hash": "9166b2bce720483257712b7d86536664",
+    "semantic_hash": "9166b2bce720483257712b7d86536664"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/GhostTrain_Car.png": {
+    "mtime": 1793971664.4299254,
+    "ast_hash": "9919bf32296561fc6803f26d23080201",
+    "semantic_hash": "9919bf32296561fc6803f26d23080201"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/GhostTrain_CarGlow.png": {
+    "mtime": 1793971664.4324732,
+    "ast_hash": "19e48cdecedd31d5ed19922ea1008f58",
+    "semantic_hash": "19e48cdecedd31d5ed19922ea1008f58"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/GhostTrain_Glow.png": {
+    "mtime": 1793971664.347213,
+    "ast_hash": "6b17c34970537e778813da2eaca1678a",
+    "semantic_hash": "6b17c34970537e778813da2eaca1678a"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/GhostTrain_Rail.png": {
+    "mtime": 1793971664.4359927,
+    "ast_hash": "3315508527bd34d017ceb92db3151c80",
+    "semantic_hash": "3315508527bd34d017ceb92db3151c80"
+  },
+  "Content/Desert/Items/HawkEye.png": {
+    "mtime": 1793805258.4633262,
+    "ast_hash": "b6850b6ffbc29761f3c844b05369c2d3",
+    "semantic_hash": "b6850b6ffbc29761f3c844b05369c2d3"
+  },
+  "Content/Mechanist/Weapons/CogLauncher.png": {
+    "mtime": 1793909171.3830862,
+    "ast_hash": "0d90f02bf7ba1d4e1fa8d1ef2d043787",
+    "semantic_hash": "0d90f02bf7ba1d4e1fa8d1ef2d043787"
+  },
+  "Content/Mechanist/Weapons/CogLauncher_Held.png": {
+    "mtime": 1793909171.385088,
+    "ast_hash": "cd3484e2216bbd9bc31b0d555e26a8c6",
+    "semantic_hash": "cd3484e2216bbd9bc31b0d555e26a8c6"
+  },
+  "Content/Ocean/Gores/Cogtuna_GoreFin.png": {
+    "mtime": 1793805239.104801,
+    "ast_hash": "c89d23d51ffa25c56f44798c47921576",
+    "semantic_hash": "c89d23d51ffa25c56f44798c47921576"
+  },
+  "Content/Ocean/Gores/Cogtuna_GoreHead.png": {
+    "mtime": 1793805239.1038003,
+    "ast_hash": "c9deb1ccee0215805f6d06665458664a",
+    "semantic_hash": "c9deb1ccee0215805f6d06665458664a"
+  },
+  "Content/Ocean/Gores/Cogtuna_GoreTail.png": {
+    "mtime": 1793805239.104801,
+    "ast_hash": "b2502488a51da54dab25e06908ae1e67",
+    "semantic_hash": "b2502488a51da54dab25e06908ae1e67"
+  },
+  "Content/Ocean/Items/SharkEye.png": {
+    "mtime": 1793805239.0872412,
+    "ast_hash": "e4238a0209abf71a04ffcd969035e06e",
+    "semantic_hash": "e4238a0209abf71a04ffcd969035e06e"
+  },
+  "Content/Ocean/NPCs/Cogtuna.png": {
+    "mtime": 1793805239.077213,
+    "ast_hash": "1c04d6cd094ab068ab95de2d30da22b5",
+    "semantic_hash": "1c04d6cd094ab068ab95de2d30da22b5"
+  },
+  "Content/Ocean/NPCs/Cogtuna_Far.png": {
+    "mtime": 1793805239.068215,
+    "ast_hash": "d10cf71eb9054331083f571d1411c46c",
+    "semantic_hash": "d10cf71eb9054331083f571d1411c46c"
+  },
+  "Content/Ocean/NPCs/Cogtuna_Glow.png": {
+    "mtime": 1793805239.0842197,
+    "ast_hash": "458a844e2e213205de596efd8fa56ba1",
+    "semantic_hash": "458a844e2e213205de596efd8fa56ba1"
+  },
+  "Content/Ocean/NPCs/Cogtuna_Near.png": {
+    "mtime": 1793805239.0812187,
+    "ast_hash": "2ffa06ba1e5fd24000e8b3c46ea03aea",
+    "semantic_hash": "2ffa06ba1e5fd24000e8b3c46ea03aea"
+  },
+  "Content/OldBrassTown/Gores/BrassBandit_GoreGun.png": {
+    "mtime": 1793892618.600473,
+    "ast_hash": "f2ea1db1478f2782cbe2be6e947d8083",
+    "semantic_hash": "f2ea1db1478f2782cbe2be6e947d8083"
+  },
+  "Content/OldBrassTown/Gores/BrassBandit_GoreHat.png": {
+    "mtime": 1793892618.600473,
+    "ast_hash": "5427ab66fb5a6a7495e082bff06052fb",
+    "semantic_hash": "5427ab66fb5a6a7495e082bff06052fb"
+  },
+  "Content/OldBrassTown/Gores/BrassBandit_GoreHead.png": {
+    "mtime": 1793892618.5989642,
+    "ast_hash": "a9fef312177e69d859a786ce12fe19bd",
+    "semantic_hash": "a9fef312177e69d859a786ce12fe19bd"
+  },
+  "Content/OldBrassTown/Gores/Dinamitrom_GoreHoop.png": {
+    "mtime": 1793892474.0381217,
+    "ast_hash": "1bf325162cdcd055c62788365e26d090",
+    "semantic_hash": "1bf325162cdcd055c62788365e26d090"
+  },
+  "Content/OldBrassTown/Gores/Dinamitrom_GoreStave.png": {
+    "mtime": 1793892474.0376163,
+    "ast_hash": "946184fed5d27209f5d702326e7cc672",
+    "semantic_hash": "946184fed5d27209f5d702326e7cc672"
+  },
+  "Content/OldBrassTown/Gores/Dinamitrom_GoreStick.png": {
+    "mtime": 1793892474.03913,
+    "ast_hash": "3231070b1ec2c777e27c9df27c16375a",
+    "semantic_hash": "3231070b1ec2c777e27c9df27c16375a"
+  },
+  "Content/OldBrassTown/Gores/MechanicalBull_GoreHead.png": {
+    "mtime": 1793908709.7291348,
+    "ast_hash": "f1863ed4625aaa64138ab7261956a29b",
+    "semantic_hash": "f1863ed4625aaa64138ab7261956a29b"
+  },
+  "Content/OldBrassTown/Gores/MechanicalBull_GoreHorn.png": {
+    "mtime": 1793908709.7291348,
+    "ast_hash": "1dcb90d6dfead69ad3010a85ccc85920",
+    "semantic_hash": "1dcb90d6dfead69ad3010a85ccc85920"
+  },
+  "Content/OldBrassTown/Gores/MechanicalBull_GoreLeg.png": {
+    "mtime": 1793908709.730136,
+    "ast_hash": "e0d1093e57e549d8181cee7ff2404829",
+    "semantic_hash": "e0d1093e57e549d8181cee7ff2404829"
+  },
+  "Content/OldBrassTown/Gores/Sheriff_GoreBadge.png": {
+    "mtime": 1793892647.4716372,
+    "ast_hash": "ebe51cd51cb704873f9fe9e20cfe5b6b",
+    "semantic_hash": "ebe51cd51cb704873f9fe9e20cfe5b6b"
+  },
+  "Content/OldBrassTown/Gores/Sheriff_GoreHat.png": {
+    "mtime": 1793892647.4706306,
+    "ast_hash": "26af5b17af5d9715a343381053a546e3",
+    "semantic_hash": "26af5b17af5d9715a343381053a546e3"
+  },
+  "Content/OldBrassTown/Gores/Sheriff_GoreHead.png": {
+    "mtime": 1793892647.4706306,
+    "ast_hash": "945f2899922bfa86a5269d24f70716f9",
+    "semantic_hash": "945f2899922bfa86a5269d24f70716f9"
+  },
+  "Content/OldBrassTown/Items/SheriffsKey.png": {
+    "mtime": 1793819962.4054792,
+    "ast_hash": "7be26906f31dccead38a87d199fb5738",
+    "semantic_hash": "7be26906f31dccead38a87d199fb5738"
+  },
+  "Content/OldBrassTown/Minions/SheriffBadge.png": {
+    "mtime": 1793892647.4543939,
+    "ast_hash": "7dff69608dcab3e450302ee3f58be489",
+    "semantic_hash": "7dff69608dcab3e450302ee3f58be489"
+  },
+  "Content/OldBrassTown/Minions/SheriffStarBuff.png": {
+    "mtime": 1793892647.4583628,
+    "ast_hash": "acec3e8cf750ecb2778415716d8751cb",
+    "semantic_hash": "acec3e8cf750ecb2778415716d8751cb"
+  },
+  "Content/OldBrassTown/Minions/SheriffStarMinion.png": {
+    "mtime": 1793892647.4518242,
+    "ast_hash": "1d43f72c70e84221c23e8addaed15359",
+    "semantic_hash": "1d43f72c70e84221c23e8addaed15359"
+  },
+  "Content/OldBrassTown/Minions/SheriffStarMinion_Glow.png": {
+    "mtime": 1793892647.4533308,
+    "ast_hash": "2e131a4adecf5de8aba07e4a4812be82",
+    "semantic_hash": "2e131a4adecf5de8aba07e4a4812be82"
+  },
+  "Content/OldBrassTown/NPCs/BrassBandit.png": {
+    "mtime": 1793892618.5683725,
+    "ast_hash": "d1a7ca9ec32be93dc5a97dd87765bbfb",
+    "semantic_hash": "d1a7ca9ec32be93dc5a97dd87765bbfb"
+  },
+  "Content/OldBrassTown/NPCs/BrassBandit_Far.png": {
+    "mtime": 1793892618.5632615,
+    "ast_hash": "3716989739a616f328ccf9f2baf71792",
+    "semantic_hash": "3716989739a616f328ccf9f2baf71792"
+  },
+  "Content/OldBrassTown/NPCs/BrassBandit_Glow.png": {
+    "mtime": 1793892618.5756345,
+    "ast_hash": "76efa0a5fa46ad580c4abe4fa243abe4",
+    "semantic_hash": "76efa0a5fa46ad580c4abe4fa243abe4"
+  },
+  "Content/OldBrassTown/NPCs/BrassBandit_Near.png": {
+    "mtime": 1793892618.5729854,
+    "ast_hash": "c4ffefec656b96880be3cc6eadc676ea",
+    "semantic_hash": "c4ffefec656b96880be3cc6eadc676ea"
+  },
+  "Content/OldBrassTown/NPCs/Dinamitrom.png": {
+    "mtime": 1793892473.9824595,
+    "ast_hash": "9449f59d597b573c625dcd3dce22a816",
+    "semantic_hash": "9449f59d597b573c625dcd3dce22a816"
+  },
+  "Content/OldBrassTown/NPCs/Dinamitrom_Far.png": {
+    "mtime": 1793892473.9799476,
+    "ast_hash": "0d17588524f7821292c57651d17650a1",
+    "semantic_hash": "0d17588524f7821292c57651d17650a1"
+  },
+  "Content/OldBrassTown/NPCs/Dinamitrom_Glow.png": {
+    "mtime": 1793892473.9855173,
+    "ast_hash": "c20aecc5afeaa4be02eaefb88c97546b",
+    "semantic_hash": "c20aecc5afeaa4be02eaefb88c97546b"
+  },
+  "Content/OldBrassTown/NPCs/Dinamitrom_Near.png": {
+    "mtime": 1793892473.9845095,
+    "ast_hash": "6c2774bd3f91c9eb5d2372142fc5f367",
+    "semantic_hash": "6c2774bd3f91c9eb5d2372142fc5f367"
+  },
+  "Content/OldBrassTown/NPCs/MechanicalBull.png": {
+    "mtime": 1793908709.705026,
+    "ast_hash": "96883c8b40f96c139ef9045477132856",
+    "semantic_hash": "96883c8b40f96c139ef9045477132856"
+  },
+  "Content/OldBrassTown/NPCs/MechanicalBull_Far.png": {
+    "mtime": 1793908709.6950262,
+    "ast_hash": "ce3f484ed28f17bf448e50e9f697e4d2",
+    "semantic_hash": "ce3f484ed28f17bf448e50e9f697e4d2"
+  },
+  "Content/OldBrassTown/NPCs/MechanicalBull_Glow.png": {
+    "mtime": 1793908709.7111356,
+    "ast_hash": "25d6224c9fe653de81d2849b9752661d",
+    "semantic_hash": "25d6224c9fe653de81d2849b9752661d"
+  },
+  "Content/OldBrassTown/NPCs/MechanicalBull_Near.png": {
+    "mtime": 1793908709.708532,
+    "ast_hash": "da37037316096743f4878c93d3d1b858",
+    "semantic_hash": "da37037316096743f4878c93d3d1b858"
+  },
+  "Content/OldBrassTown/NPCs/Sheriff.png": {
+    "mtime": 1793892647.4286168,
+    "ast_hash": "74efab2b0202ca5f6f57bee5908008ba",
+    "semantic_hash": "74efab2b0202ca5f6f57bee5908008ba"
+  },
+  "Content/OldBrassTown/NPCs/Sheriff_Far.png": {
+    "mtime": 1793892647.4215655,
+    "ast_hash": "a5f7637e98c29d09a7c16a6856bb9672",
+    "semantic_hash": "a5f7637e98c29d09a7c16a6856bb9672"
+  },
+  "Content/OldBrassTown/NPCs/Sheriff_Glow.png": {
+    "mtime": 1793892647.4362235,
+    "ast_hash": "133e717a5394d8db79cc27b45fc7dcd8",
+    "semantic_hash": "133e717a5394d8db79cc27b45fc7dcd8"
+  },
+  "Content/OldBrassTown/NPCs/Sheriff_Near.png": {
+    "mtime": 1793892647.433706,
+    "ast_hash": "a0e9210b0c3fdb0a67130303a008c61f",
+    "semantic_hash": "a0e9210b0c3fdb0a67130303a008c61f"
+  },
+  "Content/OldBrassTown/Projectiles/DinamitromBlast.png": {
+    "mtime": 1793892474.0270839,
+    "ast_hash": "0f16bc18dd86a6bc8926cd75557e4a15",
+    "semantic_hash": "0f16bc18dd86a6bc8926cd75557e4a15"
+  },
+  "Content/OldBrassTown/Projectiles/RustyBullet.png": {
+    "mtime": 1793892618.5806897,
+    "ast_hash": "67eea5bebcca7fbd6b19161c0d0808d3",
+    "semantic_hash": "67eea5bebcca7fbd6b19161c0d0808d3"
+  },
+  "Content/OldBrassTown/Projectiles/SheriffStar.png": {
+    "mtime": 1793892647.4472613,
+    "ast_hash": "811d2cf0a736131ec962c032731859ff",
+    "semantic_hash": "811d2cf0a736131ec962c032731859ff"
+  },
+  "Content/OldBrassTown/Projectiles/SheriffStar_Glow.png": {
+    "mtime": 1793892647.4482617,
+    "ast_hash": "9d0569ae76ad467a7333344e86231d1b",
+    "semantic_hash": "9d0569ae76ad467a7333344e86231d1b"
+  },
+  "Content/OldBrassTown/Tiles/BrassStrongboxTile.png": {
+    "mtime": 1793819962.3962145,
+    "ast_hash": "18fff1bf5bc904dab622707549a8c3f9",
+    "semantic_hash": "18fff1bf5bc904dab622707549a8c3f9"
+  },
+  "Content/OldBrassTown/Tiles/BrassStrongboxTile_Highlight.png": {
+    "mtime": 1793819962.3982148,
+    "ast_hash": "061bbf6d93c946898b0ec20ca7fd54b0",
+    "semantic_hash": "061bbf6d93c946898b0ec20ca7fd54b0"
+  },
+  "Content/OldBrassTown/Weapons/SheriffsBullet.png": {
+    "mtime": 1793908873.8961954,
+    "ast_hash": "46cc2df50ca0789387214fa626f96a8e",
+    "semantic_hash": "46cc2df50ca0789387214fa626f96a8e"
+  },
+  "Content/OldBrassTown/Weapons/SheriffsRevolver.png": {
+    "mtime": 1793908873.893196,
+    "ast_hash": "27181354f80dffc15c9f8ff353a8575e",
+    "semantic_hash": "27181354f80dffc15c9f8ff353a8575e"
+  },
+  "Content/OldBrassTown/Weapons/SheriffsRevolver_Round.png": {
+    "mtime": 1793908873.8971949,
+    "ast_hash": "38316dd92d923e56a9934d253d5a435f",
+    "semantic_hash": "38316dd92d923e56a9934d253d5a435f"
+  },
+  "Content/Rain/Gores/Splasher_GoreGun.png": {
+    "mtime": 1793892565.8423488,
+    "ast_hash": "ce0220c3b5cc897e0ba1305627714af8",
+    "semantic_hash": "ce0220c3b5cc897e0ba1305627714af8"
+  },
+  "Content/Rain/Gores/Splasher_GoreHead.png": {
+    "mtime": 1793892565.8413024,
+    "ast_hash": "2418acf8855ed45bb190f2cbfa0a06c6",
+    "semantic_hash": "2418acf8855ed45bb190f2cbfa0a06c6"
+  },
+  "Content/Rain/Gores/Splasher_GoreUmbrella.png": {
+    "mtime": 1793892565.8423488,
+    "ast_hash": "3f01794c0b7f7e98605fc2cfae8177f4",
+    "semantic_hash": "3f01794c0b7f7e98605fc2cfae8177f4"
+  },
+  "Content/Rain/NPCs/Splasher.png": {
+    "mtime": 1793892565.8189337,
+    "ast_hash": "dfa52393dd71b19d7c00ced1e691e7a2",
+    "semantic_hash": "dfa52393dd71b19d7c00ced1e691e7a2"
+  },
+  "Content/Rain/NPCs/Splasher_Far.png": {
+    "mtime": 1793892565.8145628,
+    "ast_hash": "75861baae662a9b63c7e4be75adaf66b",
+    "semantic_hash": "75861baae662a9b63c7e4be75adaf66b"
+  },
+  "Content/Rain/NPCs/Splasher_Glow.png": {
+    "mtime": 1793892565.8244715,
+    "ast_hash": "ee3749ae6fcc84da9894302ed51cbac4",
+    "semantic_hash": "ee3749ae6fcc84da9894302ed51cbac4"
+  },
+  "Content/Rain/NPCs/Splasher_Near.png": {
+    "mtime": 1793892565.8224623,
+    "ast_hash": "2c2e8a4b902734e90d77c77854fb8e2a",
+    "semantic_hash": "2c2e8a4b902734e90d77c77854fb8e2a"
+  },
+  "Content/Rain/Projectiles/SplasherWater.png": {
+    "mtime": 1793892565.832745,
+    "ast_hash": "625c8350370c30e414ce717d0e08ed2f",
+    "semantic_hash": "625c8350370c30e414ce717d0e08ed2f"
+  },
+  "Content/Town/Friendobo.png": {
+    "mtime": 1793807309.1733267,
+    "ast_hash": "36e1c4ab4b2c38781f8f17d8cab702ab",
+    "semantic_hash": "36e1c4ab4b2c38781f8f17d8cab702ab"
+  },
+  "Content/Town/Friendobo_Head.png": {
+    "mtime": 1793807309.1788402,
+    "ast_hash": "b7247877125de61ae65be0701e2f2344",
+    "semantic_hash": "b7247877125de61ae65be0701e2f2344"
+  },
+  "Content/Town/Gores/Friendobo_GoreArm.png": {
+    "mtime": 1793807309.1837258,
+    "ast_hash": "48b2fa00c66f068150e27d2d55019707",
+    "semantic_hash": "48b2fa00c66f068150e27d2d55019707"
+  },
+  "Content/Town/Gores/Friendobo_GoreHead.png": {
+    "mtime": 1793807309.1832159,
+    "ast_hash": "b7247877125de61ae65be0701e2f2344",
+    "semantic_hash": "b7247877125de61ae65be0701e2f2344"
+  },
+  "Content/Town/Gores/Friendobo_GoreLeg.png": {
+    "mtime": 1793807309.1847794,
+    "ast_hash": "24195633abc81ee75436e79358aa07ef",
+    "semantic_hash": "24195633abc81ee75436e79358aa07ef"
+  },
+  "docs/media/2026-11-04_dungeon-beat-boxer-punch.gif": {
+    "mtime": 1793822928.9576616,
+    "ast_hash": "3b138c41f20c9c25f16d3d86ef33d99f",
+    "semantic_hash": "3b138c41f20c9c25f16d3d86ef33d99f"
+  },
+  "docs/media/2026-11-04_dungeon-beat-boxer.gif": {
+    "mtime": 1793822925.5674276,
+    "ast_hash": "06ce375e1d8aa19d17bbe0ec2df68c68",
+    "semantic_hash": "06ce375e1d8aa19d17bbe0ec2df68c68"
+  },
+  "docs/media/2026-11-04_dungeon-town-sprites.png": {
+    "mtime": 1793822914.305251,
+    "ast_hash": "41381b9eacdaaf992e04c071cf16048e",
+    "semantic_hash": "41381b9eacdaaf992e04c071cf16048e"
+  },
+  "docs/media/2026-11-04_oldbrasstown-chests.png": {
+    "mtime": 1793821144.4259615,
+    "ast_hash": "606c183be4e463baf1502bbc7916b4aa",
+    "semantic_hash": "606c183be4e463baf1502bbc7916b4aa"
+  },
+  "docs/media/2026-11-04_oldbrasstown-sheriff-badge.gif": {
+    "mtime": 1793819316.9671626,
+    "ast_hash": "91dbda5cd4e0ebe4490c432554319537",
+    "semantic_hash": "91dbda5cd4e0ebe4490c432554319537"
+  },
+  "docs/media/2026-11-04_oldbrasstown-town.png": {
+    "mtime": 1793821157.737534,
+    "ast_hash": "91e0b3dd9278f0c1bdf1f4ab3f432b1c",
+    "semantic_hash": "91e0b3dd9278f0c1bdf1f4ab3f432b1c"
+  },
+  "docs/media/2026-11-04_town-friendobo.gif": {
+    "mtime": 1793807661.707024,
+    "ast_hash": "8b0bb17a2d08c37ebadf50a84c5bec3e",
+    "semantic_hash": "8b0bb17a2d08c37ebadf50a84c5bec3e"
+  },
+  "docs/media/2026-11-05_art-study-before-after.png": {
+    "mtime": 1793894162.2226026,
+    "ast_hash": "4f51f0c4af76ba7f47b78b79eeb111be",
+    "semantic_hash": "4f51f0c4af76ba7f47b78b79eeb111be"
+  },
+  "docs/media/2026-11-05_design-directional-melee-arcs.png": {
+    "mtime": 1793911156.5244412,
+    "ast_hash": "a3656ab7c320c20883e3c6dc7393ceff",
+    "semantic_hash": "a3656ab7c320c20883e3c6dc7393ceff"
+  },
+  "docs/media/2026-11-05_items-eyes.png": {
+    "mtime": 1793894140.7492268,
+    "ast_hash": "512d06465ad2deb9aef53ef98e2f2d57",
+    "semantic_hash": "512d06465ad2deb9aef53ef98e2f2d57"
+  },
+  "docs/media/2026-11-05_ocean-cogtuna.gif": {
+    "mtime": 1793894057.5236135,
+    "ast_hash": "2b4d17b89a07f0dbe502858103b02bcb",
+    "semantic_hash": "2b4d17b89a07f0dbe502858103b02bcb"
+  },
+  "docs/media/2026-11-05_oldbrasstown-bandit.gif": {
+    "mtime": 1793894067.931925,
+    "ast_hash": "bd248243337391f674aaa78e02b60279",
+    "semantic_hash": "bd248243337391f674aaa78e02b60279"
+  },
+  "docs/media/2026-11-05_oldbrasstown-bull.gif": {
+    "mtime": 1793910408.6533637,
+    "ast_hash": "caf30523fd1484a308eec652857ceb48",
+    "semantic_hash": "caf30523fd1484a308eec652857ceb48"
+  },
+  "docs/media/2026-11-05_oldbrasstown-dinamitrom.gif": {
+    "mtime": 1793894099.2458818,
+    "ast_hash": "a2330451f423b95c9f24332d35da3669",
+    "semantic_hash": "a2330451f423b95c9f24332d35da3669"
+  },
+  "docs/media/2026-11-05_oldbrasstown-sheriff.gif": {
+    "mtime": 1793894080.0276556,
+    "ast_hash": "b535379e8cd429182bc7a90333d38fe7",
+    "semantic_hash": "b535379e8cd429182bc7a90333d38fe7"
+  },
+  "docs/media/2026-11-05_rain-splasher.gif": {
+    "mtime": 1793894125.9620993,
+    "ast_hash": "146157f2842e134e16844977cd5bc604",
+    "semantic_hash": "146157f2842e134e16844977cd5bc604"
+  },
+  "docs/media/2026-11-05_weapon-cog-launcher.gif": {
+    "mtime": 1793910655.3035417,
+    "ast_hash": "f1716a86e158dec989f63347a70cbe7b",
+    "semantic_hash": "f1716a86e158dec989f63347a70cbe7b"
+  },
+  "docs/media/2026-11-05_weapon-metal-wrench.gif": {
+    "mtime": 1793910784.170333,
+    "ast_hash": "17894eed541ad1e4d279bfc9c9e186ef",
+    "semantic_hash": "17894eed541ad1e4d279bfc9c9e186ef"
+  },
+  "docs/media/2026-11-05_weapon-sheriffs-revolver.gif": {
+    "mtime": 1793910415.9541583,
+    "ast_hash": "f46ed0e3f3e96cf36261cc147d26940b",
+    "semantic_hash": "f46ed0e3f3e96cf36261cc147d26940b"
+  },
+  "docs/media/2026-11-05_weapons-cog-launcher-magnum.png": {
+    "mtime": 1793910810.6724255,
+    "ast_hash": "b9c4dec68d08f4a9dc77493d092f1526",
+    "semantic_hash": "b9c4dec68d08f4a9dc77493d092f1526"
+  },
+  "docs/media/2026-11-06_boss-cursed-conductor-death.gif": {
+    "mtime": 1793971728.0719821,
+    "ast_hash": "cacf5c682e726575285708bcbbaf9b07",
+    "semantic_hash": "cacf5c682e726575285708bcbbaf9b07"
+  },
+  "docs/media/2026-11-06_boss-cursed-conductor-lantern.gif": {
+    "mtime": 1793971720.7756755,
+    "ast_hash": "f2bc1798b3969304783b90488507ca94",
+    "semantic_hash": "f2bc1798b3969304783b90488507ca94"
+  },
+  "docs/media/2026-11-06_boss-cursed-conductor-sprites.png": {
+    "mtime": 1793971728.2668107,
+    "ast_hash": "9be1c5666397b84bbbb0c9501efa8a98",
+    "semantic_hash": "9be1c5666397b84bbbb0c9501efa8a98"
+  },
+  "docs/media/2026-11-06_boss-cursed-conductor-turbine.gif": {
+    "mtime": 1793971705.8235912,
+    "ast_hash": "e64f29b9517bbb6f0d5e42aa9172a600",
+    "semantic_hash": "e64f29b9517bbb6f0d5e42aa9172a600"
   }
 }

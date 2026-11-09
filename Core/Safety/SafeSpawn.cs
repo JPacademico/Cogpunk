@@ -156,5 +156,38 @@ namespace Cogpunk.Core.Safety
 			item = Main.item[index];
 			return true;
 		}
+
+		/// <summary>
+		/// The local player throws one of their own items into the world, as vanilla does on the dying player's client for
+		/// the large gems of Capture the Gem (decompiled <c>Player.KillMe</c>: <c>Item.NewItem</c> there, then message 21 from
+		/// a multiplayer client). <b>Only for <see cref="Main.myPlayer"/></b>; the item is synced by this call.
+		/// </summary>
+		public static bool TryDropFromPlayer(Player owner, int type, int stack, int prefix, Vector2 velocity, int noGrabDelay, out Item item) {
+			item = null;
+			if (owner == null || owner.whoAmI != Main.myPlayer || Main.netMode == NetmodeID.Server) {
+				SafeLog.Warn("Spawn.PlayerDrop.NotOwner", "Refused a player drop that isn't the local player's own.");
+				return false;
+			}
+			if (type <= ItemID.None || type >= ItemLoader.ItemCount || stack <= 0) {
+				SafeLog.Warn("Spawn.PlayerDrop.BadType", "Refused player drop with invalid type {0} or stack {1}.", type, stack);
+				return false;
+			}
+			int index = Item.NewItem(owner.GetSource_Death(), (int)owner.position.X, (int)owner.position.Y, owner.width, owner.height, type, stack, false,
+				prefix);
+			if (index < 0 || index >= Main.maxItems) {
+				return false;
+			}
+			item = Main.item[index];
+			if (MathSafety.IsFinite(velocity)) {
+				item.velocity = velocity;
+			}
+			item.noGrabDelay = noGrabDelay;
+			item.favorited = false;
+			item.newAndShiny = false;
+			if (Main.netMode == NetmodeID.MultiplayerClient) {
+				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, index);
+			}
+			return true;
+		}
 	}
 }

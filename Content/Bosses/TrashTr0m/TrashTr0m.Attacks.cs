@@ -406,7 +406,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 				return;
 			}
 			int eaten = (int)Arg;
-			NPC.TargetClosest(false);
+			EnsureTarget();                                // the shared rule's target (BossNPC), not the closest
 			FaceTarget();
 			if (eaten > 0) {
 				ChangeState((int)Phase.SpitScrap);

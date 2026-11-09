@@ -68,6 +68,21 @@ namespace Cogpunk.Core.Systems
 			.Description("Projectiles that keep updating at full speed during Cogpunk's slow motion.")
 			.RegisterBoolSet(false);
 
+		/// <summary>
+		/// Summon projectiles that roll their own critical strikes (<c>Projectile.CritChance</c> in their <c>ModifyHitNPC</c>):
+		/// vanilla's summon damage skips the crit roll (<c>SummonDamageClass.UseStandardCritCalcs</c> is false), so Cogpunk's
+		/// minions roll it themselves. Effects that let every minion crit (the Bottle of Lost Souls) skip these, so nothing
+		/// rolls twice.
+		/// </summary>
+		public static bool[] RollsOwnCrit = ProjectileID.Sets.Factory.CreateNamedSet("Cogpunk", nameof(RollsOwnCrit))
+			.Description("Summon projectiles that already roll Projectile.CritChance themselves; effects that make minions crit skip them.")
+			.RegisterBoolSet(false);
+
+		/// <summary>Bounds-checked lookup (D0) of <see cref="RollsOwnCrit"/>.</summary>
+		public static bool RollsOwnCritType(int type) {
+			return type > ProjectileID.None && type < RollsOwnCrit.Length && RollsOwnCrit[type];
+		}
+
 		/// <summary>Bounds-checked lookup (D0): unknown or out-of-range types are simply not mechanical.</summary>
 		public static bool IsMechanical(NPC npc) {
 			int type = npc.type;

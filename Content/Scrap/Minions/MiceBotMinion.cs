@@ -1,6 +1,7 @@
 using System;
 using Cogpunk.Core.Configs;
 using Cogpunk.Core.Safety;
+using Cogpunk.Core.Systems;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -103,6 +104,7 @@ namespace Cogpunk.Content.Scrap.Minions
 		public override void SetStaticDefaults() {
 			Main.projFrames[Type] = FrameCount;
 			Main.projPet[Type] = true;
+			CogpunkSets.RollsOwnCrit[Type] = true;          // its ModifyHitNPC rolls CritChance (the Bottle of Lost Souls skips it)
 			ProjectileID.Sets.MinionTargettingFeature[Type] = true;
 			ProjectileID.Sets.MinionSacrificable[Type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[Type] = true;

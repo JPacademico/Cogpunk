@@ -6,9 +6,9 @@ using Terraria.ModLoader;
 
 namespace Cogpunk.Content.Bosses.TarTyrant.Armor
 {
-	/// <summary>Tyrant Sandals: <see cref="Defense"/> defense, +<see cref="SummonDamage"/>% summon damage and
-	/// +<see cref="SpeedBonus"/>% movement speed (the summoner rework of 2026-11-03; until then +10% speed and jump height,
-	/// doubled while out of steam, for the mage set). Set bonus: <see cref="TyrantSkull"/>.
+	/// <summary>Tyrant Sandals: <see cref="Defense"/> defense and immunity to fall damage (user-set 2026-11-06, the
+	/// summoner-mage rework: vanilla's <c>noFallDmg</c>, the Lucky Horseshoe's; from 2026-11-03 they gave +15% summon damage
+	/// and +10% movement speed, before that +10% speed and jump height for the mage set). Set bonus: <see cref="TyrantSkull"/>.
 	/// <para>Berserker look (user, 2026-10-30: "the pants only an underwear and sandals"): a tar loincloth on a belt of
 	/// vertebrae and bone-soled sandals; the legs between are the wearer's own skin (vanilla draws it under leg armor:
 	/// <c>ArmorIDs.Legs.Sets.HidesBottomSkin</c> is false by default).</para></summary>
@@ -16,10 +16,6 @@ namespace Cogpunk.Content.Bosses.TarTyrant.Armor
 	public class TyrantSandals : CogpunkItem
 	{
 		public const int Defense = 5;
-		public const int SummonDamage = 15;             // percent
-		public const int SpeedBonus = 10;               // percent
-
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SummonDamage, SpeedBonus);
 
 		public override void SetDefaults() {
 			Item.width = 30;
@@ -30,8 +26,7 @@ namespace Cogpunk.Content.Bosses.TarTyrant.Armor
 		}
 
 		public override void UpdateEquip(Player player) {
-			player.GetDamage(DamageClass.Summon) += SummonDamage / 100f;
-			player.moveSpeed += SpeedBonus / 100f;
+			player.noFallDmg = true;
 		}
 	}
 }

@@ -123,20 +123,22 @@ namespace Cogpunk.Core.Visuals
 		/// A small layered walker: the same <paramref name="frame"/> of its far, middle and near grid sheets (vertical, equal
 		/// cells, <paramref name="padding"/> px under each), far to near, with the far plane a little darker. The parallax is
 		/// horizontal only (at most <paramref name="maxShift"/> px): a walker's feet stay on the ground line. A null sheet
-		/// is skipped. <paramref name="maxShift"/> 0 (the bestiary) draws the planes stacked.
+		/// is skipped. <paramref name="maxShift"/> 0 (the bestiary) draws the planes stacked. A sheet too tall for one column
+		/// (the 2048 px texture limit) wraps into <paramref name="columns"/>, left to right, then down (the Jade Golem, 2026-11-06).
 		/// </summary>
 		public static void DrawWalker(SpriteBatch spriteBatch, Texture2D far, Texture2D middle, Texture2D near, int frame, int cellWidth,
-			int cellHeight, int padding, int originX, int originY, Vector2 anchor, Color light, bool flip, float maxShift, float scale = 1f) {
+			int cellHeight, int padding, int originX, int originY, Vector2 anchor, Color light, bool flip, float maxShift, float scale = 1f,
+			int columns = 1) {
 			Vector2 farShift = new(Shift(anchor, Far, maxShift).X, 0f);
 			Vector2 nearShift = new(Shift(anchor, Near, maxShift).X, 0f);
 			if (far != null) {
-				DrawCell(spriteBatch, far, frame, 1, cellWidth, cellHeight, padding, originX, originY, anchor + farShift, 0, Tint(light, Far), flip, scale);
+				DrawCell(spriteBatch, far, frame, columns, cellWidth, cellHeight, padding, originX, originY, anchor + farShift, 0, Tint(light, Far), flip, scale);
 			}
 			if (middle != null) {
-				DrawCell(spriteBatch, middle, frame, 1, cellWidth, cellHeight, padding, originX, originY, anchor, 0, light, flip, scale);
+				DrawCell(spriteBatch, middle, frame, columns, cellWidth, cellHeight, padding, originX, originY, anchor, 0, light, flip, scale);
 			}
 			if (near != null) {
-				DrawCell(spriteBatch, near, frame, 1, cellWidth, cellHeight, padding, originX, originY, anchor + nearShift, 0, light, flip, scale);
+				DrawCell(spriteBatch, near, frame, columns, cellWidth, cellHeight, padding, originX, originY, anchor + nearShift, 0, light, flip, scale);
 			}
 		}
 

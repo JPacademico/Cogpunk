@@ -2,6 +2,7 @@ using System;
 using Cogpunk.Content.Junkyard.Tar;
 using Cogpunk.Core.Configs;
 using Cogpunk.Core.Safety;
+using Cogpunk.Core.Systems;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,6 +30,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		public override void SetStaticDefaults() {
 			Main.projFrames[Type] = Headings;
 			ProjectileID.Sets.MinionShot[Type] = true;
+			CogpunkSets.RollsOwnCrit[Type] = true;          // its ModifyHitNPC rolls CritChance (the Bottle of Lost Souls skips it)
 		}
 
 		public override void SetDefaults() {

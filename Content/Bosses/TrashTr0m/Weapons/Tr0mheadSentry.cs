@@ -1,6 +1,7 @@
 using System;
 using Cogpunk.Core.Configs;
 using Cogpunk.Core.Safety;
+using Cogpunk.Core.Systems;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -75,6 +76,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m.Weapons
 		public override void SetStaticDefaults() {
 			Main.projFrames[Type] = FrameCount;
 			ProjectileID.Sets.MinionTargettingFeature[Type] = true;
+			CogpunkSets.RollsOwnCrit[Type] = true;          // its ModifyHitNPC rolls CritChance (the Bottle of Lost Souls skips it)
 			if (!Main.dedServ) {
 				glow = TetanusProjectile.TryRequest("Cogpunk/Content/Bosses/TrashTr0m/Weapons/Tr0mheadSentry_Glow");
 			}

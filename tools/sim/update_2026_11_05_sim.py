@@ -1080,17 +1080,18 @@ def main():
     a.add_argument("--out", default="docs/media")
     a.add_argument("--only")
     a.add_argument("--font", default="C:/Windows/Fonts/arialbd.ttf")
+    a.add_argument("--date", default="2026-11-06", help="date prefix of the Cursed Conductor's proofs (his torso turned to the screen 2026-11-06)")
     args = a.parse_args()
     only = set(args.only.split(",")) if args.only else None
     jobs = [("revolver", lambda: scene_revolver(os.path.join(args.out, "2026-11-05_weapon-sheriffs-revolver.gif"), args.font)),
             # "cogs": the Cog-launcher was redrawn 2026-11-05b; its proof is tools/sim/update_2026_11_05b_sim.py (launcher)
             ("intro", lambda: scene_intro(os.path.join(args.out, "2026-11-05_boss-cursed-conductor-intro.gif"), args.font)),
             ("passive", lambda: scene_passive(os.path.join(args.out, "2026-11-05_boss-cursed-conductor-passive.gif"), args.font)),
-            ("lantern", lambda: scene_lantern(os.path.join(args.out, "2026-11-05_boss-cursed-conductor-lantern.gif"), args.font)),
+            ("lantern", lambda: scene_lantern(os.path.join(args.out, args.date + "_boss-cursed-conductor-lantern.gif"), args.font)),
             ("loop", lambda: scene_loop(os.path.join(args.out, "2026-11-05_boss-cursed-conductor-loop.gif"), args.font)),
             ("whistle", lambda: scene_whistle(os.path.join(args.out, "2026-11-05_boss-cursed-conductor-whistle.gif"), args.font)),
-            ("death", lambda: scene_death(os.path.join(args.out, "2026-11-05_boss-cursed-conductor-death.gif"), args.font)),
-            ("sprites", lambda: sprites_png(os.path.join(args.out, "2026-11-05_boss-cursed-conductor-sprites.png"), args.font))]
+            ("death", lambda: scene_death(os.path.join(args.out, args.date + "_boss-cursed-conductor-death.gif"), args.font)),
+            ("sprites", lambda: sprites_png(os.path.join(args.out, args.date + "_boss-cursed-conductor-sprites.png"), args.font))]
     for name, job in jobs:
         if only is None or name in only:
             job()

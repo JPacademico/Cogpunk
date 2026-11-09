@@ -581,9 +581,10 @@ def main():
     a.add_argument("--out", default="docs/media")
     a.add_argument("--only")
     a.add_argument("--font", default="C:/Windows/Fonts/arialbd.ttf")
+    a.add_argument("--date", default="2026-11-06", help="date prefix of the Cursed Conductor's proofs (his torso turned to the screen 2026-11-06)")
     args = a.parse_args()
     only = set(args.only.split(",")) if args.only else None
-    jobs = [("turbine", lambda: scene_turbine(os.path.join(args.out, "2026-11-05_boss-cursed-conductor-turbine.gif"), args.font)),
+    jobs = [("turbine", lambda: scene_turbine(os.path.join(args.out, args.date + "_boss-cursed-conductor-turbine.gif"), args.font)),
             ("launcher", lambda: scene_launcher(os.path.join(args.out, "2026-11-05_weapon-cog-launcher.gif"), args.font)),
             ("wrench", lambda: scene_wrench(os.path.join(args.out, "2026-11-05_weapon-metal-wrench.gif"), args.font)),
             ("items", lambda: items_png(os.path.join(args.out, "2026-11-05_weapons-cog-launcher-magnum.png"), args.font)),

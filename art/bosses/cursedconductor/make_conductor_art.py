@@ -12,16 +12,29 @@ is being thrown from his back"; the 2026-11-05 version is previous/make_conducto
 hem of his coat hangs a steel turbine drum, brass-banded and riveted, its vanes spinning past a window in its side (an
 overlay sheet the game animates on its own clock), above a flared brass exhaust bell glowing ghost-green inside; the game
 pumps soot-black smoke out of it (its puff sheet is drawn here). The lantern hangs from his near-side (right) hand now, in front of the
-coat, and the throw swings it up and back over that shoulder and forward across his chest. A cracked steel skull of a face lit from
+coat, and the throw swings it up and back over that shoulder and forward across his chest. Turned to face the screen
+2026-11-06 (user: "its torso is turned/angled to the background wall, it should be turned to the player screen/front so
+it does not look disruptive when he uses the lantern attack"; the 2026-11-05b version is
+previous/make_conductor_art_2026-11-05b.py): the coat is drawn from the front, symmetric about the body's axis (CX): the
+collar, the tie, the lapels, both rows of buttons, the buckle and the skirt's opening on the axis, an epaulette on each
+shoulder, the shoulders level and as far out on both sides, the turbine centred under it; only the head stays turned to
+the way he faces. Re-posed 2026-11-09 (user, with a picture of the old Throw2 frame: "fix the cursed conductor
+perspective so the default animation is the one on the example of the prompt (front torso, inverted hands); remove the
+arm animation from the lantern attack so it stays on this idle position, now the visual cue for the attack is just a
+glow on the lantern; adjust the whistle attack so it matches this new main position/perspective"; the 2026-11-06 version
+is previous/make_conductor_art_2026-11-06.py): his rest is that frame, the lantern held up in front of his chest by his
+left arm across his body (its elbow out at his side), the whistle hand low at his right side; every sequence starts and
+ends there (in-betweens out of it and back: the whistle raised, the arm pointing, the cap tipped); the lantern attack has
+no frames of its own any more: the game draws a halo of ghost light swelling round the lantern's glass (an overlay
+sheet, 4 frames) over whatever frame he is in. A cracked steel skull of a face lit from
 the top-left, angry brow plates sloping into a V over two deep sockets with ghost-green pupils, ghost light leaking
 from the crack, a drooping ivory walrus moustache over a jaw of steel teeth, a riveted gilt ear bolt; a tall conductor's
 cap (navy felt, a gilt cord, a gilt winged-wheel badge, a black gloss visor); a long double-breasted navy coat (woven,
 lapels, an ivory collar and a crimson tie, two rows of gilt buttons, gilt epaulettes with fringe, a leather belt with a
 gilt buckle, a watch chain) torn in two places where ghost light shows through; navy sleeves with gilt cuffs and bony
 steel hands. In the near hand his gilt whistle on a chain; in the far hand a big railway lantern (a gilt cap and bail,
-a steel cage, a globe of ghost flame). Three-quarter view facing left (D4 rule 13): the coat's front is turned to the
-left, so its right flank is the side nearest us, and both arms are drawn in front of the coat (the whistle hand reaches
-forward, the lantern arm hangs on the near flank).
+a steel cage, a globe of ghost flame). The head is in three-quarter view facing left (D4 rule 13); the torso faces the
+screen (2026-11-06), so both arms hang at his sides in front of the coat and the lantern swings across his chest.
 
 Two planes since 2026-11-05b (DepthLayers.DrawWalker grid sheets; the far plane held the lantern arm, and nothing is
 behind him now): middle (the turbine, the coat, the head and the cap), near (the whistle arm and the whistle, then the
@@ -29,11 +42,12 @@ lantern arm and the lantern); the glow sheet holds the eyes, the crack, the coat
 whistle's breath, each only where no nearer plane covers it. Stable pixels (D4 rule 17): whole-pixel bobs, the body and
 the turbine built in their own space and placed by one translation, limbs with their light's turn snapped.
 
-Frames: Idle x6 (floating: the bob, the coat's back tail fluttering), Whistle x4 (the whistle up to
-the mouth, then blowing: the train's call), Point x2 (the arm out, sending the train), Throw x4 (the lantern swung back,
-higher, overhead where its bolts fly, forward), Call x2 (the lantern raised high and the whistle blowing: the loop and
-the whistle phase), Tip x3 (the intro: a hand to the visor, the cap raised, a bow), Dying x4 (slumping, the eyes, the
-lantern and the exhaust going out). The turbine's vanes: 4 frames of the drum's window (8 vanes, a quarter of a vane's
+Frames (2026-11-09): Idle x6 (floating: the bob, the coat's back tail fluttering, the lantern held before his chest),
+Whistle x4 (the hand half way up, at the mouth, blowing: the train's call), Call x2 (blowing with the lantern blazing:
+the loop's call and the whistle phase), PointIn x1, Point x2 (the arm out, sending the train), PointOut x1, TipIn x1,
+Tip x3 (the intro: a hand to the visor, the cap raised, a bow), TipOut x1, Dying x4 (slumping, the lantern arm sinking,
+the eyes, the lantern and the exhaust going out). The lantern's halo (the attack's cue): 4 frames, a ring of ghost
+light round the glass growing and brightening, the last a flash with the glass white-hot. The turbine's vanes: 4 frames of the drum's window (8 vanes, a quarter of a vane's
 spacing a frame, foreshortened round the drum, so the loop is seamless); its smoke: 5 frames of a soot puff growing and
 breaking up.
 
@@ -47,11 +61,14 @@ windows and headlamp solid from the glow sheets.
 Outputs (2x):
     Content/Bosses/CursedConductor/CursedConductor.png, _Near.png, _Glow.png   grid sheets (no _Far since 2026-11-05b)
     Content/Bosses/CursedConductor/CursedConductor_Rotor.png, _Smoke.png   the turbine's vanes (4 frames), its smoke (5)
+    Content/Bosses/CursedConductor/CursedConductor_LanternGlow.png   the lantern attack's halo (4 frames, 2026-11-09)
     Content/Bosses/CursedConductor/CursedConductorRigData.cs     cells, origin, sequences, points, the body box
     Content/Bosses/CursedConductor/CursedConductor_Head_Boss.png  the map icon
     Content/Bosses/CursedConductor/Projectiles/GhostTrain.png, _Glow.png, _Car.png, _CarGlow.png   9 headings each
     Content/Bosses/CursedConductor/Projectiles/GhostTrain_Rail.png   the telegraph: a level and an upright stretch of
                                                                       ghost track, and a ring marker
+    Content/Bosses/CursedConductor/Projectiles/GhostTrain_RailDiagonal.png   the diagonal dive's track (2026-11-09):
+                                                                      the same rails at 45 degrees, tiling every 8 px
     Content/Bosses/CursedConductor/Projectiles/ConductorFlame.png     4 frames of cursed ghost fire (his lantern's bolt)
     Content/Bosses/CursedConductor/Projectiles/GhostRift.png          4 frames: a ghost rift opening (where a ghost rises)
     Content/Bosses/CursedConductor/Buffs/ConductorCurse.png           32x32 the curse's icon: a punched ghost ticket
@@ -84,21 +101,23 @@ D, GH, G, ST, IV, K, H = (RAMP[k] for k in ("denim", "ghost", "gilt", "steel", "
 
 # --- the conductor's rig (1x, y down, the origin under the turbine's exhaust bell, facing left) ----------------------
 HEM_Y = -17.0                    # the coat's hem (its tatters reach a row lower)
-SH_NEAR = (-7.8, -45.2)          # the whistle arm's shoulder (the coat's front, turned left)
-SH_LAMP = (7.4, -46.0)           # the lantern arm's shoulder (the near flank; 2026-11-05b: in front, it was behind)
+CX = -2.6                        # the torso's axis (2026-11-06: it faces the screen, symmetric about this; the head's middle)
+SH_NEAR = (CX - 8.6, -45.4)      # the whistle arm's shoulder (his right, our left)
+SH_LAMP = (CX + 8.4, -45.4)      # the lantern arm's shoulder (level with the other: the torso faces the screen)
 UPPER, FORE = 8.2, 8.0
-REST_NEAR = (-9.8, -34.6)
-REST_LAMP = (11.8, -31.4)        # the lantern hangs at his near side, in front of the coat
+REST_NEAR = (CX - 11.2, -33.2)   # 2026-11-09: the whistle hand low at his right side (the user's reference, the old Throw2)
+REST_LAMP = (CX - 1.8, -41.4)    # the lantern held up before his chest, his left arm across his body (its elbow out)
+LAMP_BEND = 1                    # that elbow bends out at his side
 # the turbine (2026-11-05b): a steel drum under the hem, a vane window, a flared brass exhaust bell
-TURB_CX = 1.0
+TURB_CX = CX                     # the turbine centred under the torso
 # rows from the hem down (the ground clip drops rows below 0, so the cone's tip is row 0): the drum to row -7 (rivets
 # at -14, the window -12..-9 in its frame, the band at -7), the bell -6..-2, the cone and the fire round it -2..0
-DRUM_L, DRUM_R, DRUM_TOP, DRUM_BOT = -8.6, 10.6, -18.0, -6.0
-ROTOR = (-6, -12, 15, 4)         # the vane window: left, top, width, height (art px from the origin, at rest)
+DRUM_L, DRUM_R, DRUM_TOP, DRUM_BOT = CX - 9.6, CX + 9.6, -18.0, -6.0
+ROTOR = (-10, -12, 15, 4)        # the vane window: left, top, width, height (art px from the origin, at rest; about CX)
 ROTOR_FRAMES, VANES = 4, 8
-BELL = ((-7.4, -6.6), (9.4, -6.6), (11.8, -1.6), (-9.8, -1.6))
-CONE = ((-0.6, -2.4), (2.6, -2.4), (1.8, 0.9), (0.2, 0.9))
-EXHAUST = (1.0, 0.0)             # where the smoke comes out (the bell's mouth, round the tail cone)
+BELL = ((CX - 8.4, -6.6), (CX + 8.4, -6.6), (CX + 10.8, -1.6), (CX - 10.8, -1.6))
+CONE = ((CX - 1.6, -2.4), (CX + 1.6, -2.4), (CX + 0.8, 0.9), (CX - 0.8, 0.9))
+EXHAUST = (CX, 0.0)              # where the smoke comes out (the bell's mouth, round the tail cone)
 SMOKE = 12
 SMOKE_FRAMES = 5
 MOUTH = (-10.4, -51.2)           # where the whistle meets the moustache (head at rest)
@@ -107,7 +126,7 @@ EYES = (-5.0, -54.0)
 
 class Pose:
     def __init__(self, phase=0, bob=0, near=REST_NEAR, far=REST_LAMP, whistle="hand", puff=0, flame=2, head=0, cap=0, slump=0,
-                 exhaust=3, eyes=3, flutter=0, point=False, lamp_bend=1):
+                 exhaust=3, eyes=3, flutter=0, point=False, lamp_bend=LAMP_BEND):
         self.phase, self.bob = phase, bob
         self.near, self.far = near, far                 # the whistle hand, the lantern hand
         self.lamp_bend = lamp_bend                      # which way the lantern arm's elbow bends (+1 back, -1 out)
@@ -140,15 +159,16 @@ def turbine(mid, p):
     # the bell first, so the drum's foot band laps over its top edge (one seam, not two outlines)
     bell = mid.part(T, Poly(list(BELL)), "gilt", cyl((TURB_CX, -5.6), (TURB_CX, 1.0), 10.6, lo=2, hi=7, gain=1.25, bias=-0.05, fixed=True,
                                                      dither=0.15), shadow=(1, 1), rust=0.0)
-    for x in range(-9, 12):                                        # the rolled lip at the mouth, lit on the left
+    c = int(math.floor(TURB_CX))
+    for x in range(c - 11, c + 12):                                # the rolled lip at the mouth, lit on the left
         q = P(T, (x + 0.5, -2.5))
         if q in bell and (q[0] - 1, q[1]) in bell and (q[0] + 1, q[1]) in bell:
-            mid.put(q[0], q[1], G[7] if x < -2 else (G[5] if x < 5 else G[3]))
-    for x in range(-6, 9):                                         # the flare's shadow under the band
+            mid.put(q[0], q[1], G[7] if x < c - 3 else (G[5] if x < c + 4 else G[3]))
+    for x in range(c - 7, c + 8):                                  # the flare's shadow under the band
         q = P(T, (x + 0.5, -5.5))
         if q in bell:
-            mid.put(q[0], q[1], G[3] if x < 3 else G[2])
-    q = P(T, (-4.5, -3.5))
+            mid.put(q[0], q[1], G[3] if x < c + 2 else G[2])
+    q = P(T, (TURB_CX - 5.5, -3.5))
     if q in bell:
         glint(mid, q[0], q[1], "gilt")
     drum = mid.part(T, box(DRUM_L, DRUM_TOP, DRUM_R, DRUM_BOT), "steel",
@@ -159,12 +179,12 @@ def turbine(mid, p):
             q = P(T, (x + 0.5, y + 0.5))
             if q in drum and mid.px.get(q) in ST:
                 k = ST.index(mid.px[q])
-                mid.put(q[0], q[1], ST[max(1, k - (1 if x < 3 else 2))])
+                mid.put(q[0], q[1], ST[max(1, k - (1 if x < c + 2 else 2))])
     # rivets round its top, just under the hem
-    for x in (-7, -4, -1, 2, 5, 8):
+    for x in (c - 8, c - 5, c - 2, c + 1, c + 4, c + 7):
         q = P(T, (x + 0.5, -13.5))
         if q in drum:
-            mid.put(q[0], q[1], ST[8] if x < 2 else ST[6])
+            mid.put(q[0], q[1], ST[8] if x < c + 1 else ST[6])
             if (q[0] + 1, q[1] + 1) in drum:
                 mid.put(q[0] + 1, q[1] + 1, ST[2])
     # the vane window in a gilt frame: a dark recess (the overlay's vanes spin across it)
@@ -173,7 +193,7 @@ def turbine(mid, p):
         for y in (y0 - 1, y0 + h):
             q = P(T, (x + 0.5, y + 0.5))
             if q in drum:
-                lit_ = x < 1
+                lit_ = x < c
                 mid.put(q[0], q[1], (G[8] if lit_ else G[5]) if y == y0 - 1 else (G[5] if lit_ else G[3]))
     for y in range(y0, y0 + h):
         for x in range(x0, x0 + w):
@@ -183,29 +203,29 @@ def turbine(mid, p):
         for x in (x0 - 1, x0 + w):
             q = P(T, (x + 0.5, y + 0.5))
             if q in drum:
-                mid.put(q[0], q[1], G[6] if x < 0 else G[3])
+                mid.put(q[0], q[1], G[6] if x < c else G[3])
     # the riveted gilt band at its foot (its last row)
-    for x in range(int(DRUM_L) + 1, int(DRUM_R)):
+    for x in range(int(math.floor(DRUM_L)) + 1, int(math.floor(DRUM_R))):
         q = P(T, (x + 0.5, -6.5))
         if q in drum:
-            mid.put(q[0], q[1], G[7] if x < -3 else (G[6] if x < 4 else G[4]))
-            if x % 3 == 1:
-                mid.put(q[0], q[1], G[9] if x < 3 else G[7])
+            mid.put(q[0], q[1], G[7] if x < c - 4 else (G[6] if x < c + 3 else G[4]))
+            if (x - c) % 3 == 1:
+                mid.put(q[0], q[1], G[9] if x < c + 2 else G[7])
     # the gilt intake pipes from its shoulders up under the coat
-    for (px_, top) in ((-9.4, -18.6), (10.2, -18.6)):
+    for (px_, top) in ((DRUM_L - 0.8, -18.6), (DRUM_R - 0.4, -18.6)):
         mid.part(T, box(px_, top, px_ + 2.4, -14.6), "gilt", face((-0.6, -0.2, 0.75), lo=3, hi=7, ramp_len=10, fixed=True), rust=0.0)
     # the steel tail cone out of the mouth, the cursed fire round it
     cone = mid.part(T, Poly(list(CONE)), "steel", face((-0.6, -0.3, 0.75), lo=3, hi=7, ramp_len=9, fixed=True), rust=0.0)
     level_ = {3: (GH[5], GH[4], GH[3]), 2: (GH[4], GH[3], GH[2]), 1: (GH[3], GH[2], GH[1]), 0: None}[p.exhaust]
     if level_:
-        for x in range(-7, 10):                                    # the ring of fire round the cone, under the lip
+        for x in range(c - 8, c + 9):                              # the ring of fire round the cone, under the lip
             q = P(T, (x + 0.5, -0.5))
             if q not in cone:
-                mid.put_glow(q[0], q[1], level_[0] if -2 <= x <= 4 else (level_[1] if -5 <= x <= 7 else level_[2]))
-        for x in range(-3, 6):
+                mid.put_glow(q[0], q[1], level_[0] if abs(x - c) <= 3 else (level_[1] if abs(x - c) <= 6 else level_[2]))
+        for x in range(c - 4, c + 5):
             q = P(T, (x + 0.5, 0.5))
             if q not in cone:
-                mid.put_glow(q[0], q[1], level_[1] if -1 <= x <= 3 else level_[2])
+                mid.put_glow(q[0], q[1], level_[1] if abs(x - c) <= 2 else level_[2])
 
 
 def body(mid, p):
@@ -217,64 +237,74 @@ def body(mid, p):
 
     def at(x, y, xf=T):
         return P(xf, (x, y))
-    hem = [(14.6 + f, -15.0), (12.0 + f, -17.8), (9.4, -14.8), (6.2, -17.4), (3.0, -14.6), (-0.4, -17.2), (-3.6, -14.4),
-           (-6.8, -16.8), (-9.8, -14.6), (-12.8, -16.6)]
-    pts = [(-9.4, -47.0), (8.6, -47.0), (10.6, -40.6), (10.2, -30.0), (13.4 + f, -21.6)] + hem + [(-12.6, -21.0), (-10.0, -30.0), (-10.8, -40.6)]
-    coat = mid.part(T, Poly(pts), "denim", texture(face((-0.5, -0.45, 0.75), lo=1, hi=3, ramp_len=6, gain=1.3, bias=-0.05, fixed=True,
-                                                         dither=0.15), "weave", seed=41), shadow=(1, 1), rust=0.0)
-    for y in range(-45, -31):                                      # a fold of light down the chest's lit side
-        q = at(-9.0 + (1.0 if y > -38 else 0.0), y + 0.5)
+    # 2026-11-06: the coat faces the screen, symmetric about CX: level shoulders, the skirt flaring the same both sides
+    # (the flutter swings both outer corners out a pixel), the hem's tatters mirrored
+    hem_dx = ((12.4, -15.0), (9.8, -17.6), (7.2, -14.8), (4.4, -17.4), (1.6, -14.6), (-1.6, -14.6), (-4.4, -17.4), (-7.2, -14.8),
+              (-9.8, -17.6), (-12.4, -15.0))
+    hem = [(CX + dx + (f if dx > 12 else (-f if dx < -12 else 0)), y) for (dx, y) in hem_dx]
+    pts = ([(CX - 9.0, -47.0), (CX + 9.0, -47.0), (CX + 10.0, -40.6), (CX + 9.6, -30.0), (CX + 11.6 + f, -21.4)] + hem
+           + [(CX - 11.6 - f, -21.4), (CX - 9.6, -30.0), (CX - 10.0, -40.6)])
+    coat = mid.part(T, Poly(pts), "denim", texture(cyl((CX, -47.0), (CX, -15.0), 11.0, lo=1, hi=3, gain=1.3, bias=0.0, fixed=True,
+                                                       dither=0.15), "weave", seed=41), shadow=(1, 1), rust=0.0)
+    for y in range(-45, -31):                                      # a fold of light down the chest's lit (left) side
+        q = at(CX - 6.6 + (0.6 if y > -38 else 0.0), y + 0.5)
         if q in coat:
             mid.put(q[0], q[1], D[3])
             if (q[0] + 1, q[1]) in coat and y % 3 == 0:
                 mid.put(q[0] + 1, q[1], D[2])
-    for y in range(-29, -15):                                      # the skirt's front opening, off-centre (3/4 view)
-        q = at(-4.0 - (1.0 if y >= -22 else 0.0), y + 0.5)
+    for y in range(-45, -31):                                      # and a crease of shadow down the right side
+        q = at(CX + 7.2 - (0.6 if y > -38 else 0.0), y + 0.5)
+        if q in coat and y % 2 == 0:
+            mid.put(q[0], q[1], D[1])
+    for y in range(-29, -15):                                      # the skirt's front opening, on the axis
+        q = at(CX + 0.4, y + 0.5)
         if q in coat:
             mid.put(q[0], q[1], D[0])
             if (q[0] - 1, q[1]) in coat:
                 mid.put(q[0] - 1, q[1], D[2])                      # its lit lip
-    for y in range(-28, -18):                                      # skirt folds
-        for x0 in (5.0, -8.0):
-            q = at(x0 + 0.2 * (y + 28), y + 0.5)
+    for y in range(-28, -18):                                      # skirt folds, flaring out both ways
+        for (x0, slope) in ((CX + 6.2, 0.2), (CX - 6.0, -0.2)):
+            q = at(x0 + slope * (y + 28), y + 0.5)
             if q in coat and y % 2 == 0:
                 mid.put(q[0], q[1], D[1])
-    # the lapels and the ivory collar with a crimson tie
-    for pts_, k in ((((-8.8, -46.8), (-5.0, -46.8), (-6.4, -40.0)), 3), (((-0.6, -46.8), (3.2, -46.8), (0.8, -40.6)), 2)):
+    # the lapels (the lit one on the left) and the ivory collar with a crimson tie, on the axis
+    for pts_, k in ((((CX - 6.2, -46.8), (CX - 2.2, -46.8), (CX - 3.4, -40.0)), 3), (((CX + 2.2, -46.8), (CX + 6.2, -46.8), (CX + 3.4, -40.0)), 2)):
         for q in mid.raster(T, Poly(pts_)):
             if q in coat:
                 mid.put(q[0], q[1], D[k])
-    cx0, cy0 = at(-4.0, -46.6)
+    cx0, cy0 = at(CX - 0.5, -46.6)
     for (dx, dy, col) in ((0, 0, IV[5]), (1, 0, IV[4]), (2, 0, IV[3]), (-1, 0, IV[4]), (0, 1, K[4]), (1, 1, K[3]), (0, 2, K[3]),
                           (1, 2, K[2]), (0, 3, K[2])):
         mid.put(cx0 + dx, cy0 + dy, col)
-    # the epaulettes, gilt boards with a fringe
-    for (x0, y0, w) in ((-10.2, -47.6, 4), (5.4, -48.2, 4)):
+    # an epaulette on each shoulder, gilt boards with a fringe (the right one in the shade)
+    for (x0, y0, w, lit_) in ((CX - 10.2, -47.6, 4, True), (CX + 6.2, -47.6, 4, False)):
         q = at(x0, y0)
         for dx in range(w):
-            mid.put(q[0] + dx, q[1], G[8] if dx < 2 else G[6])
-            mid.put(q[0] + dx, q[1] + 1, G[5] if dx < 2 else G[4])
+            top_, under, fringe = ((8, 5, 7) if dx < 2 else (6, 4, 4)) if lit_ else ((6, 4, 5) if dx < 2 else (5, 3, 3))
+            mid.put(q[0] + dx, q[1], G[top_])
+            mid.put(q[0] + dx, q[1] + 1, G[under])
             if dx % 2 == 0:
-                mid.put(q[0] + dx, q[1] + 2, G[7] if dx < 2 else G[4])   # the fringe
-    # two rows of gilt buttons, the leather belt and its buckle, the watch chain
+                mid.put(q[0] + dx, q[1] + 2, G[fringe])             # the fringe
+    # two rows of gilt buttons either side of the axis, the leather belt and its buckle, the watch chain
     for row, y in enumerate((-43.0, -39.0, -35.0, -31.0)):
-        for x in (-7.4, -1.6):
+        for x in (CX - 2.6, CX + 2.2):
             q = at(x, y)
             if q in coat:
-                mid.put(q[0], q[1], G[9] if row == 0 and x < -5 else G[8])
-                mid.put(q[0] + 1, q[1], G[5])
+                left_ = x < CX
+                mid.put(q[0], q[1], G[9] if (row == 0 and left_) else (G[8] if left_ else G[7]))
+                mid.put(q[0] + 1, q[1], G[5] if left_ else G[4])
                 if (q[0], q[1] + 1) in coat:
                     mid.put(q[0], q[1] + 1, D[0])
-    belt = mid.part(T, box(-10.4, -29.4, 10.4, -27.4), "hide", face((-0.4, -0.6, 0.75), lo=1, hi=3, ramp_len=7, fixed=True), rust=0.0)
-    bq = at(-6.4, -29.0)
+    belt = mid.part(T, box(CX - 9.8, -29.4, CX + 9.8, -27.4), "hide", face((-0.4, -0.6, 0.75), lo=1, hi=3, ramp_len=7, fixed=True), rust=0.0)
+    bq = at(CX - 1.4, -29.0)
     for (dx, dy, k) in ((0, 0, 9), (1, 0, 7), (2, 0, 6), (0, 1, 6), (1, 1, 4), (2, 1, 4)):
         mid.put(bq[0] + dx, bq[1] + dy, G[k])
-    for k, (x, y) in enumerate(((0.0, -33.0), (1.0, -32.0), (2.0, -32.0), (3.0, -31.6), (4.0, -32.0), (5.0, -33.0))):
+    for k, (x, y) in enumerate(((CX + 2.6, -33.0), (CX + 3.6, -32.0), (CX + 4.6, -31.8), (CX + 5.6, -32.0), (CX + 6.6, -33.0))):
         q = at(x, y)
         mid.put(q[0], q[1], G[8] if k % 2 == 0 else G[5])
     del belt
-    # two tears in the skirt, ghost light behind them
-    for (tx, ty, w, h) in ((5.4, -22.4, 1.5, 0.9),):
+    # a tear in the skirt, ghost light behind it
+    for (tx, ty, w, h) in ((CX + 7.4, -22.4, 1.5, 0.9),):
         for q in mid.raster(T, Ellipse(tx, ty, w, h)):
             if q in coat:
                 lit_ = (q[0] - at(tx, ty)[0]) + (q[1] - at(tx, ty)[1]) <= 0
@@ -282,8 +312,8 @@ def body(mid, p):
         q = at(tx - w - 0.4, ty + h)
         if q in coat:
             mid.put(q[0], q[1], D[0])                              # a frayed edge
-    # the neck
-    mid.part(T, box(-5.0, -49.4, -0.4, -46.8), "steel", face((-0.5, -0.5, 0.7), lo=2, hi=4, ramp_len=9, fixed=True), rust=0.0)
+    # the neck, on the axis
+    mid.part(T, box(CX - 2.4, -49.4, CX + 2.2, -46.8), "steel", face((-0.5, -0.5, 0.7), lo=2, hi=4, ramp_len=9, fixed=True), rust=0.0)
     # --- the head: a cracked steel skull of a face ----------------------------------------------------------------------
     Hx = Xf.pose(0.0, (0.0, 0.0), (0.0, float(oy + p.head)))
     hpts = [(-10.2, -60.6), (2.8, -60.6), (4.2, -59.2), (4.4, -50.8), (3.0, -48.6), (-1.0, -47.6), (-7.8, -47.6), (-10.6, -49.6),
@@ -482,38 +512,44 @@ def frame(p):
 
 IDLE_BOB = (0, -1, -1, -1, 0, 0)
 IDLE_FLUTTER = (0, 0, 1, 1, 1, 0)
-IDLE_SWAY = (0.0, 0.0, 0.8, 0.8, 0.0, -0.6)
 
 
 def idle(k, **kw):
-    far = (REST_LAMP[0] + IDLE_SWAY[k], REST_LAMP[1])
-    args = dict(phase=k, bob=IDLE_BOB[k], flutter=IDLE_FLUTTER[k], far=far)
+    """Idle frame k's float (the bob, the coat's tail), the hands at rest unless given: the lantern stays in its hold, so
+    it only rides the bob (whole pixels, D4 rule 17)."""
+    args = dict(phase=k, bob=IDLE_BOB[k], flutter=IDLE_FLUTTER[k])
     args.update(kw)
     return Pose(**args)
 
 
-# the lantern's throw (2026-11-05b: forward, in front of him): swung back at his side, up and back over the shoulder
-# (the flare: the telegraph), then across his chest at full reach (the release: the bolts fly from it), then down in
-# front of his belly; each with the way its elbow bends
-THROW_HANDS = (((16.0, -40.0), 1), ((15.0, -53.0), -1), ((-3.0, -41.2), 1), ((3.4, -35.2), 1))
-THROW_WHISTLE = (-12.4, -33.4)                 # the whistle hand drawn back out of the lantern's way (the same plane)
+def mid(a, b, t=0.5):
+    return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
+
+
+MOUTH_HAND = (MOUTH[0] + 2.0, MOUTH[1] + 1.8)    # where the whistle hand is while blowing (frame() puts it there)
+POINT_HAND = (-23.6, -46.4)                       # the arm out, sending the train
 TIP_HANDS = ((-11.2, -60.6), (-11.2, -63.4), (-11.2, -59.6))
+# in-betweens out of the rest pose and back into it (no pose snaps, 2026-10-26)
+WHISTLE_RAISE = (CX - 11.6, -42.4)                # up along his side, clear of the lantern's bail, then in to the mouth
+POINT_IN, POINT_OUT = mid(MOUTH_HAND, POINT_HAND), mid(POINT_HAND, REST_NEAR)
+TIP_IN, TIP_OUT = mid(REST_NEAR, TIP_HANDS[0]), mid(TIP_HANDS[2], REST_NEAR)
 
 FRAMES = ([("Idle%d" % k, idle(k)) for k in range(6)]
-          + [("Whistle0", idle(0, near=(-12.0, -42.2))), ("Whistle1", idle(1, whistle="mouth")),
+          + [("Whistle0", idle(0, near=WHISTLE_RAISE)), ("Whistle1", idle(1, whistle="mouth")),
              ("Whistle2", idle(2, whistle="mouth", puff=1)), ("Whistle3", idle(3, whistle="mouth", puff=2))]
-          + [("Point%d" % k, idle(2 * k, near=(-23.6, -46.4), point=True)) for k in range(2)]
-          + [("Throw%d" % k, idle((k + 1) % 6, far=THROW_HANDS[k][0], lamp_bend=THROW_HANDS[k][1], near=THROW_WHISTLE,
-                                   flame=3 if k < 3 else 2)) for k in range(4)]
-          + [("Call%d" % k, idle(2 + k, whistle="mouth", puff=1 + k, far=(10.0, -61.4), lamp_bend=-1, flame=3)) for k in range(2)]
-          + [("Tip0", idle(0, near=TIP_HANDS[0])), ("Tip1", idle(1, near=TIP_HANDS[1], cap=2)),
-             ("Tip2", idle(2, near=TIP_HANDS[2], cap=1, head=1))]
-          + [("Dying0", Pose(phase=0, head=1, near=(-8.4, -30.6), far=(11.0, -28.6), eyes=2, flame=2, exhaust=3)),
-             ("Dying1", Pose(phase=1, head=2, slump=1, near=(-7.6, -29.0), far=(10.6, -27.4), eyes=1, flame=1, exhaust=2)),
-             ("Dying2", Pose(phase=2, head=3, slump=2, near=(-7.0, -28.0), far=(10.2, -26.6), eyes=1, flame=0, exhaust=1)),
-             ("Dying3", Pose(phase=3, head=4, slump=3, near=(-6.8, -27.2), far=(10.0, -25.8), eyes=0, flame=0, exhaust=0))])
+          + [("Call%d" % k, idle(2 + k, whistle="mouth", puff=1 + k, flame=3)) for k in range(2)]
+          + [("PointIn0", idle(4, near=POINT_IN))]
+          + [("Point%d" % k, idle(2 * k, near=POINT_HAND, point=True)) for k in range(2)]
+          + [("PointOut0", idle(4, near=POINT_OUT))]
+          + [("TipIn0", idle(5, near=TIP_IN)),
+             ("Tip0", idle(0, near=TIP_HANDS[0])), ("Tip1", idle(1, near=TIP_HANDS[1], cap=2)),
+             ("Tip2", idle(2, near=TIP_HANDS[2], cap=1, head=1)), ("TipOut0", idle(3, near=TIP_OUT))]
+          + [("Dying0", Pose(phase=0, head=1, near=(CX - 10.8, -32.4), far=(CX - 1.6, -40.4), eyes=2, flame=2, exhaust=3)),
+             ("Dying1", Pose(phase=1, head=2, slump=1, near=(CX - 10.2, -31.0), far=(CX - 1.0, -38.6), eyes=1, flame=1, exhaust=2)),
+             ("Dying2", Pose(phase=2, head=3, slump=2, near=(CX - 9.6, -29.6), far=(CX - 0.2, -36.2), eyes=1, flame=0, exhaust=1)),
+             ("Dying3", Pose(phase=3, head=4, slump=3, near=(CX - 9.0, -28.4), far=(CX + 0.6, -33.8), eyes=0, flame=0, exhaust=0))])
 INDEX = {n: k for k, (n, _) in enumerate(FRAMES)}
-SEQUENCES = ("Idle", "Whistle", "Point", "Throw", "Call", "Tip", "Dying")
+SEQUENCES = ("Idle", "Whistle", "Call", "PointIn", "Point", "PointOut", "TipIn", "Tip", "TipOut", "Dying")
 
 
 # ================================================================================================
@@ -652,6 +688,69 @@ def rails():
     return vertical([to_image(c.px, 0, 0, RAIL_CELL, RAIL_CELL) for c in (level_, upright, dot)])
 
 
+RAIL_DIAG_CELL = 29
+RAIL_DIAG_STEP = 8               # the game draws a piece every (8, 8) art px along the track: it tiles
+
+
+def rail_diagonal():
+    """The diagonal dive's telegraph piece (2026-11-09; 29x29 at 1x): the level piece's two ghost rails, 20 px apart, and a
+    sleeper across them, running down to the right at 45 degrees (the game mirrors it for the other diagonal). Each rail is
+    a bright outer line and a dark inner one, like the level piece's; the rails reach from corner to corner, so pieces
+    drawn every RAIL_DIAG_STEP px along the track overlap into one unbroken line."""
+    cv = Canvas()
+    n = RAIL_DIAG_CELL
+    c = n - 1
+    for y in range(n):
+        for x in range(n):
+            d = x - y                                              # constant along the track
+            if abs(d) == 14:
+                cv.put(x, y, V[2])
+            elif abs(d) == 13:
+                cv.put(x, y, V[0])
+    for x in range(8, 21, 2):                                       # one sleeper a piece, across the middle
+        y = c - x
+        if abs(x - y) < 13:
+            cv.put(x, y, V[1])
+            if abs((x + 1) - y) < 13:
+                cv.put(x + 1, y, V[1])
+    return to_image(cv.px, 0, 0, n, n)
+
+
+HALO = 21
+HALO_FRAMES = 4
+
+
+def lantern_halo(k):
+    """The lantern attack's cue (2026-11-09: "the visual cue for the attack is just a glow on the lantern"), frame k of
+    HALO_FRAMES, centred on the glass (21x21 at 1x): a ring of ghost light round the glass that grows and brightens, short
+    rays out of it from frame 1, eight long ones and a white-hot glass in the last (the release). Light, drawn at full
+    brightness over him (no glow sheet, no outline; the game fades it in and out)."""
+    cv = Canvas()
+    c = HALO // 2
+    r = (4.6, 5.6, 6.6, 7.8)[k]
+    ring = ((GH[2], GH[3]), (GH[3], GH[4]), (GH[4], GH[5]), (GH[5], S[3]))[k]
+    for y in range(HALO):
+        for x in range(HALO):
+            dx, dy = x - c, y - c
+            d = math.hypot(dx, dy)
+            if r - 1.0 <= d <= r:
+                cv.put(x, y, ring[1] if dx + dy < 0 else ring[0])     # lit from the top-left
+    rays = (0, 4, 4, 8)[k]
+    length = (0, 2, 3, 4)[k]
+    for j in range(rays):
+        a = 2.0 * math.pi * j / max(1, rays) + (math.pi / 4 if rays == 4 else 0.0)
+        for t in range(length):
+            q = (c + int(round(math.cos(a) * (r + 1 + t))), c + int(round(math.sin(a) * (r + 1 + t))))
+            if 0 <= q[0] < HALO and 0 <= q[1] < HALO:
+                cv.put(q[0], q[1], ring[1] if t == 0 else ring[0])
+    if k == 3:                                                      # the release: the glass white-hot
+        for y in range(c - 2, c + 3):
+            for x in range(c - 2, c + 3):
+                if abs(x - c) + abs(y - c) <= 3:
+                    cv.put(x, y, S[3] if abs(x - c) + abs(y - c) <= 1 else GH[5])
+    return to_image(cv.px, 0, 0, HALO, HALO)
+
+
 FLAME = 12
 FLAME_FRAMES = 4
 
@@ -766,7 +865,10 @@ def gores(far, mid, near):
     cap = {q: c for q, c in mid.px.items() if q[1] <= -61 or (q[0] <= -11 and q[1] <= -57)}          # the crown and the visor
     head = {q: c for q, c in mid.px.items() if -61 < q[1] <= -47 and q[0] >= -12 and q not in cap}
     coat = {q: c for q, c in mid.px.items() if -47 < q[1] <= -17 and c in D + G + IV + K}
-    lamp = {q: c for q, c in near.px.items() if q[1] >= -31 and q[0] >= 7}
+    lone = Canvas()                                                # 2026-11-09: the lantern is held before his chest now,
+    lantern(lone, (0.0, 0.0), 2)                                   # so its gore is drawn on its own
+    finish(lone)
+    lamp = dict(lone.px)
     turbine_ = {q: c for q, c in mid.px.items() if q[1] > -16}
     return {"CursedConductor_GoreCap": crop(cap), "CursedConductor_GoreHead": crop(head), "CursedConductor_GoreCoat": crop(coat),
             "CursedConductor_GoreLantern": crop(lamp), "CursedConductor_GoreTurbine": crop(turbine_)}
@@ -925,9 +1027,7 @@ def write_rig(path, cell, frames):
     idle = frames[INDEX["Idle0"]]
     left, right, top, hem, bottom = body_box(idle[1])
     pts = idle[4]
-    throw = frames[INDEX["Throw2"]][4]["lamp"]
     blow = frames[INDEX["Whistle2"]][4]["whistle"]
-    call = frames[INDEX["Call0"]][4]["lamp"]
     finger = frames[INDEX["Point0"]][4]["finger"]
     eyes = EYES
     seq = []
@@ -943,8 +1043,9 @@ def write_rig(path, cell, frames):
          "\t/// <summary>The Cursed Conductor's grid sheets (game px, left-facing): far, middle, near planes and the glow, equal",
          "\t/// cells in <see cref=\"Columns\"/> columns with 2 px right of and under each; the origin is under his turbine's",
          "\t/// exhaust bell. Body* is his hitbox from the origin (the coat, the head and the cap, and the turbine down to",
-         "\t/// <see cref=\"BodyBottom\"/>); the points are from the origin, facing left: the lantern at rest, thrown (Throw2) and",
-         "\t/// raised (Call0), the whistle blowing (Whistle2), the pointing finger (Point0), the eyes, the exhaust's mouth. The",
+         "\t/// <see cref=\"BodyBottom\"/>); the points are from the origin, facing left: the lantern's glass in its hold (every",
+         "\t/// frame but Dying, moved by <see cref=\"Bob\"/>; its attack's halo sheet is LanternGlow*), the whistle blowing",
+         "\t/// (Whistle2), the pointing finger (Point0), the eyes, the exhaust's mouth. The",
          "\t/// vane window (Rotor*) is the turbine's overlay sheet, drawn at the window moved by <see cref=\"Bob\"/> (each frame's",
          "\t/// whole-pixel bob). The ghost train's sheets hold <see cref=\"Headings\"/> headings each (straight up to straight",
          "\t/// down, facing right, 22.5 degrees apart).</summary>",
@@ -953,11 +1054,13 @@ def write_rig(path, cell, frames):
          "\t\tpublic const int CellWidth = %d, CellHeight = %d, OriginX = %d, OriginY = %d, Frames = %d, Columns = %d;"
          % (w * 2, h * 2, ox * 2, oy * 2, len(FRAMES), COLUMNS),
          "\t\tpublic const int %s;" % ", ".join(seq[:4]),
-         "\t\tpublic const int %s;" % ", ".join(seq[4:]),
+         "\t\tpublic const int %s;" % ", ".join(seq[4:7]),
+         "\t\tpublic const int %s;" % ", ".join(seq[7:]),
          "\t\tpublic const int BodyLeft = %d, BodyRight = %d, BodyTop = %d, HemY = %d, BodyBottom = %d;" % (left * 2, right * 2, top * 2, hem * 2,
                                                                                                     bottom * 2),
-         "\t\tpublic const int %s, %s;" % (pt("Lantern", pts["lamp"]), pt("Throw", throw)),
-         "\t\tpublic const int %s, %s;" % (pt("Raised", call), pt("Whistle", blow)),
+         "\t\tpublic const int %s, %s;" % (pt("Lantern", pts["lamp"]), pt("Whistle", blow)),
+         "\t\tpublic const int LanternGlowCell = %d, LanternGlowFrames = %d, RailDiagonalCell = %d, RailDiagonalStep = %d;"
+         % (HALO * 2, HALO_FRAMES, RAIL_DIAG_CELL * 2, RAIL_DIAG_STEP * 2),
          "\t\tpublic const int %s, %s;" % (pt("Finger", finger), pt("Eyes", eyes)),
          "\t\tpublic const int Headings = %d, EngineCell = %d, CarCell = %d, RailCell = %d, FlameCell = %d, FlameFrames = %d;"
          % (len(HEADINGS), ENGINE_CELL * 2, CAR_CELL * 2, RAIL_CELL * 2, FLAME * 2, FLAME_FRAMES),
@@ -986,6 +1089,7 @@ def export_all():
     export(grid_columns([fr[3] for fr in frames], cell, glow=True), OUT + "CursedConductor_Glow.png")
     export(vertical([rotor(k) for k in range(ROTOR_FRAMES)]), OUT + "CursedConductor_Rotor.png")
     export(vertical([smoke_puff(k) for k in range(SMOKE_FRAMES)]), OUT + "CursedConductor_Smoke.png")
+    export(vertical([lantern_halo(k) for k in range(HALO_FRAMES)]), OUT + "CursedConductor_LanternGlow.png")
     write_rig(OUT + "CursedConductorRigData.cs", cell, frames)
     export(head_icon(frames[0][1]), OUT + "CursedConductor_Head_Boss.png")
     sheet, glow = train_sheets(engine, ENGINE_CELL)
@@ -995,6 +1099,7 @@ def export_all():
     export(sheet, OUT + "Projectiles/GhostTrain_Car.png")
     export(glow, OUT + "Projectiles/GhostTrain_CarGlow.png")
     export(rails(), OUT + "Projectiles/GhostTrain_Rail.png")
+    export(rail_diagonal(), OUT + "Projectiles/GhostTrain_RailDiagonal.png")
     export(vertical([flame(k) for k in range(FLAME_FRAMES)]), OUT + "Projectiles/ConductorFlame.png")
     export(treasure_bag(), OUT + "Items/CursedConductorBag.png")
     export(vertical([rift(k) for k in range(RIFT_FRAMES)]), OUT + "Projectiles/GhostRift.png")

@@ -42,9 +42,9 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 	/// <para><b>Enrage</b> at a third of its life, with its own attack (<see cref="Phase.Rage"/>): it growls, melts away,
 	/// and a tar claw comes up out of the ground under its target five times (a "!" and a boiling patch 8 tiles wide, 1.5 s
 	/// to get out), then it rises on the other side of the target, roars, and attacks every 1.5 s from then on.</para>
-	/// <para><b>Focus:</b> it hunts whoever hurts it most: the server keeps each player's recent damage to it
-	/// (<see cref="HitEffect"/>, decayed by <see cref="DamageDecay"/> every <see cref="DecayInterval"/> ticks) and retargets the
-	/// top one at every attack; with no damage yet, the closest player (in the Junkyard first).</para>
+	/// <para><b>Focus</b> (the rule for every boss since 2026-11-09, <see cref="BossNPC"/>): it hunts the player who does the
+	/// most damage, switching to the top damage dealer among the others every 5 s; with no damage yet, the closest player
+	/// (in the Junkyard first: <see cref="TargetTieBreak"/>). It glides on the ground, so it is not a floaty boss.</para>
 	/// <para>Boss-fight rules (user, 2026-10-26): rises with a title card under a camera lock; dies in a camera-locked
 	/// cinematic (the tar lets go of the bones and runs back into its puddle) with the "Defeated" card
 	/// (<see cref="BossNPC"/>); no natural spawns around it; melts away when nobody has been in the Junkyard for
@@ -97,8 +97,6 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 		public const float DespawnRange = 300f * 16f;
 		public const int LeaveGraceTicks = 60;
 		public const int JunkyardCheckInterval = 10;
-		public const int DecayInterval = 30;
-		public const float DamageDecay = 0.85f;            // recent damage halves in about 2 s
 
 		// --- intro, retreat, death -----------------------------------------------------------------------------------------
 		public const int RiseTicks = 120, RoarTicks = 60;
@@ -132,7 +130,6 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 		private int sizeStep = -1;
 		private int rageSide = 1;
 		private float rageDistance = 24f * 16f;
-		private float[] damageBy;
 
 		protected override int DyingState => (int)Phase.Dying;
 		protected override int DeathAnimationTicks => DeathTicks;
@@ -189,7 +186,6 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 			NPC.aiStyle = -1;
 			NPC.value = Item.buyPrice(gold: 5);           // Deerclops' 5 gold (terraria.wiki.gg)
 			NPC.SpawnWithHigherTime(30);
-			damageBy = new float[Main.maxPlayers];        // per boss (ModNPC clones share reference fields)
 			if (!Main.dedServ) {
 				Music = MusicID.Boss2;
 			}
@@ -283,14 +279,6 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 			target.AddBuff(ModContent.BuffType<TarPlague>(), PlagueTicks);
 		}
 
-		/// <summary>Server: who hurt it (vanilla sets <c>lastInteraction</c> to the attacker just before the strike, decompiled
-		/// <c>MessageBuffer</c> case 28 and <c>NPC.StrikeNPC</c> in singleplayer).</summary>
-		public override void HitEffect(NPC.HitInfo hit) {
-			if (IsAuthority && damageBy != null && NPC.lastInteraction >= 0 && NPC.lastInteraction < Main.maxPlayers) {
-				damageBy[NPC.lastInteraction] += hit.Damage;
-			}
-		}
-
 		// ------------------------------------------------------------------------------------------------------------
 		// State machine (every side; only the server changes state)
 		// ------------------------------------------------------------------------------------------------------------
@@ -374,7 +362,6 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 			UpdateVent();
 			if (CurrentPhase != Phase.Dying && CurrentPhase != Phase.Retreat) {
 				if (IsAuthority) {
-					DecayDamage();
 					SpawnLostTar();
 					if (CurrentPhase != Phase.Emerge && CurrentPhase != Phase.Rage && CurrentPhase != Phase.Melt) {
 						TrackReach(TargetPlayer);
@@ -503,56 +490,29 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 
 		// --- targeting: whoever hurts it most ----------------------------------------------------------------------------
 
-		/// <summary>Server: recent damage fades; players who left or died are forgotten.</summary>
-		private void DecayDamage() {
-			if (damageBy == null || Main.GameUpdateCount % DecayInterval != 0) {
-				return;
-			}
-			for (int i = 0; i < damageBy.Length; i++) {
-				Player player = Main.player[i];
-				damageBy[i] = player.active && !player.dead ? damageBy[i] * DamageDecay : 0f;
-			}
+		/// <summary>Server: a living player within <see cref="DespawnRange"/> can be its target.</summary>
+		protected override bool CanTarget(Player player) {
+			return player != null && player.active && !player.dead
+				&& Vector2.DistanceSquared(player.Center, NPC.Center) <= DespawnRange * DespawnRange;
 		}
 
-		/// <summary>Server: the living player within <see cref="DespawnRange"/> who has hurt it most lately, else the closest
-		/// (Junkyard players first); melts away if there is nobody. True while fighting.</summary>
+		/// <summary>Among equal damage (no one has hurt it yet): the closest, players in the Junkyard first.</summary>
+		protected override float TargetTieBreak(Player player) {
+			float d = Vector2.DistanceSquared(player.Center, NPC.Center);
+			return !JunkyardSystem.Exists || JunkyardSystem.Contains(player.Center) ? d : d * 4f;
+		}
+
+		/// <summary>Server: keeps a target (the shared rule picks and switches it, <see cref="BossNPC"/>); melts away if there
+		/// is nobody. True while fighting.</summary>
 		private bool Retarget() {
 			if (!IsAuthority) {
 				return true;
 			}
-			int top = -1, closest = -1;
-			float topDamage = 0f;
-			float closestScore = float.MaxValue;
-			float range = DespawnRange * DespawnRange;
-			foreach (Player player in Main.ActivePlayers) {
-				if (player.dead) {
-					continue;
-				}
-				float d = Vector2.DistanceSquared(player.Center, NPC.Center);
-				if (d > range) {
-					continue;
-				}
-				float hurt = damageBy != null ? damageBy[player.whoAmI] : 0f;
-				if (hurt > topDamage) {
-					topDamage = hurt;
-					top = player.whoAmI;
-				}
-				float score = !JunkyardSystem.Exists || JunkyardSystem.Contains(player.Center) ? d : d * 4f;
-				if (score < closestScore) {
-					closestScore = score;
-					closest = player.whoAmI;
-				}
+			if (EnsureTarget()) {
+				return true;
 			}
-			int best = top >= 0 ? top : closest;
-			if (best < 0) {
-				ChangeState((int)Phase.Retreat);
-				return false;
-			}
-			if (best != NPC.target) {
-				NPC.target = best;
-				NPC.netUpdate = true;
-			}
-			return true;
+			ChangeState((int)Phase.Retreat);
+			return false;
 		}
 
 		private void FaceTarget() {

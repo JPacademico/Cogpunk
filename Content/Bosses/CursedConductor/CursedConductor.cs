@@ -29,11 +29,17 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 	/// <item><b>Passive trains</b>: every <see cref="PassiveInterval"/> ticks (3 s; <see cref="EnragedPassiveInterval"/> below
 	/// half his life), with no gesture of his, a ghost train runs across the screen of the fighter farthest from him, after a
 	/// <see cref="PassiveTelegraph"/>-tick warning (1 s; 0.7 s below half): an <b>Express</b> along the player's row, coming in
-	/// from the screen edge away from him and vanishing at the edge towards him, or a <b>Dive</b> down (or up: 50%) the
-	/// player's column, from one screen edge to the other (vanilla's 1920x1080 screen, <see cref="ScreenHalfWidth"/>).</item>
-	/// <item><b>Lantern</b> (his main attack): every <see cref="LanternInterval"/> ticks (1.5 s) he swings his lantern
-	/// (<see cref="ThrowWindup"/> ticks of warning) and flings a fan of <see cref="Bolts"/> (<see cref="EnragedBolts"/> below
-	/// half) straight cursed bolts, <see cref="BoltSpread"/> apart, at the closest fighter not trapped in the loop. A bolt
+	/// from the screen edge away from him and vanishing at the edge towards him, a <b>Dive</b> down (or up: 50%) the
+	/// player's column, from one screen edge to the other (vanilla's 1920x1080 screen, <see cref="ScreenHalfWidth"/>), or
+	/// (user, 2026-11-09: "a new attack for the train where he can come diagonally, like a dive attack but diagonal, to add
+	/// more variance") a <b>Diagonal</b> dive at 45 degrees through the player, from the top or the bottom of the screen and
+	/// running towards his side; a third of the time each.</item>
+	/// <item><b>Lantern</b> (his main attack): every <see cref="LanternInterval"/> ticks (1.5 s) his lantern flares
+	/// (<see cref="ThrowWindup"/> ticks of warning: a halo of ghost light swells round its glass; since 2026-11-09 his arms
+	/// stay in their hold, user: "remove the arm animation from the lantern attack so it stays on this idle position, now
+	/// the visual cue for the attack is just a glow on the lantern") and it flings a fan of <see cref="Bolts"/>
+	/// (<see cref="EnragedBolts"/> below half) straight cursed bolts, <see cref="BoltSpread"/> apart, from the glass at his
+	/// target (the closest other fighter when the loop has trapped the target). A bolt
 	/// that hits curses for 6 s (<see cref="Buffs.ConductorCurse"/>: +25% from the train and the ghosts); one that strikes a
 	/// block opens a rift and a ghost rises from it <see cref="RiftDelay"/> ticks later (<see cref="ConductorGhost"/>, at most
 	/// <see cref="MaxGhosts"/>).</item>
@@ -51,7 +57,13 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 	/// <see cref="FuryLanternInterval"/>. He leaves only when no living player is within <see cref="DespawnRange"/>.
 	/// Every telegraph is 30 ticks or more (D3, the Wall of Flesh's tier).
 	/// <para>Fighters (<see cref="IsFighter"/>): alive for <see cref="RespawnGraceTicks"/>, within <see cref="FightRange"/> of
-	/// him (a player elsewhere or just respawned is left alone).</para>
+	/// him (a player elsewhere or just respawned is left alone). His target follows every boss's rule (<see cref="BossNPC"/>,
+	/// user 2026-11-09): the fighter doing the most damage, a different one every 5 s (with no damage yet, the closest, those
+	/// in the town first). He is a floaty boss (<see cref="Floaty"/>): while his target holds a melee weapon or wears melee
+	/// armor (<see cref="Core.Combat.MeleeFocus"/>) he floats in close, his near edge <see cref="MeleeGap"/> px from theirs and
+	/// his turbine just over their feet, well inside the Blade of Grass's reach (user: "the boss should maintain a melee
+	/// distance from this player while targeting it, within grass sword range"), following faster, and changes sides when
+	/// they pass him rather than flying back across.</para>
 	/// <para>Boss-fight rules (user, 2026-10-26): he materializes and tips his cap under a camera lock with a title card;
 	/// dies in a camera-locked cinematic (he slumps, his lantern and eyes go out, and the last ghost train comes for him and
 	/// blows him to bits: user 2026-11-05, "explode in tiny bits when hit by the train") with the "Defeated" card
@@ -62,8 +74,8 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 	/// player), <see cref="BaseDefense"/> defense, no contact; the train <see cref="TrainDamage"/> head on (half from a wagon),
 	/// a bolt <see cref="BoltDamage"/>, a ghost <see cref="ConductorGhost.ExpertDamage"/>. Loot (<see cref="CursedConductorLoot"/>).</para>
 	/// <para>D2: <c>ai[0]</c>/<c>ai[1]</c> state and timer, <c>ai[2]</c> the side he floats on, <c>ai[3]</c> flags (enraged,
-	/// furious, the whistles blown); the passive train's and the throw's progress, the loop's centre and target and the wave's
-	/// point and phase in <see cref="SendExtraAI"/>. The server decides, targets and spawns; the float, the frames and the
+	/// furious, the whistles blown, the melee hover); the passive train's and the lantern's progress, the loop's centre and
+	/// target and the wave's point and phase in <see cref="SendExtraAI"/>. The server decides, targets and spawns; the float, the frames and the
 	/// telegraphs follow the synced state on every side. D1: no allocation per tick (fighters are counted in place).</para>
 	/// </summary>
 	[AutoloadBossHead]
@@ -86,7 +98,12 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		public const int RigShiftX = (R.BodyLeft + R.BodyRight) / 2;   // the hitbox's middle from the rig origin (facing left)
 		public const float HoverOffsetX = 16f * 16f, HoverOffsetY = -9f * 16f;
 		public const float HoverSpeed = 7f, EnragedHoverSpeed = 9f, AttackDrift = 2.5f;
-		public const float HoverAccel = 0.08f;
+		public const float HoverAccel = 0.08f, HoverApproach = 0.06f;
+		// the melee hover (user, 2026-11-09): his near edge MeleeGap px from his target's (the Blade of Grass reaches about
+		// 40 px past its wielder, MeleeGear.BladeOfGrassReach), his turbine's bell MeleeLift px over their feet; he follows
+		// faster and firmer, and takes the other side when they pass him by more than MeleeSideSwitch
+		public const float MeleeGap = 16f, MeleeLift = 4f;
+		public const float MeleeHoverSpeed = 12f, MeleeHoverAccel = 0.16f, MeleeApproach = 0.15f, MeleeSideSwitch = 24f;
 		public const float FightRange = 125f * 16f;
 		public const int RespawnGraceTicks = 90;
 		public const int ResyncInterval = 60;
@@ -99,9 +116,10 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		public const int PassiveTelegraph = 60, EnragedPassiveTelegraph = 42, FuryPassiveTelegraph = 36;   // user-set: 1 s, 0.7 s
 		public const float PassiveSpeed = 24f;
 		public const float ScreenHalfWidth = 960f, ScreenHalfHeight = 540f;   // vanilla's 1920x1080 (NPC.sWidth, NPC.sHeight)
-		public const byte KindExpress = 0, KindDive = 1;
+		public const byte KindExpress = 0, KindDive = 1, KindDiagonal = 2;    // 2026-11-09: the diagonal dive (user-set)
+		public static readonly float Diagonal = MathF.Sqrt(0.5f);
 
-		// --- the lantern -----------------------------------------------------------------------------------------------
+		// --- the lantern (since 2026-11-09 no swing: its glass flares over ThrowWindup, the bolts fly, the halo fades) --------
 		public const int LanternInterval = 90, FuryLanternInterval = 60;     // user-set: every 1.5 s
 		public const int ThrowWindup = 30, ThrowRelease = 10, ThrowRecover = 10;
 		public const int ThrowTicks = ThrowWindup + ThrowRelease + ThrowRecover;
@@ -142,20 +160,26 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		public const int CameraEaseTicks = 30;
 		public const float CameraLockRange = 150f * 16f;
 
-		private const int FlagEnraged = 0, FlagFury = 1, FlagWhistle1 = 2;
+		private const int FlagEnraged = 0, FlagFury = 1, FlagWhistle1 = 2, FlagMelee = 5;   // 2..4: the three whistles
 
 		private static LocalizedText epithet;
 
 		private Phase CurrentPhase => (Phase)State;
 		public bool Enraged => Flag(FlagEnraged);
 		public bool Furious => Flag(FlagFury);
+
+		/// <summary>Floating in close to a target that fights in melee (synced: <c>ai[3]</c>).</summary>
+		public bool MeleeHover => Flag(FlagMelee);
+
+		/// <summary>He floats at a distance from his target, so he closes in on one who fights in melee (BossNPC rule).</summary>
+		public override bool Floaty => true;
 		private ref float Side => ref NPC.ai[2];
 
 		// synced (SendExtraAI)
 		private Vector2 locked;                              // the loop's centre, or the wave pass's point
 		private int passiveTick = -1;
 		private byte passiveKind, passiveLength;
-		private sbyte passiveDir = 1;
+		private sbyte passiveDir = 1, passiveDirY = 1;
 		private Vector2 passivePoint;
 		private int throwTick = -1;
 		private byte throwTarget = 255, loopTarget = 255;
@@ -279,6 +303,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			writer.Write(passiveKind);
 			writer.Write(passiveLength);
 			writer.Write(passiveDir);
+			writer.Write(passiveDirY);
 			writer.Write(passivePoint.X);
 			writer.Write(passivePoint.Y);
 			writer.Write((short)Math.Clamp(throwTick, -1, short.MaxValue));
@@ -296,6 +321,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			passiveKind = reader.ReadByte();
 			passiveLength = reader.ReadByte();
 			passiveDir = reader.ReadSByte();
+			passiveDirY = reader.ReadSByte();
 			float px = reader.ReadSingle();
 			float py = reader.ReadSingle();
 			throwTick = reader.ReadInt16();
@@ -315,6 +341,12 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			}
 			if (passiveDir == 0) {
 				passiveDir = 1;
+			}
+			if (passiveDirY == 0) {
+				passiveDirY = 1;
+			}
+			if (passiveKind > KindDiagonal) {
+				passiveKind = KindExpress;                    // a kind from a newer version (D0)
 			}
 		}
 
@@ -458,13 +490,22 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			}
 		}
 
-		private Vector2 HoverSpot(Player target) => target.Center + new Vector2((Side == 0f ? 1f : Side) * HoverOffsetX, HoverOffsetY);
+		/// <summary>Where he floats: beside and above his target, or (the melee hover) in close at their side, his turbine just
+		/// over their feet.</summary>
+		private Vector2 HoverSpot(Player target) {
+			float side = Side == 0f ? 1f : Side;
+			if (MeleeHover) {
+				float x = target.width * 0.5f + MeleeGap + NPC.width * 0.5f;
+				return new Vector2(target.Center.X + side * x, target.Bottom.Y - MeleeLift - NPC.height * 0.5f);
+			}
+			return target.Center + new Vector2(side * HoverOffsetX, HoverOffsetY);
+		}
 
 		private void Drift(float speed) {
 			Player target = TargetPlayer;
 			FaceTarget();
 			if (target != null) {
-				MoveToward(HoverSpot(target), speed);
+				MoveToward(HoverSpot(target), MeleeHover ? MeleeHoverSpeed : speed);
 			}
 			else {
 				NPC.velocity *= 0.9f;
@@ -474,8 +515,9 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		private void MoveToward(Vector2 spot, float maxSpeed) {
 			Vector2 to = spot - NPC.Center;
 			float distance = to.Length();
-			Vector2 want = distance > 1f ? to / distance * Math.Min(maxSpeed, distance * 0.06f) : Vector2.Zero;
-			NPC.velocity += (want - NPC.velocity) * HoverAccel;
+			float approach = MeleeHover ? MeleeApproach : HoverApproach;
+			Vector2 want = distance > 1f ? to / distance * Math.Min(maxSpeed, distance * approach) : Vector2.Zero;
+			NPC.velocity += (want - NPC.velocity) * (MeleeHover ? MeleeHoverAccel : HoverAccel);
 		}
 
 		// --- the lantern: his main attack, every 1.5 s (a sub-action: it runs over the hover and the loop) ------------------
@@ -489,7 +531,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 				if (lanternClock < LanternIntervalNow) {
 					return;
 				}
-				Player target = ClosestFighter(true);
+				Player target = LanternTarget();
 				if (target == null) {
 					lanternClock = LanternIntervalNow - 15;    // nobody to throw at (only the trapped player): look again soon
 					return;
@@ -508,15 +550,31 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			}
 		}
 
-		/// <summary>Server: a fan of straight cursed bolts from the lantern overhead at the throw's target (never the player in
+		/// <summary>The lantern's mark: his target (the top damage dealer), unless the loop has trapped them: then the closest
+		/// other fighter.</summary>
+		private Player LanternTarget() {
+			Player target = TargetPlayer;
+			return target != null && IsFighter(target) && target.whoAmI != loopTarget ? target : ClosestFighter(true);
+		}
+
+		/// <summary>The lantern's glass in the world, in this frame's hold (it rides the frame's bob).</summary>
+		public Vector2 LanternPoint {
+			get {
+				int frame = ResolveFrame();
+				int bob = frame >= 0 && frame < R.Bob.Length ? R.Bob[frame] : 0;
+				return RigPoint(R.LanternX, R.LanternY + bob);
+			}
+		}
+
+		/// <summary>Server: a fan of straight cursed bolts from the lantern's glass at the flare's mark (never the player in
 		/// the loop).</summary>
 		private void ThrowBolts() {
 			Player target = throwTarget < Main.maxPlayers && IsFighter(Main.player[throwTarget]) && throwTarget != loopTarget
-				? Main.player[throwTarget] : ClosestFighter(true);
+				? Main.player[throwTarget] : LanternTarget();
 			if (target == null) {
 				return;
 			}
-			Vector2 from = RigPoint(R.ThrowX, R.ThrowY);
+			Vector2 from = LanternPoint;
 			Vector2 aim = (target.Center - from).SafeNormalize(Vector2.UnitY) * BoltSpeed;
 			int count = Enraged || Furious ? EnragedBolts : Bolts;
 			int damage = ExpertStats.HostileProjectile(NPC, BoltDamage * DamageScale);
@@ -548,8 +606,8 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			}
 		}
 
-		/// <summary>Server: the warning starts: the farthest fighter's row (an Express towards him) or column (a Dive, down or
-		/// up), locked now.</summary>
+		/// <summary>Server: the warning starts: the farthest fighter's row (an Express towards him), column (a Dive, down or
+		/// up) or diagonal (a Diagonal dive, down or up and towards his side), a third of the time each, locked now.</summary>
 		private void StartPassive() {
 			Player target = FarthestFighter();
 			if (target == null) {
@@ -558,40 +616,64 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			}
 			passivePoint = target.Center;
 			passiveLength = (byte)PassiveTelegraphNow;
-			if (Main.rand.NextBool()) {
-				passiveKind = KindExpress;
-				float dx = NPC.Center.X - target.Center.X;
-				passiveDir = (sbyte)(Math.Abs(dx) < 1f ? (Main.rand.NextBool() ? 1 : -1) : Math.Sign(dx));   // towards him
-			}
-			else {
-				passiveKind = KindDive;
-				passiveDir = (sbyte)(Main.rand.NextBool() ? 1 : -1);                                       // down or up
+			float dx = NPC.Center.X - target.Center.X;
+			sbyte towards = (sbyte)(Math.Abs(dx) < 1f ? (Main.rand.NextBool() ? 1 : -1) : Math.Sign(dx));   // towards him
+			sbyte vertical = (sbyte)(Main.rand.NextBool() ? 1 : -1);                                       // down or up
+			switch (Main.rand.Next(3)) {
+				case 0:
+					passiveKind = KindExpress;
+					passiveDir = towards;
+					break;
+				case 1:
+					passiveKind = KindDive;
+					passiveDir = vertical;
+					break;
+				default:
+					passiveKind = KindDiagonal;
+					passiveDir = towards;
+					passiveDirY = vertical;
+					break;
 			}
 			passiveTick = 0;
 			NPC.netUpdate = true;
 		}
 
-		/// <summary>Server: the train, from the screen edge away from him (an Express) or from the top or the bottom (a
-		/// Dive), across that player's screen.</summary>
+		/// <summary>A passive train's unit heading and the half of its run (from the player's point to either end): across the
+		/// screen's width (an Express), its height (a Dive), or at 45 degrees from its top or bottom edge (a Diagonal).</summary>
+		public static void PassiveRoute(byte kind, sbyte dir, sbyte dirY, out Vector2 heading, out float halfRun) {
+			switch (kind) {
+				case KindDive:
+					heading = new Vector2(0f, dir);
+					halfRun = ScreenHalfHeight;
+					break;
+				case KindDiagonal:
+					heading = new Vector2(dir, dirY) * Diagonal;
+					halfRun = ScreenHalfHeight / Diagonal;               // from the top (or bottom) edge to the other, at 45 degrees
+					break;
+				default:
+					heading = new Vector2(dir, 0f);
+					halfRun = ScreenHalfWidth;
+					break;
+			}
+		}
+
+		/// <summary>Server: the train, from the screen edge away from him (an Express), from the top or the bottom (a Dive), or
+		/// diagonally through the player (a Diagonal), across that player's screen.</summary>
 		private void LaunchPassive() {
-			Vector2 p = passivePoint;
-			if (passiveKind == KindExpress) {
-				SendTrain(new Vector2(p.X - passiveDir * ScreenHalfWidth, p.Y), new Vector2(passiveDir * PassiveSpeed, 0f), GhostTrain.Route.Express,
-					2f * ScreenHalfWidth);
-			}
-			else {
-				SendTrain(new Vector2(p.X, p.Y - passiveDir * ScreenHalfHeight), new Vector2(0f, passiveDir * PassiveSpeed), GhostTrain.Route.Dive,
-					2f * ScreenHalfHeight);
-			}
+			PassiveRoute(passiveKind, passiveDir, passiveDirY, out Vector2 heading, out float halfRun);
+			GhostTrain.Route route = passiveKind == KindExpress ? GhostTrain.Route.Express
+				: passiveKind == KindDive ? GhostTrain.Route.Dive : GhostTrain.Route.Diagonal;
+			SendTrain(passivePoint - heading * halfRun, heading * PassiveSpeed, route, 2f * halfRun);
 			passiveClock = 0;
 		}
 
-		/// <summary>The passive train's entry and exit (world px) and how strong its warning is now (0 when none).</summary>
-		public bool PassiveTelegraphNowFor(out Vector2 entry, out Vector2 exit, out bool express, out float strength) {
-			express = passiveKind == KindExpress;
-			Vector2 p = passivePoint;
-			entry = express ? new Vector2(p.X - passiveDir * ScreenHalfWidth, p.Y) : new Vector2(p.X, p.Y - passiveDir * ScreenHalfHeight);
-			exit = express ? new Vector2(p.X + passiveDir * ScreenHalfWidth, p.Y) : new Vector2(p.X, p.Y + passiveDir * ScreenHalfHeight);
+		/// <summary>The passive train's entry and exit (world px), its kind, and how strong its warning is now (0 when
+		/// none).</summary>
+		public bool PassiveTelegraphNowFor(out Vector2 entry, out Vector2 exit, out byte kind, out float strength) {
+			kind = passiveKind;
+			PassiveRoute(passiveKind, passiveDir, passiveDirY, out Vector2 heading, out float halfRun);
+			entry = passivePoint - heading * halfRun;
+			exit = passivePoint + heading * halfRun;
 			strength = passiveTick < 0 || passivePoint == Vector2.Zero ? 0f : TelegraphStrength(passiveTick, Math.Max(1, (int)passiveLength));
 			return strength > 0f;
 		}
@@ -852,20 +934,19 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			return null;
 		}
 
-		/// <summary>Server: the closest fighter becomes the one he floats beside. False when there is none.</summary>
+		/// <summary>Only a fighter can be his target (the shared rule, <see cref="BossNPC"/>).</summary>
+		protected override bool CanTarget(Player player) => IsFighter(player);
+
+		/// <summary>Among equal damage (no one has hurt him yet): the closest, fighters in the town first.</summary>
+		protected override float TargetTieBreak(Player player) {
+			float d = Vector2.DistanceSquared(player.Center, NPC.Center);
+			return !OldBrassTownSystem.Exists || OldBrassTownSystem.Contains(player.Center) ? d : d * 4f;
+		}
+
+		/// <summary>Server: keeps a target to float beside (since 2026-11-09 the shared rule picks it: the top damage dealer, a
+		/// different one every 5 s). False when there is none.</summary>
 		private bool Retarget() {
-			if (!IsAuthority) {
-				return true;
-			}
-			Player best = ClosestFighter(false);
-			if (best == null) {
-				return false;
-			}
-			if (best.whoAmI != NPC.target) {
-				NPC.target = best.whoAmI;
-				NPC.netUpdate = true;
-			}
-			return true;
+			return EnsureTarget();
 		}
 
 		private void FaceTarget() {
@@ -898,6 +979,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 				}
 			}
 			SetFlag(FlagFury, OldBrassTownSystem.Exists && anyFighter && !anyInTown);
+			UpdateMeleeHover();
 			absentTicks = anyNear ? 0 : absentTicks + CheckInterval;
 			if (absentTicks >= LeaveGraceTicks) {
 				absentTicks = 0;
@@ -906,6 +988,23 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			}
 			else if (anyFighter && TargetPlayer == null) {
 				Retarget();
+			}
+		}
+
+		/// <summary>Server, with the fight check: the melee hover follows his target's verdict (the owner's client decides it,
+		/// <see cref="Core.Combat.MeleeFocus"/>); while it holds, a target who has passed him by more than
+		/// <see cref="MeleeSideSwitch"/> gets him on the side he is on, rather than flying back across them.</summary>
+		private void UpdateMeleeHover() {
+			Player target = TargetPlayer;
+			bool melee = target != null && IsFighter(target) && Core.Combat.MeleeFocus.Of(target);
+			SetFlag(FlagMelee, melee);
+			if (!melee) {
+				return;
+			}
+			float side = Side >= 0f ? 1f : -1f;
+			if ((NPC.Center.X - target.Center.X) * side < -MeleeSideSwitch) {
+				Side = -side;
+				NPC.netUpdate = true;
 			}
 		}
 

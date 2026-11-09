@@ -25,7 +25,8 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Projectiles
 	/// anything (a ghost); each segment is a thick line along its own heading (vanilla <c>Collision.CheckAABBvLineCollision</c>):
 	/// the engine hits for the full damage, a car for <see cref="CarDamageScale"/>, and a cursed player takes
 	/// <see cref="ConductorCurse.DamageTaken"/>x more. Drawn translucent with its windows and headlamp solid (the glow sheets).
-	/// <para>Routes (<c>ai[0]</c>, <see cref="Route"/>): <b>Express</b> and <b>Dive</b> run straight across a player's screen:
+	/// <para>Routes (<c>ai[0]</c>, <see cref="Route"/>): <b>Express</b>, <b>Dive</b> and <b>Diagonal</b> (2026-11-09: at 45
+	/// degrees, the heading's own pre-drawn frame) run straight across a player's screen:
 	/// each segment materializes as it crosses the entry line (the engine's start) and vanishes over <see cref="FadeOut"/> px
 	/// before the exit line <c>ai[1]</c> px on (harmless while faded: user, 2026-11-05: "come from the screen limit ... and
 	/// quickly fade out on the other screen limit"); <b>Wave</b> does the same along a sine of <see cref="WaveAmplitude"/> and
@@ -41,7 +42,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Projectiles
 	/// </summary>
 	public class GhostTrain : CogpunkProjectile
 	{
-		public enum Route { Express = 0, Dive = 1, Loop = 2, Farewell = 3, Wave = 4 }
+		public enum Route { Express = 0, Dive = 1, Loop = 2, Farewell = 3, Wave = 4, Diagonal = 5 }
 
 		public const int Cars = 7;                          // 3 + 4 more wagons (user-set 2026-11-05)
 		public const float EngineLength = 88f, CarLength = 74f, Gap = 6f;
@@ -74,7 +75,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Projectiles
 
 		private Route Path => (Route)(int)Projectile.ai[0];
 
-		private bool Spans => Path == Route.Express || Path == Route.Dive || Path == Route.Wave;
+		private bool Spans => Path == Route.Express || Path == Route.Dive || Path == Route.Wave || Path == Route.Diagonal;
 
 		public override void SetStaticDefaults() {
 			Main.projFrames[Type] = R.Headings;

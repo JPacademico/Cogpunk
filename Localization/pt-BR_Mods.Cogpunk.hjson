@@ -411,11 +411,17 @@ Items: {
 
 	TyrantSkull: {
 		DisplayName: Crânio do Tirano
-		Tooltip: "{0}% de aumento no dano de invocação"
+		Tooltip:
+			'''
+			{0}% de aumento no dano de invocação e mágico
+			Aumenta em {1} o número máximo de lacaios
+			'''
 		SetBonus:
 			'''
-			{0}% de aumento na velocidade dos chicotes
-			A Praga do Piche que você inflige nos inimigos dura {1} segundos a mais
+			A cada {0} segundos uma garra de piche irrompe do chão sob o inimigo mais próximo
+			A garra causa {1} de dano mágico a cada inimigo que pegar
+			{2}% de chance de acerto crítico de invocação e mágico
+			A Praga do Piche que você inflige nos inimigos dura {3} segundos a mais
 			'''
 	}
 
@@ -423,19 +429,15 @@ Items: {
 		DisplayName: Capa do Tirano
 		Tooltip:
 			'''
-			Aumenta em {0} o número máximo de lacaios
-			{1}% de aumento no dano de invocação
+			{0}% de aumento na velocidade dos chicotes
+			{1}% de redução no custo de mana
 			'Ainda molhada'
 			'''
 	}
 
 	TyrantSandals: {
 		DisplayName: Sandálias do Tirano
-		Tooltip:
-			'''
-			{0}% de aumento no dano de invocação
-			{1}% de aumento na velocidade de movimento
-			'''
+		Tooltip: Imunidade a dano de queda
 	}
 
 	MetalWrench: {
@@ -619,6 +621,162 @@ Items: {
 		DisplayName: Bolsa do Tesouro ({$Mods.Cogpunk.NPCs.CursedConductor.DisplayName})
 		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 	}
+
+	BottleOfLostSouls: {
+		DisplayName: Garrafa de Almas Perdidas
+		Tooltip:
+			'''
+			Seus lacaios e sentinelas podem acertar golpes críticos
+			{0}% de chance de acerto crítico de invocação
+			'Todos os passageiros que perderam a parada'
+			'''
+	}
+
+	JadeBrick: {
+		DisplayName: Tijolo de Jade
+		Tooltip: Jade polido do palácio que flutua sobre a beira do mar.
+	}
+
+	CinnabarLacquer: {
+		DisplayName: Laca de Cinábrio
+		Tooltip: Madeira laqueada de vermelho, com pregos dourados e tudo.
+	}
+
+	BronzeGearwork: {
+		DisplayName: Engrenagens de Bronze
+		Tooltip: Maquinário antigo de bronze. Parte dele ainda gira.
+	}
+
+	JadeRoof: {
+		DisplayName: Telhas de Jade
+		Tooltip: Telhas verdes vitrificadas do telhado de um palácio no céu.
+	}
+
+	JadeBrickWall: {
+		DisplayName: Parede de Tijolo de Jade
+		Tooltip: ""
+	}
+
+	CinnabarPanelWall: {
+		DisplayName: Parede de Painéis de Cinábrio
+		Tooltip: ""
+	}
+
+	BronzeLatticeWall: {
+		DisplayName: Parede de Treliça de Bronze
+		Tooltip: Uma janela de treliça vazada.
+	}
+
+	BronzeGearworkWall: {
+		DisplayName: Parede de Engrenagens de Bronze
+		Tooltip: ""
+	}
+
+	LiftTurbine: {
+		DisplayName: Turbina de Sustentação
+		Tooltip:
+			'''
+			Fica pendurada no teto e solta vapor
+			Não sustenta nada. Provavelmente
+			'''
+	}
+
+	BronzeCog: {
+		DisplayName: Engrenagem de Bronze
+		Tooltip: Uma grande engrenagem que gira sozinha, apoiada em dois blocos.
+	}
+
+	PalaceFlagstone: {
+		DisplayName: Lajota do Palácio
+		Tooltip: Lajotas de pedra clara dos pisos de um palácio no céu.
+	}
+
+	PalaceFlagstoneWall: {
+		DisplayName: Parede de Lajota do Palácio
+		Tooltip: ""
+	}
+
+	CursedLantern: {
+		DisplayName: Lanterna Amaldiçoada
+		Tooltip:
+			'''
+			Liberta almas perdidas: fogos lentos que perseguem o inimigo mais próximo a até 10 blocos
+			Sem inimigos por perto, ficam flutuando onde foram soltos
+			'Cada alma que ele recolheu, uma passagem de cada vez'
+			'''
+	}
+
+	Jade: {
+		DisplayName: Jade
+		Tooltip: ""
+	}
+
+	LargeJade: {
+		DisplayName: Jade Grande
+		Tooltip: Para o Capture a Gema. Cai quando você morre
+	}
+
+	JadeRobe: {
+		DisplayName: Manto de Jade
+		Tooltip:
+			'''
+			Aumenta a mana máxima em {0}
+			Reduz o uso de mana em {1}%
+			'''
+	}
+
+	JadePhaseblade: {
+		DisplayName: Lâmina de Fase de Jade
+		Tooltip: ""
+	}
+
+	JadePhasesaber: {
+		DisplayName: Sabre de Fase de Jade
+		Tooltip: ""
+	}
+
+	LawHat: {
+		DisplayName: Chapéu da Lei
+		Tooltip:
+			'''
+			{0}% de chance de acerto crítico aumentada para armas que usam balas
+			'A estrela ainda brilha, mesmo sem a cidade'
+			'''
+	}
+
+	BrassHelmet: {
+		DisplayName: Elmo de Latão
+		Tooltip:
+			'''
+			{0}% de chance de acerto crítico mecanista aumentada
+			Um capacete de escafandro de caldeireiro, com uma escotilha por viseira
+			'''
+		SetBonus: O dano recebido enquanto superaquecido é reduzido em {0}%
+	}
+
+	BrassChestplate: {
+		DisplayName: Peitoral de Latão
+		Tooltip:
+			'''
+			{0}% de dano mecanista aumentado
+			Aumenta o vapor máximo em {1}
+			'''
+	}
+
+	BrassGreaves: {
+		DisplayName: Grevas de Latão
+		Tooltip: "{0}% de velocidade de ataque mecanista aumentada"
+	}
+
+	CursedTrainWhistle: {
+		DisplayName: Apito do Trem Amaldiçoado
+		Tooltip:
+			'''
+			Invoca um pequeno trem fantasma para lutar por você
+			Cada novo sopro engata mais um vagão em vez disso
+			Cada vagão atinge o que o trem atravessa
+			'''
+	}
 }
 
 Buffs: {
@@ -680,6 +838,11 @@ Buffs: {
 	ConductorCurse: {
 		DisplayName: Maldição do Condutor
 		Description: Você recebe 25% a mais de dano do trem fantasma e de seus fantasmas
+	}
+
+	GhostTrainBuff: {
+		DisplayName: Trem Fantasma
+		Description: Um pequeno trem fantasma corre com você
 	}
 }
 
@@ -788,7 +951,7 @@ NPCs: {
 
 	Sheriff: {
 		DisplayName: Xerife
-		Bestiary: O último homem da lei da Velha Cidade de Latão, mantendo a paz muito depois de os moradores irem embora. Três estrelas de xerife flutuam sobre o chapéu e voam contra quem desrespeita a lei; o revólver dele é a única coisa limpa que restou na cidade. Ele nunca foge, nem para recarregar.
+		Bestiary: O último homem da lei da Velha Cidade de Latão, mantendo a paz muito depois de os moradores irem embora. Três estrelas de xerife flutuam sobre o chapéu; ele as arremessa uma por vez contra quem desrespeita a lei, e as que erram se cravam nas paredes até ele chamá-las de volta, atravessando quem estiver no caminho. O revólver dele é a única coisa limpa que restou na cidade. Ele nunca foge, nem para recarregar.
 	}
 
 	MechanicalBull: {
@@ -810,6 +973,17 @@ NPCs: {
 	ConductorGhost: {
 		DisplayName: Fantasma Amaldiçoado
 	}
+
+	ImperialDefender: {
+		DisplayName: Defensor Imperial
+		Bestiary: Um autômato da corte de jade, ainda de guarda num turno que ninguém veio render. Marcha com o dadao erguido à frente e, a cada poucos segundos, finca os pés e levanta a lâmina na vertical: golpes e disparos pela frente resvalam nela. Espere passar, ou ataque pelas costas.
+		Parried: Aparado!
+	}
+
+	JadeGolem: {
+		DisplayName: Golem de Jade
+		Bestiary: Uma estátua talhada num único bloco de jade, despertada pelo coração de bronze cravado no peito. Anda devagar e bate como um deslizamento; quando para e ergue o punho, a luz que se junta ali mira onde você estava um instante antes. Continue se movendo, e mova-se de novo quando a linha piscar.
+	}
 }
 
 Junkyard: {
@@ -817,6 +991,14 @@ Junkyard: {
 }
 
 Projectiles: {
+	SoulFire: {
+		DisplayName: Alma Perdida
+	}
+
+	JadeRay: {
+		DisplayName: Raio de Jade
+	}
+
 	ScrappybotPet: {
 		DisplayName: Scrappybot
 	}
@@ -917,6 +1099,10 @@ Projectiles: {
 		DisplayName: Garra de Piche
 	}
 
+	TyrantClaw: {
+		DisplayName: Garra do Tirano
+	}
+
 	MetalWrenchGuard: {
 		DisplayName: Chave Inglesa de Metal
 	}
@@ -1004,6 +1190,14 @@ Projectiles: {
 	CogLauncherCog: {
 		DisplayName: Engrenagem
 	}
+
+	GhostTrainEngine: {
+		DisplayName: Trem Fantasma
+	}
+
+	GhostTrainWagon: {
+		DisplayName: Vagão do Trem Fantasma
+	}
 }
 
 Tiles: {
@@ -1044,6 +1238,38 @@ Tiles: {
 		MapEntry0: Cofre de Latão
 		MapEntry1: Cofre de Latão Trancado
 	}
+
+	JadeBrickTile: {
+		MapEntry: Tijolo de Jade
+	}
+
+	CinnabarLacquerTile: {
+		MapEntry: Laca de Cinábrio
+	}
+
+	BronzeGearworkTile: {
+		MapEntry: Engrenagens de Bronze
+	}
+
+	JadeRoofTile: {
+		MapEntry: Telhas de Jade
+	}
+
+	LiftTurbineTile: {
+		MapEntry: Turbina de Sustentação
+	}
+
+	BronzeCogTile: {
+		MapEntry: Engrenagem de Bronze
+	}
+
+	PalaceFlagstoneTile: {
+		MapEntry: Lajota do Palácio
+	}
+
+	JadeTile: {
+		MapEntry: Jade
+	}
 }
 
 WorldGen: {
@@ -1054,6 +1280,8 @@ WorldGen: {
 	GlassContainers: Escondendo tanques de vapor de vidro
 	RustedNails: Deixando pregos enferrujados em baús velhos
 	OldBrassTown: Erguendo uma velha cidade de latão
+	Coghaven: Erguendo um palácio de jade nas nuvens
+	Jade: Escondendo jade nas cavernas
 }
 
 UI: {
@@ -1080,6 +1308,10 @@ Biomes: {
 
 	OldBrassTownBiome: {
 		DisplayName: Velha Cidade de Latão
+	}
+
+	CoghavenBiome: {
+		DisplayName: Coghaven
 	}
 }
 

@@ -622,7 +622,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			}
 		}
 
-		public override void HitEffect(NPC.HitInfo hit) {
+		protected override void BossHitEffect(NPC.HitInfo hit) {
 			if (Main.dedServ) {
 				return;
 			}

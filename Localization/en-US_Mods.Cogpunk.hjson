@@ -412,11 +412,17 @@ Items: {
 
 	TyrantSkull: {
 		DisplayName: Tyrant Skull
-		Tooltip: "{0}% increased summon damage"
+		Tooltip:
+			'''
+			{0}% increased summon and magic damage
+			Increases your max number of minions by {1}
+			'''
 		SetBonus:
 			'''
-			{0}% increased whip speed
-			Tar Plague you inflict on enemies lasts {1} seconds longer
+			Every {0} seconds a tar claw erupts from the ground under the closest enemy
+			The claw deals {1} magic damage to every enemy it catches
+			{2}% increased summon and magic critical strike chance
+			Tar Plague you inflict on enemies lasts {3} seconds longer
 			'''
 	}
 
@@ -424,19 +430,15 @@ Items: {
 		DisplayName: Tyrant Cape
 		Tooltip:
 			'''
-			Increases your max number of minions by {0}
-			{1}% increased summon damage
+			{0}% increased whip speed
+			{1}% reduced mana cost
 			'Still wet'
 			'''
 	}
 
 	TyrantSandals: {
 		DisplayName: Tyrant Sandals
-		Tooltip:
-			'''
-			{0}% increased summon damage
-			{1}% increased movement speed
-			'''
+		Tooltip: Immunity to fall damage
 	}
 
 	MetalWrench: {
@@ -620,6 +622,162 @@ Items: {
 		DisplayName: Treasure Bag ({$Mods.Cogpunk.NPCs.CursedConductor.DisplayName})
 		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 	}
+
+	BottleOfLostSouls: {
+		DisplayName: Bottle of Lost Souls
+		Tooltip:
+			'''
+			Your minions and sentries can land critical strikes
+			{0}% increased summon critical strike chance
+			'Every passenger who missed their stop'
+			'''
+	}
+
+	JadeBrick: {
+		DisplayName: Jade Brick
+		Tooltip: Polished jade from the palace that floats over the sea's edge.
+	}
+
+	CinnabarLacquer: {
+		DisplayName: Cinnabar Lacquer
+		Tooltip: Red lacquered wood, gilt nails and all.
+	}
+
+	BronzeGearwork: {
+		DisplayName: Bronze Gearwork
+		Tooltip: Old bronze machinery. Some of it still turns.
+	}
+
+	JadeRoof: {
+		DisplayName: Jade Roof Tiles
+		Tooltip: Glazed green tiles from a sky palace's roof.
+	}
+
+	JadeBrickWall: {
+		DisplayName: Jade Brick Wall
+		Tooltip: ""
+	}
+
+	CinnabarPanelWall: {
+		DisplayName: Cinnabar Panel Wall
+		Tooltip: ""
+	}
+
+	BronzeLatticeWall: {
+		DisplayName: Bronze Lattice Wall
+		Tooltip: A see-through fretwork window.
+	}
+
+	BronzeGearworkWall: {
+		DisplayName: Bronze Gearwork Wall
+		Tooltip: ""
+	}
+
+	LiftTurbine: {
+		DisplayName: Lift Turbine
+		Tooltip:
+			'''
+			Hangs from a ceiling and pours steam
+			It does not lift anything. Probably
+			'''
+	}
+
+	BronzeCog: {
+		DisplayName: Bronze Cog
+		Tooltip: A great cog that turns on its own, standing on two blocks.
+	}
+
+	PalaceFlagstone: {
+		DisplayName: Palace Flagstone
+		Tooltip: Pale stone pavers from a sky palace's floors.
+	}
+
+	PalaceFlagstoneWall: {
+		DisplayName: Palace Flagstone Wall
+		Tooltip: ""
+	}
+
+	CursedLantern: {
+		DisplayName: Cursed Lantern
+		Tooltip:
+			'''
+			Lets lost souls go: slow wisps that home in on the closest enemy within 10 tiles
+			With no enemy near, they drift where they were let go
+			'Every soul he collected, one fare at a time'
+			'''
+	}
+
+	Jade: {
+		DisplayName: Jade
+		Tooltip: ""
+	}
+
+	LargeJade: {
+		DisplayName: Large Jade
+		Tooltip: For Capture the Gem. It drops when you die
+	}
+
+	JadeRobe: {
+		DisplayName: Jade Robe
+		Tooltip:
+			'''
+			Increases maximum mana by {0}
+			Reduces mana usage by {1}%
+			'''
+	}
+
+	JadePhaseblade: {
+		DisplayName: Jade Phaseblade
+		Tooltip: ""
+	}
+
+	JadePhasesaber: {
+		DisplayName: Jade Phasesaber
+		Tooltip: ""
+	}
+
+	LawHat: {
+		DisplayName: Law Hat
+		Tooltip:
+			'''
+			{0}% increased critical strike chance for weapons that use bullets
+			'The star still shines, even if the town is gone'
+			'''
+	}
+
+	BrassHelmet: {
+		DisplayName: Brass Helmet
+		Tooltip:
+			'''
+			{0}% increased mechanist critical strike chance
+			A steamfitter's diving helm with a porthole for a visor
+			'''
+		SetBonus: Damage taken while overheated is reduced by {0}%
+	}
+
+	BrassChestplate: {
+		DisplayName: Brass Chestplate
+		Tooltip:
+			'''
+			{0}% increased mechanist damage
+			Increases maximum steam by {1}
+			'''
+	}
+
+	BrassGreaves: {
+		DisplayName: Brass Greaves
+		Tooltip: "{0}% increased mechanist attack speed"
+	}
+
+	CursedTrainWhistle: {
+		DisplayName: Cursed Train Whistle
+		Tooltip:
+			'''
+			Summons a little ghost train to fight for you
+			Each further blow hitches on another wagon instead
+			Every wagon hits what the train runs through
+			'''
+	}
 }
 
 Buffs: {
@@ -681,6 +839,11 @@ Buffs: {
 	ConductorCurse: {
 		DisplayName: Conductor's Curse
 		Description: You take 25% more damage from the ghost train and its ghosts
+	}
+
+	GhostTrainBuff: {
+		DisplayName: Ghost Train
+		Description: A little ghost train runs with you
 	}
 }
 
@@ -789,7 +952,7 @@ NPCs: {
 
 	Sheriff: {
 		DisplayName: Sheriff
-		Bestiary: The last lawman of Old Brass Town, still keeping the peace long after the townsfolk left. Three sheriff stars ride over his hat and fly out at whoever breaks the law; his revolver is the only clean thing left in town. He never runs, not even to reload.
+		Bestiary: The last lawman of Old Brass Town, still keeping the peace long after the townsfolk left. Three sheriff stars ride over his hat; he throws them one at a time at whoever breaks the law, and the ones that miss bite into the walls until he calls them home, straight through anyone in the way. His revolver is the only clean thing left in town. He never runs, not even to reload.
 	}
 
 	MechanicalBull: {
@@ -811,6 +974,17 @@ NPCs: {
 	ConductorGhost: {
 		DisplayName: Cursed Ghost
 	}
+
+	ImperialDefender: {
+		DisplayName: Imperial Defender
+		Bestiary: An automaton of the jade court, still standing a watch nobody came to relieve. It marches with its dadao held up before it, and every few seconds it plants its feet and lifts the blade upright: strikes and shots from the front glance off it then. Wait it out, or get behind it.
+		Parried: Parried!
+	}
+
+	JadeGolem: {
+		DisplayName: Jade Golem
+		Bestiary: A statue carved from a single block of jade and woken by the bronze heart set in its chest. It walks slowly and hits like a landslide; when it stops and raises its fist, the light gathering there aims where you stood a moment ago. Keep moving, and move again when the line blinks.
+	}
 }
 
 Junkyard: {
@@ -818,6 +992,14 @@ Junkyard: {
 }
 
 Projectiles: {
+	SoulFire: {
+		DisplayName: Lost Soul
+	}
+
+	JadeRay: {
+		DisplayName: Jade Ray
+	}
+
 	ScrappybotPet: {
 		DisplayName: Scrappybot
 	}
@@ -918,6 +1100,10 @@ Projectiles: {
 		DisplayName: Tar Claw
 	}
 
+	TyrantClaw: {
+		DisplayName: Tyrant Claw
+	}
+
 	MetalWrenchGuard: {
 		DisplayName: Metal Wrench
 	}
@@ -1005,6 +1191,14 @@ Projectiles: {
 	CogLauncherCog: {
 		DisplayName: Cog
 	}
+
+	GhostTrainEngine: {
+		DisplayName: Ghost Train
+	}
+
+	GhostTrainWagon: {
+		DisplayName: Ghost Train Wagon
+	}
 }
 
 Tiles: {
@@ -1045,6 +1239,38 @@ Tiles: {
 		MapEntry0: Brass Strongbox
 		MapEntry1: Locked Brass Strongbox
 	}
+
+	JadeBrickTile: {
+		MapEntry: Jade Brick
+	}
+
+	CinnabarLacquerTile: {
+		MapEntry: Cinnabar Lacquer
+	}
+
+	BronzeGearworkTile: {
+		MapEntry: Bronze Gearwork
+	}
+
+	JadeRoofTile: {
+		MapEntry: Jade Roof Tiles
+	}
+
+	LiftTurbineTile: {
+		MapEntry: Lift Turbine
+	}
+
+	BronzeCogTile: {
+		MapEntry: Bronze Cog
+	}
+
+	PalaceFlagstoneTile: {
+		MapEntry: Palace Flagstone
+	}
+
+	JadeTile: {
+		MapEntry: Jade
+	}
 }
 
 WorldGen: {
@@ -1055,6 +1281,8 @@ WorldGen: {
 	GlassContainers: Hiding glass steam tanks
 	RustedNails: Dropping rusted nails in old chests
 	OldBrassTown: Building an old brass town
+	Coghaven: Raising a jade palace into the clouds
+	Jade: Hiding jade in the caverns
 }
 
 UI: {
@@ -1081,6 +1309,10 @@ Biomes: {
 
 	OldBrassTownBiome: {
 		DisplayName: Old Brass Town
+	}
+
+	CoghavenBiome: {
+		DisplayName: Coghaven
 	}
 }
 

@@ -45,7 +45,9 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		public const int SmokeCapacity = 32, SmokeLife = 48, SmokeInterval = 3, FurySmokeInterval = 2, DyingSmokeInterval = 7;
 		public const float SmokeSpeed = 2.9f, SmokeDrag = 0.94f, SmokeRise = 0.05f, SmokeSpread = 6f, SmokeOpacity = 0.85f;
 
-		private static Asset<Texture2D> nearSheet, glowSheet, rail, riftSheet, rotorSheet, smokeSheet;
+		private static Asset<Texture2D> nearSheet, glowSheet, rail, railDiagonal, riftSheet, rotorSheet, smokeSheet, lanternGlowSheet;
+		public const int InBetweenTicks = 6;                // an in-between frame out of the rest pose or back into it
+		public const int PointTicks = 40;                   // the arm out, sending the loop's train
 
 		private struct SmokePuff
 		{
@@ -71,12 +73,14 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			glowSheet = DepthLayers.RequestOptional(path + "_Glow");
 			rotorSheet = DepthLayers.RequestOptional(path + "_Rotor");
 			smokeSheet = DepthLayers.RequestOptional(path + "_Smoke");
+			lanternGlowSheet = DepthLayers.RequestOptional(path + "_LanternGlow");
 			rail = DepthLayers.RequestOptional("Cogpunk/Content/Bosses/CursedConductor/Projectiles/GhostTrain_Rail");
+			railDiagonal = DepthLayers.RequestOptional("Cogpunk/Content/Bosses/CursedConductor/Projectiles/GhostTrain_RailDiagonal");
 			riftSheet = DepthLayers.RequestOptional("Cogpunk/Content/Bosses/CursedConductor/Projectiles/GhostRift");
 		}
 
 		private static void UnloadVisuals() {
-			nearSheet = glowSheet = rail = riftSheet = rotorSheet = smokeSheet = null;
+			nearSheet = glowSheet = rail = railDiagonal = riftSheet = rotorSheet = smokeSheet = lanternGlowSheet = null;
 		}
 
 		// ------------------------------------------------------------------------------------------------------------
@@ -85,44 +89,48 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 
 		private static int IdleFrame => R.Idle + (int)(Main.GameUpdateCount / IdleFrameTicks % R.IdleFrames);
 
-		/// <summary>The frame for the current state and tick (every side computes the same from the synced state).</summary>
+		/// <summary>The frame for the current state and tick (every side computes the same from the synced state). Since
+		/// 2026-11-09 every sequence leaves the rest pose (the lantern held before his chest) through an in-between and comes
+		/// back through one; the lantern attack has no frames (its cue is the halo, <see cref="DrawLanternGlow"/>).</summary>
 		public int ResolveFrame() {
 			int t = (int)Timer;
 			switch (CurrentPhase) {
 				case Phase.Intro:
-					if (t < TipStart || t >= TipEnd) {
+					if (t < TipStart - InBetweenTicks || t >= TipEnd + InBetweenTicks) {
 						return IdleFrame;
 					}
+					if (t < TipStart) {
+						return R.TipIn;
+					}
+					if (t >= TipEnd) {
+						return R.TipOut;
+					}
 					return R.Tip + (t < TipRaise ? 0 : t < TipBow ? 1 : 2);
-				case Phase.Hover:
-					return throwTick >= 0 ? ThrowFrame(throwTick) : IdleFrame;
 				case Phase.Loop:
-					if (throwTick >= 0) {
-						return ThrowFrame(throwTick);
-					}
 					if (t < LoopTelegraph) {
-						return R.Call + (t / 8 % R.CallFrames);
+						return t < InBetweenTicks ? R.Whistle : R.Call + (t / 8 % R.CallFrames);   // the whistle up, blowing
 					}
-					return t < LoopTelegraph + 40 ? R.Point + (t / 10 % R.PointFrames) : IdleFrame;
+					int p = t - LoopTelegraph;
+					if (p < InBetweenTicks) {
+						return R.PointIn;
+					}
+					if (p < PointTicks) {
+						return R.Point + (p / 10 % R.PointFrames);
+					}
+					return p < PointTicks + InBetweenTicks ? R.PointOut : IdleFrame;
 				case Phase.Whistle:
-					if (t < 8) {
-						return R.Whistle;
+					if (t < 8 || t >= WhistleTicks - 8) {
+						return R.Whistle;                       // the hand on its way up, and down again at the end
 					}
 					if (t < 14) {
 						return R.Whistle + 1;
 					}
-					return R.Call + (t / 8 % R.CallFrames);   // the lantern raised and the whistle shrieking
+					return R.Call + (t / 8 % R.CallFrames);   // the whistle shrieking, the lantern blazing
 				case Phase.Dying:
 					return R.Dying + Math.Min(R.DyingFrames - 1, t / 30);
 				default:
 					return IdleFrame;
 			}
-		}
-
-		/// <summary>The lantern's swing, <paramref name="k"/> ticks in: back, back higher (the flame flaring), overhead (the
-		/// release at <see cref="ThrowWindup"/>), back down.</summary>
-		private static int ThrowFrame(int k) {
-			return R.Throw + (k < 12 ? 0 : k < ThrowWindup ? 1 : k < ThrowWindup + ThrowRelease ? 2 : 3);
 		}
 
 		/// <summary>0..1: how much of him there is (materializing, fading away, blown to bits).</summary>
@@ -171,7 +179,44 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 				DepthLayers.DrawCell(spriteBatch, glowSheet.Value, frame, R.Columns, R.CellWidth, R.CellHeight, 2, R.OriginX, R.OriginY, anchor, 0,
 					Color.White * fade, flip);
 			}
+			if (!dummy) {
+				DrawLanternGlow(spriteBatch, anchor + nearShift, frame, flip, fade);
+			}
 			return false;
+		}
+
+		/// <summary>The lantern attack's cue (user, 2026-11-09: "the visual cue for the attack is just a glow on the lantern"): a
+		/// halo of ghost light round the glass, swelling through the sheet's first three frames over <see cref="ThrowWindup"/>
+		/// ticks, its flash frame for a few ticks as the bolts fly, then fading. Light: full brightness, opacity only (D4).</summary>
+		private void DrawLanternGlow(SpriteBatch spriteBatch, Vector2 anchor, int frame, bool flip, float fade) {
+			if (throwTick < 0 || CurrentPhase == Phase.Dying || lanternGlowSheet?.IsLoaded != true) {
+				return;
+			}
+			int k;
+			float alpha;
+			if (throwTick < ThrowWindup) {
+				float u = throwTick / (float)ThrowWindup;
+				k = Math.Min(2, (int)(u * 3f));
+				alpha = 0.35f + 0.65f * u;
+			}
+			else if (throwTick < ThrowWindup + 6) {
+				k = 3;
+				alpha = 1f;
+			}
+			else {
+				k = 2;
+				alpha = MathHelper.Clamp(1f - (throwTick - ThrowWindup - 6) / (float)Math.Max(1, ThrowTicks - ThrowWindup - 6), 0f, 1f);
+			}
+			Texture2D texture = lanternGlowSheet.Value;
+			int cell = R.LanternGlowCell;
+			Rectangle source = new(0, k * (cell + 2), cell, cell);
+			if (source.Bottom > texture.Height || alpha <= 0f) {
+				return;
+			}
+			int bob = frame >= 0 && frame < R.Bob.Length ? R.Bob[frame] : 0;
+			float x = anchor.X + (flip ? -R.LanternX : R.LanternX) - cell / 2;
+			float y = anchor.Y + R.LanternY + bob - cell / 2;
+			spriteBatch.Draw(texture, new Vector2(MathF.Round(x), MathF.Round(y)), source, Color.White * (alpha * fade));
 		}
 
 		// ------------------------------------------------------------------------------------------------------------
@@ -290,9 +335,13 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			Texture2D texture = rail.Value;
 			int cell = R.RailCell;
 			Vector2 half = new(cell * 0.5f);
-			if (PassiveTelegraphNowFor(out Vector2 entry, out Vector2 exit, out bool express, out float strength)) {
-				Rectangle source = new(0, (express ? 0 : 1) * (cell + 2), cell, cell);
-				if (source.Bottom <= texture.Height) {
+			if (PassiveTelegraphNowFor(out Vector2 entry, out Vector2 exit, out byte kind, out float strength)) {
+				Rectangle source = new(0, (kind == KindExpress ? 0 : 1) * (cell + 2), cell, cell);
+				if (kind == KindDiagonal) {
+					DrawDiagonalTrack(spriteBatch, screenPos, entry, exit, strength);
+					DrawRift(spriteBatch, entry - screenPos, strength);
+				}
+				else if (source.Bottom <= texture.Height) {
 					Color color = Color.White * (0.85f * strength);
 					Vector2 d = exit - entry;
 					float length = d.Length();
@@ -331,6 +380,31 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 					}
 					DrawRift(spriteBatch, new Vector2(locked.X - dir * ScreenHalfWidth, locked.Y + GhostTrain.WaveAmplitude * MathF.Sin(wavePhase)) - screenPos, wave);
 				}
+			}
+		}
+
+		/// <summary>The diagonal dive's warning (2026-11-09): its 45-degree track, a piece every
+		/// <see cref="CursedConductorRigData.RailDiagonalStep"/> px each way (the pieces overlap into one line; at most about 70),
+		/// mirrored for a track running down to the left.</summary>
+		private static void DrawDiagonalTrack(SpriteBatch spriteBatch, Vector2 screenPos, Vector2 entry, Vector2 exit, float strength) {
+			if (railDiagonal?.IsLoaded != true) {
+				return;
+			}
+			Texture2D texture = railDiagonal.Value;
+			int cell = R.RailDiagonalCell;
+			if (texture.Width < cell || texture.Height < cell) {
+				return;
+			}
+			Vector2 d = exit - entry;
+			float sx = d.X >= 0f ? 1f : -1f, sy = d.Y >= 0f ? 1f : -1f;
+			SpriteEffects effects = sx * sy < 0f ? SpriteEffects.FlipHorizontally : SpriteEffects.None;   // the art runs down-right
+			Vector2 step = new(sx * R.RailDiagonalStep, sy * R.RailDiagonalStep);
+			int count = Math.Min(200, (int)(Math.Abs(d.X) / R.RailDiagonalStep));
+			Color color = Color.White * (0.85f * strength);
+			Vector2 half = new(cell * 0.5f);
+			for (int k = 0; k <= count; k++) {
+				Vector2 at = entry + step * k - screenPos - half;
+				spriteBatch.Draw(texture, new Vector2(MathF.Round(at.X), MathF.Round(at.Y)), null, color, 0f, Vector2.Zero, 1f, effects, 0f);
 			}
 		}
 
@@ -473,7 +547,8 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			}
 			float k = Fade * (Furious ? 1.4f : 1f);
 			Lighting.AddLight(RigPoint(R.EyesX, R.EyesY), 0.15f * k, 0.45f * k, 0.35f * k);
-			Lighting.AddLight(RigPoint(R.LanternX, R.LanternY), 0.2f * k, 0.6f * k, 0.45f * k);
+			float flare = throwTick >= 0 && throwTick <= ThrowWindup + 6 ? 1f + throwTick / (float)ThrowWindup : 1f;   // the attack's glow
+			Lighting.AddLight(LanternPoint, 0.2f * k * flare, 0.6f * k * flare, 0.45f * k * flare);
 			Lighting.AddLight(RigPoint(R.ExhaustX, R.ExhaustY), 0.1f * k, 0.35f * k, 0.25f * k);
 			if (Main.rand.NextBool(Furious ? 4 : 10) && CogpunkClientConfig.RollEffect()) {
 				Mist(RigPoint(R.ExhaustX, R.ExhaustY + 8), 1);
@@ -583,7 +658,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 
 		private static readonly string[] ShellGores = { "CursedConductor_GoreCap", "CursedConductor_GoreLantern", "CursedConductor_GoreTurbine" };
 
-		public override void HitEffect(NPC.HitInfo hit) {
+		protected override void BossHitEffect(NPC.HitInfo hit) {
 			if (Main.dedServ) {
 				return;
 			}

@@ -35,6 +35,9 @@ namespace Cogpunk.Core.Templates
 		/// <summary>Px between the sheet's cells (the generators leave 1 art px = 2 game px).</summary>
 		protected virtual int CellPadding => 2;
 
+		/// <summary>Columns the grid sheets wrap into (1: one tall column).</summary>
+		protected virtual int Columns => 1;
+
 		/// <summary>The far, near and glow sheets of this type (static per type, loaded on clients).</summary>
 		protected abstract Asset<Texture2D> FarSheet { get; }
 		protected abstract Asset<Texture2D> NearSheet { get; }
@@ -126,10 +129,10 @@ namespace Cogpunk.Core.Templates
 			int frame = dummy ? 0 : Frame;
 			Texture2D middle = TextureAssets.Npc[Type].Value;
 			DepthLayers.DrawWalker(spriteBatch, FarSheet?.Value, middle, NearSheet?.Value, frame, CellWidth, CellHeight,
-				CellPadding, OriginX, OriginY, anchor, light, flip, dummy ? 0f : MaxParallax, scale);
+				CellPadding, OriginX, OriginY, anchor, light, flip, dummy ? 0f : MaxParallax, scale, Columns);
 			float glow = GlowStrength;
 			if (glow > 0f && GlowSheet?.IsLoaded == true) {
-				DepthLayers.DrawCell(spriteBatch, GlowSheet.Value, frame, 1, CellWidth, CellHeight, CellPadding, OriginX, OriginY,
+				DepthLayers.DrawCell(spriteBatch, GlowSheet.Value, frame, Columns, CellWidth, CellHeight, CellPadding, OriginX, OriginY,
 					anchor, 0, Color.White * glow * NPC.Opacity, flip, scale);
 			}
 			DrawExtras(spriteBatch, anchor, light, flip, scale, dummy);
