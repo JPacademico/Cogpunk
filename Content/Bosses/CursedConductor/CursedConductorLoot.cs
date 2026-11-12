@@ -14,7 +14,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 	/// 2026-11-09 the <see cref="CursedTrainWhistle"/>, user-set: "a new weapon to the cursed conductor weapon pool"); the bag always holds the
 	/// <see cref="BottleOfLostSouls"/> (his Expert item, user-set 2026-11-06) and adds the coins of his value, as vanilla
 	/// bags do. Lesser loot goes through <see cref="CursedConductor.BossLoot"/> (Healing Potions). Refights:
-	/// Friendobô sells the <see cref="CursedWhistle"/> once he is beaten (the rule for every boss's summon).
+	/// The Friendo-bot sells the <see cref="CursedWhistle"/> once he is beaten (the rule for every boss's summon).
 	/// </summary>
 	public static class CursedConductorLoot
 	{

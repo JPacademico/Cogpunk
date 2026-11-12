@@ -3,19 +3,25 @@ namespace Cogpunk.Content.Coghaven.NPCs
 {
 	/// <summary>The Jade Golem's grid sheets (game px, left-facing): far, middle, near planes and the glow, equal cells in
 	/// Columns columns, 2 px between them; the origin is the ground point under his hips. Each sequence is Name .. Name +
-	/// NameFrames - 1. Aim frame k points the near arm AimMinDegrees + k x AimStepDegrees below forward (-90 straight up).</summary>
+	/// NameFrames - 1. While he aims, the body is frame AimBody and the near arm comes from the arm sheets (_Arm, _ArmGlow):
+	/// arm frame k points it ArmMinDegrees + k x ArmStepDegrees below forward (-90 straight up), drawn over the middle
+	/// plane and under the near one.</summary>
 	public static class JadeGolemRigData
 	{
-		public const int CellWidth = 216, CellHeight = 156, OriginX = 108, OriginY = 154, Frames = 33, Columns = 3;
-		public const int Walk = 0, WalkFrames = 16, Idle = 16, IdleFrames = 4, Aim = 20, AimFrames = 13;
-		public const int AimMinDegrees = -90, AimStepDegrees = 15;
+		public const int CellWidth = 140, CellHeight = 120, OriginX = 70, OriginY = 118, Frames = 21, Columns = 3;
+		public const int Walk = 0, WalkFrames = 16, Idle = 16, IdleFrames = 4, AimBody = 20;
+		public const int ArmFrames = 37, ArmMinDegrees = -90, ArmStepDegrees = 5, ArmColumns = 8;
+		/// <summary>The arm sheets' cells: the arm's reach only; their origin is the same ground point (below the cell).</summary>
+		public const int ArmCellWidth = 92, ArmCellHeight = 136, ArmOriginX = 104, ArmOriginY = 150;
 		/// <summary>The near shoulder, game px from the origin (left-facing): the aim is measured from here.</summary>
 		public const int ShoulderX = -36, ShoulderY = -82;
+		/// <summary>Game px from the shoulder, along the arm, to where the ray leaves the open palm (every angle).</summary>
+		public const float PalmReach = 62.0f;
 		/// <summary>Game px a planted foot slides back per walk frame: the walk frame advances with this much distance
 		/// walked, so the planted foot never slips (the Jaeger's root motion).</summary>
 		public const int WalkStep = 3;
-		/// <summary>Where the ray leaves his fist in each aim frame, game px from the origin (left-facing).</summary>
-		public static readonly int[] MuzzleX = { -36, -55, -72, -87, -99, -106, -108, -106, -99, -87, -72, -55, -36 };
-		public static readonly int[] MuzzleY = { -154, -152, -145, -133, -118, -101, -82, -63, -46, -31, -19, -12, -10 };
+		/// <summary>Where the ray leaves the palm in each arm frame, game px from the origin (left-facing).</summary>
+		public static readonly int[] MuzzleX = { -36, -41, -47, -52, -57, -62, -67, -72, -76, -80, -83, -87, -90, -92, -94, -96, -97, -98, -98, -98, -97, -96, -94, -92, -90, -87, -83, -80, -76, -72, -67, -62, -57, -52, -47, -41, -36 };
+		public static readonly int[] MuzzleY = { -144, -144, -143, -142, -140, -138, -136, -133, -129, -126, -122, -118, -113, -108, -103, -98, -93, -87, -82, -77, -71, -66, -61, -56, -51, -46, -42, -38, -35, -31, -28, -26, -24, -22, -21, -20, -20 };
 	}
 }

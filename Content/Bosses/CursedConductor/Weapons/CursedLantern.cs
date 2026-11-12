@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
@@ -15,7 +16,8 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 	/// close"). Held out in the hand toward the cursor, as vanilla's spell tomes are (user, 2026-11-09: "the lantern mage
 	/// weapon should not be used on the player head! the player should use on the hand (smaller lantern) like default
 	/// terraria books are used"; it was held up over the head, and redrawn smaller), it lets a soul go at the cursor from
-	/// its glass: a <see cref="SoulFire"/>.
+	/// its glass: a <see cref="SoulFire"/>; at most <see cref="SoulFire.MaxSouls"/> at once, the oldest fading when a new one
+	/// goes over (user-set 2026-11-10b).
 	/// <para>The Conductor is fought at the Wall of Flesh's tier (T5 in docs/balance; its anchor the Laser Rifle: 29 damage, 12
 	/// use time, 8 mana): <see cref="Damage"/> damage, <see cref="UseTime"/> use time, <see cref="Mana"/> mana, the base 4%
 	/// crit. Balance: docs/balance/weapons.csv. Art: art/bosses/cursedconductor/make_cursed_lantern_art.py.</para>
@@ -49,6 +51,8 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 			Item.value = Item.sellPrice(gold: 2);
 			Item.rare = ItemRarityID.LightRed;              // the Wall of Flesh's drops' rarity
 		}
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SoulFire.MaxSouls);
 
 		public override Vector2? HoldoutOffset() => Holdout;
 

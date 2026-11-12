@@ -22,7 +22,7 @@ Writes:
                                               then the train through the player's position (down to his side, then up).
     2026-11-09_boss-cursed-conductor-sprites.png     all his frames over dark and light (the new rest, whistle, call, point,
                                               tip and dying poses), the lantern's halo frames, the diagonal track piece.
-    2026-11-09_weapon-cursed-train-whistle.gif       the Cursed Train Whistle: the first blow calls the little ghost engine,
+    2026-11-10_weapon-cursed-train-whistle.gif       (re-rendered 2026-11-10 in the boss train's colours) the Cursed Train Whistle: the first blow calls the little ghost engine,
                                               which floats round its owner; three more blows hitch on three wagons; then
                                               a target dummy in reach: the train runs through it, turns and runs through
                                               again, every segment hitting once a pass (GhostTrainEngine.Steer and
@@ -400,7 +400,9 @@ def sprites_png(out, font):
 # 5. The Cursed Train Whistle
 # ================================================================================================
 class MiniTrain:
-    """GhostTrainEngine.Steer / Record / PlaceWagons step for step (the owner's side)."""
+    """GhostTrainEngine.UpdateRun / Steer / Record / PlaceWagons step for step (the owner's side), with the 2026-11-09
+    runs: home -> charge -> through (straight on until the last wagon is PassExit past the enemy) -> home again, hurting
+    only in the charge and through, each segment's hit on an enemy FalloffPerHit times the one before it that run."""
     ENGINE = [load(WEP + "GhostTrainEngine.png"), load(WEP + "GhostTrainEngine_Glow.png")]
     CAR = [load(WEP + "GhostTrainWagon.png"), load(WEP + "GhostTrainWagon_Glow.png")]
 
@@ -409,14 +411,61 @@ class MiniTrain:
         self.trail = []                                            # newest last
         self.wagons = 0
         self.places = []
+        self.mode = "idle"
+        self.run, self.charge_ticks, self.past = 0, 0, 0.0
+        self.hit_run, self.hit_count = {}, {}
+
+    def home(self, owner):
+        return (owner[0], owner[1] - KW["OrbitHeight"])
+
+    def length(self):
+        return 0.0 if self.wagons <= 0 else KW["FirstSpacing"] + (self.wagons - 1) * KW["Spacing"]
+
+    def update_run(self, owner, target):
+        hx, hy = self.home(owner)
+        near_home = (hx - self.x) ** 2 + (hy - self.y) ** 2 < KW["HomeRadius"] ** 2
+        nxt = self.mode
+        if self.mode == "charge":
+            self.charge_ticks += 1
+            if target is None or self.charge_ticks > KW["ChargeTimeout"]:
+                nxt = "return"
+            elif (target[0] - self.x) ** 2 + (target[1] - self.y) ** 2 < KW["PassThrough"] ** 2:
+                nxt, self.past = "through", 0.0
+        elif self.mode == "through":
+            self.past += math.hypot(self.vx, self.vy)
+            if self.past >= KW["PassThrough"] + KW["PassExit"] + self.length():
+                nxt = "return"
+        elif self.mode == "return":
+            if near_home:
+                nxt = "charge" if target is not None else "idle"
+        elif target is not None:
+            nxt = "charge" if near_home else "return"
+        if nxt != self.mode:
+            if nxt == "charge":
+                self.run += 1
+                self.charge_ticks = 0
+            self.mode = nxt
+
+    def hurting(self):
+        return self.mode in ("charge", "through")
+
+    def hit_scale(self, npc):
+        if self.hit_run.get(npc) != self.run:
+            self.hit_run[npc], self.hit_count[npc] = self.run, 0
+        scale = KW["FalloffPerHit"] ** self.hit_count[npc]
+        self.hit_count[npc] += 1
+        return scale
 
     def steer(self, owner, target, tick):
+        self.update_run(owner, target)
         speed = math.hypot(self.vx, self.vy)
         angle = math.atan2(self.vy, self.vx) if speed > 0.01 else 0.0
-        if target is not None:
+        if self.mode == "charge" and target is not None:
             goal, want, turn = target, KW["ChargeSpeed"], KW["ChargeTurn"]
-            if (goal[0] - self.x) ** 2 + (goal[1] - self.y) ** 2 < KW["PassThrough"] ** 2:
-                turn = 0.0
+        elif self.mode == "through":
+            goal, want, turn = (self.x + self.vx, self.y + self.vy), KW["ChargeSpeed"], 0.0
+        elif self.mode == "return":
+            goal, want, turn = self.home(owner), KW["ReturnSpeed"], KW["ChargeTurn"]
         else:
             t = tick * KW["OrbitRate"]
             goal = (owner[0] + math.cos(t) * KW["OrbitRadius"], owner[1] - KW["OrbitHeight"] + math.sin(t) * KW["OrbitRadius"] * KW["OrbitFlatten"])
@@ -501,9 +550,11 @@ def scene_train(out, font):
     total_hits = [0]
     notes = [(0, "Cursed Train Whistle (%d damage a segment, %d mana): the first blow calls the engine (1 slot)" % (KW["Damage"], KW["Mana"])),
              (90, "every further blow hitches on a wagon (1 slot each), like the Stardust Dragon; it floats round its owner"),
-             (dummy_at, "an enemy in reach: it runs straight through, turns (%.2f rad/tick) and runs through again" % KW["ChargeTurn"]),
-             (dummy_at + 150, "every segment hits once a pass (%d-tick immunity each): %d per wagon" % (KW["HitCooldown"], KW["Damage"]))]
-    for tick in range(560):
+             (dummy_at, "an enemy in reach: it charges from its owner and runs straight through (2026-11-09: one run)"),
+             (dummy_at + 70, "then it flies home before charging again (a nerf: it used to turn and pass again)"),
+             (dummy_at + 150, "each segment that hits the enemy in a run: 12%% less than the one before (%d, %d, %d, %d)" % tuple(
+                 int(KW["Damage"] * KW["FalloffPerHit"] ** k) for k in range(4)))]
+    for tick in range(590):
         if tick == blows[0]:
             train = MiniTrain(owner[0], owner[1] - KW["OrbitHeight"], KW["IdleSpeed"])
         elif tick in blows[1:] and train is not None:
@@ -516,10 +567,11 @@ def scene_train(out, font):
                 for k, (at, h, engine) in enumerate(train.segments()):
                     length = KW["EngineLength"] if engine else KW["CarLength"]
                     radius = KW["EngineRadius"] if engine else KW["CarRadius"]
-                    if capsule_hits(at, h, length, radius, box) and tick - cooldowns.get(k, -999) >= KW["HitCooldown"]:
+                    if train.hurting() and capsule_hits(at, h, length, radius, box) and tick - cooldowns.get(k, -999) >= KW["HitCooldown"]:
                         cooldowns[k] = tick
                         total_hits[0] += 1
-                        pops.append((tick, dummy[0] - 8 + (k % 3) * 8, dummy[1] - 60 - (k % 2) * 12, str(int(KW["Damage"])), AETHER))
+                        dmg = int(KW["Damage"] * train.hit_scale(0))
+                        pops.append((tick, dummy[0] - 14 + (k % 3) * 12, dummy[1] - 58 - (k % 4) * 11, str(dmg), GHOST))
         if tick % TPF:
             continue
         img = bg.copy()
@@ -538,25 +590,27 @@ def scene_train(out, font):
         note = [n for (t0, n) in notes if tick >= t0][-1]
         gif.text(img, (8, 6), note)
         slots = 0 if train is None else 1 + train.wagons
-        gif.text(img, (8, H - 22), "slots used: %d (engine + %d wagons) | segment hits on the dummy: %d" % (slots, 0 if train is None else train.wagons, total_hits[0]),
-                 fill=STEAM)
+        gif.text(img, (8, H - 22), "slots used: %d (engine + %d wagons) | run: %s | segment hits on the dummy: %d" % (
+            slots, 0 if train is None else train.wagons, "-" if train is None else train.mode, total_hits[0]), fill=STEAM)
         gif.push(img)
     gif.save(out)
 
 
 def measure_passes():
-    """The pass period on a still 32x48 target (GhostTrainEngine.PassTicks): the engine's hits after the first few."""
+    """A run's length (GhostTrainEngine.PassTicks): the engine alone, its owner still, a still 32x48 target 20 tiles out;
+    the ticks between the engine's hits after the first few."""
     owner = (0.0, 0.0)
-    tr = MiniTrain(-300.0, -100.0, KW["IdleSpeed"])
-    target = (0.0, 0.0)
+    tr = MiniTrain(0.0, -KW["OrbitHeight"], KW["IdleSpeed"])
+    target = (320.0, -21.0)
     hits, last = [], -999
     for tick in range(60 * 30):
         tr.steer(owner, target, tick)
         at, h, _ = next(tr.segments())
-        if capsule_hits(at, h, KW["EngineLength"], KW["EngineRadius"], (-16, -24, 16, 24)) and tick - last >= KW["HitCooldown"]:
+        box = (target[0] - 16, target[1] - 24, target[0] + 16, target[1] + 24)
+        if tr.hurting() and capsule_hits(at, h, KW["EngineLength"], KW["EngineRadius"], box) and tick - last >= KW["HitCooldown"]:
             hits.append(tick)
             last = tick
-    gaps = [b - a for a, b in zip(hits, hits[1:])][3:]
+    gaps = [b - a for a, b in zip(hits, hits[1:])][2:]
     return sum(gaps) / max(1, len(gaps))
 
 
@@ -604,7 +658,7 @@ def main():
             ("whistle", lambda: scene_whistle(os.path.join(args.out, "2026-11-09_boss-cursed-conductor-whistle.gif"), args.font)),
             ("diagonal", lambda: scene_diagonal(os.path.join(args.out, "2026-11-09_boss-cursed-conductor-diagonal.gif"), args.font)),
             ("sprites", lambda: sprites_png(os.path.join(args.out, "2026-11-09_boss-cursed-conductor-sprites.png"), args.font)),
-            ("train", lambda: scene_train(os.path.join(args.out, "2026-11-09_weapon-cursed-train-whistle.gif"), args.font)),
+            ("train", lambda: scene_train(os.path.join(args.out, "2026-11-10_weapon-cursed-train-whistle.gif"), args.font)),
             ("items", lambda: items_png(os.path.join(args.out, "2026-11-09_items-jade-brass-lawhat.png"), args.font)),
             ("passes", lambda: print("train pass period: %.1f ticks (PassTicks %d)" % (measure_passes(), KW["PassTicks"])))]
     only = set(args.only.split(",")) if args.only else None

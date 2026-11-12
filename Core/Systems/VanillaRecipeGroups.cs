@@ -16,6 +16,9 @@ namespace Cogpunk.Core.Systems
 		/// <summary>Copper Bar or Tin Bar.</summary>
 		public const string CopperBar = nameof(ItemID.CopperBar);
 
+		/// <summary>Silver Bar or Tungsten Bar (2026-11-09: the Jade Staff, so every world can make it).</summary>
+		public const string SilverBar = nameof(ItemID.SilverBar);
+
 		/// <summary>Gold Bar or Platinum Bar.</summary>
 		public const string GoldBar = nameof(ItemID.GoldBar);
 		/// <summary>The Musket or The Undertaker (the evil biomes' twin guns: a Crimson world has no Musket).</summary>
@@ -26,6 +29,9 @@ namespace Cogpunk.Core.Systems
 			RecipeGroup.RegisterGroup(CopperBar, new RecipeGroup(
 				() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.CopperBar)}",
 				ItemID.CopperBar, ItemID.TinBar));
+			RecipeGroup.RegisterGroup(SilverBar, new RecipeGroup(
+				() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.SilverBar)}",
+				ItemID.SilverBar, ItemID.TungstenBar));
 			RecipeGroup.RegisterGroup(GoldBar, new RecipeGroup(
 				() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.GoldBar)}",
 				ItemID.GoldBar, ItemID.PlatinumBar));

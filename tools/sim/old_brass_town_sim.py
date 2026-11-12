@@ -40,6 +40,8 @@ sys.path.insert(0, HERE)
 from terrain import load_frames, render, TILE, STRIDE  # noqa: E402
 
 PASS = "Content/OldBrassTown/Generation/OldBrassTownPass.cs"
+STONE_W, STONE_H = 4, 6                                   # Content/Secrets/FundamentalStoneTile.cs Width, Height
+STONE_SHEET = "Content/Secrets/FundamentalStoneTile.png"
 BLUEPRINTS = "Content/OldBrassTown/Generation/OldBrassTownBlueprints.cs"
 T = "Content/OldBrassTown/"
 SOLID = set("sobpHh")                                     # town blocks and the hive stand-ins
@@ -182,6 +184,7 @@ class Town:
         self.bury_cache()
         self.dig(-1)
         self.dig(1)
+        self.place_stone()
         self.area = (self.left, self.top, self.right - self.left + 1, self.bottom - self.top + 1)
 
     def noise(self, count, amplitude):
@@ -467,6 +470,44 @@ class Town:
             dug += 1
         self.tunnels.append(dug)
 
+    # --- OldBrassTownPass.PlaceFundamentalStone (2026-11-10): Westworld's stone in a niche at the street's west end ------
+    def place_stone(self):
+        k = self.k
+        self.stone = None
+        cols = [self.left + i for i in range(len(self.air_top)) if self.is_street(i)]
+        if not cols:
+            return
+        west, w, h = cols[0], STONE_W, STONE_H
+        for attempt in range(k["StoneNicheAttempts"]):
+            sx = west - w + attempt
+            x0, x1, y0, y1 = sx - 1, sx + w, self.floor - h - 1, self.floor - 1
+            if not self.niche_fits(x0, x1, y0, y1):
+                continue
+            for x in range(x0, x1 + 1):
+                for y in range(y0, y1 + 1):
+                    self.tile[y][x] = None
+                    self.water.discard((x, y))
+                    if self.wall[y][x] is None:
+                        self.wall[y][x] = "bsw"
+            for x in range(sx, sx + w):
+                for y in range(self.floor - h, self.floor):
+                    self.occupied[(x, y)] = "stone"
+            self.stone = (sx, self.floor, attempt)
+            return
+
+    def niche_fits(self, x0, x1, y0, y1):
+        for x in range(x0 - 2, x1 + 3):
+            for y in range(y0 - 2, y1 + 3):
+                if not (0 <= x < self.W and 0 <= y < self.H) or not self.in_footprint(x, y):
+                    return False
+        for x in range(x0, x1 + 1):
+            for y in range(y0, y1 + 1):
+                if self.tile[y][x] not in (None, "s", "o") or (x, y) in self.occupied:
+                    return False
+            if self.tile[self.floor][x] not in SOLID:
+                return False
+        return True
+
 
 # ================================================================================================
 # Rendering
@@ -575,6 +616,18 @@ def furniture_sprite(kind, cache={}):
     return cache[kind]
 
 
+def stone_sprite(style, glow=True):
+    """A Fundamental Stone of `style` reassembled from its tile sheet (16 px tiles on an 18 px stride), its glow on top."""
+    out = Image.new("RGBA", (STONE_W * TILE, STONE_H * TILE), (0, 0, 0, 0))
+    for path in (STONE_SHEET, STONE_SHEET.replace(".png", "_Glow.png")) if glow else (STONE_SHEET,):
+        sheet = Image.open(os.path.join(ROOT, path)).convert("RGBA")
+        for ty in range(STONE_H):
+            for tx in range(STONE_W):
+                fx, fy = (style * STONE_W + tx) * 18, ty * 18
+                out.alpha_composite(sheet.crop((fx, fy, fx + 16, fy + 16)), (tx * TILE, ty * TILE))
+    return out
+
+
 def draw_town(town, lit=False):
     """The whole patch at 16 px a tile: walls, water, blocks, platforms and beams, furniture; optionally torch-lit."""
     frames = load_frames(os.path.join(ROOT, "art/templates/terrain_exposure.json"))
@@ -630,6 +683,9 @@ def draw_town(town, lit=False):
                 img.alpha_composite(plat, (x * TILE, y * TILE))
             elif town.tile[y][x] == "beam":
                 img.alpha_composite(beam, (x * TILE, y * TILE))
+    if getattr(town, "stone", None):
+        sx, floor, _ = town.stone
+        img.alpha_composite(stone_sprite(1), (sx * TILE, (floor - STONE_H) * TILE))
     for kind, x, y in town.pieces:
         if kind == "G":
             img.alpha_composite(strongbox_sprite(locked=True), (x * TILE, (y - 1) * TILE))
@@ -854,7 +910,7 @@ def main():
     if args.sweep:
         k = constants(PASS)
         for hive, label in ((320, "small"), (484, "medium"), (640, "large")):
-            counts, skipped, spikes, vaults, caches = {}, 0, 0, 0, 0
+            counts, skipped, spikes, vaults, caches, stones, shifts = {}, 0, 0, 0, 0, 0, {}
             for s in range(args.sweep):
                 t = Town(k, bps, order, s, hive)
                 counts[len(t.built)] = counts.get(len(t.built), 0) + 1
@@ -862,16 +918,22 @@ def main():
                 spikes += t.spikes
                 vaults += t.vault is not None
                 caches += t.cache is not None
+                if t.stone:
+                    stones += 1
+                    shifts[t.stone[2]] = shifts.get(t.stone[2], 0) + 1
             print("%s world (hive %d): %dx%d cavern; buildings built per seed %s; furniture skipped %d; stalactites %.1f a town; "
-                  "strongbox %d/%d, buried cache %d/%d" % (label, hive, t.width, t.height, dict(sorted(counts.items())), skipped,
-                                                          spikes / args.sweep, vaults, args.sweep, caches, args.sweep))
+                  "strongbox %d/%d, buried cache %d/%d, Fundamental Stone %d/%d (niche shifted east by %s)" % (
+                      label, hive, t.width, t.height, dict(sorted(counts.items())), skipped, spikes / args.sweep, vaults, args.sweep,
+                      caches, args.sweep, stones, args.sweep, dict(sorted(shifts.items()))))
         for hive in (140, 180, 240):                      # the smallest deserts the town accepts (MinHiveWidth)
-            vaults = caches = 0
+            vaults = caches = stones = 0
             for s in range(args.sweep):
                 t = Town(k, bps, order, s, hive)
                 vaults += t.vault is not None
                 caches += t.cache is not None
-            print("hive %d: %dx%d cavern; strongbox %d/%d, buried cache %d/%d" % (hive, t.width, t.height, vaults, args.sweep, caches, args.sweep))
+                stones += t.stone is not None
+            print("hive %d: %dx%d cavern; strongbox %d/%d, buried cache %d/%d, Fundamental Stone %d/%d" % (
+                hive, t.width, t.height, vaults, args.sweep, caches, args.sweep, stones, args.sweep))
         sys.exit(0)
     if args.chests:
         chests_png(os.path.join(args.out, "2026-11-04_oldbrasstown-chests.png"), args.font, args.seed)

@@ -46,6 +46,8 @@ ROOT = os.getcwd()
 OUT = "Content/Gems/"
 for _k, _c in enumerate(RAMP["ghost"]):                # the jade ramp as digits: 0 (outline) .. 5 (shine)
     make_scrap_art.PAL[str(_k)] = _c
+for _k, _c in zip("KLMNOP", RAMP["crimson"]):          # crimson as K (outline) .. P (lightest): the staff's red (2026-11-10)
+    make_scrap_art.PAL[_k] = _c
 from make_oldbrasstown_art import Block  # noqa: E402  (imported after the digits exist)
 import make_mechanist_art as mech  # noqa: E402  (the armor template, its torso composite and crop)
 
@@ -315,7 +317,139 @@ def robe_icon(body):
 
 
 # ================================================================================================
+# ================================================================================================
+# The Jade Staff, its bolt and the curse's icons (2026-11-09)
+# ================================================================================================
+STAFF_GEM = (15.5, 4.5)                                # the jade's centre (1x, pixel edges): on the sprite's diagonal
+STAFF_GEM_R = 3.2
+STAFF_KNOB = (2.0, 18.0)                               # the crimson pommel knob's centre, on the diagonal too
+STAFF_KNOB_R = 2.0
+
+
+def staff_mirror(x, y):
+    """The staff's mirror: across the sprite's diagonal from the bottom-left corner to the top-right one (vanilla holds a
+    staff by that corner and turns it along the aim, so this line is the aim)."""
+    return 19 - y, 19 - x
+
+
+def staff():
+    """20x20, pointing top-right like vanilla's gem staffs (vanilla draws staffs turned 45 degrees, held by the bottom-left
+    corner; redrawn 2026-11-10, user: "the jade staff should look more like a terraria gem staffs only with a brass and
+    red detail on the staff and the jade gem on the tip"; 2026-11-10b, user: "the gem on the jade staff is not centered"):
+    everything is laid symmetric about the sprite's diagonal (<see staff_mirror>), the line vanilla aims along, so the jade
+    sits dead on the aim. A slim brass rod (three pixels across: lit, mid, the dark outline), crimson grip wrap, crimson
+    band and brass rings bulging a pixel past it each side, a crimson pommel knob at the hand's end, a brass collar under
+    the head and a two-pronged brass claw (the upper prong lit, its mirror shaded) cradling a faceted jade lit from the
+    top-left. 16 colours (D4 rule 5: items 16 at most)."""
+    c = Canvas(20, 20)
+    # Across the rod t = x + y (the axis is t = 19: the diagonal), along it s = x - y (the hand's end -12, the collar 6).
+    rod = {18: "E", 19: "D", 20: "B"}
+    wide = {"ring": ("D", "G", "F", "E", "B"), "red": ("L", "O", "N", "M", "K"), "turn": ("K", "M", "L", "L", "K")}
+
+    def part(s):
+        if s in (-12, -11) or s in (-4, -3) or 5 <= s <= 6:
+            return "ring"                                          # brass rings and the collar
+        if -10 <= s <= -5:
+            return "turn" if s % 3 == 0 else "red"                 # the crimson grip wrap, a darker turn every third step
+        if 2 <= s <= 3:
+            return "red"                                           # the crimson band under the head
+        return "rod"
+
+    for y in range(20):
+        for x in range(20):
+            t, s = x + y, x - y
+            if not -12 <= s <= 6:
+                continue
+            kind = part(s)
+            if kind == "rod":
+                if 18 <= t <= 20:
+                    c.set(x, y, rod[t])
+            elif 17 <= t <= 21:
+                c.set(x, y, wide[kind][t - 17])
+    kx, ky = STAFF_KNOB                                            # the pommel knob, lit from the top-left
+    knob = {(x, y) for y in range(14, 20) for x in range(0, 6) if math.hypot(x + 0.5 - kx, y + 0.5 - ky) <= STAFF_KNOB_R}
+    for (x, y) in knob:
+        edge = any((x + dx, y + dy) not in knob for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        t = (x + 0.5 - kx) + (y + 0.5 - ky)
+        c.set(x, y, ("M" if t < -1.2 else "K") if edge else ("P" if t < -0.5 else ("N" if t < 0.5 else "M")))
+    # the claw: a prong up the jade's upper-left flank from the collar, its tip curled over the top; the same mirrored
+    prong_body, prong_outline, prong_tip = ((11, 5), (11, 4), (11, 3)), ((10, 5), (10, 4), (10, 3), (11, 2)), (12, 2)
+    for (x, y) in prong_outline:
+        c.set(x, y, "B")
+        c.set(*staff_mirror(x, y), "B")
+    for (x, y) in prong_body:
+        c.set(x, y, "F")
+        c.set(*staff_mirror(x, y), "D")
+    c.set(*prong_tip, "E")
+    c.set(*staff_mirror(*prong_tip), "D")
+    gx, gy = STAFF_GEM                                             # the jade, faceted, lit from the top-left
+    gem = {(x, y) for y in range(20) for x in range(20) if math.hypot(x + 0.5 - gx, y + 0.5 - gy) <= STAFF_GEM_R}
+    for (x, y) in gem:
+        px, py = x + 0.5 - gx, y + 0.5 - gy
+        edge = any((x + dx, y + dy) not in gem for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        t = (px + py) / (2.0 * STAFF_GEM_R)
+        if edge:
+            c.set(x, y, "0" if t > -0.3 else "2")
+        else:
+            c.set(x, y, "4" if t < -0.25 else ("3" if t < 0.2 else "2"))
+    for (x, y, ch) in ((14, 2, "5"), (13, 3, "5"), (14, 3, "4")):   # the shine
+        c.set(x, y, ch)
+    return c
+
+
+BOLT = ["...5...",
+        "..454..",
+        ".44544.",
+        "5455545",
+        ".44544.",
+        "..454..",
+        "...5..."]
+
+
+def icon(kind):
+    """16x16 buff icons: the curse (a cracked jade gem), turned to jade (a jade bust), the ward (a jade shield)."""
+    c = Canvas(16, 16)
+    inside = set()
+    if kind == "curse":
+        inside = {(x, y) for y in range(16) for x in range(16) if abs(x - 7.5) + abs(y - 7.5) <= 7}
+    elif kind == "stone":
+        inside = {(x, y) for y in range(16) for x in range(16) if math.hypot(x - 7.5, y - 5.0) <= 4.4
+                  or (6 <= x <= 9 and 8 <= y <= 11)
+                  or (y >= 10 and ((x - 7.5) / 6.6) ** 2 + ((y - 15.5) / 5.0) ** 2 <= 1.0)}
+    else:
+        for y in range(16):
+            for x in range(16):
+                half = 6.5 if y < 8 else 6.5 * (15 - y) / 7.0
+                if 1 <= y <= 15 and abs(x - 7.5) <= half:
+                    inside.add((x, y))
+    for (x, y) in inside:
+        edge = any((x + dx, y + dy) not in inside for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        t = ((x - 7.5) + (y - 7.5)) / 12.0
+        if edge:
+            ch = ("E" if (x - 7.5) + (y - 7.5) < 0 else "D") if kind == "ward" else "0"
+        else:
+            ch = "5" if t < -0.55 else ("4" if t < -0.1 else ("3" if t < 0.35 else "2"))
+        c.set(x, y, ch)
+    if kind == "curse":                                            # the crack, and a wisp of the curse out of it
+        for (x, y) in ((8, 3), (7, 4), (8, 5), (7, 6), (7, 7), (8, 8), (9, 9), (8, 10), (8, 11)):
+            c.set(x, y, "0")
+        for (x, y) in ((10, 2), (11, 1), (12, 1)):
+            c.set(x, y, "4")
+    elif kind == "stone":                                          # the statue's eyes and mouth, carved
+        for (x, y) in ((6, 5), (9, 5), (7, 7), (8, 7)):
+            c.set(x, y, "1")
+    else:                                                          # the shield's gem
+        for (x, y, ch) in ((7, 6, "5"), (8, 6, "4"), (7, 7, "4"), (8, 7, "3"), (7, 8, "3"), (8, 8, "2")):
+            c.set(x, y, ch)
+    return c
+
+
 def export_all():
+    export(staff(), OUT + "Items/JadeStaff.png")
+    export(Canvas.from_rows(BOLT), OUT + "Projectiles/JadeBolt.png")
+    export(icon("curse"), OUT + "Buffs/JadeCurse.png")
+    export(icon("stone"), OUT + "Buffs/JadePetrified.png")
+    export(icon("ward"), OUT + "Buffs/JadeWard.png")
     export(JADE_ORE.sheet(), OUT + "Tiles/JadeTile.png")
     export(Canvas.from_rows(GEM), OUT + "Items/Jade.png")
     export(Canvas.from_rows(LARGE_GEM), OUT + "Items/LargeJade.png")

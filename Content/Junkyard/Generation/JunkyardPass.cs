@@ -181,6 +181,11 @@ namespace Cogpunk.Content.Junkyard.Generation
 			Rectangle surfaceArea = new(EdgeMargin, top, right - EdgeMargin, yardGround + 25 - top);
 			Rectangle poolArea = new(poolLeft, poolTop, poolRight - poolLeft, poolBottom - poolTop);
 			JunkyardSystem.SetBounds(surfaceArea, poolArea);
+			// the tar pit's Fundamental Stone (user, 2026-11-10): on the pool's floor, in its middle, under the tar
+			int stoneLeft = poolLeft + (poolRight - poolLeft) / 2 - Secrets.FundamentalStoneTile.Width / 2;
+			if (!Secrets.FundamentalStones.TryPlace(Secrets.FundamentalStones.TarPit, stoneLeft, poolBottom)) {
+				SafeLog.Warn("Junkyard.NoStone", "Junkyard: the tar pit's Fundamental Stone didn't fit on the pool floor at x={0}.", stoneLeft);
+			}
 			GenVars.structures?.AddProtectedStructure(strip);
 			surface = null;
 		}

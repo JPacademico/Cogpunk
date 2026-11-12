@@ -441,6 +441,16 @@ Items: {
 		Tooltip: Immunity to fall damage
 	}
 
+	Macuahuitl: {
+		DisplayName: Macuahuitl
+		Tooltip:
+			'''
+			Your first strike on each enemy deals {0}x damage ({1}x if it crits)
+			Used to craft a stronger blade
+			'Obsidian bites deepest the first time'
+			'''
+	}
+
 	MetalWrench: {
 		DisplayName: Metal Wrench
 		Tooltip:
@@ -583,6 +593,7 @@ Items: {
 			'''
 			Fires a fast brass bullet that ricochets once, off a wall or off an enemy, towards the nearest foe in sight
 			A ricochet hits for 50% more damage
+			Uses bullets: whatever the bullet, it fires its own brass round with the bullet's damage added
 			Holds {0} rounds and takes {1} seconds to reload once they are spent, even when holstered
 			Right click to fan every round left in a third of a second for {2} steam
 			'In this town, the law shoots first'
@@ -592,7 +603,7 @@ Items: {
 
 	SheriffsKey: {
 		DisplayName: Sheriff's Key
-		Tooltip: Opens the locked Brass Strongbox in Old Brass Town's bank
+		Tooltip: Opens the locked Brass Strongbox in Westworld's bank
 	}
 
 	BrassStrongbox: {
@@ -614,7 +625,7 @@ Items: {
 		Tooltip:
 			'''
 			Summons the Cursed Conductor
-			Can only be blown in Old Brass Town
+			Can only be blown in Westworld
 			'''
 	}
 
@@ -687,6 +698,31 @@ Items: {
 		Tooltip: A great cog that turns on its own, standing on two blocks.
 	}
 
+	FundamentalBrick: {
+		DisplayName: Fundamental Brick
+		Tooltip: Sea-worn stone from ruins older than the sea that wore it.
+	}
+
+	FundamentalCoral: {
+		DisplayName: Coralstone
+		Tooltip: Ruin stone the coral claimed long ago.
+	}
+
+	FundamentalRune: {
+		DisplayName: Rune Brick
+		Tooltip: Its rune still glows. Nobody remembers what it says.
+	}
+
+	FundamentalBrickWall: {
+		DisplayName: Fundamental Brick Wall
+		Tooltip: ""
+	}
+
+	FundamentalColumnWall: {
+		DisplayName: Fundamental Column Wall
+		Tooltip: Two side by side make a fluted pillar.
+	}
+
 	PalaceFlagstone: {
 		DisplayName: Palace Flagstone
 		Tooltip: Pale stone pavers from a sky palace's floors.
@@ -703,6 +739,7 @@ Items: {
 			'''
 			Lets lost souls go: slow wisps that home in on the closest enemy within 10 tiles
 			With no enemy near, they drift where they were let go
+			At most {0} souls at once: one more and the oldest fades out
 			'Every soul he collected, one fare at a time'
 			'''
 	}
@@ -734,6 +771,17 @@ Items: {
 	JadePhasesaber: {
 		DisplayName: Jade Phasesaber
 		Tooltip: ""
+	}
+
+	RedCloth: {
+		DisplayName: Red Cloth
+		Tooltip:
+			'''
+			The next enemy to touch you is sidestepped: no damage, then {1} seconds of immunity
+			Recharges for {0} seconds after each dodge
+			'Every bull charges the cloth, never the matador'
+			'''
+		Ole: Olé!
 	}
 
 	LawHat: {
@@ -775,7 +823,50 @@ Items: {
 			'''
 			Summons a little ghost train to fight for you
 			Each further blow hitches on another wagon instead
-			Every wagon hits what the train runs through
+			It charges through enemies, then returns to you before charging again
+			Each wagon that hits the same enemy in a charge deals 12% less than the one before
+			'''
+	}
+
+	Firesaw: {
+		DisplayName: Firesaw
+		Tooltip:
+			'''
+			Swing it like a greatsword: every slash comes back the other way
+			Right click to slash with the blade alight: two tiles more reach, sets enemies On Fire! for {1} seconds, {0} steam a swing
+			'Pull the cord, pump the fuel, mind the fingers'
+			'''
+	}
+
+	JadeStaff: {
+		DisplayName: Jade Staff
+		Tooltip:
+			'''
+			Casts a weaving bolt of jade magic that homes in on enemies turned to jade
+			Each hit lays a jade curse: {0}% slower attacks per stack
+			At {1} stacks the enemy turns to jade for {2} seconds, then can't be cursed for {3} seconds
+			Bosses and mini-bosses need {4} stacks, and turn to jade at most {5} times a fight
+			'''
+	}
+
+	DiamondCutter: {
+		DisplayName: Diamond Cutter
+		Tooltip:
+			'''
+			Fires an instant, precise diamond beam that pierces up to {0} enemies
+			Ignores {1}% of enemy defense
+			Uses no ammo
+			'''
+	}
+
+	BarrelGun: {
+		DisplayName: Barrel Gun
+		Tooltip:
+			'''
+			Flings fish
+			{0}% chance to stun a common enemy
+			Cannot critically strike
+			In the rain or under water: +{1}% damage, and the fish home in on enemies
 			'''
 	}
 }
@@ -794,6 +885,11 @@ Buffs: {
 	TarPlague: {
 		DisplayName: Tar Plague
 		Description: Steaming tar is eating through you. Get out!
+	}
+
+	RedClothCooldown: {
+		DisplayName: Folding the Cloth
+		Description: Your Red Cloth can't dodge again yet
 	}
 
 	TetanusDebuff: {
@@ -845,6 +941,26 @@ Buffs: {
 		DisplayName: Ghost Train
 		Description: A little ghost train runs with you
 	}
+
+	JadeCurse: {
+		DisplayName: Jade Curse
+		Description: "{0}% slower attacks per stack; turns to jade at {1} stacks"
+	}
+
+	JadePetrified: {
+		DisplayName: Petrified in Jade
+		Description: Frozen in jade: no moving, no attacking
+	}
+
+	JadeWard: {
+		DisplayName: Jade Ward
+		Description: The jade curse can't take hold again yet
+	}
+
+	Stunned: {
+		DisplayName: Stunned
+		Description: Seeing stars
+	}
 }
 
 NPCs: {
@@ -855,6 +971,11 @@ NPCs: {
 		CacheGuarded: The cache won't budge. Something is still guarding it...
 		KeyDropped: A chewed-up key clatters out of the wreck...
 		CacheLocked: The cache is locked tight. Trash-Tr0m's Lost Key opens it.
+	}
+
+	DeliveryDrone: {
+		DisplayName: Delivery Drone
+		Bestiary: A delivery drone that lost its route and found a new trade. It circles anything left lying on the ground, scans it for five long seconds and flies off with it in its claw. It is all cardboard and bluster: shoot it down and whatever it took falls back out.
 	}
 
 	RustCollector: {
@@ -928,7 +1049,7 @@ NPCs: {
 	}
 
 	Friendobo: {
-		DisplayName: Friendobô
+		DisplayName: Friendo-bot
 		Bestiary: An old bartender robot in a top hat and a monocle. He kept a saloon somewhere long ago, and he is still polishing the same glass. He moved in once the Mech Army stopped marching, and he trades in scrap and in the trinkets that wake the big machines.
 		Chat1: Welcome, welcome! Mind the floor, I polished it this century.
 		Chat2: What'll it be? I've got rusted cogs, rusted scrap and more rusted cogs.
@@ -947,12 +1068,12 @@ NPCs: {
 
 	BrassBandit: {
 		DisplayName: Brass Bandit
-		Bestiary: An outlaw robot of dusty brass that still holds up the streets of Old Brass Town. It shoots on sight, fans all six chambers of its rusty revolver, then turns tail and runs to reload. Even a bandit knows when it is out of bullets.
+		Bestiary: An outlaw robot of dusty brass that still holds up the streets of Westworld. It shoots on sight, fans all six chambers of its rusty revolver, then turns tail and runs to reload. Even a bandit knows when it is out of bullets.
 	}
 
 	Sheriff: {
 		DisplayName: Sheriff
-		Bestiary: The last lawman of Old Brass Town, still keeping the peace long after the townsfolk left. Three sheriff stars ride over his hat; he throws them one at a time at whoever breaks the law, and the ones that miss bite into the walls until he calls them home, straight through anyone in the way. His revolver is the only clean thing left in town. He never runs, not even to reload.
+		Bestiary: The last lawman of Westworld, still keeping the peace long after the townsfolk left. Three sheriff stars ride over his hat; he throws them one at a time at whoever breaks the law, and the ones that miss bite into the walls until he calls them home, straight through anyone in the way. His revolver is the only clean thing left in town. He never runs, not even to reload.
 	}
 
 	MechanicalBull: {
@@ -968,22 +1089,25 @@ NPCs: {
 	CursedConductor: {
 		DisplayName: Cursed Conductor
 		Epithet: The Last Stop
-		Bestiary: The conductor of the line that once ran under Old Brass Town, still keeping time for a train that left the rails a hundred years ago. The crash took his legs and the curse took the rest; a turbine bolted where his legs were pumps soot to keep him aloft, and his whistle still calls the train, and the train still comes. Leave his town and he will chase you to the end of the line.
+		Bestiary: The conductor of the line that once ran under Westworld, still keeping time for a train that left the rails a hundred years ago. The crash took his legs and the curse took the rest; a turbine bolted where his legs were pumps soot to keep him aloft, and his whistle still calls the train, and the train still comes. Leave his town and he will chase you to the end of the line.
 	}
 
 	ConductorGhost: {
 		DisplayName: Cursed Ghost
 	}
 
-	ImperialDefender: {
-		DisplayName: Imperial Defender
-		Bestiary: An automaton of the jade court, still standing a watch nobody came to relieve. It marches with its dadao held up before it, and every few seconds it plants its feet and lifts the blade upright: strikes and shots from the front glance off it then. Wait it out, or get behind it.
-		Parried: Parried!
-	}
-
 	JadeGolem: {
 		DisplayName: Jade Golem
 		Bestiary: A statue carved from a single block of jade and woken by the bronze heart set in its chest. It walks slowly and hits like a landslide; when it stops and raises its fist, the light gathering there aims where you stood a moment ago. Keep moving, and move again when the line blinks.
+	}
+	RhinoBeetle: {
+		DisplayName: Rhino Beetle
+		Bestiary: A giant rhinoceros beetle of the deep jungle, rarely seen and heavily armoured, spores glowing in the veins of its shell. When it lowers its horn and scrapes the ground it will charge, and whatever its horn catches it hurls away and up into the air. Climbing out of reach will not save you: it can fly.
+	}
+
+	DragoneteMiudo: {
+		DisplayName: Dragonete Miúdo
+		Bestiary: A baby dragon of the Underworld, still more head than wings. It keeps its distance and spits bolts of fire, and if one misses it loses its temper and comes flying in to bite. Its bite is worse than its bark.
 	}
 }
 
@@ -1199,6 +1323,26 @@ Projectiles: {
 	GhostTrainWagon: {
 		DisplayName: Ghost Train Wagon
 	}
+
+	JadeBolt: {
+		DisplayName: Jade Bolt
+	}
+
+	FiresawFlame: {
+		DisplayName: Firesaw Flame
+	}
+
+	DiamondCutterBeam: {
+		DisplayName: Diamond Beam
+	}
+
+	BarrelGunFish: {
+		DisplayName: Fish
+	}
+
+	DragoneteFireBolt: {
+		DisplayName: Fire Bolt
+	}
 }
 
 Tiles: {
@@ -1260,6 +1404,40 @@ Tiles: {
 		MapEntry: Lift Turbine
 	}
 
+	FundamentalStoneTile: {
+		MapEntry: Fundamental Stone
+		Sealed: Fundamental Stone (sealed: its guardian still lives)
+		SealedSay: A primordial shield hums around the stone. Its guardian still lives.
+	}
+
+	FundamentalBrickTile: {
+		MapEntry: Fundamental Brick
+	}
+
+	FundamentalCoralTile: {
+		MapEntry: Coralstone
+	}
+
+	FundamentalRuneTile: {
+		MapEntry: Rune Brick
+	}
+
+	FundamentalKelpTile: {
+		MapEntry: Kelp
+	}
+
+	FundamentalArenaBrickTile: {
+		MapEntry: Ancient Brick
+	}
+
+	FundamentalArenaRuneTile: {
+		MapEntry: Rune Brick
+	}
+
+	FundamentalRubbleTile: {
+		MapEntry: Rubble
+	}
+
 	BronzeCogTile: {
 		MapEntry: Bronze Cog
 	}
@@ -1271,6 +1449,17 @@ Tiles: {
 	JadeTile: {
 		MapEntry: Jade
 	}
+
+	FundamentalGlyphTile: {
+		MapEntry: Rune Glyph
+		Lit: Rune Glyph (lit)
+		Awakened: Rune glyph awakened ({0}/{1})
+	}
+
+	FundamentalSealTile: {
+		MapEntry: Sealed Gate
+		Hover: Sealed Gate ({0}/{1} rune glyphs lit)
+	}
 }
 
 WorldGen: {
@@ -1280,9 +1469,10 @@ WorldGen: {
 	ScrappyTrunks: Rusting some old chests
 	GlassContainers: Hiding glass steam tanks
 	RustedNails: Dropping rusted nails in old chests
-	OldBrassTown: Building an old brass town
+	OldBrassTown: Building Westworld
 	Coghaven: Raising a jade palace into the clouds
 	Jade: Hiding jade in the caverns
+	FundamentalRuins: Sinking the Fundamental Ruins into a spider nest
 }
 
 UI: {
@@ -1308,11 +1498,15 @@ Biomes: {
 	}
 
 	OldBrassTownBiome: {
-		DisplayName: Old Brass Town
+		DisplayName: Westworld
 	}
 
 	CoghavenBiome: {
 		DisplayName: Coghaven
+	}
+
+	FundamentalRuinsBiome: {
+		DisplayName: Fundamental Ruins
 	}
 }
 
@@ -1350,5 +1544,15 @@ Events: {
 Keybinds: {
 	SteamDash: {
 		DisplayName: Steam Dash
+	}
+}
+
+Secrets: {
+	GateOpened: The sealed gate of the Fundamental Ruins grinds open!
+}
+
+Emotes: {
+	FriendoboEmote: {
+		Command: friendobot
 	}
 }

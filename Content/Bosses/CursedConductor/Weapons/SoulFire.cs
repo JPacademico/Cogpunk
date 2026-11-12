@@ -22,8 +22,10 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 	/// (<see cref="DriftSpeed"/>) and floats there, bobbing,
 	/// until one comes or its <see cref="Lifetime"/> runs out. It bursts on the first enemy it touches or on a wall.
 	/// <para>D2: the owner's projectile; every side runs the same steering from synced positions, and the owner sends an
-	/// update when its target changes. D0: finite lifetime; at most <see cref="MaxSouls"/> per player (the oldest fades
-	/// first); the target index is bounds-checked. D1: one pass over the active NPCs every <see cref="SeekInterval"/> ticks
+	/// update when its target changes. D0: finite lifetime; at most <see cref="MaxSouls"/> per player (user-set 2026-11-10b:
+	/// "only 4 projectiles from it can exist at the same time (the oldest one fades out if it exceeds)": a new soul over the
+	/// limit sets the oldest fading, <see cref="Fading"/>, synced in ai[1]: it stops seeking, deals no damage and fades over
+	/// <see cref="FadeTicks"/> on every side); the target index is bounds-checked. D1: one pass over the active NPCs every <see cref="SeekInterval"/> ticks
 	/// (or when its target is lost), no allocation; light and sparks on clients only.</para>
 	/// </summary>
 	public class SoulFire : CogpunkProjectile
@@ -34,12 +36,19 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 		public const float Turn = 0.08f;                     // how fast it bends towards its target (a lerp a tick)
 		public const float Slow = 0.985f;                    // its speed's decay a tick with no enemy near: it coasts ~14 tiles, then floats
 		public const int Lifetime = 300;                     // 5 s
-		public const int MaxSouls = 10;
+		public const int MaxSouls = 4;                       // user-set 2026-11-10b (10 before)
+		public const int FadeTicks = 30;                     // the oldest soul's fade when a new one goes over the limit
 		public const int SeekInterval = 6;
 		public const int Frames = 4, FrameTicks = 5;
 		private const int FrameW = 20, FrameH = 28;
 
 		private static Asset<Texture2D> glow;
+
+		/// <summary>ai[1] = 1: fading out, pushed over the limit by a newer soul (synced).</summary>
+		public bool Fading {
+			get => Projectile.ai[1] == 1f;
+			private set => Projectile.ai[1] = value ? 1f : 0f;
+		}
 
 		/// <summary>ai[0] = target + 1, so 0 is "none" (synced).</summary>
 		private int Target {
@@ -75,16 +84,19 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 			}
 			int count = 0, oldest = -1, oldestLeft = int.MaxValue;
 			foreach (Projectile p in Main.ActiveProjectiles) {
-				if (p.type == Type && p.owner == Projectile.owner && p.whoAmI != Projectile.whoAmI) {
+				if (p.type == Type && p.owner == Projectile.owner && p.whoAmI != Projectile.whoAmI && p.ModProjectile is SoulFire soul
+					&& !soul.Fading) {
 					count++;
-					if (p.timeLeft < oldestLeft) {
+					if (p.timeLeft < oldestLeft) {                 // every soul lives Lifetime ticks: the least left is the oldest
 						oldestLeft = p.timeLeft;
 						oldest = p.whoAmI;
 					}
 				}
 			}
-			if (count >= MaxSouls && oldest >= 0) {
-				Main.projectile[oldest].Kill();             // the oldest soul fades, so the lantern never floods the screen
+			if (count >= MaxSouls && oldest >= 0 && Main.projectile[oldest].ModProjectile is SoulFire old) {
+				old.Fading = true;                             // the oldest soul fades out (every side: ai[1] is synced)
+				Main.projectile[oldest].timeLeft = Math.Min(Main.projectile[oldest].timeLeft, FadeTicks);
+				Main.projectile[oldest].netUpdate = true;
 			}
 		}
 
@@ -113,7 +125,22 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 			return best;
 		}
 
+		/// <summary>A fading soul hurts nothing.</summary>
+		public override bool? CanDamage() => Fading ? false : null;
+
 		public override void AI() {
+			if (Fading) {
+				if (Projectile.timeLeft > FadeTicks) {
+					Projectile.timeLeft = FadeTicks;           // other sides learn of the fade from ai[1]
+				}
+				Projectile.velocity *= 0.9f;                   // it stops and gutters out where it is
+				MathSafety.Sanitize(ref Projectile.velocity);
+				if (!Main.dedServ) {
+					float glow = Projectile.timeLeft / (float)FadeTicks;
+					Lighting.AddLight(Projectile.Center, 0.32f * glow, 0.26f * glow, 0.62f * glow);
+				}
+				return;
+			}
 			int age = Lifetime - Projectile.timeLeft;
 			if (age % SeekInterval == 0 || !ValidTarget(Target)) {
 				int next = Seek();
@@ -151,6 +178,13 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 			if (Main.dedServ) {
 				return;
 			}
+			if (Fading) {                                      // faded out: a last wisp, no burst
+				if (SafeSpawn.TryNewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PurpleTorch, out Dust wisp)) {
+					wisp.noGravity = true;
+					wisp.velocity *= 0.4f;
+				}
+				return;
+			}
 			SoundEngine.PlaySound(SoundID.NPCDeath6 with { Pitch = 0.4f, Volume = 0.35f, MaxInstances = 4 }, Projectile.Center);
 			for (int i = 0; i < 8; i++) {
 				if (SafeSpawn.TryNewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PurpleTorch, out Dust d)) {
@@ -171,7 +205,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 			float bob = age / 20 % 2 * 2f;                      // a 0/2 px bob (one art pixel; never -1/+1)
 			Vector2 at = (Projectile.Center - Main.screenPosition - new Vector2(FrameW * 0.5f, FrameH * 0.5f + 4f)).Floor();
 			at.Y += bob;
-			float fade = Projectile.timeLeft < 30 ? Projectile.timeLeft / 30f : 1f;
+			float fade = Projectile.timeLeft < FadeTicks ? Projectile.timeLeft / (float)FadeTicks : 1f;
 			Main.EntitySpriteDraw(texture, at, source, Color.Lerp(lightColor, Color.White, 0.6f) * fade, 0f, Vector2.Zero, 1f, SpriteEffects.None);
 			if (glow?.IsLoaded == true) {
 				Main.EntitySpriteDraw(glow.Value, at, source, Color.White * fade, 0f, Vector2.Zero, 1f, SpriteEffects.None);

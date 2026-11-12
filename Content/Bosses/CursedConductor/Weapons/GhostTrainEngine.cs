@@ -18,11 +18,17 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 {
 	/// <summary>
 	/// The head of the <see cref="CursedTrainWhistle"/>'s ghost train (one minion slot): a little ghost engine, smaller than
-	/// the Conductor's and in the friendly colours (D3: aether-blue ghost light, brass fittings; his is ghost green with an
-	/// ember lamp). It floats round its owner (an ellipse over their head, <see cref="OrbitRadius"/>) and, with an enemy in
-	/// reach, charges it at <see cref="ChargeSpeed"/>, holding its line inside <see cref="PassThrough"/> px so it runs
-	/// straight through and turns back for another pass (at most <see cref="ChargeTurn"/> radians a tick): every segment of
-	/// the train hits on every pass.
+	/// the Conductor's and, since 2026-11-10, in his train's ghostly verdigris (user: "more ghostly blue, like the boss one";
+	/// it was aether-blue with brass fittings), only its lamp a warm brass light where his has an ember eye. It floats round
+	/// its owner (an ellipse over their head, <see cref="OrbitRadius"/>) and, with an enemy in
+	/// reach, attacks in runs (<see cref="Mode"/>): it charges from its owner at <see cref="ChargeSpeed"/> (turning at most
+	/// <see cref="ChargeTurn"/> radians a tick), holds its line once inside <see cref="PassThrough"/> px so it runs straight
+	/// through, keeps going until its last wagon is <see cref="PassExit"/> px past the enemy, then flies home and only
+	/// charges again once back within <see cref="HomeRadius"/> of its owner (user, 2026-11-09: "nerf the train summon so it
+	/// attacks a bit slower: it should go back to the player before attacking again"; it used to turn back and pass again).
+	/// It hurts only while charging, and within one run every segment that hits the same enemy deals
+	/// <see cref="FalloffPerHit"/> times the one before (user-set: "each subsequent hit from the wagons on the same enemy on
+	/// the same attack causes 12% less damage than the previous wagon": the engine 100%, the next 88%, then 77.4%...).
 	/// <para>The wagons (<see cref="GhostTrainWagon"/>, one per further blow of the whistle) are placed by the engine every
 	/// tick, in hitching order, along the path it has run (a ring of points <see cref="TrailStep"/> px apart, walked once by
 	/// arc length), so they follow its every turn as the Conductor's train does and never lag a tick behind it.</para>
@@ -30,9 +36,11 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 	/// <c>AI_121</c>, 1000 px): the owner's whip or right-click target first, else the closest chaseable enemy within
 	/// <see cref="TargetRange"/> of the owner (a ghost: no line of sight needed), re-chosen every
 	/// <see cref="RetargetInterval"/> ticks.</para>
-	/// <para>D2: <c>ai[0]</c> the target (+1, 0 for none) and <c>ai[1]</c> the next wagon's ticket, set by the owner and synced
-	/// on change, plus a sync every <see cref="SyncInterval"/> ticks (as vanilla's dragon); every client steers the same way
-	/// from them and lays its own path, so every client places the same wagons. Hits are the owner's (vanilla's friendly
+	/// <para>D2: <c>ai[0]</c> the target (+1, 0 for none), <c>ai[1]</c> the next wagon's ticket and <c>ai[2]</c> the run's
+	/// <see cref="Mode"/>, set by the owner and synced on change, plus a sync every <see cref="SyncInterval"/> ticks (as
+	/// vanilla's dragon); every client steers the same way from them and lays its own path, so every client places the same
+	/// wagons. The damage falloff is the owner's (it deals the hits): a run number and, per enemy, the run it was last hit
+	/// in and how many segments hit it then (two arrays made per engine). Hits are the owner's (vanilla's friendly
 	/// projectile rule). D0: NaN guarded, a teleport home past <see cref="TeleportDistance"/> (the path is laid straight
 	/// behind it again), at most <see cref="MaxWagons"/> wagons (more are dismissed), every index checked. D1: the path and
 	/// the wagon list are fixed arrays made per engine in <see cref="SetDefaults"/>; one pass over the projectiles a tick.</para>
@@ -53,7 +61,12 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 		public const float TargetRange = 1000f, TeleportDistance = 2000f;
 		public const int RetargetInterval = 10, SyncInterval = 120;
 		public const int HitCooldown = 20;
-		public const int PassTicks = 40;                          // measured on a still 32x48 target (tools/sim/update_2026_11_09_sim.py)
+		// the runs (2026-11-09 nerf): home within HomeRadius of the orbit's centre before each charge; out PassExit px past
+		// the enemy behind the last wagon; a charge that hasn't reached its enemy in ChargeTimeout ticks turns home
+		public const float HomeRadius = 160f, PassExit = 96f, ReturnSpeed = 18f;
+		public const int ChargeTimeout = 150;
+		public const float FalloffPerHit = 0.88f;                 // user-set: 12% less than the segment before, same enemy, same run
+		public const int PassTicks = 62;                          // a run (engine alone) on a still 32x48 target 20 tiles out (the sim; was 40)
 		// the path
 		public const float TrailStep = 4f;
 		public const int TrailPoints = 400;                       // 1600 px: the longest train is 53 + 23 x 46 = 1111 px
@@ -66,6 +79,23 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 		private int[] wagons;
 		private int retargetTimer;
 		private Vector2[] samples;                                // the path's points at each wagon's distances (ahead, at, behind)
+		// owner: the run under way and the damage falloff (per enemy: the run it was last hit in, segments that hit it then)
+		private int run, chargeTicks;
+		private float pastTarget;
+		private int[] hitRun;
+		private byte[] hitCount;
+
+		/// <summary>The attack cycle, <c>ai[2]</c> (synced): orbiting, charging, holding the line through the enemy, flying
+		/// home.</summary>
+		public enum Mode { Idle = 0, Charge = 1, Through = 2, Return = 3 }
+
+		public Mode CurrentMode {
+			get => (Mode)(int)Projectile.ai[2];
+			private set => Projectile.ai[2] = (float)value;
+		}
+
+		/// <summary>Only a run hurts (not the way home): read by the wagons too.</summary>
+		public bool Hurting => CurrentMode == Mode.Charge || CurrentMode == Mode.Through;
 
 		/// <summary>Wagons hitched now (counted every tick).</summary>
 		public int WagonCount { get; private set; }
@@ -109,6 +139,27 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 			trail = new Vector2[TrailPoints];
 			wagons = new int[MaxWagons];
 			samples = new Vector2[MaxWagons * 3];
+			hitRun = new int[Main.maxNPCs];
+			hitCount = new byte[Main.maxNPCs];
+		}
+
+		public override bool? CanDamage() => Hurting ? null : false;
+
+		/// <summary>Owner, as a segment strikes <paramref name="npc"/>: this hit's share (1 for the first segment of the run to
+		/// hit it, then <see cref="FalloffPerHit"/> times the one before).</summary>
+		public float NextHitScale(int npc) {
+			if (hitRun == null || npc < 0 || npc >= hitRun.Length) {
+				return 1f;
+			}
+			if (hitRun[npc] != run) {
+				hitRun[npc] = run;
+				hitCount[npc] = 0;
+			}
+			float scale = MathF.Pow(FalloffPerHit, hitCount[npc]);
+			if (hitCount[npc] < byte.MaxValue) {
+				hitCount[npc]++;
+			}
+			return scale;
 		}
 
 		public override bool? CanCutTiles() => false;
@@ -158,6 +209,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 				if (Main.GameUpdateCount % SyncInterval == 0) {
 					Projectile.netUpdate = true;
 				}
+				UpdateRun(owner);
 			}
 			Steer(owner);
 			MathSafety.Sanitize(ref Projectile.velocity);
@@ -196,23 +248,86 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 			return best;
 		}
 
-		/// <summary>Every side: at the target (through it and back), or round the owner; the heading turns at most a set
-		/// rate a tick and the speed eases towards its goal, so the path is a smooth curve the wagons can follow.</summary>
+		private Vector2 Home(Player owner) => owner.Center + new Vector2(0f, -OrbitHeight);
+
+		/// <summary>The train's length from the engine's middle to its last wagon's (what must clear the enemy).</summary>
+		private float TrainLength => WagonCount <= 0 ? 0f : FirstSpacing + (WagonCount - 1) * Spacing;
+
+		/// <summary>Owner: the run's mode changes (each synced): home with an enemy in reach starts a charge (a new run for the
+		/// falloff); inside <see cref="PassThrough"/> it holds its line; once the last wagon is <see cref="PassExit"/> past the
+		/// enemy, or the enemy is gone, or the charge ran <see cref="ChargeTimeout"/> ticks, it flies home; home again, it
+		/// charges or idles.</summary>
+		private void UpdateRun(Player owner) {
+			int target = TargetIndex;
+			bool valid = IsValidTarget(target, owner);
+			Mode mode = CurrentMode;
+			Mode next = mode;
+			switch (mode) {
+				case Mode.Charge:
+					chargeTicks++;
+					if (!valid || chargeTicks > ChargeTimeout) {
+						next = Mode.Return;
+					}
+					else if (Vector2.DistanceSquared(Main.npc[target].Center, Projectile.Center) < PassThrough * PassThrough) {
+						next = Mode.Through;
+						pastTarget = 0f;
+					}
+					break;
+				case Mode.Through:
+					pastTarget += Projectile.velocity.Length();
+					if (pastTarget >= PassThrough + PassExit + TrainLength) {
+						next = Mode.Return;
+					}
+					break;
+				case Mode.Return:
+					if (Vector2.DistanceSquared(Home(owner), Projectile.Center) < HomeRadius * HomeRadius) {
+						next = valid ? Mode.Charge : Mode.Idle;
+					}
+					break;
+				default:
+					if (valid && Vector2.DistanceSquared(Home(owner), Projectile.Center) < HomeRadius * HomeRadius) {
+						next = Mode.Charge;
+					}
+					else if (valid) {
+						next = Mode.Return;                       // too far out: home first
+					}
+					break;
+			}
+			if (next != mode) {
+				if (next == Mode.Charge) {
+					run++;
+					chargeTicks = 0;
+				}
+				CurrentMode = next;
+				Projectile.netUpdate = true;
+			}
+		}
+
+		/// <summary>Every side, by the synced mode: at the target, straight through it, home, or round the owner; the heading
+		/// turns at most a set rate a tick and the speed eases towards its goal, so the path is a smooth curve the wagons can
+		/// follow.</summary>
 		private void Steer(Player owner) {
 			Vector2 velocity = Projectile.velocity;
 			float speed = velocity.Length();
 			float angle = speed > 0.01f ? MathF.Atan2(velocity.Y, velocity.X) : (owner.direction >= 0 ? 0f : MathHelper.Pi);
 			int target = TargetIndex;
+			Mode mode = CurrentMode;
 			Vector2 goal;
 			float wantSpeed, turn;
-			if (IsValidTarget(target, owner)) {
-				NPC npc = Main.npc[target];
-				goal = npc.Center;
+			if (mode == Mode.Charge && IsValidTarget(target, owner)) {
+				goal = Main.npc[target].Center;
 				wantSpeed = ChargeSpeed;
 				turn = ChargeTurn;
-				if (Vector2.DistanceSquared(goal, Projectile.Center) < PassThrough * PassThrough) {
-					turn = 0f;                                    // hold the line: straight through it
-				}
+			}
+			else if (mode == Mode.Through) {
+				goal = Projectile.Center + Projectile.velocity;   // hold the line: straight through and out the far side
+				wantSpeed = ChargeSpeed;
+				turn = 0f;
+			}
+			else if (mode == Mode.Return) {
+				goal = Home(owner);
+				wantSpeed = ReturnSpeed;
+				turn = ChargeTurn;
 			}
 			else {
 				float t = Main.GameUpdateCount * OrbitRate + Projectile.whoAmI;
@@ -345,16 +460,19 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 			if (Main.rand.Next(100) < Projectile.CritChance) {
 				modifiers.SetCrit();
 			}
+			modifiers.SourceDamage *= NextHitScale(target.whoAmI);   // the first of the run to hit it: 100%
 		}
 
+		/// <summary>His train's ghost light and stack steam (since 2026-11-10 the summon wears the boss train's colours, user:
+		/// "more ghostly blue, like the boss one"; GhostTrain.Effects).</summary>
 		private void Effects() {
-			Lighting.AddLight(Projectile.Center, 0.3f, 0.25f, 0.6f);
+			Lighting.AddLight(Projectile.Center, 0.2f, 0.55f, 0.45f);
 			if (!Main.rand.NextBool(4) || !CogpunkClientConfig.RollEffect()) {
 				return;
 			}
 			Vector2 heading = Projectile.velocity.SafeNormalize(Vector2.UnitX);
 			Vector2 stack = Projectile.Center + heading * 10f + new Vector2(heading.Y, -heading.X) * Math.Sign(heading.X == 0f ? 1f : heading.X) * 14f;
-			if (SafeSpawn.TryNewDust(stack - new Vector2(4f), 8, 8, DustID.PurpleTorch, out Dust d)) {
+			if (SafeSpawn.TryNewDust(stack - new Vector2(4f), 8, 8, DustID.CursedTorch, out Dust d)) {
 				d.noGravity = true;
 				d.velocity = -Projectile.velocity * 0.1f + new Vector2(0f, -0.8f);
 				d.scale = 0.9f;

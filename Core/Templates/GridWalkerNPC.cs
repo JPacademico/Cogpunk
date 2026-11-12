@@ -26,6 +26,16 @@ namespace Cogpunk.Core.Templates
 		public const float MaxParallax = 2f;
 		public const int RetargetInterval = 20;
 
+		// --- the mirrored jump (user, 2026-11-10: "add the ability to jump when the player jumps to the imperial defender and
+		// beat boxer enemies"); my calls: the range, the cooldown and a jump about as high as a player's (8 px/tick: 6.7 tiles
+		// at vanilla's NPC gravity 0.3, against a plain player jump's ~6.6)
+		public const float MirrorJumpSpeed = 8f;
+		public const float MirrorJumpRangeX = 20f * 16f, MirrorJumpRangeY = 15f * 16f;
+		public const float MirrorJumpRise = -2f;                 // the target's upward speed (px/tick) that marks a jump
+		public const int MirrorJumpCooldown = 30;
+		private bool targetRising;                               // server-side memory of the target's last tick
+		private int mirrorCooldown;
+
 		protected abstract int CellWidth { get; }
 		protected abstract int CellHeight { get; }
 		protected abstract int OriginX { get; }
@@ -101,6 +111,35 @@ namespace Cogpunk.Core.Templates
 			if (dir != 0 && NPC.collideX && Grounded) {
 				NPC.velocity.Y = -jumpSpeed;
 			}
+		}
+
+		/// <summary>Server: the moment <paramref name="target"/> starts a jump (its upward speed crosses
+		/// <see cref="MirrorJumpRise"/>: a ground jump, a double jump or a take-off) within <see cref="MirrorJumpRangeX"/> x
+		/// <see cref="MirrorJumpRangeY"/>, it jumps too at <paramref name="jumpSpeed"/>, if it stands on the ground and hasn't
+		/// jumped in the last <see cref="MirrorJumpCooldown"/> ticks. D2: decided where the AI is the authority (the server
+		/// sees the player's synced velocity); the jump reaches clients with the NPC's position and velocity
+		/// (<c>netUpdate</c>), and the same collision runs on every side after. Call it every tick of the walking state.</summary>
+		protected bool MirrorJump(Player target, float jumpSpeed = MirrorJumpSpeed) {
+			if (!IsAuthority) {
+				return false;
+			}
+			if (mirrorCooldown > 0) {
+				mirrorCooldown--;
+			}
+			bool rising = target != null && target.active && !target.dead && target.velocity.Y < MirrorJumpRise;
+			bool started = rising && !targetRising;
+			targetRising = rising;
+			if (!started || mirrorCooldown > 0 || !Grounded) {
+				return false;
+			}
+			Vector2 d = target.Center - NPC.Center;
+			if (Math.Abs(d.X) > MirrorJumpRangeX || Math.Abs(d.Y) > MirrorJumpRangeY) {
+				return false;
+			}
+			NPC.velocity.Y = -jumpSpeed;
+			NPC.netUpdate = true;
+			mirrorCooldown = MirrorJumpCooldown;
+			return true;
 		}
 
 		/// <summary>Faces the way it moves (or <paramref name="fallback"/> when nearly still).</summary>

@@ -8,7 +8,7 @@ namespace Cogpunk.Content.Coghaven
 	/// <summary>
 	/// Coghaven's spawns (user, 2026-11-06: "disable normal enemy spawn on Coghaven, as we will add our new enemies";
 	/// "Coghaven should be a T4 difficulty area, not locked by anything, its enemies at T4"): no vanilla enemy or critter
-	/// spawns on the island; only its own (the Imperial Defender and the Jade Golem), which ask <see cref="SpawnWeight"/> in
+	/// spawns on the island; only its own (the Jade Golem; the Imperial Defender was removed 2026-11-11), which ask <see cref="SpawnWeight"/> in
 	/// their <c>SpawnChance</c>. Nothing gates them: they spawn from the first night of a world.
 	/// <para>The Junkyard's and Old Brass Town's rule (decompiled <c>NPCLoader.ChooseSpawn</c>): pool entry 0 is "let vanilla
 	/// choose", so removing it drops every vanilla natural spawn (the sky's harpies and wyverns included) and leaves other

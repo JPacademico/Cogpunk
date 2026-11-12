@@ -118,6 +118,8 @@ namespace Cogpunk.Content.OldBrassTown.Generation
 		private int[] airTop, airBottom, rockTop, rockBottom;   // per column, indexed x - left; empty when top > bottom
 		private readonly List<int> cacheSpots = new();          // the street's lamp posts: where the cache may be buried
 		private int vaultChest = -1;                            // the bank vault's strongbox, or -1
+		private int streetWest = -1;                            // the street's westernmost column, or -1
+		public const int StoneNicheAttempts = 8;                // the Fundamental Stone's niche slides east this far at most
 
 		public OldBrassTownPass() : base("Cogpunk: Old Brass Town", 30.0) {
 		}
@@ -149,6 +151,7 @@ namespace Cogpunk.Content.OldBrassTown.Generation
 			}
 			cacheSpots.Clear();                                 // a pass is reused for every world made this session
 			vaultChest = -1;
+			streetWest = -1;
 			BuildProfile();
 			progress.Set(0.15);
 
@@ -166,6 +169,7 @@ namespace Cogpunk.Content.OldBrassTown.Generation
 			BuryCache();
 			DigTunnel(-1);
 			DigTunnel(1);
+			PlaceFundamentalStone();
 			progress.Set(0.85);
 
 			WorldGen.RangeFrame(Math.Max(TileSafety.EditMargin, left - TunnelLength - FramePad), Math.Max(TileSafety.EditMargin, top - FramePad),
@@ -502,6 +506,7 @@ namespace Cogpunk.Content.OldBrassTown.Generation
 			if (streetLeft < 0) {
 				return 0;
 			}
+			streetWest = streetLeft;
 			int from = streetLeft + StreetMargin;
 			int to = streetRight - StreetMargin;
 			List<Blueprint> row = ChooseOrder();
@@ -852,6 +857,78 @@ namespace Cogpunk.Content.OldBrassTown.Generation
 			chest.item[slot].SetDefaults(type);
 			chest.item[slot].stack = Math.Min(stack, chest.item[slot].maxStack);
 			slot++;
+		}
+
+		// --- the Fundamental Stone ------------------------------------------------------------------------------------------
+
+		/// <summary>
+		/// Westworld's Fundamental Stone (user, 2026-11-10: "one on the westworld"; <see cref="Secrets.FundamentalStones"/>):
+		/// at the west end of the street, standing on the street's level in a niche cut into the cavern's rock (the bowl rises
+		/// and the roof drops there, so the stone, 6 tiles tall, needs the room cut). The niche is the stone's footprint, a
+		/// column of air either side and a row over it, backed by the cavern's wall; it is cut only where it and a ring of two
+		/// tiles round it lie in the town's own footprint (so it never opens the shell to the desert) and only through the
+		/// cavern's rock (never a building, lamp or furniture). If the west end won't take it, the niche slides east a column at
+		/// a time (<see cref="StoneNicheAttempts"/>). Falling blocks over it are turned to Brass Sandstone so its roof holds.
+		/// </summary>
+		private void PlaceFundamentalStone() {
+			if (streetWest < 0) {
+				SafeLog.Warn("OldBrassTown.NoStreetStone", "Westworld: no street, so no Fundamental Stone.");
+				return;
+			}
+			int w = Secrets.FundamentalStoneTile.Width, h = Secrets.FundamentalStoneTile.Height;
+			for (int attempt = 0; attempt < StoneNicheAttempts; attempt++) {
+				int sx = streetWest - w + attempt;               // the stone's left column
+				int x0 = sx - 1, x1 = sx + w, y0 = floorY - h - 1, y1 = floorY - 1;
+				if (!NicheFits(x0, x1, y0, y1)) {
+					continue;
+				}
+				for (int x = x0; x <= x1; x++) {
+					for (int y = y0; y <= y1; y++) {
+						Tile tile = Main.tile[x, y];
+						tile.ClearTile();
+						tile.LiquidAmount = 0;
+						if (tile.WallType == 0) {
+							tile.WallType = cavernWall;
+						}
+					}
+					for (int y = y0 - 3; y < y0; y++) {           // the roof over it holds
+						Tile above = Main.tile[x, y];
+						if (above.HasTile && TileID.Sets.Falling[above.TileType]) {
+							Place(above, sandstone);
+						}
+					}
+				}
+				if (Secrets.FundamentalStones.TryPlace(Secrets.FundamentalStones.Westworld, sx, floorY)) {
+					return;
+				}
+			}
+			SafeLog.Warn("OldBrassTown.NoStone", "Westworld: no room at the street's west end for its Fundamental Stone (street from x={0}).", streetWest);
+		}
+
+		/// <summary>The niche (columns <paramref name="x0"/>-<paramref name="x1"/>, rows <paramref name="y0"/>-<paramref name="y1"/>)
+		/// and a ring of two round it lie in the town's footprint, it holds only the cavern's own rock or air, and the street's
+		/// level under it is solid rock.</summary>
+		private bool NicheFits(int x0, int x1, int y0, int y1) {
+			for (int x = x0 - 2; x <= x1 + 2; x++) {
+				for (int y = y0 - 2; y <= y1 + 2; y++) {
+					if (!TileSafety.InWorld(x, y, TileSafety.EditMargin) || !InFootprint(x, y)) {
+						return false;
+					}
+				}
+			}
+			for (int x = x0; x <= x1; x++) {
+				for (int y = y0; y <= y1; y++) {
+					Tile tile = Main.tile[x, y];
+					if (tile.HasTile && tile.TileType != sandstone && tile.TileType != ore) {
+						return false;
+					}
+				}
+				Tile floor = Main.tile[x, floorY];
+				if (!floor.HasTile || !Main.tileSolid[floor.TileType] || Main.tileFrameImportant[floor.TileType]) {
+					return false;
+				}
+			}
+			return true;
 		}
 
 		// --- tunnels ----------------------------------------------------------------------------------------------------

@@ -7,13 +7,16 @@ from the repo root:
 
 The Conductor's ghost train (make_conductor_art.py's engine and passenger car: a boiler with glowing bands, a balloon
 stack, a cab with a ghost driver, drivers on a connecting rod, a cowcatcher; four lit windows, two bogies) redrawn small
-(MINI_SCALE, about 0.6 of his: the engine 56 game px long against his 115) and turned to the friendly side (D3: friendly
-effects are Brass and Aether): aether-blue ghost light instead of his ghost green, a brass lamp where his has an ember
-eye, lavender windows. Drawn at each of 9 headings from straight up to straight down facing right (the game mirrors the
-left half, never rotates), translucent in game with the windows and lamp solid from the glow sheets.
+(MINI_SCALE, about 0.6 of his: the engine 56 game px long against his 115). Since 2026-11-10 (user: "the ghost train
+summon minion should be more ghostly blue (like the boss one) to fit the theme") it is his train's ghost through and
+through: verdigris from wheels to stack, its bands, windows and ghosts lit in his ghost light; only its lamp keeps a warm
+brass light where his has an ember eye (the friendly side, D3). The aether-blue first look is kept in
+previous/make_train_whistle_art_2026-11-09.py. Drawn at each of 9 headings from straight up to straight down facing right
+(the game mirrors the left half, never rotates), translucent in game with the windows and lamp solid from the glow
+sheets.
 
 The item: a locomotive's brass steam whistle (a riveted bell on a steel stem, its mouth slot, a valve with a pull lever and
-its cord), a curl of aether ghost light rising out of it. The buff icon: the little engine's face.
+its cord), a curl of ghost light rising out of it. The buff icon: the little engine side on.
 
 Outputs (Content/Bosses/CursedConductor/Weapons/):
     GhostTrainEngine.png, _Glow.png    68x630: 9 headings in 68x68 cells, 2 px under each
@@ -36,7 +39,7 @@ from rig import cyl  # noqa: E402
 from make_trashtr0m_art import export, to_image, vertical  # noqa: E402
 
 OUT = "Content/Bosses/CursedConductor/Weapons/"
-A, G, ST, S = RAMP["aether"], RAMP["gilt"], RAMP["steel"], RAMP["steam"]
+A, G, ST, S = RAMP["verd"], RAMP["gilt"], RAMP["steel"], RAMP["steam"]   # A: the ghost (verdigris, the boss train's)
 HEADINGS = [-90.0 + 22.5 * k for k in range(9)]
 MINI_SCALE = 0.78
 ENGINE_CELL = 34
@@ -53,13 +56,13 @@ def ghost_face(lo=1, hi=2):
 
 
 def wheel(cv, xf, x, y, r):
-    cv.part(xf, Ellipse(x, y, r, r), "aether", flat(1, bevel=False), rust=0.0)
+    cv.part(xf, Ellipse(x, y, r, r), "verd", flat(1, bevel=False), rust=0.0)
     q = P(xf, (x, y))
     cv.put(q[0], q[1], A[3])
 
 
 def engine(heading):
-    """The little engine at `heading`, its middle at the cell's centre (the Conductor's engine, aether and brass)."""
+    """The little engine at `heading`, its middle at the cell's centre (the Conductor's engine, his ghost, a brass lamp)."""
     cv, gl = Canvas(), Canvas()
     xf = train_xf(heading, ENGINE_CELL)
     for wx in (-9.6, -4.0, 1.6):
@@ -67,22 +70,22 @@ def engine(heading):
     wheel(cv, xf, 9.6, 7.2, 1.7)
     for k in range(12):                                            # the connecting rod across the drivers
         q = P(xf, (-9.6 + k * 1.0, 6.0))
-        cv.put(q[0], q[1], G[5])
-    cv.part(xf, box(-15.8, 2.6, 13.8, 4.2), "aether", flat(1), rust=0.0)
-    boiler = cv.part(xf, box(-6.4, -5.4, 12.4, 2.6), "aether", cyl((-6.4, -1.4), (12.4, -1.4), 4.1, lo=1, hi=3, snap=22.5), rust=0.0)
+        cv.put(q[0], q[1], S[1])
+    cv.part(xf, box(-15.8, 2.6, 13.8, 4.2), "verd", flat(1), rust=0.0)
+    boiler = cv.part(xf, box(-6.4, -5.4, 12.4, 2.6), "verd", cyl((-6.4, -1.4), (12.4, -1.4), 4.1, lo=1, hi=3, snap=22.5), rust=0.0)
     for bx in (-2.4, 3.0, 8.4):                                    # its bands glow
         for k in range(10):
             q = P(xf, (bx, -5.0 + k * 0.8))
             if q in boiler:
                 cv.put_glow(q[0], q[1], A[3])
                 gl.put_glow(q[0], q[1], A[3])
-    cv.part(xf, Ellipse(12.6, -1.4, 2.0, 3.9), "aether", flat(1), rust=0.0)          # the smokebox's round front
-    cv.part(xf, Ellipse(0.4, -5.6, 2.3, 1.5), "gilt", flat(6), rust=0.0)             # a brass steam dome
-    cv.part(xf, Poly([(8.2, -5.0), (10.4, -5.0), (10.8, -8.2), (13.0, -12.2), (5.6, -12.2), (7.8, -8.2)]), "aether", ghost_face(),
+    cv.part(xf, Ellipse(12.6, -1.4, 2.0, 3.9), "verd", flat(1), rust=0.0)          # the smokebox's round front
+    cv.part(xf, Ellipse(0.4, -5.6, 2.3, 1.5), "verd", flat(2), rust=0.0)             # the steam dome
+    cv.part(xf, Poly([(8.2, -5.0), (10.4, -5.0), (10.8, -8.2), (13.0, -12.2), (5.6, -12.2), (7.8, -8.2)]), "verd", ghost_face(),
             rust=0.0)                                                                # the balloon stack
-    cv.part(xf, box(5.2, -13.4, 13.4, -12.0), "gilt", flat(7), rust=0.0)           # its brass rim
-    cv.part(xf, box(-16.0, -9.0, -6.2, 2.6), "aether", ghost_face(), rust=0.0)     # the cab
-    cv.part(xf, box(-17.6, -11.0, -5.0, -9.0), "aether", flat(2), rust=0.0)        # its roof
+    cv.part(xf, box(5.2, -13.4, 13.4, -12.0), "verd", flat(2), rust=0.0)           # its rim
+    cv.part(xf, box(-16.0, -9.0, -6.2, 2.6), "verd", ghost_face(), rust=0.0)       # the cab
+    cv.part(xf, box(-17.6, -11.0, -5.0, -9.0), "verd", flat(2), rust=0.0)          # its roof
     for q in cv.raster(xf, box(-14.0, -7.2, -8.4, -3.0)):          # the cab window, lit from inside
         cv.put_glow(q[0], q[1], A[3])
         gl.put_glow(q[0], q[1], A[3])
@@ -90,18 +93,18 @@ def engine(heading):
         q = P(xf, (lx, ly))                                        # the ghost driver looking out
         cv.put_glow(q[0], q[1], A[1])
         gl.put_glow(q[0], q[1], A[1])
-    cv.part(xf, box(11.4, -9.0, 15.6, -5.2), "aether", flat(1), rust=0.0)          # the box headlamp on the smokebox
+    cv.part(xf, box(11.4, -9.0, 15.6, -5.2), "verd", flat(1), rust=0.0)            # the box headlamp on the smokebox
     for q in cv.raster(xf, box(13.6, -8.2, 15.4, -6.0)):            # its lens: a warm brass light (friendly)
         cv.put_glow(q[0], q[1], G[8])
         gl.put_glow(q[0], q[1], G[8])
     q = P(xf, (14.0, -7.6))
     cv.put_glow(q[0], q[1], G[9])
     gl.put_glow(q[0], q[1], G[9])
-    catcher = cv.part(xf, Poly([(13.0, 2.6), (15.8, 2.6), (20.0, 8.6), (13.0, 8.6)]), "gilt", flat(4), rust=0.0)
+    catcher = cv.part(xf, Poly([(13.0, 2.6), (15.8, 2.6), (20.0, 8.6), (13.0, 8.6)]), "verd", flat(1), rust=0.0)
     for k in range(7):                                             # its slats
         q = P(xf, (14.2 + k * 0.9, 4.6 + k * 0.6))
         if q in catcher:
-            cv.put(q[0], q[1], G[1])
+            cv.put(q[0], q[1], A[0])
     return cv, gl
 
 
@@ -112,12 +115,12 @@ def car(heading):
     for bx in (-8.0, 8.0):                                         # two bogies
         for wx in (-2.4, 2.4):
             wheel(cv, xf, bx + wx, 6.4, 1.8)
-        cv.part(xf, box(bx - 4.0, 4.4, bx + 4.0, 5.6), "aether", flat(1, bevel=False), rust=0.0)
-    cv.part(xf, box(-12.4, 3.6, 12.4, 5.0), "aether", flat(1), rust=0.0)           # the underframe
+        cv.part(xf, box(bx - 4.0, 4.4, bx + 4.0, 5.6), "verd", flat(1, bevel=False), rust=0.0)
+    cv.part(xf, box(-12.4, 3.6, 12.4, 5.0), "verd", flat(1), rust=0.0)             # the underframe
     for ex in (-14.6, 13.0):
-        cv.part(xf, box(ex, 1.6, ex + 1.6, 3.2), "gilt", flat(4, bevel=False), rust=0.0)   # brass couplers
-    body_ = cv.part(xf, box(-13.0, -6.6, 13.0, 3.8), "aether", ghost_face(), rust=0.0)
-    cv.part(xf, Union(box(-13.6, -8.0, 13.6, -6.4), box(-11.2, -9.4, 11.2, -7.6)), "aether", flat(2), rust=0.0)   # the roof
+        cv.part(xf, box(ex, 1.6, ex + 1.6, 3.2), "verd", flat(1, bevel=False), rust=0.0)   # the couplers
+    body_ = cv.part(xf, box(-13.0, -6.6, 13.0, 3.8), "verd", ghost_face(), rust=0.0)
+    cv.part(xf, Union(box(-13.6, -8.0, 13.6, -6.4), box(-11.2, -9.4, 11.2, -7.6)), "verd", flat(2), rust=0.0)   # the roof
     passengers = {0: ((0.8, -3.4), (1.6, -3.4), (0.8, -2.4), (1.6, -2.4), (0.4, -1.6), (2.0, -1.6)),
                   2: ((0.8, -3.0), (1.6, -3.0), (0.6, -2.0), (1.8, -2.0))}
     for w, wx in enumerate((-10.6, -4.8, 1.0, 6.8)):              # four lit windows, ghost passengers in two
@@ -128,10 +131,10 @@ def car(heading):
             q = P(xf, (wx + lx, ly))
             cv.put_glow(q[0], q[1], A[1])
             gl.put_glow(q[0], q[1], A[1])
-    for k in range(26):                                            # a brass waist band under the windows
+    for k in range(26):                                            # the waist band under the windows
         q = P(xf, (-12.6 + k, 0.6))
         if q in body_:
-            cv.put(q[0], q[1], G[5])
+            cv.put(q[0], q[1], A[1])
     return cv, gl
 
 
@@ -174,8 +177,8 @@ def whistle_item():
     return to_image(cv.px, x0, y0, max(xs) - x0 + 1, max(ys) - y0 + 1)
 
 
-# The buff icon, drawn by hand (16x16 at 1x): the little engine side on, running right. a/1/2/3 = aether 0-3 (outline,
-# dark, mid, lit), o/g/G = gilt 1/5/8 (the stack's rim, the lamp), w = steam white (the lamp's hot spot).
+# The buff icon, drawn by hand (16x16 at 1x): the little engine side on, running right. a/1/2/3 = verdigris 0-3 (outline,
+# dark, mid, lit: the ghost), o = verdigris 1 (the stack's rim), g/G = gilt 5/8 (the lamp), w = steam white (its hot spot).
 BUFF = ["................",
         "................",
         ".........oooo...",
@@ -195,9 +198,9 @@ BUFF = ["................",
 
 
 def buff_icon():
-    """16x16: the little engine side on, running right: its cab with a lit window, an aether boiler lit along its top, a
-    stack with a brass rim, a brass lamp with a hot spot at the front, three wheels."""
-    pal = {"a": A[0], "1": A[1], "2": A[2], "3": A[3], "o": G[1], "g": G[5], "G": G[8], "w": S[3]}
+    """16x16: the little engine side on, running right: its cab with a lit window, a ghostly boiler lit along its top, a
+    stack, a brass lamp with a hot spot at the front, three wheels."""
+    pal = {"a": A[0], "1": A[1], "2": A[2], "3": A[3], "o": A[1], "g": G[5], "G": G[8], "w": S[3]}
     px = {(x, y): pal[ch] for y, row in enumerate(BUFF) for x, ch in enumerate(row) if ch in pal}
     return to_image(px, 0, 0, 16, 16)
 

@@ -200,7 +200,7 @@ namespace Cogpunk.Content.Mechanist
 				}
 			}
 			if (item.ModItem is MechanistWeapon weapon) {
-				return GetCost(weapon.SteamCost);
+				return GetCost(weapon.SteamCostFor(Player));
 			}
 			if (!SteamAsMana || item.mana <= 0 || item.DamageType.CountsAsClass(DamageClass.Summon)) {
 				return 0;

@@ -12,8 +12,8 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.OldBrassTown.Weapons
 {
 	/// <summary>
-	/// The Sheriff's Revolver (user-set 2026-11-04), found in Old Brass Town's locked Brass Strongbox: <see cref="Damage"/>
-	/// damage, <see cref="UseTime"/> use time, 6% crit (vanilla's 4% + <c>Item.crit</c> 2). A polished brass magnum (redrawn
+	/// The Sheriff's Revolver (user-set 2026-11-04), found in Old Brass Town's locked Brass Strongbox: 33 damage with a Musket
+	/// Ball (<see cref="Damage"/> + the bullet's 7), <see cref="UseTime"/> use time, 6% crit (vanilla's 4% + <c>Item.crit</c> 2). A polished brass magnum (redrawn
 	/// 2026-11-05, user: "a polished brass powerful magnum revolver"); the left click is precise, within
 	/// <see cref="AimSpread"/> degree of the aim (user-set 2026-11-05). It fires a fast brass bullet
 	/// (<see cref="SheriffsBullet"/>) that bounces once, off a wall or off an enemy it hits, and always bounces towards an
@@ -27,12 +27,16 @@ namespace Cogpunk.Content.OldBrassTown.Weapons
 	/// inside a third of a second: user, 2026-11-05, "the burst should be faster, 0.33 seconds"), for <see cref="BurstSteamCost"/> steam (a steam skill, <see cref="ISteamSkill"/>: a Mechanist
 	/// weapon's rules, and the Spring Gloves count it); the reload follows at once.</item>
 	/// </list>
-	/// No ammo (my call: the cylinder is its limit). D2: only the owner shoots; the rounds and the reload are the owner's
-	/// (nobody else needs them). Balance: docs/balance/weapons.csv.
+	/// <b>Bullets</b> (user, 2026-11-09: "the sheriff revolver should use ammo to be affected by the new law hat"; it loaded
+	/// none until then): every shot takes a bullet (<c>useAmmo = AmmoID.Bullet</c>, vanilla's ammo rules), and whatever the
+	/// bullet it fires the magnum's own ricocheting round with the bullet's damage and knockback added (a special bullet's
+	/// own effects don't carry over). The weapon's damage was the user's 33 with no ammo; it is <see cref="Damage"/> now, so a
+	/// Musket Ball (+7, the anchor's own) gives the same 33 and better bullets more, as vanilla's guns. D2: only the owner
+	/// shoots; the rounds and the reload are the owner's (nobody else needs them). Balance: docs/balance/weapons.csv.
 	/// </summary>
 	public class SheriffsRevolver : CogpunkItem, ISteamSkill
 	{
-		public const int Damage = 33, UseTime = 23;                // user-set
+		public const int Damage = 26, UseTime = 23;                // user-set 33 with no ammo = 26 + a Musket Ball's 7 (2026-11-09)
 		public const int BurstSteamCost = 20;                       // user-set
 		public const int BurstInterval = 4;                         // six shots span 20 ticks: "0.33 seconds of burst" (user-set 2026-11-05)
 		public const float AimSpread = 1f;                          // degrees either way, the left click (user-set 2026-11-05)
@@ -64,6 +68,7 @@ namespace Cogpunk.Content.OldBrassTown.Weapons
 			Item.noMelee = true;
 			Item.shoot = ModContent.ProjectileType<SheriffsBullet>();
 			Item.shootSpeed = ShotSpeed;
+			Item.useAmmo = AmmoID.Bullet;                           // 2026-11-09 (user): bullets, so the Law Hat counts it
 			Item.UseSound = SoundID.Item41 with { Pitch = -0.15f };
 			Item.width = 44;                                // 2026-11-05b (user: "decrease a bit the size... on the player hand")
 			Item.height = 24;
@@ -104,6 +109,7 @@ namespace Cogpunk.Content.OldBrassTown.Weapons
 				return false;                                       // the cylinder ran dry mid-burst
 			}
 			bool burst = player.altFunctionUse == 2;
+			type = ModContent.ProjectileType<SheriffsBullet>();     // any bullet: the magnum's own round, the bullet's damage added
 			if (burst && player.ItemUsesThisAnimation == 1) {
 				player.GetModPlayer<SteamPlayer>().Spend(BurstSteamCost);   // CanUseItem checked it as the burst began
 			}

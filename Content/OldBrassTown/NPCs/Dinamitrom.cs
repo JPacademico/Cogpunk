@@ -30,8 +30,9 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 	/// blast in Expert, and the underground desert's Antlion Swarmer for the tier, decompiled 1.4.4 NPC 509: 90 life, 12
 	/// defense, 34 contact in Classic = 180 / 12 / 68 in Expert): <see cref="Life"/> life (the user's "low health"),
 	/// <see cref="Defense"/> defense, no contact damage (the blast is the damage, the user's "high damage"). Spawns only in Old
-	/// Brass Town (<see cref="SpawnWeight"/>). Killed, it drops Dynamite 1 in <see cref="DynamiteOdds"/> and 1-2 Rusted Scrap;
-	/// blown up, nothing (it was spent).</para>
+	/// Brass Town (<see cref="SpawnWeight"/>). Killed, it drops <see cref="DynamiteMin"/>-<see cref="DynamiteMax"/> Dynamite
+	/// 1 time in <see cref="DynamiteOdds"/> (user-set 2026-11-10: "1-2 dynamite at 50% chance") and 1-2 Rusted Scrap; blown
+	/// up, nothing (it was spent).</para>
 	/// <para>D2: <c>ai[0]</c>/<c>ai[1]</c> state and timer, <c>ai[2]</c> the hop timer; the leap's velocity is set by the
 	/// server with the state change (synced); the server sees the touch (player hitboxes plus <see cref="TouchMargin"/> px of
 	/// slack), spawns the synced blast and removes it (SyncNPC), like the Boombot. D0: the blast through
@@ -57,7 +58,7 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 		public const int LeapTimeout = 120;
 		public const int TouchMargin = 4;
 		public const float SpawnWeight = 0.6f;
-		public const int DynamiteOdds = 4;
+		public const int DynamiteOdds = 2, DynamiteMin = 1, DynamiteMax = 2;   // user-set 2026-11-10: 1-2 Dynamite at 50% (was 1 in 4)
 
 		private static Asset<Texture2D> far, near, glow;
 		private static readonly string[] GoreNames = { "Dinamitrom_GoreStave", "Dinamitrom_GoreHoop", "Dinamitrom_GoreStick" };
@@ -109,7 +110,7 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) => OldBrassTownSpawnRules.TownSpawnWeight(spawnInfo, SpawnWeight);
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
-			npcLoot.Add(ItemDropRule.Common(ItemID.Dynamite, DynamiteOdds));
+			npcLoot.Add(ItemDropRule.Common(ItemID.Dynamite, DynamiteOdds, DynamiteMin, DynamiteMax));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RustedScrap>(), 1, 1, 2));
 		}
 

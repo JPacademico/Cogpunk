@@ -13,7 +13,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Items
 	/// whistle that can be used in the Old Brass Town biome to summon the Cursed Conductor"): blown inside the town, it calls
 	/// him (ExampleMod 1.4.4's <c>MinionBossSummonItem</c>: <c>NPC.SpawnOnPlayer</c> in singleplayer, a
 	/// <c>SpawnBossUseLicenseStartEvent</c> message from a multiplayer client, which the server answers with the same call).
-	/// Used up, like vanilla's summons; once he is beaten Friendobô sells it (every boss's summon is in his shop), so the fight
+	/// Used up, like vanilla's summons; once he is beaten the Friendo-bot sells it (every boss's summon is in his shop), so the fight
 	/// can be had again. Recipe: a Demon or a Crimson Altar (vanilla's one tile, 26).
 	/// Art: art/oldbrasstown/make_revolver_art.py.
 	/// </summary>

@@ -26,7 +26,8 @@ namespace Cogpunk.Content.Dungeon.NPCs
 	/// spring punches: with its target in line within <see cref="PunchReach"/> (7 tiles) it plants its feet and cocks both
 	/// fists (the telegraph, <see cref="WindupTicks"/> ticks, a ratchet), then fires them one after the other on their
 	/// springs (<see cref="SpringPunch"/>: the red glove, then <see cref="SecondPunchDelay"/> ticks later the golden one;
-	/// always two), each reaching for where the target stood, with a strong push. Then it recovers and walks again.
+	/// always two), each reaching for where the target stood, with a strong push. Then it recovers and walks again. While it
+	/// walks it jumps when its target jumps (user, 2026-11-10: <see cref="GridWalkerNPC.MirrorJump"/>).
 	/// <para>Stats (Expert, D3 rule 0; docs/balance/npcs.csv; anchor the Angry Bones, decompiled 1.4.4 NPC 31: 80 life, 8
 	/// defense, 26 contact in Classic = 160 / 8 / 52 in Expert): <see cref="Life"/> life (the user's "high health"),
 	/// <see cref="Defense"/> defense, <see cref="ContactDamage"/> contact, punches <see cref="PunchDamage"/>. Spawns in the
@@ -160,6 +161,7 @@ namespace Cogpunk.Content.Dungeon.NPCs
 					break;
 				default:
 					Run(target != null ? dir : 0, WalkSpeed, WalkAccel, JumpSpeed);
+					MirrorJump(target);                             // it jumps when its target jumps (user, 2026-11-10)
 					FaceMotion(dir);
 					float adx = Math.Abs(dx);
 					if (IsAuthority && target != null && Grounded && Cooldown <= 0f && adx <= PunchReach + Width * 0.5f

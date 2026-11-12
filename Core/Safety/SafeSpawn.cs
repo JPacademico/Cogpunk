@@ -158,6 +158,29 @@ namespace Cogpunk.Core.Safety
 		}
 
 		/// <summary>
+		/// A copy of <paramref name="template"/> dropped in <paramref name="area"/>, its stack, prefix and modded data kept
+		/// (vanilla's <c>Item.NewItem(source, x, y, w, h, Item)</c>): what a thief gives back (the Delivery Drone, 2026-11-10b).
+		/// Server or singleplayer only, like every world drop.
+		/// </summary>
+		public static bool TryNewItem(IEntitySource source, Rectangle area, Item template, out Item item) {
+			item = null;
+			if (Main.netMode == NetmodeID.MultiplayerClient) {
+				SafeLog.Warn("Spawn.Item.OnClient", "Refused a world item drop on a multiplayer client; drops must come from the server.");
+				return false;
+			}
+			if (template == null || template.IsAir || template.type <= ItemID.None || template.type >= ItemLoader.ItemCount || template.stack <= 0) {
+				SafeLog.Warn("Spawn.Item.BadTemplate", "Refused an item drop copied from an empty or invalid item.");
+				return false;
+			}
+			int index = Item.NewItem(source, area.X, area.Y, area.Width, area.Height, template);
+			if (index < 0 || index >= Main.maxItems) {
+				return false;
+			}
+			item = Main.item[index];
+			return true;
+		}
+
+		/// <summary>
 		/// The local player throws one of their own items into the world, as vanilla does on the dying player's client for
 		/// the large gems of Capture the Gem (decompiled <c>Player.KillMe</c>: <c>Item.NewItem</c> there, then message 21 from
 		/// a multiplayer client). <b>Only for <see cref="Main.myPlayer"/></b>; the item is synced by this call.

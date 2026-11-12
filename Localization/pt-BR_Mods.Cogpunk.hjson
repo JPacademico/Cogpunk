@@ -440,6 +440,16 @@ Items: {
 		Tooltip: Imunidade a dano de queda
 	}
 
+	Macuahuitl: {
+		DisplayName: Macuahuitl
+		Tooltip:
+			'''
+			Seu primeiro golpe em cada inimigo causa {0}x de dano ({1}x se for crítico)
+			Usado para forjar uma lâmina mais forte
+			'A obsidiana morde mais fundo na primeira vez'
+			'''
+	}
+
 	MetalWrench: {
 		DisplayName: Chave Inglesa de Metal
 		Tooltip:
@@ -582,6 +592,7 @@ Items: {
 			'''
 			Dispara uma bala de latão veloz que ricocheteia uma vez, numa parede ou num inimigo, rumo ao inimigo mais próximo à vista
 			Um ricochete acerta com 50% a mais de dano
+			Usa balas: seja qual for a bala, dispara sua própria munição de latão somando o dano da bala
 			Guarda {0} balas e leva {1} segundos para recarregar quando elas acabam, mesmo guardado no coldre
 			Botão direito para disparar todas as balas que restam em um terço de segundo por {2} de vapor
 			'Nesta cidade, a lei atira primeiro'
@@ -591,7 +602,7 @@ Items: {
 
 	SheriffsKey: {
 		DisplayName: Chave do Xerife
-		Tooltip: Abre o Cofre de Latão trancado no banco da Velha Cidade de Latão
+		Tooltip: Abre o Cofre de Latão trancado no banco de Westworld
 	}
 
 	BrassStrongbox: {
@@ -613,7 +624,7 @@ Items: {
 		Tooltip:
 			'''
 			Invoca o Condutor Amaldiçoado
-			Só pode ser soprado na Velha Cidade de Latão
+			Só pode ser soprado em Westworld
 			'''
 	}
 
@@ -686,6 +697,31 @@ Items: {
 		Tooltip: Uma grande engrenagem que gira sozinha, apoiada em dois blocos.
 	}
 
+	FundamentalBrick: {
+		DisplayName: Tijolo Fundamental
+		Tooltip: Pedra gasta pelo mar, de ruínas mais antigas que o próprio mar.
+	}
+
+	FundamentalCoral: {
+		DisplayName: Pedra-coral
+		Tooltip: Pedra de ruína que o coral tomou há muito tempo.
+	}
+
+	FundamentalRune: {
+		DisplayName: Tijolo Rúnico
+		Tooltip: Sua runa ainda brilha. Ninguém lembra o que ela diz.
+	}
+
+	FundamentalBrickWall: {
+		DisplayName: Parede de Tijolo Fundamental
+		Tooltip: ""
+	}
+
+	FundamentalColumnWall: {
+		DisplayName: Parede de Coluna Fundamental
+		Tooltip: Duas lado a lado formam um pilar canelado.
+	}
+
 	PalaceFlagstone: {
 		DisplayName: Lajota do Palácio
 		Tooltip: Lajotas de pedra clara dos pisos de um palácio no céu.
@@ -702,6 +738,7 @@ Items: {
 			'''
 			Liberta almas perdidas: fogos lentos que perseguem o inimigo mais próximo a até 10 blocos
 			Sem inimigos por perto, ficam flutuando onde foram soltos
+			No máximo {0} almas por vez: mais uma e a mais antiga se apaga
 			'Cada alma que ele recolheu, uma passagem de cada vez'
 			'''
 	}
@@ -733,6 +770,17 @@ Items: {
 	JadePhasesaber: {
 		DisplayName: Sabre de Fase de Jade
 		Tooltip: ""
+	}
+
+	RedCloth: {
+		DisplayName: Pano Vermelho
+		Tooltip:
+			'''
+			O próximo inimigo que te tocar passa direto: nenhum dano, depois {1} segundos de imunidade
+			Recarrega por {0} segundos depois de cada esquiva
+			'Todo touro investe contra o pano, nunca contra o toureiro'
+			'''
+		Ole: Olé!
 	}
 
 	LawHat: {
@@ -774,7 +822,50 @@ Items: {
 			'''
 			Invoca um pequeno trem fantasma para lutar por você
 			Cada novo sopro engata mais um vagão em vez disso
-			Cada vagão atinge o que o trem atravessa
+			Ele investe através dos inimigos e volta até você antes de investir de novo
+			Cada vagão que acerta o mesmo inimigo numa investida causa 12% menos que o anterior
+			'''
+	}
+
+	Firesaw: {
+		DisplayName: Serra de Fogo
+		Tooltip:
+			'''
+			Brande como uma espada grande: cada golpe volta pelo outro lado
+			Botão direito para golpear com a lâmina em chamas: dois blocos a mais de alcance, deixa os inimigos Em Chamas! por {1} segundos, {0} de vapor por golpe
+			'Puxe a corda, bombeie o combustível, cuidado com os dedos'
+			'''
+	}
+
+	JadeStaff: {
+		DisplayName: Cajado de Jade
+		Tooltip:
+			'''
+			Conjura um raio ondulante de magia de jade que persegue os inimigos transformados em jade
+			Cada acerto lança uma maldição de jade: ataques {0}% mais lentos por acúmulo
+			Com {1} acúmulos o inimigo vira jade por {2} segundos, e depois não pode ser amaldiçoado por {3} segundos
+			Chefes e minichefes precisam de {4} acúmulos, e viram jade no máximo {5} vezes por luta
+			'''
+	}
+
+	DiamondCutter: {
+		DisplayName: Cortador de Diamante
+		Tooltip:
+			'''
+			Dispara um feixe de diamante preciso e instantâneo que atravessa até {0} inimigos
+			Ignora {1}% da defesa inimiga
+			Não usa munição
+			'''
+	}
+
+	BarrelGun: {
+		DisplayName: Arma-Barril
+		Tooltip:
+			'''
+			Arremessa peixes
+			{0}% de chance de atordoar um inimigo comum
+			Não pode acertar golpes críticos
+			Na chuva ou debaixo da água: +{1}% de dano, e os peixes perseguem os inimigos
 			'''
 	}
 }
@@ -793,6 +884,11 @@ Buffs: {
 	TarPlague: {
 		DisplayName: Praga do Piche
 		Description: O piche fervente está corroendo você. Saia daí!
+	}
+
+	RedClothCooldown: {
+		DisplayName: Dobrando o Pano
+		Description: Seu Pano Vermelho ainda não pode esquivar de novo
 	}
 
 	TetanusDebuff: {
@@ -844,6 +940,26 @@ Buffs: {
 		DisplayName: Trem Fantasma
 		Description: Um pequeno trem fantasma corre com você
 	}
+
+	JadeCurse: {
+		DisplayName: Maldição de Jade
+		Description: "Ataques {0}% mais lentos por acúmulo; vira jade com {1} acúmulos"
+	}
+
+	JadePetrified: {
+		DisplayName: Petrificado em Jade
+		Description: "Congelado em jade: sem se mover, sem atacar"
+	}
+
+	JadeWard: {
+		DisplayName: Proteção de Jade
+		Description: A maldição de jade ainda não pode pegar de novo
+	}
+
+	Stunned: {
+		DisplayName: Atordoado
+		Description: Vendo estrelas
+	}
 }
 
 NPCs: {
@@ -854,6 +970,11 @@ NPCs: {
 		CacheGuarded: O esconderijo não cede. Algo ainda o protege...
 		KeyDropped: Uma chave toda mastigada cai dos destroços...
 		CacheLocked: O baú está bem trancado. A Chave Perdida do Trash-Tr0m o abre.
+	}
+
+	DeliveryDrone: {
+		DisplayName: Drone de Entregas
+		Bestiary: Um drone de entregas que perdeu a rota e achou um novo ofício. Ronda tudo que ficou largado no chão, escaneia por cinco longos segundos e vai embora com aquilo na garra. É só papelão e bravata: derrube-o e o que ele levou cai de volta.
 	}
 
 	RustCollector: {
@@ -927,7 +1048,7 @@ NPCs: {
 	}
 
 	Friendobo: {
-		DisplayName: Friendobô
+		DisplayName: Friendo-bot
 		Bestiary: Um velho robô barman de cartola e monóculo. Ele cuidava de um saloon em algum lugar, há muito tempo, e ainda está lustrando o mesmo copo. Mudou-se quando o Exército Mecânico parou de marchar e negocia sucata e as bugigangas que acordam as grandes máquinas.
 		Chat1: Bem-vindo, bem-vindo! Cuidado com o chão, eu encerei neste século.
 		Chat2: O que vai ser? Tenho engrenagens enferrujadas, sucata enferrujada e mais engrenagens enferrujadas.
@@ -946,12 +1067,12 @@ NPCs: {
 
 	BrassBandit: {
 		DisplayName: Bandido de Latão
-		Bestiary: Um robô fora da lei de latão empoeirado que ainda assalta as ruas da Velha Cidade de Latão. Atira assim que te vê, esvazia as seis câmaras do revólver enferrujado e depois foge para recarregar. Até um bandido sabe quando as balas acabaram.
+		Bestiary: Um robô fora da lei de latão empoeirado que ainda assalta as ruas de Westworld. Atira assim que te vê, esvazia as seis câmaras do revólver enferrujado e depois foge para recarregar. Até um bandido sabe quando as balas acabaram.
 	}
 
 	Sheriff: {
 		DisplayName: Xerife
-		Bestiary: O último homem da lei da Velha Cidade de Latão, mantendo a paz muito depois de os moradores irem embora. Três estrelas de xerife flutuam sobre o chapéu; ele as arremessa uma por vez contra quem desrespeita a lei, e as que erram se cravam nas paredes até ele chamá-las de volta, atravessando quem estiver no caminho. O revólver dele é a única coisa limpa que restou na cidade. Ele nunca foge, nem para recarregar.
+		Bestiary: O último homem da lei de Westworld, mantendo a paz muito depois de os moradores irem embora. Três estrelas de xerife flutuam sobre o chapéu; ele as arremessa uma por vez contra quem desrespeita a lei, e as que erram se cravam nas paredes até ele chamá-las de volta, atravessando quem estiver no caminho. O revólver dele é a única coisa limpa que restou na cidade. Ele nunca foge, nem para recarregar.
 	}
 
 	MechanicalBull: {
@@ -967,22 +1088,25 @@ NPCs: {
 	CursedConductor: {
 		DisplayName: Condutor Amaldiçoado
 		Epithet: A Última Parada
-		Bestiary: O condutor da linha que um dia passou sob a Velha Cidade de Latão, ainda marcando a hora de um trem que saiu dos trilhos há cem anos. O desastre levou suas pernas e a maldição levou o resto; uma turbina aparafusada onde ficavam as pernas bombeia fuligem para mantê-lo no ar, e seu apito ainda chama o trem, e o trem ainda vem. Saia da cidade dele e ele te persegue até o fim da linha.
+		Bestiary: O condutor da linha que um dia passou sob Westworld, ainda marcando a hora de um trem que saiu dos trilhos há cem anos. O desastre levou suas pernas e a maldição levou o resto; uma turbina aparafusada onde ficavam as pernas bombeia fuligem para mantê-lo no ar, e seu apito ainda chama o trem, e o trem ainda vem. Saia da cidade dele e ele te persegue até o fim da linha.
 	}
 
 	ConductorGhost: {
 		DisplayName: Fantasma Amaldiçoado
 	}
 
-	ImperialDefender: {
-		DisplayName: Defensor Imperial
-		Bestiary: Um autômato da corte de jade, ainda de guarda num turno que ninguém veio render. Marcha com o dadao erguido à frente e, a cada poucos segundos, finca os pés e levanta a lâmina na vertical: golpes e disparos pela frente resvalam nela. Espere passar, ou ataque pelas costas.
-		Parried: Aparado!
-	}
-
 	JadeGolem: {
 		DisplayName: Golem de Jade
 		Bestiary: Uma estátua talhada num único bloco de jade, despertada pelo coração de bronze cravado no peito. Anda devagar e bate como um deslizamento; quando para e ergue o punho, a luz que se junta ali mira onde você estava um instante antes. Continue se movendo, e mova-se de novo quando a linha piscar.
+	}
+	RhinoBeetle: {
+		DisplayName: Besouro-Rinoceronte
+		Bestiary: Um besouro-rinoceronte gigante das profundezas da selva, raro e de couraça pesada, com esporos brilhando nos veios da carapaça. Quando ele abaixa o chifre e raspa o chão, vai investir, e o que o chifre pegar ele arremessa longe e para o alto. Subir para longe não adianta: ele sabe voar.
+	}
+
+	DragoneteMiudo: {
+		DisplayName: Dragonete Miúdo
+		Bestiary: Um filhote de dragão do Submundo, ainda mais cabeça do que asas. Mantém distância e cospe bolas de fogo, e se uma erra ele perde a paciência e vem voando para morder. A mordida é pior que o rugido.
 	}
 }
 
@@ -1198,6 +1322,26 @@ Projectiles: {
 	GhostTrainWagon: {
 		DisplayName: Vagão do Trem Fantasma
 	}
+
+	JadeBolt: {
+		DisplayName: Raio de Jade
+	}
+
+	FiresawFlame: {
+		DisplayName: Chama da Serra de Fogo
+	}
+
+	DiamondCutterBeam: {
+		DisplayName: Feixe de Diamante
+	}
+
+	BarrelGunFish: {
+		DisplayName: Peixe
+	}
+
+	DragoneteFireBolt: {
+		DisplayName: Bola de Fogo
+	}
 }
 
 Tiles: {
@@ -1259,6 +1403,40 @@ Tiles: {
 		MapEntry: Turbina de Sustentação
 	}
 
+	FundamentalStoneTile: {
+		MapEntry: Pedra Fundamental
+		Sealed: Pedra Fundamental (selada: seu guardião ainda vive)
+		SealedSay: Um escudo primordial zumbe em volta da pedra. Seu guardião ainda vive.
+	}
+
+	FundamentalBrickTile: {
+		MapEntry: Tijolo Fundamental
+	}
+
+	FundamentalCoralTile: {
+		MapEntry: Pedra-coral
+	}
+
+	FundamentalRuneTile: {
+		MapEntry: Tijolo Rúnico
+	}
+
+	FundamentalKelpTile: {
+		MapEntry: Alga
+	}
+
+	FundamentalArenaBrickTile: {
+		MapEntry: Tijolo Ancestral
+	}
+
+	FundamentalArenaRuneTile: {
+		MapEntry: Tijolo Rúnico
+	}
+
+	FundamentalRubbleTile: {
+		MapEntry: Escombros
+	}
+
 	BronzeCogTile: {
 		MapEntry: Engrenagem de Bronze
 	}
@@ -1270,6 +1448,17 @@ Tiles: {
 	JadeTile: {
 		MapEntry: Jade
 	}
+
+	FundamentalGlyphTile: {
+		MapEntry: Glifo Rúnico
+		Lit: Glifo Rúnico (aceso)
+		Awakened: Glifo rúnico desperto ({0}/{1})
+	}
+
+	FundamentalSealTile: {
+		MapEntry: Portão Selado
+		Hover: Portão Selado ({0}/{1} glifos rúnicos acesos)
+	}
 }
 
 WorldGen: {
@@ -1279,9 +1468,10 @@ WorldGen: {
 	ScrappyTrunks: Enferrujando alguns baús velhos
 	GlassContainers: Escondendo tanques de vapor de vidro
 	RustedNails: Deixando pregos enferrujados em baús velhos
-	OldBrassTown: Erguendo uma velha cidade de latão
+	OldBrassTown: Erguendo Westworld
 	Coghaven: Erguendo um palácio de jade nas nuvens
 	Jade: Escondendo jade nas cavernas
+	FundamentalRuins: Afundando as Ruínas Fundamentais num ninho de aranhas
 }
 
 UI: {
@@ -1307,11 +1497,15 @@ Biomes: {
 	}
 
 	OldBrassTownBiome: {
-		DisplayName: Velha Cidade de Latão
+		DisplayName: Westworld
 	}
 
 	CoghavenBiome: {
 		DisplayName: Coghaven
+	}
+
+	FundamentalRuinsBiome: {
+		DisplayName: Ruínas Fundamentais
 	}
 }
 
@@ -1349,5 +1543,15 @@ Events: {
 Keybinds: {
 	SteamDash: {
 		DisplayName: Investida a Vapor
+	}
+}
+
+Secrets: {
+	GateOpened: O portão selado das Ruínas Fundamentais se abre rangendo!
+}
+
+Emotes: {
+	FriendoboEmote: {
+		Command: friendobot
 	}
 }

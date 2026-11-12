@@ -68,7 +68,8 @@ SHOULDER_NEAR, SHOULDER_FAR = (-18.0, -41.0), (17.0, -41.6)
 UPPER, FORE, FIST = 11.0, 12.0, 6.4
 HEAD_AT = (-11.0, -57.0)                             # the head stencil's top-left in the body's own space
 TORSO = (0.0, -35.0, 15.5, 13.5)                     # the barrel's centre and radii
-AIM_MIN, AIM_STEP, AIM_FRAMES = -90, 15, 13          # degrees below "forward"; -90 straight up, +90 straight down
+AIM_MIN, AIM_STEP, AIM_FRAMES = -90, 5, 37           # degrees below "forward"; -90 straight up, +90 straight down
+ARM_COLUMNS = 8                                      # the aiming arm's own sheet (2026-11-10b): 37 cells in 8 columns
 JADE_LO, JADE_HI = 1, 4
 
 # --- hand-placed parts ----------------------------------------------------------------------------------------------------
@@ -230,13 +231,81 @@ def leg(cv, hip, foot, depth):
     return knee
 
 
+# --- the open hands (2026-11-10b, user: "the hands of the jade golem should be an open palm hand and the jade laser has to
+# come out from the hand"; they were knuckled fists) ----------------------------------------------------------------------
+PALM_OFF = 3.4                                       # the palm's centre past the wrist, along the forearm
+PALM_DEPTH, PALM_SPAN = 3.4, 5.6                     # aimed: the palm's half-thickness along the arm, its half-width across
+HANG_LEN, HANG_SPAN = 4.2, 4.4                       # hanging: the palm's half-length down the arm, its half-width
+FINGER_R = 1.7
+# aimed: four fingers up off the palm's top edge (across the arm), fanned towards the aim: (base along the arm, fan angle
+# in degrees towards the aim, length); the palm faces the aim and the ray leaves its face
+AIM_FINGERS = ((-2.4, -30.0, 4.8), (-0.8, -10.0, 6.0), (0.8, 10.0, 6.2), (2.4, 30.0, 5.0))
+# hanging: three fingers down off the palm, slightly spread, and the thumb on the front: (base across, fan angle, length)
+HANG_FINGERS = ((-2.0, -12.0, 5.2), (0.0, 2.0, 6.2), (2.0, 16.0, 5.4))
+PALM_FRONT = PALM_DEPTH + 1.2                        # the ray leaves the palm's face this far past the palm's centre
+PALM_REACH = UPPER + FORE + PALM_OFF + PALM_FRONT    # the shoulder to that point (1x px), the same at every angle
+
+
+def rotate_towards(n, u, deg):
+    """The unit vector n turned `deg` degrees towards u (u perpendicular to n)."""
+    a = math.radians(deg)
+    return (n[0] * math.cos(a) + u[0] * math.sin(a), n[1] * math.cos(a) + u[1] * math.sin(a))
+
+
+def open_hand(cv, glow, wrist, u, front, depth, aimed):
+    """A huge open stone hand off the wrist. Aimed: the palm faces along the arm `u` (the ray's way), four fingers spread
+    up across it (towards n, turned to the arm's upper side), the thumb forward and down; a glowing rune slit on the palm's
+    face (near plane). Hanging: the palm down the arm, three fingers spread down, the thumb on the `front` side. Returns
+    the palm's centre and where the ray leaves it."""
+    n = (-u[1], u[0])                                # the arm's upper side (up for an arm pointed forward)
+    palm = (wrist[0] + u[0] * PALM_OFF, wrist[1] + u[1] * PALM_OFF)
+    turn = math.degrees(math.atan2(u[1], u[0]))
+    xf = Xf.pose(turn, (0.0, 0.0), palm)             # local x along the arm, local y across it
+    if aimed:
+        shade = flat(2, bevel=False) if depth else dome(-1.4, -2.0, 5.2, lo=JADE_LO, hi=JADE_HI + 1, fixed=True)
+        inner = cv.part(xf, Ellipse(0.0, 0.0, PALM_DEPTH, PALM_SPAN), "ghost", shade, rust=0.0)
+        for (t, fan, ln) in AIM_FINGERS:
+            base = (palm[0] + n[0] * (PALM_SPAN - 1.2) + u[0] * t, palm[1] + n[1] * (PALM_SPAN - 1.2) + u[1] * t)
+            d = rotate_towards(n, u, fan)
+            limb(cv, base, (base[0] + d[0] * ln, base[1] + d[1] * ln), FINGER_R, "ghost", depth, lo=JADE_LO, hi=JADE_HI)
+        tb = (palm[0] - n[0] * PALM_SPAN * 0.35 + u[0] * PALM_DEPTH * 0.5, palm[1] - n[1] * PALM_SPAN * 0.35 + u[1] * PALM_DEPTH * 0.5)
+        td = rotate_towards((-n[0], -n[1]), u, 55.0)
+        limb(cv, tb, (tb[0] + td[0] * 4.4, tb[1] + td[1] * 4.4), FINGER_R, "ghost", depth, lo=JADE_LO, hi=JADE_HI)
+    else:
+        shade = flat(2, bevel=False) if depth else dome(-1.8, -1.6, 5.0, lo=JADE_LO, hi=JADE_HI + 1, fixed=True)
+        inner = cv.part(xf, Ellipse(0.0, 0.0, HANG_LEN, HANG_SPAN), "ghost", shade, rust=0.0)
+        across = (front[0] - u[0] * (front[0] * u[0] + front[1] * u[1]), front[1] - u[1] * (front[0] * u[0] + front[1] * u[1]))
+        la = math.hypot(*across) or 1.0
+        across = (across[0] / la, across[1] / la)    # the hand's front, square to the arm
+        for (t, fan, ln) in HANG_FINGERS:
+            base = (palm[0] + u[0] * (HANG_LEN - 1.0) + across[0] * t, palm[1] + u[1] * (HANG_LEN - 1.0) + across[1] * t)
+            d = rotate_towards(u, across, fan)
+            limb(cv, base, (base[0] + d[0] * ln, base[1] + d[1] * ln), FINGER_R, "ghost", depth, lo=JADE_LO, hi=JADE_HI)
+        tb = (palm[0] + across[0] * (HANG_SPAN - 0.8) - u[0] * 0.6, palm[1] + across[1] * (HANG_SPAN - 0.8) - u[1] * 0.6)
+        td = rotate_towards(across, u, 40.0)
+        limb(cv, tb, (tb[0] + td[0] * 4.0, tb[1] + td[1] * 4.0), FINGER_R, "ghost", depth, lo=JADE_LO, hi=JADE_HI)
+    if depth == 0:
+        limb_mottle(cv, inner, wrist, palm, 23)
+        if aimed:                                    # the rune slit on the palm's face, where the ray comes out
+            for t, col in ((-1.8, JD[5]), (-0.6, WHITE), (0.6, WHITE), (1.8, JD[5])):
+                q = P(Xf(), (palm[0] + u[0] * (PALM_DEPTH - 0.6) + n[0] * t, palm[1] + u[1] * (PALM_DEPTH - 0.6) + n[1] * t))
+                cv.put_glow(q[0], q[1], col)
+                glow.put_glow(q[0], q[1], col)
+        else:                                        # a rune in the palm, dimly glowing
+            q = P(Xf(), (palm[0] + across[0] * 0.4, palm[1] + across[1] * 0.4))
+            cv.put_glow(q[0], q[1], JD[5])
+            glow.put_glow(q[0], q[1], JD[5])
+    muzzle = (palm[0] + u[0] * PALM_FRONT, palm[1] + u[1] * PALM_FRONT)
+    return palm, muzzle
+
+
 def arm(cv, glow, shoulder, depth, hand_off=(0.0, 0.0), aim=None):
-    """A long stone arm from the shoulder: hanging (the huge fist by the knee, swung by `hand_off`) or pointed `aim` degrees
-    below forward. Returns the fist's centre and where the ray leaves it (the knuckles' front)."""
+    """A long stone arm from the shoulder: hanging (the open hand by the knee, swung by `hand_off`) or pointed `aim`
+    degrees below forward, palm out. Returns the palm's centre and where the ray leaves it (the palm's face)."""
     sx, sy = shoulder
     side = -1.0 if sx < 0 else 1.0
     if aim is None:
-        rest = (sx + side * 3.4 + hand_off[0], sy + 22.4 + hand_off[1])
+        rest = (sx + side * 3.4 + hand_off[0], sy + 20.4 + hand_off[1])
         elbow, wrist = ik(shoulder, rest, UPPER, FORE, 1 if side < 0 else -1)
         u = (wrist[0] - elbow[0], wrist[1] - elbow[1])
         ln = math.hypot(*u) or 1.0
@@ -248,36 +317,24 @@ def arm(cv, glow, shoulder, depth, hand_off=(0.0, 0.0), aim=None):
         elbow = (sx + u[0] * UPPER, sy + u[1] * UPPER)
         wrist = (elbow[0] + u[0] * FORE, elbow[1] + u[1] * FORE)
         front = u
-    fist = (wrist[0] + u[0] * FIST, wrist[1] + u[1] * FIST)
     upper = limb(cv, shoulder, elbow, 4.8, "ghost", depth, lo=JADE_LO, hi=JADE_HI)
     fore = limb(cv, elbow, wrist, 5.8, "ghost", depth, lo=JADE_LO, hi=JADE_HI)
     if depth == 0:
         limb_mottle(cv, upper, shoulder, elbow, 17)
         limb_mottle(cv, fore, elbow, wrist, 19)
-    # the bronze bracelet, its runes glowing (near arm only: a far rune would flicker, D4 rule 17)
-    b0 = (wrist[0] - u[0] * 3.4, wrist[1] - u[1] * 3.4)
-    b1 = (wrist[0] - u[0] * 1.0, wrist[1] - u[1] * 1.0)
-    limb(cv, b0, b1, 6.4, "gilt", depth, lo=3, hi=8)
-    shade = flat(2, bevel=False) if depth else dome(fist[0] - 2.2, fist[1] - 2.4, 6.4, lo=JADE_LO, hi=JADE_HI + 1, fixed=True)
-    fin = cv.part(Xf(), Ellipse(fist[0], fist[1], 6.8, 6.2), "ghost", shade, rust=0.0)
+    # the bronze bracelet round the wrist, its runes glowing (near arm only: a far rune would flicker, D4 rule 17)
+    b0 = (wrist[0] - u[0] * 4.4, wrist[1] - u[1] * 4.4)
+    b1 = (wrist[0] - u[0] * 2.0, wrist[1] - u[1] * 2.0)
+    limb(cv, b0, b1, 6.2, "gilt", depth, lo=3, hi=8)
     if depth == 0:
-        limb_mottle(cv, fin, wrist, fist, 23)
         n = (-u[1], u[0])
         mb = ((b0[0] + b1[0]) * 0.5, (b0[1] + b1[1]) * 0.5)
         for t, col in ((-2.6, JD[5]), (-0.8, WHITE), (1.0, JD[5]), (2.8, JD[5])):
             q = P(Xf(), (mb[0] + n[0] * t, mb[1] + n[1] * t))
             cv.put_glow(q[0], q[1], col)
             glow.put_glow(q[0], q[1], col)
-        fn = (-front[1], front[0])
-        for t in (-3.6, -1.2, 1.2, 3.6):              # four knuckles across the fist's front, each lit on top
-            q = P(Xf(), (fist[0] + front[0] * 4.8 + fn[0] * t, fist[1] + front[1] * 4.8 + fn[1] * t))
-            if q in fin:
-                cv.put(q[0], q[1], JD[4])
-                r = (q[0] - int(round(front[0])), q[1] - int(round(front[1])))
-                if r in fin:
-                    cv.put(r[0], r[1], JD[1])        # the gap behind each knuckle
-    muzzle = (fist[0] + u[0] * 6.8, fist[1] + u[1] * 6.8)
-    return fist, muzzle
+    palm, muzzle = open_hand(cv, glow, wrist, u, front, depth, aim is not None)   # the hand over the bracelet's end
+    return palm, muzzle
 
 
 def boulder(cv, at, depth, seed_crack=None):
@@ -360,7 +417,9 @@ def frame(p):
     sh_near, sh_far = body(mid, glow, p)
     leg(far, (HIP_FAR[0], HIP_FAR[1] + p.bob), p.far_foot, 1)
     arm(far, glow, sh_far, 1, hand_off=p.far_hand)
-    _, muzzle = arm(near, glow, sh_near, 0, hand_off=p.near_hand, aim=p.aim)
+    muzzle = None
+    if p.aim != "body":                              # the aiming stance's near arm is the arm sheet's (arm_frame)
+        _, muzzle = arm(near, glow, sh_near, 0, hand_off=p.near_hand, aim=p.aim)
     boulder(near, (sh_near[0], sh_near[1] - 1.0), 0)
     for cv in (far, mid, near):
         finish(cv)
@@ -413,8 +472,17 @@ def idle_pose(k):
 STANCE = dict(near_foot=(FOOT_NEAR_X - 4.0, 0.0), far_foot=(FOOT_FAR_X + 4.0, 0.0), far_hand=(2.0, -1.0))
 FRAMES = ([("Walk%d" % k, walk_pose(k)) for k in range(WALK)]
           + [("Idle%d" % k, idle_pose(k)) for k in range(4)]
-          + [("Aim%d" % k, Pose(aim=AIM_MIN + AIM_STEP * k, **STANCE)) for k in range(AIM_FRAMES)])
+          + [("Aim", Pose(aim="body", **STANCE))])
 INDEX = {n: k for k, (n, _) in enumerate(FRAMES)}
+
+
+def arm_frame(k):
+    """Aim frame k: the near arm alone (the arm sheet, drawn between the middle plane and the near boulder), pointed
+    AIM_MIN + k x AIM_STEP degrees below forward from the braced stance's shoulder; its canvas, its glow and the muzzle."""
+    near, glow = Canvas(), Canvas()
+    _, muzzle = arm(near, glow, SHOULDER_NEAR, 0, aim=AIM_MIN + AIM_STEP * k)
+    finish(near)
+    return near, glow, muzzle
 
 
 # ------------------------------------------------------------------------------------------------------------------------
@@ -502,45 +570,54 @@ def crop(px):
 def gores():
     head_cv = Canvas()
     stamp_head(head_cv, Canvas(), 0, 0)
-    fist = Canvas()
-    arm(fist, Canvas(), (-6.0, -20.0), 0)
-    fist_px = {q: c for q, c in fist.px.items() if q[1] >= -8}
+    hand = Canvas()
+    arm(hand, Canvas(), (-6.0, -20.0), 0)
+    finish(hand)
+    hand_px = {q: c for q, c in hand.px.items() if q[1] >= -6}
     heart = Canvas()
     stamp_heart(heart, Canvas(), 0, 0)
     crystal = Canvas()
     crystal.part(Xf(), Poly([(-2.4, 0.0), (1.0, -8.0), (2.4, 0.0)]), "ghost", face((-0.6, -0.5, 0.6), lo=3, hi=5, ramp_len=6, fixed=True),
                  rust=0.0)
     finish(crystal)
-    return {"JadeGolem_GoreHead": crop(head_cv.px), "JadeGolem_GoreFist": crop(fist_px), "JadeGolem_GoreHeart": crop(heart.px),
+    return {"JadeGolem_GoreHead": crop(head_cv.px), "JadeGolem_GoreHand": crop(hand_px), "JadeGolem_GoreHeart": crop(heart.px),
             "JadeGolem_GoreCrystal": crop(crystal.px)}
 
 
-def write_rig(path, cell, muzzles):
+def write_rig(path, cell, acell, muzzles):
     w, h, ox, oy = cell
+    aw, ah, aox, aoy = acell
     mx = ", ".join(str(round(m[0] * 2)) for m in muzzles)
     my = ", ".join(str(round(m[1] * 2)) for m in muzzles)
+    T = "\t"
     L = ["// <auto-generated> by art/coghaven/make_jade_golem_art.py - do not edit by hand. </auto-generated>",
          "namespace Cogpunk.Content.Coghaven.NPCs",
          "{",
-         "\t/// <summary>The Jade Golem's grid sheets (game px, left-facing): far, middle, near planes and the glow, equal cells in",
-         "\t/// Columns columns, 2 px between them; the origin is the ground point under his hips. Each sequence is Name .. Name +",
-         "\t/// NameFrames - 1. Aim frame k points the near arm AimMinDegrees + k x AimStepDegrees below forward (-90 straight up).</summary>",
-         "\tpublic static class JadeGolemRigData",
-         "\t{",
-         "\t\tpublic const int CellWidth = %d, CellHeight = %d, OriginX = %d, OriginY = %d, Frames = %d, Columns = %d;"
+         T + "/// <summary>The Jade Golem's grid sheets (game px, left-facing): far, middle, near planes and the glow, equal cells in",
+         T + "/// Columns columns, 2 px between them; the origin is the ground point under his hips. Each sequence is Name .. Name +",
+         T + "/// NameFrames - 1. While he aims, the body is frame AimBody and the near arm comes from the arm sheets (_Arm, _ArmGlow):",
+         T + "/// arm frame k points it ArmMinDegrees + k x ArmStepDegrees below forward (-90 straight up), drawn over the middle",
+         T + "/// plane and under the near one.</summary>",
+         T + "public static class JadeGolemRigData",
+         T + "{",
+         T * 2 + "public const int CellWidth = %d, CellHeight = %d, OriginX = %d, OriginY = %d, Frames = %d, Columns = %d;"
          % (w * 2, h * 2, ox * 2, oy * 2, len(FRAMES), COLUMNS),
-         "\t\tpublic const int Walk = 0, WalkFrames = %d, Idle = %d, IdleFrames = 4, Aim = %d, AimFrames = %d;"
-         % (WALK, INDEX["Idle0"], INDEX["Aim0"], AIM_FRAMES),
-         "\t\tpublic const int AimMinDegrees = %d, AimStepDegrees = %d;" % (AIM_MIN, AIM_STEP),
-         "\t\t/// <summary>The near shoulder, game px from the origin (left-facing): the aim is measured from here.</summary>",
-         "\t\tpublic const int ShoulderX = %d, ShoulderY = %d;" % (round(SHOULDER_NEAR[0] * 2), round(SHOULDER_NEAR[1] * 2)),
-         "\t\t/// <summary>Game px a planted foot slides back per walk frame: the walk frame advances with this much distance",
-         "\t\t/// walked, so the planted foot never slips (the Jaeger's root motion).</summary>",
-         "\t\tpublic const int WalkStep = %d;" % round(WALK_STEP * 2),
-         "\t\t/// <summary>Where the ray leaves his fist in each aim frame, game px from the origin (left-facing).</summary>",
-         "\t\tpublic static readonly int[] MuzzleX = { %s };" % mx,
-         "\t\tpublic static readonly int[] MuzzleY = { %s };" % my,
-         "\t}",
+         T * 2 + "public const int Walk = 0, WalkFrames = %d, Idle = %d, IdleFrames = 4, AimBody = %d;" % (WALK, INDEX["Idle0"], INDEX["Aim"]),
+         T * 2 + "public const int ArmFrames = %d, ArmMinDegrees = %d, ArmStepDegrees = %d, ArmColumns = %d;"
+         % (AIM_FRAMES, AIM_MIN, AIM_STEP, ARM_COLUMNS),
+         T * 2 + "/// <summary>The arm sheets' cells: the arm's reach only; their origin is the same ground point (below the cell).</summary>",
+         T * 2 + "public const int ArmCellWidth = %d, ArmCellHeight = %d, ArmOriginX = %d, ArmOriginY = %d;" % (aw * 2, ah * 2, aox * 2, aoy * 2),
+         T * 2 + "/// <summary>The near shoulder, game px from the origin (left-facing): the aim is measured from here.</summary>",
+         T * 2 + "public const int ShoulderX = %d, ShoulderY = %d;" % (round(SHOULDER_NEAR[0] * 2), round(SHOULDER_NEAR[1] * 2)),
+         T * 2 + "/// <summary>Game px from the shoulder, along the arm, to where the ray leaves the open palm (every angle).</summary>",
+         T * 2 + "public const float PalmReach = %.1ff;" % (PALM_REACH * 2),
+         T * 2 + "/// <summary>Game px a planted foot slides back per walk frame: the walk frame advances with this much distance",
+         T * 2 + "/// walked, so the planted foot never slips (the Jaeger's root motion).</summary>",
+         T * 2 + "public const int WalkStep = %d;" % round(WALK_STEP * 2),
+         T * 2 + "/// <summary>Where the ray leaves the palm in each arm frame, game px from the origin (left-facing).</summary>",
+         T * 2 + "public static readonly int[] MuzzleX = { %s };" % mx,
+         T * 2 + "public static readonly int[] MuzzleY = { %s };" % my,
+         T + "}",
          "}"]
     full = os.path.join(ROOT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
@@ -567,37 +644,77 @@ def grid_cols(canvases, cell, glow=False):
     return out
 
 
+def arm_cell(arms):
+    """The arm sheet's cell (1x width, height, origin x, origin y): just the arm's reach, the origin still the ground point
+    under the hips (it lies below the cell), so the same anchor places it."""
+    xs = [x for (cv, g, _) in arms for (x, y) in list(cv.px) + list(g.px)]
+    ys = [y for (cv, g, _) in arms for (x, y) in list(cv.px) + list(g.px)]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    return (x1 - x0 + 1, y1 - y0 + 1, -x0, -y0)
+
+
+def grid_n(canvases, cell, columns, glow=False):
+    """Equal cells in `columns` columns (1 px, 2 px in game, between them); every pixel must fit in its cell."""
+    w, h, ox, oy = cell
+    rows = (len(canvases) + columns - 1) // columns
+    out = Image.new("RGBA", (w * columns + columns - 1, (h + 1) * rows - 1), (0, 0, 0, 0))
+    pix = out.load()
+    for k, cv in enumerate(canvases):
+        bx, by = (k % columns) * (w + 1), (k // columns) * (h + 1)
+        for (x, y), col in (cv.glow if glow else cv.px).items():
+            cx, cy = x + ox, y + oy
+            if not (0 <= cx < w and 0 <= cy < h):
+                raise SystemExit("pixel (%d, %d) of arm frame %d is outside its %dx%d cell" % (x, y, k, w, h))
+            pix[bx + cx, by + cy] = col + (255,)
+    return out
+
+
 def export_all():
     frames = [frame(p) for _, p in FRAMES]
     cell = fit_cell([fr[:3] for fr in frames])
     for suffix, idx in (("_Far", 0), ("", 1), ("_Near", 2)):
         export(grid_cols([fr[idx] for fr in frames], cell), OUT + "NPCs/JadeGolem%s.png" % suffix)
     export(grid_cols([fr[3] for fr in frames], cell, glow=True), OUT + "NPCs/JadeGolem_Glow.png")
-    muzzles = [frames[INDEX["Aim%d" % k]][4] for k in range(AIM_FRAMES)]
-    write_rig(OUT + "NPCs/JadeGolemRigData.cs", cell, muzzles)
+    arms = [arm_frame(k) for k in range(AIM_FRAMES)]
+    acell = arm_cell(arms)
+    export(grid_n([a[0] for a in arms], acell, ARM_COLUMNS), OUT + "NPCs/JadeGolem_Arm.png")
+    export(grid_n([a[1] for a in arms], acell, ARM_COLUMNS, glow=True), OUT + "NPCs/JadeGolem_ArmGlow.png")
+    write_rig(OUT + "NPCs/JadeGolemRigData.cs", cell, acell, [a[2] for a in arms])
+    stale = os.path.join(ROOT, OUT + "Gores/JadeGolem_GoreFist.png")
+    if os.path.exists(stale):
+        os.remove(stale)                             # the fist's gore: the hands are open since 2026-11-10b
     for name, im in gores().items():
         export(im, OUT + "Gores/" + name + ".png")
     export_ray()
 
 
-def render(p, cw, ch, ox, oy):
+def render(p, cw, ch, ox, oy, arm_k=None):
+    """A frame composed as the game draws it: far, middle, (the aiming arm), near, glow."""
     far, mid, near, glow, _ = frame(p)
+    layers = [far, mid]
+    if arm_k is not None:
+        a, ag, _ = arm_frame(arm_k)
+        layers += [a, ag]
+    layers += [near, glow]
     t = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
-    for cv in (far, mid, near, glow):
+    for cv in layers:
         t.alpha_composite(to_image(cv.px, -ox, -oy, cw, ch))
     return t
 
 
 def preview(path, names=None, scale=4):
     cw, ch = 100, 80
-    chosen = [(n, p) for (n, p) in FRAMES if names is None or n in names]
+    chosen = [(n, p, None) for (n, p) in FRAMES if names is None or n in names]
+    for n in (names or ()):                          # "Arm<k>": the aim body with arm frame k
+        if n.startswith("Arm"):
+            chosen.append((n, FRAMES[INDEX["Aim"]][1], int(n[3:])))
     cols = min(6, len(chosen))
     rows = (len(chosen) + cols - 1) // cols
     sheet_im = Image.new("RGBA", (cw * cols, ch * rows * 2), (0, 0, 0, 0))
     for half, bg in ((0, (36, 40, 48, 255)), (1, (150, 180, 210, 255))):
         tile = Image.new("RGBA", (cw * cols, ch * rows), bg)
-        for k, (n, p) in enumerate(chosen):
-            tile.alpha_composite(render(p, cw, ch, cw // 2 + 6, ch - 3), ((k % cols) * cw, (k // cols) * ch))
+        for k, (n, p, ak) in enumerate(chosen):
+            tile.alpha_composite(render(p, cw, ch, cw // 2 + 6, ch - 3, ak), ((k % cols) * cw, (k // cols) * ch))
         sheet_im.paste(tile, (0, half * ch * rows))
     sheet_im.resize((sheet_im.width * scale, sheet_im.height * scale), Image.NEAREST).save(path)
     print("preview", path)

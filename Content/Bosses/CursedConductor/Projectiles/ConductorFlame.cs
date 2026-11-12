@@ -22,6 +22,8 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Projectiles
 	/// block a <see cref="GhostRift"/> opens and a <see cref="NPCs.ConductorGhost"/> rises out of it
 	/// <see cref="CursedConductor.RiftDelay"/> ticks later (none when the ghosts are at their cap). Hostile colours (ghost
 	/// green with a white heart, D3); four hand-drawn frames, never rotated (D4).
+	/// <para>Since 2026-11-10 (user: "only 1 ghost per lantern attack") only the first bolt of a fan to land opens a rift:
+	/// <c>ai[1]</c> is the fan's token, claimed through <see cref="CursedConductor.ClaimVolleyGhost"/>.</para>
 	/// <para><c>ai[0]</c> = 1 when he was furious (out of town): its ghost is too. D2: the server's (spawned by the boss); its
 	/// flight follows from the synced velocity; the curse is added on the hit player's client (vanilla syncs it); the rift
 	/// is the server's. D0/D1: finite <see cref="Lifetime"/>, no allocation.</para>
@@ -74,7 +76,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Projectiles
 		}
 
 		public override void OnKill(int timeLeft) {
-			if (landed && Main.netMode != NetmodeID.MultiplayerClient) {
+			if (landed && Main.netMode != NetmodeID.MultiplayerClient && CursedConductor.ClaimVolleyGhost(Projectile)) {
 				Vector2 back = Projectile.velocity.SafeNormalize(Vector2.UnitY) * 10f;
 				CursedConductor.OpenRift(Projectile.GetSource_Death(), Projectile.Center - back, CursedConductor.RiftDelay, Projectile.ai[0] == 1f);
 			}

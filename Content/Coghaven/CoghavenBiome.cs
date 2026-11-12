@@ -12,7 +12,8 @@ namespace Cogpunk.Content.Coghaven
 	/// the local player only.
 	/// <para>A T4 area (user, 2026-11-06: "not locked by anything, but the enemies should have a T4 equivalent difficulty",
 	/// the pre-Wall-of-Flesh endgame of docs/balance's tier table): vanilla's spawns are off on the island
-	/// (<see cref="CoghavenSpawnRules"/>) and only its own enemies come, the Imperial Defender and the Jade Golem. No music
+	/// (<see cref="CoghavenSpawnRules"/>) and only its own enemies come: the Jade Golem (the Imperial Defender was removed 2026-11-11, user: "it is not fitting the
+	/// jade theme properly"). No music
 	/// of its own yet: the sky's stays. Medium priority, so its scene (and later its music) wins over the sky's.</para>
 	/// </summary>
 	public class CoghavenBiome : ModBiome

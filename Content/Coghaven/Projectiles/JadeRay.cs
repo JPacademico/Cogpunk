@@ -115,6 +115,12 @@ namespace Cogpunk.Content.Coghaven.Projectiles
 			return Lifetime - Projectile.timeLeft < HitTicks;
 		}
 
+		/// <summary>The ray lays a stack of the jade curse (user, 2026-11-10; on the hit player's own client, see
+		/// <see cref="Gems.JadeCursePlayer"/>).</summary>
+		public override void OnHitPlayer(Player target, Player.HurtInfo info) {
+			Gems.JadeCursePlayer.Hit(target);
+		}
+
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) {
 			return SwingPose.CapsuleHitsRect(Start, End, Radius, targetHitbox);
 		}

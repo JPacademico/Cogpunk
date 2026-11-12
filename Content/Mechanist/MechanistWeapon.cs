@@ -26,6 +26,10 @@ namespace Cogpunk.Content.Mechanist
 		/// <summary>Steam spent per use, before the player's cost multiplier.</summary>
 		public abstract int SteamCost { get; }
 
+		/// <summary>The steam the use <paramref name="player"/> is starting costs, before the multiplier: <see cref="SteamCost"/>,
+		/// unless the weapon's alternate use costs more (the Firesaw's fire, 2026-11-09).</summary>
+		public virtual int SteamCostFor(Player player) => SteamCost;
+
 		public override void SetStaticDefaults() {
 			steamCostText ??= Language.GetOrRegister("Mods.Cogpunk.Mechanist.SteamCost");
 			noTankTooltip ??= Language.GetOrRegister("Mods.Cogpunk.Mechanist.NoTankTooltip");
@@ -47,12 +51,12 @@ namespace Cogpunk.Content.Mechanist
 			if (player.whoAmI != Main.myPlayer) {
 				return true;                                   // the owner decided (D2)
 			}
-			return player.GetModPlayer<SteamPlayer>().CanPayAttack(SteamCost);   // the hint or the overheat when it can't
+			return player.GetModPlayer<SteamPlayer>().CanPayAttack(SteamCostFor(player));   // the hint or the overheat when it can't
 		}
 
 		public override bool? UseItem(Player player) {
 			if (player.whoAmI == Main.myPlayer) {
-				player.GetModPlayer<SteamPlayer>().Spend(SteamCost);
+				player.GetModPlayer<SteamPlayer>().Spend(SteamCostFor(player));
 			}
 			return null;
 		}

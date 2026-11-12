@@ -40,12 +40,14 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 	/// the visual cue for the attack is just a glow on the lantern") and it flings a fan of <see cref="Bolts"/>
 	/// (<see cref="EnragedBolts"/> below half) straight cursed bolts, <see cref="BoltSpread"/> apart, from the glass at his
 	/// target (the closest other fighter when the loop has trapped the target). A bolt
-	/// that hits curses for 6 s (<see cref="Buffs.ConductorCurse"/>: +25% from the train and the ghosts); one that strikes a
-	/// block opens a rift and a ghost rises from it <see cref="RiftDelay"/> ticks later (<see cref="ConductorGhost"/>, at most
+	/// that hits curses for 6 s (<see cref="Buffs.ConductorCurse"/>: +25% from the train and the ghosts); the first of a fan's
+	/// bolts to strike a block opens a rift and a ghost rises from it <see cref="RiftDelay"/> ticks later
+	/// (<see cref="ConductorGhost"/>; one ghost a lantern attack, user 2026-11-10, <see cref="ClaimVolleyGhost"/>; at most
 	/// <see cref="MaxGhosts"/>).</item>
 	/// <item><b>Loop</b> (rare: every <see cref="LoopIntervalMin"/>-<see cref="LoopIntervalMax"/> ticks): a random fighter is
 	/// circled by the train for 3 laps (<see cref="GhostTrain.LoopLaps"/>) after a ring of ghost lights; two ghosts rise on
-	/// opposite sides inside the ring every lap; no passive train runs and the lantern never aims at the trapped
+	/// opposite sides inside the ring on its first lap only (user, 2026-11-10: "2 ghosts max while spinning";
+	/// <see cref="LoopGhostLaps"/>; it was two every lap); no passive train runs and the lantern never aims at the trapped
 	/// player meanwhile.</item>
 	/// <item><b>Whistle</b>: at 70%, 40% and 10% of his life he stops, blows his whistle and can't be hurt for
 	/// <see cref="WhistleTicks"/> ticks (7 s): the train runs a wave across the screen, left to right and then right to left
@@ -136,6 +138,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		public const int LoopTicks = LoopTelegraph + LoopEnter + LoopRun + (int)(GhostTrain.Length / LoopSpeed) + 10;
 		public const float LoopGhostRadius = LoopRadius * 0.6f;
 		public const int LoopGhostDelay = 40;
+		public const int LoopGhostLaps = 1;                                  // user, 2026-11-10: "2 ghosts max while spinning" (a pair, first lap only)
 
 		// --- the whistle -----------------------------------------------------------------------------------------------
 		public const int WhistleTicks = 420;                                 // user-set: immune for 7 s
@@ -147,6 +150,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		// --- the ghosts ------------------------------------------------------------------------------------------------
 		public const int MaxGhosts = 8;
 		public const int RiftDelay = 90;                                     // user-set: 1.5 s after a bolt lands
+		private const int VolleySerialWrap = 1_000_000;                      // the volley tokens stay exact as floats
 
 		// --- intro, leaving, death ------------------------------------------------------------------------------------
 		public const int IntroTicks = 180, FadeTicks = 60;
@@ -185,7 +189,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		private byte throwTarget = 255, loopTarget = 255;
 		private float wavePhase;
 		// the server's own clocks
-		private int passiveClock, lanternClock, loopClock, nextLoop = LoopFirstTicks, absentTicks;
+		private int passiveClock, lanternClock, loopClock, nextLoop = LoopFirstTicks, absentTicks, volleySerial;
 		private bool playerScaled;
 
 		protected override int DyingState => (int)Phase.Dying;
@@ -579,10 +583,30 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			int count = Enraged || Furious ? EnragedBolts : Bolts;
 			int damage = ExpertStats.HostileProjectile(NPC, BoltDamage * DamageScale);
 			int type = ModContent.ProjectileType<ConductorFlame>();
+			volleySerial = volleySerial >= VolleySerialWrap ? 1 : volleySerial + 1;   // the volley's ghost token (ai[1], > 0)
 			for (int k = 0; k < count; k++) {
 				float turn = (k - (count - 1) * 0.5f) * BoltSpread;
-				SafeSpawn.TryNewProjectile(NPC.GetSource_FromAI(), from, aim.RotatedBy(turn), type, damage, 0f, out _, ai0: Furious ? 1f : 0f);
+				SafeSpawn.TryNewProjectile(NPC.GetSource_FromAI(), from, aim.RotatedBy(turn), type, damage, 0f, out _, ai0: Furious ? 1f : 0f,
+					ai1: volleySerial);
 			}
+		}
+
+		/// <summary>Server: <paramref name="bolt"/> landed; true if its volley may still raise its one ghost (user, 2026-11-10:
+		/// "only 1 ghost per lantern attack"). The first bolt of a volley to land claims the volley's token: every bolt of
+		/// that volley loses it (server-side state only; clients never open rifts), so the rest just burst. One pass over the
+		/// projectiles, no allocation.</summary>
+		public static bool ClaimVolleyGhost(Projectile bolt) {
+			float token = bolt.ai[1];
+			if (token <= 0f) {
+				return false;
+			}
+			foreach (Projectile p in Main.ActiveProjectiles) {
+				if (p.type == bolt.type && p.ai[1] == token) {
+					p.ai[1] = 0f;
+				}
+			}
+			bolt.ai[1] = 0f;
+			return true;
 		}
 
 		// --- the passive trains: every 3 s at the farthest fighter, with no gesture ---------------------------------------
@@ -705,7 +729,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 				Vector2 top = locked - new Vector2(0f, LoopRadius);
 				SendTrain(top + new Vector2(side * LoopApproach, 0f), new Vector2(-side * LoopSpeed, 0f), GhostTrain.Route.Loop, 0f, locked);
 			}
-			for (int lap = 0; lap < (int)GhostTrain.LoopLaps; lap++) {
+			for (int lap = 0; lap < LoopGhostLaps && lap < (int)GhostTrain.LoopLaps; lap++) {
 				if (t == LoopTelegraph + LoopEnter + lap * LapTicks + 4) {
 					float a = Main.rand.NextFloat(MathHelper.TwoPi);
 					Vector2 off = new Vector2(MathF.Cos(a), MathF.Sin(a)) * LoopGhostRadius;

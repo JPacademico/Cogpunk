@@ -122,6 +122,7 @@ namespace Cogpunk.Content.OldBrassTown.NPCs
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarnishedBrassBar>(), 1, 2, 3));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RustedCog>(), 1, 2, 4));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Accessories.RedCloth>(), Accessories.RedCloth.DropOneIn));   // user-set 2026-11-10b
 		}
 
 		protected override void UpdateState() {

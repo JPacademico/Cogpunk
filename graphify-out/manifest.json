@@ -95,9 +95,9 @@
     "semantic_hash": "e116015025711bb90c219d3bd9e18cc0"
   },
   "Core/Safety/SafeSpawn.cs": {
-    "mtime": 1792756937.4072092,
-    "ast_hash": "38e5c25568ccc93c31f3a003801d56ba",
-    "semantic_hash": "38e5c25568ccc93c31f3a003801d56ba"
+    "mtime": 1794238382.3628726,
+    "ast_hash": "f09ec43f7121ef93a8145ea377448be5",
+    "semantic_hash": "f09ec43f7121ef93a8145ea377448be5"
   },
   "Core/Safety/SpawnBudgetSystem.cs": {
     "mtime": 1792515191.2074106,
@@ -115,9 +115,9 @@
     "semantic_hash": "6176756e9d468f03c75ebd1e41b5543c"
   },
   "Core/Systems/VanillaRecipeGroups.cs": {
-    "mtime": 1793892992.5325537,
-    "ast_hash": "00c9f41df817218c21acafe71f178b9c",
-    "semantic_hash": "00c9f41df817218c21acafe71f178b9c"
+    "mtime": 1794255288.9402876,
+    "ast_hash": "85c0ecb69a48c396c65f22e029c31981",
+    "semantic_hash": "85c0ecb69a48c396c65f22e029c31981"
   },
   "Core/Systems/WorldFlagSystem.cs": {
     "mtime": 1792515580.7238543,
@@ -220,9 +220,9 @@
     "semantic_hash": "06598cf32abf1333e4a3f255a873f333"
   },
   "README.md": {
-    "mtime": 1793971790.7495677,
-    "ast_hash": "3b450f92f31741b049252b654e9e6133",
-    "semantic_hash": "3b450f92f31741b049252b654e9e6133"
+    "mtime": 1793998328.7595048,
+    "ast_hash": "64460355043442edc19e13c7ec343e5a",
+    "semantic_hash": "64460355043442edc19e13c7ec343e5a"
   },
   "SETUP.md": {
     "mtime": 1793134414.5395765,
@@ -660,9 +660,9 @@
     "semantic_hash": "b09483f19cf8021eb2293820e0f02869"
   },
   "Content/Scrap/Minions/MiceBotMinion.cs": {
-    "mtime": 1792757360.2170372,
-    "ast_hash": "073da1a102713e48117815156552ef7c",
-    "semantic_hash": "073da1a102713e48117815156552ef7c"
+    "mtime": 1793979031.5210464,
+    "ast_hash": "4d861fefeea14462c3fd733e58336378",
+    "semantic_hash": "4d861fefeea14462c3fd733e58336378"
   },
   "Content/Scrap/Weapons/ScrappyBow.cs": {
     "mtime": 1792699393.380533,
@@ -695,9 +695,9 @@
     "semantic_hash": "f3824db2d52ad3054ce4844192e1fe37"
   },
   "Core/Systems/CogpunkSets.cs": {
-    "mtime": 1793391409.1171517,
-    "ast_hash": "3d0d7a0291f251193db2f83f5a7195a7",
-    "semantic_hash": "3d0d7a0291f251193db2f83f5a7195a7"
+    "mtime": 1793979030.8863442,
+    "ast_hash": "b172c57b7b7a7bd63f4c4dc339a473c8",
+    "semantic_hash": "b172c57b7b7a7bd63f4c4dc339a473c8"
   },
   "art/scrap/make_scrap_weapons.py": {
     "mtime": 1792756921.6682136,
@@ -850,9 +850,9 @@
     "semantic_hash": "579dd2a894cd7565e402bcc8bca49944"
   },
   "Content/Bosses/TrashTr0m/TrashTr0m.cs": {
-    "mtime": 1793303955.935457,
-    "ast_hash": "484b5f556a0f7ba86e8bf8e9c6da21bf",
-    "semantic_hash": "484b5f556a0f7ba86e8bf8e9c6da21bf"
+    "mtime": 1794237854.589647,
+    "ast_hash": "afa470cff22eda9ce6001273050a236b",
+    "semantic_hash": "afa470cff22eda9ce6001273050a236b"
   },
   "Content/Bosses/TrashTr0m/TrashTr0mSummon.cs": {
     "mtime": 1793045393.3401637,
@@ -1030,9 +1030,9 @@
     "semantic_hash": "ac36b8068e32a35dbf944f08bdbce5f8"
   },
   "Content/Bosses/TrashTr0m/TrashTr0m.Attacks.cs": {
-    "mtime": 1793303955.934498,
-    "ast_hash": "3ab89461bdbdc538eb16d8d835ff625e",
-    "semantic_hash": "3ab89461bdbdc538eb16d8d835ff625e"
+    "mtime": 1794237854.5901754,
+    "ast_hash": "f4194a55b63703873d80e0ab7d413a6f",
+    "semantic_hash": "f4194a55b63703873d80e0ab7d413a6f"
   },
   "Content/Bosses/TrashTr0m/TrashTr0m.Hitboxes.cs": {
     "mtime": 1793035926.5001311,
@@ -1040,9 +1040,9 @@
     "semantic_hash": "50483c2650e61d6c8009e58b8749361f"
   },
   "Content/Bosses/TrashTr0m/TrashTr0m.Visuals.cs": {
-    "mtime": 1793133449.7670894,
-    "ast_hash": "45f4ac6e60ee6d6887cb829e4dc34a2c",
-    "semantic_hash": "45f4ac6e60ee6d6887cb829e4dc34a2c"
+    "mtime": 1794237854.5911777,
+    "ast_hash": "089e3295de4004f15c3e72e1547ce484",
+    "semantic_hash": "089e3295de4004f15c3e72e1547ce484"
   },
   "Content/Bosses/TrashTr0m/TrashTr0mLoot.cs": {
     "mtime": 1793045374.5919938,
@@ -1095,9 +1095,9 @@
     "semantic_hash": "5d34a292fa266eb730d853c88646a0eb"
   },
   "Content/Bosses/TrashTr0m/Weapons/Tr0mheadSentry.cs": {
-    "mtime": 1793111549.5375714,
-    "ast_hash": "5eb5914b58a7dea93401dc8ff42316c1",
-    "semantic_hash": "5eb5914b58a7dea93401dc8ff42316c1"
+    "mtime": 1793979031.5235617,
+    "ast_hash": "9a0891b5fbd2a1ca353570bc3174bab6",
+    "semantic_hash": "9a0891b5fbd2a1ca353570bc3174bab6"
   },
   "Content/Bosses/TrashTr0m/Weapons/Tr0mheadStaff.cs": {
     "mtime": 1793113109.5265677,
@@ -1160,9 +1160,9 @@
     "semantic_hash": "78264337ae34ddbae714c2792c6a3b1f"
   },
   "Core/Templates/BossNPC.cs": {
-    "mtime": 1793035662.9248068,
-    "ast_hash": "637192dbbe11e64bd42e92eaa81cec66",
-    "semantic_hash": "637192dbbe11e64bd42e92eaa81cec66"
+    "mtime": 1794237816.6348274,
+    "ast_hash": "28d129962418276800f0bb4be32f597d",
+    "semantic_hash": "28d129962418276800f0bb4be32f597d"
   },
   "Core/Visuals/CinematicCamera.cs": {
     "mtime": 1793028793.2357926,
@@ -1170,9 +1170,9 @@
     "semantic_hash": "ec7755bbde31577a0e567cf69c51d16b"
   },
   "Core/Visuals/DepthLayers.cs": {
-    "mtime": 1793288131.553195,
-    "ast_hash": "6ba7d7a26efc4398372bf6c46deec5b7",
-    "semantic_hash": "6ba7d7a26efc4398372bf6c46deec5b7"
+    "mtime": 1793997481.3748548,
+    "ast_hash": "145ac128b612bc4eebefe597ff18ab95",
+    "semantic_hash": "145ac128b612bc4eebefe597ff18ab95"
   },
   "art/bosses/trashtr0m/make_trashtr0m_loot.py": {
     "mtime": 1793113109.3290522,
@@ -1545,9 +1545,9 @@
     "semantic_hash": "e77066de8b06168a5e3da180e65d0fa9"
   },
   "Content/Mechanist/MechanistWeapon.cs": {
-    "mtime": 1793804302.7645073,
-    "ast_hash": "d2aeef2baba7c4185c81c87dcabb7022",
-    "semantic_hash": "d2aeef2baba7c4185c81c87dcabb7022"
+    "mtime": 1794255001.8469718,
+    "ast_hash": "51d648724378ee021ef77e26eb4e549a",
+    "semantic_hash": "51d648724378ee021ef77e26eb4e549a"
   },
   "Content/Mechanist/Overheat.cs": {
     "mtime": 1793111148.7981865,
@@ -1560,9 +1560,9 @@
     "semantic_hash": "7c53e86771abeb8dc4e383c1275356c3"
   },
   "Content/Mechanist/SteamPlayer.cs": {
-    "mtime": 1793804295.5651534,
-    "ast_hash": "eccb959abec95ff134f4eba756e1693a",
-    "semantic_hash": "eccb959abec95ff134f4eba756e1693a"
+    "mtime": 1794255001.8479724,
+    "ast_hash": "b4d2eac24b06a3d4a7ab8afb2706159e",
+    "semantic_hash": "b4d2eac24b06a3d4a7ab8afb2706159e"
   },
   "Content/Mechanist/Weapons/TrapperChain.cs": {
     "mtime": 1793122788.8318136,
@@ -1950,9 +1950,9 @@
     "semantic_hash": "50da86cf126b1fa4fc61d41ce755a532"
   },
   "Content/Bosses/TarTyrant/TarTyrant.cs": {
-    "mtime": 1793367459.266863,
-    "ast_hash": "d2fc1e6829d0d55cbba9c080177b1cd0",
-    "semantic_hash": "d2fc1e6829d0d55cbba9c080177b1cd0"
+    "mtime": 1794237839.067919,
+    "ast_hash": "1c04bcc12cdb5924865384d35c87f5a7",
+    "semantic_hash": "1c04bcc12cdb5924865384d35c87f5a7"
   },
   "Content/Bosses/TarTyrant/TarTyrantLoot.cs": {
     "mtime": 1793304104.6347556,
@@ -2060,9 +2060,9 @@
     "semantic_hash": "7061a137f47aa235d157b27a15af36fb"
   },
   "Core/Templates/GridWalkerNPC.cs": {
-    "mtime": 1793892887.8313067,
-    "ast_hash": "2c806e5c94aca57eb7d4504d3464a711",
-    "semantic_hash": "2c806e5c94aca57eb7d4504d3464a711"
+    "mtime": 1793997481.3748548,
+    "ast_hash": "2d3f58c3b536762181f7633ab66d07d6",
+    "semantic_hash": "2d3f58c3b536762181f7633ab66d07d6"
   },
   "art/bosses/tartyrant/make_tartyrant_art.py": {
     "mtime": 1793719311.9712412,
@@ -2390,19 +2390,19 @@
     "semantic_hash": "0f11d34a931a1a22b26b4c0ab13c6cd0"
   },
   "Content/Bosses/TarTyrant/Armor/TyrantCape.cs": {
-    "mtime": 1793717507.6506321,
-    "ast_hash": "9b81ffedf7c4da226c2baf0859c4315d",
-    "semantic_hash": "9b81ffedf7c4da226c2baf0859c4315d"
+    "mtime": 1793979332.7286334,
+    "ast_hash": "e3add2a18e8688e293b6b21a9608b0f6",
+    "semantic_hash": "e3add2a18e8688e293b6b21a9608b0f6"
   },
   "Content/Bosses/TarTyrant/Armor/TyrantSandals.cs": {
-    "mtime": 1793717522.0173159,
-    "ast_hash": "6f5b8912b005506a135ba384c746e7fe",
-    "semantic_hash": "6f5b8912b005506a135ba384c746e7fe"
+    "mtime": 1793979351.9335086,
+    "ast_hash": "aebfb70a6d1e7a61126e9ad4fb3cf286",
+    "semantic_hash": "aebfb70a6d1e7a61126e9ad4fb3cf286"
   },
   "Content/Bosses/TarTyrant/Armor/TyrantSkull.cs": {
-    "mtime": 1793717506.6741695,
-    "ast_hash": "d8b4bddd939fedfab2ef224869baa886",
-    "semantic_hash": "d8b4bddd939fedfab2ef224869baa886"
+    "mtime": 1793979332.013391,
+    "ast_hash": "e18fd122fdb689111a939c928eab1926",
+    "semantic_hash": "e18fd122fdb689111a939c928eab1926"
   },
   "Content/Bosses/TarTyrant/Items/SereneTear.cs": {
     "mtime": 1793288092.6775029,
@@ -2720,9 +2720,9 @@
     "semantic_hash": "8c10305f5a837dc6f00218a125a34088"
   },
   "Content/Junkyard/Weapons/TarSlimeShot.cs": {
-    "mtime": 1793716794.5527165,
-    "ast_hash": "c6ec547101fe7835fb5297d3b5fc3c1e",
-    "semantic_hash": "c6ec547101fe7835fb5297d3b5fc3c1e"
+    "mtime": 1793979031.5225532,
+    "ast_hash": "68a041f018d37b3f0787647905a4bad2",
+    "semantic_hash": "68a041f018d37b3f0787647905a4bad2"
   },
   "Content/Junkyard/Weapons/TarSpray.cs": {
     "mtime": 1793717459.0225773,
@@ -2775,9 +2775,9 @@
     "semantic_hash": "a80a9a552d319f254d5ed4fb545a059a"
   },
   "tools/sim/tar_weapons_sim.py": {
-    "mtime": 1793911347.1093774,
-    "ast_hash": "ccb6776028c583c3b8123ceac9a8fcd0",
-    "semantic_hash": "ccb6776028c583c3b8123ceac9a8fcd0"
+    "mtime": 1793979551.8231025,
+    "ast_hash": "98c21e896b2e9d4d33ef56e53d1e1e9a",
+    "semantic_hash": "98c21e896b2e9d4d33ef56e53d1e1e9a"
   },
   "Content/Junkyard/Weapons/MetalClash.png": {
     "mtime": 1793392371.1090536,
@@ -3319,11 +3319,6 @@
     "ast_hash": "4f2664dff105972959e3652605949ab6",
     "semantic_hash": "4f2664dff105972959e3652605949ab6"
   },
-  "docs/media/2026-11-03_weapon-tar-whip.gif": {
-    "mtime": 1793718948.7488284,
-    "ast_hash": "dff415639aabfafafd4d775644320fb8",
-    "semantic_hash": "dff415639aabfafafd4d775644320fb8"
-  },
   "docs/media/2026-11-03_weapon-tarmancer.gif": {
     "mtime": 1793719004.9673452,
     "ast_hash": "380e63c20b740f820c5f2b725284c126",
@@ -3345,24 +3340,24 @@
     "semantic_hash": "f2cdc4f4551795125e608484efe14427"
   },
   "Content/Bosses/CursedConductor/CursedConductor.Visuals.cs": {
-    "mtime": 1793910168.676891,
-    "ast_hash": "6cde3ec9b8098c513075e1ba2f1ad324",
-    "semantic_hash": "6cde3ec9b8098c513075e1ba2f1ad324"
+    "mtime": 1794238212.118479,
+    "ast_hash": "ea3d4d9758a5a50c942ef4547133c52e",
+    "semantic_hash": "ea3d4d9758a5a50c942ef4547133c52e"
   },
   "Content/Bosses/CursedConductor/CursedConductor.cs": {
-    "mtime": 1793910089.0077224,
-    "ast_hash": "1561ea167c941bf3a12f567ff4958d62",
-    "semantic_hash": "1561ea167c941bf3a12f567ff4958d62"
+    "mtime": 1794238191.696434,
+    "ast_hash": "2822e78e64d797ada2659ab551541e0a",
+    "semantic_hash": "2822e78e64d797ada2659ab551541e0a"
   },
   "Content/Bosses/CursedConductor/CursedConductorLoot.cs": {
-    "mtime": 1793823581.5790944,
-    "ast_hash": "950f7f68c68c05ac80e058c05cde465f",
-    "semantic_hash": "950f7f68c68c05ac80e058c05cde465f"
+    "mtime": 1794238816.4801123,
+    "ast_hash": "75a1a21b8a7c590d3027847b7d00adf3",
+    "semantic_hash": "75a1a21b8a7c590d3027847b7d00adf3"
   },
   "Content/Bosses/CursedConductor/CursedConductorRigData.cs": {
-    "mtime": 1793971664.2580628,
-    "ast_hash": "de1e8ecba9e0aea741968902720a0ee4",
-    "semantic_hash": "de1e8ecba9e0aea741968902720a0ee4"
+    "mtime": 1794238022.066944,
+    "ast_hash": "5ecae4e45dfda95559ff97b9d8b73aeb",
+    "semantic_hash": "5ecae4e45dfda95559ff97b9d8b73aeb"
   },
   "Content/Bosses/CursedConductor/CursedConductorSystem.cs": {
     "mtime": 1793822407.2631886,
@@ -3395,9 +3390,9 @@
     "semantic_hash": "895bdcd61b69d039d0503d35df239863"
   },
   "Content/Bosses/CursedConductor/Projectiles/GhostTrain.cs": {
-    "mtime": 1793893633.8437855,
-    "ast_hash": "0fc816422ff2c0c0b3930d8244cd7f87",
-    "semantic_hash": "0fc816422ff2c0c0b3930d8244cd7f87"
+    "mtime": 1794238212.1195536,
+    "ast_hash": "3df4871320277196bc3e2055ba1aacb1",
+    "semantic_hash": "3df4871320277196bc3e2055ba1aacb1"
   },
   "Content/Desert/Items/HawkEye.cs": {
     "mtime": 1793805156.3191838,
@@ -3480,9 +3475,9 @@
     "semantic_hash": "e08c3502c04ac1062d75b02b82bd0483"
   },
   "Content/OldBrassTown/Minions/SheriffStarMinion.cs": {
-    "mtime": 1793806396.4850464,
-    "ast_hash": "5b9c8d47da467113a9f5d0065126f77c",
-    "semantic_hash": "5b9c8d47da467113a9f5d0065126f77c"
+    "mtime": 1793979031.5210464,
+    "ast_hash": "202634ab13b04342fea67bd58929477b",
+    "semantic_hash": "202634ab13b04342fea67bd58929477b"
   },
   "Content/OldBrassTown/NPCs/BrassBandit.cs": {
     "mtime": 1793807742.7615845,
@@ -3515,9 +3510,9 @@
     "semantic_hash": "1d6867b0ba5aaee5326afdaf0cac7fca"
   },
   "Content/OldBrassTown/NPCs/Sheriff.cs": {
-    "mtime": 1793807742.7615845,
-    "ast_hash": "28f21cec3d7af0eb8ff7d7acb44f3478",
-    "semantic_hash": "28f21cec3d7af0eb8ff7d7acb44f3478"
+    "mtime": 1794238580.6994824,
+    "ast_hash": "1ba5c4ba67c2aa50550f368431a1f0d3",
+    "semantic_hash": "1ba5c4ba67c2aa50550f368431a1f0d3"
   },
   "Content/OldBrassTown/NPCs/SheriffRigData.cs": {
     "mtime": 1793892647.4367878,
@@ -3540,9 +3535,9 @@
     "semantic_hash": "13c6d76937ad8b9e5a5f4705a48c431c"
   },
   "Content/OldBrassTown/Projectiles/SheriffStar.cs": {
-    "mtime": 1793806309.3854985,
-    "ast_hash": "9c3fb61d280852a33c8e7af71bf180d2",
-    "semantic_hash": "9c3fb61d280852a33c8e7af71bf180d2"
+    "mtime": 1793978872.4663289,
+    "ast_hash": "75ddc69cd5f619f8b6520fc7dc4802e7",
+    "semantic_hash": "75ddc69cd5f619f8b6520fc7dc4802e7"
   },
   "Content/OldBrassTown/Tiles/BrassStrongboxTile.cs": {
     "mtime": 1793820072.1735852,
@@ -3560,9 +3555,9 @@
     "semantic_hash": "467f00368a55aeac1139ceffa8959d0c"
   },
   "Content/OldBrassTown/Weapons/SheriffsRevolver.cs": {
-    "mtime": 1793908896.088549,
-    "ast_hash": "44ee04d52f639b6e23e32ade9a37e1d1",
-    "semantic_hash": "44ee04d52f639b6e23e32ade9a37e1d1"
+    "mtime": 1794254994.3175666,
+    "ast_hash": "aa67b078957e7e452b10070b9a7345ed",
+    "semantic_hash": "aa67b078957e7e452b10070b9a7345ed"
   },
   "Content/OldBrassTown/Weapons/SheriffsRevolverPlayer.cs": {
     "mtime": 1793820294.2484503,
@@ -3580,9 +3575,9 @@
     "semantic_hash": "157c4d9d39aaa559a4cbd5a1f6ca9674"
   },
   "art/bosses/cursedconductor/make_conductor_art.py": {
-    "mtime": 1793971637.3451679,
-    "ast_hash": "b3e9212a4c2ff511f8ac81d2a13522ff",
-    "semantic_hash": "b3e9212a4c2ff511f8ac81d2a13522ff"
+    "mtime": 1794238021.209917,
+    "ast_hash": "0a8797ac44412780fcc7b1371148fea6",
+    "semantic_hash": "0a8797ac44412780fcc7b1371148fea6"
   },
   "art/bosses/cursedconductor/previous/make_conductor_art_2026-11-04.py": {
     "mtime": 1793891571.8008955,
@@ -3730,9 +3725,9 @@
     "semantic_hash": "6a4679194ce5fc34462bf50ffd08f23f"
   },
   "tools/sim/update_2026_11_04_sim.py": {
-    "mtime": 1793894140.8423254,
-    "ast_hash": "a68726c7fc056b9b00d75b8e18b9536f",
-    "semantic_hash": "a68726c7fc056b9b00d75b8e18b9536f"
+    "mtime": 1793978853.291474,
+    "ast_hash": "a772b02ea7093568b164a6ea4277ac46",
+    "semantic_hash": "a772b02ea7093568b164a6ea4277ac46"
   },
   "tools/sim/update_2026_11_04b_sim.py": {
     "mtime": 1793910348.9037352,
@@ -3765,14 +3760,14 @@
     "semantic_hash": "ffbd144330fa7ee402d99fee02c066ac"
   },
   "Content/Bosses/CursedConductor/CursedConductor.png": {
-    "mtime": 1793971664.2283413,
-    "ast_hash": "5ed5a6c57c9f34ea8fca7355ad3cba3f",
-    "semantic_hash": "5ed5a6c57c9f34ea8fca7355ad3cba3f"
+    "mtime": 1794238022.039837,
+    "ast_hash": "3f1a5ecb1c14e524e2119a4fc161540a",
+    "semantic_hash": "3f1a5ecb1c14e524e2119a4fc161540a"
   },
   "Content/Bosses/CursedConductor/CursedConductor_Glow.png": {
-    "mtime": 1793971664.2535172,
-    "ast_hash": "f89211931cb21cbc2fc2f91247a72633",
-    "semantic_hash": "f89211931cb21cbc2fc2f91247a72633"
+    "mtime": 1794238022.0609426,
+    "ast_hash": "4be9d73c11b1bfcffe163b822c5f4672",
+    "semantic_hash": "4be9d73c11b1bfcffe163b822c5f4672"
   },
   "Content/Bosses/CursedConductor/CursedConductor_Head_Boss.png": {
     "mtime": 1793971664.2605917,
@@ -3780,9 +3775,9 @@
     "semantic_hash": "1ce7093b8c26f202804bed3a10258e8d"
   },
   "Content/Bosses/CursedConductor/CursedConductor_Near.png": {
-    "mtime": 1793971664.2439167,
-    "ast_hash": "866c3a757c170428840797c16415558a",
-    "semantic_hash": "866c3a757c170428840797c16415558a"
+    "mtime": 1794238022.0523424,
+    "ast_hash": "c5aad1a60e423203003614cc86ccd07b",
+    "semantic_hash": "c5aad1a60e423203003614cc86ccd07b"
   },
   "Content/Bosses/CursedConductor/CursedConductor_Rotor.png": {
     "mtime": 1793971664.2545352,
@@ -3840,9 +3835,9 @@
     "semantic_hash": "fbde97f8fb2437de0e65ebdb36a84b01"
   },
   "Content/Bosses/CursedConductor/Gores/CursedConductor_GoreLantern.png": {
-    "mtime": 1793971664.455328,
-    "ast_hash": "e9f06cbf704464f88d2991e4657d61c3",
-    "semantic_hash": "e9f06cbf704464f88d2991e4657d61c3"
+    "mtime": 1794238022.2418418,
+    "ast_hash": "557b7c8346716b055724bd608ab9aa9b",
+    "semantic_hash": "557b7c8346716b055724bd608ab9aa9b"
   },
   "Content/Bosses/CursedConductor/Gores/CursedConductor_GoreTurbine.png": {
     "mtime": 1793971664.4563334,
@@ -4294,11 +4289,6 @@
     "ast_hash": "a2330451f423b95c9f24332d35da3669",
     "semantic_hash": "a2330451f423b95c9f24332d35da3669"
   },
-  "docs/media/2026-11-05_oldbrasstown-sheriff.gif": {
-    "mtime": 1793894080.0276556,
-    "ast_hash": "b535379e8cd429182bc7a90333d38fe7",
-    "semantic_hash": "b535379e8cd429182bc7a90333d38fe7"
-  },
   "docs/media/2026-11-05_rain-splasher.gif": {
     "mtime": 1793894125.9620993,
     "ast_hash": "146157f2842e134e16844977cd5bc604",
@@ -4324,24 +4314,969 @@
     "ast_hash": "b9c4dec68d08f4a9dc77493d092f1526",
     "semantic_hash": "b9c4dec68d08f4a9dc77493d092f1526"
   },
-  "docs/media/2026-11-06_boss-cursed-conductor-death.gif": {
-    "mtime": 1793971728.0719821,
-    "ast_hash": "cacf5c682e726575285708bcbbaf9b07",
-    "semantic_hash": "cacf5c682e726575285708bcbbaf9b07"
+  "Content/Bosses/CursedConductor/Items/BottleOfLostSouls.cs": {
+    "mtime": 1793979059.440457,
+    "ast_hash": "0707ff0bf4b77949cea879deba1821d8",
+    "semantic_hash": "0707ff0bf4b77949cea879deba1821d8"
   },
-  "docs/media/2026-11-06_boss-cursed-conductor-lantern.gif": {
-    "mtime": 1793971720.7756755,
-    "ast_hash": "f2bc1798b3969304783b90488507ca94",
-    "semantic_hash": "f2bc1798b3969304783b90488507ca94"
+  "Content/Bosses/CursedConductor/Items/LostSoulsPlayer.cs": {
+    "mtime": 1793979107.5220482,
+    "ast_hash": "b33f61cdea49bc30616d3e3a22799d5e",
+    "semantic_hash": "b33f61cdea49bc30616d3e3a22799d5e"
   },
-  "docs/media/2026-11-06_boss-cursed-conductor-sprites.png": {
-    "mtime": 1793971728.2668107,
-    "ast_hash": "9be1c5666397b84bbbb0c9501efa8a98",
-    "semantic_hash": "9be1c5666397b84bbbb0c9501efa8a98"
+  "Content/Bosses/CursedConductor/Weapons/CursedLantern.cs": {
+    "mtime": 1794237627.1325426,
+    "ast_hash": "699089eefdb5f6985dcc56017fd77d04",
+    "semantic_hash": "699089eefdb5f6985dcc56017fd77d04"
   },
-  "docs/media/2026-11-06_boss-cursed-conductor-turbine.gif": {
-    "mtime": 1793971705.8235912,
-    "ast_hash": "e64f29b9517bbb6f0d5e42aa9172a600",
-    "semantic_hash": "e64f29b9517bbb6f0d5e42aa9172a600"
+  "Content/Bosses/CursedConductor/Weapons/CursedTrainWhistle.cs": {
+    "mtime": 1794239448.3847246,
+    "ast_hash": "f82107b9e0d12331f29b68b9f1bb7ba5",
+    "semantic_hash": "f82107b9e0d12331f29b68b9f1bb7ba5"
+  },
+  "Content/Bosses/CursedConductor/Weapons/GhostTrainEngine.cs": {
+    "mtime": 1794262985.919727,
+    "ast_hash": "6c9fa5e94ff225bece4d7bb496841928",
+    "semantic_hash": "6c9fa5e94ff225bece4d7bb496841928"
+  },
+  "Content/Bosses/CursedConductor/Weapons/GhostTrainWagon.cs": {
+    "mtime": 1794254977.8253224,
+    "ast_hash": "3f830c592b42f639e396c6c115a360ee",
+    "semantic_hash": "3f830c592b42f639e396c6c115a360ee"
+  },
+  "Content/Bosses/CursedConductor/Weapons/SoulFire.cs": {
+    "mtime": 1793998198.553074,
+    "ast_hash": "777279f41a95e5b2437a75e42f452401",
+    "semantic_hash": "777279f41a95e5b2437a75e42f452401"
+  },
+  "Content/Bosses/TarTyrant/Armor/TyrantArmorPlayer.cs": {
+    "mtime": 1793979283.4387164,
+    "ast_hash": "e186e493f62ea2712c9f948eeab18eeb",
+    "semantic_hash": "e186e493f62ea2712c9f948eeab18eeb"
+  },
+  "Content/Bosses/TarTyrant/Armor/TyrantClaw.cs": {
+    "mtime": 1793979283.2519517,
+    "ast_hash": "4f6d9b73d48376fc42368edd70fcb363",
+    "semantic_hash": "4f6d9b73d48376fc42368edd70fcb363"
+  },
+  "Content/Bosses/TarTyrant/Armor/TyrantClawRigData.cs": {
+    "mtime": 1793979240.733143,
+    "ast_hash": "5f112dd1f0f470cf24aad6a5368676b2",
+    "semantic_hash": "5f112dd1f0f470cf24aad6a5368676b2"
+  },
+  "Content/Coghaven/CoghavenBiome.cs": {
+    "mtime": 1793995343.7861905,
+    "ast_hash": "567382bdeacbf4bdf25ae69599817fbc",
+    "semantic_hash": "567382bdeacbf4bdf25ae69599817fbc"
+  },
+  "Content/Coghaven/CoghavenSpawnRules.cs": {
+    "mtime": 1793995343.5595272,
+    "ast_hash": "d612f9874bf5421a8d5b6957c279515e",
+    "semantic_hash": "d612f9874bf5421a8d5b6957c279515e"
+  },
+  "Content/Coghaven/CoghavenSystem.cs": {
+    "mtime": 1793995343.6804006,
+    "ast_hash": "ae29fbd543e25271b5ecf4a93baa33b5",
+    "semantic_hash": "ae29fbd543e25271b5ecf4a93baa33b5"
+  },
+  "Content/Coghaven/Dusts/TurbineSmoke.cs": {
+    "mtime": 1793980625.834793,
+    "ast_hash": "7b513faf59aa8d4105b142b15387b320",
+    "semantic_hash": "7b513faf59aa8d4105b142b15387b320"
+  },
+  "Content/Coghaven/Generation/CoghavenBlueprints.cs": {
+    "mtime": 1793995276.7682498,
+    "ast_hash": "75b4b2e6d39f5f7a18a0fe69c83bb5dd",
+    "semantic_hash": "75b4b2e6d39f5f7a18a0fe69c83bb5dd"
+  },
+  "Content/Coghaven/Generation/CoghavenChests.cs": {
+    "mtime": 1794238450.2134917,
+    "ast_hash": "fa193c47fb2fecee62e4aa3713428821",
+    "semantic_hash": "fa193c47fb2fecee62e4aa3713428821"
+  },
+  "Content/Coghaven/Generation/CoghavenPass.cs": {
+    "mtime": 1793995320.025484,
+    "ast_hash": "f7efbd4aedffe7d3ca9107b34627b9b9",
+    "semantic_hash": "f7efbd4aedffe7d3ca9107b34627b9b9"
+  },
+  "Content/Coghaven/Generation/CoghavenSitePass.cs": {
+    "mtime": 1793981214.7387424,
+    "ast_hash": "0f3fde8c57eb7ec03e4f15c044938610",
+    "semantic_hash": "0f3fde8c57eb7ec03e4f15c044938610"
+  },
+  "Content/Coghaven/Items/BronzeCog.cs": {
+    "mtime": 1793985265.3709772,
+    "ast_hash": "c9d8f88987066019a5cd28f25a1f902f",
+    "semantic_hash": "c9d8f88987066019a5cd28f25a1f902f"
+  },
+  "Content/Coghaven/Items/BronzeGearwork.cs": {
+    "mtime": 1793980543.8438282,
+    "ast_hash": "f05c1eeeda24cb65e34f8ad7da120eb5",
+    "semantic_hash": "f05c1eeeda24cb65e34f8ad7da120eb5"
+  },
+  "Content/Coghaven/Items/BronzeGearworkWall.cs": {
+    "mtime": 1793980543.850891,
+    "ast_hash": "891f543e69a3d2201d0ebd7bf1f20e4c",
+    "semantic_hash": "891f543e69a3d2201d0ebd7bf1f20e4c"
+  },
+  "Content/Coghaven/Items/BronzeLatticeWall.cs": {
+    "mtime": 1793980543.8499017,
+    "ast_hash": "b150321f74a4d723e1617c9fe10d41ec",
+    "semantic_hash": "b150321f74a4d723e1617c9fe10d41ec"
+  },
+  "Content/Coghaven/Items/CinnabarLacquer.cs": {
+    "mtime": 1793980543.8438282,
+    "ast_hash": "3b3920b4e92274added543e9a90cb9c2",
+    "semantic_hash": "3b3920b4e92274added543e9a90cb9c2"
+  },
+  "Content/Coghaven/Items/CinnabarPanelWall.cs": {
+    "mtime": 1793980543.8478806,
+    "ast_hash": "4237950696c031479c3ffd272bbd6244",
+    "semantic_hash": "4237950696c031479c3ffd272bbd6244"
+  },
+  "Content/Coghaven/Items/JadeBrick.cs": {
+    "mtime": 1793995237.3008122,
+    "ast_hash": "5d43a719e01c48bcfdc992445b751956",
+    "semantic_hash": "5d43a719e01c48bcfdc992445b751956"
+  },
+  "Content/Coghaven/Items/JadeBrickWall.cs": {
+    "mtime": 1793980543.8463657,
+    "ast_hash": "4e0d6eaa861c49b3a34e9bfb77959d9b",
+    "semantic_hash": "4e0d6eaa861c49b3a34e9bfb77959d9b"
+  },
+  "Content/Coghaven/Items/JadeRoof.cs": {
+    "mtime": 1793980543.8453486,
+    "ast_hash": "0eb308142c9356e3630f796ef2fe8815",
+    "semantic_hash": "0eb308142c9356e3630f796ef2fe8815"
+  },
+  "Content/Coghaven/Items/LiftTurbine.cs": {
+    "mtime": 1793980609.489444,
+    "ast_hash": "71f2171627d1859283031dfce5b659eb",
+    "semantic_hash": "71f2171627d1859283031dfce5b659eb"
+  },
+  "Content/Coghaven/Items/PalaceFlagstone.cs": {
+    "mtime": 1793995237.299812,
+    "ast_hash": "7cffec4c5080699b980b10a89c691777",
+    "semantic_hash": "7cffec4c5080699b980b10a89c691777"
+  },
+  "Content/Coghaven/Items/PalaceFlagstoneWall.cs": {
+    "mtime": 1793995237.3008122,
+    "ast_hash": "452aa4e7f47b4fdef5e39fcfeb314150",
+    "semantic_hash": "452aa4e7f47b4fdef5e39fcfeb314150"
+  },
+  "Content/Coghaven/NPCs/ImperialDefender.cs": {
+    "mtime": 1794227506.7249959,
+    "ast_hash": "92016cae81851bf70079bff412b7c4ed",
+    "semantic_hash": "92016cae81851bf70079bff412b7c4ed"
+  },
+  "Content/Coghaven/NPCs/ImperialDefenderRigData.cs": {
+    "mtime": 1794237475.564873,
+    "ast_hash": "30ba9638784cbf92db17d09bfd24c613",
+    "semantic_hash": "30ba9638784cbf92db17d09bfd24c613"
+  },
+  "Content/Coghaven/NPCs/JadeGolem.cs": {
+    "mtime": 1794237574.0337515,
+    "ast_hash": "a2777730affea4cc6c19c7a33464d08e",
+    "semantic_hash": "a2777730affea4cc6c19c7a33464d08e"
+  },
+  "Content/Coghaven/NPCs/JadeGolemRigData.cs": {
+    "mtime": 1794237476.8569932,
+    "ast_hash": "676462161394da978dcf25a78e638136",
+    "semantic_hash": "676462161394da978dcf25a78e638136"
+  },
+  "Content/Coghaven/Projectiles/JadeRay.cs": {
+    "mtime": 1793997769.1961012,
+    "ast_hash": "a59410da3beff150777c67c12d91f8ad",
+    "semantic_hash": "a59410da3beff150777c67c12d91f8ad"
+  },
+  "Content/Coghaven/Tiles/BronzeCogTile.cs": {
+    "mtime": 1793985265.3698652,
+    "ast_hash": "e85890334a31a7d804cd34a5d6f90752",
+    "semantic_hash": "e85890334a31a7d804cd34a5d6f90752"
+  },
+  "Content/Coghaven/Tiles/BronzeGearworkTile.cs": {
+    "mtime": 1793980543.836694,
+    "ast_hash": "8c4bea18335c09dc6481be83af61040a",
+    "semantic_hash": "8c4bea18335c09dc6481be83af61040a"
+  },
+  "Content/Coghaven/Tiles/CinnabarLacquerTile.cs": {
+    "mtime": 1793980543.8305626,
+    "ast_hash": "a8a4ab9dbf11c2d4547935d182da11c0",
+    "semantic_hash": "a8a4ab9dbf11c2d4547935d182da11c0"
+  },
+  "Content/Coghaven/Tiles/JadeBrickTile.cs": {
+    "mtime": 1793995237.3019147,
+    "ast_hash": "0ed565ee66198ee4cf4337a1e378f624",
+    "semantic_hash": "0ed565ee66198ee4cf4337a1e378f624"
+  },
+  "Content/Coghaven/Tiles/JadeRoofTile.cs": {
+    "mtime": 1793980543.8372324,
+    "ast_hash": "ad3916b2eac2560072fab18f065b0fc5",
+    "semantic_hash": "ad3916b2eac2560072fab18f065b0fc5"
+  },
+  "Content/Coghaven/Tiles/LiftTurbineTile.cs": {
+    "mtime": 1793985944.190605,
+    "ast_hash": "1067dd024dbbfebc0b3338a29982f4b1",
+    "semantic_hash": "1067dd024dbbfebc0b3338a29982f4b1"
+  },
+  "Content/Coghaven/Tiles/PalaceFlagstoneTile.cs": {
+    "mtime": 1793995237.297812,
+    "ast_hash": "c7aa7163471cf0232c0d2d905d110412",
+    "semantic_hash": "c7aa7163471cf0232c0d2d905d110412"
+  },
+  "Content/Coghaven/Walls/BronzeGearworkWallTile.cs": {
+    "mtime": 1793980543.840752,
+    "ast_hash": "9a8ccb042c37ee52ca30c2b574bb99b9",
+    "semantic_hash": "9a8ccb042c37ee52ca30c2b574bb99b9"
+  },
+  "Content/Coghaven/Walls/BronzeLatticeWallTile.cs": {
+    "mtime": 1793980543.840752,
+    "ast_hash": "632a668d4cb8cd83e08b1eeacc82a49f",
+    "semantic_hash": "632a668d4cb8cd83e08b1eeacc82a49f"
+  },
+  "Content/Coghaven/Walls/CinnabarPanelWallTile.cs": {
+    "mtime": 1793980543.8392444,
+    "ast_hash": "8a6ced457fd0afaf4275012936fc9787",
+    "semantic_hash": "8a6ced457fd0afaf4275012936fc9787"
+  },
+  "Content/Coghaven/Walls/JadeBrickWallTile.cs": {
+    "mtime": 1793980543.8382506,
+    "ast_hash": "511ad259dc0c30ccd5af36000b467979",
+    "semantic_hash": "511ad259dc0c30ccd5af36000b467979"
+  },
+  "Content/Coghaven/Walls/PalaceFlagstoneWallTile.cs": {
+    "mtime": 1793995237.2988174,
+    "ast_hash": "6724f9b5f78318191ae567c7a95d75bd",
+    "semantic_hash": "6724f9b5f78318191ae567c7a95d75bd"
+  },
+  "Content/Gems/Buffs/JadeCurse.cs": {
+    "mtime": 1794255376.1453972,
+    "ast_hash": "1b48ea989e03ea4f4482d0f66f71a142",
+    "semantic_hash": "1b48ea989e03ea4f4482d0f66f71a142"
+  },
+  "Content/Gems/Buffs/JadePetrified.cs": {
+    "mtime": 1794255376.1453972,
+    "ast_hash": "b70aa018dd196b48d1a8f3815d63d156",
+    "semantic_hash": "b70aa018dd196b48d1a8f3815d63d156"
+  },
+  "Content/Gems/Buffs/JadeWard.cs": {
+    "mtime": 1794255376.1463978,
+    "ast_hash": "e67a723deaf50215ebf539421e816a2e",
+    "semantic_hash": "e67a723deaf50215ebf539421e816a2e"
+  },
+  "Content/Gems/Generation/JadeGemPass.cs": {
+    "mtime": 1794238297.7686026,
+    "ast_hash": "ab45c2cba4da89cca9b8620b2d3c5161",
+    "semantic_hash": "ab45c2cba4da89cca9b8620b2d3c5161"
+  },
+  "Content/Gems/Items/Jade.cs": {
+    "mtime": 1794238297.3510606,
+    "ast_hash": "e217d440dc5c4973c235e1f32f821aec",
+    "semantic_hash": "e217d440dc5c4973c235e1f32f821aec"
+  },
+  "Content/Gems/Items/JadePhaseblade.cs": {
+    "mtime": 1794238434.5578365,
+    "ast_hash": "af83e0d0f6d16dd7287ff43cac58a5d1",
+    "semantic_hash": "af83e0d0f6d16dd7287ff43cac58a5d1"
+  },
+  "Content/Gems/Items/JadePhasesaber.cs": {
+    "mtime": 1794238434.6842713,
+    "ast_hash": "cad92be4a68c27e522fc0d03daa6d991",
+    "semantic_hash": "cad92be4a68c27e522fc0d03daa6d991"
+  },
+  "Content/Gems/Items/JadeRobe.cs": {
+    "mtime": 1794238434.4304097,
+    "ast_hash": "01363181c688e0644bb7ec393880b809",
+    "semantic_hash": "01363181c688e0644bb7ec393880b809"
+  },
+  "Content/Gems/Items/JadeStaff.cs": {
+    "mtime": 1794255316.0425208,
+    "ast_hash": "a6471fafff01aa0ef1b75778526dbfbb",
+    "semantic_hash": "a6471fafff01aa0ef1b75778526dbfbb"
+  },
+  "Content/Gems/Items/LargeJade.cs": {
+    "mtime": 1794238402.4977796,
+    "ast_hash": "8410660656ab90c678d4753fa5b7caca",
+    "semantic_hash": "8410660656ab90c678d4753fa5b7caca"
+  },
+  "Content/Gems/JadeCurseNPC.cs": {
+    "mtime": 1794255368.6320662,
+    "ast_hash": "e6ffb7283fbb4b45523b8224f48bf294",
+    "semantic_hash": "e6ffb7283fbb4b45523b8224f48bf294"
+  },
+  "Content/Gems/LargeJadePlayer.cs": {
+    "mtime": 1794238402.6418488,
+    "ast_hash": "666bcb5c1f49a89b757a682725f6eadd",
+    "semantic_hash": "666bcb5c1f49a89b757a682725f6eadd"
+  },
+  "Content/Gems/Projectiles/JadeBolt.cs": {
+    "mtime": 1794255326.6558025,
+    "ast_hash": "15435c0357e6edc548302f830f506865",
+    "semantic_hash": "15435c0357e6edc548302f830f506865"
+  },
+  "Content/Gems/Tiles/JadeTile.cs": {
+    "mtime": 1794238297.5030322,
+    "ast_hash": "4cf59c31727b500770aef2118550dc61",
+    "semantic_hash": "4cf59c31727b500770aef2118550dc61"
+  },
+  "Content/Mechanist/Armor/BrassChestplate.cs": {
+    "mtime": 1794238607.172209,
+    "ast_hash": "8313f76219697d4c28531961f92ae5a1",
+    "semantic_hash": "8313f76219697d4c28531961f92ae5a1"
+  },
+  "Content/Mechanist/Armor/BrassGreaves.cs": {
+    "mtime": 1794238607.3307116,
+    "ast_hash": "5ba7a3929b32024701b3fad47f587112",
+    "semantic_hash": "5ba7a3929b32024701b3fad47f587112"
+  },
+  "Content/Mechanist/Armor/BrassHelmet.cs": {
+    "mtime": 1794238607.047479,
+    "ast_hash": "323f72a03228170bec8f0d4d491692f6",
+    "semantic_hash": "323f72a03228170bec8f0d4d491692f6"
+  },
+  "Content/Mechanist/Weapons/Firesaw.cs": {
+    "mtime": 1794255177.1841857,
+    "ast_hash": "f3bdec98e55f8a9d4af4d39da8045072",
+    "semantic_hash": "f3bdec98e55f8a9d4af4d39da8045072"
+  },
+  "Content/Mechanist/Weapons/FiresawHeld.cs": {
+    "mtime": 1794255235.8486788,
+    "ast_hash": "b13751af89792d2fa9ec1e9308981d88",
+    "semantic_hash": "b13751af89792d2fa9ec1e9308981d88"
+  },
+  "Content/OldBrassTown/Items/LawHat.cs": {
+    "mtime": 1794239064.8600512,
+    "ast_hash": "06bf9c9f6d2e11f5cfa5294b2b59fb41",
+    "semantic_hash": "06bf9c9f6d2e11f5cfa5294b2b59fb41"
+  },
+  "Core/Combat/MeleeFocus.cs": {
+    "mtime": 1794237748.0661397,
+    "ast_hash": "aa7c04ef6c4b3bfecaf8b9c140aec3f6",
+    "semantic_hash": "aa7c04ef6c4b3bfecaf8b9c140aec3f6"
+  },
+  "art/bosses/cursedconductor/make_cursed_lantern_art.py": {
+    "mtime": 1794237611.2120104,
+    "ast_hash": "1ad79e7981ea161b30588ba0169f367e",
+    "semantic_hash": "1ad79e7981ea161b30588ba0169f367e"
+  },
+  "art/bosses/cursedconductor/make_lost_souls_art.py": {
+    "mtime": 1793979006.2155614,
+    "ast_hash": "16f719fbf9300c50b22a122707ef7bc7",
+    "semantic_hash": "16f719fbf9300c50b22a122707ef7bc7"
+  },
+  "art/bosses/cursedconductor/make_train_whistle_art.py": {
+    "mtime": 1794239778.2740214,
+    "ast_hash": "99f8bb6f56aee11c83882403c6af1203",
+    "semantic_hash": "99f8bb6f56aee11c83882403c6af1203"
+  },
+  "art/bosses/cursedconductor/previous/make_conductor_art_2026-11-06.py": {
+    "mtime": 1794237898.247012,
+    "ast_hash": "b3e9212a4c2ff511f8ac81d2a13522ff",
+    "semantic_hash": "b3e9212a4c2ff511f8ac81d2a13522ff"
+  },
+  "art/bosses/tartyrant/make_tyrant_claw.py": {
+    "mtime": 1793979239.6285677,
+    "ast_hash": "7c02c6a743cb4388772e83e57c00375b",
+    "semantic_hash": "7c02c6a743cb4388772e83e57c00375b"
+  },
+  "art/coghaven/make_coghaven_art.py": {
+    "mtime": 1793995212.7207327,
+    "ast_hash": "fde7943b901e08f15db2920271f9a64e",
+    "semantic_hash": "fde7943b901e08f15db2920271f9a64e"
+  },
+  "art/coghaven/make_coghaven_blueprints.py": {
+    "mtime": 1793995276.6617346,
+    "ast_hash": "aad762a8b9ee546decc14c3413d477a8",
+    "semantic_hash": "aad762a8b9ee546decc14c3413d477a8"
+  },
+  "art/coghaven/make_imperial_defender_art.py": {
+    "mtime": 1794237452.1565154,
+    "ast_hash": "e27c12771bf5975439a88cea60ede0aa",
+    "semantic_hash": "e27c12771bf5975439a88cea60ede0aa"
+  },
+  "art/coghaven/make_jade_golem_art.py": {
+    "mtime": 1794237470.2261176,
+    "ast_hash": "bad1b2585eec2e73e6674512f5fba110",
+    "semantic_hash": "bad1b2585eec2e73e6674512f5fba110"
+  },
+  "art/coghaven/previous/make_imperial_defender_art_v1_2026-11-06.py": {
+    "mtime": 1794226728.036331,
+    "ast_hash": "c0730d8e062d3e02014dbcf4eb0d9bc8",
+    "semantic_hash": "c0730d8e062d3e02014dbcf4eb0d9bc8"
+  },
+  "art/coghaven/previous/make_jade_golem_art_v1_2026-11-06.py": {
+    "mtime": 1794226728.068331,
+    "ast_hash": "36249f3ca7551dfe0b394bf24c404e58",
+    "semantic_hash": "36249f3ca7551dfe0b394bf24c404e58"
+  },
+  "art/gems/make_jade_art.py": {
+    "mtime": 1794255444.2067642,
+    "ast_hash": "b646815057b474cc99e061b3da1767c0",
+    "semantic_hash": "b646815057b474cc99e061b3da1767c0"
+  },
+  "art/mechanist/make_brass_armor.py": {
+    "mtime": 1794239127.630511,
+    "ast_hash": "2555cdd9b98ecc84a6f3bfb1dc0f834f",
+    "semantic_hash": "2555cdd9b98ecc84a6f3bfb1dc0f834f"
+  },
+  "art/mechanist/make_firesaw_art.py": {
+    "mtime": 1794255150.3759687,
+    "ast_hash": "c4b61dbc0bb88e7a1629e00e59262dc2",
+    "semantic_hash": "c4b61dbc0bb88e7a1629e00e59262dc2"
+  },
+  "art/oldbrasstown/make_law_hat_art.py": {
+    "mtime": 1794239042.6581702,
+    "ast_hash": "8a6aaff8e6729af808d213cdf671bb10",
+    "semantic_hash": "8a6aaff8e6729af808d213cdf671bb10"
+  },
+  "tools/sim/coghaven_sim.py": {
+    "mtime": 1793998255.0698688,
+    "ast_hash": "c41171ee38267d8d3a1dec86a8b64f72",
+    "semantic_hash": "c41171ee38267d8d3a1dec86a8b64f72"
+  },
+  "tools/sim/update_2026_11_06_sim.py": {
+    "mtime": 1793979502.4346445,
+    "ast_hash": "2c852c0bdf9cb63052ec2c3cf0336b1c",
+    "semantic_hash": "2c852c0bdf9cb63052ec2c3cf0336b1c"
+  },
+  "tools/sim/update_2026_11_06b_sim.py": {
+    "mtime": 1794239508.8002663,
+    "ast_hash": "7e757aadd256bdbb5e2b26f78fcb5488",
+    "semantic_hash": "7e757aadd256bdbb5e2b26f78fcb5488"
+  },
+  "tools/sim/update_2026_11_09_sim.py": {
+    "mtime": 1794262974.8618252,
+    "ast_hash": "a16cabfbdc88dc1135475357c60260be",
+    "semantic_hash": "a16cabfbdc88dc1135475357c60260be"
+  },
+  "tools/sim/update_2026_11_09b_sim.py": {
+    "mtime": 1794263114.931306,
+    "ast_hash": "a6722e4fdfc02052f69217d5fbaabba6",
+    "semantic_hash": "a6722e4fdfc02052f69217d5fbaabba6"
+  },
+  "Content/Bosses/CursedConductor/CursedConductor_LanternGlow.png": {
+    "mtime": 1794238022.0659928,
+    "ast_hash": "f4076fd30c423fad1c5ff26aa01ccc73",
+    "semantic_hash": "f4076fd30c423fad1c5ff26aa01ccc73"
+  },
+  "Content/Bosses/CursedConductor/Items/BottleOfLostSouls.png": {
+    "mtime": 1793979006.4521246,
+    "ast_hash": "c2d1c4a97a338118099701edc6d28c38",
+    "semantic_hash": "c2d1c4a97a338118099701edc6d28c38"
+  },
+  "Content/Bosses/CursedConductor/Projectiles/GhostTrain_RailDiagonal.png": {
+    "mtime": 1794238022.2230277,
+    "ast_hash": "210806191eb648f0d069c86cad1308d9",
+    "semantic_hash": "210806191eb648f0d069c86cad1308d9"
+  },
+  "Content/Bosses/CursedConductor/Weapons/CursedLantern.png": {
+    "mtime": 1794237611.459188,
+    "ast_hash": "73e5e4f261bcdb960fcb80b7bdda33d0",
+    "semantic_hash": "73e5e4f261bcdb960fcb80b7bdda33d0"
+  },
+  "Content/Bosses/CursedConductor/Weapons/CursedTrainWhistle.png": {
+    "mtime": 1794239778.7013333,
+    "ast_hash": "0e4e5a7862b48c8c31dc6ee5a5b510d3",
+    "semantic_hash": "0e4e5a7862b48c8c31dc6ee5a5b510d3"
+  },
+  "Content/Bosses/CursedConductor/Weapons/GhostTrainBuff.png": {
+    "mtime": 1794239778.7023735,
+    "ast_hash": "e147eaae0acfb036e3b141e0dff2d2ec",
+    "semantic_hash": "e147eaae0acfb036e3b141e0dff2d2ec"
+  },
+  "Content/Bosses/CursedConductor/Weapons/GhostTrainEngine.png": {
+    "mtime": 1794239778.6616273,
+    "ast_hash": "501fca8862a937f199227f7af32578f9",
+    "semantic_hash": "501fca8862a937f199227f7af32578f9"
+  },
+  "Content/Bosses/CursedConductor/Weapons/GhostTrainEngine_Glow.png": {
+    "mtime": 1794239778.66416,
+    "ast_hash": "be542960247e39c7cee9db8bd2a1e912",
+    "semantic_hash": "be542960247e39c7cee9db8bd2a1e912"
+  },
+  "Content/Bosses/CursedConductor/Weapons/GhostTrainWagon.png": {
+    "mtime": 1794239778.69735,
+    "ast_hash": "fe802057c0907062eddbbd4c17428f92",
+    "semantic_hash": "fe802057c0907062eddbbd4c17428f92"
+  },
+  "Content/Bosses/CursedConductor/Weapons/GhostTrainWagon_Glow.png": {
+    "mtime": 1794239778.6993358,
+    "ast_hash": "5a4ec3b86931f96fdaeb3d1594c7255f",
+    "semantic_hash": "5a4ec3b86931f96fdaeb3d1594c7255f"
+  },
+  "Content/Bosses/CursedConductor/Weapons/SoulFire.png": {
+    "mtime": 1794237611.4606955,
+    "ast_hash": "6f1d23743448423be488956213e69f60",
+    "semantic_hash": "6f1d23743448423be488956213e69f60"
+  },
+  "Content/Bosses/CursedConductor/Weapons/SoulFire_Glow.png": {
+    "mtime": 1794237611.4627206,
+    "ast_hash": "4d6e05934c15ec5fa7d7e88173cf3fcc",
+    "semantic_hash": "4d6e05934c15ec5fa7d7e88173cf3fcc"
+  },
+  "Content/Bosses/TarTyrant/Armor/TyrantClaw.png": {
+    "mtime": 1793979240.7321348,
+    "ast_hash": "ff18166618711377745356657bb7edcd",
+    "semantic_hash": "ff18166618711377745356657bb7edcd"
+  },
+  "Content/Coghaven/CoghavenBiome_Icon.png": {
+    "mtime": 1793995213.1753638,
+    "ast_hash": "55a7b99ef694e415760a514ef199aafb",
+    "semantic_hash": "55a7b99ef694e415760a514ef199aafb"
+  },
+  "Content/Coghaven/Dusts/TurbineSmoke.png": {
+    "mtime": 1793995213.1723614,
+    "ast_hash": "b529d0d6b2ed732f3c263d528d633343",
+    "semantic_hash": "b529d0d6b2ed732f3c263d528d633343"
+  },
+  "Content/Coghaven/Gores/ImperialDefender_GoreHelmet.png": {
+    "mtime": 1794237475.5780206,
+    "ast_hash": "4b643368c4390492b2a7ba19a024bf91",
+    "semantic_hash": "4b643368c4390492b2a7ba19a024bf91"
+  },
+  "Content/Coghaven/Gores/ImperialDefender_GoreMirror.png": {
+    "mtime": 1794237475.5790257,
+    "ast_hash": "3c3124f14d54722b26c066c8dc781061",
+    "semantic_hash": "3c3124f14d54722b26c066c8dc781061"
+  },
+  "Content/Coghaven/Gores/ImperialDefender_GoreSword.png": {
+    "mtime": 1794237475.5780206,
+    "ast_hash": "0e98c98ed00fe5491d24f6063cdfa654",
+    "semantic_hash": "0e98c98ed00fe5491d24f6063cdfa654"
+  },
+  "Content/Coghaven/Gores/JadeGolem_GoreCrystal.png": {
+    "mtime": 1794237476.86751,
+    "ast_hash": "633e9e2ea95b0d0b2c62f6eb30e635de",
+    "semantic_hash": "633e9e2ea95b0d0b2c62f6eb30e635de"
+  },
+  "Content/Coghaven/Gores/JadeGolem_GoreFist.png": {
+    "mtime": 1794237476.865509,
+    "ast_hash": "80925bdec4efa83b77345d276f1de959",
+    "semantic_hash": "80925bdec4efa83b77345d276f1de959"
+  },
+  "Content/Coghaven/Gores/JadeGolem_GoreHead.png": {
+    "mtime": 1794237476.8645115,
+    "ast_hash": "b3d2dc50d701ade6c5f1e473d72d8edc",
+    "semantic_hash": "b3d2dc50d701ade6c5f1e473d72d8edc"
+  },
+  "Content/Coghaven/Gores/JadeGolem_GoreHeart.png": {
+    "mtime": 1794237476.86751,
+    "ast_hash": "c18eb6fd195b7021ba7b0c6237dda4e7",
+    "semantic_hash": "c18eb6fd195b7021ba7b0c6237dda4e7"
+  },
+  "Content/Coghaven/Items/BronzeCog.png": {
+    "mtime": 1793995213.174361,
+    "ast_hash": "22028de556663052562b0e0d8167f709",
+    "semantic_hash": "22028de556663052562b0e0d8167f709"
+  },
+  "Content/Coghaven/Items/BronzeGearwork.png": {
+    "mtime": 1793995212.9600577,
+    "ast_hash": "11431344b92c25e648b3bc0d5960ebf7",
+    "semantic_hash": "11431344b92c25e648b3bc0d5960ebf7"
+  },
+  "Content/Coghaven/Items/BronzeGearworkWall.png": {
+    "mtime": 1793995213.0540593,
+    "ast_hash": "a0578a3d2877ab41ecc0a2ef83061684",
+    "semantic_hash": "a0578a3d2877ab41ecc0a2ef83061684"
+  },
+  "Content/Coghaven/Items/BronzeLatticeWall.png": {
+    "mtime": 1793995213.0365362,
+    "ast_hash": "eee773a33fe95f88605a61d1159d006e",
+    "semantic_hash": "eee773a33fe95f88605a61d1159d006e"
+  },
+  "Content/Coghaven/Items/CinnabarLacquer.png": {
+    "mtime": 1793995212.9450665,
+    "ast_hash": "cb0730c22dce79a582989d875e82e73f",
+    "semantic_hash": "cb0730c22dce79a582989d875e82e73f"
+  },
+  "Content/Coghaven/Items/CinnabarPanelWall.png": {
+    "mtime": 1793995213.0255237,
+    "ast_hash": "d9e7865b2e10b9aebd14e71f67754d89",
+    "semantic_hash": "d9e7865b2e10b9aebd14e71f67754d89"
+  },
+  "Content/Coghaven/Items/JadeBrick.png": {
+    "mtime": 1793995212.9305544,
+    "ast_hash": "33e9c8bc4345b2d3c1e65d307ac63c21",
+    "semantic_hash": "33e9c8bc4345b2d3c1e65d307ac63c21"
+  },
+  "Content/Coghaven/Items/JadeBrickWall.png": {
+    "mtime": 1793995213.0069816,
+    "ast_hash": "1e275ca190bc0e6620ae039e8505d401",
+    "semantic_hash": "1e275ca190bc0e6620ae039e8505d401"
+  },
+  "Content/Coghaven/Items/JadeRoof.png": {
+    "mtime": 1793995212.9750855,
+    "ast_hash": "a45efa4eb1726d02f372a3638818134c",
+    "semantic_hash": "a45efa4eb1726d02f372a3638818134c"
+  },
+  "Content/Coghaven/Items/LiftTurbine.png": {
+    "mtime": 1793995213.1733584,
+    "ast_hash": "6081df2506c5d4d1e1aa8dd51b15eae5",
+    "semantic_hash": "6081df2506c5d4d1e1aa8dd51b15eae5"
+  },
+  "Content/Coghaven/Items/PalaceFlagstone.png": {
+    "mtime": 1793995212.9163518,
+    "ast_hash": "dc690ada7818b6e57281de19793b6da9",
+    "semantic_hash": "dc690ada7818b6e57281de19793b6da9"
+  },
+  "Content/Coghaven/Items/PalaceFlagstoneWall.png": {
+    "mtime": 1793995212.9913797,
+    "ast_hash": "3feedfa36e90002b9e97452b23716a3c",
+    "semantic_hash": "3feedfa36e90002b9e97452b23716a3c"
+  },
+  "Content/Coghaven/NPCs/ImperialDefender.png": {
+    "mtime": 1794237475.554304,
+    "ast_hash": "edc8ce8c55e529f91dd21cb13178c5a5",
+    "semantic_hash": "edc8ce8c55e529f91dd21cb13178c5a5"
+  },
+  "Content/Coghaven/NPCs/ImperialDefender_Far.png": {
+    "mtime": 1794237475.543231,
+    "ast_hash": "7ae5df08f8c31e34cba8d226796a668a",
+    "semantic_hash": "7ae5df08f8c31e34cba8d226796a668a"
+  },
+  "Content/Coghaven/NPCs/ImperialDefender_Glow.png": {
+    "mtime": 1794237475.563926,
+    "ast_hash": "a5a6e944d8368cfa9c8f24de80b51ed5",
+    "semantic_hash": "a5a6e944d8368cfa9c8f24de80b51ed5"
+  },
+  "Content/Coghaven/NPCs/ImperialDefender_Near.png": {
+    "mtime": 1794237475.560864,
+    "ast_hash": "4417c5b3f8046534fd036addcb3ba8c2",
+    "semantic_hash": "4417c5b3f8046534fd036addcb3ba8c2"
+  },
+  "Content/Coghaven/NPCs/JadeGolem.png": {
+    "mtime": 1794237476.8162792,
+    "ast_hash": "246c1876cddd22097972d28b3c38fc48",
+    "semantic_hash": "246c1876cddd22097972d28b3c38fc48"
+  },
+  "Content/Coghaven/NPCs/JadeGolem_Far.png": {
+    "mtime": 1794237476.772173,
+    "ast_hash": "8d884af75fa2904fd182f97df01d10fe",
+    "semantic_hash": "8d884af75fa2904fd182f97df01d10fe"
+  },
+  "Content/Coghaven/NPCs/JadeGolem_Glow.png": {
+    "mtime": 1794237476.855001,
+    "ast_hash": "10d74b7996a4b6e77ecd5a5d113a9524",
+    "semantic_hash": "10d74b7996a4b6e77ecd5a5d113a9524"
+  },
+  "Content/Coghaven/NPCs/JadeGolem_Near.png": {
+    "mtime": 1794237476.8414183,
+    "ast_hash": "f3acbf074e1d7ea8fb242c9801d13f29",
+    "semantic_hash": "f3acbf074e1d7ea8fb242c9801d13f29"
+  },
+  "Content/Coghaven/Projectiles/JadeRay.png": {
+    "mtime": 1794237476.8685079,
+    "ast_hash": "58f23dfa1ae9974eff5ae38f944b4762",
+    "semantic_hash": "58f23dfa1ae9974eff5ae38f944b4762"
+  },
+  "Content/Coghaven/Projectiles/JadeRay_Orb.png": {
+    "mtime": 1794237476.8710227,
+    "ast_hash": "40bc40026187b552d9acd110dcea4e3e",
+    "semantic_hash": "40bc40026187b552d9acd110dcea4e3e"
+  },
+  "Content/Coghaven/Tiles/BronzeCogTile.png": {
+    "mtime": 1793995213.1703525,
+    "ast_hash": "8b74c3a67df914cf9c429a53ef85ee4b",
+    "semantic_hash": "8b74c3a67df914cf9c429a53ef85ee4b"
+  },
+  "Content/Coghaven/Tiles/BronzeGearworkTile.png": {
+    "mtime": 1793995212.9590583,
+    "ast_hash": "5b7f672157b3bbf7779b9b873ab4d043",
+    "semantic_hash": "5b7f672157b3bbf7779b9b873ab4d043"
+  },
+  "Content/Coghaven/Tiles/CinnabarLacquerTile.png": {
+    "mtime": 1793995212.9440644,
+    "ast_hash": "8cbdc92460737670c896c5248884526d",
+    "semantic_hash": "8cbdc92460737670c896c5248884526d"
+  },
+  "Content/Coghaven/Tiles/JadeBrickTile.png": {
+    "mtime": 1793995212.9295537,
+    "ast_hash": "3a239d2029361f57de5442cedbbbc3ba",
+    "semantic_hash": "3a239d2029361f57de5442cedbbbc3ba"
+  },
+  "Content/Coghaven/Tiles/JadeRoofTile.png": {
+    "mtime": 1793995212.9740963,
+    "ast_hash": "97fd31973d22533e451fb6da477559c6",
+    "semantic_hash": "97fd31973d22533e451fb6da477559c6"
+  },
+  "Content/Coghaven/Tiles/LiftTurbineTile.png": {
+    "mtime": 1793995213.0712056,
+    "ast_hash": "c658475c658bdc24e53a4852b57aa9f9",
+    "semantic_hash": "c658475c658bdc24e53a4852b57aa9f9"
+  },
+  "Content/Coghaven/Tiles/LiftTurbineTile_Glow.png": {
+    "mtime": 1793995213.0852294,
+    "ast_hash": "7ffc0c5c11ab4d215de68665ac9d4be5",
+    "semantic_hash": "7ffc0c5c11ab4d215de68665ac9d4be5"
+  },
+  "Content/Coghaven/Tiles/PalaceFlagstoneTile.png": {
+    "mtime": 1793995212.9143493,
+    "ast_hash": "cd39817fbf7c4b94bae578f18f04deed",
+    "semantic_hash": "cd39817fbf7c4b94bae578f18f04deed"
+  },
+  "Content/Coghaven/Walls/BronzeGearworkWallTile.png": {
+    "mtime": 1793995213.0530586,
+    "ast_hash": "ad2112857f0d9f225d0f7511ff4ff850",
+    "semantic_hash": "ad2112857f0d9f225d0f7511ff4ff850"
+  },
+  "Content/Coghaven/Walls/BronzeLatticeWallTile.png": {
+    "mtime": 1793995213.0350316,
+    "ast_hash": "fceadcb3e08b4eba64376d8b0b0cfc5f",
+    "semantic_hash": "fceadcb3e08b4eba64376d8b0b0cfc5f"
+  },
+  "Content/Coghaven/Walls/CinnabarPanelWallTile.png": {
+    "mtime": 1793995213.0235217,
+    "ast_hash": "34b438fcaa47adfc112e1cb975cf87e0",
+    "semantic_hash": "34b438fcaa47adfc112e1cb975cf87e0"
+  },
+  "Content/Coghaven/Walls/JadeBrickWallTile.png": {
+    "mtime": 1793995213.005473,
+    "ast_hash": "ec7f8f654e74cff4690b8a48b5307b1a",
+    "semantic_hash": "ec7f8f654e74cff4690b8a48b5307b1a"
+  },
+  "Content/Coghaven/Walls/PalaceFlagstoneWallTile.png": {
+    "mtime": 1793995212.9903705,
+    "ast_hash": "8cd36b9abc1050c1a2ac1c01700a088a",
+    "semantic_hash": "8cd36b9abc1050c1a2ac1c01700a088a"
+  },
+  "Content/Gems/Buffs/JadeCurse.png": {
+    "mtime": 1794255444.4548652,
+    "ast_hash": "0e803c0905918e5617ae44dcce1fd88a",
+    "semantic_hash": "0e803c0905918e5617ae44dcce1fd88a"
+  },
+  "Content/Gems/Buffs/JadePetrified.png": {
+    "mtime": 1794255444.4558606,
+    "ast_hash": "c77ee6282aafa26acb21eeabfdb99243",
+    "semantic_hash": "c77ee6282aafa26acb21eeabfdb99243"
+  },
+  "Content/Gems/Buffs/JadeWard.png": {
+    "mtime": 1794255444.4568176,
+    "ast_hash": "57931c39d831b24f8ecd8be83b813288",
+    "semantic_hash": "57931c39d831b24f8ecd8be83b813288"
+  },
+  "Content/Gems/Items/Jade.png": {
+    "mtime": 1794255444.468816,
+    "ast_hash": "0e8505c8725d2fd87e0fcdc5f6683b53",
+    "semantic_hash": "0e8505c8725d2fd87e0fcdc5f6683b53"
+  },
+  "Content/Gems/Items/JadePhaseblade.png": {
+    "mtime": 1794255444.4708164,
+    "ast_hash": "9bc10ebd85703b0fafdb670d2d7bc585",
+    "semantic_hash": "9bc10ebd85703b0fafdb670d2d7bc585"
+  },
+  "Content/Gems/Items/JadePhasesaber.png": {
+    "mtime": 1794255444.4718168,
+    "ast_hash": "9c5d53f613e3867aaf7b8309f29aac93",
+    "semantic_hash": "9c5d53f613e3867aaf7b8309f29aac93"
+  },
+  "Content/Gems/Items/JadeRobe.png": {
+    "mtime": 1794255444.4838188,
+    "ast_hash": "abfa6f0fa4e39718c77148575eb03b5a",
+    "semantic_hash": "abfa6f0fa4e39718c77148575eb03b5a"
+  },
+  "Content/Gems/Items/JadeRobe_Body.png": {
+    "mtime": 1794255444.4768188,
+    "ast_hash": "f50c8e1d30fa02fe5ea108f1f9470b9d",
+    "semantic_hash": "f50c8e1d30fa02fe5ea108f1f9470b9d"
+  },
+  "Content/Gems/Items/JadeRobe_Legs.png": {
+    "mtime": 1794255444.4818187,
+    "ast_hash": "27961282dcb2f4344a5b30149ed88e26",
+    "semantic_hash": "27961282dcb2f4344a5b30149ed88e26"
+  },
+  "Content/Gems/Items/JadeStaff.png": {
+    "mtime": 1794255444.452815,
+    "ast_hash": "e1654783051cecb907d216aedb7aec8e",
+    "semantic_hash": "e1654783051cecb907d216aedb7aec8e"
+  },
+  "Content/Gems/Items/LargeJade.png": {
+    "mtime": 1794255444.469864,
+    "ast_hash": "da8c731b6b615cde22c276d7483c5665",
+    "semantic_hash": "da8c731b6b615cde22c276d7483c5665"
+  },
+  "Content/Gems/Projectiles/JadeBolt.png": {
+    "mtime": 1794255444.4538167,
+    "ast_hash": "ca03d961064ae6b1a6bca9ec0773c828",
+    "semantic_hash": "ca03d961064ae6b1a6bca9ec0773c828"
+  },
+  "Content/Gems/Tiles/JadeTile.png": {
+    "mtime": 1794255444.467856,
+    "ast_hash": "dea1969258ed163d8891cbaf5a95a1c8",
+    "semantic_hash": "dea1969258ed163d8891cbaf5a95a1c8"
+  },
+  "Content/Mechanist/Armor/BrassChestplate.png": {
+    "mtime": 1794239127.9977934,
+    "ast_hash": "2d4b22904511aaa404cdb7762017055a",
+    "semantic_hash": "2d4b22904511aaa404cdb7762017055a"
+  },
+  "Content/Mechanist/Armor/BrassChestplate_Body.png": {
+    "mtime": 1794239127.987668,
+    "ast_hash": "df630f4b868c87b00077f2f25601bd21",
+    "semantic_hash": "df630f4b868c87b00077f2f25601bd21"
+  },
+  "Content/Mechanist/Armor/BrassGreaves.png": {
+    "mtime": 1794239127.9987931,
+    "ast_hash": "a28c1c80a2bfb200989313c15185fada",
+    "semantic_hash": "a28c1c80a2bfb200989313c15185fada"
+  },
+  "Content/Mechanist/Armor/BrassGreaves_Legs.png": {
+    "mtime": 1794239127.9946654,
+    "ast_hash": "2ab17f8e63573d8486ca82eee7b788a7",
+    "semantic_hash": "2ab17f8e63573d8486ca82eee7b788a7"
+  },
+  "Content/Mechanist/Armor/BrassHelmet.png": {
+    "mtime": 1794239127.9957106,
+    "ast_hash": "bc7d379272058cabbbb7870288ef588f",
+    "semantic_hash": "bc7d379272058cabbbb7870288ef588f"
+  },
+  "Content/Mechanist/Armor/BrassHelmet_Head.png": {
+    "mtime": 1794239127.9802032,
+    "ast_hash": "9df03898389a6945f02de09a3fef1b40",
+    "semantic_hash": "9df03898389a6945f02de09a3fef1b40"
+  },
+  "Content/Mechanist/Weapons/Firesaw.png": {
+    "mtime": 1794255150.6046503,
+    "ast_hash": "064161999ed653a812e94f680f434ff1",
+    "semantic_hash": "064161999ed653a812e94f680f434ff1"
+  },
+  "Content/Mechanist/Weapons/FiresawHeld.png": {
+    "mtime": 1794255150.6056542,
+    "ast_hash": "75a625dff1a88a32fd2b652dc0469fed",
+    "semantic_hash": "75a625dff1a88a32fd2b652dc0469fed"
+  },
+  "Content/Mechanist/Weapons/FiresawHeld_Fire.png": {
+    "mtime": 1794255150.6076505,
+    "ast_hash": "c6b6eb7c6ec64911167ec282081de09e",
+    "semantic_hash": "c6b6eb7c6ec64911167ec282081de09e"
+  },
+  "Content/OldBrassTown/Items/BrassStrongbox.png": {
+    "mtime": 1793819962.4029658,
+    "ast_hash": "87efa72773148243ff1ca8512142fe62",
+    "semantic_hash": "87efa72773148243ff1ca8512142fe62"
+  },
+  "Content/OldBrassTown/Items/BrokenWhistle.png": {
+    "mtime": 1793908873.9052022,
+    "ast_hash": "846d344dc003105067d0968c3fa14e76",
+    "semantic_hash": "846d344dc003105067d0968c3fa14e76"
+  },
+  "Content/OldBrassTown/Items/LawHat.png": {
+    "mtime": 1794239042.947501,
+    "ast_hash": "eb2f16f749ccb629fd61b93fb21e9817",
+    "semantic_hash": "eb2f16f749ccb629fd61b93fb21e9817"
+  },
+  "docs/media/2026-11-06_boss-cursed-conductor-bottle.gif": {
+    "mtime": 1793979189.6685266,
+    "ast_hash": "eb2762d7830f7cc2a3d2b237976123fb",
+    "semantic_hash": "eb2762d7830f7cc2a3d2b237976123fb"
+  },
+  "docs/media/2026-11-06_boss-tartyrant-armor-claw.gif": {
+    "mtime": 1793979518.862769,
+    "ast_hash": "0214e3d4919a5ad71a578827594afe72",
+    "semantic_hash": "0214e3d4919a5ad71a578827594afe72"
+  },
+  "docs/media/2026-11-06_coghaven-island.png": {
+    "mtime": 1793998261.8489642,
+    "ast_hash": "7bc6d9c81bd3a5ef18cd9e4fe7d134fc",
+    "semantic_hash": "7bc6d9c81bd3a5ef18cd9e4fe7d134fc"
+  },
+  "docs/media/2026-11-06_coghaven-underside.gif": {
+    "mtime": 1793998275.4412627,
+    "ast_hash": "b7c936ac57776055a141e50e3c3a1c67",
+    "semantic_hash": "b7c936ac57776055a141e50e3c3a1c67"
+  },
+  "docs/media/2026-11-06_oldbrasstown-sheriff-stars.gif": {
+    "mtime": 1793978833.4845536,
+    "ast_hash": "acf4043bbaaedf6b5274701c33a1d329",
+    "semantic_hash": "acf4043bbaaedf6b5274701c33a1d329"
+  },
+  "docs/media/2026-11-06_weapon-tar-whip.gif": {
+    "mtime": 1793979558.0684447,
+    "ast_hash": "49ebeb02e6d266bc2d5b98e6d756680c",
+    "semantic_hash": "49ebeb02e6d266bc2d5b98e6d756680c"
+  },
+  "docs/media/2026-11-09_boss-cursed-conductor-diagonal.gif": {
+    "mtime": 1794239815.7244475,
+    "ast_hash": "b8314739d3a69cded3fed5f3d9fe5592",
+    "semantic_hash": "b8314739d3a69cded3fed5f3d9fe5592"
+  },
+  "docs/media/2026-11-09_boss-cursed-conductor-lantern-weapon.gif": {
+    "mtime": 1794239531.8995376,
+    "ast_hash": "fddebcfd505e4a3d0c082c87a7d40542",
+    "semantic_hash": "fddebcfd505e4a3d0c082c87a7d40542"
+  },
+  "docs/media/2026-11-09_boss-cursed-conductor-sprites.png": {
+    "mtime": 1794239712.1109445,
+    "ast_hash": "e4595e70c92c037fd4a86235c145d48b",
+    "semantic_hash": "e4595e70c92c037fd4a86235c145d48b"
+  },
+  "docs/media/2026-11-09_boss-cursed-conductor-targeting.gif": {
+    "mtime": 1794239876.0992742,
+    "ast_hash": "6b90a546c6b301981111661984d66004",
+    "semantic_hash": "6b90a546c6b301981111661984d66004"
+  },
+  "docs/media/2026-11-09_boss-cursed-conductor-whistle.gif": {
+    "mtime": 1794239804.5199156,
+    "ast_hash": "f8535d617444a5906cd81b0d69874ecb",
+    "semantic_hash": "f8535d617444a5906cd81b0d69874ecb"
+  },
+  "docs/media/2026-11-09_coghaven-enemies-sprites.png": {
+    "mtime": 1794240006.461057,
+    "ast_hash": "d26d3433486ac578a65696cc22bab8d7",
+    "semantic_hash": "d26d3433486ac578a65696cc22bab8d7"
+  },
+  "docs/media/2026-11-09_coghaven-imperial-defender.gif": {
+    "mtime": 1794239518.818863,
+    "ast_hash": "2dc1b29c5d6772aad65fe314db5e0bc1",
+    "semantic_hash": "2dc1b29c5d6772aad65fe314db5e0bc1"
+  },
+  "docs/media/2026-11-09_coghaven-jade-golem.gif": {
+    "mtime": 1794239526.7390647,
+    "ast_hash": "92878cc0741ac8cc2fa57b01e1ef3b5e",
+    "semantic_hash": "92878cc0741ac8cc2fa57b01e1ef3b5e"
+  },
+  "docs/media/2026-11-09_gems-jade-staff.gif": {
+    "mtime": 1794263091.3776433,
+    "ast_hash": "783b0744b01f5c98cbafac8f0958bf34",
+    "semantic_hash": "783b0744b01f5c98cbafac8f0958bf34"
+  },
+  "docs/media/2026-11-09_items-firesaw-jade-staff.png": {
+    "mtime": 1794263091.4146361,
+    "ast_hash": "76a49bf532ff4cc9236b614078c7401f",
+    "semantic_hash": "76a49bf532ff4cc9236b614078c7401f"
+  },
+  "docs/media/2026-11-09_items-jade-brass-lawhat.png": {
+    "mtime": 1794239827.6350906,
+    "ast_hash": "95031187ff213df02afed0ad73a1880d",
+    "semantic_hash": "95031187ff213df02afed0ad73a1880d"
+  },
+  "docs/media/2026-11-09_items-jade-robe.gif": {
+    "mtime": 1794239906.2150438,
+    "ast_hash": "4c7d6a15a3585d785db521d0361ac7f2",
+    "semantic_hash": "4c7d6a15a3585d785db521d0361ac7f2"
+  },
+  "docs/media/2026-11-09_items-jade-robe.png": {
+    "mtime": 1794239906.238727,
+    "ast_hash": "8c6d254e359b30f2ba189fcd4efc3f52",
+    "semantic_hash": "8c6d254e359b30f2ba189fcd4efc3f52"
+  },
+  "docs/media/2026-11-09_mechanist-brass-armor.gif": {
+    "mtime": 1794239905.258576,
+    "ast_hash": "09ab6d160aa1b8b59be232d05fe132ca",
+    "semantic_hash": "09ab6d160aa1b8b59be232d05fe132ca"
+  },
+  "docs/media/2026-11-09_mechanist-brass-armor.png": {
+    "mtime": 1794239905.2711098,
+    "ast_hash": "aeed96e18b7e7b12592ab959b20cf9bc",
+    "semantic_hash": "aeed96e18b7e7b12592ab959b20cf9bc"
+  },
+  "docs/media/2026-11-09_mechanist-firesaw.gif": {
+    "mtime": 1794263120.202574,
+    "ast_hash": "ae1f7f9888bc8f84c7254aacd2ecb706",
+    "semantic_hash": "ae1f7f9888bc8f84c7254aacd2ecb706"
+  },
+  "docs/media/2026-11-09_weapon-cursed-train-whistle.gif": {
+    "mtime": 1794262996.4147553,
+    "ast_hash": "6b891f770cb33bdd0b8094eea8497a6f",
+    "semantic_hash": "6b891f770cb33bdd0b8094eea8497a6f"
   }
 }
