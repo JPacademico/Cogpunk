@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
@@ -22,23 +23,52 @@ namespace Cogpunk.Content.Mechanist
 	{
 		private static LocalizedText steamCostText;
 		private static LocalizedText noTankTooltip;
+		private static LocalizedText manaFallbackText;
 
 		/// <summary>Steam spent per use, before the player's cost multiplier.</summary>
 		public abstract int SteamCost { get; }
+
+		/// <summary>The steam cost's multiplier from this item's reforge (<see cref="MechanistPrefix"/>, user, 2026-11-12); 1
+		/// without one. An instance field: <c>Item.Prefix</c> runs the prefix's <c>Apply</c> on every load, net receive and
+		/// reforge, after <c>SetDefaults</c> made a fresh clone of the template with 1 (decompiled <c>Item.Prefix</c>).</summary>
+		public float PrefixSteamMultiplier = 1f;
+
+		/// <summary>A cost set on this one item by the Combinator (half the sum of its two weapons' costs, user-set
+		/// 2026-11-12), used instead of <see cref="SteamCostFor"/>; 0 when the item isn't a combination.</summary>
+		public int CombinedSteamCost;
 
 		/// <summary>The steam the use <paramref name="player"/> is starting costs, before the multiplier: <see cref="SteamCost"/>,
 		/// unless the weapon's alternate use costs more (the Firesaw's fire, 2026-11-09).</summary>
 		public virtual int SteamCostFor(Player player) => SteamCost;
 
+		/// <summary>What a use costs before the player's multiplier: <see cref="SteamCostFor"/> (or the Combinator's
+		/// <see cref="CombinedSteamCost"/>) with this item's reforge applied, rounded like vanilla's mana prefixes
+		/// (decompiled <c>Item.Prefix</c>: <c>(int)Math.Round(mana * mcst)</c>), never below 1. Every payment, check and
+		/// tooltip goes through it.</summary>
+		public int ItemSteamCost(Player player) {
+			int raw = CombinedSteamCost > 0 && player.altFunctionUse != 2 ? CombinedSteamCost : SteamCostFor(player);
+			return ApplyPrefix(raw, PrefixSteamMultiplier);
+		}
+
+		/// <summary><paramref name="cost"/> after a reforge's steam multiplier (vanilla's mana rounding, 1 at least).</summary>
+		public static int ApplyPrefix(int cost, float multiplier) {
+			if (cost <= 0 || multiplier == 1f) {
+				return cost;
+			}
+			return Math.Max(1, (int)Math.Round(cost * multiplier));
+		}
+
 		public override void SetStaticDefaults() {
 			steamCostText ??= Language.GetOrRegister("Mods.Cogpunk.Mechanist.SteamCost");
 			noTankTooltip ??= Language.GetOrRegister("Mods.Cogpunk.Mechanist.NoTankTooltip");
+			manaFallbackText ??= Language.GetOrRegister("Mods.Cogpunk.Mechanist.SteamManaFallback");
 			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void Unload() {
 			steamCostText = null;
 			noTankTooltip = null;
+			manaFallbackText = null;
 		}
 
 		/// <summary>Extra conditions for the weapon (one projectile at a time...), checked before the steam.</summary>
@@ -51,12 +81,12 @@ namespace Cogpunk.Content.Mechanist
 			if (player.whoAmI != Main.myPlayer) {
 				return true;                                   // the owner decided (D2)
 			}
-			return player.GetModPlayer<SteamPlayer>().CanPayAttack(SteamCostFor(player));   // the hint or the overheat when it can't
+			return player.GetModPlayer<SteamPlayer>().CanPayAttack(ItemSteamCost(player));   // the hint or the overheat when it can't
 		}
 
 		public override bool? UseItem(Player player) {
 			if (player.whoAmI == Main.myPlayer) {
-				player.GetModPlayer<SteamPlayer>().Spend(SteamCostFor(player));
+				player.GetModPlayer<SteamPlayer>().Spend(ItemSteamCost(player));
 			}
 			return null;
 		}
@@ -66,7 +96,7 @@ namespace Cogpunk.Content.Mechanist
 				return;
 			}
 			SteamPlayer steam = Main.LocalPlayer.GetModPlayer<SteamPlayer>();
-			int cost = steam.GetCost(SteamCost);
+			int cost = steam.GetCost(ApplyPrefix(CombinedSteamCost > 0 ? CombinedSteamCost : SteamCost, PrefixSteamMultiplier));
 			int index = tooltips.FindIndex(static line => line.Mod == "Terraria" && line.Name == "Knockback");
 			TooltipLine line = new(Mod, "SteamCost", steamCostText.Format(cost));
 			if (index >= 0) {
@@ -75,7 +105,11 @@ namespace Cogpunk.Content.Mechanist
 			else {
 				tooltips.Add(line);
 			}
-			if (steam.SteamMax < cost && noTankTooltip != null) {
+			if (steam.SteamAsMana && manaFallbackText != null) {
+				// the Serene Tear (user, 2026-11-12): mana pays once the steam runs out, at half the efficiency
+				tooltips.Insert(tooltips.IndexOf(line) + 1, new TooltipLine(Mod, "SteamManaFallback", manaFallbackText.Format(SteamPlayer.ManaFor(cost))));
+			}
+			else if (steam.SteamMax < cost && noTankTooltip != null) {
 				tooltips.Insert(tooltips.IndexOf(line) + 1, new TooltipLine(Mod, "NoTank", noTankTooltip.Value) { OverrideColor = new Color(190, 70, 50) });
 			}
 		}

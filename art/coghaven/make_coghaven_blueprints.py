@@ -215,8 +215,6 @@ def main_hall():
     for x in (hx0 + 3, hx1 - 3, mid - 7, mid + 7):
         p.put(x, g_top + 1, "L")
     p.put(mid, g_top + 1, "H")                              # a chandelier over the throne
-    p.put(hx0 + 2, base - 1, "C")
-    p.put(hx1 - 3, base - 1, "C")
     p.put(hx0 + 5, base - 1, "V")
     p.put(hx1 - 6, base - 1, "V")
     # the stair down to the engine deck: a hatch of platforms in the floor of the left bay, the shaft under it
@@ -300,8 +298,6 @@ def pagoda(storeys=5):
         elif s_ == storeys - 1:
             p.put(x0 + (x1 - x0) // 2 - 1, bot - 1, "Q")
             p.put(x0 + 2, bot - 1, "V")
-        elif s_ == 2:
-            p.put(x0 + (x1 - x0) // 2 - 1, bot - 1, "C")
         else:
             p.put(x0 + (x1 - x0) // 2, bot - 1, "B")
     return p
@@ -387,7 +383,7 @@ def engine_deck(shaft_x):
         p.vline(x1 + 1, cy - 6, cy + 4, "G")
         p.hline(x0, x1, cy - 1, ":")
         p.hline(x0 + 1, x0 + 4, cy - 1, "%")                # a shelf of platforms over the chest
-        p.put(x0 + 2, cy + 3, "C")
+        p.put(x0 + 2, cy + 3, "V")
         p.put(x1 - 2, cy - 5, "^")
     # the shrine: a jade room off the corridor, a table with candles and a chest
     sx0, sx1 = 22, 33
@@ -398,7 +394,6 @@ def engine_deck(shaft_x):
     p.put((sx0 + sx1) // 2, cy + 3, "A")
     p.put((sx0 + sx1) // 2, cy + 1, "i")
     p.put(sx0 + 1, cy + 3, "V")
-    p.put(sx1 - 2, cy + 3, "C")
     p.put((sx0 + sx1) // 2, cy - 5, "H")
     return p
 
@@ -414,9 +409,10 @@ LAYOUT = {
     "Pavilion": 180,
 }
 TERRACE = (26, 200)               # jade brick under the buildings and the forecourt
-POND = (12, 21)                   # the koi pond in the west garden (on the island's flat top: x 8-212)
+POND = (11, 24)                   # the koi pond in the west garden (on the island's flat top: x 8-212); 14 wide since
+                                  # 2026-11-12 (6 deep in CoghavenPass): 84 water tiles, vanilla fishes only in 75+
 LAMPS = (25, 58, 66, 140, 176, 202)                          # Dynasty lamps along the terrace and the gardens
-TREES = (9, 206, 211)            # sakura in the gardens, where the top is flat (vanilla's grower needs grass either side)
+TREES = (8, 206, 211)            # sakura in the gardens, where the top is flat (vanilla's grower needs grass either side)
 TURBINES = (38, 72, 108, 144, 178)
 COG_SOCKETS = ((14, 0, 3), (28, 1, 2), (58, 0, 2), (90, 1, 2), (126, 0, 2), (152, 1, 2), (184, 0, 2), (198, 1, 3))
 #                (x, style, rows above the island's bottom): eight cogs turning in the cloud of its flanks and keel

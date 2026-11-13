@@ -172,6 +172,7 @@ namespace Cogpunk.Content.Town
 				.Add<Junkbait>(trashTr0m)
 				.Add<Scrapworm>(tarTyrant)
 				.Add<CursedWhistle>(cursedConductor)
+				.Add<Mechanist.Stations.SteamInjector>()          // user, 2026-11-12: 35 gold (its value), always in stock
 				.Register();
 		}
 

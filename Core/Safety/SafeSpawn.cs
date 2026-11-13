@@ -181,6 +181,27 @@ namespace Cogpunk.Core.Safety
 		}
 
 		/// <summary>
+		/// Gives <paramref name="item"/> (a clone of it, modded data and prefix kept) back to the local player, the way vanilla
+		/// empties the reforge slot when its window closes (decompiled <c>Player.dropItemCheck</c>): into the inventory with
+		/// <c>Player.GetItem</c>, and whatever doesn't fit dropped at their feet with <c>QuickSpawnItem</c> (which syncs it from a
+		/// multiplayer client, message 21). <b>Only for <see cref="Main.myPlayer"/></b>. False when nothing was given.
+		/// </summary>
+		public static bool TryGiveToLocalPlayer(Player owner, Item item, string context) {
+			if (owner == null || owner.whoAmI != Main.myPlayer || Main.netMode == NetmodeID.Server || item == null || item.IsAir) {
+				return false;
+			}
+			if (item.type <= ItemID.None || item.type >= ItemLoader.ItemCount) {
+				SafeLog.Warn("Spawn.Give.BadType", "Refused to give an item of invalid type {0}.", item.type);
+				return false;
+			}
+			Item leftover = owner.GetItem(owner.whoAmI, item.Clone(), GetItemSettings.InventoryUIToInventorySettings);
+			if (leftover != null && !leftover.IsAir) {
+				owner.QuickSpawnItem(owner.GetSource_Misc(context), leftover, leftover.stack);
+			}
+			return true;
+		}
+
+		/// <summary>
 		/// The local player throws one of their own items into the world, as vanilla does on the dying player's client for
 		/// the large gems of Capture the Gem (decompiled <c>Player.KillMe</c>: <c>Item.NewItem</c> there, then message 21 from
 		/// a multiplayer client). <b>Only for <see cref="Main.myPlayer"/></b>; the item is synced by this call.

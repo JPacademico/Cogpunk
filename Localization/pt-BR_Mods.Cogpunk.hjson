@@ -405,6 +405,8 @@ Items: {
 			Os custos de mana são pagos primeiro com vapor, e com mana quando o vapor acaba
 			Imunidade a Superaquecido
 			{0}% de aumento na regeneração de vapor
+			Armas de vapor usam mana quando o vapor acaba, a 2 de mana por vapor (com metade dos bônus de vapor)
+			Gastar vapor ou mana impede os dois de recarregarem
 			'Não caiu de olho nenhum. Foi o piche que a chorou'
 			'''
 	}
@@ -868,6 +870,52 @@ Items: {
 			Na chuva ou debaixo da água: +{1}% de dano, e os peixes perseguem os inimigos
 			'''
 	}
+
+	SteamInjector: {
+		DisplayName: Injetor de Vapor
+		Tooltip: "Clique com o botão direito para receber Injeção de Vapor: +{0} de vapor máximo e {1}% a menos de custo de vapor até morrer"
+	}
+
+	Koi: {
+		DisplayName: Carpa Koi
+		Tooltip: "'Só nada no lago de Coghaven'"
+	}
+
+	TheFirstHalf: {
+		DisplayName: A Primeira Metade
+		Tooltip:
+			'''
+			Metade do núcleo de uma máquina estranha
+			'Deve ter uma gêmea em algum lugar'
+			'''
+	}
+
+	TheSecondHalf: {
+		DisplayName: A Segunda Metade
+		Tooltip:
+			'''
+			A outra metade do núcleo de uma máquina estranha
+			'Deve ter uma gêmea em algum lugar'
+			'''
+	}
+
+	CombinatorBlueprint: {
+		DisplayName: Planta do Combinador
+		Tooltip:
+			'''
+			Projeto de uma máquina que funde duas armas em uma
+			Junte com as duas metades numa Bigorna de Mithril
+			'''
+	}
+
+	TheCombinator: {
+		DisplayName: O Combinador
+		Tooltip:
+			'''
+			Funde duas armas da mesma classe em uma
+			Clique com o botão direito para abrir
+			'''
+	}
 }
 
 Buffs: {
@@ -959,6 +1007,15 @@ Buffs: {
 	Stunned: {
 		DisplayName: Atordoado
 		Description: Vendo estrelas
+	}
+
+	SteamInjection: {
+		DisplayName: Injeção de Vapor
+		Description:
+			'''
+			+{0} de vapor máximo, {1}% a menos de custo de vapor
+			Dura até você morrer
+			'''
 	}
 }
 
@@ -1107,6 +1164,24 @@ NPCs: {
 	DragoneteMiudo: {
 		DisplayName: Dragonete Miúdo
 		Bestiary: Um filhote de dragão do Submundo, ainda mais cabeça do que asas. Mantém distância e cospe bolas de fogo, e se uma erra ele perde a paciência e vem voando para morder. A mordida é pior que o rugido.
+	}
+
+	Cogscorpion: {
+		DisplayName: Escorpião de Engrenagens
+		Bestiary: "Um guardião do palácio construído como um escorpião, as placas de bronze contornadas de laca vermelha. Ele ergue a cauda antes de atacar: o jade na ponta brilha cada vez mais até o ferrão estalar por cima da cabeça, e quem ele toca começa a virar pedra."
+	}
+
+	FlyingBuddhaHead: {
+		DisplayName: Cabeça de Buda Voadora
+		Bestiary: A cabeça de uma grande estátua dourada, cortada do corpo e mantida no ar pelas máquinas de Coghaven, com a auréola ainda girando. Ela persegue intrusos em calma perfeita e nunca fere de passagem. Quando abre os olhos, despenca como um sino de templo, e precisa de um momento para se recompor.
+	}
+	Mechromancer: {
+		DisplayName: Mecromante
+		Bestiary: Um robô necromante que só anda pela terra sob uma lua vermelha como sangue, embora não tenha pernas para andar. Sua alma arde para fora de um crânio de latão rachado, e seu cajado acende engrenagens nesse mesmo fogo. Para onde ele aponta, o chão se abre e os mortos saem, aparafusados de volta com latão.
+	}
+	Cogsqueleton: {
+		DisplayName: Engrenoesqueleto
+		Bestiary: Ossos velhos presos com latão e uma engrenagem no lugar do coração, erguidos pelo feitiço de um Mecromante. Não obedece a nada além do seu mestre, e se desfaz no instante em que o mestre se vai.
 	}
 }
 
@@ -1342,6 +1417,20 @@ Projectiles: {
 	DragoneteFireBolt: {
 		DisplayName: Bola de Fogo
 	}
+
+	CogscorpionSting: {
+		DisplayName: Ferrão do Escorpião de Engrenagens
+	}
+
+	CombinatorBlast: {
+		DisplayName: Explosão do Combinador
+	}
+	SoulFireCog: {
+		DisplayName: Engrenagem de Fogo das Almas
+	}
+	CogsqueletonGrave: {
+		DisplayName: Cova de Fogo das Almas
+	}
 }
 
 Tiles: {
@@ -1459,6 +1548,14 @@ Tiles: {
 		MapEntry: Portão Selado
 		Hover: Portão Selado ({0}/{1} glifos rúnicos acesos)
 	}
+
+	SteamInjectorTile: {
+		MapEntry: Injetor de Vapor
+	}
+
+	CombinatorTile: {
+		MapEntry: O Combinador
+	}
 }
 
 WorldGen: {
@@ -1489,6 +1586,10 @@ Mechanist: {
 	SteamHover: "Vapor: {0}/{1}"
 	NoTank: Sem tanque de vapor!
 	NoTankTooltip: Precisa de um tanque de vapor: use armadura de Mecanista ou um recipiente de vapor
+
+	SteamManaFallback: Ou {0} de mana quando o vapor acabar
+
+	RocketBootsSteam: Gasta {0} de vapor a cada {1} segundo de voo
 }
 
 Biomes: {
@@ -1517,6 +1618,8 @@ Conditions: {
 
 DropConditions: {
 	TrashTr0mFirstKill: Apenas na primeira derrota em cada mundo
+
+	CombinatorFirstKill: Só na primeira derrota num mundo
 }
 
 Events: {
@@ -1554,4 +1657,119 @@ Emotes: {
 	FriendoboEmote: {
 		Command: friendobot
 	}
+}
+
+Prefixes: {
+	SteamCostLine: "{0}% de custo de vapor"
+
+	Overclocked: {
+		DisplayName: "(Sobrecarregado)"
+	}
+
+	Calibrated: {
+		DisplayName: "(Calibrado)"
+	}
+
+	Efficient: {
+		DisplayName: "(Eficiente)"
+	}
+
+	Engineered: {
+		DisplayName: "(Engenhoso)"
+	}
+
+	Leaky: {
+		DisplayName: "(Furado)"
+	}
+
+	Corroded: {
+		DisplayName: "(Corroído)"
+	}
+
+	Jammed: {
+		DisplayName: "(Emperrado)"
+	}
+
+	Pressurized: {
+		DisplayName: "(Pressurizado)"
+	}
+
+	Hissing: {
+		DisplayName: "(Sibilante)"
+	}
+
+	Geared: {
+		DisplayName: "(Engrenado)"
+	}
+
+	Overdriven: {
+		DisplayName: "(Forçado)"
+	}
+
+	Rattling: {
+		DisplayName: "(Chacoalhante)"
+	}
+}
+
+Combinator: {
+	Title: O Combinador
+
+	Base: Base
+
+	Augment: Aprimoramento
+
+	Product: Produto
+
+	Combine: Combinar
+
+	Separate: Desmontar
+
+	Name: "Nome:"
+
+	InputTip: Coloque uma arma aqui
+
+	ProductTip: A arma combinada sai aqui. Coloque uma de volta para renomeá-la ou desmontá-la
+
+	StatusEmpty: Coloque uma arma base e uma de aprimoramento
+
+	StatusReady: Fica com {0} de dano, {1} de tempo de uso
+
+	StatusProduct: Renomeie, ou desmonte
+
+	TooltipParts: Combinação de {0} (aprimoramento) e {1} (base)
+
+	TooltipAlt: "Clique direito: o ataque de {0}"
+
+	Refusal: {
+		NotAWeapon: Só armas podem ser combinadas
+		Summon: Armas de invocação não podem ser combinadas
+		AlreadyCombined: Armas combinadas não podem ser combinadas de novo
+		DifferentClass: As duas armas precisam ser da mesma classe
+	}
+
+	Trait: {
+		Homing: Os tiros perseguem inimigos a até {0} blocos
+		AreaBurst: Os acertos explodem com {0}% do dano em {1} blocos
+		AmmoSaver: "{0}% de chance de não gastar munição"
+		BonusVsMechanical: "{0}% a mais de dano em máquinas"
+		Debuff: "{0}% de chance de causar {1} por {2} segundos"
+		TarPlague: Causa a Praga de Piche por {0} segundos
+		JadeCurse: Lança a maldição de jade
+		Stun: "{0}% de chance de atordoar inimigos comuns por {1} segundos"
+		FirstStrike: x{0} de dano no primeiro acerto em cada inimigo
+		Pierce: Os tiros atravessam mais {0} inimigos
+		ArmorPierce: Ignora {0}% da defesa inimiga
+	}
+
+	Help:
+		'''
+		Como o Combinador funciona
+		Coloque uma arma em Base e outra em Aprimoramento, depois aperte Combinar.
+		As duas precisam ser da mesma classe (corpo a corpo, à distância, mágica, Maquinista...). Armas de invocação e armas já combinadas não entram.
+		O Aprimoramento dá o ataque: o projétil e a animação.
+		A Base dá os efeitos passivos e bônus (teleguiado, explosões, economia de munição, dano extra em máquinas...), o crítico e o alcance.
+		Dano, tempo de uso e custo de mana ou vapor são metade da soma das duas. As reforjas delas são ignoradas; a nova arma pode ser reforjada no Duende Funileiro como qualquer arma da classe.
+		O clique direito usa o ataque de clique direito da Base, se ela tiver um; se não, o do Aprimoramento.
+		Coloque uma arma combinada no espaço de Produto para renomeá-la ou desmontá-la: as duas armas voltam como entraram.
+		'''
 }

@@ -61,6 +61,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 		public const int NoiseStep = 6;
 		public const int MinThickness = 4;
 		public const int SoilRows = 3;                 // flagstone (terrace) or dirt (gardens) on top
+		public const int PondDepth = 6;                // rows of water in the koi pond (the lining under them)
 		public const int CloudPuffs = 30;
 		public const int RainCloudOneIn = 3;
 		public const int TipTufts = 6;
@@ -124,6 +125,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 			furniture.Clear();                                  // a pass is reused for every world made this session
 			turbineKept = null;                                 // every turbine counts until the heights are chosen
 			pagoda = null;
+			CoghavenChests.Reset();                             // the two chests' sky items: two different ones
 
 			Rectangle band = CoghavenSystem.Band;
 			int home;
@@ -296,6 +298,9 @@ namespace Cogpunk.Content.Coghaven.Generation
 				top[i] = s + drop;
 				int d = (int)Math.Round(depth * Math.Pow(Math.Max(0.0, 1.0 - u * u), BottomExponent) + noise[i]);
 				bottom[i] = Math.Max(top[i] + MinThickness, s + d);
+				if (i >= B.PondLeft - 1 && i <= B.PondRight + 1) {
+					bottom[i] = Math.Max(bottom[i], s + PondDepth + 2);   // cloud under the pond's lining, never open sky
+				}
 			}
 			for (int k = 0; k < B.TurbineX.Length; k++) {      // each turbine's mount: four columns, one flat bottom
 				if (!turbineKept[k]) {
@@ -434,14 +439,17 @@ namespace Cogpunk.Content.Coghaven.Generation
 			}
 		}
 
-		/// <summary>The koi pond in the west garden: water in the surface rows, lined with flagstone.</summary>
+		/// <summary>The koi pond in the west garden: <see cref="PondDepth"/> rows of water from the surface down, lined with
+		/// flagstone. Since 2026-11-12 it is 14 x 6 = 84 water tiles (it was 10 x 3): vanilla won't fish in a pool of fewer than
+		/// 75 (decompiled <c>Projectile.FishingCheck</c>: "Not Enough Water"), and up here 75 is also the full fishing power
+		/// (the sky's thin air: 300 x 0.25), so the Koi can be caught (<see cref="KoiFishing"/>).</summary>
 		private void Pond() {
 			for (int i = B.PondLeft - 1; i <= B.PondRight + 1; i++) {
-				for (int y = s; y <= s + SoilRows; y++) {
+				for (int y = s; y <= s + PondDepth; y++) {
 					if (!TileSafety.TryGetTile(left + i, y, out Tile tile, TileSafety.EditMargin) || y < top[i]) {
 						continue;
 					}
-					bool lining = i == B.PondLeft - 1 || i == B.PondRight + 1 || y == s + SoilRows;
+					bool lining = i == B.PondLeft - 1 || i == B.PondRight + 1 || y == s + PondDepth;
 					tile.ClearEverything();
 					if (lining) {
 						Place(tile, stone);
@@ -474,6 +482,9 @@ namespace Cogpunk.Content.Coghaven.Generation
 				bool inside = true;
 				for (int c = i0; c < i0 + BronzeCogTile.Size && inside; c++) {
 					inside = sy > top[c] + SoilRows && sb + 1 <= bottom[c];
+					if (c >= B.PondLeft - 1 && c <= B.PondRight + 1) {
+						inside &= sy > s + PondDepth + 1;   // never into the pond (a shallow island leaves this cog out)
+					}
 				}
 				if (!inside) {
 					continue;

@@ -51,7 +51,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 				return;
 			}
 			Player player = Main.player[Projectile.owner];
-			if (!player.active || player.dead || player.HeldItem.ModItem is not MetalWrench) {
+			if (!player.active || player.dead || !MetalWrench.Wields(player)) {
 				Projectile.Kill();
 				return;
 			}

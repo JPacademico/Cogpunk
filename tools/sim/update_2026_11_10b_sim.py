@@ -20,8 +20,8 @@ Writes:
     2026-11-10_oldbrasstown-red-cloth.gif       the Mechanical Bull charges a player wearing the Red Cloth: the touch is
                                                 dodged (Ole!, 0.7 s of immunity), a charge during the 12 s recharge hurts,
                                                 a charge after it is dodged again.
-    2026-11-10_coghaven-chests.png              the question: Coghaven's chests marked and numbered on the island (coghaven_sim's
-                                                replay), with where each is and what it holds.
+    (2026-11-12: the chests map was dropped: Coghaven has two chests now, shown by update_2026_11_12_sim.py's
+    2026-11-12_coghaven-island-chests.png.)
 
 Leaves out: lighting (the glows are drawn at full strength), vanilla's own art (natural stone, the cave and the water are
 flat stand-ins), the planes' parallax, the player's exact physics (update_2026_11_03b_sim's approximation), netcode (the sim
@@ -751,8 +751,7 @@ def main():
     jobs = [("firesaw", lambda: scene_firesaw(o("2026-11-10_mechanist-firesaw-phantom-slash.gif"), args.font)),
             ("golem", lambda: scene_golem(o("2026-11-10_coghaven-jade-golem-palm.gif"), args.font)),
             ("lantern", lambda: scene_lantern(o("2026-11-10_boss-cursed-conductor-lantern-cap.gif"), args.font)),
-            ("cloth", lambda: scene_cloth(o("2026-11-10_oldbrasstown-red-cloth.gif"), args.font)),
-            ("chests", lambda: chests_png(o("2026-11-10_coghaven-chests.png"), args.font))]
+            ("cloth", lambda: scene_cloth(o("2026-11-10_oldbrasstown-red-cloth.gif"), args.font))]
     only = set(args.only.split(",")) if args.only else None
     for name, job in jobs:
         if only is None or name in only:

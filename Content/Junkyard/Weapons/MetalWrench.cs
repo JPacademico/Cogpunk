@@ -53,13 +53,19 @@ namespace Cogpunk.Content.Junkyard.Weapons
 	/// part. D2: everything follows the synced use (itemAnimation, direction) on every client; only the hits are the
 	/// owner's, as vanilla's. D1: arithmetic only.</para>
 	/// </summary>
-	public class MetalWrench : CogpunkItem, ISteamSkill
+	public class MetalWrench : CogpunkItem, ISteamSkill, IRightClickSkill
 	{
 		/// <summary>32 (user-set 2026-10-30), +20% (user, 2026-11-05: "increase the damage of the metal wrench in 20% since
 		/// it does not shoot projectiles"): 38.4, rounded to 38.</summary>
 		public const int Damage = 38;
 		public const int UseTime = 30;
 		public const int MechanicalBonus = 50;            // percent
+
+		/// <summary>The held item parries as the wrench: the wrench itself, or a Combinator product whose right click is the
+		/// wrench's (its base is one, 2026-11-12; <see cref="RightClickOwner"/>).</summary>
+		public static bool Wields(Player player) {
+			return player != null && RightClickOwner.TypeOf(player.HeldItem, player) == ModContent.ItemType<MetalWrench>();
+		}
 		public const int ParryTicks = 60;                 // a 1 s window (user-set)
 		public const int CooldownTicks = 180;             // 3 s (user-set), from the end of the guard
 		public const float RiposteMultiplier = 2.5f;      // user-set

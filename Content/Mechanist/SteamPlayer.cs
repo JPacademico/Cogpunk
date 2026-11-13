@@ -42,6 +42,7 @@ namespace Cogpunk.Content.Mechanist
 		public const int NoTankHintTicks = 60;           // the "no tank" hint repeats at most once a second
 		public const int OverheatBuffTicks = 60 * 60 * 10;   // the buff only mirrors the state: cleared when the tank is full
 		public const int GaugeLingerTicks = 180;         // the gauge stays up this long after the last reason to show it
+		public const int ManaPerSteam = 2;               // the Serene Tear's fallback: mana at half the efficiency (user, 2026-11-12)
 
 		/// <summary>Steam in the tank (owner only).</summary>
 		public int Steam = BaseSteamMax;
@@ -81,6 +82,7 @@ namespace Cogpunk.Content.Mechanist
 		private bool measuringMana;
 		private int paidItemType = -1;                 // the last mana payment (OnConsumeMana): which item, and the steam it took
 		private int paidSteam;
+		private bool lastPaidWithMana;                 // the last steam cost (Spend) was paid in mana (the Serene Tear's fallback)
 		private static LocalizedText noTankText;
 
 		/// <summary>The gauge is shown while steam matters: a Mechanist weapon in hand, Mechanist gear on, a tank that isn't
@@ -135,37 +137,79 @@ namespace Cogpunk.Content.Mechanist
 			return Math.Max(1, (int)Math.Round(scaled));
 		}
 
-		/// <summary>Owner: a Mechanist attack happened (or was attempted): the refill waits another <see cref="RegenDelayTicks"/>.</summary>
+		/// <summary>Owner: a Mechanist attack happened (or was attempted): the refill waits another <see cref="RegenDelayTicks"/>.
+		/// With <see cref="SteamAsMana"/> (the Serene Tear) mana's own refill waits too (user, 2026-11-12: "steam and mana can't
+		/// regen while any is being consumed"; vanilla's delay, decompiled <c>Player.ItemCheck_ApplyManaRegenDelay</c>).</summary>
 		public void NoteAttack() {
 			sinceAttack = 0;
 			regenTimer = 0;
 			gaugeTimer = GaugeLingerTicks;
+			if (SteamAsMana) {
+				HoldManaRegen();
+			}
 		}
 
-		/// <summary>Owner: pays for a Mechanist attack. Never goes below zero.</summary>
+		/// <summary>Owner: vanilla's mana refill starts its wait again, as a mana cost does.</summary>
+		private void HoldManaRegen() {
+			Player.manaRegenDelay = Math.Max(Player.manaRegenDelay, (int)Player.maxRegenDelay);
+		}
+
+		/// <summary>The mana a steam cost takes when the Serene Tear pays it in mana: <see cref="ManaPerSteam"/> a steam
+		/// (user, 2026-11-12: "half the efficiency ... double the cost conversion"); vanilla's mana cost multiplier applies on
+		/// top in <c>Player.CheckMana</c>.</summary>
+		public static int ManaFor(int steamCost) => Math.Max(0, steamCost) * ManaPerSteam;
+
+		/// <summary>Whether mana alone covers <paramref name="steamCost"/> right now (no potion drunk: a plain comparison
+		/// with vanilla's <c>CheckMana</c> rounding, safe to ask from tooltips and damage hooks).</summary>
+		private bool ManaCovers(int steamCost) {
+			return steamCost > 0 && Player.statMana >= (int)(ManaFor(steamCost) * Player.manaCost);
+		}
+
+		/// <summary>Owner: pays for a Mechanist attack, in steam when the tank holds it; otherwise, with
+		/// <see cref="SteamAsMana"/> (the Serene Tear), in mana at <see cref="ManaPerSteam"/> a steam (user, 2026-11-12:
+		/// "steam consuming weapons can also use mana at half the efficiency after steam ends"). Never goes below zero. The
+		/// payment's kind is remembered for <see cref="SteamForUse"/>.</summary>
 		public void Spend(int baseCost) {
-			Steam = Math.Max(0, Steam - GetCost(baseCost));
+			int cost = GetCost(baseCost);
+			lastPaidWithMana = false;
+			if (Steam >= cost) {
+				Steam -= cost;
+			}
+			else if (SteamAsMana && cost > 0 && Player.CheckMana(ManaFor(cost), pay: true, blockQuickMana: true)) {
+				lastPaidWithMana = true;                   // CanPayAttack checked (and drank a potion if it had to)
+			}
+			else {
+				Steam = 0;
+			}
 			NoteAttack();
+			if (lastPaidWithMana) {
+				HoldManaRegen();                           // CheckMana(int) doesn't start vanilla's wait itself
+			}
 		}
 
 		/// <summary>Owner: whether an attack costing <paramref name="baseCost"/> (before the multiplier) can be paid now, by a
-		/// Mechanist weapon's rules. A refusal does what it does for a Mechanist weapon: nothing while overheated; the "No steam
-		/// tank!" hint when the whole tank is smaller than the cost (no refill could ever pay); an overheat (or, with
-		/// <see cref="OverheatImmune"/>, a plain refusal) when the tank is merely short.</summary>
+		/// Mechanist weapon's rules. With <see cref="SteamAsMana"/> (the Serene Tear) a cost the tank can't cover is paid in
+		/// mana instead, <see cref="ManaPerSteam"/> a steam, when there is enough (vanilla's <c>CheckMana</c>, which drinks a
+		/// mana potion through the Mana Flower like any spell). A refusal does what it does for a Mechanist weapon: nothing
+		/// while overheated; the "No steam tank!" hint when the whole tank is smaller than the cost (no refill could ever
+		/// pay); an overheat (or, with <see cref="OverheatImmune"/>, a plain refusal) when the tank is merely short.</summary>
 		public bool CanPayAttack(int baseCost) {
 			if (Overheated) {
 				return false;
 			}
 			int cost = GetCost(baseCost);
+			if (Steam >= cost) {
+				return true;                               // Steam never exceeds SteamMax, so the tank holds the cost too
+			}
+			if (SteamAsMana && cost > 0 && Player.CheckMana(ManaFor(cost), pay: false)) {
+				return true;
+			}
 			if (SteamMax < cost) {
 				NoteNoTank();
 				return false;
 			}
-			if (Steam < cost) {
-				TriggerOverheat();
-				return false;
-			}
-			return true;
+			TriggerOverheat();
+			return false;
 		}
 
 		/// <summary>Owner: pays a steam-costing attack that isn't a Mechanist weapon's item use (a weapon skill,
@@ -196,11 +240,11 @@ namespace Cogpunk.Content.Mechanist
 			if (item.ModItem is ISteamSkill skill) {
 				int s = skill.SteamForUse(Player);
 				if (s > 0) {
-					return s;
+					return HalvedIfMana(s);
 				}
 			}
 			if (item.ModItem is MechanistWeapon weapon) {
-				return GetCost(weapon.SteamCostFor(Player));
+				return HalvedIfMana(GetCost(weapon.ItemSteamCost(Player)));
 			}
 			if (!SteamAsMana || item.mana <= 0 || item.DamageType.CountsAsClass(DamageClass.Summon)) {
 				return 0;
@@ -210,6 +254,17 @@ namespace Cogpunk.Content.Mechanist
 			}
 			int cost = ManaCostWithoutSteam(item);
 			return cost > 0 && Steam >= cost ? cost : 0;  // about to start (or a tooltip): what the tank would pay
+		}
+
+		/// <summary>A steam-paid use's steam for the bonuses that count it (the Spring Gloves), halved when the Serene Tear pays
+		/// it in mana (user, 2026-11-12: "half the bonus if there's bonus applied"): the use under way by how it was paid
+		/// (<see cref="Spend"/>), a use about to start by how it would be. D1: field reads.</summary>
+		private int HalvedIfMana(int steam) {
+			if (!SteamAsMana || steam <= 0) {
+				return steam;
+			}
+			bool viaMana = Player.ItemAnimationActive ? lastPaidWithMana : Steam < steam && ManaCovers(steam);
+			return viaMana ? steam / 2 : steam;
 		}
 
 		/// <summary>Owner: pays a flat <paramref name="amount"/> (no cost multiplier: not a weapon) if the tank holds it; false
@@ -342,11 +397,15 @@ namespace Cogpunk.Content.Mechanist
 			}
 			paidItemType = item?.type ?? -1;
 			paidSteam = 0;
-			if (!SteamAsMana || manaConsumed != 0 || item == null) {
+			if (!SteamAsMana || item == null) {
+				return;
+			}
+			if (manaConsumed > 0) {
+				NoteAttack();                              // mana paid the spell: the steam waits too (user, 2026-11-12)
 				return;
 			}
 			int cost = ManaCostWithoutSteam(item);
-			if (cost > 0 && TrySpendFlat(cost)) {
+			if (cost > 0 && TrySpendFlat(cost)) {         // NoteAttack (through TrySpendFlat) holds mana's refill too
 				paidSteam = cost;
 			}
 		}

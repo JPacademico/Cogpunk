@@ -406,6 +406,8 @@ Items: {
 			Mana costs are paid with steam first, and with mana once the steam runs out
 			Immunity to Overheat
 			{0}% increased steam regeneration
+			Steam weapons draw mana once the steam runs out, at 2 mana a steam (their steam bonuses halved)
+			Spending steam or mana holds both from refilling
 			'It fell from no eye. The tar wept it'
 			'''
 	}
@@ -869,6 +871,52 @@ Items: {
 			In the rain or under water: +{1}% damage, and the fish home in on enemies
 			'''
 	}
+
+	SteamInjector: {
+		DisplayName: Steam Injector
+		Tooltip: "Right click it for Steam Injection: +{0} maximum steam and {1}% less steam cost until you die"
+	}
+
+	Koi: {
+		DisplayName: Koi
+		Tooltip: "'Only swims in the pond of Coghaven'"
+	}
+
+	TheFirstHalf: {
+		DisplayName: The First Half
+		Tooltip:
+			'''
+			One half of a strange machine's core
+			'It must have a twin somewhere'
+			'''
+	}
+
+	TheSecondHalf: {
+		DisplayName: The Second Half
+		Tooltip:
+			'''
+			The other half of a strange machine's core
+			'It must have a twin somewhere'
+			'''
+	}
+
+	CombinatorBlueprint: {
+		DisplayName: Combinator Blueprint
+		Tooltip:
+			'''
+			Plans for a machine that fuses two weapons into one
+			Put it together with both halves at a Mythril Anvil
+			'''
+	}
+
+	TheCombinator: {
+		DisplayName: The Combinator
+		Tooltip:
+			'''
+			Fuses two weapons of the same class into one
+			Right click it to open it
+			'''
+	}
 }
 
 Buffs: {
@@ -960,6 +1008,15 @@ Buffs: {
 	Stunned: {
 		DisplayName: Stunned
 		Description: Seeing stars
+	}
+
+	SteamInjection: {
+		DisplayName: Steam Injection
+		Description:
+			'''
+			+{0} maximum steam, {1}% less steam cost
+			Lasts until you die
+			'''
 	}
 }
 
@@ -1108,6 +1165,24 @@ NPCs: {
 	DragoneteMiudo: {
 		DisplayName: Dragonete Miúdo
 		Bestiary: A baby dragon of the Underworld, still more head than wings. It keeps its distance and spits bolts of fire, and if one misses it loses its temper and comes flying in to bite. Its bite is worse than its bark.
+	}
+
+	Cogscorpion: {
+		DisplayName: Cogscorpion
+		Bestiary: "A palace guardian built like a scorpion, its bronze plates edged in red lacquer. It raises its tail before it strikes: the jade at the tip glows brighter until the sting whips over its head, and whoever it touches starts turning to stone."
+	}
+
+	FlyingBuddhaHead: {
+		DisplayName: Flying Buddha Head
+		Bestiary: The head of a great golden statue, cut from its body and kept aloft by Coghaven's machinery, its halo still turning. It drifts after intruders in perfect calm and never strikes in passing. When its eyes open, it drops like a temple bell, and needs a moment to collect itself.
+	}
+	Mechromancer: {
+		DisplayName: Mechromancer
+		Bestiary: A robot necromancer that only walks the earth under a blood-red moon, though it has no legs to walk with. Its soul burns out of a split brass skull, and its staff lights cogs in that same fire. Where it points, the ground opens and the dead climb out, bolted back together with brass.
+	}
+	Cogsqueleton: {
+		DisplayName: Cogsqueleton
+		Bestiary: Old bones held together with brass and a cog for a heart, raised by a Mechromancer's spell. It obeys nothing but its master, and falls apart the moment its master is gone.
 	}
 }
 
@@ -1343,6 +1418,20 @@ Projectiles: {
 	DragoneteFireBolt: {
 		DisplayName: Fire Bolt
 	}
+
+	CogscorpionSting: {
+		DisplayName: Cogscorpion Sting
+	}
+
+	CombinatorBlast: {
+		DisplayName: Combinator Burst
+	}
+	SoulFireCog: {
+		DisplayName: Soul Fire Cog
+	}
+	CogsqueletonGrave: {
+		DisplayName: Soul Fire Grave
+	}
 }
 
 Tiles: {
@@ -1460,6 +1549,14 @@ Tiles: {
 		MapEntry: Sealed Gate
 		Hover: Sealed Gate ({0}/{1} rune glyphs lit)
 	}
+
+	SteamInjectorTile: {
+		MapEntry: Steam Injector
+	}
+
+	CombinatorTile: {
+		MapEntry: The Combinator
+	}
 }
 
 WorldGen: {
@@ -1490,6 +1587,10 @@ Mechanist: {
 	SteamHover: "Steam: {0}/{1}"
 	NoTank: No steam tank!
 	NoTankTooltip: Needs a steam tank: wear Mechanist armor or a steam container
+
+	SteamManaFallback: Or {0} mana once the steam runs out
+
+	RocketBootsSteam: Burns {0} steam every {1} seconds of flight
 }
 
 Biomes: {
@@ -1518,6 +1619,8 @@ Conditions: {
 
 DropConditions: {
 	TrashTr0mFirstKill: Only from the first defeat in a world
+
+	CombinatorFirstKill: Only from the first defeat in a world
 }
 
 Events: {
@@ -1555,4 +1658,119 @@ Emotes: {
 	FriendoboEmote: {
 		Command: friendobot
 	}
+}
+
+Prefixes: {
+	SteamCostLine: "{0}% steam cost"
+
+	Overclocked: {
+		DisplayName: Overclocked
+	}
+
+	Calibrated: {
+		DisplayName: Calibrated
+	}
+
+	Efficient: {
+		DisplayName: Efficient
+	}
+
+	Engineered: {
+		DisplayName: Engineered
+	}
+
+	Leaky: {
+		DisplayName: Leaky
+	}
+
+	Corroded: {
+		DisplayName: Corroded
+	}
+
+	Jammed: {
+		DisplayName: Jammed
+	}
+
+	Pressurized: {
+		DisplayName: Pressurized
+	}
+
+	Hissing: {
+		DisplayName: Hissing
+	}
+
+	Geared: {
+		DisplayName: Geared
+	}
+
+	Overdriven: {
+		DisplayName: Overdriven
+	}
+
+	Rattling: {
+		DisplayName: Rattling
+	}
+}
+
+Combinator: {
+	Title: The Combinator
+
+	Base: Base
+
+	Augment: Augment
+
+	Product: Product
+
+	Combine: Combine
+
+	Separate: Take apart
+
+	Name: "Name:"
+
+	InputTip: Put a weapon here
+
+	ProductTip: The combined weapon comes out here. Put one back to rename it or take it apart
+
+	StatusEmpty: Put a base and an augment weapon in
+
+	StatusReady: Makes {0} damage, {1} use time
+
+	StatusProduct: Rename it, or take it apart
+
+	TooltipParts: Combination of {0} (augment) and {1} (base)
+
+	TooltipAlt: "Right click: the attack of {0}"
+
+	Refusal: {
+		NotAWeapon: Only weapons can be combined
+		Summon: Summon weapons can't be combined
+		AlreadyCombined: Combined weapons can't be combined again
+		DifferentClass: Both weapons must be of the same class
+	}
+
+	Trait: {
+		Homing: Its shots home in on enemies within {0} tiles
+		AreaBurst: Its hits burst for {0}% damage over {1} tiles
+		AmmoSaver: "{0}% chance not to consume ammo"
+		BonusVsMechanical: "{0}% more damage to machines"
+		Debuff: "{0}% chance to inflict {1} for {2} seconds"
+		TarPlague: Inflicts the Tar Plague for {0} seconds
+		JadeCurse: Lays the jade curse
+		Stun: "{0}% chance to stun basic enemies for {1} seconds"
+		FirstStrike: x{0} damage on the first hit against each enemy
+		Pierce: Its shots pierce {0} more enemies
+		ArmorPierce: Ignores {0}% of enemy defense
+	}
+
+	Help:
+		'''
+		How the Combinator works
+		Put a weapon in Base and another in Augment, then press Combine.
+		Both must be of the same class (melee, ranged, magic, Mechanist...). Summon weapons and weapons already combined can't go in.
+		The Augment gives the attack: its projectile and its animation.
+		The Base gives its passive effects and bonuses (homing, bursts, ammo saving, extra damage to machines...), its crit and its range.
+		Damage, use time and mana or steam cost are half the sum of the two. Their reforges are ignored; the new weapon can be reforged at the Goblin Tinkerer like any weapon of its class.
+		Right click uses the Base's right-click attack if it has one, otherwise the Augment's.
+		Put a combined weapon in the Product slot to rename it or take it apart: both weapons come back as they went in.
+		'''
 }

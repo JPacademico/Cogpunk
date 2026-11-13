@@ -56,14 +56,14 @@ namespace Cogpunk.Content.Junkyard.Weapons
 				guardTicks = 0;
 				return;
 			}
-			if (guardTicks > 0 && (Player.dead || Player.CCed || Player.noItems || Player.HeldItem.ModItem is not MetalWrench)) {
+			if (guardTicks > 0 && (Player.dead || Player.CCed || Player.noItems || !MetalWrench.Wields(Player))) {
 				EndGuard();
 			}
 		}
 
 		// Just before the item check, right where vanilla handles its own right-click features.
 		public override bool PreItemCheck() {
-			if (Player.whoAmI != Main.myPlayer || guardTicks > 0 || Player.HeldItem.ModItem is not MetalWrench) {
+			if (Player.whoAmI != Main.myPlayer || guardTicks > 0 || !MetalWrench.Wields(Player)) {
 				return true;
 			}
 			bool rightClick = Player.controlUseTile && Main.mouseRightRelease && !Player.tileInteractionHappened && Player.releaseUseItem

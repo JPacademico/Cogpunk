@@ -6,7 +6,7 @@ show the island always finds room in the sky.
     python -P tools/sim/coghaven_sim.py --out docs/media [--only island,underside,sweep] [--seed N]
 
 Writes:
-    2026-11-06_coghaven-island.png      the whole island at half scale over the sky (the palace, the cloud-and-cog base,
+    2026-11-12_coghaven-island.png      the whole island at half scale over the sky (the palace, the cloud-and-cog base,
                                         the turbines), and a full-scale crop of the Main Hall and the pagoda.
     2026-11-06_coghaven-underside.gif   half scale: the turbines' rotors turning and their smoke pouring down, the cogs
                                         turning in their sockets (5 s).
@@ -151,6 +151,8 @@ class Island:
             self.top[i] = s + drop
             dd = int(round(d * max(0.0, 1 - u * u) ** K["BottomExponent"] + nz[i]))
             self.bottom[i] = max(self.top[i] + K["MinThickness"], s + dd)
+            if K["PondLeft"] - 1 <= i <= K["PondRight"] + 1:
+                self.bottom[i] = max(self.bottom[i], s + K["PondDepth"] + 2)   # cloud under the pond's lining (2026-11-12)
         for k, tx in enumerate(ARR["TurbineX"]):
             if not self.kept[k]:
                 continue
@@ -219,12 +221,12 @@ class Island:
     def pond(self):
         s = self.s
         for i in range(K["PondLeft"] - 1, K["PondRight"] + 2):
-            for y in range(s, s + K["SoilRows"] + 1):
+            for y in range(s, s + K["PondDepth"] + 1):
                 if y < self.top[i]:
                     continue
                 self.tile.pop((i, y), None)
                 self.wall.pop((i, y), None)
-                if i in (K["PondLeft"] - 1, K["PondRight"] + 1) or y == s + K["SoilRows"]:
+                if i in (K["PondLeft"] - 1, K["PondRight"] + 1) or y == s + K["PondDepth"]:
                     self.tile[(i, y)] = "stone"
                 else:
                     self.water.add((i, y))
@@ -236,6 +238,8 @@ class Island:
             sy = sb - (size - 1)
             if not all(sy > self.top[c] + K["SoilRows"] and sb + 1 <= self.bottom[c] for c in range(i0, i0 + size)):
                 continue
+            if any(K["PondLeft"] - 1 <= c <= K["PondRight"] + 1 for c in range(i0, i0 + size)) and sy <= self.s + K["PondDepth"] + 1:
+                continue                                         # never into the pond (2026-11-12)
             for c in range(i0, i0 + size):
                 for y in range(sy, sb + 1):
                     self.tile.pop((c, y), None)
@@ -695,7 +699,8 @@ def main():
     if only is None or "sweep" in only:
         sweep(200)
     if only is None or "island" in only:
-        island_png(os.path.join(args.out, "2026-11-06_coghaven-island.png"), args.font, args.seed)
+        island_png(os.path.join(args.out, "2026-11-12_coghaven-island.png"), args.font, args.seed)   # (2026-11-12: the
+        # 14x6 pond and two chests; the chest map with them marked is update_2026_11_12_sim.py's island-chests proof)
     if only is None or "underside" in only:
         underside_gif(os.path.join(args.out, "2026-11-06_coghaven-underside.gif"), args.font, args.seed)
 

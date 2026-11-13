@@ -8,12 +8,12 @@ namespace Cogpunk.Content.Coghaven.Generation
 	{
 		public const int IslandWidth = 220;
 		public const int GateX = 30, MainHallX = 74, PagodaX = 146, PavilionX = 180;
-		public const int TerraceLeft = 26, TerraceRight = 200, PondLeft = 12, PondRight = 21;
+		public const int TerraceLeft = 26, TerraceRight = 200, PondLeft = 11, PondRight = 24;
 		/// <summary>The engine deck's x 0 is the Main Hall's; the hall's stair shaft starts at this column of both.</summary>
 		public const int ShaftX = 16;
 		public static readonly int[] TurbineX = { 38, 72, 108, 144, 178 };
 		public static readonly int[] LampX = { 25, 58, 66, 140, 176, 202 };
-		public static readonly int[] TreeX = { 9, 206, 211 };
+		public static readonly int[] TreeX = { 8, 206, 211 };
 		public static readonly int[] CogSocketX = { 14, 28, 58, 90, 126, 152, 184, 198 };
 		public static readonly int[] CogSocketStyle = { 0, 1, 0, 1, 0, 1, 0, 1 };
 		public static readonly int[] CogSocketLift = { 3, 2, 2, 2, 2, 2, 2, 3 };
@@ -68,7 +68,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 			"       ..#####...#####...#####...#####...#####...#####..       ",
 			"       .................................................       ",
 			"       ........................N........................       ",
-			"       ..C..V..............(FFFFFFF).............V..C...       ",
+			"       .....V..............(FFFFFFF).............V......       ",
 			"    (fffffffffff===fffffffffffffffffffffffffffffffffffffff)    ",
 			"  (fffffffffffff,,,fffffffffffffffffffffffffffffffffffffffff)  ",
 			"FFFFFFFFFFFFFFFF,,,FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
@@ -107,7 +107,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 			"      R,===,,,,,,##,R      ",
 			"      R,##,,,,,,,##,R      ",
 			"      R,,,,,,,,,,,,,R      ",
-			"      R,,,,,C,,,,,,,R      ",
+			"      R,,,,,,B,,,,,,R      ",
 			"      FFFFFFFFFFF===F      ",
 			"     /TTTTTTTTTTT,,,T\\     ",
 			"  \\TTTTTTTTTTTTTT,,,TTTT/  ",
@@ -157,7 +157,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 			"      R,===,,,,,,##,R      ",
 			"      R,##,,,,,,,##,R      ",
 			"      R,,,,,,,,,,,,,R      ",
-			"      R,,,,,C,,,,,,,R      ",
+			"      R,,,,,,B,,,,,,R      ",
 			"      FFFFFFFFFFF===F      ",
 			"     /TTTTTTTTTTT,,,T\\     ",
 			"  \\TTTTTTTTTTTTTT,,,TTTT/  ",
@@ -288,7 +288,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 			"   G::::::::::::G:::::,,,,,,,,,,,,:::G::::::::::::::::::::::::::G::::::::::::::G::::::::::::G   ",
 			"   G::::::::::::G:::::,,,,,i,,,,,,:::G::::::::::::::::::::::::::G::::::::::::::G::::::::::::G   ",
 			"   G::::::::::::G:::::,,,,,,,,,,,,:::G::::::::::::::::::::::::::G::::::::::::::G::::::::::::G   ",
-			"   G::C:::::::::G:::::,V,,,A,,,C,,:::G:::::Z::::::::z:::::::::::G::::::::::::::G::C:::::::::G   ",
+			"   G::V:::::::::G:::::,V,,,A,,,,,,:::G:::::Z::::::::z:::::::::::G::::::::::::::G::V:::::::::G   ",
 			"   GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG%%%%%::::::::::::::::%%%%%GGGGGGGGGGGGGGGGGGGGGGGGGGGGG   ",
 			"                                     G::::::::::::::::::::::::::G                               ",
 			"                                     G::::::::::::::::::::::::::G                               ",
