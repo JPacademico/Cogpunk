@@ -917,6 +917,11 @@ Items: {
 			Right click it to open it
 			'''
 	}
+
+	PossessedCog: {
+		DisplayName: Possessed Cog
+		Tooltip: Grinds through enemies instead of bouncing off them
+	}
 }
 
 Buffs: {
@@ -1178,11 +1183,7 @@ NPCs: {
 	}
 	Mechromancer: {
 		DisplayName: Mechromancer
-		Bestiary: A robot necromancer that only walks the earth under a blood-red moon, though it has no legs to walk with. Its soul burns out of a split brass skull, and its staff lights cogs in that same fire. Where it points, the ground opens and the dead climb out, bolted back together with brass.
-	}
-	Cogsqueleton: {
-		DisplayName: Cogsqueleton
-		Bestiary: Old bones held together with brass and a cog for a heart, raised by a Mechromancer's spell. It obeys nothing but its master, and falls apart the moment its master is gone.
+		Bestiary: A robot necromancer that only walks the earth under a blood-red moon, though it has no legs to walk with. A brass skull grins out of the shadow of its horned hood, its claws burn with soul fire, and its mechanical eyes drift around it, never once looking away from you. Where it points, the ground opens and the dead climb out.
 	}
 }
 
@@ -1429,8 +1430,12 @@ Projectiles: {
 	SoulFireCog: {
 		DisplayName: Soul Fire Cog
 	}
-	CogsqueletonGrave: {
+	MechromancerGrave: {
 		DisplayName: Soul Fire Grave
+	}
+
+	PossessedCogYoyo: {
+		DisplayName: Possessed Cog
 	}
 }
 

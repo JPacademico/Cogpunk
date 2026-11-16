@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cogpunk.Content.BloodMoon.Weapons;
 using Cogpunk.Content.Bosses.CursedConductor.Weapons;
 using Cogpunk.Content.Bosses.TrashTr0m.Buffs;
 using Cogpunk.Content.Bosses.TrashTr0m.Weapons;
@@ -159,6 +160,7 @@ namespace Cogpunk.Content.Combinator.Combination
 		/// still lend their crit, armor penetration, auto swing and range.</summary>
 		public static readonly string[] NoPassives = {
 			nameof(JadePhaseblade), nameof(JadePhasesaber), nameof(ScrappyBow), nameof(ScrappyWand), nameof(TrapperChain),
+			nameof(PossessedCog),                          // 2026-11-16: its piercing is its own yoyo's (kept as the augment)
 		};
 
 		public override void Unload() {

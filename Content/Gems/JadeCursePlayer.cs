@@ -57,6 +57,48 @@ namespace Cogpunk.Content.Gems
 			}
 		}
 
+		/// <summary>
+		/// The hit player's own client: turned straight to jade, as if three stacks had landed (Jadey's petrify zone, user
+		/// 2026-11-16: "petrify in jade any player on the area (like it has recieved 3 stacks of jade curse)"). The same rules
+		/// as a third stack: the ward of a recent petrification, or immunity to the curse, keeps it off.
+		/// </summary>
+		public static void Petrify(Player player) {
+			if (player == null || !player.active || player.dead || player.whoAmI != Main.myPlayer) {
+				return;
+			}
+			int curse = ModContent.BuffType<JadeCurse>(), stone = ModContent.BuffType<JadePetrified>(), ward = ModContent.BuffType<JadeWard>();
+			if (player.buffImmune[curse] || player.HasBuff(ward) || player.HasBuff(stone)) {
+				return;
+			}
+			player.GetModPlayer<JadeCursePlayer>().Stacks = 0;
+			player.ClearBuff(curse);
+			player.AddBuff(stone, JadeCurseNPC.PetrifyTicks);
+			player.AddBuff(ward, JadeCurseNPC.WardTicks);
+		}
+
+		/// <summary>Ticks of immunity a hit that sets <see cref="ShortImmunity"/> leaves (Jadey's lasers: "3 jade lasers in sequence
+		/// (0.3 seconds between each) each dealing small damage but applying a stack of jade curse": vanilla's 40 ticks after a
+		/// hit would let only the first of three lasers 18 ticks apart land; my call: 12).</summary>
+		public const int ShortImmunityTicks = 12;
+
+		/// <summary>Set on the hit player's own client by a hit whose immunity is short (its <c>OnHitPlayer</c> runs before vanilla
+		/// sets the immunity, decompiled <c>Player.Hurt</c>: <c>PlayerLoader.OnHurt</c> first); <see cref="PostHurt"/> shortens it.</summary>
+		public bool ShortImmunity;
+
+		public override void PostHurt(Player.HurtInfo info) {
+			if (!ShortImmunity) {
+				return;
+			}
+			ShortImmunity = false;
+			if (Player.immuneTime > ShortImmunityTicks) {
+				Player.immuneTime = ShortImmunityTicks;
+			}
+			int slot = info.CooldownCounter;
+			if (slot >= 0 && slot < Player.hurtCooldowns.Length && Player.hurtCooldowns[slot] > ShortImmunityTicks) {
+				Player.hurtCooldowns[slot] = ShortImmunityTicks;
+			}
+		}
+
 		public override void ResetEffects() {
 			if (Stacks > 0 && !Player.HasBuff(ModContent.BuffType<JadeCurse>())) {
 				Stacks = 0;

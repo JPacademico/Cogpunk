@@ -916,6 +916,11 @@ Items: {
 			Clique com o botão direito para abrir
 			'''
 	}
+
+	PossessedCog: {
+		DisplayName: Engrenagem Possuída
+		Tooltip: Atravessa os inimigos moendo-os, em vez de ricochetear neles
+	}
 }
 
 Buffs: {
@@ -1177,11 +1182,7 @@ NPCs: {
 	}
 	Mechromancer: {
 		DisplayName: Mecromante
-		Bestiary: Um robô necromante que só anda pela terra sob uma lua vermelha como sangue, embora não tenha pernas para andar. Sua alma arde para fora de um crânio de latão rachado, e seu cajado acende engrenagens nesse mesmo fogo. Para onde ele aponta, o chão se abre e os mortos saem, aparafusados de volta com latão.
-	}
-	Cogsqueleton: {
-		DisplayName: Engrenoesqueleto
-		Bestiary: Ossos velhos presos com latão e uma engrenagem no lugar do coração, erguidos pelo feitiço de um Mecromante. Não obedece a nada além do seu mestre, e se desfaz no instante em que o mestre se vai.
+		Bestiary: Um robô necromante que só anda pela terra sob uma lua vermelha como sangue, embora não tenha pernas para andar. Um crânio de latão sorri na sombra do seu capuz de chifres, suas garras ardem com fogo das almas, e seus olhos mecânicos flutuam ao seu redor sem nunca desviar o olhar de você. Para onde ele aponta, o chão se abre e os mortos saem.
 	}
 }
 
@@ -1428,8 +1429,12 @@ Projectiles: {
 	SoulFireCog: {
 		DisplayName: Engrenagem de Fogo das Almas
 	}
-	CogsqueletonGrave: {
+	MechromancerGrave: {
 		DisplayName: Cova de Fogo das Almas
+	}
+
+	PossessedCogYoyo: {
+		DisplayName: Engrenagem Possuída
 	}
 }
 

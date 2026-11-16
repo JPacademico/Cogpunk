@@ -117,12 +117,32 @@ namespace Cogpunk.Content.Combinator.Combination
 		/// <summary>Half the sum, rounded half up.</summary>
 		public static int Half(int a, int b) => (Math.Max(0, a) + Math.Max(0, b) + 1) / 2;
 
-		/// <summary>The base's range over the augment's: their shot speeds, clamped.</summary>
+		/// <summary>The base's range over the augment's: their shot speeds, clamped. A yoyo's shot speed is only its throw (its
+		/// reach is its projectile's own, decompiled <c>Projectile.AI_099_2</c>: <c>ProjectileID.Sets.YoyosMaximumRange[type]</c>),
+		/// so a yoyo on either side keeps the shot speed (2026-11-16, the yoyo check): a yoyo's range comes from a yoyo base
+		/// only (<see cref="YoyoRangeOf"/>, applied by <see cref="CombinedProjectile"/>).</summary>
 		public static float RangeRatio(Item augment, Item baseItem) {
 			if (augment == null || baseItem == null || augment.shootSpeed <= 0f || baseItem.shootSpeed <= 0f) {
 				return 1f;
 			}
+			if (IsYoyo(augment) || IsYoyo(baseItem)) {
+				return 1f;
+			}
 			return Math.Clamp(baseItem.shootSpeed / augment.shootSpeed, MinRangeRatio, MaxRangeRatio);
+		}
+
+		/// <summary>A yoyo (vanilla's own set, which ExampleMod's yoyo fills for modded ones too).</summary>
+		public static bool IsYoyo(Item item) => item != null && item.type > ItemID.None && item.type < ItemLoader.ItemCount && ItemID.Sets.Yoyo[item.type];
+
+		/// <summary>The string reach (px) a yoyo base of <paramref name="baseType"/> lends a yoyo product: its own yoyo's
+		/// <c>YoyosMaximumRange</c> (the base defines the range, user-set 2026-11-12); 0 when the base is no yoyo.</summary>
+		public static float YoyoRangeOf(int baseType) {
+			Item b = Sample(baseType);
+			if (!IsYoyo(b) || b.shoot <= ProjectileID.None || b.shoot >= ProjectileLoader.ProjectileCount) {
+				return 0f;
+			}
+			float range = ProjectileID.Sets.YoyosMaximumRange[b.shoot];
+			return float.IsFinite(range) && range > 0f ? range : 0f;
 		}
 
 		/// <summary>

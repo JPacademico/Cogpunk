@@ -244,6 +244,25 @@ GEARWORK = Block(
     outline="A",
 )
 
+# Vault Gearwork (2026-11-16, the Jade Vault's unbreakable shell): the gearwork a shade darker, hardened, its gear rack inlaid
+# with jade teeth, jade studs in the variants: it reads as the island's machinery but not the same block.
+VAULT_BASE = ["CCBCCCBC",
+              "DDDDDDDD",
+              "DcDcDcDc",
+              "CbCbCbCb",
+              "BBBBBBBB",
+              "CDCCCDCC",
+              "CCCBCCCB",
+              "BCCCBCCC"]
+VAULT = Block(
+    variants=[with_details(VAULT_BASE, {(2, 5): "e", (3, 6): "b"}),
+              with_details(VAULT_BASE, {(5, 5): "d", (5, 6): "b", (4, 6): "c"}),
+              with_details(VAULT_BASE, {(2, 6): "d", (3, 6): "e", (4, 6): "d", (3, 5): "c"})],
+    rim_light={"C": "D", "D": "E", "B": "C", "c": "d", "b": "c"},
+    rim_dark={"D": "C", "C": "B", "E": "D", "B": "A", "d": "c", "e": "d", "c": "b"},
+    outline="A",
+)
+
 # Jade Roof Tiles: glazed tubes three pixels wide (lit edge d, body c c: x 2-4 and 6-7-0) and narrow channels (b: x 1 and
 # 5) running down the roof; the tile's edge falls inside a tube, so both edge columns sit at the average (check_tile_seams).
 # The tile courses end on rows 1 and 5 (each tube's pale glazed cap, a dark gap in each channel); a gold-glazed tube and
@@ -411,6 +430,26 @@ def gearwork_wall_detail(variant, x, y):
         return "w"
     if variant == 2 and (x, y) == (6, 9):
         return "G"
+    return None
+
+
+def vault_wall_texture(x, y):
+    rows = ["BBABBBAB",
+            "CCCCCCCC",
+            "CbCbCbCb",
+            "BbBbBbBb",
+            "BBBBBBBB",
+            "BCBBBCBB",
+            "BBBCBBBC",
+            "CBBBCBBB"]
+    return rows[y][x]
+
+
+def vault_wall_detail(variant, x, y):
+    if variant == 1 and (x, y) in ((7, 9), (8, 9)):
+        return "c"
+    if variant == 2 and (x, y) == (6, 9):
+        return "d"
     return None
 
 
@@ -755,17 +794,20 @@ def biome_icon():
 
 def export_all():
     for block, name in ((FLAGSTONE, "PalaceFlagstone"), (JADE_BRICK, "JadeBrick"), (LACQUER, "CinnabarLacquer"), (GEARWORK, "BronzeGearwork"),
-                        (ROOF, "JadeRoof")):
+                        (ROOF, "JadeRoof"), (VAULT, "VaultGearwork")):
         export(block.sheet(), OUT + "Tiles/%sTile.png" % name)
-        export(block.item(), OUT + "Items/%s.png" % name)
+        if block is not VAULT:                               # the vault's shell is unbreakable: no item
+            export(block.item(), OUT + "Items/%s.png" % name)
     walls = (("PalaceFlagstoneWall", flagstone_wall_texture, "J", flagstone_wall_detail),
              ("JadeBrickWall", jade_wall_texture, "a", jade_wall_detail),
              ("CinnabarPanelWall", panel_wall_texture, "k", panel_wall_detail),
              ("BronzeLatticeWall", lattice_wall_texture, "B", None),
-             ("BronzeGearworkWall", gearwork_wall_texture, "A", gearwork_wall_detail))
+             ("BronzeGearworkWall", gearwork_wall_texture, "A", gearwork_wall_detail),
+             ("VaultGearworkWall", vault_wall_texture, "A", vault_wall_detail))
     for name, texture, outline, detail in walls:
         export(wall_sheet(texture, outline, detail), OUT + "Walls/%sTile.png" % name)
-        export(wall_item(texture, outline), OUT + "Items/%s.png" % name)
+        if name != "VaultGearworkWall":
+            export(wall_item(texture, outline), OUT + "Items/%s.png" % name)
     frames = [turbine_frame(k) for k in range(TURBINE_FRAMES)]
     export(stack_frames(frames, 4, 6), OUT + "Tiles/LiftTurbineTile.png")
     export(stack_frames([turbine_frame(k, glow=True) for k in range(TURBINE_FRAMES)], 4, 6), OUT + "Tiles/LiftTurbineTile_Glow.png")

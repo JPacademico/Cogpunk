@@ -12,7 +12,8 @@ gilt ridge (roof()), red lacquered pillars and beams over jade-brick plinths, br
 gearwork and turning cogs where the steam machinery shows through, Dynasty furniture and lanterns inside. Read left to
 right across the island: the garden and its koi pond, the gate (paifang), the forecourt, the Main Hall on its terrace
 (the throne, the gallery above, the stair down), the five-storey pagoda (the treasure at its top, a turning cog for a
-finial), the tea pavilion and the far garden; under them, inside the island's bronze core, the engine deck.
+finial), the tea pavilion and the far garden; under them, inside the island's bronze core, the Jade Vault (since
+2026-11-16: one long machine hall, Jadey's arena, in place of the engine deck's corridor, storerooms, shrine and boiler hall).
 
 Legend (each cell a tile; the cell's wall in brackets):
     ' '  leave as it is (the open sky: no tile, no wall)
@@ -27,9 +28,13 @@ Legend (each cell a tile; the cell's wall in brackets):
     .    air [Cinnabar Panel Wall]   ,  air [Flagstone Wall]   :  air [Gearwork Wall]   #  air [Bronze Lattice Wall]
     =    Dynasty platform [Cinnabar Panel Wall]    +  Dynasty platform [none]    %  Dynasty platform [Gearwork Wall]
     w    water [none]    ~  water [Flagstone Wall]
+    X    Vault Gearwork [Vault Gearwork Wall]      x  Vault Gearwork [none]     (2026-11-16: the Jade Vault's shell,
+         unbreakable)                              ;  air [Vault Gearwork Wall] $  Dynasty platform [Vault Gearwork Wall]
 Furniture (placed after the blocks, at the marked cell, which is the object's anchor; the other cells of the object are
 air with the room's wall: '.', ',' or ':'):
-    C  Dynasty Chest, loot (bottom left of 2x2)        Q  the pagoda's treasure chest (bottom left of 2x2)
+    C  Dynasty Chest, loot (bottom left of 2x2)        Q  the pagoda's treasure chest (bottom left of 2x2): a Locked
+                                                          Pagoda Chest since 2026-11-16 (the Pagoda Key opens it)
+    &  the Jade Vault (bottom left of 2x2): sealed until Jadey is defeated; touching it wakes her (2026-11-16)
     <  Dynasty Chair facing left (bottom of 1x2)       >  Dynasty Chair facing right
     A  Dynasty Table (bottom middle of 3x2)            B  Dynasty Bookcase (bottom middle of 3x4)
     S  Dynasty Sofa (bottom middle of 3x2)             P  Dynasty Piano (bottom middle of 3x2)
@@ -334,67 +339,45 @@ def pavilion():
 
 
 # ================================================================================================
-# The engine deck: inside the island's bronze core, under the Main Hall; reached by the hall's stair shaft
+# The Jade Vault: inside the island's bronze core, under the Main Hall; reached by the hall's stair shaft
 # ================================================================================================
-def engine_deck(shaft_x):
-    """Rows 0.. from the island's surface row (row 0 = the surface row itself); shaft_x = the hall stair's column in
-    deck coordinates (the deck's x 0 = the Main Hall's x 0)."""
-    W, H = 96, 22
-    p = Plan("EngineDeck", W, H)
-    # the shaft from the hall floor down to the corridor: platforms every 4 rows
-    for y in range(0, 9):
-        for x in range(shaft_x, shaft_x + 3):
-            p.put(x, y, ",")
-    for y in (2, 6):
-        p.hline(shaft_x, shaft_x + 2, y, "%")
-    p.vline(shaft_x - 1, 0, 8, "G")
-    p.vline(shaft_x + 3, 0, 8, "G")
-    # the long corridor (4 tall) from the west storeroom to the east one
-    cy = 9                                                  # the corridor's floor row is cy + 4
-    p.rect(4, cy, W - 5, cy + 3, ":")
-    p.hline(3, W - 4, cy - 1, "G")
-    p.hline(3, W - 4, cy + 4, "G")
-    p.vline(3, cy - 1, cy + 4, "G")
-    p.vline(W - 4, cy - 1, cy + 4, "G")
+VAULT_X0, VAULT_X1 = 11, 60             # the shell's columns (deck x; the deck's x 0 = the Main Hall's x 0)
+VAULT_TOP, VAULT_FLOOR = 1, 18          # the shell's ceiling and floor rows (deck rows from the island's surface row)
+
+
+def vault(shaft_x):
+    """The Jade Vault (user, 2026-11-16: "the underground section of coghaven (under the main mansion) should be a single
+    bigger room (like the machinery room but a bit longer) and the chest should be located on the middle of this room ...
+    the arena room should be unbreakable"): the old boiler hall's machinery (two great cogs on the floor, boilers, steam
+    lanterns) in one hall 48 tiles long (the boiler hall was 26) and 16 high, its shell of unbreakable Vault Gearwork, the
+    vault chest in its middle. The hall's stair shaft drops through platforms in its ceiling; a ladder of platforms under
+    the shaft and ledges on the far side lead back up. Rows 0.. from the island's surface row; shaft_x = the hall stair's
+    column in deck coordinates."""
+    W, H = 96, VAULT_FLOOR + 1
+    p = Plan("Vault", W, H)
+    for x in range(shaft_x, shaft_x + 3):                   # the shaft's last row (the surface row), air
+        p.put(x, 0, ",")
+    p.put(shaft_x - 1, 0, "G")
+    p.put(shaft_x + 3, 0, "G")
+    p.rect(VAULT_X0, VAULT_TOP, VAULT_X1, VAULT_FLOOR, "X")   # the shell, then the hall carved out of it
+    p.rect(VAULT_X0 + 1, VAULT_TOP + 1, VAULT_X1 - 1, VAULT_FLOOR - 1, ";")
     for x in range(shaft_x, shaft_x + 3):
-        p.put(x, cy - 1, "%")                               # the shaft opens onto the corridor through platforms
-    # the boiler hall: a tall room in the middle, two cogs turning on its back wall, the boiler
-    bx0, bx1 = 38, 63
-    p.rect(bx0, cy - 7, bx1, cy + 8, ":")
-    p.hline(bx0 - 1, bx1 + 1, cy - 8, "G")
-    p.hline(bx0 - 1, bx1 + 1, cy + 9, "G")
-    p.vline(bx0 - 1, cy - 8, cy + 9, "G")
-    p.vline(bx1 + 1, cy - 8, cy + 9, "G")
-    p.rect(bx0, cy + 4, bx1, cy + 4, ":")                   # the corridor's floor opens into the hall's lower half
-    p.hline(bx0, bx0 + 4, cy + 4, "%")
-    p.hline(bx1 - 4, bx1, cy + 4, "%")
-    mid = (bx0 + bx1) // 2
-    p.put(mid - 7, cy + 3, "Z")                             # two cogs standing on the hall's floor, the boiler between
-    p.put(mid + 2, cy + 3, "z")
-    p.put((bx0 + bx1) // 2, cy + 8, "U")                    # the boiler on the hall's floor
-    p.put(bx0 + 1, cy + 8, "C")
-    p.put((bx0 + bx1) // 2 - 6, cy - 7, "^")
-    p.put((bx0 + bx1) // 2 + 6, cy - 7, "^")
-    # the storerooms at both ends, each with a chest; the shrine
-    for (x0, x1, kind) in ((4, 15, "west"), (W - 16, W - 5, "east")):
-        p.rect(x0, cy - 5, x1, cy + 3, ":")
-        p.hline(x0 - 1, x1 + 1, cy - 6, "G")
-        p.vline(x0 - 1, cy - 6, cy + 4, "G")
-        p.vline(x1 + 1, cy - 6, cy + 4, "G")
-        p.hline(x0, x1, cy - 1, ":")
-        p.hline(x0 + 1, x0 + 4, cy - 1, "%")                # a shelf of platforms over the chest
-        p.put(x0 + 2, cy + 3, "V")
-        p.put(x1 - 2, cy - 5, "^")
-    # the shrine: a jade room off the corridor, a table with candles and a chest
-    sx0, sx1 = 22, 33
-    p.rect(sx0, cy - 5, sx1, cy + 3, ",")
-    p.hline(sx0 - 1, sx1 + 1, cy - 6, "F")
-    p.vline(sx0 - 1, cy - 6, cy - 1, "F")
-    p.vline(sx1 + 1, cy - 6, cy - 1, "F")
-    p.put((sx0 + sx1) // 2, cy + 3, "A")
-    p.put((sx0 + sx1) // 2, cy + 1, "i")
-    p.put(sx0 + 1, cy + 3, "V")
-    p.put((sx0 + sx1) // 2, cy - 5, "H")
+        p.put(x, VAULT_TOP, "$")                            # the way in: platforms in the ceiling under the shaft
+    for y in (VAULT_TOP + 4, VAULT_TOP + 8, VAULT_TOP + 12):
+        p.hline(shaft_x - 1, shaft_x + 3, y, "$")           # the ladder back up
+    for y in (VAULT_TOP + 6, VAULT_TOP + 10):
+        p.hline(VAULT_X1 - 8, VAULT_X1 - 4, y, "$")         # ledges on the far side
+    floor_in = VAULT_FLOOR - 1                              # the row things stand on
+    mid = (VAULT_X0 + 1 + VAULT_X1 - 1) // 2                # the hall's middle column (35)
+    p.put(mid, floor_in, "&")                               # the vault chest, its left half on the middle column
+    p.put(mid - 12, floor_in - 5, "Z")                      # the great cogs either side of it, standing on the floor
+    p.put(mid + 8, floor_in - 5, "z")
+    p.put(VAULT_X0 + 3, floor_in, "U")                      # boilers at both ends
+    p.put(VAULT_X1 - 3, floor_in, "U")
+    p.put(mid - 4, floor_in, "V")                           # candelabras beside the chest
+    p.put(mid + 3, floor_in, "V")
+    for x in (mid - 15, mid - 6, mid + 7, mid + 16):
+        p.put(x, VAULT_TOP + 1, "^")                        # steam lanterns hanging from the ceiling
     return p
 
 
@@ -420,7 +403,7 @@ COG_SOCKETS = ((14, 0, 3), (28, 1, 2), (58, 0, 2), (90, 1, 2), (126, 0, 2), (152
 
 def all_plans():
     hall, shaft = main_hall()
-    deck = engine_deck(shaft)
+    deck = vault(shaft)
     pagodas = [pagoda(n) for n in (5, 4, 3, 2)]
     return [gate(), hall, *pagodas, pavilion(), deck], shaft
 
@@ -448,8 +431,11 @@ def write_cs(plans, shaft):
          "\t\tpublic const int GateX = %d, MainHallX = %d, PagodaX = %d, PavilionX = %d;" % (
              LAYOUT["Gate"], LAYOUT["MainHall"], LAYOUT["Pagoda"], LAYOUT["Pavilion"]),
          "\t\tpublic const int TerraceLeft = %d, TerraceRight = %d, PondLeft = %d, PondRight = %d;" % (TERRACE + POND),
-         "\t\t/// <summary>The engine deck's x 0 is the Main Hall's; the hall's stair shaft starts at this column of both.</summary>",
+         "\t\t/// <summary>The vault's x 0 is the Main Hall's; the hall's stair shaft starts at this column of both.</summary>",
          "\t\tpublic const int ShaftX = %d;" % shaft,
+         "\t\t/// <summary>The Jade Vault's unbreakable shell (vault coordinates: x from the Main Hall's x 0, rows from the island's",
+         "\t\t/// surface row), inclusive; the arena is the inside of it.</summary>",
+         "\t\tpublic const int VaultLeft = %d, VaultRight = %d, VaultTop = %d, VaultFloor = %d;" % (VAULT_X0, VAULT_X1, VAULT_TOP, VAULT_FLOOR),
          "\t\tpublic static readonly int[] TurbineX = { %s };" % ", ".join(str(x) for x in TURBINES),
          "\t\tpublic static readonly int[] LampX = { %s };" % ", ".join(str(x) for x in LAMPS),
          "\t\tpublic static readonly int[] TreeX = { %s };" % ", ".join(str(x) for x in TREES),
@@ -478,7 +464,8 @@ def write_cs(plans, shaft):
 KEY = {"F": (196, 180, 150), "f": (196, 180, 150), "R": (168, 44, 42), "r": (168, 44, 42), "G": (138, 93, 34), "g": (138, 93, 34),
        "T": (30, 114, 88), "Y": (223, 185, 78), "/": (30, 114, 88), "\\": (30, 114, 88), "(": (196, 180, 150), ")": (196, 180, 150),
        "-": (30, 114, 88), ".": (84, 20, 28), ",": (104, 84, 64), ":": (90, 58, 23), "#": (184, 138, 51), "=": (146, 86, 42),
-       "+": (146, 86, 42), "%": (146, 86, 42), "w": (44, 92, 176), "~": (44, 92, 176)}
+       "+": (146, 86, 42), "%": (146, 86, 42), "w": (44, 92, 176), "~": (44, 92, 176), "X": (61, 66, 78), "x": (61, 66, 78),
+       ";": (46, 50, 59), "$": (146, 86, 42)}
 
 
 def png(plans, path):
@@ -503,7 +490,7 @@ def png(plans, path):
                     d.polygon([(X, Y), (X + S, Y + S), (X, Y + S)], fill=col)
                 elif ch == "-":
                     d.rectangle([X, Y + S // 2, X + S - 1, Y + S - 1], fill=col)
-                elif ch in "=+%":
+                elif ch in "=+%$":
                     d.rectangle([X, Y, X + S - 1, Y + 1], fill=col)
                 elif ch in KEY:
                     d.rectangle([X, Y, X + S - 1, Y + S - 1], fill=col)

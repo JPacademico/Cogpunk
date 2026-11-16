@@ -1,5 +1,6 @@
 using System;
 using Cogpunk.Content.BloodMoon.Projectiles;
+using Cogpunk.Content.BloodMoon.Weapons;
 using Cogpunk.Core.Configs;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Systems;
@@ -21,34 +22,43 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 {
 	/// <summary>
 	/// Mechromancer (Mecromante), a Blood Moon mini-boss (user-set 2026-11-12: "a robot with a brass skull soul flame head that
-	/// summon cogsqueletons and shoots soul fire cogs"): a robot necromancer with a brass skull, a soul flame streaming out of
-	/// its split crown, a steel ribcage round a soul-fire core and a tattered crimson robe where its legs would be; it floats
-	/// (art/bloodmoon/make_mechromancer_art.py).
+	/// summon cogsqueletons and shoots soul fire cogs"; redrawn 2026-11-16 after the user's reference painting: "rework its
+	/// design based on the image example"): a robot necromancer in a deep oak hood with ivory ram horns, a brass skull for a
+	/// face with soul-fire eyes, a gilt-trimmed robe open over a crimson under-robe where soul runes burn, bell sleeves over
+	/// brass claws full of soul fire, and mechanical eyes floating round it (<see cref="EyeCount"/>, drawn orbiting its hood,
+	/// their pupils on its target); it floats (art/bloodmoon/make_mechromancer_art.py; v1 in art/bloodmoon/previous/).
 	/// <list type="number">
 	/// <item><b>Float</b>: it drifts (<see cref="FloatSpeed"/>, through walls) to a point beside its target, <see cref="KeepX"/>
 	/// to the side it is on and <see cref="KeepY"/> above, facing it, bobbing.</item>
 	/// <item><b>Cast</b> (every <see cref="CastCooldown"/> ticks of floating, the target within <see cref="SpellRange"/> and in
-	/// sight of its staff): the telegraph, <see cref="CastTelegraph"/> ticks (D3 T3: at least 30): the staff is raised, its
-	/// soul fire flares, a rising chant; then a volley of <see cref="Volley"/> <see cref="SoulFireCog"/>s thrust from the staff
-	/// at where the target is, <see cref="CogSpread"/> apart, at <see cref="CogSpeed"/>.</item>
+	/// sight of its claw): the telegraph, <see cref="CastTelegraph"/> ticks (D3 T3: at least 30): its near claw rises and its
+	/// soul fire swells, its eyes blaze, its floating eyes flare, a rising chant; then it thrusts the claw at the target and a
+	/// volley of <see cref="Volley"/> <see cref="SoulFireCog"/>s leaves the fire at where the target is, <see cref="CogSpread"/>
+	/// apart, at <see cref="CogSpeed"/>.</item>
 	/// <item><b>Summon</b> (every <see cref="SummonCooldown"/> ticks, fewer than <see cref="MaxMinions"/> of its own risen
-	/// and rising): both arms rise and the flame roars; at once <see cref="MinionsPerSummon"/> soul-fire rings
-	/// (<see cref="CogsqueletonGrave"/>) burn into the ground beside the target, the telegraph (<see cref="SummonTelegraph"/>
-	/// ticks); the staff is driven down and a <see cref="Cogsqueleton"/> climbs out of each.</item>
+	/// and rising): both arms rise, fire in both claws, its floating eyes whirl; at once <see cref="MinionsPerSummon"/>
+	/// soul-fire rings (<see cref="MechromancerGrave"/>) burn into the ground beside the target, the telegraph
+	/// (<see cref="SummonTelegraph"/> ticks); its arms sweep down and a zombie climbs out of each (user, 2026-11-16: "the
+	/// mechromancer should summon regular zombies instead of cogskeletons": vanilla's Zombie, its thrall through
+	/// <see cref="MechromancerThrall"/>; the Cogsqueleton is gone).</item>
 	/// <item><b>Leave</b> at dawn, or with no target for <see cref="LostTargetTicks"/> ticks: it rises and fades away, and its
-	/// skeletons crumble (they follow their master).</item>
+	/// zombies fall back into the dirt (they follow their master).</item>
 	/// </list>
 	/// <para>Stats (Expert, D3 rule 0; docs/balance/npcs.csv; T3, after Skeletron): anchor the Dark Mage, the Old One's Army's
 	/// pre-Hardmode caster mini-boss (decompiled 1.4.4: 800 life, 18 defense, 40 contact in Classic = 1600 / 18 / 80 in
 	/// Expert) and the Blood Moon's own fished mini-boss, the Zombie Merman (400 / 20 / 40 Classic): <see cref="Life"/> life
-	/// (under the Dark Mage: its skeletons fight for it), <see cref="Defense"/> defense, knockback immune,
-	/// <see cref="ContactDamage"/> contact (a caster, not a brawler), cogs <see cref="CogDamage"/> each. Drops 6-12 Bone and
-	/// its coins. A mini-boss (<see cref="CogpunkSets.Miniboss"/>) and a machine (<see cref="CogpunkSets.Mechanical"/>).</para>
+	/// (under the Dark Mage: its dead fight for it), <see cref="Defense"/> defense, knockback immune,
+	/// <see cref="ContactDamage"/> contact (a caster, not a brawler), cogs <see cref="CogDamage"/> each. Drops 6-12 Bone, its
+	/// coins and 1 time in <see cref="PossessedCogOdds"/> the <see cref="PossessedCog"/> (user, 2026-11-16: "a chance to drop
+	/// 'possessed cog'"; the odds are my call: twice the 1 in 8 of the fished Blood Moon mini-bosses' weapons, terraria.wiki.gg,
+	/// as it comes alone and rarely). A mini-boss (<see cref="CogpunkSets.Miniboss"/>) and a machine
+	/// (<see cref="CogpunkSets.Mechanical"/>).</para>
 	/// <para>D2: <c>ai[0]</c>/<c>ai[1]</c> state and timer, <c>ai[2]</c> the ticks since its last cast, <c>ai[3]</c> since its last
 	/// summon (every side counts; the server's values ride each sync); the server targets, decides, fires and marks the
-	/// graves; the drift runs on every side from synced positions. D0: spawns through <see cref="SafeSpawn"/>, the graves and
-	/// skeletons capped (<see cref="MaxMinions"/>), the ground search bounded and bounds-checked (<see cref="TileSafety"/>).
-	/// D1: no allocation; sounds, light and dust on clients.</para>
+	/// graves; the drift runs on every side from synced positions; the floating eyes are drawing only (their orbit from the
+	/// game clock, their gaze from the synced target). D0: spawns through <see cref="SafeSpawn"/>, the graves and zombies
+	/// capped (<see cref="MaxMinions"/>), the ground search bounded and bounds-checked (<see cref="TileSafety"/>). D1: no
+	/// allocation; sounds, light and dust on clients; the eyes are <see cref="EyeCount"/> unrotated draws a frame (D4).</para>
 	/// </summary>
 	public class Mechromancer : GridWalkerNPC
 	{
@@ -73,9 +83,14 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 		public const int LeaveFadeTicks = 60;
 		public const float SpawnWeight = 0.04f;
 		public const int BoneMin = 6, BoneMax = 12;
+		public const int PossessedCogOdds = 4;                             // 25% (my call; see the summary)
+		// the floating eyes (drawing only): how many, their orbit round the hood (game px), a lap's length, their bob
+		public const int EyeCount = 5;
+		public const float EyeOrbitX = 34f, EyeOrbitY = 10f;
+		public const int EyeLapTicks = 300, SummonEyeLapTicks = 90;
 
-		private static Asset<Texture2D> far, near, glow;
-		private static readonly string[] GoreNames = { "Mechromancer_GoreSkull", "Mechromancer_GoreRibs", "Mechromancer_GoreStaff" };
+		private static Asset<Texture2D> far, near, glow, eye, eyeGlow;
+		private static readonly string[] GoreNames = { "Mechromancer_GoreSkull", "Mechromancer_GoreHorn", "Mechromancer_GoreClaw" };
 
 		private Phase CurrentPhase => (Phase)State;
 		private ref float SinceCast => ref NPC.ai[2];
@@ -106,10 +121,12 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 			far = DepthLayers.RequestOptional(Texture + "_Far");
 			near = DepthLayers.RequestOptional(Texture + "_Near");
 			glow = DepthLayers.RequestOptional(Texture + "_Glow");
+			eye = DepthLayers.RequestOptional(Texture + "_Eye");
+			eyeGlow = DepthLayers.RequestOptional(Texture + "_EyeGlow");
 		}
 
 		public override void Unload() {
-			far = near = glow = null;
+			far = near = glow = eye = eyeGlow = null;
 		}
 
 		public override void SetStaticDefaults() {
@@ -129,8 +146,8 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 		}
 
 		public override void SetDefaults() {
-			NPC.width = 32;                                  // the robe, the ribcage and the skull (D4: matched; the staff and the
-			NPC.height = 76;                                 // flame are not body)
+			NPC.width = 40;                                  // the robe, the hood and the skull (D4: matched to the 2026-11-16 art;
+			NPC.height = 92;                                 // the horns, the sleeves and the floating eyes are not body)
 			SetExpertStats(Life, ContactDamage, Defense);
 			NPC.knockBackResist = 0f;
 			NPC.noGravity = true;
@@ -161,6 +178,7 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.Common(ItemID.Bone, 1, BoneMin, BoneMax));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PossessedCog>(), PossessedCogOdds));
 		}
 
 		protected override void UpdateState() {
@@ -219,7 +237,7 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 						if (SinceSummon >= SummonCooldown && Timer % 30f == 0f && OwnMinions() < MaxMinions) {
 							ChangeState((int)Phase.Summon);
 						}
-						else if (SinceCast >= CastCooldown && Collision.CanHitLine(FirePoint(R.Cast + 2), 1, 1, target.position, target.width, target.height)) {
+						else if (SinceCast >= CastCooldown && Collision.CanHitLine(FirePoint(R.Cast + ReleaseFrame), 1, 1, target.position, target.width, target.height)) {
 							ChangeState((int)Phase.Cast);
 						}
 					}
@@ -249,18 +267,21 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 			}
 		}
 
-		/// <summary>The staff's fire in <paramref name="frame"/> (world space; the art faces left).</summary>
+		/// <summary>The Cast frame the volley leaves in: the thrust (Cast4).</summary>
+		private const int ReleaseFrame = 4;
+
+		/// <summary>The near claw's soul fire in <paramref name="frame"/> (world space; the art faces left).</summary>
 		private Vector2 FirePoint(int frame) {
 			int k = Math.Clamp(frame, 0, R.FireX.Length - 1);
 			return NPC.Bottom + new Vector2(R.FireX[k] * -NPC.direction, R.FireY[k]);
 		}
 
-		/// <summary>Server: the volley, from the staff's fire at where the target is now.</summary>
+		/// <summary>Server: the volley, from the claw's fire at where the target is now.</summary>
 		private void Fire(Player target) {
 			if (target == null) {
 				return;
 			}
-			Vector2 from = FirePoint(R.Cast + 2);
+			Vector2 from = FirePoint(R.Cast + ReleaseFrame);
 			Vector2 aim = (target.Center - from).SafeNormalize(new Vector2(NPC.direction, 0f));
 			int damage = ExpertStats.HostileProjectile(NPC, CogDamage);
 			int type = ModContent.ProjectileType<SoulFireCog>();
@@ -270,11 +291,11 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 			}
 		}
 
-		/// <summary>Server: how many of its own Cogsqueletons are up or rising (a fixed scan: 200 NPCs, 1000 projectiles).</summary>
+		/// <summary>Server: how many of its own zombies are up or rising (a fixed scan: 200 NPCs, 1000 projectiles).</summary>
 		private int OwnMinions() {
-			int count = 0, skeleton = ModContent.NPCType<Cogsqueleton>(), grave = ModContent.ProjectileType<CogsqueletonGrave>();
+			int count = 0, grave = ModContent.ProjectileType<MechromancerGrave>();
 			foreach (NPC n in Main.ActiveNPCs) {
-				if (n.type == skeleton && (int)n.ai[2] == NPC.whoAmI) {
+				if (n.type == NPCID.Zombie && n.TryGetGlobalNPC(out MechromancerThrall thrall) && thrall.Master == NPC.whoAmI) {
 					count++;
 				}
 			}
@@ -287,20 +308,20 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 		}
 
 		/// <summary>Server: burns up to <see cref="MinionsPerSummon"/> graves into the ground either side of the target (the
-		/// telegraph); each raises a Cogsqueleton when it burns out (<see cref="CogsqueletonGrave"/>).</summary>
+		/// telegraph); each raises a zombie when it burns out (<see cref="MechromancerGrave"/>).</summary>
 		private void MarkGraves(Player target) {
 			if (target == null) {
 				return;
 			}
 			int room = Math.Min(MinionsPerSummon, MaxMinions - OwnMinions());
-			int type = ModContent.ProjectileType<CogsqueletonGrave>();
+			int type = ModContent.ProjectileType<MechromancerGrave>();
 			for (int k = 0; k < room; k++) {
 				int side = k % 2 == 0 ? -1 : 1;
 				int tx = (int)(target.Center.X / 16f) + side * GraveOffsetTiles + Main.rand.Next(-GraveJitterTiles, GraveJitterTiles + 1);
 				if (!FindGround(tx, (int)(target.Bottom.Y / 16f) - GroundSearchTiles / 2, out int groundY)) {
 					continue;
 				}
-				Vector2 at = new(tx * 16f + 8f, groundY * 16f - CogsqueletonGrave.Height / 2f);
+				Vector2 at = new(tx * 16f + 8f, groundY * 16f - MechromancerGrave.Height / 2f);
 				SafeSpawn.TryNewProjectile(NPC.GetSource_FromAI(), at, Vector2.Zero, type, 0, 0f, out _, Main.myPlayer, NPC.whoAmI);
 			}
 		}
@@ -327,9 +348,9 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 			return false;
 		}
 
-		/// <summary>Clients: the flame's light, the telegraphs' sounds and sparks, the volley's crack, the summon's slam.</summary>
+		/// <summary>Clients: the soul fire's light, the telegraphs' sounds and sparks, the volley's crack, the summon's slam.</summary>
 		private void Effects() {
-			Vector2 head = NPC.Bottom + new Vector2(2f * -NPC.direction, -84f);
+			Vector2 head = NPC.Bottom + new Vector2(R.HeadX * -NPC.direction, R.HeadY);
 			Lighting.AddLight(head, 0.12f, 0.42f, 0.32f);
 			switch (CurrentPhase) {
 				case Phase.Cast:
@@ -340,7 +361,7 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 						SoundEngine.PlaySound(SoundID.Item20 with { Pitch = -0.2f }, NPC.Center);
 					}
 					if (Timer < CastTelegraph && Main.rand.NextBool(2) && CogpunkClientConfig.RollEffect()) {
-						Vector2 at = FirePoint(R.Cast + 1);
+						Vector2 at = FirePoint(R.Cast + 2);
 						Lighting.AddLight(at, 0.15f, 0.6f, 0.45f);
 						if (SafeSpawn.TryNewDust(at - new Vector2(6f), 12, 12, DustID.CursedTorch, out Dust d)) {
 							d.noGravity = true;
@@ -372,14 +393,102 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 			}
 		}
 
+		/// <summary>The frame: the float's 6-frame loop (8 ticks each); the cast raises the claw over two in-betweens (8 ticks
+		/// each), holds it flaring in two flickers to the end of the telegraph, thrusts as the volley leaves and follows through;
+		/// the summon raises both arms over two in-betweens, holds them high flickering to the end of its telegraph, sweeps them
+		/// down as the dead rise and settles. Visual only, from the synced state and timer.</summary>
 		protected override int PickFrame() {
+			int t = (int)Timer;
 			switch (CurrentPhase) {
 				case Phase.Cast:
-					return R.Cast + (Timer < 20f ? 0 : Timer < CastTelegraph ? 1 : Timer < CastTelegraph + 10 ? 2 : 3);
+					if (t < 8) {
+						return R.Cast;
+					}
+					if (t < 16) {
+						return R.Cast + 1;
+					}
+					if (t < CastTelegraph) {
+						return R.Cast + 2 + (t / 6) % 2;
+					}
+					return R.Cast + (t < CastTelegraph + 12 ? ReleaseFrame : 5);
 				case Phase.Summon:
-					return R.Summon + (Timer < 20f ? 0 : Timer < SummonTelegraph ? 1 : Timer < SummonTelegraph + 12 ? 2 : 3);
+					if (t < 10) {
+						return R.Summon;
+					}
+					if (t < 20) {
+						return R.Summon + 1;
+					}
+					if (t < SummonTelegraph) {
+						return R.Summon + 2 + (t / 6) % 2;
+					}
+					return R.Summon + (t < SummonTelegraph + 14 ? 4 : 5);
 				default:
 					return R.Float + (int)((Main.GameUpdateCount / 8 + (uint)NPC.whoAmI) % R.FloatFrames);
+			}
+		}
+
+		// --- the floating eyes (drawing only) -------------------------------------------------------------------------------
+
+		/// <summary>The back half of the eyes' orbit, behind the robe; then the body (the base); the front half goes on top.</summary>
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
+			if (!NPC.IsABestiaryIconDummy) {
+				DrawEyes(spriteBatch, screenPos, drawColor, front: false);
+			}
+			return base.PreDraw(spriteBatch, screenPos, drawColor);
+		}
+
+		protected override void DrawExtras(SpriteBatch spriteBatch, Vector2 anchor, Color light, bool flip, float scale, bool dummy) {
+			if (!dummy) {
+				DrawEyes(spriteBatch, Main.screenPosition, light, front: true);
+			}
+		}
+
+		/// <summary>The eyes' orbit angle now: a slow lap while floating, a whirl while summoning (the game clock: visual only).</summary>
+		private float OrbitAngle(int k) {
+			float lap = CurrentPhase == Phase.Summon ? SummonEyeLapTicks : EyeLapTicks;
+			float t = Main.GameUpdateCount + NPC.whoAmI * 37f;
+			return t / lap * MathHelper.TwoPi + k * MathHelper.TwoPi / EyeCount;
+		}
+
+		/// <summary>
+		/// The floating eyes on one half of their orbit round the hood (an ellipse, <see cref="EyeOrbitX"/> x
+		/// <see cref="EyeOrbitY"/> game px): those on its far side are drawn behind the body and a step darker, the rest in
+		/// front. Each bobs by whole pixels (0 or 2) on its own beat, sits on the 2 px grid, and looks at the target (the pupil
+		/// frame towards it, one of nine); their irises glow, brighter while it casts and summons. D1/D4: nothing allocated,
+		/// nothing rotated.
+		/// </summary>
+		private void DrawEyes(SpriteBatch spriteBatch, Vector2 screenPos, Color light, bool front) {
+			if (eye?.IsLoaded != true || eye.Value.Height < R.EyeFrames * R.EyeCell || NPC.Opacity <= 0f) {
+				return;
+			}
+			int dir = NPC.spriteDirection == 1 ? 1 : -1;
+			Vector2 head = DrawAnchor + new Vector2(R.HeadX * -dir, R.HeadY);
+			Player target = Target;
+			float flare = CurrentPhase == Phase.Cast && Timer < CastTelegraph + 12 ? 1f : CurrentPhase == Phase.Summon ? 0.9f : 0.55f;
+			for (int k = 0; k < EyeCount; k++) {
+				float a = OrbitAngle(k);
+				float depth = MathF.Sin(a);
+				if ((depth > 0f) != front) {
+					continue;
+				}
+				int bob = ((int)(Main.GameUpdateCount / 14) + k) % 2 * 2;
+				Vector2 world = head + new Vector2(MathF.Cos(a) * EyeOrbitX, depth * EyeOrbitY + bob);
+				int frame = 0;
+				if (target != null) {
+					Vector2 look = target.Center - world;
+					if (look.LengthSquared() > 64f) {
+						int octant = (int)MathF.Round(MathF.Atan2(look.Y, look.X) / MathHelper.PiOver4);
+						frame = 1 + ((octant % 8) + 8) % 8;
+					}
+				}
+				Vector2 at = world - screenPos - new Vector2(R.EyeCell * 0.5f);
+				at = new Vector2(DepthLayers.Snap(at.X), DepthLayers.Snap(at.Y));
+				Rectangle source = new(0, frame * (R.EyeCell + 2), R.EyeCell, R.EyeCell);
+				Color tint = front ? light : DepthLayers.Tint(light, DepthLayers.Far);
+				spriteBatch.Draw(eye.Value, at, source, tint * NPC.Opacity);
+				if (eyeGlow?.IsLoaded == true && eyeGlow.Value.Height >= source.Bottom) {
+					spriteBatch.Draw(eyeGlow.Value, at, source, new Color(255, 255, 255, 0) * (flare * NPC.Opacity * (front ? 1f : 0.6f)));
+				}
 			}
 		}
 

@@ -9,8 +9,11 @@ namespace Cogpunk.Content.Coghaven.Generation
 		public const int IslandWidth = 220;
 		public const int GateX = 30, MainHallX = 74, PagodaX = 146, PavilionX = 180;
 		public const int TerraceLeft = 26, TerraceRight = 200, PondLeft = 11, PondRight = 24;
-		/// <summary>The engine deck's x 0 is the Main Hall's; the hall's stair shaft starts at this column of both.</summary>
+		/// <summary>The vault's x 0 is the Main Hall's; the hall's stair shaft starts at this column of both.</summary>
 		public const int ShaftX = 16;
+		/// <summary>The Jade Vault's unbreakable shell (vault coordinates: x from the Main Hall's x 0, rows from the island's
+		/// surface row), inclusive; the arena is the inside of it.</summary>
+		public const int VaultLeft = 11, VaultRight = 60, VaultTop = 1, VaultFloor = 18;
 		public static readonly int[] TurbineX = { 38, 72, 108, 144, 178 };
 		public static readonly int[] LampX = { 25, 58, 66, 140, 176, 202 };
 		public static readonly int[] TreeX = { 8, 206, 211 };
@@ -275,29 +278,26 @@ namespace Cogpunk.Content.Coghaven.Generation
 			"(FFFFFFFFFFFFFFFFF)",
 		};
 
-		public static readonly string[] EngineDeck = {
+		public static readonly string[] Vault = {
 			"               G,,,G                                                                            ",
-			"               G,,,G                 GGGGGGGGGGGGGGGGGGGGGGGGGGGG                               ",
-			"               G%%%G                 G::::::^:::::::::::^:::::::G                               ",
-			"   GGGGGGGGGGGGGG,,G FFFFFFFFFFFFFF  G::::::::::::::::::::::::::G              GGGGGGGGGGGGGG   ",
-			"   G:::::::::^::G,,G F,,,,,H,,,,,,F  G::::::::::::::::::::::::::G              G:::::::::^::G   ",
-			"   G::::::::::::G,,G F,,,,,,,,,,,,F  G::::::::::::::::::::::::::G              G::::::::::::G   ",
-			"   G::::::::::::G%%G F,,,,,,,,,,,,F  G::::::::::::::::::::::::::G              G::::::::::::G   ",
-			"   G::::::::::::G,,G F,,,,,,,,,,,,F  G::::::::::::::::::::::::::G              G::::::::::::G   ",
-			"   G:%%%%:::::::G%%GGF,,,,,,,,,,,,FGGG::::::::::::::::::::::::::GGGGGGGGGGGGGGGG:%%%%:::::::G   ",
-			"   G::::::::::::G:::::,,,,,,,,,,,,:::G::::::::::::::::::::::::::G::::::::::::::G::::::::::::G   ",
-			"   G::::::::::::G:::::,,,,,i,,,,,,:::G::::::::::::::::::::::::::G::::::::::::::G::::::::::::G   ",
-			"   G::::::::::::G:::::,,,,,,,,,,,,:::G::::::::::::::::::::::::::G::::::::::::::G::::::::::::G   ",
-			"   G::V:::::::::G:::::,V,,,A,,,,,,:::G:::::Z::::::::z:::::::::::G::::::::::::::G::V:::::::::G   ",
-			"   GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG%%%%%::::::::::::::::%%%%%GGGGGGGGGGGGGGGGGGGGGGGGGGGGG   ",
-			"                                     G::::::::::::::::::::::::::G                               ",
-			"                                     G::::::::::::::::::::::::::G                               ",
-			"                                     G::::::::::::::::::::::::::G                               ",
-			"                                     G:C::::::::::U:::::::::::::G                               ",
-			"                                     GGGGGGGGGGGGGGGGGGGGGGGGGGGG                               ",
-			"                                                                                                ",
-			"                                                                                                ",
-			"                                                                                                ",
+			"           XXXXX$$$XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                   ",
+			"           X;;;;;;;;^;;;;;;;;^;;;;;;;;;;;;^;;;;;;;;^;;;;;;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$$$$$;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$$$$$;;;X                                   ",
+			"           X;;;;;;;;;;;Z;;;;;;;;;;;;;;;;;;;z;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
+			"           X;;U;;;;;;;;;;;;;;;;V;;;&;;V;;;;;;;;;;;;;;;;;;U;;X                                   ",
+			"           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                   ",
 		};
 
 		/// <summary>The pagodas from the tallest down: the pass builds the tallest that fits under the sky's ceiling.</summary>

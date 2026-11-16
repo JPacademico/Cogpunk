@@ -2,13 +2,16 @@
 namespace Cogpunk.Content.BloodMoon.NPCs
 {
 	/// <summary>The Mechromancer's grid sheets (game px, facing left): far, middle, near and glow, equal cells with 2 px
-	/// under each; the origin is the bottom of the robe's hem. FireX/FireY: the staff's fire in each frame (from the
-	/// origin, facing left), where its Soul Fire Cogs leave.</summary>
+	/// under each; the origin is the bottom of the robe's hem. FireX/FireY: the near claw's soul fire in each frame (from the
+	/// origin, facing left), where its Soul Fire Cogs leave. Head: the hood's face (the floating eyes orbit round it).
+	/// Eye: the floating eyes' cells (9 pupil frames, the pupil towards each heading's eighth: 0 still, 1 right, then
+	/// clockwise on screen).</summary>
 	public static class MechromancerRigData
 	{
-		public const int CellWidth = 136, CellHeight = 114, OriginX = 68, OriginY = 112, Frames = 12;
-		public const int Float = 0, FloatFrames = 4, Cast = 4, CastFrames = 4, Summon = 8, SummonFrames = 4;
-		public static readonly int[] FireX = { -24, -24, -24, -24, -28, -34, -57, -45, -21, -19, -24, -22 };
-		public static readonly int[] FireY = { -74, -74, -74, -74, -92, -98, -67, -74, -92, -100, -73, -75 };
+		public const int CellWidth = 116, CellHeight = 100, OriginX = 58, OriginY = 98, Frames = 18;
+		public const int Float = 0, FloatFrames = 6, Cast = 6, CastFrames = 6, Summon = 12, SummonFrames = 6;
+		public const int HeadX = -1, HeadY = -75, EyeCell = 14, EyeFrames = 9;
+		public static readonly int[] FireX = { -43, -43, -44, -43, -43, -42, -39, -33, -31, -31, -52, -48, -37, -29, -28, -28, -50, -46 };
+		public static readonly int[] FireY = { -75, -75, -76, -75, -75, -74, -82, -88, -89, -88, -66, -70, -84, -89, -90, -89, -49, -67 };
 	}
 }

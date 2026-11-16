@@ -37,10 +37,12 @@ namespace Cogpunk.Content.Coghaven.Generation
 	/// <item>Cogs: big Bronze Cogs turning in sockets on the island's lower flanks; five Lift Turbines bolted under it,
 	/// pouring smoke (<see cref="LiftTurbineTile"/>).</item>
 	/// <item>The palace from <see cref="CoghavenBlueprints"/> (legend in art/coghaven/make_coghaven_blueprints.py): the
-	/// engine deck inside the core, then the gate, the Main Hall, the pagoda and the tea pavilion on the surface; then
-	/// their furniture (vanilla Dynasty and Steampunk pieces, placed through <c>WorldGen.PlaceObject</c> at their
-	/// <c>TileObjectData</c> origins, standing pieces first, then candles, then what hangs) and the chests
-	/// (<see cref="CoghavenChests"/>); lamps and sakura trees in the gardens.</item>
+	/// Jade Vault inside the core (since 2026-11-16: one long machine hall with an unbreakable shell, Jadey's arena, the
+	/// <see cref="Tiles.CoghavenChestTile"/> vault in its middle; it replaced the engine deck's rooms), then the gate, the
+	/// Main Hall, the pagoda and the tea pavilion on the surface; then their furniture (vanilla Dynasty and Steampunk pieces,
+	/// placed through <c>WorldGen.PlaceObject</c> at their <c>TileObjectData</c> origins, standing pieces first, then
+	/// candles, then what hangs) and the chests (<see cref="CoghavenChests"/>: the pagoda's is a Locked Pagoda Chest since
+	/// 2026-11-16, the vault's the Jade Vault); lamps and sakura trees in the gardens.</item>
 	/// </list></para>
 	/// <para>D0: <see cref="SafeGenPass"/> catches any failure (world creation continues without Coghaven); every loop is
 	/// bounded by the island's size; every tile through <see cref="TileSafety"/> with the world's edit margin; a blueprint
@@ -52,7 +54,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 	{
 		// --- the base (tiles) ---
 		public const int BaseDepth = 34;               // at the middle; a vanilla cloud island is 15-20 deep
-		public const int MinBaseDepth = 24;            // the engine deck (22 rows) still fits under the middle
+		public const int MinBaseDepth = 24;            // the Jade Vault (19 rows) still fits under the middle, with cloud under it
 		public const int DepthStep = 2;
 		public const double FlatTop = 0.93;            // of the half-width: beyond it the surface rounds down (x 8-212 flat)
 		public const int EdgeDrop = 6;
@@ -96,8 +98,8 @@ namespace Cogpunk.Content.Coghaven.Generation
 			}
 		}
 
-		private ushort stone, lacquer, gearwork, roofTile, cogTile, turbineTile;
-		private ushort stoneWall, panelWall, latticeWall, gearWall;
+		private ushort stone, lacquer, gearwork, roofTile, cogTile, turbineTile, vault, chestTile;
+		private ushort stoneWall, panelWall, latticeWall, gearWall, vaultWall;
 		private int left, s, depth;
 		private int[] top, bottom;
 		private bool[] turbineKept;                         // a turbine that would come too close to what is under it is left out
@@ -122,6 +124,9 @@ namespace Cogpunk.Content.Coghaven.Generation
 			panelWall = (ushort)ModContent.WallType<CinnabarPanelWallTile>();
 			latticeWall = (ushort)ModContent.WallType<BronzeLatticeWallTile>();
 			gearWall = (ushort)ModContent.WallType<BronzeGearworkWallTile>();
+			vault = (ushort)ModContent.TileType<VaultGearworkTile>();
+			vaultWall = (ushort)ModContent.WallType<VaultGearworkWallTile>();
+			chestTile = (ushort)ModContent.TileType<CoghavenChestTile>();
 			furniture.Clear();                                  // a pass is reused for every world made this session
 			turbineKept = null;                                 // every turbine counts until the heights are chosen
 			pagoda = null;
@@ -149,7 +154,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 			progress.Set(0.35);
 			Sockets();
 			Turbines();
-			Plan(B.EngineDeck, left + B.MainHallX, s);
+			Plan(B.Vault, left + B.MainHallX, s);
 			Plan(B.Gate, left + B.GateX, s - (B.Gate.Length - 1));
 			Plan(B.MainHall, left + B.MainHallX, s - (B.MainHall.Length - 1));
 			Plan(pagoda, left + B.PagodaX, s - (pagoda.Length - 1));
@@ -480,6 +485,9 @@ namespace Cogpunk.Content.Coghaven.Generation
 				sb -= B.CogSocketLift[k];
 				int sy = sb - (BronzeCogTile.Size - 1);
 				bool inside = true;
+				if (TouchesVault(i0, sy, BronzeCogTile.Size, sb - sy + 1)) {
+					continue;                                       // a shallow island: the vault's shell would cut the cog in two
+				}
 				for (int c = i0; c < i0 + BronzeCogTile.Size && inside; c++) {
 					inside = sy > top[c] + SoilRows && sb + 1 <= bottom[c];
 					if (c >= B.PondLeft - 1 && c <= B.PondRight + 1) {
@@ -504,6 +512,15 @@ namespace Cogpunk.Content.Coghaven.Generation
 				}
 				PlaceMultiTile(cogTile, left + i0, sy, BronzeCogTile.Size, BronzeCogTile.Size, B.CogSocketStyle[k]);
 			}
+		}
+
+		/// <summary>Whether island columns <paramref name="i0"/>.. (<paramref name="width"/>) and rows <paramref name="y0"/>..
+		/// (<paramref name="height"/>) come within a tile of the Jade Vault's shell (built later over them: nothing of ours may
+		/// be cut in two by it).</summary>
+		private bool TouchesVault(int i0, int y0, int width, int height) {
+			int vx0 = B.MainHallX + B.VaultLeft - 1, vx1 = B.MainHallX + B.VaultRight + 1;
+			int vy0 = s + B.VaultTop - 1, vy1 = s + B.VaultFloor + 1;
+			return i0 <= vx1 && i0 + width - 1 >= vx0 && y0 <= vy1 && y0 + height - 1 >= vy0;
 		}
 
 		/// <summary>The five Lift Turbines under their gearwork mounts (four solid tiles over each: its anchor).</summary>
@@ -602,6 +619,10 @@ namespace Cogpunk.Content.Coghaven.Generation
 						case '%': PlacePlatform(tile); tile.WallType = gearWall; break;
 						case 'w': Water(tile); break;
 						case '~': Water(tile); tile.WallType = stoneWall; break;
+						case 'X': Place(tile, vault); tile.WallType = vaultWall; break;
+						case 'x': Place(tile, vault); break;
+						case ';': tile.WallType = vaultWall; break;
+						case '$': PlacePlatform(tile); tile.WallType = vaultWall; break;
 						default:
 							tile.WallType = RoomWall(rows, bx, by, kept);   // furniture: air with the room's wall, placed later
 							furniture.Add(new Piece(ch, x, y));
@@ -624,6 +645,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 					case ',': return stoneWall;
 					case ':': return gearWall;
 					case '#': return latticeWall;
+					case ';': return vaultWall;
 				}
 			}
 			return kept;
@@ -661,9 +683,13 @@ namespace Cogpunk.Content.Coghaven.Generation
 					if (Stage(piece.Kind) != stage || !TileSafety.InWorld(piece.X, piece.Y, TileSafety.EditMargin + 6)) {
 						continue;
 					}
-					if (piece.Kind == 'C' || piece.Kind == 'Q') {
-						if (CoghavenChests.Place(piece.X, piece.Y, piece.Kind == 'Q', chests) >= 0) {
+					if (piece.Kind == 'C' || piece.Kind == 'Q' || piece.Kind == '&') {
+						if (CoghavenChests.Place(piece.X, piece.Y, piece.Kind != 'C', chests) >= 0) {
 							chests++;
+							if (piece.Kind != 'C') {                      // filled as a Dynasty chest (vanilla's sky loot), now ours
+								CoghavenChests.Convert(piece.X, piece.Y - 1, chestTile,
+									piece.Kind == 'Q' ? CoghavenChestTile.LockedPagodaStyle : CoghavenChestTile.VaultStyle);
+							}
 						}
 						else {
 							SafeLog.Warn("Coghaven.NoChest", "Coghaven: a chest didn't fit at ({0}, {1}).", piece.X, piece.Y);

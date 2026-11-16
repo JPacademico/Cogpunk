@@ -8,8 +8,10 @@ namespace Cogpunk.Content.Coghaven.Generation
 {
 	/// <summary>
 	/// Coghaven's chests. Since 2026-11-12 there are only two (user: "coghaven should have only 2 chests now, containing sky
-	/// island loot and some other specific items that I will add in the future"): the pagoda's top room and the engine deck's
-	/// boiler hall (the other markers left the blueprints, art/coghaven/make_coghaven_blueprints.py). Each is a vanilla Dynasty
+	/// island loot and some other specific items that I will add in the future"): the pagoda's top room and, since 2026-11-16,
+	/// the middle of the Jade Vault (the engine deck's boiler hall before; art/coghaven/make_coghaven_blueprints.py). Both are
+	/// filled here as Dynasty chests and then turned into <see cref="Tiles.CoghavenChestTile"/>s (<see cref="Convert"/>): the
+	/// pagoda's a Locked Pagoda Chest (the Pagoda Key opens it), the vault's the Jade Vault (Jadey guards it). Each is a vanilla Dynasty
 	/// Chest (tile 21, style <see cref="DynastyChestStyle"/>, decompiled <c>Item.SetDefaults</c> 2230) filled by vanilla's own
 	/// <c>WorldGen.AddBuriedChest</c> around a primary item from vanilla's sky-island list (decompiled <c>IslandHouse</c>: the
 	/// Shiny Red Balloon, Starfury, Lucky Horseshoe and Celestial Magnet; passing one makes vanilla treat the chest as a sky
@@ -68,6 +70,26 @@ namespace Cogpunk.Content.Coghaven.Generation
 				}
 			}
 			return index;
+		}
+
+		/// <summary>
+		/// Turns the 2x2 chest whose top-left tile is (<paramref name="left"/>, <paramref name="top"/>) into
+		/// <paramref name="type"/> in <paramref name="style"/>, in place: vanilla gives sky loot only to its own chest tile
+		/// (decompiled <c>WorldGen.AddBuriedChest</c>: the sky flag needs <c>chestTileType == 21</c>), so the chest is filled
+		/// as a Dynasty chest first; its <c>Main.chest</c> entry is keyed by position and keeps the loot. World generation only;
+		/// every tile bounds-checked (D0).
+		/// </summary>
+		public static void Convert(int left, int top, ushort type, int style) {
+			for (int dx = 0; dx < 2; dx++) {
+				for (int dy = 0; dy < 2; dy++) {
+					if (!TileSafety.TryGetTile(left + dx, top + dy, out Tile tile, TileSafety.EditMargin) || !tile.HasTile) {
+						continue;
+					}
+					tile.TileType = type;
+					tile.TileFrameX = (short)(style * 36 + dx * 18);
+					tile.TileFrameY = (short)(dy * 18);
+				}
+			}
 		}
 
 		/// <summary>Puts <paramref name="stack"/> of <paramref name="type"/> in the chest's first empty slot (nothing when it is

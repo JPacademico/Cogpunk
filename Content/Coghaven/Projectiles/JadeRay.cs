@@ -119,7 +119,14 @@ namespace Cogpunk.Content.Coghaven.Projectiles
 		/// <see cref="Gems.JadeCursePlayer"/>).</summary>
 		public override void OnHitPlayer(Player target, Player.HurtInfo info) {
 			Gems.JadeCursePlayer.Hit(target);
+			if (Projectile.ai[2] == JadeyLaserFlag && target.whoAmI == Main.myPlayer) {
+				target.GetModPlayer<Gems.JadeCursePlayer>().ShortImmunity = true;   // Jadey's lasers: each of three may land
+			}
 		}
+
+		/// <summary><c>ai[2]</c> of a ray fired by Jadey (2026-11-16): a short immunity after its hit
+		/// (<see cref="Gems.JadeCursePlayer.ShortImmunity"/>).</summary>
+		public const float JadeyLaserFlag = 1f;
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) {
 			return SwingPose.CapsuleHitsRect(Start, End, Radius, targetHitbox);

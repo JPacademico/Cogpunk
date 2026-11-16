@@ -89,6 +89,25 @@ namespace Cogpunk.Content.Jungle.NPCs
 		private static readonly SoundStyle Bonk = SoundID.Dig with { Pitch = -0.3f, Volume = 0.9f, MaxInstances = 2 };
 		private static readonly SoundStyle Buzz = SoundID.Item32 with { Pitch = -0.45f, Volume = 0.4f, MaxInstances = 2 };
 
+		// --- what a variant changes (2026-11-16: the Jade Beetle, Jadey's lesser jade copy, overrides these) -----------------
+		/// <summary>Expert life, contact damage and defense (<see cref="CogpunkNPC.SetExpertStats"/>).</summary>
+		protected virtual int ExpertLife => Life;
+		protected virtual int ExpertContact => CrawlDamage;
+		protected virtual int ExpertDefense => Defense;
+		protected virtual float Resist => KnockbackResist;
+		/// <summary>Vanilla's knockback on the hit player times these (the ram, a plain touch), and the toss's upward speed.</summary>
+		protected virtual float RamPush => RamKnockback;
+		protected virtual float TouchPush => ContactKnockback;
+		protected virtual float Toss => TossSpeed;
+		protected virtual int CoinValue => Item.buyPrice(silver: 10);
+		protected virtual string[] Gores => GoreNames;
+		protected virtual int BloodDust => DustID.GreenBlood;
+
+		/// <summary>Anything else a variant's hit does to a player (the hit player's own client and the others, as
+		/// <see cref="OnHitPlayer"/>).</summary>
+		protected virtual void OnBeetleHit(Player target) {
+		}
+
 		private Phase CurrentPhase => (Phase)State;
 		private ref float ChargeDir => ref NPC.ai[2];
 		private ref float Cooldown => ref NPC.ai[3];
@@ -132,11 +151,11 @@ namespace Cogpunk.Content.Jungle.NPCs
 		public override void SetDefaults() {
 			NPC.width = Width;
 			NPC.height = Height;
-			SetExpertStats(Life, CrawlDamage, Defense);
-			NPC.knockBackResist = KnockbackResist;
+			SetExpertStats(ExpertLife, ExpertContact, ExpertDefense);
+			NPC.knockBackResist = Resist;
 			NPC.HitSound = SoundID.NPCHit31;                                   // the Antlion Charger's
 			NPC.DeathSound = SoundID.NPCDeath34;
-			NPC.value = Item.buyPrice(silver: 10);                             // rare (the Tortoise drops 5 silver)
+			NPC.value = CoinValue;                                             // rare (the Tortoise drops 5 silver): 10 silver
 			NPC.aiStyle = -1;
 		}
 
@@ -173,7 +192,7 @@ namespace Cogpunk.Content.Jungle.NPCs
 			int dir = target != null ? (dx >= 0f ? 1 : -1) : (NPC.direction == 0 ? -1 : NPC.direction);
 			// from the synced state, on every side (defDamage holds the mode-scaled contact damage)
 			NPC.damage = Ramming ? (int)(NPC.defDamage * ChargeDamageMultiplier) : (CurrentPhase == Phase.Dazed ? 0 : NPC.defDamage);
-			NPC.knockBackResist = Ramming ? 0f : KnockbackResist;
+			NPC.knockBackResist = Ramming ? 0f : Resist;
 			NPC.noGravity = Airborne;
 			switch (CurrentPhase) {
 				case Phase.Brace:
@@ -377,11 +396,12 @@ namespace Cogpunk.Content.Jungle.NPCs
 		/// knockback: decompiled <c>Player.Hurt</c> runs the NPC's <c>OnHitPlayer</c> through <c>PlayerLoader.OnHurt</c> before
 		/// it sets the knockback velocity).</summary>
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo) {
+			OnBeetleHit(target);
 			if (!Ramming) {
 				return;
 			}
 			if (target.whoAmI == Main.myPlayer) {
-				target.GetModPlayer<RhinoTossPlayer>().Toss(TossSpeed);
+				target.GetModPlayer<RhinoTossPlayer>().Toss(Toss);
 			}
 			if (!Main.dedServ) {
 				SoundEngine.PlaySound(Flick, target.Center);
@@ -393,10 +413,10 @@ namespace Cogpunk.Content.Jungle.NPCs
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers) {
 			if (Ramming) {
 				modifiers.HitDirectionOverride = ChargeDir >= 0f ? 1 : -1;      // thrown the way it runs
-				modifiers.Knockback *= RamKnockback;
+				modifiers.Knockback *= RamPush;
 			}
 			else {
-				modifiers.Knockback *= ContactKnockback;
+				modifiers.Knockback *= TouchPush;
 			}
 		}
 
@@ -439,10 +459,10 @@ namespace Cogpunk.Content.Jungle.NPCs
 			}
 			int count = NPC.life > 0 ? 3 : 16;
 			for (int i = 0; i < count; i++) {
-				SafeSpawn.TryNewDust(NPC.position, NPC.width, NPC.height, i % 3 == 0 ? DustID.GreenBlood : DustID.Dirt, out _);
+				SafeSpawn.TryNewDust(NPC.position, NPC.width, NPC.height, i % 3 == 0 ? BloodDust : DustID.Dirt, out _);
 			}
 			if (NPC.life <= 0) {
-				foreach (string name in GoreNames) {
+				foreach (string name in Gores) {
 					if (Mod.TryFind(name, out ModGore gore)) {
 						SafeSpawn.TryNewGore(NPC.GetSource_Death(), NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height)),
 							NPC.velocity * 0.5f + Main.rand.NextVector2Circular(3f, 3f), gore.Type, out _);

@@ -26,8 +26,8 @@ namespace Cogpunk.Content.Coghaven.NPCs
 	/// by smashing</b> (user, 2026-11-12: "It should not cause contact damage only smash damage"): touching it while it
 	/// floats, rears up, lies stunned or rises does nothing (<see cref="CanHitPlayer"/>).
 	/// <list type="number">
-	/// <item><b>Float</b>: it drifts slowly (<see cref="FloatSpeed"/>) towards a point <see cref="HoverHeight"/> over its target,
-	/// through walls (a flyer), bobbing.</item>
+	/// <item><b>Float</b>: it drifts (<see cref="FloatSpeed"/>; user, 2026-11-16: "increase the float speed", it was 1.4 px a
+	/// tick) towards a point <see cref="HoverHeight"/> over its target, through walls (a flyer), bobbing.</item>
 	/// <item>Over its target (within <see cref="AimWidth"/> sideways, at least <see cref="MinDrop"/> above), at least
 	/// <see cref="FloatTicks"/> after its last smash: <b>Wrath</b> for <see cref="WrathTicks"/> ticks (the telegraph, D3 T4: at
 	/// least 30): it stops, rises a little, opens its eyes blazing jade and shakes.</item>
@@ -53,7 +53,7 @@ namespace Cogpunk.Content.Coghaven.NPCs
 		private enum Phase { Float, Wrath, Smash, Stunned, Rise }
 
 		public const int Life = 640, SmashDamage = 150, Defense = 22;
-		public const float FloatSpeed = 1.4f, FloatAccel = 0.035f;
+		public const float FloatSpeed = 2.6f, FloatAccel = 0.05f;      // 2026-11-16 (user: faster): was 1.4 / 0.035
 		public const float HoverHeight = 9f * 16f, AimWidth = 2f * 16f, MinDrop = 4f * 16f;
 		public const int FloatTicks = 120;
 		public const int WrathTicks = 45;                          // 3 frames x 15

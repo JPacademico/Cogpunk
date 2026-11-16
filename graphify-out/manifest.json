@@ -95,9 +95,9 @@
     "semantic_hash": "e116015025711bb90c219d3bd9e18cc0"
   },
   "Core/Safety/SafeSpawn.cs": {
-    "mtime": 1794409844.7870057,
-    "ast_hash": "4c419cb5050a99ef10091c4feb0d63a7",
-    "semantic_hash": "4c419cb5050a99ef10091c4feb0d63a7"
+    "mtime": 1794499404.946487,
+    "ast_hash": "426dc9106e4fe4001fc4d26796ae2b57",
+    "semantic_hash": "426dc9106e4fe4001fc4d26796ae2b57"
   },
   "Core/Safety/SpawnBudgetSystem.cs": {
     "mtime": 1792515191.2074106,
@@ -210,9 +210,9 @@
     "semantic_hash": "3f81892297bc71e34f24c36334c624d8"
   },
   ".claude/skills/cogpunk-dev/SKILL.md": {
-    "mtime": 1794429022.442536,
-    "ast_hash": "0f23bbe1211c5324359b7556a06323a2",
-    "semantic_hash": "0f23bbe1211c5324359b7556a06323a2"
+    "mtime": 1794517249.9712543,
+    "ast_hash": "8ad029927a9c1cb109fe419a14af6db8",
+    "semantic_hash": "8ad029927a9c1cb109fe419a14af6db8"
   },
   "CLAUDE.md": {
     "mtime": 1793195217.7215905,
@@ -220,9 +220,9 @@
     "semantic_hash": "06598cf32abf1333e4a3f255a873f333"
   },
   "README.md": {
-    "mtime": 1794428967.3971424,
-    "ast_hash": "fa17564bf44b3d22a8a2376a24bf6b9c",
-    "semantic_hash": "fa17564bf44b3d22a8a2376a24bf6b9c"
+    "mtime": 1794517258.5633042,
+    "ast_hash": "63ca81f595fb0c318fcf14e760baf706",
+    "semantic_hash": "63ca81f595fb0c318fcf14e760baf706"
   },
   "SETUP.md": {
     "mtime": 1793134414.5395765,
@@ -1545,9 +1545,9 @@
     "semantic_hash": "e77066de8b06168a5e3da180e65d0fa9"
   },
   "Content/Mechanist/MechanistWeapon.cs": {
-    "mtime": 1794255001.8469718,
-    "ast_hash": "51d648724378ee021ef77e26eb4e549a",
-    "semantic_hash": "51d648724378ee021ef77e26eb4e549a"
+    "mtime": 1794498357.7660263,
+    "ast_hash": "47543a971c4576b61ecfb845c32a8bef",
+    "semantic_hash": "47543a971c4576b61ecfb845c32a8bef"
   },
   "Content/Mechanist/Overheat.cs": {
     "mtime": 1793111148.7981865,
@@ -1560,9 +1560,9 @@
     "semantic_hash": "7c53e86771abeb8dc4e383c1275356c3"
   },
   "Content/Mechanist/SteamPlayer.cs": {
-    "mtime": 1794255001.8479724,
-    "ast_hash": "b4d2eac24b06a3d4a7ab8afb2706159e",
-    "semantic_hash": "b4d2eac24b06a3d4a7ab8afb2706159e"
+    "mtime": 1794498357.8312569,
+    "ast_hash": "ef8709391ca9242ede0c01e1679fd0e7",
+    "semantic_hash": "ef8709391ca9242ede0c01e1679fd0e7"
   },
   "Content/Mechanist/Weapons/TrapperChain.cs": {
     "mtime": 1793122788.8318136,
@@ -2405,9 +2405,9 @@
     "semantic_hash": "e18fd122fdb689111a939c928eab1926"
   },
   "Content/Bosses/TarTyrant/Items/SereneTear.cs": {
-    "mtime": 1793288092.6775029,
-    "ast_hash": "4d5d773dd25e28263b241230ca72acca",
-    "semantic_hash": "4d5d773dd25e28263b241230ca72acca"
+    "mtime": 1794498124.9245596,
+    "ast_hash": "c18ce945048c3bec255dbdd28f5f8f0b",
+    "semantic_hash": "c18ce945048c3bec255dbdd28f5f8f0b"
   },
   "Content/Bosses/TarTyrant/NPCs/TarTyrantBubble.cs": {
     "mtime": 1793289215.2797544,
@@ -2670,19 +2670,19 @@
     "semantic_hash": "69bcc4adecaf386f79a2a7f6bde45c84"
   },
   "Content/Junkyard/Weapons/MetalWrench.cs": {
-    "mtime": 1793909508.4387805,
-    "ast_hash": "b4193524fc7f943c84199b942b7b18b3",
-    "semantic_hash": "b4193524fc7f943c84199b942b7b18b3"
+    "mtime": 1794499447.422254,
+    "ast_hash": "390821b637946813b78727e7ee39f1f9",
+    "semantic_hash": "390821b637946813b78727e7ee39f1f9"
   },
   "Content/Junkyard/Weapons/MetalWrenchGuard.cs": {
-    "mtime": 1793732851.6978521,
-    "ast_hash": "4a6a44ccc5680d8ee372b13b8479cf02",
-    "semantic_hash": "4a6a44ccc5680d8ee372b13b8479cf02"
+    "mtime": 1794499447.4246902,
+    "ast_hash": "90c558c4f3dc0a25e15e67a01864aee4",
+    "semantic_hash": "90c558c4f3dc0a25e15e67a01864aee4"
   },
   "Content/Junkyard/Weapons/MetalWrenchPlayer.cs": {
-    "mtime": 1793804370.729443,
-    "ast_hash": "be3edaafa1c9108a648eb0501174f59f",
-    "semantic_hash": "be3edaafa1c9108a648eb0501174f59f"
+    "mtime": 1794499447.422254,
+    "ast_hash": "b36e7cb80ae65b8ea26ec3e8dc53fe05",
+    "semantic_hash": "b36e7cb80ae65b8ea26ec3e8dc53fe05"
   },
   "Content/Junkyard/Weapons/TarBoneStaff.cs": {
     "mtime": 1793392797.7089908,
@@ -3025,9 +3025,9 @@
     "semantic_hash": "a29d551748a80e2c042f1c6acb7f83bc"
   },
   "Content/Town/Friendobo.cs": {
-    "mtime": 1794427315.600212,
-    "ast_hash": "d9e8bbe2ad1696a9cf97537c51817070",
-    "semantic_hash": "d9e8bbe2ad1696a9cf97537c51817070"
+    "mtime": 1794498267.3741233,
+    "ast_hash": "08c14b349f6f834638715fdc6652c528",
+    "semantic_hash": "08c14b349f6f834638715fdc6652c528"
   },
   "Content/Underground/Generation/RustedNailPass.cs": {
     "mtime": 1793717809.1130545,
@@ -4380,19 +4380,19 @@
     "semantic_hash": "7b513faf59aa8d4105b142b15387b320"
   },
   "Content/Coghaven/Generation/CoghavenBlueprints.cs": {
-    "mtime": 1793995276.7682498,
-    "ast_hash": "75b4b2e6d39f5f7a18a0fe69c83bb5dd",
-    "semantic_hash": "75b4b2e6d39f5f7a18a0fe69c83bb5dd"
+    "mtime": 1794498475.4971385,
+    "ast_hash": "a86d96942c04eb4418e3a3c4487c6bcc",
+    "semantic_hash": "a86d96942c04eb4418e3a3c4487c6bcc"
   },
   "Content/Coghaven/Generation/CoghavenChests.cs": {
-    "mtime": 1794238450.2134917,
-    "ast_hash": "fa193c47fb2fecee62e4aa3713428821",
-    "semantic_hash": "fa193c47fb2fecee62e4aa3713428821"
+    "mtime": 1794498520.593877,
+    "ast_hash": "64156f9b00c0d2674d36987c8055de87",
+    "semantic_hash": "64156f9b00c0d2674d36987c8055de87"
   },
   "Content/Coghaven/Generation/CoghavenPass.cs": {
-    "mtime": 1793995320.025484,
-    "ast_hash": "f7efbd4aedffe7d3ca9107b34627b9b9",
-    "semantic_hash": "f7efbd4aedffe7d3ca9107b34627b9b9"
+    "mtime": 1794498529.8451848,
+    "ast_hash": "f624abaa0010bf535d1c42188c404793",
+    "semantic_hash": "f624abaa0010bf535d1c42188c404793"
   },
   "Content/Coghaven/Generation/CoghavenSitePass.cs": {
     "mtime": 1793981214.7387424,
@@ -4665,9 +4665,9 @@
     "semantic_hash": "fde7943b901e08f15db2920271f9a64e"
   },
   "art/coghaven/make_coghaven_blueprints.py": {
-    "mtime": 1793995276.6617346,
-    "ast_hash": "aad762a8b9ee546decc14c3413d477a8",
-    "semantic_hash": "aad762a8b9ee546decc14c3413d477a8"
+    "mtime": 1794498468.8580544,
+    "ast_hash": "349e9ae4a39332fcd31688b2ce5a5690",
+    "semantic_hash": "349e9ae4a39332fcd31688b2ce5a5690"
   },
   "art/coghaven/make_jade_golem_art.py": {
     "mtime": 1794337404.285821,
@@ -4705,9 +4705,9 @@
     "semantic_hash": "8a6aaff8e6729af808d213cdf671bb10"
   },
   "tools/sim/coghaven_sim.py": {
-    "mtime": 1793998255.0698688,
-    "ast_hash": "c41171ee38267d8d3a1dec86a8b64f72",
-    "semantic_hash": "c41171ee38267d8d3a1dec86a8b64f72"
+    "mtime": 1794502814.5809953,
+    "ast_hash": "9a0f429fc7c668aceea34f3e092184ac",
+    "semantic_hash": "9a0f429fc7c668aceea34f3e092184ac"
   },
   "tools/sim/update_2026_11_06_sim.py": {
     "mtime": 1793979502.4346445,
@@ -5093,11 +5093,6 @@
     "mtime": 1793979518.862769,
     "ast_hash": "0214e3d4919a5ad71a578827594afe72",
     "semantic_hash": "0214e3d4919a5ad71a578827594afe72"
-  },
-  "docs/media/2026-11-06_coghaven-island.png": {
-    "mtime": 1793998261.8489642,
-    "ast_hash": "7bc6d9c81bd3a5ef18cd9e4fe7d134fc",
-    "semantic_hash": "7bc6d9c81bd3a5ef18cd9e4fe7d134fc"
   },
   "docs/media/2026-11-06_coghaven-underside.gif": {
     "mtime": 1793998275.4412627,
@@ -5510,9 +5505,9 @@
     "semantic_hash": "7c4d6c1cf8b688f4621a174405be0fba"
   },
   "tools/sim/update_2026_11_10b_sim.py": {
-    "mtime": 1794412248.9388547,
-    "ast_hash": "7a59bb82212d4a066b9f0c31e1192eb9",
-    "semantic_hash": "7a59bb82212d4a066b9f0c31e1192eb9"
+    "mtime": 1794502814.5789964,
+    "ast_hash": "8cc36efa99730bad7479631b03c9fff2",
+    "semantic_hash": "8cc36efa99730bad7479631b03c9fff2"
   },
   "tools/sim/update_2026_11_11_sim.py": {
     "mtime": 1794428931.1921308,
@@ -5734,11 +5729,6 @@
     "ast_hash": "6b435b9bbf861ebb1da120f57e8ad332",
     "semantic_hash": "6b435b9bbf861ebb1da120f57e8ad332"
   },
-  "docs/media/2026-11-10_coghaven-chests.png": {
-    "mtime": 1794340055.7203221,
-    "ast_hash": "1072e82da54dde5101e0e2afec1f9093",
-    "semantic_hash": "1072e82da54dde5101e0e2afec1f9093"
-  },
   "docs/media/2026-11-10_coghaven-jade-golem-palm.gif": {
     "mtime": 1794340024.1703346,
     "ast_hash": "bcb1bcc8ecb03749eef106c4767aa5e6",
@@ -5833,5 +5823,570 @@
     "mtime": 1794413559.293188,
     "ast_hash": "0cdbc5fa4471e8c29e63960e32ddfcdc",
     "semantic_hash": "0cdbc5fa4471e8c29e63960e32ddfcdc"
+  },
+  "Content/BloodMoon/NPCs/Cogsqueleton.cs": {
+    "mtime": 1794516979.1822503,
+    "ast_hash": "6f04eb104935a1ac7032a9c042e2d6c3",
+    "semantic_hash": "6f04eb104935a1ac7032a9c042e2d6c3"
+  },
+  "Content/BloodMoon/NPCs/CogsqueletonRigData.cs": {
+    "mtime": 1794516701.1594105,
+    "ast_hash": "e6b837f251cb649cc03e3f344c0ebcaa",
+    "semantic_hash": "e6b837f251cb649cc03e3f344c0ebcaa"
+  },
+  "Content/BloodMoon/NPCs/Mechromancer.cs": {
+    "mtime": 1794516932.1212833,
+    "ast_hash": "3e2adfd0d28718ce4ec71438710ca104",
+    "semantic_hash": "3e2adfd0d28718ce4ec71438710ca104"
+  },
+  "Content/BloodMoon/NPCs/MechromancerRigData.cs": {
+    "mtime": 1794516857.1830044,
+    "ast_hash": "26332cfb7df8b90f2cab9121baba9f23",
+    "semantic_hash": "26332cfb7df8b90f2cab9121baba9f23"
+  },
+  "Content/BloodMoon/Projectiles/CogsqueletonGrave.cs": {
+    "mtime": 1794516979.6911983,
+    "ast_hash": "094f24c4fb91545e3dc3dcf737cd30ff",
+    "semantic_hash": "094f24c4fb91545e3dc3dcf737cd30ff"
+  },
+  "Content/BloodMoon/Projectiles/SoulFireCog.cs": {
+    "mtime": 1794516997.4098797,
+    "ast_hash": "c1b033746aa0b68a02cb845097819d0b",
+    "semantic_hash": "c1b033746aa0b68a02cb845097819d0b"
+  },
+  "Content/Coghaven/Items/Koi.cs": {
+    "mtime": 1794498579.3379796,
+    "ast_hash": "c3106c477a1e0a45b7178c737cee88fe",
+    "semantic_hash": "c3106c477a1e0a45b7178c737cee88fe"
+  },
+  "Content/Coghaven/KoiFishing.cs": {
+    "mtime": 1794498579.4891295,
+    "ast_hash": "10d65929fae7aad9cedf61113a712968",
+    "semantic_hash": "10d65929fae7aad9cedf61113a712968"
+  },
+  "Content/Coghaven/NPCs/Cogscorpion.cs": {
+    "mtime": 1794513729.7376442,
+    "ast_hash": "0189a49dd7dde8c901ec9027d98b8716",
+    "semantic_hash": "0189a49dd7dde8c901ec9027d98b8716"
+  },
+  "Content/Coghaven/NPCs/CogscorpionRigData.cs": {
+    "mtime": 1794500455.0438876,
+    "ast_hash": "a4118b87cfa80a25aee076bb2f55ab17",
+    "semantic_hash": "a4118b87cfa80a25aee076bb2f55ab17"
+  },
+  "Content/Coghaven/NPCs/FlyingBuddhaHead.cs": {
+    "mtime": 1794515526.6680162,
+    "ast_hash": "2858d0504be311aeb79e6fd78a5460c5",
+    "semantic_hash": "2858d0504be311aeb79e6fd78a5460c5"
+  },
+  "Content/Coghaven/NPCs/FlyingBuddhaHeadRigData.cs": {
+    "mtime": 1794515471.375729,
+    "ast_hash": "d1c9b467b15876cb24d6b7b0732bcd21",
+    "semantic_hash": "d1c9b467b15876cb24d6b7b0732bcd21"
+  },
+  "Content/Coghaven/Projectiles/CogscorpionSting.cs": {
+    "mtime": 1794500747.2136168,
+    "ast_hash": "ed5381a08010de0b6a13d089d8f7a616",
+    "semantic_hash": "ed5381a08010de0b6a13d089d8f7a616"
+  },
+  "Content/Combinator/Combination/CombinationRules.cs": {
+    "mtime": 1794514401.2726934,
+    "ast_hash": "4af436decad038fdb30bd738d8112420",
+    "semantic_hash": "4af436decad038fdb30bd738d8112420"
+  },
+  "Content/Combinator/Combination/CombinatorBlast.cs": {
+    "mtime": 1794514104.333668,
+    "ast_hash": "c171d79faa73522b660b0fbd6c276b0b",
+    "semantic_hash": "c171d79faa73522b660b0fbd6c276b0b"
+  },
+  "Content/Combinator/Combination/CombinatorTraits.cs": {
+    "mtime": 1794514095.0916693,
+    "ast_hash": "4e876cef13019f369459b2100303702a",
+    "semantic_hash": "4e876cef13019f369459b2100303702a"
+  },
+  "Content/Combinator/Combination/CombinedAltPlayer.cs": {
+    "mtime": 1794514433.087821,
+    "ast_hash": "8d98c7f989813750aeed906cb9922a68",
+    "semantic_hash": "8d98c7f989813750aeed906cb9922a68"
+  },
+  "Content/Combinator/Combination/CombinedHeldItemLayer.cs": {
+    "mtime": 1794499521.9385874,
+    "ast_hash": "f7aed0b7918341b9015459ddb8fffa6d",
+    "semantic_hash": "f7aed0b7918341b9015459ddb8fffa6d"
+  },
+  "Content/Combinator/Combination/CombinedProjectile.cs": {
+    "mtime": 1794514104.3321612,
+    "ast_hash": "a09c6eefe624921cc0ed90ab0428166a",
+    "semantic_hash": "a09c6eefe624921cc0ed90ab0428166a"
+  },
+  "Content/Combinator/Combination/CombinedSprites.cs": {
+    "mtime": 1794499482.7703846,
+    "ast_hash": "20021aeec17b85c6dd3bef337a72b31c",
+    "semantic_hash": "20021aeec17b85c6dd3bef337a72b31c"
+  },
+  "Content/Combinator/Combination/CombinedWeapon.Combat.cs": {
+    "mtime": 1794514104.3321612,
+    "ast_hash": "00609d715a1f38bc7f35861abf784b2d",
+    "semantic_hash": "00609d715a1f38bc7f35861abf784b2d"
+  },
+  "Content/Combinator/Combination/CombinedWeapon.Draw.cs": {
+    "mtime": 1794499504.15846,
+    "ast_hash": "a3758926de986f9a2c2cc4020b351fae",
+    "semantic_hash": "a3758926de986f9a2c2cc4020b351fae"
+  },
+  "Content/Combinator/Combination/CombinedWeapon.cs": {
+    "mtime": 1794514381.4836972,
+    "ast_hash": "35a49fbc7dd5be212a787070b10cb609",
+    "semantic_hash": "35a49fbc7dd5be212a787070b10cb609"
+  },
+  "Content/Combinator/Combination/TraitEffects.cs": {
+    "mtime": 1794514104.326089,
+    "ast_hash": "dbd096ff7fd91c9d58166edea84567bd",
+    "semantic_hash": "dbd096ff7fd91c9d58166edea84567bd"
+  },
+  "Content/Combinator/CombinatorSystem.cs": {
+    "mtime": 1794500193.1897726,
+    "ast_hash": "34a0db52e17fd94b3437bd100c60488f",
+    "semantic_hash": "34a0db52e17fd94b3437bd100c60488f"
+  },
+  "Content/Combinator/Items/CombinatorBlueprint.cs": {
+    "mtime": 1794502734.2695832,
+    "ast_hash": "b672d99993d895caf7cfb8ca6803c724",
+    "semantic_hash": "b672d99993d895caf7cfb8ca6803c724"
+  },
+  "Content/Combinator/Items/TheCombinator.cs": {
+    "mtime": 1794500162.5884266,
+    "ast_hash": "03c212bc8f54b7d8cbe8c5af9767abd5",
+    "semantic_hash": "03c212bc8f54b7d8cbe8c5af9767abd5"
+  },
+  "Content/Combinator/Items/TheFirstHalf.cs": {
+    "mtime": 1794500113.3951082,
+    "ast_hash": "32e6966c76d5c98201b883176769f5dc",
+    "semantic_hash": "32e6966c76d5c98201b883176769f5dc"
+  },
+  "Content/Combinator/Items/TheSecondHalf.cs": {
+    "mtime": 1794500113.4376817,
+    "ast_hash": "d28d887fe4477130102a2693d84bd0bd",
+    "semantic_hash": "d28d887fe4477130102a2693d84bd0bd"
+  },
+  "Content/Combinator/Tiles/CombinatorTile.cs": {
+    "mtime": 1794500162.6364815,
+    "ast_hash": "2b7680c032c350f7941581e1d97f3c0c",
+    "semantic_hash": "2b7680c032c350f7941581e1d97f3c0c"
+  },
+  "Content/Combinator/UI/CombinatorPlayer.cs": {
+    "mtime": 1794499876.7536564,
+    "ast_hash": "c7598301c17f9ec7e0e1da52f1db2032",
+    "semantic_hash": "c7598301c17f9ec7e0e1da52f1db2032"
+  },
+  "Content/Combinator/UI/CombinatorUI.cs": {
+    "mtime": 1794502354.1795702,
+    "ast_hash": "6152759c991e0105d89179c76700e131",
+    "semantic_hash": "6152759c991e0105d89179c76700e131"
+  },
+  "Content/Combinator/UI/CombinatorUISystem.cs": {
+    "mtime": 1794499926.0070019,
+    "ast_hash": "aae9e239b3c42fe57017451daa90cab1",
+    "semantic_hash": "aae9e239b3c42fe57017451daa90cab1"
+  },
+  "Content/Furniture/BuffStationRules.cs": {
+    "mtime": 1794498225.0617118,
+    "ast_hash": "ef137e6bb58d1f812b07edff84a42f84",
+    "semantic_hash": "ef137e6bb58d1f812b07edff84a42f84"
+  },
+  "Content/Mechanist/MechanistPrefix.cs": {
+    "mtime": 1794498383.9393525,
+    "ast_hash": "2b0a49fa643319f3e1c06eae9e0421b1",
+    "semantic_hash": "2b0a49fa643319f3e1c06eae9e0421b1"
+  },
+  "Content/Mechanist/Stations/SteamInjection.cs": {
+    "mtime": 1794498250.580468,
+    "ast_hash": "707409472b515dbb3b6d412b33ae7138",
+    "semantic_hash": "707409472b515dbb3b6d412b33ae7138"
+  },
+  "Content/Mechanist/Stations/SteamInjector.cs": {
+    "mtime": 1794501284.8041022,
+    "ast_hash": "d98ab5ca2392b4cdd09b83300be658cb",
+    "semantic_hash": "d98ab5ca2392b4cdd09b83300be658cb"
+  },
+  "Content/Mechanist/Stations/SteamInjectorTile.cs": {
+    "mtime": 1794498250.9262881,
+    "ast_hash": "da779645406b4e93d4477a8d5acb204b",
+    "semantic_hash": "da779645406b4e93d4477a8d5acb204b"
+  },
+  "Content/Mechanist/SteamRocketPlayer.cs": {
+    "mtime": 1794498171.993158,
+    "ast_hash": "151e29f39179858ecd0c7d6f3fff3ae1",
+    "semantic_hash": "151e29f39179858ecd0c7d6f3fff3ae1"
+  },
+  "Core/Combat/CombinatorTrait.cs": {
+    "mtime": 1794513760.2905736,
+    "ast_hash": "8e4b17fdfc5e2a3528478fe36fc3b79d",
+    "semantic_hash": "8e4b17fdfc5e2a3528478fe36fc3b79d"
+  },
+  "Core/Combat/IRightClickSkill.cs": {
+    "mtime": 1794499425.9371316,
+    "ast_hash": "39204b0f4e81a4b0a4928a28ec9a8625",
+    "semantic_hash": "39204b0f4e81a4b0a4928a28ec9a8625"
+  },
+  "Core/Combat/RightClickOwner.cs": {
+    "mtime": 1794499438.7682877,
+    "ast_hash": "119619c316a0110bfbef87725f885521",
+    "semantic_hash": "119619c316a0110bfbef87725f885521"
+  },
+  "art/bloodmoon/make_cogsqueleton_art.py": {
+    "mtime": 1794516699.4621358,
+    "ast_hash": "dff67ac47b0872cf4e850b9da5b92e76",
+    "semantic_hash": "dff67ac47b0872cf4e850b9da5b92e76"
+  },
+  "art/bloodmoon/make_mechromancer_art.py": {
+    "mtime": 1794516854.139927,
+    "ast_hash": "7d7ed50d158da14d3d9b252ae950982d",
+    "semantic_hash": "7d7ed50d158da14d3d9b252ae950982d"
+  },
+  "art/coghaven/make_buddha_head_art.py": {
+    "mtime": 1794515451.913036,
+    "ast_hash": "857dd78a360aefe197974c617581584e",
+    "semantic_hash": "857dd78a360aefe197974c617581584e"
+  },
+  "art/coghaven/make_cogscorpion_art.py": {
+    "mtime": 1794500454.3531988,
+    "ast_hash": "df7424b043ad0e515278f3cd87014302",
+    "semantic_hash": "df7424b043ad0e515278f3cd87014302"
+  },
+  "art/coghaven/make_koi_art.py": {
+    "mtime": 1794500974.5041876,
+    "ast_hash": "32c37a608af60cdcc9707e1a9e1c094f",
+    "semantic_hash": "32c37a608af60cdcc9707e1a9e1c094f"
+  },
+  "art/coghaven/previous/make_buddha_head_art_v1_2026-11-12.py": {
+    "mtime": 1794514739.768745,
+    "ast_hash": "e17ed27ccd329576fe34016471e78505",
+    "semantic_hash": "e17ed27ccd329576fe34016471e78505"
+  },
+  "art/coghaven/previous/make_coghaven_blueprints_2026-11-11.py": {
+    "mtime": 1794498468.5443432,
+    "ast_hash": "aad762a8b9ee546decc14c3413d477a8",
+    "semantic_hash": "aad762a8b9ee546decc14c3413d477a8"
+  },
+  "art/combinator/make_combinator_art.py": {
+    "mtime": 1794502734.2665758,
+    "ast_hash": "4a2442474cd8e57b3ad87a51f40c4cc0",
+    "semantic_hash": "4a2442474cd8e57b3ad87a51f40c4cc0"
+  },
+  "art/mechanist/make_steam_injector_art.py": {
+    "mtime": 1794501086.2842708,
+    "ast_hash": "59b45167434642da379c8048ec14b256",
+    "semantic_hash": "59b45167434642da379c8048ec14b256"
+  },
+  "tools/check_combinator.py": {
+    "mtime": 1794514501.6774054,
+    "ast_hash": "88d4f534fb4459c35bc9a6de23ab5623",
+    "semantic_hash": "88d4f534fb4459c35bc9a6de23ab5623"
+  },
+  "tools/sim/update_2026_11_12_sim.py": {
+    "mtime": 1794517156.688069,
+    "ast_hash": "439ecc909f25cec24ad45f2f303aa5af",
+    "semantic_hash": "439ecc909f25cec24ad45f2f303aa5af"
+  },
+  "Content/BloodMoon/Gores/Cogsqueleton_GoreBone.png": {
+    "mtime": 1794516701.1773317,
+    "ast_hash": "1c9df4c32861bea110a24c2fe2126b07",
+    "semantic_hash": "1c9df4c32861bea110a24c2fe2126b07"
+  },
+  "Content/BloodMoon/Gores/Cogsqueleton_GoreCog.png": {
+    "mtime": 1794516701.1751454,
+    "ast_hash": "873ed3b0269bc8c75570f5aeda9c7c14",
+    "semantic_hash": "873ed3b0269bc8c75570f5aeda9c7c14"
+  },
+  "Content/BloodMoon/Gores/Cogsqueleton_GoreSkull.png": {
+    "mtime": 1794516701.1700606,
+    "ast_hash": "2a6116f87e0a7d8023e400914d795643",
+    "semantic_hash": "2a6116f87e0a7d8023e400914d795643"
+  },
+  "Content/BloodMoon/Gores/Mechromancer_GoreRibs.png": {
+    "mtime": 1794516857.2590609,
+    "ast_hash": "5356f21c53a02151c4be0c62955bae2b",
+    "semantic_hash": "5356f21c53a02151c4be0c62955bae2b"
+  },
+  "Content/BloodMoon/Gores/Mechromancer_GoreSkull.png": {
+    "mtime": 1794516857.2503877,
+    "ast_hash": "5f79c6c92ee2e4e33c8fc8577b4018b3",
+    "semantic_hash": "5f79c6c92ee2e4e33c8fc8577b4018b3"
+  },
+  "Content/BloodMoon/Gores/Mechromancer_GoreStaff.png": {
+    "mtime": 1794516857.25399,
+    "ast_hash": "e1624323fff96e8ae002687c016ce093",
+    "semantic_hash": "e1624323fff96e8ae002687c016ce093"
+  },
+  "Content/BloodMoon/NPCs/Cogsqueleton.png": {
+    "mtime": 1794516701.135142,
+    "ast_hash": "e2fc17d22765ae135400e4cb1e85133b",
+    "semantic_hash": "e2fc17d22765ae135400e4cb1e85133b"
+  },
+  "Content/BloodMoon/NPCs/Cogsqueleton_Far.png": {
+    "mtime": 1794516701.1279385,
+    "ast_hash": "ea93035c7a7b3b7e9f0ce7b249af5d56",
+    "semantic_hash": "ea93035c7a7b3b7e9f0ce7b249af5d56"
+  },
+  "Content/BloodMoon/NPCs/Cogsqueleton_Glow.png": {
+    "mtime": 1794516701.1578982,
+    "ast_hash": "9cea14c1d8cde67dfc1f939e730a9280",
+    "semantic_hash": "9cea14c1d8cde67dfc1f939e730a9280"
+  },
+  "Content/BloodMoon/NPCs/Cogsqueleton_Near.png": {
+    "mtime": 1794516701.151846,
+    "ast_hash": "af7731dbcc53c0b46eca316bdc92da67",
+    "semantic_hash": "af7731dbcc53c0b46eca316bdc92da67"
+  },
+  "Content/BloodMoon/NPCs/Mechromancer.png": {
+    "mtime": 1794516857.129191,
+    "ast_hash": "f074318c817c84bc710c42afb986147f",
+    "semantic_hash": "f074318c817c84bc710c42afb986147f"
+  },
+  "Content/BloodMoon/NPCs/Mechromancer_Far.png": {
+    "mtime": 1794516857.082736,
+    "ast_hash": "821a3de1628310ac2ae55dbd06cca920",
+    "semantic_hash": "821a3de1628310ac2ae55dbd06cca920"
+  },
+  "Content/BloodMoon/NPCs/Mechromancer_Glow.png": {
+    "mtime": 1794516857.1808374,
+    "ast_hash": "6034984de1354cc1342b5b66e4f6bc37",
+    "semantic_hash": "6034984de1354cc1342b5b66e4f6bc37"
+  },
+  "Content/BloodMoon/NPCs/Mechromancer_Near.png": {
+    "mtime": 1794516857.1493888,
+    "ast_hash": "8ee8660f25c9391ce1b062d35f53a525",
+    "semantic_hash": "8ee8660f25c9391ce1b062d35f53a525"
+  },
+  "Content/BloodMoon/Projectiles/CogsqueletonGrave.png": {
+    "mtime": 1794516857.206894,
+    "ast_hash": "bcc27af8df5a46cb79b00a5730b60b1e",
+    "semantic_hash": "bcc27af8df5a46cb79b00a5730b60b1e"
+  },
+  "Content/BloodMoon/Projectiles/CogsqueletonGrave_Glow.png": {
+    "mtime": 1794516857.2161603,
+    "ast_hash": "0597b0d7f478929551dd0a03178f2489",
+    "semantic_hash": "0597b0d7f478929551dd0a03178f2489"
+  },
+  "Content/BloodMoon/Projectiles/SoulFireCog.png": {
+    "mtime": 1794516857.1958315,
+    "ast_hash": "3adf95d7afea4f97b4d5b052a9c0404a",
+    "semantic_hash": "3adf95d7afea4f97b4d5b052a9c0404a"
+  },
+  "Content/BloodMoon/Projectiles/SoulFireCog_Glow.png": {
+    "mtime": 1794516857.1983404,
+    "ast_hash": "08f3b8455d99dddca7fef988ab55bac6",
+    "semantic_hash": "08f3b8455d99dddca7fef988ab55bac6"
+  },
+  "Content/Coghaven/Gores/Cogscorpion_GoreBody.png": {
+    "mtime": 1794500455.0619435,
+    "ast_hash": "69af59859bcd16e884e0a10a765d8596",
+    "semantic_hash": "69af59859bcd16e884e0a10a765d8596"
+  },
+  "Content/Coghaven/Gores/Cogscorpion_GoreClaw.png": {
+    "mtime": 1794500455.0609448,
+    "ast_hash": "ea44c0dbf55337e7804ce88552273325",
+    "semantic_hash": "ea44c0dbf55337e7804ce88552273325"
+  },
+  "Content/Coghaven/Gores/Cogscorpion_GoreTail.png": {
+    "mtime": 1794500455.0599458,
+    "ast_hash": "a7c03fb03086cb375841d003d6c1b39d",
+    "semantic_hash": "a7c03fb03086cb375841d003d6c1b39d"
+  },
+  "Content/Coghaven/Gores/FlyingBuddhaHead_GoreCog.png": {
+    "mtime": 1794515471.5109143,
+    "ast_hash": "f26d897037fbc4998fe02b517058e7d2",
+    "semantic_hash": "f26d897037fbc4998fe02b517058e7d2"
+  },
+  "Content/Coghaven/Gores/FlyingBuddhaHead_GoreEar.png": {
+    "mtime": 1794515471.5094008,
+    "ast_hash": "bfc8d444af15c7cf54a55190584830e2",
+    "semantic_hash": "bfc8d444af15c7cf54a55190584830e2"
+  },
+  "Content/Coghaven/Gores/FlyingBuddhaHead_GoreHalf.png": {
+    "mtime": 1794515471.49828,
+    "ast_hash": "76da61dcbd038bd6ecf480d44a37e4d4",
+    "semantic_hash": "76da61dcbd038bd6ecf480d44a37e4d4"
+  },
+  "Content/Coghaven/Items/Koi.png": {
+    "mtime": 1794500999.3117936,
+    "ast_hash": "0c8c8aeb013bd6067c4d376a7426f90b",
+    "semantic_hash": "0c8c8aeb013bd6067c4d376a7426f90b"
+  },
+  "Content/Coghaven/NPCs/Cogscorpion.png": {
+    "mtime": 1794500455.0343294,
+    "ast_hash": "0a1ecfd4f06d722dd62760ba020ade10",
+    "semantic_hash": "0a1ecfd4f06d722dd62760ba020ade10"
+  },
+  "Content/Coghaven/NPCs/Cogscorpion_Far.png": {
+    "mtime": 1794500455.0247316,
+    "ast_hash": "1c77e888988fa0ced9b71722f8b4da3a",
+    "semantic_hash": "1c77e888988fa0ced9b71722f8b4da3a"
+  },
+  "Content/Coghaven/NPCs/Cogscorpion_Glow.png": {
+    "mtime": 1794500455.0438876,
+    "ast_hash": "2b790e11c3ff0ca86c9bfe1f8357f33e",
+    "semantic_hash": "2b790e11c3ff0ca86c9bfe1f8357f33e"
+  },
+  "Content/Coghaven/NPCs/Cogscorpion_Near.png": {
+    "mtime": 1794500455.0398848,
+    "ast_hash": "459e9e10b1f68b1a02a701071d51fe09",
+    "semantic_hash": "459e9e10b1f68b1a02a701071d51fe09"
+  },
+  "Content/Coghaven/NPCs/FlyingBuddhaHead.png": {
+    "mtime": 1794515471.333803,
+    "ast_hash": "9c7cb65b03f22b09e439daba18282987",
+    "semantic_hash": "9c7cb65b03f22b09e439daba18282987"
+  },
+  "Content/Coghaven/NPCs/FlyingBuddhaHead_Far.png": {
+    "mtime": 1794515471.2821813,
+    "ast_hash": "c99612552f297826d9c207f60806d808",
+    "semantic_hash": "c99612552f297826d9c207f60806d808"
+  },
+  "Content/Coghaven/NPCs/FlyingBuddhaHead_Glow.png": {
+    "mtime": 1794515471.3727436,
+    "ast_hash": "d7c8d25185b4939cac2bd74b279a4a40",
+    "semantic_hash": "d7c8d25185b4939cac2bd74b279a4a40"
+  },
+  "Content/Combinator/Items/CombinatorBlueprint.png": {
+    "mtime": 1794502734.7309399,
+    "ast_hash": "238792b0ef321e070aacf825b48efa7b",
+    "semantic_hash": "238792b0ef321e070aacf825b48efa7b"
+  },
+  "Content/Combinator/Items/CombinatorBlueprint_Aura.png": {
+    "mtime": 1794502734.7339854,
+    "ast_hash": "65fb1e1cb2570eddbde36526eff90c79",
+    "semantic_hash": "65fb1e1cb2570eddbde36526eff90c79"
+  },
+  "Content/Combinator/Items/CombinatorBlueprint_Beam.png": {
+    "mtime": 1794502734.7324562,
+    "ast_hash": "71a9f505e0d9d504fe71c312578f890c",
+    "semantic_hash": "71a9f505e0d9d504fe71c312578f890c"
+  },
+  "Content/Combinator/Items/TheCombinator.png": {
+    "mtime": 1794502734.724418,
+    "ast_hash": "a422cd6be12e252649b3fd35f62074fe",
+    "semantic_hash": "a422cd6be12e252649b3fd35f62074fe"
+  },
+  "Content/Combinator/Items/TheFirstHalf.png": {
+    "mtime": 1794502734.727429,
+    "ast_hash": "c0c789b3f5e480f87c72182fb5eaa08a",
+    "semantic_hash": "c0c789b3f5e480f87c72182fb5eaa08a"
+  },
+  "Content/Combinator/Items/TheSecondHalf.png": {
+    "mtime": 1794502734.7289355,
+    "ast_hash": "1e1fc43890a817f1a0ddd223bbbc0668",
+    "semantic_hash": "1e1fc43890a817f1a0ddd223bbbc0668"
+  },
+  "Content/Combinator/Tiles/CombinatorTile.png": {
+    "mtime": 1794502734.7148118,
+    "ast_hash": "9d9608a411c084fe315ec4f3fdbf0cac",
+    "semantic_hash": "9d9608a411c084fe315ec4f3fdbf0cac"
+  },
+  "Content/Combinator/Tiles/CombinatorTile_Highlight.png": {
+    "mtime": 1794502734.722842,
+    "ast_hash": "5cdb3ab13f535c71ac9d01daeda03338",
+    "semantic_hash": "5cdb3ab13f535c71ac9d01daeda03338"
+  },
+  "Content/Combinator/UI/CombinatorButton.png": {
+    "mtime": 1794502734.7578552,
+    "ast_hash": "7fa9daff003d4bdf6642cae94c14a585",
+    "semantic_hash": "7fa9daff003d4bdf6642cae94c14a585"
+  },
+  "Content/Combinator/UI/CombinatorHelp.png": {
+    "mtime": 1794502734.7608535,
+    "ast_hash": "3e0af61137adbc7dc28b0e0232ac5cf3",
+    "semantic_hash": "3e0af61137adbc7dc28b0e0232ac5cf3"
+  },
+  "Content/Combinator/UI/CombinatorPanel.png": {
+    "mtime": 1794502734.7399766,
+    "ast_hash": "21c9864fbf149ac717de70ecc5f54ca5",
+    "semantic_hash": "21c9864fbf149ac717de70ecc5f54ca5"
+  },
+  "Content/Combinator/UI/CombinatorProductSlot.png": {
+    "mtime": 1794502734.7538435,
+    "ast_hash": "21265fd86534413398e14dff76014826",
+    "semantic_hash": "21265fd86534413398e14dff76014826"
+  },
+  "Content/Combinator/UI/CombinatorSlot.png": {
+    "mtime": 1794502734.745116,
+    "ast_hash": "1811634c8bb85abc331c0aa83f36a6e3",
+    "semantic_hash": "1811634c8bb85abc331c0aa83f36a6e3"
+  },
+  "Content/Mechanist/Stations/SteamInjection.png": {
+    "mtime": 1794501086.8508818,
+    "ast_hash": "7e55681cee09a605c6111d0713ef4032",
+    "semantic_hash": "7e55681cee09a605c6111d0713ef4032"
+  },
+  "Content/Mechanist/Stations/SteamInjector.png": {
+    "mtime": 1794501086.8498678,
+    "ast_hash": "038cd0c37c645a449d63cd80fee32cb7",
+    "semantic_hash": "038cd0c37c645a449d63cd80fee32cb7"
+  },
+  "Content/Mechanist/Stations/SteamInjectorTile.png": {
+    "mtime": 1794501086.8447585,
+    "ast_hash": "e6471f1453d7afc1ce261ac131e5deca",
+    "semantic_hash": "e6471f1453d7afc1ce261ac131e5deca"
+  },
+  "Content/Mechanist/Stations/SteamInjectorTile_Highlight.png": {
+    "mtime": 1794501086.8471427,
+    "ast_hash": "06bd916b8950ea2b3da37ffe6995fbeb",
+    "semantic_hash": "06bd916b8950ea2b3da37ffe6995fbeb"
+  },
+  "docs/media/2026-11-12_bloodmoon-mechromancer-frames.png": {
+    "mtime": 1794517182.3470297,
+    "ast_hash": "f58b8fbf94a75d61878794b2af9a9e0a",
+    "semantic_hash": "f58b8fbf94a75d61878794b2af9a9e0a"
+  },
+  "docs/media/2026-11-12_bloodmoon-mechromancer.gif": {
+    "mtime": 1794517182.077442,
+    "ast_hash": "d2a6ed6eb212a83b08e39c2437db3754",
+    "semantic_hash": "d2a6ed6eb212a83b08e39c2437db3754"
+  },
+  "docs/media/2026-11-12_coghaven-buddha-head-frames.png": {
+    "mtime": 1794515651.8522937,
+    "ast_hash": "34e36c0e5b48d936a015c843b1deef6b",
+    "semantic_hash": "34e36c0e5b48d936a015c843b1deef6b"
+  },
+  "docs/media/2026-11-12_coghaven-buddha-head.gif": {
+    "mtime": 1794515651.6507733,
+    "ast_hash": "bcc260a3e4832ed28c382eeba4f0a163",
+    "semantic_hash": "bcc260a3e4832ed28c382eeba4f0a163"
+  },
+  "docs/media/2026-11-12_coghaven-cogscorpion.gif": {
+    "mtime": 1794514683.3399806,
+    "ast_hash": "495d5b7c5f431bb0e309f6d2cfb45dd0",
+    "semantic_hash": "495d5b7c5f431bb0e309f6d2cfb45dd0"
+  },
+  "docs/media/2026-11-12_coghaven-island-chests.png": {
+    "mtime": 1794502817.4831514,
+    "ast_hash": "f6bd83308e4d4da537ebe425b8ec0357",
+    "semantic_hash": "f6bd83308e4d4da537ebe425b8ec0357"
+  },
+  "docs/media/2026-11-12_combinator-station.gif": {
+    "mtime": 1794502844.2680695,
+    "ast_hash": "485b3c4f3c11c2b873171f528295600c",
+    "semantic_hash": "485b3c4f3c11c2b873171f528295600c"
+  },
+  "docs/media/2026-11-12_combinator-window.png": {
+    "mtime": 1794502839.568774,
+    "ast_hash": "1a5dc1c89ddb1b53c78eac784c047b6c",
+    "semantic_hash": "1a5dc1c89ddb1b53c78eac784c047b6c"
+  },
+  "docs/media/2026-11-12_items-steam-injector-koi.png": {
+    "mtime": 1794502849.0840735,
+    "ast_hash": "da3c3d82d907daea9925ee31568cbe2e",
+    "semantic_hash": "da3c3d82d907daea9925ee31568cbe2e"
+  },
+  "docs/media/2026-11-12_mechanist-rocket-boots.gif": {
+    "mtime": 1794502848.9678204,
+    "ast_hash": "bed07b98860b352ca113c856f736cf05",
+    "semantic_hash": "bed07b98860b352ca113c856f736cf05"
+  },
+  "docs/media/promo/Cogpunk-logo.png": {
+    "mtime": 1794575601.0312233,
+    "ast_hash": "cfbf52e79cd9d5049490a60542e557a1",
+    "semantic_hash": "cfbf52e79cd9d5049490a60542e557a1"
   }
 }
