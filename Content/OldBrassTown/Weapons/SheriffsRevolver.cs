@@ -16,8 +16,8 @@ namespace Cogpunk.Content.OldBrassTown.Weapons
 	/// Ball (<see cref="Damage"/> + the bullet's 7), <see cref="UseTime"/> use time, 6% crit (vanilla's 4% + <c>Item.crit</c> 2). A polished brass magnum (redrawn
 	/// 2026-11-05, user: "a polished brass powerful magnum revolver"); the left click is precise, within
 	/// <see cref="AimSpread"/> degree of the aim (user-set 2026-11-05). It fires a fast brass bullet
-	/// (<see cref="SheriffsBullet"/>) that bounces once, off a wall or off an enemy it hits, and always bounces towards an
-	/// enemy when one is in sight.
+	/// (<see cref="SheriffsBullet"/>) that bounces once off a wall (never off an enemy since 2026-11-19), and always bounces
+	/// towards an enemy when one is in sight.
 	/// <list type="bullet">
 	/// <item><b>Six chambers</b>: after <see cref="SheriffsRevolverPlayer.Chambers"/> shots it must reload for
 	/// <see cref="SheriffsRevolverPlayer.ReloadTicks"/> ticks (1.5 s), the user's price for a weapon stronger than its tier.

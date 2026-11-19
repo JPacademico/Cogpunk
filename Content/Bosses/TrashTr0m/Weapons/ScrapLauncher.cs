@@ -1,5 +1,5 @@
+using Cogpunk.Content.Mechanist;
 using Cogpunk.Core.Safety;
-using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -9,8 +9,11 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.Bosses.TrashTr0m.Weapons
 {
 	/// <summary>
-	/// Scrap Launcher (Trash-Tr0m drop, ranged): Trash-Tr0m's own jaw and grinder turned into a hand cannon. It eats bullets
-	/// as ammo but fires what the boss spits (user-set 2026-10-27):
+	/// Scrap Launcher (Trash-Tr0m drop): Trash-Tr0m's own jaw and grinder turned into a hand cannon, a Mechanist weapon since
+	/// 2026-11-17 (user: "make the scrap launcher a mechanist class weapon now instead of ranged class"; it ate bullets as a
+	/// ranged gun before): it burns steam like every Mechanist weapon (<see cref="MechanistWeapon"/>: <see cref="ChunkSteam"/> a
+	/// chunk, <see cref="BallSteam"/> a ball; my calls, the Barrel Gun's 4 for a shot of its size) and fires what the boss spits
+	/// (user-set 2026-10-27):
 	/// <list type="bullet">
 	/// <item><b>Left click</b>: a lump of chewed scrap (<see cref="ScrapLauncherChunk"/>, the item's damage) that flies
 	/// dead straight, no gravity, across a whole screen.</item>
@@ -18,10 +21,12 @@ namespace Cogpunk.Content.Bosses.TrashTr0m.Weapons
 	/// damage and x<see cref="BigShotKnockback"/> knockback) on a gravity arc, every <see cref="BigShotUseTime"/> ticks.</item>
 	/// </list>
 	/// Both burst on impact (<see cref="ScrapImpact"/>). Only the owner fires (D2).
-	/// Balance: docs/balance/weapons.csv (anchor: The Undertaker / Musket).
+	/// Balance: docs/balance/weapons.csv (anchor: The Undertaker / Musket; Mechanist since 2026-11-17).
 	/// </summary>
-	public class ScrapLauncher : CogpunkItem
+	public class ScrapLauncher : MechanistWeapon
 	{
+		public const int ChunkSteam = 4, BallSteam = 9;  // my calls (2026-11-17)
+
 		public const int UseTime = 20;
 		public const int BigShotUseTime = 31;
 		public const float BigShotMultiplier = 2.5f;
@@ -30,21 +35,20 @@ namespace Cogpunk.Content.Bosses.TrashTr0m.Weapons
 		public const float BallSpeed = 11f;
 		private const float MuzzleDistance = 30f;       // from the hand to the jaw at the gun's front
 
-		public override void SetStaticDefaults() {
-			Item.ResearchUnlockCount = 1;
-		}
+		public override int SteamCost => ChunkSteam;
+
+		public override int SteamCostFor(Player player) => player.altFunctionUse == 2 ? BallSteam : ChunkSteam;
 
 		public override void SetDefaults() {
 			Item.damage = 20;
 			Item.crit = 0;                               // + the player's base 4% = 4%
 			Item.knockBack = 6.5f;
-			Item.DamageType = DamageClass.Ranged;
+			Item.DamageType = ModContent.GetInstance<MechanistDamage>();
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.useTime = UseTime;
 			Item.useAnimation = UseTime;
 			Item.autoReuse = true;
 			Item.noMelee = true;
-			Item.useAmmo = AmmoID.Bullet;                // consumed, but never fired as a bullet
 			Item.shoot = ModContent.ProjectileType<ScrapLauncherChunk>();
 			Item.shootSpeed = ChunkSpeed;
 			Item.width = 52;

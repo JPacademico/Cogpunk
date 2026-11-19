@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
 using Cogpunk.Content.BloodMoon.Weapons;
+using Cogpunk.Content.Bosses.Jadey.Weapons;
 using Cogpunk.Content.Bosses.CursedConductor.Weapons;
 using Cogpunk.Content.Bosses.TrashTr0m.Buffs;
 using Cogpunk.Content.Bosses.TrashTr0m.Weapons;
+using Cogpunk.Content.Desert.Weapons;
 using Cogpunk.Content.Gems.Items;
 using Cogpunk.Content.Junkyard.Weapons;
 using Cogpunk.Content.Mechanist.Weapons;
 using Cogpunk.Content.OldBrassTown.Weapons;
+using Cogpunk.Content.Research.Weapons;
 using Cogpunk.Content.Scrap.Weapons;
 using Cogpunk.Core.Combat;
 using Cogpunk.Core.Safety;
@@ -98,6 +101,7 @@ namespace Cogpunk.Content.Combinator.Combination
 			Register(ModContent.ItemType<Tetanus>(), Debuff(ModContent.BuffType<TetanusDebuff>(), Tetanus.DebuffTicks, 1f));
 			Register(ModContent.ItemType<TarShower>(), new CombinatorTrait(TraitKind.TarPlague, d: TarSpray.PlagueTicks));
 			Register(ModContent.ItemType<SheriffsRevolver>(), new CombinatorTrait(TraitKind.Homing, 20f * 16f, 0.06f));   // its ricochet seeks enemies
+			Register(ModContent.ItemType<BanditsDream>(), new CombinatorTrait(TraitKind.Homing, 20f * 16f, 0.06f));      // the same ricochet (2026-11-19)
 			Register(ModContent.ItemType<ScrapLauncher>(), new CombinatorTrait(TraitKind.AreaBurst, 3f * 16f, 0.35f));    // its scrap bursts on impact
 			Register(ModContent.ItemType<Scrapmancer>(), new CombinatorTrait(TraitKind.Pierce, d: 2));                     // its wave runs through enemies
 			Register(ModContent.ItemType<CursedLantern>(), new CombinatorTrait(TraitKind.Homing, SoulFire.HomingRange, 0.08f));
@@ -111,6 +115,12 @@ namespace Cogpunk.Content.Combinator.Combination
 				new CombinatorTrait(TraitKind.Pierce, d: DiamondCutterBeam.MaxTargets - 1));
 			Register(ModContent.ItemType<CogLauncher>(), new CombinatorTrait(TraitKind.Pierce, d: CogLauncherCog.Pierce));
 			Register(ModContent.ItemType<Firesaw>(), Debuff(BuffID.OnFire, 180, 0.25f));                                  // its burning blade
+			Register(ModContent.ItemType<CogspringSword>(), new CombinatorTrait(TraitKind.FirstStrike, 1.5f));          // 2026-11-19: its charged blow (my call)
+			Register(ModContent.ItemType<SmokerBook>(), new CombinatorTrait(TraitKind.Pierce, d: 3));                    // 2026-11-19: its smoke runs through enemies
+			Register(ModContent.ItemType<JadeCursedGlaives>(), new CombinatorTrait(TraitKind.JadeCurse));                // 2026-11-17: every slash curses
+			Register(ModContent.ItemType<Cakti>(), Saver(Cakti.AmmoSaveChance));      // 2026-11-17: the Minishark's saving
+			Register(ModContent.ItemType<FireworkCannon>(), new CombinatorTrait(TraitKind.AreaBurst, FireworkRocket.BurstRadius, 0.5f),
+				new CombinatorTrait(TraitKind.Stun, 1f / FireworkRocket.StunOneIn, d: FireworkRocket.StunTicks));          // its fireworks burst and stun
 
 			// --- every other weapon, of any mod: its own declaration, else what its projectile tells -------------------------
 			var declared = new List<CombinatorTrait>(4);
@@ -161,6 +171,9 @@ namespace Cogpunk.Content.Combinator.Combination
 		public static readonly string[] NoPassives = {
 			nameof(JadePhaseblade), nameof(JadePhasesaber), nameof(ScrappyBow), nameof(ScrappyWand), nameof(TrapperChain),
 			nameof(PossessedCog),                          // 2026-11-16: its piercing is its own yoyo's (kept as the augment)
+			nameof(JadeShaperWhip),                        // 2026-11-17: its bonus against jade is its own lash's
+			nameof(IncenseMace),                           // 2026-11-18: its aura is its own right click's
+			nameof(BundleOfWands),                         // 2026-11-18: its five-bolt burst is its own attack (kept as the augment)
 		};
 
 		public override void Unload() {

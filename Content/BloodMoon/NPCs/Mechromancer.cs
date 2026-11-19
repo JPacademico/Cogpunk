@@ -2,6 +2,7 @@ using System;
 using Cogpunk.Content.BloodMoon.Projectiles;
 using Cogpunk.Content.BloodMoon.Weapons;
 using Cogpunk.Core.Configs;
+using Cogpunk.Core.Combat;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Systems;
 using Cogpunk.Core.Templates;
@@ -48,7 +49,7 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 	/// pre-Hardmode caster mini-boss (decompiled 1.4.4: 800 life, 18 defense, 40 contact in Classic = 1600 / 18 / 80 in
 	/// Expert) and the Blood Moon's own fished mini-boss, the Zombie Merman (400 / 20 / 40 Classic): <see cref="Life"/> life
 	/// (under the Dark Mage: its dead fight for it), <see cref="Defense"/> defense, knockback immune,
-	/// <see cref="ContactDamage"/> contact (a caster, not a brawler), cogs <see cref="CogDamage"/> each. Drops 6-12 Bone, its
+	/// no contact damage (2026-11-18, the floaty rule; it was 50), cogs <see cref="CogDamage"/> each. Drops 6-12 Bone, its
 	/// coins and 1 time in <see cref="PossessedCogOdds"/> the <see cref="PossessedCog"/> (user, 2026-11-16: "a chance to drop
 	/// 'possessed cog'"; the odds are my call: twice the 1 in 8 of the fished Blood Moon mini-bosses' weapons, terraria.wiki.gg,
 	/// as it comes alone and rarely). A mini-boss (<see cref="CogpunkSets.Miniboss"/>) and a machine
@@ -64,7 +65,7 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 	{
 		private enum Phase { Float, Cast, Summon, Leave }
 
-		public const int Life = 1500, ContactDamage = 50, Defense = 18;     // Expert
+		public const int Life = 1500, ContactDamage = 0, Defense = 18;      // Expert; no touch damage since 2026-11-18 (the floaty rule)
 		public const int CogDamage = 44;                                   // Expert, each
 		public const int Volley = 3;
 		public const float CogSpeed = 7.5f, CogSpread = 0.17f;              // ~10 degrees between cogs
@@ -77,6 +78,10 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 		public const int MinionsPerSummon = 2, MaxMinions = 4;
 		public const float FloatSpeed = 1.6f, FloatAccel = 0.05f;
 		public const float KeepX = 13f * 16f, KeepY = 5f * 16f;
+		// the floaty rule (user, 2026-11-18: "yes the mechromancer should follow the floaty rules"; BossNPC's numbers): a lagged
+		// follow, a slow sway and bob round its spot, and a close hover within a blade's reach of a melee fighter
+		public const float SwayX = 3f * 16f, BobY = 20f, MeleeSwayX = 12f, MeleeBobY = 8f;
+		public const float MeleeGap = 14f, MeleeLift = 6f, MeleeFloatSpeed = 6f;
 		public const float SpellRange = 40f * 16f;
 		public const int GraveOffsetTiles = 6, GraveJitterTiles = 2, GroundSearchTiles = 16;
 		public const int LostTargetTicks = 180;
@@ -96,6 +101,9 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 		private ref float SinceCast => ref NPC.ai[2];
 		private ref float SinceSummon => ref NPC.ai[3];
 		private int lostTarget;
+		private Vector2 focus;
+		private int focusTarget = -1;
+		private int driftClock;
 
 		protected override int CellWidth => R.CellWidth;
 		protected override int CellHeight => R.CellHeight;
@@ -176,6 +184,20 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 			}
 		}
 
+		/// <summary>The floaty rule (user, 2026-11-18): it never hurts by touch.</summary>
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
+
+		public override void SendExtraAI(System.IO.BinaryWriter writer) {
+			base.SendExtraAI(writer);
+			writer.Write(driftClock);
+		}
+
+		public override void ReceiveExtraAI(System.IO.BinaryReader reader) {
+			base.ReceiveExtraAI(reader);
+			int clock = reader.ReadInt32();
+			driftClock = clock >= 0 && clock < BossNPC.DriftPeriodX * BossNPC.DriftPeriodY ? clock : 0;
+		}
+
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.Common(ItemID.Bone, 1, BoneMin, BoneMax));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PossessedCog>(), PossessedCogOdds));
@@ -248,19 +270,35 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 			}
 		}
 
-		/// <summary>Every side: eases towards its spot beside the target (the side it is on), slowly, through walls.</summary>
+		/// <summary>Every side: eases towards its spot beside the target (the side it is on), slowly, through walls. The floaty
+		/// rule (2026-11-18): the spot hangs round a point that follows the target with a lag (<see cref="BossNPC.FocusFollow"/>)
+		/// and sways and bobs (<see cref="BossNPC.DriftPeriodX"/>, <see cref="BossNPC.DriftPeriodY"/>; its clock synced in its
+		/// ExtraAI); a melee fighter (<see cref="MeleeFocus"/>) gets it close, within a blade's reach, faster.</summary>
 		private void Drift(Player target) {
+			driftClock = (driftClock + 1) % (BossNPC.DriftPeriodX * BossNPC.DriftPeriodY);
 			if (target == null) {
 				NPC.velocity *= 0.95f;
 				return;
 			}
-			float side = NPC.Center.X < target.Center.X ? -1f : 1f;
-			Vector2 goal = target.Center + new Vector2(side * KeepX, -KeepY);
+			if (focusTarget != target.whoAmI || !float.IsFinite(focus.X) || !float.IsFinite(focus.Y)) {
+				focusTarget = target.whoAmI;
+				focus = target.Center;
+			}
+			focus += (target.Center - focus) * BossNPC.FocusFollow;
+			float sway = MathF.Sin(driftClock * MathHelper.TwoPi / BossNPC.DriftPeriodX);
+			float bob = MathF.Sin(driftClock * MathHelper.TwoPi / BossNPC.DriftPeriodY + MathHelper.PiOver2);
+			float side = NPC.Center.X < focus.X ? -1f : 1f;
+			bool melee = MeleeFocus.Of(target);
+			Vector2 goal = melee
+				? new Vector2(focus.X + side * (target.width * 0.5f + MeleeGap + NPC.width * 0.5f + sway * MeleeSwayX),
+					focus.Y + target.height * 0.5f - MeleeLift - NPC.height * 0.5f + bob * MeleeBobY)
+				: focus + new Vector2(side * KeepX + sway * SwayX, -KeepY + bob * BobY);
+			float speed = melee ? MeleeFloatSpeed : FloatSpeed;
 			Vector2 to = goal - NPC.Center;
-			Vector2 want = to.LengthSquared() > 64f ? to.SafeNormalize(Vector2.Zero) * FloatSpeed : Vector2.Zero;
+			Vector2 want = to.LengthSquared() > 64f ? to.SafeNormalize(Vector2.Zero) * Math.Min(speed, to.Length() * 0.08f + 0.4f) : Vector2.Zero;
 			NPC.velocity = Vector2.Lerp(NPC.velocity, want, FloatAccel * 4f);
-			if (NPC.velocity.LengthSquared() > FloatSpeed * FloatSpeed) {
-				NPC.velocity = NPC.velocity.SafeNormalize(Vector2.Zero) * FloatSpeed;
+			if (NPC.velocity.LengthSquared() > speed * speed) {
+				NPC.velocity = NPC.velocity.SafeNormalize(Vector2.Zero) * speed;
 			}
 			if (IsAuthority && Timer % 45f == 0f) {
 				NPC.netUpdate = true;                             // a gentle correction for clients' drift

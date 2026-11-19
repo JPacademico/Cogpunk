@@ -81,3 +81,46 @@ Columns: 6
 196 180 150	Ivory 3 #c4b496
 228 218 192	Ivory 4 #e4dac0
 250 246 230	Ivory 5 #faf6e6
+#
+# Cactus (2026-11-17): the Cak-ti, a cactus gun (user reference); the palette's greens are jade (Ghost) and Verdigris only
+ 26  46  20	Cactus 0 #1a2e14
+ 46  84  30	Cactus 1 #2e541e
+ 74 124  42	Cactus 2 #4a7c2a
+112 164  58	Cactus 3 #70a43a
+164 206  96	Cactus 4 #a4ce60
+#
+# Fel jade and Plum (2026-11-18): the user's own Jade Cursed Glaive art (its vivid blades and their dark membranes)
+ 12  40  22	Fel 0 #0c2816
+ 16  76  33	Fel 1 #104c21
+ 30 120  40	Fel 2 #1e7828
+ 40 168  52	Fel 3 #28a834
+ 72 204  62	Fel 4 #48cc3e
+140 228  88	Fel 5 #8ce458
+196 246  48	Fel 6 #c4f630
+226 252 150	Fel 7 #e2fc96
+ 26  14  26	Plum 0 #1a0e1a
+ 44  24  42	Plum 1 #2c182a
+ 66  38  62	Plum 2 #42263e
+#
+# Emerald and Sage (2026-11-18): the user's own Jade Token fox (its jade markings and flame, its pale fur)
+  8  34  22	Emerald 0 #082216
+ 12  70  42	Emerald 1 #0c462a
+ 20 110  62	Emerald 2 #146e3e
+ 38 160  80	Emerald 3 #26a050
+ 78 212 106	Emerald 4 #4ed46a
+140 238 128	Emerald 5 #8cee80
+200 250 160	Emerald 6 #c8faa0
+ 24  52  34	Sage 0 #183422
+ 54 116  74	Sage 1 #36744a
+100 158 106	Sage 2 #649e6a
+150 192 144	Sage 3 #96c090
+192 220 174	Sage 4 #c0dcae
+228 241 206	Sage 5 #e4f1ce
+#
+# Amethyst (2026-11-18): the user's Bundle of Wands design (its magenta amethyst rod)
+ 36  12  40	Amethyst 0 #240c28
+ 78  22  88	Amethyst 1 #4e1658
+128  36 140	Amethyst 2 #80248c
+184  58 190	Amethyst 3 #b83abe
+228 112 230	Amethyst 4 #e470e6
+248 184 248	Amethyst 5 #f8b8f8

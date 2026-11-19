@@ -100,6 +100,8 @@ namespace Cogpunk.Content.Coghaven.Generation
 
 		private ushort stone, lacquer, gearwork, roofTile, cogTile, turbineTile, vault, chestTile;
 		private ushort stoneWall, panelWall, latticeWall, gearWall, vaultWall;
+		// 2026-11-19 (user: "rework cogpalace design ... a quality terraria japanese building"): white plaster between red beams
+		private const ushort PlasterWall = WallID.WhiteDynasty;
 		private int left, s, depth;
 		private int[] top, bottom;
 		private bool[] turbineKept;                         // a turbine that would come too close to what is under it is left out
@@ -612,6 +614,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 						case '-': Place(tile, roofTile); tile.IsHalfBlock = true; break;
 						case '.': tile.WallType = panelWall; break;
 						case ',': tile.WallType = stoneWall; break;
+						case 'm': tile.WallType = PlasterWall; break;
 						case ':': tile.WallType = gearWall; break;
 						case '#': tile.WallType = latticeWall; break;
 						case '=': PlacePlatform(tile); tile.WallType = panelWall; break;
@@ -643,6 +646,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 				switch (rows[ny][nx]) {
 					case '.': return panelWall;
 					case ',': return stoneWall;
+					case 'm': return PlasterWall;
 					case ':': return gearWall;
 					case '#': return latticeWall;
 					case ';': return vaultWall;
@@ -684,12 +688,12 @@ namespace Cogpunk.Content.Coghaven.Generation
 						continue;
 					}
 					if (piece.Kind == 'C' || piece.Kind == 'Q' || piece.Kind == '&') {
-						if (CoghavenChests.Place(piece.X, piece.Y, piece.Kind != 'C', chests) >= 0) {
+						if (CoghavenChests.Place(piece.X, piece.Y, piece.Kind != 'C', chests, piece.Kind == '&', piece.Kind == 'C') >= 0) {
 							chests++;
-							if (piece.Kind != 'C') {                      // filled as a Dynasty chest (vanilla's sky loot), now ours
-								CoghavenChests.Convert(piece.X, piece.Y - 1, chestTile,
-									piece.Kind == 'Q' ? CoghavenChestTile.LockedPagodaStyle : CoghavenChestTile.VaultStyle);
-							}
+							// filled as a Dynasty chest (vanilla's sky loot), now ours: the gallery's plain (2026-11-17), the
+							// pagoda's locked, the vault's Jadey's
+							CoghavenChests.Convert(piece.X, piece.Y - 1, chestTile, piece.Kind == 'C' ? CoghavenChestTile.PagodaStyle
+								: piece.Kind == 'Q' ? CoghavenChestTile.LockedPagodaStyle : CoghavenChestTile.VaultStyle);
 						}
 						else {
 							SafeLog.Warn("Coghaven.NoChest", "Coghaven: a chest didn't fit at ({0}, {1}).", piece.X, piece.Y);

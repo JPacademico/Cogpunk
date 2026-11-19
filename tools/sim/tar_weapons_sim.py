@@ -413,7 +413,7 @@ def scene_staff(out, font):
                         nx = min(max(s["x"], o.box[0]), o.box[2])
                         ny = min(max(s["y"], o.box[1]), o.box[3])
                         if (nx - s["x"]) ** 2 + (ny - s["y"]) ** 2 <= (KSK["BlastDiameter"] / 2) ** 2:
-                            o.hit(tick + 1, 33, EMBER)
+                            o.hit(tick + 1, int(33 * KSK.get("BlastShare", 1.0)), EMBER)   # 70% since 2026-11-17
                     blasts.append((s["x"], s["y"], tick))
                     skulls.remove(s)
                     break
@@ -435,7 +435,7 @@ def scene_staff(out, font):
                     r = KSK["BlastDiameter"] / 2
                     d.ellipse([x - r, y - r, x + r, y + r], outline=AETHER)
             gif.text(img, (10, 8), "Tar Bone Staff: a slow homing skull (3.5 px/tick, the Book of Skulls' homing)")
-            gif.text(img, (10, 28), "33 on the bite, then a 5-tile burst (circle) hits the others for 33; 19 mana")
+            gif.text(img, (10, 28), "33 on the bite, then a 5-tile burst (circle) hits the others for %d (%d%%); 19 mana" % (int(33 * KSK.get("BlastShare", 1.0)), round(KSK.get("BlastShare", 1.0) * 100)))
             gif.push(img)
     gif.save(out)
 

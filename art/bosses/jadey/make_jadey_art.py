@@ -57,11 +57,12 @@ ST, IV, GH, VD, G, K, AE = (RAMP[k] for k in ("steel", "ivory", "ghost", "verd",
 
 CX = 0.0
 GROUND_CLIP = 4                                   # rows under the origin that are still part of the sprite (the glow ring)
-SH_NEAR, SH_FAR = (CX - 9.6, -25.0), (CX + 9.6, -25.0)
+SH_NEAR, SH_FAR = (CX - 15.0, -24.6), (CX + 15.0, -24.6)    # 2026-11-18: out at her sides, mirror-symmetric (no lean on a turn)
+ARM_OUT = 5.4                                     # every hand pose moves out with the shoulders (2026-11-17; +3 2026-11-18)
 UPPER, FORE = 6.2, 6.0
-HEAD_C = (CX - 0.6, -36.8)
-GEM = (CX - 1.0, -41.6)                           # the brow gem's centre (its pixels are stamped)
-REST_NEAR, REST_FAR = (CX - 13.4, -14.6), (CX + 13.0, -14.8)
+HEAD_C = (CX, -36.8)                              # 2026-11-18: on the axis (was -0.6)
+GEM = (CX - 0.4, -41.6)                           # the brow gem's centre (its pixels are stamped)
+REST_NEAR, REST_FAR = (CX - 13.2, -14.6), (CX + 13.2, -14.6)     # mirror-symmetric (2026-11-18)
 
 
 class Pose:
@@ -84,28 +85,28 @@ class Pose:
 def cushion(mid, glow, p):
     """A plump crimson silk cushion (lit from the top-left in its own space, its top face a step brighter), a gilt seam piped
     round its middle, gilt-capped tassels at its corners swinging with `sway`; jade light under it (glow only: the float)."""
-    shape = Union(Ellipse(CX, -4.0, 16.4, 4.4), Ellipse(CX, -2.6, 15.0, 3.4))
+    shape = Union(Ellipse(CX, -4.0, 18.6, 4.6), Ellipse(CX, -2.6, 17.2, 3.6))       # 2026-11-17: under a rounder body
     inner = mid.part(Xf(), shape, "crimson", texture(dome(CX - 6.0, -8.0, 15.0, lo=1, hi=4, gain=1.55, fixed=True, dither=0.16),
                                                       "weave", seed=51), shadow=(1, 1), rust=0.0)
-    for x in range(-16, 17):                                   # the piped seam round its middle, catching the light on the left
+    for x in range(-18, 19):                                   # the piped seam round its middle, catching the light on the left
         q = (x, -3)
         if q in inner:
             mid.put(x, -3, G[7] if x < -5 else G[5] if x < 6 else G[3])
             if (x, -2) in inner:
                 mid.put(x, -2, K[1])
     for side in (-1, 1):
-        tx = int(CX + side * 16.2) - (1 if side > 0 else 0)
+        tx = int(CX + side * 18.4) - (1 if side > 0 else 0)
         for (dx, dy, col) in ((0, -5, G[8] if side < 0 else G[6]), (0, -4, G[6] if side < 0 else G[4]), (side, -4, G[3]),
                               (0, -3, G[2])):
             mid.put(tx + dx, dy, col)
         for k in range(4):                                     # the tassel's threads, swinging
             x = tx + (p.sway * side if k >= 2 else 0)
             mid.put(x, -2 + k, K[4] if k < 2 else K[3] if k < 3 else K[2])
-    for x in range(-14, 15):                                   # the float: a ring of jade light under the cushion
-        y = 2 if abs(x) < 11 else 1
+    for x in range(-16, 17):                                   # the float: a ring of jade light under the cushion
+        y = 2 if abs(x) < 13 else 1
         col = GH[4] if (x + p.sway * 2) % 4 == 0 else GH[3]
         glow.put_glow(x, y, col)
-        if abs(x) < 8:
+        if abs(x) < 10:
             glow.put_glow(x, y + 1, GH[2] if (x + p.sway) % 2 else GH[3])
     return inner
 
@@ -115,11 +116,11 @@ def legs(mid, p):
     """Black panda legs folded in the lotus over the cushion: one rounded mass (the thighs out to the knees, lit along its
     top), the two shins crossing in front in jade wraps between gilt bands (the near shin over the far), the soles' ivory
     pads turned up at the crossing."""
-    lap = Poly([(CX - 14.6, -6.0), (CX - 13.4, -10.6), (CX - 8.0, -13.6), (CX + 8.0, -13.6), (CX + 13.2, -10.8), (CX + 14.4, -6.0),
-                (CX + 9.0, -4.6), (CX - 9.0, -4.6)])
+    lap = Poly([(CX - 16.8, -6.0), (CX - 15.6, -10.8), (CX - 10.0, -13.8), (CX + 10.0, -13.8), (CX + 15.4, -11.0), (CX + 16.6, -6.0),
+                (CX + 10.6, -4.6), (CX - 10.6, -4.6)])
     inner = mid.part(Xf(), lap, "steel", texture(dome(CX - 5.0, -14.0, 14.0, lo=1, hi=4, gain=1.4, fixed=True, dither=0.16),
                                                   "brushed", seed=71, density=0.12), shadow=(1, 1), rust=0.0)
-    shins = (((CX + 11.6, -8.4), (CX - 4.6, -6.4)), ((CX - 12.0, -8.6), (CX + 4.4, -6.8)))   # far shin first, near over it
+    shins = (((CX + 13.6, -8.4), (CX - 5.6, -6.4)), ((CX - 14.0, -8.6), (CX + 5.4, -6.8)))   # far shin first, near over it
     for k, (a, b) in enumerate(shins):
         dx, dy = b[0] - a[0], b[1] - a[1]
         ln = (dx * dx + dy * dy) ** 0.5
@@ -138,7 +139,7 @@ def legs(mid, p):
                 else:
                     continue
                 mid.put(q[0], q[1], col)
-    for (fx, fy, k) in ((CX + 4.6, -10.6, 0), (CX - 5.2, -10.2, 1)):   # the soles, turned up
+    for (fx, fy, k) in ((CX + 5.6, -10.6, 0), (CX - 6.2, -10.2, 1)):   # the soles, turned up
         q = P(Xf(), (fx, fy))
         pads = ((0, 0, IV[4]), (1, 0, IV[3]), (0, 1, IV[3]), (1, 1, IV[2]), (-1, -1, IV[4]), (1, -1, IV[4]), (2, -1, IV[3]))
         for (dx, dy, col) in pads[:5 if k else 7]:
@@ -150,17 +151,17 @@ def legs(mid, p):
 def torso(mid, p):
     """Black panda shoulders; a sleeveless jade qipao top tapering from a high collar to her waist, gilt trim, three gilt frog
     buttons on the axis, a jade flap over her lap edged in gilt; a crimson sash with a gilt knot at her near side."""
-    mid.part(Xf(), Ellipse(CX, -25.0, 10.6, 3.8), "steel", dome(CX - 4.0, -27.6, 9.0, lo=1, hi=4, gain=1.4, fixed=True), rust=0.0)
-    flap = Poly([(CX - 5.6, -17.6), (CX + 5.6, -17.6), (CX + 6.8, -12.0), (CX + 4.0, -10.4), (CX, -9.8), (CX - 4.0, -10.4),
-                 (CX - 6.8, -12.0)])
+    mid.part(Xf(), Ellipse(CX, -25.2, 15.6, 4.6), "steel", dome(CX - 5.0, -28.0, 11.0, lo=1, hi=4, gain=1.4, fixed=True), rust=0.0)
+    flap = Poly([(CX - 8.4, -16.4), (CX + 8.4, -16.4), (CX + 10.4, -11.6), (CX + 6.6, -9.4), (CX, -8.8), (CX - 6.6, -9.4),
+                 (CX - 10.4, -11.6)])
     fl = mid.part(Xf(), flap, "ghost", texture(face((-0.4, -0.3, 0.86), lo=1, hi=3, ramp_len=6, gain=1.4, fixed=True, dither=0.14),
                                                "weave", seed=59), shadow=(1, 1), rust=0.0)
     for (x, y) in list(fl):
         if y >= max(yy for (xx, yy) in fl if xx == x) - 0:
             mid.put(x, y, G[6] if x < CX else G[4])            # its gilt hem
-    top = Poly([(CX - 5.4, -29.0), (CX + 5.4, -29.0), (CX + 7.8, -26.2), (CX + 7.6, -21.4), (CX + 6.4, -17.0), (CX - 6.4, -17.0),
-                (CX - 7.6, -21.4), (CX - 7.8, -26.2)])
-    inner = mid.part(Xf(), top, "ghost", texture(dome(CX - 4.0, -27.0, 12.0, lo=1, hi=4, gain=1.6, bias=-0.1, fixed=True,
+    top = Poly([(CX - 6.2, -29.6), (CX + 6.2, -29.6), (CX + 11.4, -27.0), (CX + 13.6, -23.0), (CX + 14.0, -19.6), (CX + 13.0, -16.4),
+                (CX + 10.6, -14.6), (CX - 10.6, -14.6), (CX - 13.0, -16.4), (CX - 14.0, -19.6), (CX - 13.6, -23.0), (CX - 11.4, -27.0)])
+    inner = mid.part(Xf(), top, "ghost", texture(dome(CX - 5.0, -26.0, 15.0, lo=1, hi=4, gain=1.6, bias=-0.1, fixed=True,
                                                        dither=0.18), "weave", seed=57), shadow=(1, 1), rust=0.0)
     for (x, y) in list(inner):                                 # verdigris mottle in the silk (one shade, part space)
         if ((x * 7 + y * 13) % 11 == 0) and mid.px.get((x, y)) in (GH[2], GH[3]):
@@ -178,18 +179,18 @@ def torso(mid, p):
     for y in (-26, -23, -20):                                  # frog buttons on the axis
         for (dx, dy, col) in ((-1, 0, G[8]), (0, 0, G[6]), (1, 0, G[4]), (0, 1, G[2])):
             mid.put(int(CX) + dx, y + dy, col)
-    for x in range(-7, 8):                                     # a gilt cloud-scroll band over the sash
+    for x in range(-13, 14):                                   # a gilt cloud-scroll band over the sash
         q = (x, -19)
         if q in inner:
             k = (x + 8) % 4
             mid.put(x, -19, (G[7], G[5], G[3], G[5])[k] if x < CX else (G[5], G[4], G[2], G[4])[k])
             if k == 0 and (x, -20) in inner:
                 mid.put(x, -20, G[4] if x < CX else G[3])
-    for x in range(-8, 9):                                     # the sash
+    for x in range(-13, 14):                                   # the sash
         for (y, k) in ((-18, 4), (-17, 2)):
             if (x, y) in inner or (x, y) in mid.px:
                 mid.put(x, y, K[k + (1 if x < -2 else 0)])
-    knot = (int(CX) - 6, -17)
+    knot = (int(CX) - 10, -17)
     for (dx, dy, col) in ((0, -1, G[8]), (-1, 0, G[7]), (0, 0, G[5]), (1, 0, G[4]), (0, 1, G[3]), (-1, 2, K[3]), (-1, 3, K[2]),
                           (1, 2, K[3]), (1, 3, K[2])):
         mid.put(knot[0] + dx, knot[1] + dy, col)
@@ -297,13 +298,13 @@ def arm(cv, glow, shoulder, hand, depth, bend, palms, light):
     """A black panda arm: a thick upper arm and forearm (steel), a jade cuff with a gilt band at the wrist, a round paw
     (open, its ivory pads out, when casting). light 1..2 puts jade light in the paw. Returns the paw's centre."""
     elbow, wrist = ik(shoulder, hand, UPPER, FORE, bend)
-    limb(cv, shoulder, elbow, 3.0, "steel", depth, lo=1, hi=4)
-    limb(cv, elbow, wrist, 2.6, "steel", depth, lo=1, hi=4)
+    limb(cv, shoulder, elbow, 3.5, "steel", depth, lo=1, hi=4)
+    limb(cv, elbow, wrist, 3.1, "steel", depth, lo=1, hi=4)
     d = (wrist[0] - elbow[0], wrist[1] - elbow[1])
     ln = math.hypot(*d) or 1.0
     u = (d[0] / ln, d[1] / ln)
     cuff = (wrist[0] - u[0] * 1.2, wrist[1] - u[1] * 1.2)
-    cf = cv.part(Xf(), Capsule((cuff[0] - u[0] * 0.8, cuff[1] - u[1] * 0.8), (cuff[0] + u[0] * 0.8, cuff[1] + u[1] * 0.8), 2.5),
+    cf = cv.part(Xf(), Capsule((cuff[0] - u[0] * 0.8, cuff[1] - u[1] * 0.8), (cuff[0] + u[0] * 0.8, cuff[1] + u[1] * 0.8), 2.9),
                  "ghost", flat(2, bevel=False) if depth else flat(3), rust=0.0)
     if depth == 0:
         q = P(Xf(), cuff)
@@ -311,9 +312,9 @@ def arm(cv, glow, shoulder, hand, depth, bend, palms, light):
             cv.put(q[0], q[1], G[6])
     paw = (wrist[0] + u[0] * 1.2, wrist[1] + u[1] * 1.2)
     if depth > 0:
-        cv.part(Xf(), Ellipse(paw[0], paw[1], 2.5, 2.3), "steel", flat(2, bevel=False), rust=0.0)
+        cv.part(Xf(), Ellipse(paw[0], paw[1], 2.9, 2.7), "steel", flat(2, bevel=False), rust=0.0)
     else:
-        pw = cv.part(Xf(), Ellipse(paw[0], paw[1], 2.6, 2.4), "steel", dome(paw[0] - 0.9, paw[1] - 0.9, 3.2, lo=1, hi=4, fixed=True), rust=0.0)
+        pw = cv.part(Xf(), Ellipse(paw[0], paw[1], 3.0, 2.8), "steel", dome(paw[0] - 0.9, paw[1] - 0.9, 3.6, lo=1, hi=4, fixed=True), rust=0.0)
         if palms:                                              # open palm: the pads
             q = P(Xf(), (paw[0] + u[0] * 0.6, paw[1] + u[1] * 0.6))
             for (dx, dy, col) in ((0, 0, IV[3]), (1, 0, IV[2]), (-1, -1, IV[4]), (0, -1, IV[4]), (1, -1, IV[3])):
@@ -385,6 +386,7 @@ def frame(p, flick=None):
     """(far, mid, near, glow, points). `flick`: render only the far arm in that flick pose (the overlay frames)."""
     far, mid, near, glow = Canvas(), Canvas(), Canvas(), Canvas()
     far_hand = flick if flick is not None else p.far
+    far_hand = (far_hand[0] + ARM_OUT, far_hand[1])
     far_paw = arm(far, glow, SH_FAR, far_hand, 1, -1, p.palms, p.far_glow)
     if flick is not None:
         finish(far)
@@ -393,7 +395,7 @@ def frame(p, flick=None):
     legs(mid, p)
     torso(mid, p)
     head(mid, glow, p)
-    near_paw = arm(near, glow, SH_NEAR, p.near, 0, 1, p.palms, p.hand_glow)
+    near_paw = arm(near, glow, SH_NEAR, (p.near[0] - ARM_OUT, p.near[1]), 0, 1, p.palms, p.hand_glow)
     if p.coil:
         coil(near, near_paw, p.sway)
     for cv in (far, mid, near):

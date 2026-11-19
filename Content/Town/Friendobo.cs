@@ -29,8 +29,9 @@ namespace Cogpunk.Content.Town
 	/// 2026-11-03), Cogpunk's first town NPC. He moves into a free house once the world has beaten the Mech Army
 	/// (<see cref="CanTownNPCSpawn"/> reads its downed flag, saved and synced by WorldFlagSystem). His shop sells Rusted Cogs
 	/// and Rusted Scrap at <see cref="ScrapPrice"/> copper each (user-set) and each boss's summon once that boss has been
-	/// beaten: the Junkbait (Trash-Tr0m), the Scrapworm (Tar Tyrant) and the Cursed Whistle (the Cursed Conductor,
-	/// 2026-11-04), at the items' own value.
+	/// beaten: the Junkbait (Trash-Tr0m), the Scrapworm (Tar Tyrant), the Cursed Whistle (the Cursed Conductor,
+	/// 2026-11-04) and the Jade Incense (Jadey, 2026-11-17), at the items' own value. Rule (user, 2026-11-17: "make this a
+	/// rule for every boss that we add"): every new boss's summon goes in here, conditioned on its downed flag.
 	/// <para>Vanilla's townsfolk in every respect (set up like ExampleMod 1.4.4's <c>ExamplePerson</c>): vanilla's town AI and
 	/// the Guide's frame rules over a 25-frame sheet at vanilla's density (art/town/make_friendobo_art.py: standing, in the
 	/// air, 14 walking frames, the two chat gestures, sitting, talking, blinking, a 4-frame throw); he throws the
@@ -166,12 +167,16 @@ namespace Cogpunk.Content.Town
 			Condition trashTr0m = new(Mod.GetLocalization("Conditions.DownedTrashTr0m"), () => TrashTr0mSystem.Downed);
 			Condition tarTyrant = new(Mod.GetLocalization("Conditions.DownedTarTyrant"), () => TarTyrantSystem.Downed);
 			Condition cursedConductor = new(Mod.GetLocalization("Conditions.DownedCursedConductor"), () => CursedConductorSystem.Downed);
+			Condition jadey = new(Mod.GetLocalization("Conditions.DownedJadey"), () => Bosses.Jadey.JadeySystem.Downed);
+			Condition fungimancer = new(Mod.GetLocalization("Conditions.DownedFungimancer"), () => Bosses.Fungimancer.FungimancerSystem.Downed);
 			new NPCShop(Type, ShopName)
 				.Add(new Item(ModContent.ItemType<RustedCog>()) { shopCustomPrice = Item.buyPrice(copper: ScrapPrice) })
 				.Add(new Item(ModContent.ItemType<RustedScrap>()) { shopCustomPrice = Item.buyPrice(copper: ScrapPrice) })
 				.Add<Junkbait>(trashTr0m)
 				.Add<Scrapworm>(tarTyrant)
 				.Add<CursedWhistle>(cursedConductor)
+				.Add<Bosses.Jadey.Items.JadeIncense>(jadey)
+				.Add<Bosses.Fungimancer.Items.RainbowMushroom>(fungimancer)   // 2026-11-19: the Fungimancer's summon
 				.Add<Mechanist.Stations.SteamInjector>()          // user, 2026-11-12: 35 gold (its value), always in stock
 				.Register();
 		}

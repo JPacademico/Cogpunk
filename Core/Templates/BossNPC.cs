@@ -35,6 +35,16 @@ namespace Cogpunk.Core.Templates
 	/// Bosses never pick their own target any more: where they used to retarget they call <see cref="EnsureTarget"/>.
 	/// <b>Floaty bosses</b> (<see cref="Floaty"/>, the Cursed Conductor) keep within the Blade of Grass's reach of a target
 	/// that fights in melee (<see cref="Combat.MeleeFocus"/>, same rule).</para>
+	/// <para><b>Floaty bosses drift</b> (user rule, 2026-11-17: "they should not cause contact damage unless specified and should
+	/// move from left to right up and down slowly during the fight targeting the players to facilitate melee combat (and so
+	/// they feel more alive instead of a perfect lock on that follows the player instantaneously)"): a floaty boss never hurts by
+	/// touch unless it says so (<see cref="FloatyContactDamage"/>, checked in <see cref="CanHitPlayer"/>), hovers round a point
+	/// that follows its target with a lag (<see cref="FloatFocus"/>: <see cref="FocusFollow"/> of the way a tick, so a running
+	/// player gets ahead of it) and sways round its hover spot on a slow figure of eight (<see cref="DriftSway"/>,
+	/// <see cref="DriftBob"/>: side to side over <see cref="DriftPeriodX"/> ticks, up and down over <see cref="DriftPeriodY"/>),
+	/// the amplitudes the boss's own (small in its melee hover, so a melee fighter keeps it in reach). D2: the clock that drives
+	/// the sway (<see cref="DriftClock"/>) counts on every side and rides the boss's own ExtraAI (<see cref="WriteDrift"/>,
+	/// <see cref="ReadDrift"/>), so every side sways the same; the focus follows the synced players.</para>
 	/// <para>D0: nothing here loops past a fixed bound or spawns; a boss that is already dying ignores further lethal hits.
 	/// D2: the server decides the target and syncs <c>NPC.target</c> (vanilla's SyncNPC) only when it changes. D1: the damage
 	/// table is one array per boss, made on its first hit (a ModNPC clone shares fields set on its template).</para>
@@ -87,6 +97,62 @@ namespace Cogpunk.Core.Templates
 		/// Grass's reach of a target that fights in melee (user rule 2026-11-09; each floaty boss does it in its own
 		/// movement, with <see cref="Combat.MeleeFocus"/> and <see cref="Combat.MeleeGear.BladeOfGrassReach"/>).</summary>
 		public virtual bool Floaty => false;
+
+		/// <summary>A floaty boss that the user said hurts by touch (none so far): only then does its body deal contact damage.</summary>
+		protected virtual bool FloatyContactDamage => false;
+
+		/// <summary>Floaty bosses don't hurt by touch unless <see cref="FloatyContactDamage"/> (user rule, 2026-11-17).</summary>
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => !Floaty || FloatyContactDamage;
+
+		// --- the floaty bosses' drift (user rule, 2026-11-17) --------------------------------------------------------------
+
+		/// <summary>Ticks for one sway from side to side and back.</summary>
+		public const int DriftPeriodX = 420;
+
+		/// <summary>Ticks for one bob up and down (not a divisor of <see cref="DriftPeriodX"/>: the path is a slow figure of eight
+		/// that doesn't repeat every few seconds).</summary>
+		public const int DriftPeriodY = 270;
+
+		/// <summary>How much of the way to its target the hover's focus moves each tick (about a 10-tick lag).</summary>
+		public const float FocusFollow = 0.1f;
+
+		/// <summary>The sway's clock (every side; synced through the boss's ExtraAI).</summary>
+		protected int DriftClock;
+		private Vector2 focus;
+		private int focusTarget = -1;
+
+		/// <summary>-1..1: where the boss is in its side-to-side sway.</summary>
+		protected float DriftSway => MathF.Sin(DriftClock * MathHelper.TwoPi / DriftPeriodX);
+
+		/// <summary>-1..1: where the boss is in its bob (a quarter turn ahead of the sway).</summary>
+		protected float DriftBob => MathF.Sin(DriftClock * MathHelper.TwoPi / DriftPeriodY + MathHelper.PiOver2);
+
+		/// <summary>Every side, once a tick while the boss floats: the sway's clock.</summary>
+		protected void TickDrift() {
+			DriftClock = (DriftClock + 1) % (DriftPeriodX * DriftPeriodY);
+		}
+
+		/// <summary>The point a floaty boss hovers round: <paramref name="target"/>'s centre, followed <see cref="FocusFollow"/> of the
+		/// way a tick (a new target is taken at once).</summary>
+		protected Vector2 FloatFocus(Player target) {
+			if (target == null) {
+				return focus;
+			}
+			if (focusTarget != target.whoAmI || !float.IsFinite(focus.X) || !float.IsFinite(focus.Y)) {
+				focusTarget = target.whoAmI;
+				focus = target.Center;
+			}
+			focus += (target.Center - focus) * FocusFollow;
+			return focus;
+		}
+
+		protected void WriteDrift(System.IO.BinaryWriter writer) {
+			writer.Write((short)Math.Clamp(DriftClock % 30000, 0, short.MaxValue));
+		}
+
+		protected void ReadDrift(System.IO.BinaryReader reader) {
+			DriftClock = Math.Max(0, (int)reader.ReadInt16());
+		}
 
 		protected sealed override void UpdateState() {
 			ReportFight();

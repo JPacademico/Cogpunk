@@ -42,7 +42,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m.Weapons
 			Projectile.height = 44;
 			Projectile.friendly = true;
 			Projectile.hostile = false;
-			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.DamageType = ModContent.GetInstance<Mechanist.MechanistDamage>();
 			Projectile.tileCollide = true;
 			Projectile.penetrate = 1;
 			Projectile.timeLeft = 240;

@@ -178,7 +178,7 @@ Items: {
 		DisplayName: Scrap Launcher
 		Tooltip:
 			'''
-			Uses bullets as ammo, but fires chewed scrap that flies straight across the screen
+			Fires chewed scrap that flies straight across the screen
 			Right click to lob a big scrap ball that bounces once
 			'Open wide'
 			'''
@@ -593,7 +593,7 @@ Items: {
 		DisplayName: Sheriff's Revolver
 		Tooltip:
 			'''
-			Fires a fast brass bullet that ricochets once, off a wall or off an enemy, towards the nearest foe in sight
+			Fires a fast brass bullet that ricochets once off a wall, towards the nearest foe in sight
 			A ricochet hits for 50% more damage
 			Uses bullets: whatever the bullet, it fires its own brass round with the bullet's damage added
 			Holds {0} rounds and takes {1} seconds to reload once they are spent, even when holstered
@@ -922,6 +922,241 @@ Items: {
 		DisplayName: Possessed Cog
 		Tooltip: Grinds through enemies instead of bouncing off them
 	}
+
+	PagodaChest: {
+		DisplayName: Pagoda Chest
+		Tooltip: ''
+	}
+
+	PagodaKey: {
+		DisplayName: Pagoda Key
+		Tooltip: Unlocks the Locked Pagoda Chest at the top of Coghaven's pagoda
+	}
+
+	JadeyBag: {
+		DisplayName: Treasure Bag ({$Mods.Cogpunk.NPCs.Jadey.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+	}
+
+	JadeShaperPendant: {
+		DisplayName: Jade-shaper Pendant
+		Tooltip:
+			'''
+			A blow that would kill you turns you into a jade statue for {0} seconds instead
+			The statue takes no damage, but blows still knock it back
+			Recharges for {1} minutes after it saves you
+			'''
+	}
+
+	JadeIncense: {
+		DisplayName: Jade Incense
+		Tooltip:
+			'''
+			Burn it inside Coghaven's Jade Vault to call Jadey
+			'She never refuses a visitor who brings incense'
+			'''
+	}
+
+	JadeShaperWhip: {
+		DisplayName: Jade-shaper Whip
+		Tooltip:
+			'''
+			{0} summon tag damage
+			Your summons will focus struck enemies
+			Deals {1}% more damage to enemies turned to jade
+			'''
+	}
+
+	JadeCursedGlaives: {
+		DisplayName: Jade Cursed Glaives
+		Tooltip:
+			'''
+			Crossing slashes cut one wide jade arc and lay the jade curse on what they cut
+			Right click to throw the glaive up to {0} tiles; it comes back to your hand
+			Slashes and throws deal {1}% more damage to enemies turned to jade
+			'''
+	}
+
+	FireworkCannon: {
+		DisplayName: Firework Cannon
+		Tooltip:
+			'''
+			Fires quick fireworks that burst on impact, against walls or after {0} tiles
+			The burst hurts everything around it and has a {1}% chance to stun common enemies for {2} second
+			'''
+	}
+
+	JadeShaperManual: {
+		DisplayName: Jade-shaper Manual
+		Tooltip:
+			'''
+			Jadey's notes on shaping living jade
+			Study it to keep its knowledge
+			'Some crafts can only be learned, never found'
+			'''
+	}
+
+	ScrapManual: {
+		DisplayName: Scrap Manual
+		Tooltip:
+			'''
+			Trash-Tr0m's greasy assembly notes
+			Study it to keep its knowledge
+			'Some crafts can only be learned, never found'
+			'''
+	}
+
+	SheriffsLawBook: {
+		DisplayName: Sheriff's Law Book
+		Tooltip:
+			'''
+			The Cursed Conductor's book of old Westworld law
+			Study it to keep its knowledge
+			'Some crafts can only be learned, never found'
+			'''
+	}
+
+	StickyPages: {
+		DisplayName: Sticky Pages
+		Tooltip:
+			'''
+			Pages pulled out of the Tar Tyrant, still legible
+			Study them to keep their knowledge
+			'Some crafts can only be learned, never found'
+			'''
+	}
+
+	JadeEyedKoi: {
+		DisplayName: Jade-eyed Koi
+		Tooltip:
+			'''
+			A koi cast in gold, with eyes of polished jade
+			'Worth a fortune to the right merchant'
+			'''
+	}
+
+	Cakti: {
+		DisplayName: Cak-ti
+		Tooltip:
+			'''
+			Fires thin cactus spikes that stick in enemies for {0} seconds
+			When a spiked enemy dies, its spikes fly out in every direction
+			{1}% chance not to consume ammo
+			'Don't hug it'
+			'''
+	}
+
+	IncenseMace: {
+		DisplayName: Incense Mace
+		Tooltip:
+			'''
+			Hold to spin the censer, release to throw it: thrown, it hits twice as hard
+			Right click to fan out an incense aura ({4} steam): allies within {0} tiles get +{1}% damage and attack speed for {2} seconds
+			Then the censer needs {3} seconds to rekindle
+			'It smells like a temple and hits like a bell'
+			'''
+	}
+
+	JadeToken: {
+		DisplayName: Jade Token
+		Tooltip:
+			'''
+			Summons a jade spirit fox
+			'It glows softly'
+			'''
+	}
+
+	AncientResearchBook: {
+		DisplayName: Ancient Research Book
+		Tooltip:
+			'''
+			Used to build an Ancient Research Table
+			'Its eye seems to follow you'
+			'''
+	}
+
+	AncientResearchTable: {
+		DisplayName: Ancient Research Table
+		Tooltip:
+			'''
+			Right click to research: spend knowledge points on lasting bonuses and new recipes
+			Knowledge comes from your firsts: bosses, events, discoveries
+			'''
+	}
+
+	TetanusShot: {
+		DisplayName: Tetanus Shot
+		Tooltip:
+			'''
+			Grants immunity to Tetanus
+			'Just a little sting'
+			'''
+	}
+
+	BundleOfWands: {
+		DisplayName: Bundle of Wands
+		Tooltip:
+			'''
+			Fires five different gem bolts at once
+			Each flies, hits and pushes like its own staff's
+			'''
+	}
+
+	BanditsDream: {
+		DisplayName: Bandit's Dream
+		Tooltip:
+			'''
+			Fires a fast brass bullet that ricochets once off a wall, towards the nearest foe in sight
+			A ricochet hits for 50% more damage
+			Uses bullets: whatever the bullet, it fires its own brass round with the bullet's damage added
+			Holds {0} rounds and takes {1} seconds to reload once they are spent (the Sheriff's Revolver's cylinder)
+			Right click to slash in front for {2}x damage, cutting enemy projectiles down, for {3} steam: it works mid-reload
+			'Every outlaw's dream: never run out of bullets'
+			'''
+	}
+	CogspringSword: {
+		DisplayName: Cogspring Sword
+		Tooltip:
+			'''
+			Swing it like a sabre: every slash comes back the other way
+			Hold right click to wind the spring: up to {0} seconds for up to {1}x damage, then let go to slam it down ({2} steam)
+			A fully charged slam that kills an enemy slows time
+			'Every cog wound tight, every tooth sharp'
+			'''
+	}
+	SmokerBook: {
+		DisplayName: Smoker Book
+		Tooltip:
+			'''
+			Sends a rushing band of soot {0} tiles out
+			The smoke runs through every enemy in its path
+			'Its pages have never once been read without coughing'
+			'''
+	}
+	FungimancerBag: {
+		DisplayName: Treasure Bag (Fungimancer)
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+	}
+
+	RainbowMushroom: {
+		DisplayName: Rainbow Mushroom
+		Tooltip:
+			'''
+			Summons the Fungimancer
+			Only works in a glowing mushroom biome
+			'It tastes like every colour at once'
+			'''
+	}
+
+	FungiManual: {
+		DisplayName: Fungi Manual
+		Tooltip:
+			'''
+			The Fungimancer's soggy notes on mushroom magic
+			Study it to keep its knowledge
+			'Some crafts can only be learned, never found'
+			'''
+	}
 }
 
 Buffs: {
@@ -1022,6 +1257,41 @@ Buffs: {
 			+{0} maximum steam, {1}% less steam cost
 			Lasts until you die
 			'''
+	}
+
+	JadeStatue: {
+		DisplayName: Jade Statue
+		Description: Turned to jade: nothing can hurt you
+	}
+
+	JadeShaperRest: {
+		DisplayName: Jade-shaper's Rest
+		Description: Your pendant can't save you again yet
+	}
+
+	JadeShaperWhipDebuff: {
+		DisplayName: Jade Mark
+		Description: Summons deal more damage to it
+	}
+
+	IncenseBlessing: {
+		DisplayName: Incense Blessing
+		Description: "+{0}% damage and +{1}% attack speed"
+	}
+
+	IncenseBurntOut: {
+		DisplayName: Burnt-out Censer
+		Description: "The Incense Mace's censer is rekindling ({0} seconds in all)"
+	}
+
+	JadeFoxBuff: {
+		DisplayName: Jade Spirit Fox
+		Description: A small fox of jade light follows you
+	}
+
+	ResearchSlimed: {
+		DisplayName: Slimed
+		Description: Sticky and slow
 	}
 }
 
@@ -1184,6 +1454,29 @@ NPCs: {
 	Mechromancer: {
 		DisplayName: Mechromancer
 		Bestiary: A robot necromancer that only walks the earth under a blood-red moon, though it has no legs to walk with. A brass skull grins out of the shadow of its horned hood, its claws burn with soul fire, and its mechanical eyes drift around it, never once looking away from you. Where it points, the ground opens and the dead climb out.
+	}
+
+	Jadey: {
+		DisplayName: Jadey
+		Epithet: A Molda-Jade
+		Bestiary: The palace's jademancer, a panda who shapes living jade the way a potter shapes clay. She guards the vault under the Main Hall and never touches an intruder herself: she tosses jade coins that hatch golems, bats and beetles, whirls a rope dart that curses the floor where it lands, and drinks her own creations back to mend herself. Her jade curses everyone but her, and each time a fifth of her life is gone she hatches a brood and hides inside a shell of jade until they fall or she can drink them.
+		VaultGuarded: The vault stirs. Its keeper has noticed you...
+		VaultOpens: The seal on the Jade Vault crumbles.
+	}
+
+	JadeBat: {
+		DisplayName: Jade Bat
+		Bestiary: A bat hatched from one of Jadey's coins: thin wings of cut jade round a spark of her will. Its bite carries her curse, and it crumbles the moment she is gone.
+	}
+
+	JadeBeetle: {
+		DisplayName: Jade Beetle
+		Bestiary: A rhino beetle copied in jade from one of Jadey's coins. Smaller and more brittle than the jungle's own, but its horn still throws whatever it catches, and it leaves her curse behind.
+	}
+	Fungimancer: {
+		DisplayName: Fungimancer
+		Epithet: The Spore-Addled Sage
+		Bestiary: A frog who sat on a glowing mushroom so long that the mushroom's magic soaked into it, and very little else did. It floats on its toadstool throne, flinging spores of violet light, croaking mushrooms out of the ground and lashing out with a tongue as long as a cavern. Its spells work most of the time. Wake it only by breaking the rarest mushroom of all: the one with a rainbow on its cap.
 	}
 }
 
@@ -1437,6 +1730,67 @@ Projectiles: {
 	PossessedCogYoyo: {
 		DisplayName: Possessed Cog
 	}
+
+	JadeCoin: {
+		DisplayName: Jade Coin
+	}
+
+	JadeyRopeDart: {
+		DisplayName: Jade Rope Dart
+	}
+
+	JadeCursedGround: {
+		DisplayName: Cursed Ground
+	}
+
+	JadePetrifyZone: {
+		DisplayName: Petrifying Seal
+	}
+
+	JadeShaperWhipProjectile: {
+		DisplayName: Jade-shaper Whip
+	}
+
+	JadeGlaiveSlash: {
+		DisplayName: Jade Glaive
+	}
+
+	JadeGlaiveThrown: {
+		DisplayName: Jade Glaive
+	}
+
+	FireworkRocket: {
+		DisplayName: Firework
+	}
+
+	CaktiSpike: {
+		DisplayName: Cactus Spike
+	}
+
+	IncenseMaceHead: {
+		DisplayName: Incense Mace
+	}
+
+	IncenseAura: {
+		DisplayName: Incense Aura
+	}
+
+	JadeFoxPet: {
+		DisplayName: Jade Spirit Fox
+	}
+
+	CalcifiedBone: {
+		DisplayName: Bone
+	}
+
+	BanditsSlash: {
+		DisplayName: Bandit's Dream
+	}
+	CogspringSlam.DisplayName: Cogspring Slam
+	SmokerSmoke.DisplayName: Soot
+	SporeBolt.DisplayName: Spore Bolt
+	ShroomSpike.DisplayName: Bursting Mushroom
+	FungimancerTongue.DisplayName: Fungimancer's Tongue
 }
 
 Tiles: {
@@ -1562,6 +1916,23 @@ Tiles: {
 	CombinatorTile: {
 		MapEntry: The Combinator
 	}
+
+	CoghavenChestTile: {
+		MapEntry0: Pagoda Chest
+		MapEntry1: Locked Pagoda Chest
+		MapEntry2: Jade Vault
+		PagodaLocked: The chest is locked. A Pagoda Key opens it.
+		VaultSealed: Sealed
+	}
+
+	VaultGearworkTile: {
+		MapEntry: Vault Gearwork
+	}
+
+	AncientResearchTableTile: {
+		MapEntry: Ancient Research Table
+	}
+	RainbowMushroomTile.MapEntry: Rainbow Mushroom
 }
 
 WorldGen: {
@@ -1575,6 +1946,7 @@ WorldGen: {
 	Coghaven: Raising a jade palace into the clouds
 	Jade: Hiding jade in the caverns
 	FundamentalRuins: Sinking the Fundamental Ruins into a spider nest
+	SmokerBooks: Hiding smoky books in the Underworld
 }
 
 UI: {
@@ -1620,12 +1992,15 @@ Conditions: {
 	DownedTrashTr0m: After Trash-Tr0m has been defeated
 	DownedTarTyrant: After the Tar Tyrant has been defeated
 	DownedCursedConductor: After the Cursed Conductor has been defeated
+	DownedJadey: After Jadey has been defeated
+	DownedFungimancer: After the Fungimancer has been defeated
 }
 
 DropConditions: {
 	TrashTr0mFirstKill: Only from the first defeat in a world
 
 	CombinatorFirstKill: Only from the first defeat in a world
+	ManualFirstKill: Once per world, on the first defeat: one for every player in the fight
 }
 
 Events: {
@@ -1778,4 +2153,156 @@ Combinator: {
 		Right click uses the Base's right-click attack if it has one, otherwise the Augment's.
 		Put a combined weapon in the Product slot to rename it or take it apart: both weapons come back as they went in.
 		'''
+}
+
+Manuals: {
+	Learned: "Studied: {0}"
+	AlreadyRead: You have already studied this
+}
+
+Research: {
+	Title: "Ancient Research"
+	Knowledge: "Knowledge points: {0}"
+	Close: "Close"
+	Gained: "Gained knowledge! (+{0}: {1})"
+	GainedShort: "+{0} knowledge"
+	Unlocked: "Researched: {0}"
+	Researched: "Researched"
+	Cost: "Costs {0} knowledge point(s) (you have {1})"
+	Requires: "Research {0} first"
+	Takes: "Takes {0} (you have {1})"
+	ClickToResearch: "Click to research"
+	NotYet: "Not within your reach yet"
+	RecipeCondition: "Researched: {0}"
+	Found: "found"
+	Missing: "missing"
+	Conditions: {
+		OreTiers: "Base ores collected: copper or tin ({0}), iron or lead ({1}), silver or tungsten ({2}), gold or platinum ({3})"
+		Edges: "World edges reached: the ocean ({0}), the Junkyard ({1})"
+	}
+	Costs: {
+		AnyOre: "{0} ores of any kind"
+		Amethyst: "{0} Amethyst"
+		Topaz: "{0} Topaz"
+		Sapphire: "{0} Sapphire"
+		Emerald: "{0} Emerald"
+		Ruby: "{0} Ruby"
+		Diamond: "{0} Diamond"
+		Amber: "{0} Amber"
+		Jade: "{0} Jade"
+		SquireBanner: "{0} Zombie, Slime or Demon Eye Banner"
+		BlackLens: "{0} Black Lens"
+		Gel: "{0} Gel"
+	}
+	Nodes: {
+		TheBasics: {
+			DisplayName: "The Basics"
+			Description: "+5% mining speed"
+		}
+		MineAndCraft: {
+			DisplayName: "Mine and Craft"
+			Description: "Mining any ore has a 10% chance to give one more"
+		}
+		Jogger: {
+			DisplayName: "Jogger"
+			Description: "+3% movement speed"
+		}
+		Cogpunker: {
+			DisplayName: "Cogpunker"
+			Description: "+10 steam capacity"
+		}
+		GemPower: {
+			DisplayName: "Gem Power"
+			Description: "While holding a gem weapon: +3% damage, critical strike chance and attack speed, -3% mana cost"
+		}
+		InACaveWithScraps: {
+			DisplayName: "In a Cave! With Scraps!!"
+			Description: "Unlocks crafting the Scrap armor"
+		}
+		HitTheJoints: {
+			DisplayName: "Hit the Joints"
+			Description: "+10% damage against machines"
+		}
+		Mandacaru: {
+			DisplayName: "Mandacaru"
+			Description: "Unlocks crafting the Cak-ti"
+		}
+		CausesAutism: {
+			DisplayName: "Causes Autism"
+			Description: "Unlocks crafting the Tetanus Shot"
+		}
+		Squire: {
+			DisplayName: "Squire"
+			Description: "+1 defense"
+		}
+		JustTheTip: {
+			DisplayName: "Just the Tip"
+			Description: "Spears deal 25% more damage when they hit at full reach (the end of the thrust)"
+		}
+		BundleUp: {
+			DisplayName: "Bundle Up!"
+			Description: "Unlocks crafting the Bundle of Wands"
+		}
+		HeatManagement: {
+			DisplayName: "Heat Management"
+			Description: "10% less damage taken while overheated"
+		}
+		BringAKnife: {
+			DisplayName: "Bring a Knife to a Gunfight"
+			Description: "Unlocks crafting the Bandit's Dream"
+		}
+		TriggerFinger: {
+			DisplayName: "Trigger Finger"
+			Description: "Each ranged shot that misses makes your next ranged hit deal 25% more damage (up to 4 times)"
+		}
+		DilatedPupils: {
+			DisplayName: "Dilated Pupils"
+			Description: "+5% critical strike chance at night, -5% during the day"
+		}
+		Slimed: {
+			DisplayName: "Slimed!"
+			Description: "Enemies that touch you are slimed for 5 seconds: sticky and slow"
+		}
+		Calcified: {
+			DisplayName: "Calcified"
+			Description: "Every enemy you defeat throws a bone that deals 40 damage to another enemy it hits"
+		}
+	}
+	Tasks: {
+		Angler5: "Five quests done for the Angler"
+		CoralChest: "Looted a coral chest"
+		Platinum10: "Saved up 10 platinum coins"
+		SkyIsland: "Reached a cloud island"
+		Marble: "Found a marble cave"
+		Granite: "Found a granite cave"
+		PinkSlime: "Defeated a pink slime"
+		Gnome: "Defeated a gnome"
+		TravelingMerchant: "Bought from the Traveling Merchant"
+		Combinator: "Used the Combinator"
+		FallenStar: "Picked up a fallen star"
+		Town10: "Ten townsfolk housed"
+		FundamentalStone1: "Read the first Fundamental Stone"
+		FundamentalStone2: "Read the second Fundamental Stone"
+		FundamentalStone3: "Read the third Fundamental Stone"
+		FundamentalStone4: "Read the fourth Fundamental Stone"
+		FundamentalStone5: "Read the fifth Fundamental Stone"
+		Boss: "First defeat of {0} in this world"
+		Event: "First clear of {0} in this world"
+		GlowingMushroom: "Found a glowing mushroom field"
+	}
+	Events: {
+		GoblinArmy: "the Goblin Army"
+		FrostLegion: "the Frost Legion"
+		PirateInvasion: "the Pirate Invasion"
+		MartianMadness: "Martian Madness"
+		OldOnesArmy1: "the Old One's Army (tier 1)"
+		OldOnesArmy2: "the Old One's Army (tier 2)"
+		OldOnesArmy3: "the Old One's Army (tier 3)"
+		PumpkinMoon: "the Pumpkin Moon (its last wave)"
+		FrostMoon: "the Frost Moon (its last wave)"
+	}
+	KnowledgeExpanded: "Knowledge expanded!"
+	KnowledgeName: "Knowledge points"
+	DragHint: "Drag to look around"
+	Teaser: "A secret yet to be revealed: a great foe must fall first"
 }

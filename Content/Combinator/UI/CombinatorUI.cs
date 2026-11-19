@@ -351,6 +351,7 @@ namespace Cogpunk.Content.Combinator.UI
 			slots.ProductSlot = product;
 			previewBase = previewAugment = -1;
 			SoundEngine.PlaySound(SoundID.Item37);                 // vanilla's reforge chime
+			Main.LocalPlayer.GetModPlayer<Research.ResearchPlayer>().Grant(Research.KnowledgeTasks.Combinator);   // research (2026-11-18)
 			SoundEngine.PlaySound(SoundID.Item13 with { Pitch = -0.3f, Volume = 0.7f });   // a hiss of steam
 		}
 

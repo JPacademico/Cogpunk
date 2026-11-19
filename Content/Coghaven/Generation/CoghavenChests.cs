@@ -7,16 +7,20 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.Coghaven.Generation
 {
 	/// <summary>
-	/// Coghaven's chests. Since 2026-11-12 there are only two (user: "coghaven should have only 2 chests now, containing sky
+	/// Coghaven's chests. Since 2026-11-12 there were two (user: "coghaven should have only 2 chests now, containing sky
 	/// island loot and some other specific items that I will add in the future"): the pagoda's top room and, since 2026-11-16,
-	/// the middle of the Jade Vault (the engine deck's boiler hall before; art/coghaven/make_coghaven_blueprints.py). Both are
-	/// filled here as Dynasty chests and then turned into <see cref="Tiles.CoghavenChestTile"/>s (<see cref="Convert"/>): the
-	/// pagoda's a Locked Pagoda Chest (the Pagoda Key opens it), the vault's the Jade Vault (Jadey guards it). Each is a vanilla Dynasty
+	/// the middle of the Jade Vault (the engine deck's boiler hall before; art/coghaven/make_coghaven_blueprints.py); since
+	/// 2026-11-17 a third, plain one in the Main Hall's gallery (user: "add a third basic sky chest on the upper floor of the
+	/// mansion"). All are filled here as Dynasty chests and then turned into <see cref="Tiles.CoghavenChestTile"/>s
+	/// (<see cref="Convert"/>): the gallery's a Pagoda Chest, the pagoda's a Locked Pagoda Chest (the Pagoda Key opens it), the
+	/// vault's the Jade Vault (Jadey guards it), which also holds the world's <see cref="Items.JadeEyedKoi"/> (user, 2026-11-17);
+	/// the gallery's always holds a <see cref="Pets.JadeToken"/> (user, 2026-11-18: "on the top chest of the main mansion").
+	/// Each is a vanilla Dynasty
 	/// Chest (tile 21, style <see cref="DynastyChestStyle"/>, decompiled <c>Item.SetDefaults</c> 2230) filled by vanilla's own
 	/// <c>WorldGen.AddBuriedChest</c> around a primary item from vanilla's sky-island list (decompiled <c>IslandHouse</c>: the
 	/// Shiny Red Balloon, Starfury, Lucky Horseshoe and Celestial Magnet; passing one makes vanilla treat the chest as a sky
-	/// chest and add its sky filler loot, the 1 in 40 Fledgling Wings included). The two primaries are two different ones,
-	/// picked at random. Every chest still holds some <see cref="Gems.Items.Jade"/> (user, 2026-11-09: "chests on coghaven
+	/// chest and add its sky filler loot, the 1 in 40 Fledgling Wings included). The primaries are all different, picked at
+	/// random. Every chest still holds some <see cref="Gems.Items.Jade"/> (user, 2026-11-09: "chests on coghaven
 	/// contain some jades"), <see cref="JadeMin"/>-<see cref="JadeMax"/>, plus whatever <see cref="ExtraLoot"/> lists: empty
 	/// for now, the place for the items the user will add. (The 2026-11-06 extras, my calls: Jade Bricks, the treasure's Lift
 	/// Turbine, Bronze Cogs, Tarnished Brass Bars, gold and its own wings roll, went with the extra chests.)
@@ -32,23 +36,24 @@ namespace Cogpunk.Content.Coghaven.Generation
 		/// user names them (2026-11-12: "some other specific items that I will add in the future").</summary>
 		private static readonly (int Type, int Min, int Max)[] ExtraLoot = System.Array.Empty<(int, int, int)>();
 
-		private static int firstPrimary = -1;                    // this world's first pick, so the second chest differs
+		private static int usedPrimaries;                        // this world's picks (bits), so every chest differs
 
 		/// <summary>Called before the chests are placed (a pass is reused for every world made in a session).</summary>
 		public static void Reset() {
-			firstPrimary = -1;
+			usedPrimaries = 0;
 		}
 
 		/// <summary>A Dynasty Chest with its bottom-left tile at (<paramref name="x"/>, <paramref name="y"/>) on a solid floor at
 		/// <c>y + 1</c>, filled. Returns the chest's index or -1. (<paramref name="treasure"/>: the pagoda's top room; the same loot
-		/// since 2026-11-12.)</summary>
-		public static int Place(int x, int y, bool treasure, int order) {
+		/// since 2026-11-12. <paramref name="vault"/>: the Jade Vault, which also gets the Jade-eyed Koi. <paramref name="gallery"/>:
+		/// the Main Hall's gallery, the mansion's top chest, which always gets the <see cref="Pets.JadeToken"/>, user 2026-11-18.)</summary>
+		public static int Place(int x, int y, bool treasure, int order, bool vault = false, bool gallery = false) {
 			if (!TileSafety.InWorld(x, y - 1, TileSafety.EditMargin) || !TileSafety.InWorld(x + 1, y + 1, TileSafety.EditMargin)) {
 				return -1;
 			}
 			int pick = WorldGen.genRand.Next(SkyItems.Length);
-			if (pick == firstPrimary) {
-				pick = (pick + 1 + WorldGen.genRand.Next(SkyItems.Length - 1)) % SkyItems.Length;   // a different one
+			for (int k = 0; k < SkyItems.Length && (usedPrimaries & (1 << pick)) != 0; k++) {
+				pick = (pick + 1) % SkyItems.Length;              // the next one not used yet (all used: any)
 			}
 			int primary = SkyItems[pick];
 			// AddBuriedChest(i, j) searches down from j at column i for the floor and places the chest at (i - 1, floor - 1)
@@ -59,11 +64,15 @@ namespace Cogpunk.Content.Coghaven.Generation
 			if (index < 0 || index >= Main.maxChests || Main.chest[index] == null) {
 				return -1;
 			}
-			if (firstPrimary < 0) {
-				firstPrimary = pick;
-			}
+			usedPrimaries |= 1 << pick;
 			Chest chest = Main.chest[index];
 			Add(chest, ModContent.ItemType<Gems.Items.Jade>(), WorldGen.genRand.Next(JadeMin, JadeMax + 1));
+			if (vault) {
+				Add(chest, ModContent.ItemType<Items.JadeEyedKoi>(), 1);          // user-set 2026-11-17
+			}
+			if (gallery) {
+				Add(chest, ModContent.ItemType<Pets.JadeToken>(), 1);             // user-set 2026-11-18: "allways spawn there"
+			}
 			foreach ((int type, int min, int max) in ExtraLoot) {
 				if (type > 0 && type < ItemLoader.ItemCount && max >= min && min > 0) {
 					Add(chest, type, WorldGen.genRand.Next(min, max + 1));

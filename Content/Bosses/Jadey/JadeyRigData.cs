@@ -9,18 +9,18 @@ namespace Cogpunk.Content.Bosses.Jadey
 	/// frames'). Gem: the brow gem (her lasers leave it); Eyes: between her eyes.</summary>
 	public static class JadeyRigData
 	{
-		public const int CellWidth = 100, CellHeight = 114, OriginX = 50, OriginY = 106, Frames = 38, Columns = 4;
+		public const int CellWidth = 120, CellHeight = 114, OriginX = 60, OriginY = 106, Frames = 38, Columns = 4;
 		public const int Idle = 0, IdleFrames = 6, Whip = 6, WhipFrames = 6, Zone = 12, ZoneFrames = 6, Channel = 18, ChannelFrames = 4;
 		public const int Laser = 22, LaserFrames = 4, Intro = 26, IntroFrames = 4, Death = 30, DeathFrames = 8;
 		public const int Flick = 38, FlickFrames = 6, FarFrames = 44;
-		public const int BodyLeft = -32, BodyRight = 32, BodyTop = -90, BodyBottom = 0;
-		public const int GemX = -1, GemY = -82, EyesX = -1, EyesY = -74;
+		public const int BodyLeft = -36, BodyRight = 36, BodyTop = -90, BodyBottom = 0;
+		public const int GemX = 0, GemY = -82, EyesX = 0, EyesY = -74;
 		public const int DartCell = 26, DartHeadings = 16, CoinCell = 18, CoinFrames = 6, GroundFrames = 4, PetrifyFrames = 4;
 		public const int BatWidth = 40, BatHeight = 28, BatFrames = 4;
-		public static readonly short[] NearX = { -29, -29, -29, -29, -29, -29, -30, -24, -20, -19, -44, -36, -31, -27, -22, -22, -20, -27, -33, -38, -38, -38, -16, -12, -12, -16, -29, -29, -29, -29, -29, -29, -29, -29, -29, -29, -29, -29 };
-		public static readonly short[] NearY = { -28, -28, -28, -28, -28, -28, -45, -68, -77, -77, -61, -45, -50, -74, -77, -77, -36, -32, -45, -56, -56, -56, -67, -76, -76, -67, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28 };
-		public static readonly short[] FarX = { 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 30, 26, 21, 21, 19, 27, 32, 37, 37, 37, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 27, 25, 26, 28 };
-		public static readonly short[] FarY = { -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -50, -75, -77, -77, -36, -33, -46, -57, -57, -57, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -32, -36, -43, -49, -44, -36 };
+		public static readonly short[] NearX = { -39, -39, -39, -39, -39, -39, -41, -35, -31, -30, -54, -47, -42, -38, -33, -33, -31, -38, -44, -48, -48, -48, -27, -23, -23, -27, -39, -39, -39, -39, -39, -39, -39, -39, -39, -39, -39, -39 };
+		public static readonly short[] NearY = { -28, -28, -28, -28, -28, -28, -45, -68, -76, -76, -60, -45, -50, -74, -76, -76, -36, -32, -45, -56, -56, -56, -67, -75, -75, -67, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28 };
+		public static readonly short[] FarX = { 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 41, 38, 32, 32, 30, 37, 43, 47, 47, 47, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 38, 37, 36, 37, 38 };
+		public static readonly short[] FarY = { -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -51, -75, -76, -76, -36, -33, -46, -57, -57, -57, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -28, -32, -37, -43, -49, -45, -36 };
 		public static readonly bool[] FlickOk = { true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false };
 	}
 }

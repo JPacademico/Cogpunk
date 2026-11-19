@@ -44,6 +44,18 @@ RAMP = {
     "ghost": [(10, 34, 32), (18, 70, 58), (30, 114, 88), (58, 166, 118), (118, 220, 162), (196, 250, 214)],
     "oak": [(40, 21, 14), (76, 40, 22), (110, 60, 30), (146, 86, 42), (180, 116, 60), (212, 154, 90)],
     "ivory": [(52, 38, 30), (104, 84, 64), (152, 132, 104), (196, 180, 150), (228, 218, 192), (250, 246, 230)],
+    # Cactus green (2026-11-17, the Cak-ti): the palette's greens were jade and verdigris only
+    "cactus": [(26, 46, 20), (46, 84, 30), (74, 124, 42), (112, 164, 58), (164, 206, 96)],
+    # Fel jade and plum (2026-11-18, the user's own Jade Cursed Glaive art: its vivid blades and their dark membranes; the
+    # palette's greens were all muted)
+    "fel": [(12, 40, 22), (16, 76, 33), (30, 120, 40), (40, 168, 52), (72, 204, 62), (140, 228, 88), (196, 246, 48),
+            (226, 252, 150)],
+    "plum": [(26, 14, 26), (44, 24, 42), (66, 38, 62)],
+    # Emerald and sage (2026-11-18, the user's own Jade Token fox: its jade fur markings and spirit flame, and its pale fur)
+    "emerald": [(8, 34, 22), (12, 70, 42), (20, 110, 62), (38, 160, 80), (78, 212, 106), (140, 238, 128), (200, 250, 160)],
+    "sage": [(24, 52, 34), (54, 116, 74), (100, 158, 106), (150, 192, 144), (192, 220, 174), (228, 241, 206)],
+    # Amethyst (2026-11-18, the user's Bundle of Wands design: its magenta amethyst rod; the palette had no magenta)
+    "amethyst": [(36, 12, 40), (78, 22, 88), (128, 36, 140), (184, 58, 190), (228, 112, 230), (248, 184, 248)],
 }
 WHITE = RAMP["steam"][3]
 COLOR_INDEX = {}

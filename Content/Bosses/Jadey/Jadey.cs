@@ -70,10 +70,12 @@ namespace Cogpunk.Content.Bosses.Jadey
 	[AutoloadBossHead]
 	public partial class Jadey : BossNPC
 	{
-		public enum Phase { Intro, Idle, Whip, Zone, Channel, Laser, Leave, Dying }
+		public enum Phase { Intro, Idle, Whip, Zone, Channel, Laser, Leave, Dying, Statue }
 
 		// --- stats (Expert, docs/balance/bosses.csv) -------------------------------------------------------------------
-		public const int ExpertLife = 7000;
+		// 2026-11-18 (user: every boss 10-35% over its tier's vanilla boss, by difficulty): the Wall of Flesh's 11200 + 10%, the
+		// band's bottom because her heals and her invulnerable statue phases lengthen the fight already (it was 7000)
+		public const int ExpertLife = 12300;
 		public const float LifePerExtraPlayer = 0.35f;
 		public const int BaseDefense = 14;
 		public const int DartDamage = 90, LaserDamage = 30;                 // "high damage", "small damage" (Expert)
@@ -100,9 +102,14 @@ namespace Cogpunk.Content.Bosses.Jadey
 
 		// --- the float -------------------------------------------------------------------------------------------------
 		public const float HoverX = 9f * 16f, HoverY = 5f * 16f;
+		// the drift (BossNPC's floaty rule, user 2026-11-17): px either way of her hover spot, at range and in her melee hover
+		public const float SwayX = 3f * 16f, BobY = 20f, MeleeSwayX = 12f, MeleeBobY = 8f;
 		public const float HoverSpeed = 5f, AttackSpeed = 2f, HoverAccel = 0.08f, HoverApproach = 0.06f;
 		public const float MeleeGap = 14f, MeleeLift = 6f, MeleeSpeed = 8f;  // the Blade of Grass's reach (BossNPC rule)
 		public const float ArenaMarginX = 3f * 16f, ArenaMarginTop = 2f * 16f, ArenaMarginBottom = 1f * 16f;
+		// my calls: with less than this share of HoverX between her target and the wall on her side (and more on the other),
+		// she crosses to the other side instead of hanging over a cornered target's head
+		public const float WallRoomShare = 0.5f, SideSwitchMargin = 16f;
 
 		// --- intro, leaving, death -------------------------------------------------------------------------------------
 		public const int IntroTicks = 150, TitleTick = 50, TitleHoldTicks = 140;
@@ -111,6 +118,17 @@ namespace Cogpunk.Content.Bosses.Jadey
 		public const int CameraEaseTicks = 30;
 		public const float CameraLockRange = 120f * 16f;
 		public const int CheckInterval = 30, LeaveGrace = 60;
+		// the statue (user-set 2026-11-17: "every 20% health lost she should stop to perform a special attack throwing 3 jade
+		// coins that spawn 1-2 random jade minions each and becoming petrified in jade and immune to damage for 8 seconds (or until
+		// every minion is killed), if there's still minions alive by the end of the duration she should drain them restoring life")
+		public const float StatueStep = 0.2f;                               // user-set: every 20%
+		public const int StatueCount = 4;                                   // at 80, 60, 40 and 20% of her life
+		public const int StatueCoins = 3, StatueCoinGap = 12;               // user-set: 3 coins (a flick each, 0.2 s apart)
+		public const int PetrifyAt = 42, PetrifyTurnTicks = 20;            // she turns to jade once the third coin is away
+		public const int StatueTicks = 480;                                 // user-set: 8 s
+		public const int StatueMinionGrace = 110;                           // the coins land and hatch before "every minion is killed" counts
+		public const int StatueCrackWarn = 30;                              // cracks show for the last 0.5 s of a statue that times out
+		public const int StatueMinionCap = 12;                              // her minions at most, statue coins included (D0)
 		public const float FightRange = 150f * 16f;
 
 		private static LocalizedText epithet;
@@ -122,7 +140,7 @@ namespace Cogpunk.Content.Bosses.Jadey
 
 		// synced (SendExtraAI)
 		private int attackClock, coinClock = CoinInterval - 60, healCooldown, flickTick = -1;
-		private byte lastAttack = 255, nextKind;
+		private byte lastAttack = 255, nextKind, statuesDone;
 		private Vector2 aim;
 		// the server's own
 		private int absentTicks;
@@ -177,7 +195,8 @@ namespace Cogpunk.Content.Bosses.Jadey
 		}
 
 		/// <summary>Her hitbox: the cushion, the body and the head (the art's box, a little inside the cushion's tassels).</summary>
-		public const int HitboxWidth = 56, HitboxHeight = -R.BodyTop - 2;
+		public const int HitboxWidth = R.BodyRight - R.BodyLeft, HitboxHeight = -R.BodyTop - 2;   // her body and cushion (2026-11-18:
+		                                                                                          // the arms out at her sides)
 
 		/// <summary>Expert lands exactly on <see cref="ExpertLife"/>; Master keeps vanilla's boss adjustment; +35% per extra player.</summary>
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment) {
@@ -214,6 +233,8 @@ namespace Cogpunk.Content.Bosses.Jadey
 			writer.Write(nextKind);
 			writer.Write(aim.X);
 			writer.Write(aim.Y);
+			writer.Write(statuesDone);
+			WriteDrift(writer);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader) {
@@ -227,6 +248,8 @@ namespace Cogpunk.Content.Bosses.Jadey
 			nextKind = reader.ReadByte();
 			float x = reader.ReadSingle(), y = reader.ReadSingle();
 			aim = float.IsFinite(x) && float.IsFinite(y) ? new Vector2(x, y) : Vector2.Zero;
+			statuesDone = reader.ReadByte();
+			ReadDrift(reader);
 			if (lifeMax > 0 && lifeMax != NPC.lifeMax) {
 				NPC.lifeMax = lifeMax;
 				if (full) {
@@ -245,6 +268,7 @@ namespace Cogpunk.Content.Bosses.Jadey
 		/// <summary>A bag per player in Expert/Master (vanilla <c>ItemDropRule.BossBag</c>), its contents in Classic.</summary>
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<JadeyBag>()));
+			npcLoot.Add(Manuals.ManualDrop.Of<Manuals.Items.JadeShaperManual>());   // 2026-11-17: one per player, first defeat
 			LeadingConditionRule classic = new(new Conditions.NotExpert());
 			JadeyLoot.AddClassic(classic);
 			npcLoot.Add(classic);
@@ -278,7 +302,11 @@ namespace Cogpunk.Content.Bosses.Jadey
 		// The state machine (every side; only the server changes state)
 		// ------------------------------------------------------------------------------------------------------------
 
-		private bool Untouchable => CurrentPhase == Phase.Intro || CurrentPhase == Phase.Leave || CurrentPhase == Phase.Dying;
+		private bool Untouchable => CurrentPhase == Phase.Intro || CurrentPhase == Phase.Leave || CurrentPhase == Phase.Dying
+			|| (CurrentPhase == Phase.Statue && Timer >= PetrifyAt);
+
+		/// <summary>Turned to jade (the statue's hold): she takes no damage and doesn't move.</summary>
+		public bool Petrified => CurrentPhase == Phase.Statue && Timer >= PetrifyAt;
 
 		protected override void UpdateBoss() {
 			JadeySystem.Track(NPC.whoAmI);
@@ -302,9 +330,19 @@ namespace Cogpunk.Content.Bosses.Jadey
 					break;
 				case Phase.Idle:
 					Float(HoverSpeed);
-					if (IsAuthority && attackClock >= AttackInterval && Timer >= MinIdle) {
+					if (IsAuthority && StatueDue()) {
+						StartStatue();                            // between attacks: a 20% of her life has gone
+					}
+					else if (IsAuthority && attackClock >= AttackInterval && Timer >= MinIdle) {
 						StartAttack();
 					}
+					break;
+				case Phase.Statue:
+					NPC.velocity *= Petrified ? 0.8f : 0.9f;
+					if (!Petrified) {
+						FaceTarget();
+					}
+					DoStatue();
 					break;
 				case Phase.Whip:
 					Float(AttackSpeed);
@@ -345,12 +383,15 @@ namespace Cogpunk.Content.Bosses.Jadey
 					break;
 			}
 			if (CurrentPhase != Phase.Intro && CurrentPhase != Phase.Leave && CurrentPhase != Phase.Dying) {
-				attackClock++;
+				if (CurrentPhase != Phase.Statue) {
+					attackClock++;
+					UpdateCoin();                                // the coin and the attacks wait while she is a statue
+				}
 				if (healCooldown > 0) {
 					healCooldown--;
 				}
-				UpdateCoin();
 				CheckFight();
+				TickDrift();
 			}
 			KeepInArena();
 			if (!Main.dedServ) {
@@ -374,7 +415,9 @@ namespace Cogpunk.Content.Bosses.Jadey
 		}
 
 		/// <summary>Every side: she eases to her spot beside and above her target (close in, at a melee fighter's side), inside the
-		/// vault; slower while attacking.</summary>
+		/// vault; slower while attacking. The spot hangs round a point that follows her target with a lag and sways side to side and
+		/// up and down (BossNPC's drift, user rule 2026-11-17: never a perfect lock-on), a little in her melee hover so she stays in
+		/// a blade's reach.</summary>
 		private void Float(float speed) {
 			Player target = CurrentTarget;
 			FaceTarget();
@@ -382,11 +425,16 @@ namespace Cogpunk.Content.Bosses.Jadey
 				NPC.velocity *= 0.92f;
 				return;
 			}
-			float side = NPC.Center.X < target.Center.X ? -1f : 1f;
+			Vector2 focus = FloatFocus(target);
+			float side = NPC.Center.X < focus.X ? -1f : 1f;
 			bool melee = MeleeFocus.Of(target);
+			if (!melee) {
+				side = RoomySide(side, focus.X);
+			}
 			Vector2 spot = melee
-				? new Vector2(target.Center.X + side * (target.width * 0.5f + MeleeGap + NPC.width * 0.5f), target.Bottom.Y - MeleeLift - NPC.height * 0.5f)
-				: target.Center + new Vector2(side * HoverX, -HoverY);
+				? new Vector2(focus.X + side * (target.width * 0.5f + MeleeGap + NPC.width * 0.5f + DriftSway * MeleeSwayX),
+					focus.Y + target.height * 0.5f - MeleeLift - NPC.height * 0.5f + DriftBob * MeleeBobY)
+				: focus + new Vector2(side * HoverX + DriftSway * SwayX, -HoverY + DriftBob * BobY);
 			spot = ClampToArena(spot);
 			float max = melee ? Math.Max(speed, MeleeSpeed) : speed;
 			Vector2 to = spot - NPC.Center;
@@ -400,19 +448,32 @@ namespace Cogpunk.Content.Bosses.Jadey
 
 		/// <summary>The vault's hall in world px (the inside of the shell), reckoned from her home (the vault's top-left tile)
 		/// and the blueprint's numbers; empty without a home.</summary>
-		public Rectangle Arena {
-			get {
-				if (!HasHome) {
-					return Rectangle.Empty;
-				}
-				int mid = (CoghavenBlueprints.VaultLeft + 1 + CoghavenBlueprints.VaultRight - 1) / 2;
-				int chestTop = CoghavenBlueprints.VaultFloor - 2;
-				int left = HomeX - (mid - (CoghavenBlueprints.VaultLeft + 1));
-				int right = HomeX + (CoghavenBlueprints.VaultRight - 1 - mid);
-				int top = HomeY - (chestTop - (CoghavenBlueprints.VaultTop + 1));
-				int bottom = HomeY + (CoghavenBlueprints.VaultFloor - 1 - chestTop);
-				return new Rectangle(left * 16, top * 16, (right - left + 1) * 16, (bottom - top + 1) * 16);
+		public Rectangle Arena => HasHome ? ArenaFor(HomeX, HomeY) : Rectangle.Empty;
+
+		/// <summary>The hall of the vault whose chest's top-left tile is (<paramref name="homeX"/>, <paramref name="homeY"/>), in world
+		/// px (the inside of the shell), from the blueprint's numbers (also the Jade Incense's test, <see cref="JadeySummon"/>).</summary>
+		public static Rectangle ArenaFor(int homeX, int homeY) {
+			int mid = (CoghavenBlueprints.VaultLeft + 1 + CoghavenBlueprints.VaultRight - 1) / 2;
+			int chestTop = CoghavenBlueprints.VaultFloor - 2;
+			int left = homeX - (mid - (CoghavenBlueprints.VaultLeft + 1));
+			int right = homeX + (CoghavenBlueprints.VaultRight - 1 - mid);
+			int top = homeY - (chestTop - (CoghavenBlueprints.VaultTop + 1));
+			int bottom = homeY + (CoghavenBlueprints.VaultFloor - 1 - chestTop);
+			return new Rectangle(left * 16, top * 16, (right - left + 1) * 16, (bottom - top + 1) * 16);
+		}
+
+		/// <summary>Her side of the focus, or the other one when the hall's wall leaves less than <see cref="WallRoomShare"/> of
+		/// <see cref="HoverX"/> on hers and the other side has <see cref="SideSwitchMargin"/> px more room (no flip-flop in a narrow
+		/// hall: the side is read from where she is, so once she has crossed, the roomier side is hers).</summary>
+		private float RoomySide(float side, float focusX) {
+			Rectangle a = Arena;
+			if (a.IsEmpty) {
+				return side;
 			}
+			float x0 = a.Left + ArenaMarginX + NPC.width * 0.5f, x1 = a.Right - ArenaMarginX - NPC.width * 0.5f;
+			float room = side < 0f ? focusX - x0 : x1 - focusX;
+			float other = side < 0f ? x1 - focusX : focusX - x0;
+			return room < HoverX * WallRoomShare && other > room + SideSwitchMargin ? -side : side;
 		}
 
 		private Vector2 ClampToArena(Vector2 spot) {

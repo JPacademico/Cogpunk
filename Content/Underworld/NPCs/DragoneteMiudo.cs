@@ -60,7 +60,7 @@ namespace Cogpunk.Content.Underworld.NPCs
 		public const int BiteTicks = 15;
 		public const int RetreatTicks = 45;
 		public const float RetreatSpeed = 5f;
-		public const int FlapTicks = 4;
+		public const int FlapTicks = 3;                     // 2026-11-19: ten drawn in-betweens a beat (was six of 4 ticks): 30 ticks a beat
 		public const float SpawnWeight = 0.12f;
 		/// <summary>The sprite's mass (head and body) sits this far ahead of its origin, game px: the hitbox is centred on it.</summary>
 		public const float AnchorShift = 7f;
@@ -94,7 +94,7 @@ namespace Cogpunk.Content.Underworld.NPCs
 		protected override Vector2 DrawAnchor {
 			get {
 				int face = NPC.spriteDirection == 0 ? -1 : NPC.spriteDirection;
-				float bob = Frame == R.Fly + 3 || Frame == R.Fly + 4 ? -2f : 0f;
+				float bob = Frame >= R.Fly + 4 && Frame <= R.Fly + 6 ? -2f : 0f;   // lifted as the wings push down
 				return NPC.Bottom + new Vector2(-AnchorShift * face, bob);
 			}
 		}

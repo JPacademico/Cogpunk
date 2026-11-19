@@ -113,6 +113,9 @@ namespace Cogpunk.Content.Bosses.Jadey
 				case Phase.Channel:
 					ChannelEffects(t);
 					break;
+				case Phase.Statue:
+					StatueEffects(t);
+					break;
 				case Phase.Laser:
 					if (Once(1)) {
 						SoundEngine.PlaySound(SoundID.Item15 with { Pitch = 0.4f, Volume = 0.8f }, GemWorld);           // the gem hums
@@ -185,6 +188,21 @@ namespace Cogpunk.Content.Bosses.Jadey
 			if (Once(ChannelTicks)) {
 				SoundEngine.PlaySound(SoundID.Item4 with { Pitch = -0.2f }, NPC.Center);                              // she drinks them
 				Motes(NPC.Center, 16);
+			}
+		}
+
+		/// <summary>The statue: a flick per coin (drawn from the flick frames), a crack and a hush as the jade climbs her, a low hum
+		/// while she stands, cracking light just before she wakes, and shards when she does (her leaving the state).</summary>
+		private void StatueEffects(int t) {
+			if (Once(PetrifyAt)) {
+				SoundEngine.PlaySound(SoundID.Item27 with { Pitch = -0.6f, Volume = 0.9f }, NPC.Center);
+				Motes(NPC.Center, 18);
+			}
+			if (t >= PetrifyAt && t % 40 == 0) {
+				SoundEngine.PlaySound(SoundID.Item15 with { Pitch = -0.7f, Volume = 0.35f, MaxInstances = 2 }, NPC.Center);
+			}
+			if (t >= PetrifyAt + StatueTicks - StatueCrackWarn && Main.rand.NextBool(3)) {
+				Motes(NPC.Center + Main.rand.NextVector2Circular(24f, 30f), 1);
 			}
 		}
 

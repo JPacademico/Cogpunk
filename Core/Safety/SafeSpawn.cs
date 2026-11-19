@@ -158,6 +158,42 @@ namespace Cogpunk.Core.Safety
 		}
 
 		/// <summary>
+		/// One copy of an item for every player who fought <paramref name="npc"/>, the way vanilla hands out boss bags
+		/// (decompiled <c>CommonCode.DropItemLocalPerClientAndSetNPCMoneyTo0</c>) but leaving the NPC's money alone (the bag's
+		/// version zeroes <c>npc.value</c>; a drop that isn't the bag must not take Classic's coins): on a server the item is
+		/// made without a broadcast, sent as an instanced item (message 90) to each active player whose
+		/// <c>npc.playerInteraction</c> is set (credited when they strike it), and the shared copy is put out; in singleplayer
+		/// it simply drops. <b>Server or singleplayer only</b> (loot rules). False when nothing was made or nobody qualified.
+		/// </summary>
+		public static bool TryDropInstanced(NPC npc, int type, int stack = 1) {
+			if (npc == null || Main.netMode == NetmodeID.MultiplayerClient) {
+				return false;
+			}
+			if (type <= ItemID.None || type >= ItemLoader.ItemCount || stack <= 0) {
+				SafeLog.Warn("Spawn.Item.BadType", "Refused item drop with invalid type {0} or stack {1}.", type, stack);
+				return false;
+			}
+			if (Main.netMode == NetmodeID.SinglePlayer) {
+				return TryNewItem(npc.GetSource_Loot(), npc.Hitbox, type, stack, out _);
+			}
+			int index = Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, type, stack, true, -1);
+			if (index < 0 || index >= Main.maxItems) {
+				return false;
+			}
+			Main.timeItemSlotCannotBeReusedFor[index] = 54000;             // vanilla's: the slot stays reserved for the copies
+			bool sent = false;
+			int players = System.Math.Min(Main.maxPlayers, npc.playerInteraction.Length);
+			for (int i = 0; i < players; i++) {
+				if (Main.player[i].active && npc.playerInteraction[i]) {
+					NetMessage.SendData(MessageID.InstancedItem, i, -1, null, index);
+					sent = true;
+				}
+			}
+			Main.item[index].active = false;
+			return sent;
+		}
+
+		/// <summary>
 		/// A copy of <paramref name="template"/> dropped in <paramref name="area"/>, its stack, prefix and modded data kept
 		/// (vanilla's <c>Item.NewItem(source, x, y, w, h, Item)</c>): what a thief gives back (the Delivery Drone, 2026-11-10b).
 		/// Server or singleplayer only, like every world drop.

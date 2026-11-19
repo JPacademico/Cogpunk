@@ -50,8 +50,9 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 	/// the <see cref="LostKey"/> that opens the cache, which stays shut (no longer wakes it) from then on. Loot:
 	/// <see cref="TrashTr0mLoot"/>.</para>
 	/// <para>Stats (user-set 2026-10-26, docs/balance/bosses.csv), <b>Expert</b> values like every Cogpunk number
-	/// (user directive 2026-10-27, <see cref="ExpertStats"/>): 5000 life, +35% of that per extra player; contact 50, slam
-	/// 120, spat scrap 50, scrap ball 100, cog 25. Classic gets half, Master 1.5x (life: 6375, vanilla's 0.85 boss
+	/// (user directive 2026-10-27, <see cref="ExpertStats"/>): 4900 life (user-set 5000 until the user's 2026-11-18 band, 10-35% over its
+	/// tier's vanilla boss: the Eye of Cthulhu + 35%), +35% of that per extra player; contact 50, slam
+	/// 120, spat scrap 50, scrap ball 100, cog 25. Classic gets half, Master 1.5x (life: 6248, vanilla's 0.85 boss
 	/// adjustment). A spat player falls far enough for up to 200 fall damage (absolute, every mode).</para>
 	/// <para>Hitboxes (TrashTr0m.Hitboxes.cs): contact damage and hits use silhouette strips measured from the sprites,
 	/// not the whole NPC rectangle.</para>
@@ -83,7 +84,9 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 		}
 
 		// --- stats (docs/balance/bosses.csv): Expert values (ExpertStats: Classic half, Master 1.5x) ---------------------
-		public const int ExpertLife = 5000;                // single player; Classic 2500, Master 6375
+		// single player; Classic 2450, Master 6248 (x1.5 x vanilla's 0.85). 2026-11-18 (user: every boss 10-35% over its tier's vanilla boss, by difficulty):
+		// the Eye of Cthulhu's 3640 + 35% (it was 5000, +37%; my call: the first boss but a dense one, kept at the band's top)
+		public const int ExpertLife = 4900;
 		public const float LifePerExtraPlayer = 0.35f;     // +35% of the mode's base life per additional player
 		public const int BaseDefense = 12;
 		public const int ExpertContactDamage = 50;         // Classic 25, Master 75
@@ -204,7 +207,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 		/// Expert and Master (vanilla only calls this hook there; decompiled <c>NPC.ScaleStats</c>): by now life and contact
 		/// damage are the <c>SetDefaults</c> values x2 (Expert) or x3 (Master). Expert lands exactly on
 		/// <see cref="ExpertLife"/> and <see cref="ExpertContactDamage"/>; Master keeps vanilla's 0.85 boss adjustment
-		/// (7500 x 0.85 = 6375); then +35% per extra player instead of vanilla's balance curve.
+		/// (7350 x 0.85 = 6248); then +35% per extra player instead of vanilla's balance curve.
 		/// </summary>
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment) {
 			NPC.lifeMax = (int)Math.Round(ExpertStats.Snap(NPC.lifeMax, ExpertLife) * bossAdjustment * PlayerFactor(numPlayers));
@@ -254,6 +257,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 		/// (<see cref="TrashTr0mLoot"/>).</summary>
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.ByCondition(new FirstKillCondition(), ModContent.ItemType<LostKey>()));
+			npcLoot.Add(Manuals.ManualDrop.Of<Manuals.Items.ScrapManual>());   // 2026-11-17: one per player, first defeat
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<TrashTr0mBag>()));
 			LeadingConditionRule classic = new(new Conditions.NotExpert());
 			classic.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, TrashTr0mLoot.WeaponPool()));

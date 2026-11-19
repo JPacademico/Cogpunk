@@ -77,6 +77,63 @@ namespace Cogpunk.Content.Bosses.Jadey
 			NPC.netUpdate = true;
 		}
 
+		// --- the statue (user-set 2026-11-17), every 20% of her life -----------------------------------------------------------
+
+		/// <summary>Server: has another <see cref="StatueStep"/> of her life gone since her last statue?</summary>
+		private bool StatueDue() {
+			if (statuesDone >= StatueCount || NPC.lifeMax <= 0) {
+				return false;
+			}
+			return NPC.life <= NPC.lifeMax * (1f - StatueStep * (statuesDone + 1));
+		}
+
+		private void StartStatue() {
+			statuesDone++;
+			flickTick = -1;
+			aim = Vector2.Zero;
+			ChangeState((int)Phase.Statue);
+			NPC.netUpdate = true;
+		}
+
+		/// <summary>Three coins, a flick each (every side flicks from the synced timer; the server throws), each rolling 1-2 minions;
+		/// then she turns to jade for <see cref="StatueTicks"/> ticks, or until her minions are all dead; any still alive then she
+		/// drains (<see cref="DoChannel"/>, which heals her).</summary>
+		private void DoStatue() {
+			int t = (int)Timer;
+			for (int k = 0; k < StatueCoins; k++) {
+				int at = k * StatueCoinGap;
+				if (t == at) {
+					flickTick = 0;
+				}
+				if (IsAuthority && t == at + FlickTicks / 2) {
+					ThrowStatueCoin(k);
+				}
+			}
+			if (!IsAuthority || t < PetrifyAt + StatueMinionGrace) {
+				return;
+			}
+			int left = JadeyMinion.Count(NPC.whoAmI);
+			if (left > 0 && t < PetrifyAt + StatueTicks) {
+				return;
+			}
+			attackClock = 0;
+			lastAttack = (byte)Phase.Channel;
+			ChangeState(left > 0 ? (int)Phase.Channel : (int)Phase.Idle);
+			NPC.netUpdate = true;
+		}
+
+		/// <summary>Server: a statue coin: to her left, near her target, to her right; it carries how many minions it hatches (1-2)
+		/// and which (<see cref="JadeCoin.StatueCode"/>).</summary>
+		private void ThrowStatueCoin(int k) {
+			float toward = CurrentTarget is Player p && p.Center.X < NPC.Center.X ? -1f : 1f;
+			float dir = k == 0 ? -1f : k == StatueCoins - 1 ? 1f : 0.35f * toward;
+			Vector2 v = new(dir * Main.rand.NextFloat(2.6f, 4.2f), -Main.rand.NextFloat(6f, 7.2f));
+			int count = Main.rand.Next(1, 3);
+			int first = Main.rand.Next(3), second = Main.rand.Next(3);
+			SafeSpawn.TryNewProjectile(NPC.GetSource_FromAI(), FarPawWorld, v, ModContent.ProjectileType<JadeCoin>(), 0, 0f, out _,
+				ai0: first, ai1: NPC.whoAmI, ai2: JadeCoin.StatueCode(count, first, second));
+		}
+
 		private void EndAttack() {
 			if (IsAuthority) {
 				aim = Vector2.Zero;
@@ -305,6 +362,14 @@ namespace Cogpunk.Content.Bosses.Jadey
 						return R.Death + Math.Min(4, t / 20);         // the jade creeps up her
 					}
 					return R.Death + (t < 140 ? 5 : t < 170 ? 6 : 7);
+				case Phase.Statue:
+					if (t < PetrifyAt) {
+						return R.Idle + (int)((Main.GameUpdateCount / 9 + (uint)NPC.whoAmI) % R.IdleFrames);   // the coins (far-arm flicks)
+					}
+					if (t < PetrifyAt + PetrifyTurnTicks) {
+						return R.Death + Math.Min(4, (t - PetrifyAt) * 5 / PetrifyTurnTicks);   // the jade creeps up her, fast
+					}
+					return R.Death + (t >= PetrifyAt + StatueTicks - StatueCrackWarn ? 6 : 5);    // a statue; cracks before she wakes
 				default:
 					return R.Idle + (int)((Main.GameUpdateCount / 9 + (uint)NPC.whoAmI) % R.IdleFrames);
 			}

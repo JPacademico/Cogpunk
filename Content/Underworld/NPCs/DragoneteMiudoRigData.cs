@@ -6,9 +6,9 @@ namespace Cogpunk.Content.Underworld.NPCs
 	/// the origin, facing left.</summary>
 	public static class DragoneteMiudoRigData
 	{
-		public const int CellWidth = 92, CellHeight = 68, OriginX = 46, OriginY = 66, Frames = 17;
-		public const int Fly = 0, FlyFrames = 6, Inhale = 6, InhaleFrames = 3, Spit = 9, SpitFrames = 3;
-		public const int Swoop = 12, SwoopFrames = 2, Bite = 14, BiteFrames = 3;
+		public const int CellWidth = 92, CellHeight = 68, OriginX = 46, OriginY = 66, Frames = 21;
+		public const int Fly = 0, FlyFrames = 10, Inhale = 10, InhaleFrames = 3, Spit = 13, SpitFrames = 3;
+		public const int Swoop = 16, SwoopFrames = 2, Bite = 18, BiteFrames = 3;
 		public const int MouthX = -35, MouthY = -24;
 	}
 }

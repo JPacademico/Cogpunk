@@ -20,8 +20,9 @@ namespace Cogpunk.Content.Junkyard.Weapons
 	/// |dx| + |dy|) that it can see, keeps chasing it within <see cref="KeepRange"/>, and turns by blending
 	/// 1/<see cref="Steering"/> of the way to it each tick at its launch speed; it snaps its jaw as it flies and faces where it
 	/// goes (rotated like vanilla's skull). On the first enemy it bites it bursts (<see cref="Blast"/>): a circle
-	/// <see cref="BlastDiameter"/> px across (5 tiles, user-set) that hurts every other enemy in it once, with the same
-	/// damage (the bitten one already took the bite: local immunity, once per NPC). A wall just breaks it.
+	/// <see cref="BlastDiameter"/> px across (5 tiles, user-set) that hurts every other enemy in it once, with
+	/// <see cref="BlastShare"/> of the damage (the bitten one already took the bite: local immunity, once per NPC; the share was
+	/// the whole damage until the user's "decrease a bit the area damage of the skull staff", 2026-11-17). A wall just breaks it.
 	/// <para>D2: <c>ai[0]</c> = phase (synced when the owner's bite sets it), <c>ai[1]</c> = the locked target + 1 (synced as
 	/// vanilla's does). Damage is decided by the owner's client. D0: finite life, the target index validated every tick.</para>
 	/// </summary>
@@ -32,6 +33,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		public const float KeepRange = 1000f;
 		public const int Steering = 32;
 		public const int BlastDiameter = 5 * 16;
+		public const float BlastShare = 0.7f;           // my call on the user's "a bit" (2026-11-17): 70% of the bite
 		public const int Lifetime = 480;                // 8 s (the Book of Skulls' 1.4.5 life; 1.4.4's was a minute)
 		public const int BlastFrames = 6, BlastFrameTicks = 3, BlastTicks = BlastFrames * BlastFrameTicks;
 		private const int BlastHurtTicks = 2;
@@ -174,6 +176,12 @@ namespace Cogpunk.Content.Junkyard.Weapons
 			}
 			Vector2 nearest = targetHitbox.ClosestPointInRect(Projectile.Center);   // a circle, not the square box
 			return Vector2.DistanceSquared(nearest, Projectile.Center) <= BlastDiameter * BlastDiameter * 0.25f;
+		}
+
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
+			if (Phase == Blast) {
+				modifiers.SourceDamage *= BlastShare;      // the burst on the others: a share of the bite
+			}
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {

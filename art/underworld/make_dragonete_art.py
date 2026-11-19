@@ -16,7 +16,8 @@ fire while it inhales and the burst in its mouth. Stable pixels (D4 rule 17): ev
 whole pixels; the bob of the flight is done in code (the whole sprite, every plane together).
 
 Frames:
-- Fly x6: one wing beat (up, half, level, down, half, up again), the tail swinging a pixel against it.
+- Fly x10: one wing beat eased on a sine (2026-11-19: up, down through four in-betweens, the wing folding as it comes
+  back up), the tail swinging a pixel a beat behind.
 - Inhale x3: the telegraph: the head rears back, the chest swells, the throat glows brighter each frame.
 - Spit x3: the head lunges, the jaw drops on a burst of fire, the recoil.
 - Swoop x2: tipped nose-down, wings swept back, jaws open, a wing twitch.
@@ -263,9 +264,15 @@ def stamps(mid, glow, T, Hx, J, p, binner):
 
 
 # --- poses -------------------------------------------------------------------------------------------------------------------
-BEAT = (-58.0, -30.0, 0.0, 26.0, 8.0, -30.0)
-TAIL_SWING = (0, 0, 1, 1, 0, 0)
-FRAMES = ([("Fly%d" % k, Pose(wing=w, tail=TAIL_SWING[k])) for k, w in enumerate(BEAT)]
+# 2026-11-19 (user: "improve wing animation for the dragonete miudo enemy as it is to instant now, take example from default
+# terraria demon enemy wings animation"): vanilla's Demon (decompiled NPC.FindFrame, type 62) beats in 5 drawn in-betweens
+# of 5 ticks; the six poses here jumped up to 38 degrees a frame. Now ten, eased on a sine (at most 25 degrees a step), the
+# wing folding in on the upstroke (SPREAD) and opening for the downstroke, the tail a beat behind. The 2026-11-12 beat is in
+# previous/make_dragonete_art_2026-11-19.py.
+BEAT = tuple(round(-15.0 - 41.0 * math.cos(2.0 * math.pi * k / 10.0), 1) for k in range(10))
+SPREAD = (1.0, 1.0, 1.0, 1.0, 1.0, 0.96, 0.86, 0.8, 0.84, 0.94)
+TAIL_SWING = (0, 0, 0, 1, 1, 1, 1, 0, 0, 0)
+FRAMES = ([("Fly%d" % k, Pose(wing=w, spread=SPREAD[k], tail=TAIL_SWING[k])) for k, w in enumerate(BEAT)]
           + [("Inhale0", Pose(wing=-20.0, head=-8.0, puff=0.5, throat=1)),
              ("Inhale1", Pose(wing=-24.0, head=-14.0, puff=1.0, throat=2)),
              ("Inhale2", Pose(wing=-26.0, head=-18.0, puff=1.0, throat=3))]

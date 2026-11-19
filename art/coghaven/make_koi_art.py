@@ -9,7 +9,10 @@ flowing pale fins (the dorsal along its back, the pectoral and the long tail), a
 mouth. Outlined in each material's darkest shade (pixkit); at most 16 colours.
 
 Outputs:
-    Content/Coghaven/Items/Koi.png   30x24
+    Content/Coghaven/Items/Koi.png          30x24
+    Content/Coghaven/Items/JadeEyedKoi.png  30x24 (2026-11-17, user: "a jade-eyed koi a valuable item that can be sold for 2
+                                            platinum coins", the Jade Vault's treasure): the same koi cast in gold, its patches
+                                            crimson lacquer, its fins gilt, its eye a polished jade with a glint.
 """
 import argparse
 import os
@@ -58,8 +61,33 @@ def koi():
     return p
 
 
+G, GH = RAMP["gilt"], RAMP["ghost"]
+GOLD_KEY = {
+    "a": (G, 4), "b": (G, 6), "c": (G, 7), "d": (G, 8),
+    "r": (RED, 1), "s": (RED, 2), "t": (RED, 3),
+    "f": (G, 5), "g": (G, 8),
+    "e": (GH, 2),
+}
+
+
+def jade_eyed_koi():
+    """The Jade Vault's treasure: the koi cast in gold (gilt ramp, lit from the top-left), crimson lacquer patches, gilt fins,
+    a jade eye with a glint."""
+    p = Pix(15, 12)
+    p.rows(0, 0, ROWS, GOLD_KEY)
+    p.outline()
+    p.put(1, 6, GH, 4, lock=True)          # the jade eye
+    p.put(1, 5, GH, 5, lock=True)          # its glint
+    p.put(2, 6, GH, 2, lock=True)
+    p.put(0, 7, G, 3, lock=True)           # a barbel
+    p.put(6, 4, G, 9, lock=True)           # the gold's shine
+    p.put(7, 4, G, 9, lock=True)
+    return p
+
+
 def export_all():
     export(koi().image(), "Content/Coghaven/Items/Koi.png")
+    export(jade_eyed_koi().image(), "Content/Coghaven/Items/JadeEyedKoi.png")
 
 
 if __name__ == "__main__":
@@ -67,6 +95,6 @@ if __name__ == "__main__":
     ap.add_argument("--preview")
     a = ap.parse_args()
     if a.preview:
-        preview([koi().image()], a.preview)
+        preview([koi().image(), jade_eyed_koi().image()], a.preview)
     else:
         export_all()

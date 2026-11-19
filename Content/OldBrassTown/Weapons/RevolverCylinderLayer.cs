@@ -21,7 +21,7 @@ namespace Cogpunk.Content.OldBrassTown.Weapons
 		public const float Spacing = 10f, Rise = 18f;
 
 		private static Asset<Texture2D> rounds;
-		private static int revolverType = -1;
+		private static int revolverType = -1, banditType = -1;    // the Bandit's Dream shares the cylinder (2026-11-19)
 
 		public override void Load() {
 			if (Main.dedServ) {
@@ -34,6 +34,7 @@ namespace Cogpunk.Content.OldBrassTown.Weapons
 		public override void Unload() {
 			rounds = null;
 			revolverType = -1;
+			banditType = -1;
 		}
 
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.FrontAccFront);
@@ -41,9 +42,10 @@ namespace Cogpunk.Content.OldBrassTown.Weapons
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) {
 			if (revolverType < 0) {
 				revolverType = ModContent.ItemType<SheriffsRevolver>();
+				banditType = ModContent.ItemType<Research.Weapons.BanditsDream>();
 			}
 			Player player = drawInfo.drawPlayer;
-			return drawInfo.shadow == 0f && player.whoAmI == Main.myPlayer && !player.dead && !player.ghost && player.HeldItem.type == revolverType;
+			return drawInfo.shadow == 0f && player.whoAmI == Main.myPlayer && !player.dead && !player.ghost && (player.HeldItem.type == revolverType || player.HeldItem.type == banditType);
 		}
 
 		protected override void Draw(ref PlayerDrawSet drawInfo) {

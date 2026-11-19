@@ -240,6 +240,10 @@ class Island:
                 continue
             if any(K["PondLeft"] - 1 <= c <= K["PondRight"] + 1 for c in range(i0, i0 + size)) and sy <= self.s + K["PondDepth"] + 1:
                 continue                                         # never into the pond (2026-11-12)
+            vx0, vx1 = K["MainHallX"] + K["VaultLeft"] - 1, K["MainHallX"] + K["VaultRight"] + 1
+            vy0, vy1 = self.s + K["VaultTop"] - 1, self.s + K["VaultFloor"] + 1
+            if i0 <= vx1 and i0 + size - 1 >= vx0 and sy <= vy1 and sb >= vy0:
+                continue                                         # CoghavenPass.TouchesVault (2026-11-16): never cut by the vault
             for c in range(i0, i0 + size):
                 for y in range(sy, sb + 1):
                     self.tile.pop((c, y), None)
@@ -267,7 +271,8 @@ class Island:
                 self.water.discard((x, y))
                 blocks = {"F": ("stone", "stonew"), "f": ("stone", None), "J": ("jade", "jadew"), "j": ("jade", None),
                           "R": ("lacquer", "panel"), "r": ("lacquer", None),
-                          "G": ("gear", "gearw"), "g": ("gear", None), "T": ("roof", None), "Y": ("gold", None)}
+                          "G": ("gear", "gearw"), "g": ("gear", None), "T": ("roof", None), "Y": ("gold", None),
+                          "X": ("vault", "vaultw"), "x": ("vault", None)}      # 2026-11-16: the Jade Vault's shell
                 if ch in blocks:
                     kind, wall = blocks[ch]
                     self.tile[(x, y)] = kind
@@ -276,14 +281,16 @@ class Island:
                 elif ch in "/\\()-":
                     self.tile[(x, y)] = "stone" if ch in "()" else "roof"
                     self.shape[(x, y)] = {"/": "up_right", "(": "up_right", "\\": "up_left", ")": "up_left", "-": "half"}[ch]
-                elif ch in ".,:#":
-                    self.wall[(x, y)] = {".": "panel", ",": "stonew", ":": "gearw", "#": "lattice"}[ch]
-                elif ch in "=+%":
+                elif ch in ".,:#;":
+                    self.wall[(x, y)] = {".": "panel", ",": "stonew", ":": "gearw", "#": "lattice", ";": "vaultw"}[ch]
+                elif ch in "=+%$":
                     self.tile[(x, y)] = "plat"
                     if ch == "=":
                         self.wall[(x, y)] = "panel"
                     elif ch == "%":
                         self.wall[(x, y)] = "gearw"
+                    elif ch == "$":
+                        self.wall[(x, y)] = "vaultw"
                 elif ch in "w~":
                     self.water.add((x, y))
                     if ch == "~":
@@ -291,8 +298,8 @@ class Island:
                 else:
                     wall = self.wall.get((x, y))                # CoghavenPass.RoomWall: the neighbours' wall, else the cell's own
                     for nx, ny in ((bx - 1, by), (bx + 1, by), (bx, by - 1), (bx, by + 1)):
-                        if 0 <= ny < len(rows) and 0 <= nx < len(rows[ny]) and rows[ny][nx] in ".,:#":
-                            wall = {".": "panel", ",": "stonew", ":": "gearw", "#": "lattice"}[rows[ny][nx]]
+                        if 0 <= ny < len(rows) and 0 <= nx < len(rows[ny]) and rows[ny][nx] in ".,:#;":
+                            wall = {".": "panel", ",": "stonew", ":": "gearw", "#": "lattice", ";": "vaultw"}[rows[ny][nx]]
                             break
                     if wall:
                         self.wall[(x, y)] = wall
@@ -321,7 +328,7 @@ class Island:
         self.pond()
         self.sockets()
         self.turbines()
-        self.plan(PLANS["EngineDeck"], K["MainHallX"], s)
+        self.plan(PLANS["Vault"], K["MainHallX"], s)      # 2026-11-16: the Jade Vault (was the engine deck)
         self.plan(PLANS["Gate"], K["GateX"], s - (len(PLANS["Gate"]) - 1))
         self.plan(PLANS["MainHall"], K["MainHallX"], s - (len(PLANS["MainHall"]) - 1))
         self.plan(self.pagoda, K["PagodaX"], s - (len(self.pagoda) - 1))
@@ -339,9 +346,10 @@ WALL_LOOKUP = {0: ((9, 3), (10, 3), (11, 3)), 1: ((6, 3), (7, 3), (8, 3)), 2: ((
                12: ((0, 3), (2, 3), (4, 3)), 13: ((0, 0), (0, 1), (0, 2)), 14: ((1, 0), (2, 0), (3, 0)), 15: ((1, 1), (2, 1), (3, 1)),
                16: ((6, 1), (7, 1), (8, 1)), 17: ((6, 2), (7, 2), (8, 2)), 18: ((10, 0), (10, 1), (10, 2)), 19: ((11, 0), (11, 1), (11, 2))}
 CENTRE = [[2, 0, 0], [0, 1, 4], [0, 3, 0]]
-BLOCK_SHEETS = {"stone": "PalaceFlagstone", "jade": "JadeBrick", "lacquer": "CinnabarLacquer", "gear": "BronzeGearwork", "roof": "JadeRoof"}
+BLOCK_SHEETS = {"stone": "PalaceFlagstone", "jade": "JadeBrick", "lacquer": "CinnabarLacquer", "gear": "BronzeGearwork", "roof": "JadeRoof",
+                "vault": "VaultGearwork"}
 WALL_SHEETS = {"stonew": "PalaceFlagstoneWall", "jadew": "JadeBrickWall", "panel": "CinnabarPanelWall", "lattice": "BronzeLatticeWall",
-               "gearw": "BronzeGearworkWall"}
+               "gearw": "BronzeGearworkWall", "vaultw": "VaultGearworkWall"}
 STAND_IN = {"cloud": (236, 240, 246), "rain": (164, 172, 186), "dirt": (151, 107, 75), "grass": (151, 107, 75), "gold": (214, 176, 66)}
 
 
@@ -390,7 +398,18 @@ FURNITURE = {  # (left, top) offset in tiles from the anchor cell, (w, h) in til
 }
 
 
+CHEST_STYLE = {"C": 0, "Q": 1, "&": 2}   # the Pagoda Chest (2026-11-17), the Locked Pagoda Chest and the Jade Vault (2026-11-16)
+
+
 def furniture_sprite(ch):
+    if ch in CHEST_STYLE:
+        sheet = load(C + "Tiles/CoghavenChestTile.png")
+        im = Image.new("RGBA", (2 * TILE, 2 * TILE), (0, 0, 0, 0))
+        for ty in range(2):
+            for tx in range(2):
+                sx, sy = (CHEST_STYLE[ch] * 2 + tx) * STRIDE, ty * STRIDE
+                im.alpha_composite(sheet.crop((sx, sy, sx + TILE, sy + TILE)), (tx * TILE, ty * TILE))
+        return im, 0, -1
     (ox, oy), (w, h), col = FURNITURE[ch]
     im = Image.new("RGBA", (w * TILE, h * TILE), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
@@ -603,8 +622,8 @@ def island_png(out, font_path, seed):
     sheet.alpha_composite(crop, (0, half.height + 40))
     text(sheet, (12, 10), "Coghaven: %d tiles wide (vanilla's cloud islands 100-150), a %d-deep base of cloud and cogs, five Lift Turbines, %s" % (
         W, isl.depth, {"Pagoda5": "the five-storey pagoda", "Pagoda4": "a four-storey pagoda", "Pagoda3": "a three-storey pagoda"}[isl.pagoda_name]), big)
-    text(sheet, (12, 40), "left to right: the garden and koi pond, the gate, the forecourt, the Main Hall (the throne between two cogs, the gallery, the stair down),", font)
-    text(sheet, (12, 60), "the pagoda (a stair through every floor, the treasure at the top, a cog on its mast), the tea pavilion; inside the bronze core, the engine deck", font)
+    text(sheet, (12, 40), "left to right: the garden and koi pond, the gate, the forecourt, the Main Hall (the throne between two cogs, the gallery and its chest, the stair down),", font)
+    text(sheet, (12, 60), "the pagoda (a stair through every floor, the locked treasure at the top, a cog on its mast), the tea pavilion; inside the bronze core, the Jade Vault", font)
     text(sheet, (12, half.height + 12), "full scale: the Main Hall and the pagoda (vanilla's Dynasty furniture, clouds, dirt and gold brick are flat stand-ins)", font)
     sheet.convert("RGB").save(out)
     print("%s: %dx%d" % (out, sheet.width, sheet.height))
@@ -699,8 +718,9 @@ def main():
     if only is None or "sweep" in only:
         sweep(200)
     if only is None or "island" in only:
-        island_png(os.path.join(args.out, "2026-11-12_coghaven-island.png"), args.font, args.seed)   # (2026-11-12: the
-        # 14x6 pond and two chests; the chest map with them marked is update_2026_11_12_sim.py's island-chests proof)
+        island_png(os.path.join(args.out, "2026-11-17_coghaven-island-chests.png"), args.font, args.seed)   # (2026-11-17: a third chest
+        # in the Main Hall gallery; 2026-11-16: the
+        # Jade Vault under the Main Hall, the Locked Pagoda Chest; before: 2026-11-12_coghaven-island-chests.png)
     if only is None or "underside" in only:
         underside_gif(os.path.join(args.out, "2026-11-06_coghaven-underside.gif"), args.font, args.seed)
 

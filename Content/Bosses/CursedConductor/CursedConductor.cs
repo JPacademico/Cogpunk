@@ -86,7 +86,9 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		public enum Phase { Intro, Hover, Loop, Whistle, Dying, Leaving }
 
 		// --- stats (Expert, docs/balance/bosses.csv) -------------------------------------------------------------------
-		public const int ExpertLife = 11000;
+		// 2026-11-18 (user: every boss 10-35% over its tier's vanilla boss, by difficulty): the Wall of Flesh's 11200 + 35%, the most
+		// mechanics of the four (it was 11000)
+		public const int ExpertLife = 15100;
 		public const float LifePerExtraPlayer = 0.35f;
 		public const int BaseDefense = 14;
 		public const int TrainDamage = 150, BoltDamage = 60;        // the train head on; a wagon GhostTrain.CarDamageScale
@@ -105,6 +107,8 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		// 40 px past its wielder, MeleeGear.BladeOfGrassReach), his turbine's bell MeleeLift px over their feet; he follows
 		// faster and firmer, and takes the other side when they pass him by more than MeleeSideSwitch
 		public const float MeleeGap = 16f, MeleeLift = 4f;
+		// the drift (BossNPC's floaty rule, user 2026-11-17): px either way of his hover spot, at range and in his melee hover
+		public const float SwayX = 4f * 16f, BobY = 24f, MeleeSwayX = 12f, MeleeBobY = 8f;
 		public const float MeleeHoverSpeed = 12f, MeleeHoverAccel = 0.16f, MeleeApproach = 0.15f, MeleeSideSwitch = 24f;
 		public const float FightRange = 125f * 16f;
 		public const int RespawnGraceTicks = 90;
@@ -314,6 +318,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			writer.Write(throwTarget);
 			writer.Write(loopTarget);
 			writer.Write(wavePhase);
+			WriteDrift(writer);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader) {
@@ -332,6 +337,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			throwTarget = reader.ReadByte();
 			loopTarget = reader.ReadByte();
 			wavePhase = reader.ReadSingle();
+			ReadDrift(reader);
 			if (lifeMax > 0 && lifeMax != NPC.lifeMax) {
 				NPC.lifeMax = lifeMax;
 				if (full) {
@@ -365,6 +371,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		/// (<see cref="CursedConductorLoot"/>).</summary>
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CursedConductorBag>()));
+			npcLoot.Add(Manuals.ManualDrop.Of<Manuals.Items.SheriffsLawBook>());   // 2026-11-17: one per player, first defeat
 			LeadingConditionRule classic = new(new Conditions.NotExpert());
 			CursedConductorLoot.AddClassic(classic);
 			npcLoot.Add(classic);
@@ -473,6 +480,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		/// <summary>He floats to his spot beside and above his target; the server keeps the clocks and starts the loop and
 		/// the whistle.</summary>
 		private void DoHover() {
+			TickDrift();
 			Drift(throwTick >= 0 ? AttackDrift : (Enraged ? EnragedHoverSpeed : HoverSpeed));
 			if (!IsAuthority) {
 				return;
@@ -495,14 +503,16 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		}
 
 		/// <summary>Where he floats: beside and above his target, or (the melee hover) in close at their side, his turbine just
-		/// over their feet.</summary>
+		/// over their feet; round a point that follows his target with a lag, swaying side to side and up and down (BossNPC's
+		/// drift, user rule 2026-11-17), a little in his melee hover so he stays in a blade's reach.</summary>
 		private Vector2 HoverSpot(Player target) {
 			float side = Side == 0f ? 1f : Side;
+			Vector2 focus = FloatFocus(target);
 			if (MeleeHover) {
-				float x = target.width * 0.5f + MeleeGap + NPC.width * 0.5f;
-				return new Vector2(target.Center.X + side * x, target.Bottom.Y - MeleeLift - NPC.height * 0.5f);
+				float x = target.width * 0.5f + MeleeGap + NPC.width * 0.5f + DriftSway * MeleeSwayX;
+				return new Vector2(focus.X + side * x, focus.Y + target.height * 0.5f - MeleeLift - NPC.height * 0.5f + DriftBob * MeleeBobY);
 			}
-			return target.Center + new Vector2(side * HoverOffsetX, HoverOffsetY);
+			return focus + new Vector2(side * HoverOffsetX + DriftSway * SwayX, HoverOffsetY + DriftBob * BobY);
 		}
 
 		private void Drift(float speed) {

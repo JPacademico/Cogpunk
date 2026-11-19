@@ -14,11 +14,11 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.OldBrassTown.Weapons
 {
 	/// <summary>
-	/// The Sheriff's Revolver's bullet (user-set 2026-11-04: "a high speed bullet that bounces once, also on enemies, not
-	/// only walls, and always bounces in the direction of an enemy"): fast (32 px a tick: two updates a tick), it bounces
-	/// once, off the first wall it strikes or the first enemy it hits, and the bounce turns it at the nearest enemy in
-	/// sight within <see cref="BounceRange"/> (never the one it just hit: each enemy is hit once). With nobody to turn to it
-	/// glances off the wall as a ricochet would, or flies back off the enemy. Its second hit or wall ends it.
+	/// The Sheriff's Revolver's and the Bandit's Dream's bullet (user-set 2026-11-04: "a high speed bullet that bounces once
+	/// ... and always bounces in the direction of an enemy"; nerfed 2026-11-19: "it should not rebounce onto a enemy after
+	/// hiting a enemy only after hiting a wall"): fast (32 px a tick: two updates a tick), it bounces once, off the first
+	/// wall it strikes, and the bounce turns it at the nearest enemy in sight within <see cref="BounceRange"/>; with nobody
+	/// to turn to it glances off the wall as a ricochet would. Any enemy it hits ends it; so does its second wall.
 	/// <para>A ricochet hits harder (user, 2026-11-05: "shots that ricochet onto an enemy should deal 50% more damage"): every
 	/// hit after the bounce deals <see cref="RicochetBonus"/>x. A thin smoke trail follows it and fades in half a second
 	/// (<see cref="SmokeTrails"/>, user 2026-11-05).</para>
@@ -73,11 +73,7 @@ namespace Cogpunk.Content.OldBrassTown.Weapons
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
-			if (Bounces >= 1f) {
-				Projectile.Kill();
-				return;
-			}
-			Bounce(target.whoAmI, -Projectile.velocity);            // nobody else in sight: it flies back off the enemy
+			Projectile.Kill();                                      // 2026-11-19 (user): only walls bounce it, never an enemy
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity) {

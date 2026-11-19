@@ -33,6 +33,10 @@ namespace Cogpunk.Content.Bosses.Jadey.Projectiles
 		public enum Kind { Golem, Bats, Beetle }
 
 		public const int HatchTicks = 30;                       // user-set: 0.5 s after it lands
+
+		/// <summary>A statue coin's <c>ai[2]</c> (user-set 2026-11-17: "3 jade coins that spawn 1-2 random jade minions each"):
+		/// 1 + (count - 1) + 2 * (first + 3 * second), 1..18; 0 is an ordinary coin (it hatches by <c>ai[0]</c>).</summary>
+		public static float StatueCode(int count, int first, int second) => 1 + (Math.Clamp(count, 1, 2) - 1) + 2 * (Math.Clamp(first, 0, 2) + 3 * Math.Clamp(second, 0, 2));
 		public const int MaxTicks = 300;
 		public const float Gravity = 0.3f, MaxFall = 12f;
 		public const int FrameTicks = 3;
@@ -126,6 +130,21 @@ namespace Cogpunk.Content.Bosses.Jadey.Projectiles
 			}
 			int x = (int)Projectile.Center.X, bottom = (int)Projectile.Bottom.Y;
 			var source = Projectile.GetSource_FromThis();
+			int code = (int)Projectile.ai[2];
+			if (code >= 1 && code <= 18) {                     // a statue coin: 1-2 minions, each a golem, a bat or a beetle
+				int c = code - 1, count = 1 + c % 2;
+				for (int i = 0; i < count; i++) {
+					if (JadeyMinion.Count(m) >= Jadey.StatueMinionCap) {
+						break;
+					}
+					int kind = i == 0 ? c / 2 % 3 : c / 6 % 3;
+					int dx = count == 1 ? 0 : (i == 0 ? -16 : 16);
+					int type = kind == (int)Kind.Golem ? ModContent.NPCType<JadeGolem>() : kind == (int)Kind.Bats ? ModContent.NPCType<JadeBat>()
+						: ModContent.NPCType<JadeBeetle>();
+					SafeSpawn.TryNewNPC(source, x + dx, kind == (int)Kind.Bats ? bottom - 24 : bottom, type, out _);
+				}
+				return;
+			}
 			switch (Hatches) {
 				case Kind.Golem:
 					SafeSpawn.TryNewNPC(source, x, bottom, ModContent.NPCType<JadeGolem>(), out _);

@@ -26,13 +26,15 @@ Legend (each cell a tile; the cell's wall in brackets):
     (    Palace Flagstone sloped, rising to the right [none]            )  ... rising to the left [none]
     -    Jade Roof Tiles half block [none]
     .    air [Cinnabar Panel Wall]   ,  air [Flagstone Wall]   :  air [Gearwork Wall]   #  air [Bronze Lattice Wall]
+    m    air [vanilla White Dynasty Wall] (2026-11-19: the plaster of the rooms, between the red beams)
     =    Dynasty platform [Cinnabar Panel Wall]    +  Dynasty platform [none]    %  Dynasty platform [Gearwork Wall]
     w    water [none]    ~  water [Flagstone Wall]
     X    Vault Gearwork [Vault Gearwork Wall]      x  Vault Gearwork [none]     (2026-11-16: the Jade Vault's shell,
          unbreakable)                              ;  air [Vault Gearwork Wall] $  Dynasty platform [Vault Gearwork Wall]
 Furniture (placed after the blocks, at the marked cell, which is the object's anchor; the other cells of the object are
 air with the room's wall: '.', ',' or ':'):
-    C  Dynasty Chest, loot (bottom left of 2x2)        Q  the pagoda's treasure chest (bottom left of 2x2): a Locked
+    C  a Pagoda Chest, sky loot (bottom left of 2x2;   Q  the pagoda's treasure chest
+       since 2026-11-17 the Main Hall gallery's) (bottom left of 2x2): a Locked
                                                           Pagoda Chest since 2026-11-16 (the Pagoda Key opens it)
     &  the Jade Vault (bottom left of 2x2): sealed until Jadey is defeated; touching it wakes her (2026-11-16)
     <  Dynasty Chair facing left (bottom of 1x2)       >  Dynasty Chair facing right
@@ -183,7 +185,10 @@ def main_hall():
     g_top = base - 10                                       # the ground storey: rows base-1 .. g_top+1 (9 rows)
     # the ground storey: red panel walls with gold lattice windows between the (background) pillars; solid red end
     # walls with a doorway each
-    p.rect(hx0, g_top, hx1, base - 1, ".")
+    p.rect(hx0, g_top, hx1, base - 1, "m")                  # 2026-11-19: white plaster between red beams (was all red)
+    for x in range(hx0 + 1, hx1, 8):
+        p.vline(x, g_top + 1, base - 1, ".")
+    p.hline(hx0 + 1, hx1 - 1, g_top + 1, ".")
     for x0 in range(hx0 + 2, hx1 - 1, 8):
         x1 = min(x0 + 4, hx1 - 2)
         if x0 <= mid <= x1 + 1:
@@ -192,11 +197,14 @@ def main_hall():
     for x in (hx0, hx1):
         p.vline(x, g_top, base - 5, "R")                    # end walls, a 4-tall doorway under each
     # the lower eave all round the ground storey (overhanging 4), then the upper storey stands in its middle
-    roof(p, (hx0 + hx1) / 2.0, g_top - 4, (hx1 - hx0) // 2 - 3, (hx1 - hx0) // 2 + 4, 4, gilt=False)
+    low = roof(p, (hx0 + hx1) / 2.0, g_top - 4, (hx1 - hx0) // 2 - 3, (hx1 - hx0) // 2 + 4, 4, gilt=False)
     p.hline(hx0, hx1, g_top, "R")                           # the beam over the ground storey
     ux0, ux1 = hx0 + 7, hx1 - 7
     u_top = g_top - 9                                       # the upper storey: rows g_top-1 .. u_top+1 (8 rows)
-    p.rect(ux0, u_top, ux1, g_top - 1, ".")
+    p.rect(ux0, u_top, ux1, g_top - 1, "m")
+    for x in range(ux0 + 1, ux1, 6):
+        p.vline(x, u_top + 1, g_top - 1, ".")
+    p.hline(ux0 + 1, ux1 - 1, u_top + 1, ".")
     for x0 in range(ux0 + 2, ux1 - 1, 6):
         p.rect(x0, u_top + 2, min(x0 + 3, ux1 - 2), u_top + 5, "#")
     for x in (ux0, ux1):
@@ -209,7 +217,12 @@ def main_hall():
     for x in range(ux1 + 2, hx1, 3):
         p.put(x, g_top - 1, "G")
     # the upper roof: a curved hip roof with gilt ridge ends and a gilt and bronze finial
-    roof(p, (hx0 + hx1) / 2.0, u_top - 7, 8, (ux1 - ux0) // 2 + 6, 7, finial=["?Y?", "YGY"])
+    high = roof(p, (hx0 + hx1) / 2.0, u_top - 7, 8, (ux1 - ux0) // 2 + 6, 7, finial=["?Y?", "YGY"])
+    # 2026-11-19: Chinese lanterns hanging under the eaves' tips (the reference's), each roof's last row the hook
+    for (eave_y, half) in ((g_top - 1, low[-1]), (u_top - 1, high[-1])):
+        left, right = int(round((hx0 + hx1) / 2.0 - half)), int(round((hx0 + hx1) / 2.0 + half))
+        p.put(left + 1, eave_y + 1, "O")
+        p.put(right - 2, eave_y + 1, "O")
     # the throne on its dais between two great turning cogs; lanterns, chests and candelabras in the end bays
     p.hline(mid - 3, mid + 3, base - 1, "F")
     p.put(mid - 4, base - 1, "(")
@@ -233,6 +246,7 @@ def main_hall():
     p.put(mid, g_top - 1, "A")
     p.put(mid - 2, g_top - 1, ">")
     p.put(mid + 2, g_top - 1, "<")
+    p.put(ux0 + 7, g_top - 1, "C")                          # 2026-11-17: the gallery's chest (sky loot, a plain Pagoda Chest)
     p.put(mid, g_top - 3, "i")
     p.put(mid, u_top + 1, "H")
     p.put(ux0 + 6, u_top + 1, "^")
@@ -244,11 +258,18 @@ def main_hall():
 # The pagoda: five storeys, each narrower, each with its own little eave; the treasure at the top; a cog finial
 # ================================================================================================
 def pagoda(storeys=5):
-    widths = [19, 17, 15, 13, 11][:storeys]
+    """2026-11-19 (user: "rework cogpalace design i will provide a base example of a quality terraria japanese building stile
+    using in-game blocks", reference/pagoda_user_2026-11-19.png): the reference's tiered pagoda in Coghaven's colours. Each
+    storey a white plaster room (vanilla White Dynasty Wall: 'm') framed by red beams in the background (posts every fifth
+    column and a beam under the ceiling, the Cinnabar Panel Wall: nothing blocks the way), red lacquer corner posts, lattice
+    windows; over it a jade eave sweeping EAVE_OUT columns past the walls in ROOF_ROWS rows, its tips turned up, a red
+    bracket beam under it and a Chinese lantern hanging under each tip; the top storey under a tall pointed roof, a gilt
+    spire and the turning cog. The 2026-11-06 pagoda (small eaves, flagstone rooms) is in previous/."""
+    widths = [21, 19, 17, 15, 13][:storeys]
     heights = [8, 7, 7, 6, 6][:storeys]
-    W = 27
-    roof_rows = 3
-    H = 3 + sum(h + roof_rows for h in heights) + 8 + 1
+    roof_rows, eave_out, top_rows = 4, 5, 7
+    W = 21 + 2 * eave_out + 2                               # the ground storey's eave and a column either side: 33
+    H = 3 + sum(h + roof_rows for h in heights) + (top_rows - roof_rows) + 11 + 1
     p = Plan("Pagoda%d" % storeys, W, H)
     floor = H - 1
     cx = W // 2
@@ -256,46 +277,55 @@ def pagoda(storeys=5):
     p.hline(1, W - 2, floor, "F")
     p.put(1, floor, "(")
     p.put(W - 2, floor, ")")
-    p.hline(3, W - 4, floor - 1, "f")
-    p.put(3, floor - 1, "(")
-    p.put(W - 4, floor - 1, ")")
+    p.hline(4, W - 5, floor - 1, "f")
+    p.put(4, floor - 1, "(")
+    p.put(W - 5, floor - 1, ")")
     y = floor - 2                                           # the ground storey's floor row
-    p.hline(3, W - 4, y, "F")
+    p.hline(4, W - 5, y, "F")
     rooms = []
     for s_, (w, h) in enumerate(zip(widths, heights)):
         x0, x1 = cx - w // 2, cx + w // 2
         top = y - h
-        p.rect(x0, top, x1, y - 1, ",")
+        last = s_ == storeys - 1
+        p.rect(x0, top, x1, y - 1, "m")
+        for x in range(x0 + 5, x1 - 1, 5):
+            p.vline(x, top + 1, y - 1, ".")                  # the red posts (background)
+        p.hline(x0 + 1, x1 - 1, top + 1, ".")                # the beam under the ceiling
         p.vline(x0, top, y - 1, "R")
         p.vline(x1, top, y - 1, "R")
         p.hline(x0, x1, top, "R")
         if s_ == 0:
-            p.vline(x0, y - 4, y - 1, ",")                  # a doorway in each side of the ground storey
-            p.vline(x1, y - 4, y - 1, ",")
-        p.rect(x0 + 2, top + 2, x0 + 3, top + 4, "#")        # lattice windows on both sides
-        p.rect(x1 - 3, top + 2, x1 - 2, top + 4, "#")
+            p.vline(x0, y - 4, y - 1, "m")                   # a doorway in each side of the ground storey
+            p.vline(x1, y - 4, y - 1, "m")
+        p.rect(x0 + 2, top + 3, x0 + 3, top + 5, "#")        # lattice windows on both sides
+        p.rect(x1 - 3, top + 3, x1 - 2, top + 5, "#")
         rooms.append((x0, x1, top, y))
-        # the eave over this storey, its tips turned up; the next storey stands on its crown
-        roof(p, cx, top - roof_rows + 1, w // 2 - 1, w // 2 + 3, roof_rows, gilt=False)
-        up = top - roof_rows + 1
-        if s_ < storeys - 1:
+        rows = top_rows if last else roof_rows
+        half = w // 2 + eave_out
+        roof(p, cx, top - rows + 1, 1 if last else w // 2 - 1, half, rows, gilt=last)
+        # the red bracket beam under the eave, outside the walls, and a lantern under each tip
+        for x in list(range(cx - half + 3, x0)) + list(range(x1 + 1, cx + half - 2)):
+            p.put(x, top + 1, "r")
+        p.put(cx - half + 1, top + 1, "O")
+        p.put(cx + half - 2, top + 1, "O")
+        up = top - rows + 1
+        if not last:
             p.hline(cx - widths[s_ + 1] // 2, cx + widths[s_ + 1] // 2, up, "F")
             # the stair: a landing half way up the room and a hole through the slab, platforms at the floor above,
             # on alternate sides so the climb zig-zags
             sx = x0 + 2 if s_ % 2 == 0 else x1 - 4
             for yy in range(up, top + 1):
                 for xx in range(sx, sx + 3):
-                    p.put(xx, yy, ",")
+                    p.put(xx, yy, "m")
             p.hline(sx, sx + 2, up, "=")
             p.hline(sx, sx + 2, y - 4, "=")
         y = up
-    # the spire: a two-wide gilt mast, a turning cog standing on it
-    p.rect(cx - 1, y - 2, cx, y - 1, "Y")
-    p.put(cx - 3, y - 8, "Z")
-    # furniture: a lantern in every room, a clock and a table on the ground floor, a chest half way up, bookcases,
-    # the treasure at the top
+    # the spire: a gilt mast on the pointed roof's ridge, the turning cog standing on it
+    p.rect(cx - 1, y - 4, cx, y - 1, "Y")
+    p.put(cx - 3, y - 10, "Z")
+    # furniture: a lantern in every room, a clock and a table on the ground floor, bookcases, the treasure at the top
     for s_, (x0, x1, top, bot) in enumerate(rooms):
-        p.put(x0 + (x1 - x0) // 2, top + 1, "L")
+        p.put(x0 + (x1 - x0) // 2, top + 2, "L")
         if s_ == 0:
             p.put(x1 - 5, bot - 1, "K")
             p.put(x0 + 7, bot - 1, "A")
@@ -388,7 +418,7 @@ ISLAND_WIDTH = 220
 LAYOUT = {
     "Gate": 30,
     "MainHall": 74,
-    "Pagoda": 146,
+    "Pagoda": 143,                # 2026-11-19: 33 wide (was 27 at 146): its eaves sweep out further
     "Pavilion": 180,
 }
 TERRACE = (26, 200)               # jade brick under the buildings and the forecourt

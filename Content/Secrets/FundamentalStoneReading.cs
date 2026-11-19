@@ -64,6 +64,9 @@ namespace Cogpunk.Content.Secrets
 				return;
 			}
 			style = Math.Clamp(stone, 0, FundamentalStones.Count - 1);
+			// research (user, 2026-11-18): "reading a fundamental stone for the first time should give a knowledge point (individual,
+			// and one per stone)"
+			Main.LocalPlayer.GetModPlayer<Content.Research.ResearchPlayer>().Grant(Content.Research.KnowledgeTasks.Stone(style));
 			anchor = topCentre;
 			age = 0;
 			closing = 0;

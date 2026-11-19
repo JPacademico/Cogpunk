@@ -66,7 +66,8 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 		public enum Phase { Emerge, Idle, Burp, Spit, Melt, Summon, Rage, Retreat, Dying }
 
 		// --- stats (Expert, docs/balance/bosses.csv) -------------------------------------------------------------------
-		public const int ExpertLife = 11000;
+		// 2026-11-18 (user: every boss 10-35% over its tier's vanilla boss, by difficulty): Deerclops's 11900 + 20% (it was 11000)
+		public const int ExpertLife = 14300;
 		public const float LifePerExtraPlayer = 0.35f;
 		public const int BaseDefense = 12;
 		public const int ExpertContactDamage = 50;
@@ -261,6 +262,7 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 		/// (<see cref="TarTyrantLoot"/>).</summary>
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<TarTyrantBag>()));
+			npcLoot.Add(Manuals.ManualDrop.Of<Manuals.Items.StickyPages>());   // 2026-11-17: one per player, first defeat
 			LeadingConditionRule classic = new(new Conditions.NotExpert());
 			TarTyrantLoot.AddClassic(classic);
 			npcLoot.Add(classic);

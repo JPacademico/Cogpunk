@@ -13,7 +13,8 @@ Writes:
                                               since that one fights in melee, floats in close (his near edge MeleeGap px
                                               from the swordsman's, his turbine just over their feet); after 5 more s he
                                               must switch again (never the same target twice in a row): back to the gunner
-                                              and his far hover.
+                                              and his far hover. Re-rendered 2026-11-17 with BossNPC's floaty drift: his
+                                              spot sways side to side and bobs round a lagged focus on his target.
     2026-11-09_boss-cursed-conductor-whistle.gif     the whistle phase in the new pose: the hand up his side to his mouth, the
                                               shriek with the lantern blazing in its hold, and the hand back down at the end
                                               (the 7 s are cut in the middle).
@@ -105,14 +106,16 @@ def lantern_point(boss, frame):
     return (ox + (-KC["LanternX"] if boss.face == 1 else KC["LanternX"]), oy + KC["LanternY"] + (BOB[frame] if 0 <= frame < len(BOB) else 0))
 
 
-def hover_spot(target, side, melee):
+def hover_spot(target, side, melee, focus=None, sway=0.0, bob=0.0):
     """CursedConductor.HoverSpot: beside and above, or (the melee hover) his near edge MeleeGap px from the target's and
-    his turbine MeleeLift px over their feet."""
+    his turbine MeleeLift px over their feet; since 2026-11-17 round `focus` (BossNPC.FloatFocus: the target's centre
+    followed FocusFollow of the way a tick; the target's own centre when None) with BossNPC's drift (`sway`, `bob`: -1..1)."""
     tx, tfeet = target
-    tcx, tcy = tx, tfeet - 21
+    tcx, tcy = (tx, tfeet - 21) if focus is None else focus
     if melee:
-        return (tcx + side * (10 + KC["MeleeGap"] + HIT_W * 0.5), tfeet - KC["MeleeLift"] - HIT_H * 0.5)
-    return (tcx + side * KC["HoverOffsetX"], tcy + KC["HoverOffsetY"])
+        return (tcx + side * (10 + KC["MeleeGap"] + HIT_W * 0.5 + sway * KC["MeleeSwayX"]),
+                tcy + 21 - KC["MeleeLift"] - HIT_H * 0.5 + bob * KC["MeleeBobY"])
+    return (tcx + side * KC["HoverOffsetX"] + sway * KC["SwayX"], tcy + KC["HoverOffsetY"] + bob * KC["BobY"])
 
 
 def move_toward(boss, spot, melee, speed):
@@ -160,6 +163,7 @@ def scene_targeting(out, font):
     target, ticks_on = 0, KC["TargetSwitchTicks"] - 120
     side = 1.0
     boss.x, boss.y = hover_spot(gunner, side, False)
+    focus, focus_target, clock = None, -1, 0                       # BossNPC.FloatFocus and DriftClock (2026-11-17)
     lantern_clock, throw_tick = 0, -1
     bolts, pops = [], []
     rng = random.Random(3)
@@ -183,7 +187,13 @@ def scene_targeting(out, font):
         if is_melee and (boss.x - t[0]) * side < -KC["MeleeSideSwitch"]:
             side = -side
         speed = KC["AttackDrift"] if throw_tick >= 0 and not is_melee else KC["HoverSpeed"]
-        move_toward(boss, hover_spot(t, side, is_melee), is_melee, speed)
+        clock = (clock + 1) % int(KC["DriftPeriodX"] * KC["DriftPeriodY"])
+        if focus_target != target:                                 # a new target is taken at once
+            focus_target, focus = target, (t[0], t[1] - 21.0)
+        focus = (focus[0] + (t[0] - focus[0]) * KC["FocusFollow"], focus[1] + (t[1] - 21.0 - focus[1]) * KC["FocusFollow"])
+        sway = math.sin(clock * 2 * math.pi / KC["DriftPeriodX"])
+        bob = math.sin(clock * 2 * math.pi / KC["DriftPeriodY"] + math.pi / 2)
+        move_toward(boss, hover_spot(t, side, is_melee, focus, sway, bob), is_melee, speed)
         if abs(t[0] - boss.x) > 8:
             boss.face = 1 if t[0] > boss.x else -1
         frame = idle_frame(tick)

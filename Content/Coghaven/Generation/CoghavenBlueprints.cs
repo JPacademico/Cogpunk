@@ -61,7 +61,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 			"          TTTTR.####..####..####..####..####..#.RTTTT          ",
 			"         /TTTTR................i................RTTTT\\         ",
 			"      -/TTTTTTR.................................RTTTTTT\\-      ",
-			"   \\TTTTGTTGTTR..B...........>.A.<...........B..RTGTTGTTTTT/   ",
+			"   \\TTTTGTTGTTR..B...C.......>.A.<...........B..RTGTTGTTTTT/   ",
 			"       RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR====RRRRRRRRR       ",
 			"       R..L.............L......H......L.............L..R       ",
 			"       R.#####...#####...#####...#####...#####...#####.R       ",

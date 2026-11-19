@@ -177,7 +177,7 @@ Items: {
 		DisplayName: Lança-Sucata
 		Tooltip:
 			'''
-			Usa balas como munição, mas dispara sucata mastigada que voa reta pela tela inteira
+			Dispara sucata mastigada que voa reta pela tela inteira
 			Botão direito para arremessar uma grande bola de sucata que quica uma vez
 			'Abre a boca'
 			'''
@@ -592,7 +592,7 @@ Items: {
 		DisplayName: Revólver do Xerife
 		Tooltip:
 			'''
-			Dispara uma bala de latão veloz que ricocheteia uma vez, numa parede ou num inimigo, rumo ao inimigo mais próximo à vista
+			Dispara uma bala de latão veloz que ricocheteia uma vez numa parede, rumo ao inimigo mais próximo à vista
 			Um ricochete acerta com 50% a mais de dano
 			Usa balas: seja qual for a bala, dispara sua própria munição de latão somando o dano da bala
 			Guarda {0} balas e leva {1} segundos para recarregar quando elas acabam, mesmo guardado no coldre
@@ -921,6 +921,241 @@ Items: {
 		DisplayName: Engrenagem Possuída
 		Tooltip: Atravessa os inimigos moendo-os, em vez de ricochetear neles
 	}
+
+	PagodaChest: {
+		DisplayName: Baú do Pagode
+		Tooltip: ''
+	}
+
+	PagodaKey: {
+		DisplayName: Chave do Pagode
+		Tooltip: Destranca o Baú do Pagode Trancado no topo do pagode de Coghaven
+	}
+
+	JadeyBag: {
+		DisplayName: Bolsa do Tesouro ({$Mods.Cogpunk.NPCs.Jadey.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+	}
+
+	JadeShaperPendant: {
+		DisplayName: Pingente da Molda-Jade
+		Tooltip:
+			'''
+			Um golpe que mataria você o transforma numa estátua de jade por {0} segundos
+			A estátua não sofre dano, mas os golpes ainda a empurram
+			Recarrega por {1} minutos depois de salvar você
+			'''
+	}
+
+	JadeIncense: {
+		DisplayName: Incenso de Jade
+		Tooltip:
+			'''
+			Queime-o dentro do Cofre de Jade de Coghaven para chamar Jadey
+			'Ela nunca recusa uma visita que traz incenso'
+			'''
+	}
+
+	JadeShaperWhip: {
+		DisplayName: Chicote da Molda-Jade
+		Tooltip:
+			'''
+			{0} de dano de marcação para invocações
+			Suas invocações vão focar nos inimigos atingidos
+			Causa {1}% a mais de dano a inimigos transformados em jade
+			'''
+	}
+
+	JadeCursedGlaives: {
+		DisplayName: Glaives Amaldiçoadas de Jade
+		Tooltip:
+			'''
+			Cortes cruzados abrem um único arco largo de jade e lançam a maldição de jade no que cortam
+			Clique direito para arremessar a glaive a até {0} blocos; ela volta à sua mão
+			Cortes e arremessos causam {1}% a mais de dano a inimigos transformados em jade
+			'''
+	}
+
+	FireworkCannon: {
+		DisplayName: Canhão de Fogos
+		Tooltip:
+			'''
+			Dispara fogos rápidos que explodem ao acertar, contra paredes ou após {0} blocos
+			A explosão fere tudo ao redor e tem {1}% de chance de atordoar inimigos comuns por {2} segundo
+			'''
+	}
+
+	JadeShaperManual: {
+		DisplayName: Manual da Molda-Jade
+		Tooltip:
+			'''
+			As anotações de Jadey sobre moldar jade viva
+			Estude-o para guardar seu conhecimento
+			'Certas artes só se aprendem, nunca se encontram'
+			'''
+	}
+
+	ScrapManual: {
+		DisplayName: Manual de Sucata
+		Tooltip:
+			'''
+			As anotações de montagem engorduradas de Trash-Tr0m
+			Estude-o para guardar seu conhecimento
+			'Certas artes só se aprendem, nunca se encontram'
+			'''
+	}
+
+	SheriffsLawBook: {
+		DisplayName: Livro da Lei do Xerife
+		Tooltip:
+			'''
+			O livro das velhas leis de Westworld do Condutor Amaldiçoado
+			Estude-o para guardar seu conhecimento
+			'Certas artes só se aprendem, nunca se encontram'
+			'''
+	}
+
+	StickyPages: {
+		DisplayName: Páginas Grudentas
+		Tooltip:
+			'''
+			Páginas tiradas de dentro do Tirano de Piche, ainda legíveis
+			Estude-as para guardar seu conhecimento
+			'Certas artes só se aprendem, nunca se encontram'
+			'''
+	}
+
+	JadeEyedKoi: {
+		DisplayName: Carpa de Olhos de Jade
+		Tooltip:
+			'''
+			Uma carpa koi fundida em ouro, com olhos de jade polido
+			'Vale uma fortuna para o mercador certo'
+			'''
+	}
+
+	Cakti: {
+		DisplayName: Cak-ti
+		Tooltip:
+			'''
+			Dispara espinhos finos de cacto que ficam presos nos inimigos por {0} segundos
+			Quando um inimigo espetado morre, seus espinhos voam para todos os lados
+			{1}% de chance de não consumir munição
+			'Não dê um abraço'
+			'''
+	}
+
+	IncenseMace: {
+		DisplayName: Maça de Incenso
+		Tooltip:
+			'''
+			Segure para girar o incensário e solte para arremessá-lo: arremessado, ele bate com o dobro da força
+			Clique direito para espalhar uma aura de incenso ({4} de vapor): aliados a até {0} blocos ganham +{1}% de dano e de velocidade de ataque por {2} segundos
+			Depois o incensário precisa de {3} segundos para reacender
+			'Cheira a templo e bate como um sino'
+			'''
+	}
+
+	JadeToken: {
+		DisplayName: Ficha de Jade
+		Tooltip:
+			'''
+			Invoca uma raposa espiritual de jade
+			'Brilha suavemente'
+			'''
+	}
+
+	AncientResearchBook: {
+		DisplayName: Livro de Pesquisa Antigo
+		Tooltip:
+			'''
+			Usado para construir uma Mesa de Pesquisa Antiga
+			'O olho parece seguir você'
+			'''
+	}
+
+	AncientResearchTable: {
+		DisplayName: Mesa de Pesquisa Antiga
+		Tooltip:
+			'''
+			Clique direito para pesquisar: gaste pontos de conhecimento em bônus permanentes e novas receitas
+			O conhecimento vem das suas primeiras vezes: chefes, eventos, descobertas
+			'''
+	}
+
+	TetanusShot: {
+		DisplayName: Vacina Antitetânica
+		Tooltip:
+			'''
+			Concede imunidade ao Tétano
+			'Só uma picadinha'
+			'''
+	}
+
+	BundleOfWands: {
+		DisplayName: Feixe de Varinhas
+		Tooltip:
+			'''
+			Dispara cinco raios de gemas diferentes de uma vez
+			Cada um voa, acerta e empurra como o do seu cajado
+			'''
+	}
+
+	BanditsDream: {
+		DisplayName: Sonho do Bandido
+		Tooltip:
+			'''
+			Dispara uma bala de latão veloz que ricocheteia uma vez numa parede, rumo ao inimigo mais próximo à vista
+			Um ricochete acerta com 50% a mais de dano
+			Usa balas: seja qual for a bala, dispara sua própria munição de latão somando o dano da bala
+			Guarda {0} balas e leva {1} segundos para recarregar quando elas acabam (o tambor do Revólver do Xerife)
+			Botão direito para um corte à frente com {2}x o dano, que derruba projéteis inimigos, por {3} de vapor: funciona no meio da recarga
+			'O sonho de todo fora da lei: nunca ficar sem balas'
+			'''
+	}
+	CogspringSword: {
+		DisplayName: Espada Molamecânica
+		Tooltip:
+			'''
+			Brande como um sabre: cada golpe volta pelo outro lado
+			Segure o botão direito para dar corda: até {0} segundos para até {1}x de dano, solte para golpear de cima ({2} de vapor)
+			Um golpe totalmente carregado que mata um inimigo desacelera o tempo
+			'Cada engrenagem bem apertada, cada dente afiado'
+			'''
+	}
+	SmokerBook: {
+		DisplayName: Livro Fumegante
+		Tooltip:
+			'''
+			Lança uma faixa veloz de fuligem a {0} blocos
+			A fumaça atravessa todos os inimigos no caminho
+			'Ninguém nunca leu estas páginas sem tossir'
+			'''
+	}
+	FungimancerBag: {
+		DisplayName: Bolsa de Tesouro (Fungimante)
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+	}
+
+	RainbowMushroom: {
+		DisplayName: Cogumelo Arco-íris
+		Tooltip:
+			'''
+			Invoca o Fungimante
+			Só funciona num bioma de cogumelos brilhantes
+			'Tem gosto de todas as cores ao mesmo tempo'
+			'''
+	}
+
+	FungiManual: {
+		DisplayName: Manual dos Fungos
+		Tooltip:
+			'''
+			As anotações encharcadas do Fungimante sobre magia de cogumelos
+			Estude-o para guardar seu conhecimento
+			'Certas artes só se aprendem, nunca se encontram'
+			'''
+	}
 }
 
 Buffs: {
@@ -1021,6 +1256,41 @@ Buffs: {
 			+{0} de vapor máximo, {1}% a menos de custo de vapor
 			Dura até você morrer
 			'''
+	}
+
+	JadeStatue: {
+		DisplayName: Estátua de Jade
+		Description: Transformado em jade: nada pode ferir você
+	}
+
+	JadeShaperRest: {
+		DisplayName: Descanso da Molda-Jade
+		Description: Seu pingente ainda não pode salvar você de novo
+	}
+
+	JadeShaperWhipDebuff: {
+		DisplayName: Marca de Jade
+		Description: Invocações causam mais dano a ele
+	}
+
+	IncenseBlessing: {
+		DisplayName: Bênção do Incenso
+		Description: "+{0}% de dano e +{1}% de velocidade de ataque"
+	}
+
+	IncenseBurntOut: {
+		DisplayName: Incensário Apagado
+		Description: "O incensário da Maça de Incenso está reacendendo ({0} segundos ao todo)"
+	}
+
+	JadeFoxBuff: {
+		DisplayName: Raposa Espiritual de Jade
+		Description: Uma pequena raposa de luz de jade segue você
+	}
+
+	ResearchSlimed: {
+		DisplayName: Gosmado
+		Description: Grudento e lento
 	}
 }
 
@@ -1183,6 +1453,29 @@ NPCs: {
 	Mechromancer: {
 		DisplayName: Mecromante
 		Bestiary: Um robô necromante que só anda pela terra sob uma lua vermelha como sangue, embora não tenha pernas para andar. Um crânio de latão sorri na sombra do seu capuz de chifres, suas garras ardem com fogo das almas, e seus olhos mecânicos flutuam ao seu redor sem nunca desviar o olhar de você. Para onde ele aponta, o chão se abre e os mortos saem.
+	}
+
+	Jadey: {
+		DisplayName: Jadey
+		Epithet: A Molda-Jade
+		Bestiary: A jademante do palácio, uma panda que molda jade viva como um oleiro molda barro. Ela guarda o cofre sob o Salão Principal e nunca toca num intruso: lança moedas de jade que chocam golens, morcegos e besouros, gira um dardo de corda que amaldiçoa o chão onde cai e bebe as próprias criações para se curar. A jade dela amaldiçoa a todos, menos a ela, e a cada quinto da vida perdido ela choca uma ninhada e se esconde numa casca de jade até que caiam ou que ela possa bebê-los.
+		VaultGuarded: O cofre se agita. Sua guardiã notou você...
+		VaultOpens: O selo do Cofre de Jade se desfaz.
+	}
+
+	JadeBat: {
+		DisplayName: Morcego de Jade
+		Bestiary: Um morcego chocado de uma das moedas de Jadey: asas finas de jade lapidada em volta de uma centelha da vontade dela. Sua mordida carrega a maldição dela, e ele se esfarela assim que ela se vai.
+	}
+
+	JadeBeetle: {
+		DisplayName: Besouro de Jade
+		Bestiary: Um besouro-rinoceronte copiado em jade a partir de uma das moedas de Jadey. Menor e mais frágil que o da selva, mas seu chifre ainda arremessa o que pega, e ele deixa a maldição dela para trás.
+	}
+	Fungimancer: {
+		DisplayName: Fungimante
+		Epithet: O Sábio Esporado
+		Bestiary: Um sapo que passou tanto tempo sentado num cogumelo brilhante que a magia do cogumelo o encharcou, e quase nada mais. Ele flutua em seu trono de cogumelo, lançando esporos de luz violeta, fazendo cogumelos brotarem do chão com seu coaxar e chicoteando com uma língua do tamanho de uma caverna. Os feitiços dele funcionam na maioria das vezes. Só desperta quando alguém quebra o mais raro dos cogumelos: o de chapéu arco-íris.
 	}
 }
 
@@ -1436,6 +1729,67 @@ Projectiles: {
 	PossessedCogYoyo: {
 		DisplayName: Engrenagem Possuída
 	}
+
+	JadeCoin: {
+		DisplayName: Moeda de Jade
+	}
+
+	JadeyRopeDart: {
+		DisplayName: Dardo de Corda de Jade
+	}
+
+	JadeCursedGround: {
+		DisplayName: Chão Amaldiçoado
+	}
+
+	JadePetrifyZone: {
+		DisplayName: Selo Petrificante
+	}
+
+	JadeShaperWhipProjectile: {
+		DisplayName: Chicote da Molda-Jade
+	}
+
+	JadeGlaiveSlash: {
+		DisplayName: Glaive de Jade
+	}
+
+	JadeGlaiveThrown: {
+		DisplayName: Glaive de Jade
+	}
+
+	FireworkRocket: {
+		DisplayName: Fogos de Artifício
+	}
+
+	CaktiSpike: {
+		DisplayName: Espinho de Cacto
+	}
+
+	IncenseMaceHead: {
+		DisplayName: Maça de Incenso
+	}
+
+	IncenseAura: {
+		DisplayName: Aura de Incenso
+	}
+
+	JadeFoxPet: {
+		DisplayName: Raposa Espiritual de Jade
+	}
+
+	CalcifiedBone: {
+		DisplayName: Osso
+	}
+
+	BanditsSlash: {
+		DisplayName: Sonho do Bandido
+	}
+	CogspringSlam.DisplayName: Golpe Molamecânico
+	SmokerSmoke.DisplayName: Fuligem
+	SporeBolt.DisplayName: Esporo Mágico
+	ShroomSpike.DisplayName: Cogumelo Explosivo
+	FungimancerTongue.DisplayName: Língua do Fungimante
 }
 
 Tiles: {
@@ -1561,6 +1915,23 @@ Tiles: {
 	CombinatorTile: {
 		MapEntry: O Combinador
 	}
+
+	CoghavenChestTile: {
+		MapEntry0: Baú do Pagode
+		MapEntry1: Baú do Pagode Trancado
+		MapEntry2: Cofre de Jade
+		PagodaLocked: O baú está trancado. Uma Chave do Pagode o abre.
+		VaultSealed: Selado
+	}
+
+	VaultGearworkTile: {
+		MapEntry: Engrenagem do Cofre
+	}
+
+	AncientResearchTableTile: {
+		MapEntry: Mesa de Pesquisa Antiga
+	}
+	RainbowMushroomTile.MapEntry: Cogumelo Arco-íris
 }
 
 WorldGen: {
@@ -1574,6 +1945,7 @@ WorldGen: {
 	Coghaven: Erguendo um palácio de jade nas nuvens
 	Jade: Escondendo jade nas cavernas
 	FundamentalRuins: Afundando as Ruínas Fundamentais num ninho de aranhas
+	SmokerBooks: Escondendo livros fumegantes no Submundo
 }
 
 UI: {
@@ -1619,12 +1991,15 @@ Conditions: {
 	DownedTrashTr0m: Depois que Trash-Tr0m for derrotado
 	DownedTarTyrant: Depois que o Tirano de Piche for derrotado
 	DownedCursedConductor: Depois que o Condutor Amaldiçoado for derrotado
+	DownedJadey: Depois que Jadey for derrotada
+	DownedFungimancer: Depois que o Fungimante for derrotado
 }
 
 DropConditions: {
 	TrashTr0mFirstKill: Apenas na primeira derrota em cada mundo
 
 	CombinatorFirstKill: Só na primeira derrota num mundo
+	ManualFirstKill: Uma vez por mundo, na primeira derrota: um para cada jogador na luta
 }
 
 Events: {
@@ -1777,4 +2152,156 @@ Combinator: {
 		O clique direito usa o ataque de clique direito da Base, se ela tiver um; se não, o do Aprimoramento.
 		Coloque uma arma combinada no espaço de Produto para renomeá-la ou desmontá-la: as duas armas voltam como entraram.
 		'''
+}
+
+Manuals: {
+	Learned: "Estudado: {0}"
+	AlreadyRead: Você já estudou isto
+}
+
+Research: {
+	Title: "Pesquisa Antiga"
+	Knowledge: "Pontos de conhecimento: {0}"
+	Close: "Fechar"
+	Gained: "Conhecimento adquirido! (+{0}: {1})"
+	GainedShort: "+{0} de conhecimento"
+	Unlocked: "Pesquisado: {0}"
+	Researched: "Pesquisado"
+	Cost: "Custa {0} ponto(s) de conhecimento (você tem {1})"
+	Requires: "Pesquise {0} antes"
+	Takes: "Consome {0} (você tem {1})"
+	ClickToResearch: "Clique para pesquisar"
+	NotYet: "Ainda fora do seu alcance"
+	RecipeCondition: "Pesquisado: {0}"
+	Found: "encontrado"
+	Missing: "faltando"
+	Conditions: {
+		OreTiers: "Minérios básicos coletados: cobre ou estanho ({0}), ferro ou chumbo ({1}), prata ou tungstênio ({2}), ouro ou platina ({3})"
+		Edges: "Bordas do mundo alcançadas: o oceano ({0}), o Ferro-Velho ({1})"
+	}
+	Costs: {
+		AnyOre: "{0} minérios de qualquer tipo"
+		Amethyst: "{0} Ametista"
+		Topaz: "{0} Topázio"
+		Sapphire: "{0} Safira"
+		Emerald: "{0} Esmeralda"
+		Ruby: "{0} Rubi"
+		Diamond: "{0} Diamante"
+		Amber: "{0} Âmbar"
+		Jade: "{0} Jade"
+		SquireBanner: "{0} Estandarte de Zumbi, de Slime ou de Olho Demoníaco"
+		BlackLens: "{0} Lente Negra"
+		Gel: "{0} Gel"
+	}
+	Nodes: {
+		TheBasics: {
+			DisplayName: "O Básico"
+			Description: "+5% de velocidade de mineração"
+		}
+		MineAndCraft: {
+			DisplayName: "Minerar e Forjar"
+			Description: "Minerar qualquer minério tem 10% de chance de render um a mais"
+		}
+		Jogger: {
+			DisplayName: "Corredor"
+			Description: "+3% de velocidade de movimento"
+		}
+		Cogpunker: {
+			DisplayName: "Cogpunker"
+			Description: "+10 de capacidade de vapor"
+		}
+		GemPower: {
+			DisplayName: "Poder das Gemas"
+			Description: "Segurando uma arma de gema: +3% de dano, chance de crítico e velocidade de ataque, -3% de custo de mana"
+		}
+		InACaveWithScraps: {
+			DisplayName: "Numa Caverna! Com Sucata!!"
+			Description: "Libera a fabricação da armadura de Sucata"
+		}
+		HitTheJoints: {
+			DisplayName: "Acerte as Juntas"
+			Description: "+10% de dano contra máquinas"
+		}
+		Mandacaru: {
+			DisplayName: "Mandacaru"
+			Description: "Libera a fabricação do Cak-ti"
+		}
+		CausesAutism: {
+			DisplayName: "Causa Autismo"
+			Description: "Libera a fabricação da Vacina Antitetânica"
+		}
+		Squire: {
+			DisplayName: "Escudeiro"
+			Description: "+1 de defesa"
+		}
+		JustTheTip: {
+			DisplayName: "Só a Pontinha"
+			Description: "Lanças causam 25% mais dano quando acertam no alcance máximo (o fim da estocada)"
+		}
+		BundleUp: {
+			DisplayName: "Amarra Tudo!"
+			Description: "Libera a fabricação do Feixe de Varinhas"
+		}
+		HeatManagement: {
+			DisplayName: "Gestão de Calor"
+			Description: "10% menos dano sofrido enquanto superaquecido"
+		}
+		BringAKnife: {
+			DisplayName: "Leve uma Faca para um Tiroteio"
+			Description: "Libera a fabricação do Sonho do Bandido"
+		}
+		TriggerFinger: {
+			DisplayName: "Dedo no Gatilho"
+			Description: "Cada tiro à distância que erra faz seu próximo acerto à distância causar 25% mais dano (até 4 vezes)"
+		}
+		DilatedPupils: {
+			DisplayName: "Pupilas Dilatadas"
+			Description: "+5% de chance de acerto crítico à noite, -5% durante o dia"
+		}
+		Slimed: {
+			DisplayName: "Gosmado!"
+			Description: "Inimigos que tocam em você ficam gosmados por 5 segundos: grudentos e lentos"
+		}
+		Calcified: {
+			DisplayName: "Calcificado"
+			Description: "Cada inimigo que você derrota arremessa um osso que causa 40 de dano a outro inimigo que acertar"
+		}
+	}
+	Tasks: {
+		Angler5: "Cinco missões feitas para o Pescador"
+		CoralChest: "Saqueou um baú de coral"
+		Platinum10: "Juntou 10 moedas de platina"
+		SkyIsland: "Chegou a uma ilha nas nuvens"
+		Marble: "Encontrou uma caverna de mármore"
+		Granite: "Encontrou uma caverna de granito"
+		PinkSlime: "Derrotou um slime rosa"
+		Gnome: "Derrotou um gnomo"
+		TravelingMerchant: "Comprou do Mercador Viajante"
+		Combinator: "Usou o Combinador"
+		FallenStar: "Pegou uma estrela cadente"
+		Town10: "Dez moradores com casa"
+		FundamentalStone1: "Leu a primeira Pedra Fundamental"
+		FundamentalStone2: "Leu a segunda Pedra Fundamental"
+		FundamentalStone3: "Leu a terceira Pedra Fundamental"
+		FundamentalStone4: "Leu a quarta Pedra Fundamental"
+		FundamentalStone5: "Leu a quinta Pedra Fundamental"
+		Boss: "Primeira derrota de {0} neste mundo"
+		Event: "Primeira vitória sobre {0} neste mundo"
+		GlowingMushroom: "Encontrou um campo de cogumelos brilhantes"
+	}
+	Events: {
+		GoblinArmy: "o Exército Goblin"
+		FrostLegion: "a Legião Congelada"
+		PirateInvasion: "a Invasão Pirata"
+		MartianMadness: "a Loucura Marciana"
+		OldOnesArmy1: "o Exército do Ancião (nível 1)"
+		OldOnesArmy2: "o Exército do Ancião (nível 2)"
+		OldOnesArmy3: "o Exército do Ancião (nível 3)"
+		PumpkinMoon: "a Lua de Abóbora (sua última onda)"
+		FrostMoon: "a Lua Congelada (sua última onda)"
+	}
+	KnowledgeExpanded: "Conhecimento expandido!"
+	KnowledgeName: "Pontos de conhecimento"
+	DragHint: "Arraste para explorar"
+	Teaser: "Um segredo ainda por revelar: um grande inimigo precisa cair antes"
 }
