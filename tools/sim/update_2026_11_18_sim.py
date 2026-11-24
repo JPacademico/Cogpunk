@@ -520,7 +520,8 @@ def main():
     ap.add_argument("--only")
     args = ap.parse_args()
     only = set(args.only.split(",")) if args.only else None
-    jobs = (("glaives", L.glaives_gif, "2026-11-18_jadey-glaives.gif"), ("glaive-frames", L.glaive_frames_png, "2026-11-18_jadey-glaives-frames.png"),
+    # 2026-11-24: the glaives GIF is update_2026_11_24_sim.py --only glaive (the throw changed)
+    jobs = (("glaive-frames", L.glaive_frames_png, "2026-11-18_jadey-glaives-frames.png"),
             ("turn", turn_gif, "2026-11-18_boss-jadey-turn.gif"), ("jadey", L.jadey_frames_gif, "2026-11-18_boss-jadey.gif"),
             ("statue", L.jadey_statue_gif, "2026-11-18_boss-jadey-statue.gif"), ("drift", L.drift_gif, "2026-11-18_floaty-drift.gif"),
             ("cakti", L.cakti_gif, "2026-11-18_weapon-cakti.gif"), ("mace", mace_gif, "2026-11-18_weapon-incense-mace.gif"),

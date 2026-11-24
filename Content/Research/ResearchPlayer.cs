@@ -47,8 +47,11 @@ namespace Cogpunk.Content.Research
 		private byte oreTiers;                                   // bit k: base tier k collected
 		private byte edges;                                      // bit 0: the ocean, bit 1: the Junkyard
 		private byte gemStaffs;                                  // bit k: Weapons.BundleOfWands.StaffItems[k] had at some point
+		private byte found;                                      // FoundAlchemy | FoundCooking | FoundStone (2026-11-24), saved
+		private const byte FoundAlchemy = 1, FoundCooking = 2, FoundStone = 4, FoundRobe = 8;
 		private bool reportedStaffs;                             // this session: the world was told (Bundle Up!)
 		private int quietTicks;                                  // a manual's own chat line covers the reveals it causes
+		private bool announceReveal;                             // a reveal was kept since the last "Knowledge expanded!"
 		private int missStacks;                                  // Trigger Finger: ranged shots missed since the last hit (owner)
 		private bool gotBook;
 		private int lastChest = -1;
@@ -58,12 +61,37 @@ namespace Cogpunk.Content.Research
 		private readonly object sync = new();
 		private int saveIn = -1;                                // ticks until the progress is saved (-1: nothing to save)
 		public const int SaveDelay = 60;                        // a change is saved a second later (several at once, one save)
+		private const int MaxDistinctKinds = 50;                // a Distinct cost can't count more kinds than the 50 slots hold
 
 		public bool AllOreTiers => (oreTiers & 0xF) == 0xF;
 		public bool ReachedBothEdges => (edges & 3) == 3;
 		/// <summary>Has had every pre-Hardmode gem staff (at some point: <see cref="Weapons.BundleOfWands.StaffItems"/>).</summary>
 		public bool AllGemStaffs => (gemStaffs & 0x7F) == 0x7F;
 		public bool Earned(string key) => earned != null && key != null && earned.Contains(key);
+
+		/// <summary>Has found an Alchemy Table: stood within its crafting range or held one (user, 2026-11-24: "finds a alchemy
+		/// table (gets within crafting range, or gets one in the inventory)"); Fulfilling Concoction's reveal.</summary>
+		public bool FoundAlchemyTable => (found & FoundAlchemy) != 0;
+
+		/// <summary>Has found a Cooking Pot (or a Cauldron, its other style): within its use range or held ("finds a cooking pot
+		/// (gets into use range or gets one on the inventory)"); Seasoning's and Proper Meal's reveal.</summary>
+		public bool FoundCookingPot => (found & FoundCooking) != 0;
+
+		/// <summary>Has touched a Fundamental Stone (right-clicked one, sealed or not): the window's Mystery of the Past tab
+		/// shows (user, 2026-11-24: "a new tab that appears once the player has interacted with a fundamental stone").</summary>
+		public bool MysteryTab => (found & FoundStone) != 0;
+
+		/// <summary>Has had a gem robe (any of vanilla's seven or the Jade Robe) in the inventory or worn: RGBT's reveal (user,
+		/// 2026-11-24: "show only an "?" until the player has obtained at leat one gem robe (any)"); saved.</summary>
+		public bool FoundGemRobe => (found & FoundRobe) != 0;
+
+		/// <summary>The local player right-clicked a Fundamental Stone (<see cref="Secrets.FundamentalStoneTile"/>).</summary>
+		public void TouchStone() {
+			if (Player.whoAmI == Main.myPlayer && (found & FoundStone) == 0) {
+				found |= FoundStone;
+				MarkDirty();
+			}
+		}
 
 		public override void Initialize() {
 			earned = new HashSet<string>();
@@ -74,6 +102,7 @@ namespace Cogpunk.Content.Research
 			oreTiers = 0;
 			edges = 0;
 			gemStaffs = 0;
+			found = 0;
 			reportedStaffs = false;
 			quietTicks = 0;
 			gotBook = false;
@@ -85,8 +114,11 @@ namespace Cogpunk.Content.Research
 
 		public bool Has(string name) => Has(ResearchNodes.Get(name));
 
-		/// <summary>A secret node the player has seen (it stays seen: <see cref="CheckReveals"/> keeps it), one whose reveal holds
-		/// now, or a node that isn't secret.</summary>
+		/// <summary>A node that isn't secret, a secret node the player has seen or unlocked, or one whose reveal holds now. Once
+		/// seen a node is kept for good (user, 2026-11-24: "when a "?" is revealed or unlocked it should never return to "?" again
+		/// and instead stay revealed/unlocked so theres no confusion to the player"): the moment its reveal holds or it is
+		/// unlocked it goes into the saved set (<see cref="Remember"/>), whatever later happens to the world or the step that
+		/// revealed it (a stone deactivated, another world without the boss).</summary>
 		public bool Visible(ResearchNode node) {
 			if (node.Reveal == null) {
 				return true;
@@ -96,13 +128,42 @@ namespace Cogpunk.Content.Research
 					return true;
 				}
 			}
-			return node.Reveal(Player);
+			if (Has(node)) {
+				Remember(node, announce: false);                   // unlocked is seen
+				return true;
+			}
+			if (Player.whoAmI == Main.myPlayer && node.Reveal(Player)) {
+				Remember(node, announce: true);
+				return true;
+			}
+			return false;
+		}
+
+		/// <summary>The owner: keeps <paramref name="node"/> seen for good (saved), and queues "Knowledge expanded!" once.</summary>
+		private void Remember(ResearchNode node, bool announce) {
+			if (Player.whoAmI != Main.myPlayer) {
+				return;
+			}
+			bool added;
+			lock (sync) {
+				added = revealed.Count < MaxSaved && revealed.Add(node.Name);
+			}
+			if (added) {
+				MarkDirty();
+				announceReveal |= announce;
+			}
+		}
+
+		/// <summary>The owner: every reveal checked now (entering a world, opening the window), so nothing waits 30 ticks.</summary>
+		public void CheckRevealsNow() {
+			if (Player.whoAmI == Main.myPlayer) {
+				CheckReveals();
+			}
 		}
 
 		/// <summary>The owner's client, every <see cref="CheckInterval"/> ticks: secret nodes whose reveal now holds are kept for
 		/// good, with "Knowledge expanded!" in chat (user, 2026-11-18) unless a manual just said it (<see cref="QuietReveals"/>).</summary>
 		private void CheckReveals() {
-			bool any = false;
 			var nodes = ResearchNodes.All;
 			for (int k = 0; k < nodes.Count; k++) {
 				ResearchNode node = nodes[k];
@@ -113,20 +174,25 @@ namespace Cogpunk.Content.Research
 				lock (sync) {
 					known = revealed.Contains(node.Name);
 				}
-				if (known || !node.Reveal(Player)) {
+				if (known) {
 					continue;
 				}
-				lock (sync) {
-					if (revealed.Count < MaxSaved) {
-						revealed.Add(node.Name);
-					}
+				if (Has(node)) {
+					Remember(node, announce: false);
 				}
-				any = true;
+				else if (node.Reveal(Player)) {
+					Remember(node, announce: true);
+				}
 			}
-			if (!any) {
+			AnnounceReveals();
+		}
+
+		/// <summary>The owner: "Knowledge expanded!" for the reveals since the last line, unless a manual just said it.</summary>
+		private void AnnounceReveals() {
+			if (!announceReveal) {
 				return;
 			}
-			MarkDirty();
+			announceReveal = false;
 			if (quietTicks <= 0 && !Main.dedServ) {
 				Main.NewText(Language.GetTextValue("Mods.Cogpunk.Research.KnowledgeExpanded"), new Color(223, 185, 78));
 				SoundEngine.PlaySound(SoundID.Item29 with { Pitch = 0.3f, Volume = 0.5f }, Player.Center);
@@ -178,16 +244,34 @@ namespace Cogpunk.Content.Research
 
 		public enum Blocker { None, Unlocked, Hidden, Requires, Knowledge, Condition, Items }
 
-		/// <summary>How many items in the main inventory (slots 0-49) match <paramref name="cost"/>.</summary>
+		/// <summary>How many items in the main inventory (slots 0-49) match <paramref name="cost"/>; for a
+		/// <see cref="ResearchItemCost.Distinct"/> cost, how many different kinds (each kind once, whatever its stack).</summary>
 		public int CountItems(ResearchItemCost cost) {
 			int n = 0;
 			for (int i = 0; i < 50 && i < Player.inventory.Length; i++) {
 				Item it = Player.inventory[i];
-				if (it != null && !it.IsAir && cost.Matches(it)) {
+				if (it == null || it.IsAir || !cost.Matches(it)) {
+					continue;
+				}
+				if (!cost.Distinct) {
 					n += it.stack;
+				}
+				else if (!SeenBefore(it.type, i)) {
+					n++;
 				}
 			}
 			return n;
+		}
+
+		/// <summary>A kind already counted in an earlier slot (a Distinct cost; 50 slots at most: no allocation, D1).</summary>
+		private bool SeenBefore(int type, int slot) {
+			for (int j = 0; j < slot; j++) {
+				Item other = Player.inventory[j];
+				if (other != null && !other.IsAir && other.type == type) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/// <summary>The owner's client: unlocks <paramref name="node"/> if it can (spends the points, takes the items left to
@@ -196,14 +280,23 @@ namespace Cogpunk.Content.Research
 			if (Player.whoAmI != Main.myPlayer || Check(node) != Blocker.None) {
 				return false;
 			}
+			Span<int> taken = stackalloc int[MaxDistinctKinds];          // a Distinct cost's kinds so far (no allocation, D1)
 			foreach (ResearchItemCost cost in node.Items) {
 				int left = cost.Count;
+				int kinds = 0;
 				for (int i = 0; i < 50 && i < Player.inventory.Length && left > 0; i++) {
 					Item it = Player.inventory[i];
 					if (it == null || it.IsAir || !cost.Matches(it)) {
 						continue;
 					}
 					int take = Math.Min(left, it.stack);
+					if (cost.Distinct) {
+						if (taken[..kinds].Contains(it.type) || kinds >= taken.Length) {
+							continue;                                    // one of each kind, the first ones met
+						}
+						taken[kinds++] = it.type;
+						take = 1;
+					}
 					it.stack -= take;
 					left -= take;
 					if (it.stack <= 0) {
@@ -214,6 +307,9 @@ namespace Cogpunk.Content.Research
 			lock (sync) {
 				Knowledge -= node.Cost;
 				unlocked.Add(node.Name);
+				if (revealed.Count < MaxSaved) {
+					revealed.Add(node.Name);                     // unlocked is seen, for good
+				}
 			}
 			RebuildBits();
 			Recipe.FindRecipes();                                // a recipe it unlocks shows at once
@@ -252,14 +348,29 @@ namespace Cogpunk.Content.Research
 		}
 
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone) {
-			if (proj.DamageType.CountsAsClass(DamageClass.Ranged)) {
+			if (damageDone > 0 && proj.DamageType.CountsAsClass(DamageClass.Ranged)) {
 				missStacks = 0;                                  // "the next successful hit": the stacks are spent
 			}
 			Calcify(target, proj.type);
+			GreenIsGoodKill(target);
 		}
 
 		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone) {
 			Calcify(target, -1);
+			GreenIsGoodKill(target);
+		}
+
+		/// <summary>"Green = Good" (user-set 2026-11-24: "heal when killing a jade petrified enemy (20 health)"): the hit that killed
+		/// an enemy turned to jade (<see cref="Gems.JadeCurseNPC.Petrified"/>; its life gone on the hitting client) heals its
+		/// player <see cref="ResearchNodes.GreenIsGoodHeal"/> (vanilla's <c>Player.Heal</c>: the number shows, message 35 tells
+		/// the others). Not for statue spawns, critters or dummies.</summary>
+		private void GreenIsGoodKill(NPC target) {
+			if (Player.whoAmI != Main.myPlayer || target == null || target.life > 0 || target.SpawnedFromStatue || target.friendly
+				|| target.lifeMax <= 5 || target.CountsAsACritter || target.immortal || !Has(ResearchNodes.GreenIsGood)
+				|| !Gems.JadeCurseNPC.Petrified(target)) {
+				return;
+			}
+			Player.Heal(ResearchNodes.GreenIsGoodHeal);
 		}
 
 		/// <summary>"Trigger Finger" (user-set 2026-11-19: "affter missing a shot with a ranged weapon (not causing damage with
@@ -284,14 +395,6 @@ namespace Cogpunk.Content.Research
 			Vector2 velocity = new(Main.rand.NextFloat(-3.5f, 3.5f), Main.rand.NextFloat(-8f, -5.5f));
 			Core.Safety.SafeSpawn.TryNewProjectile(Player.GetSource_OnHit(target), target.Center, velocity, ModContent.ProjectileType<CalcifiedBone>(),
 				ResearchNodes.CalcifiedDamage, 2f, out _, Player.whoAmI);
-		}
-
-		/// <summary>"Heat Management" (user-set 2026-11-19: "10% damage resistance while it is overheated"): the hurt player's
-		/// own client decides its damage, and its overheat is its own (<see cref="Mechanist.SteamPlayer.Overheated"/>).</summary>
-		public override void ModifyHurt(ref Player.HurtModifiers modifiers) {
-			if (Has(ResearchNodes.HeatManagement) && Player.GetModPlayer<Mechanist.SteamPlayer>().Overheated) {
-				modifiers.FinalDamage *= 1f - ResearchNodes.HeatManagementResist;
-			}
 		}
 
 		/// <summary>"Slimed!" (user-set 2026-11-19: "makes so the player aply slimed effect to enemy upon contact"): an enemy that
@@ -385,6 +488,9 @@ namespace Cogpunk.Content.Research
 			if ((Main.GameUpdateCount + (uint)Player.whoAmI) % CheckInterval != 0) {
 				return;
 			}
+			if ((found & (FoundAlchemy | FoundCooking)) != (FoundAlchemy | FoundCooking)) {
+				FindStations();
+			}
 			CheckReveals();
 			if (AllGemStaffs && !reportedStaffs && !ResearchWorld.AllGemStaffs) {
 				reportedStaffs = true;                               // once a session: the server sets it for the world
@@ -423,10 +529,64 @@ namespace Cogpunk.Content.Research
 					Collected(it.type);
 				}
 			}
+			if ((found & FoundRobe) == 0) {
+				for (int i = 0; i < Player.armor.Length && i < 20; i++) {
+					Item it = Player.armor[i];
+					if (it != null && !it.IsAir && ResearchRecipes.IsGemRobe(it.type)) {
+						found |= FoundRobe;
+						MarkDirty();
+						break;
+					}
+				}
+			}
+		}
+
+		/// <summary>The owner's client, every <see cref="CheckInterval"/> ticks until both are found: an Alchemy Table or a Cooking
+		/// Pot within vanilla's crafting reach (decompiled 1.4.4 <c>Player.AdjTiles</c>: 4 tiles either side of the player's middle,
+		/// 3 above its feet to 2 below; vanilla only runs it with the inventory open, so the scan is ours: 54 tiles, bounds
+		/// checked, D0), or held in the inventory (the Cauldron is a Cooking Pot style).</summary>
+		private void FindStations() {
+			byte before = found;
+			if (Player.alchemyTable) {
+				found |= FoundAlchemy;
+			}
+			if (Player.adjTile.Length > TileID.CookingPots && Player.adjTile[TileID.CookingPots]) {
+				found |= FoundCooking;
+			}
+			int cx = (int)((Player.position.X + Player.width / 2f) / 16f), feet = (int)((Player.position.Y + Player.height) / 16f);
+			for (int x = cx - 4; x <= cx + 4; x++) {
+				for (int y = feet - 3; y < feet + 3; y++) {
+					if (!Core.Safety.TileSafety.TryGetTile(x, y, out Tile t) || !t.HasTile) {
+						continue;
+					}
+					if (t.TileType == TileID.AlchemyTable) {
+						found |= FoundAlchemy;
+					}
+					else if (t.TileType == TileID.CookingPots) {
+						found |= FoundCooking;
+					}
+				}
+			}
+			for (int i = 0; i < 58 && i < Player.inventory.Length; i++) {
+				int type = Player.inventory[i]?.type ?? 0;
+				if (type == ItemID.AlchemyTable) {
+					found |= FoundAlchemy;
+				}
+				else if (type == ItemID.CookingPot || type == ItemID.Cauldron) {
+					found |= FoundCooking;
+				}
+			}
+			if (found != before) {
+				MarkDirty();
+			}
 		}
 
 		/// <summary>A base ore tier collected (<see cref="ResearchNodes.TheBasics"/>), or a gem staff had (Bundle Up!).</summary>
 		private void Collected(int type) {
+			if ((found & FoundRobe) == 0 && ResearchRecipes.IsGemRobe(type)) {
+				found |= FoundRobe;                                  // RGBT's reveal (2026-11-24)
+				MarkDirty();
+			}
 			int tier = ResearchItems.BaseTier(type);
 			if (tier >= 0) {
 				oreTiers |= (byte)(1 << tier);
@@ -529,7 +689,9 @@ namespace Cogpunk.Content.Research
 			if (Player.whoAmI != Main.myPlayer) {
 				return;
 			}
+			missStacks = 0;
 			reportedStaffs = false;                              // a new world: tell it too
+			CheckReveals();                                      // keep whatever this world reveals at once
 			if (gotBook) {
 				return;
 			}
@@ -548,6 +710,7 @@ namespace Cogpunk.Content.Research
 				tag["OreTiers"] = oreTiers;
 				tag["Edges"] = edges;
 				tag["GemStaffs"] = gemStaffs;
+				tag["Found"] = found;
 				tag["GotBook"] = gotBook;
 			}
 		}
@@ -561,7 +724,13 @@ namespace Cogpunk.Content.Research
 				oreTiers = tag.GetByte("OreTiers");
 				edges = tag.GetByte("Edges");
 				gemStaffs = tag.GetByte("GemStaffs");
+				found = tag.GetByte("Found");
 				gotBook = tag.GetBool("GotBook");
+				for (int k = 0; k < Secrets.FundamentalStones.Count; k++) {
+					if (earned.Contains(KnowledgeTasks.StoneKey(k))) {
+						found |= FoundStone;                         // read a stone before the tab existed: it shows
+					}
+				}
 			}
 			RebuildBits();
 		}

@@ -24,23 +24,26 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 	/// turns, so the same enemy can be hit both ways). An enemy turned to jade (<see cref="JadeCurseNPC.Petrified"/>) takes
 	/// x<see cref="PetrifiedBonus"/>.
 	/// <para>Art: the glaive spinning in a plane tipped towards the viewer, <see cref="R.SpinFrames"/> pre-rendered turns of
-	/// <see cref="R.SpinCell"/> px (never rotated at runtime), a frame every <see cref="SpinTicks"/> ticks, with two fading
-	/// afterimages from its recent positions (the fade in code, D4 rule 9).</para>
+	/// <see cref="R.SpinCell"/> px (never rotated at runtime), <see cref="SpinFramesPerTick"/> frames a tick (2026-11-24, user:
+	/// "increase the rotation speed ... so it looks better like a fan spining": four times the old 1 frame every 2 ticks), the
+	/// turns it just passed through drawn faintly over it (<see cref="BlurFrames"/>: a fan's blurred disc), and two fading
+	/// afterimages from its recent positions (the fades in code, D4 rule 9).</para>
 	/// <para>D2: the owner's projectile: the owner turns it (wall, range) and counts its hits (<c>ai[0]</c> phase, <c>ai[1]</c>
 	/// hits, synced with <c>netUpdate</c>); every side flies it home the same way. D0: <c>timeLeft</c> caps a glaive that
 	/// can't get home; it dies with its thrower. D1: no allocation.</para>
 	/// </summary>
 	public class JadeGlaiveThrown : CogpunkProjectile
 	{
-		public const int RangeTiles = 18;                  // user-set
+		public const int RangeTiles = 22;                  // user-set 18 (2026-11-17), "the range a bit" more on 2026-11-24 (+4: my call)
 		public const float RangePx = RangeTiles * 16f;
 		public const float ThrowSpeed = 16f;
 		public const float ReturnSpeed = 18f;
 		public const float ReturnTurn = 0.2f;
 		public const float CatchDistance = 24f;
 		public const float PetrifiedBonus = JadeCursedGlaives.PetrifiedBonus;
-		public const int SpinTicks = 2;
-		public const int WhooshTicks = 12;
+		public const int SpinFramesPerTick = 2;            // 45 degrees a tick (2026-11-24; was half a frame a tick)
+		public const int BlurFrames = 3;                   // the turns just passed, drawn fainter and fainter behind it
+		public const int WhooshTicks = 8;                  // the whirr of a faster spin (2026-11-24; 12 before)
 
 		private ref float Phase => ref Projectile.ai[0];
 		private ref float PhaseHits => ref Projectile.ai[1];
@@ -145,12 +148,9 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 		public override bool PreDraw(ref Color lightColor) {
 			Texture2D sheet = TextureAssets.Projectile[Type].Value;
 			int frames = Math.Max(1, R.SpinFrames);
-			int f = ((int)(Spin / SpinTicks) % frames + frames) % frames;
-			if (Projectile.velocity.X < 0f) {
-				f = (frames - f) % frames;                     // it spins the way it flies
-			}
-			int rows = Math.Max(1, R.SpinRows);                  // the sheet in columns of SpinRows (2026-11-18)
-			Rectangle frame = new(f / rows * (R.SpinCell + R.Gap), f % rows * (R.SpinCell + R.Gap), R.SpinCell, R.SpinCell);
+			int spin = Projectile.velocity.X < 0f ? -1 : 1;       // it spins the way it flies
+			int f = SpinFrame((int)Spin * SpinFramesPerTick * spin, frames);
+			Rectangle frame = SpinRect(f);
 			if (frame.Bottom > sheet.Height) {
 				return false;
 			}
@@ -162,11 +162,27 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 					continue;
 				}
 				Vector2 trailAt = old + Projectile.Size / 2f - Main.screenPosition;
-				Main.EntitySpriteDraw(sheet, new Vector2(MathF.Round(trailAt.X), MathF.Round(trailAt.Y)), frame, lit * (0.35f / k), 0f, origin, 1f, SpriteEffects.None);
+				Main.EntitySpriteDraw(sheet, new Vector2(MathF.Round(trailAt.X), MathF.Round(trailAt.Y)), frame, lit * (0.3f / k), 0f, origin, 1f, SpriteEffects.None);
 			}
 			Vector2 at = Projectile.Center - Main.screenPosition;
-			Main.EntitySpriteDraw(sheet, new Vector2(MathF.Round(at.X), MathF.Round(at.Y)), frame, lit, 0f, origin, 1f, SpriteEffects.None);
+			Vector2 snapped = new(MathF.Round(at.X), MathF.Round(at.Y));
+			// the fan: the turns it passed through this tick and the last, fainter the further back (a blurred disc of blades)
+			for (int k = BlurFrames; k >= 1; k--) {
+				Rectangle blur = SpinRect(SpinFrame(f - spin * k, frames));
+				if (blur.Bottom <= sheet.Height) {
+					Main.EntitySpriteDraw(sheet, snapped, blur, lit * (0.5f / (k + 1)), 0f, origin, 1f, SpriteEffects.None);
+				}
+			}
+			Main.EntitySpriteDraw(sheet, snapped, frame, lit, 0f, origin, 1f, SpriteEffects.None);
 			return false;
+		}
+
+		private static int SpinFrame(int f, int frames) => (f % frames + frames) % frames;
+
+		/// <summary>A turn's cell: the sheet is in columns of <see cref="R.SpinRows"/> (2026-11-18).</summary>
+		private static Rectangle SpinRect(int f) {
+			int rows = Math.Max(1, R.SpinRows);
+			return new Rectangle(f / rows * (R.SpinCell + R.Gap), f % rows * (R.SpinCell + R.Gap), R.SpinCell, R.SpinCell);
 		}
 	}
 }

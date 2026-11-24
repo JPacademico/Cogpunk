@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using Cogpunk.Core.Systems;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
@@ -95,15 +96,16 @@ namespace Cogpunk.Content.Research
 		}
 	}
 
-	/// <summary>
-	/// "Trigger Finger"'s watch (user, 2026-11-19): every shot of its owner's ranged weapon (a ranged projectile spawned by an
-	/// item use: shotguns' pellets each count) remembers whether it hit anything; one that dies without hitting tells its
-	/// owner's <see cref="ResearchPlayer.ShotMissed"/>. D1: only friendly ranged projectiles carry it (one bool each); D2:
-	/// only the owner's client counts its own shots.
-	/// </summary>
 	public sealed class TriggerFingerShot : GlobalProjectile
 	{
-		private bool counted, landed;
+		private sealed class Volley
+		{
+			public int Projectiles;
+			public bool DealtDamage;
+		}
+
+		private static readonly ConditionalWeakTable<EntitySource_ItemUse, Volley> volleys = new();
+		private Volley volley;
 
 		public override bool InstancePerEntity => true;
 
@@ -112,15 +114,31 @@ namespace Cogpunk.Content.Research
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source) {
-			counted = source is EntitySource_ItemUse && projectile.owner == Main.myPlayer && projectile.damage > 0;
+			if (projectile.owner != Main.myPlayer || projectile.owner >= Main.maxPlayers || projectile.owner < 0) {
+				return;
+			}
+			if (source is EntitySource_ItemUse use && projectile.damage > 0 && use.Item.CountsAsClass(DamageClass.Ranged)
+				&& projectile.type != ModContent.ProjectileType<Weapons.BanditsSlash>()
+				&& Main.player[projectile.owner].GetModPlayer<ResearchPlayer>().Has(ResearchNodes.TriggerFinger)) {
+				volley = volleys.GetValue(use, static _ => new Volley());
+			}
+			else if (source is EntitySource_Parent { Entity: Projectile parent } && parent.owner == projectile.owner
+				&& parent.TryGetGlobalProjectile<TriggerFingerShot>(out var origin)) {
+				volley = origin.volley;
+			}
+			if (volley != null) {
+				volley.Projectiles++;
+			}
 		}
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) {
-			landed = true;
+			if (volley != null && damageDone > 0) {
+				volley.DealtDamage = true;
+			}
 		}
 
 		public override void OnKill(Projectile projectile, int timeLeft) {
-			if (counted && !landed && projectile.owner == Main.myPlayer && projectile.owner >= 0 && projectile.owner < Main.maxPlayers) {
+			if (volley != null && --volley.Projectiles == 0 && !volley.DealtDamage) {
 				Main.player[projectile.owner].GetModPlayer<ResearchPlayer>().ShotMissed();
 			}
 		}

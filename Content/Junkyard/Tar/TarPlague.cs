@@ -13,8 +13,9 @@ namespace Cogpunk.Content.Junkyard.Tar
 	/// keeps it at <see cref="TarPlayer.LingerTicks"/>, so it wears off shortly after climbing out.
 	/// <para>It is the Junkyard pool's progression barrier: a later item lets players dive by granting immunity the vanilla
 	/// way, <c>player.buffImmune[ModContent.BuffType&lt;TarPlague&gt;()] = true</c> in its equip update.</para>
-	/// <para>Enemies get it too (2026-10-30: the tar weapons, user-set "20 damage every 0.5 seconds but keep the slow"):
-	/// the same tick and half speed, applied by <see cref="TarPlagueNPC"/>. Player weapons coat enemies through
+	/// <para>Enemies get it too (2026-10-30: the tar weapons): half speed and, since 2026-11-24 (user: "only 20% stronger than
+	/// default poison"), 7.2 life a second, with On Fire! and Hellfire doubled while it lasts (<see cref="TarPlagueNPC"/>).
+	/// Player weapons coat enemies through
 	/// <see cref="InflictOn"/>, which adds the wearer's <see cref="TarPlayer.PlagueBonusTicks"/> (the Tyrant set's +1.5 s,
 	/// 2026-11-03).</para>
 	/// </summary>

@@ -972,7 +972,7 @@ Items: {
 		Tooltip:
 			'''
 			Crossing slashes cut one wide jade arc and lay the jade curse on what they cut
-			Right click to throw the glaive up to {0} tiles; it comes back to your hand
+			Right click to throw the glaive up to {0} tiles for {2} steam; it comes back to your hand
 			Slashes and throws deal {1}% more damage to enemies turned to jade
 			'''
 	}
@@ -1157,6 +1157,87 @@ Items: {
 			'Some crafts can only be learned, never found'
 			'''
 	}
+
+	JadeRefractor: {
+		DisplayName: Jade Refractor
+		Tooltip:
+			'''
+			Hold to keep a thin jade laser on the cursor that cuts the first {0} enemies it meets
+			Ignores {1}% of enemy defense and lays the jade curse
+			Deals {2}% more damage to enemies turned to jade
+			'''
+	}
+
+	JadeClaws: {
+		DisplayName: Jade Claws
+		Tooltip: "'Crystal talons on a lacquered gauntlet: they part rock and flesh alike'"
+	}
+
+	MissingBones: {
+		DisplayName: Missing Bones
+		Tooltip:
+			'''
+			Summons a raptor skeleton to ride: fast, and its rider can't catch the Tar Plague
+			Bones don't float: it sinks in liquids and paddles up while you hold jump
+			'''
+	}
+
+	BlueStarFruit: {
+		DisplayName: Blue Star Fruit
+		Tooltip:
+			'''
+			+3% magic damage and critical strike chance, +3% mana regeneration, -3% mana cost and +20 maximum mana for {0} minutes
+			One proper meal at a time
+			'''
+	}
+
+	FishOnASpear: {
+		DisplayName: Fish on a Spear
+		Tooltip:
+			'''
+			+3% melee damage, critical strike chance, melee speed and knockback and +20 maximum life for {0} minutes
+			One proper meal at a time
+			'''
+	}
+
+	DeadeyeChili: {
+		DisplayName: Deadeye Chili
+		Tooltip:
+			'''
+			+3% ranged damage, critical strike chance and attack speed, a 3% chance not to use ammo and +20 maximum life for {0} minutes
+			One proper meal at a time
+			'''
+	}
+
+	FireflyJelly: {
+		DisplayName: Firefly Jelly
+		Tooltip:
+			'''
+			+3% summon damage, whip speed, whip range and minion knockback and +20 maximum life for {0} minutes
+			One proper meal at a time
+			'''
+	}
+
+	RainbowRobe: {
+		DisplayName: Rainbow Robe
+		Tooltip:
+			'''
+			Increases maximum mana by {0}
+			Reduces mana cost by {1}%
+			{2}% increased magic damage
+			Gem staffs and other gem magic weapons fire one more projectile at no extra mana
+			'''
+	}
+
+	JadeCoin: {
+		DisplayName: Jade Coin
+		Tooltip:
+			'''
+			Summons a jade bat to fight for you
+			Using it again makes the spirit grow instead: a jade beetle, a jade golem, then a jade loong
+			Once it is a loong, the next use calls a new bat
+			'''
+	}
 }
 
 Buffs: {
@@ -1293,6 +1374,36 @@ Buffs: {
 		DisplayName: Slimed
 		Description: Sticky and slow
 	}
+
+	MissingBonesBuff: {
+		DisplayName: Missing Bones
+		Description: A rebuilt raptor carries you, and the tar can't touch you
+	}
+
+	BlueStarFruitBuff: {
+		DisplayName: Starlit Belly
+		Description: Small boosts to magic and mana
+	}
+
+	FishOnASpearBuff: {
+		DisplayName: Spearfisher's Vigor
+		Description: Small boosts to melee and life
+	}
+
+	DeadeyeChiliBuff: {
+		DisplayName: Deadeye Heat
+		Description: Small boosts to ranged attacks and life
+	}
+
+	FireflyJellyBuff: {
+		DisplayName: Firefly Glow
+		Description: Small boosts to summoning and life
+	}
+
+	JadeCoinBuff: {
+		DisplayName: Jade Spirits
+		Description: Jade spirits fight for you, and grow each time you call them
+	}
 }
 
 NPCs: {
@@ -1381,16 +1492,8 @@ NPCs: {
 	}
 
 	Friendobo: {
-		DisplayName: Friendo-bot
-		Bestiary: An old bartender robot in a top hat and a monocle. He kept a saloon somewhere long ago, and he is still polishing the same glass. He moved in once the Mech Army stopped marching, and he trades in scrap and in the trinkets that wake the big machines.
-		Chat1: Welcome, welcome! Mind the floor, I polished it this century.
-		Chat2: What'll it be? I've got rusted cogs, rusted scrap and more rusted cogs.
-		Chat3: This monocle? Pure brass. The eye behind it, less so.
-		Chat4: I used to tend bar in a town down under the desert. Brass everywhere. Then the sand came in, and the customers stopped coming out.
-		Chat5: Careful with that top hat, friend. There's a spare spring in it.
-		Chat6: Every machine that wakes up angry had something that called it. I sell those, once you have beaten the beast yourself.
-		ChatTavernkeep: The Tavernkeep and I trade tips. He says my ale tastes like oil. It is oil.
-		ChatMechanic: The Mechanic offered to oil my joints. Kind of them. A bit too eager with the wrench, though.
+		DisplayName: Last Ghedalari
+		Bestiary: The last of the Ghedalari, an ancient people the world has all but forgotten. Tall and blue-skinned, with long swept-back ears, eyes that glow without pupils and hooves on legs bent backwards, he still wears his people's gold and carries their spear. He moved in once the Mech Army stopped marching, and he trades in scrap and in the trinkets that wake the great beasts.
 	}
 
 	Cogtuna: {
@@ -1444,7 +1547,7 @@ NPCs: {
 
 	Cogscorpion: {
 		DisplayName: Cogscorpion
-		Bestiary: "A palace guardian built like a scorpion, its bronze plates edged in red lacquer. It raises its tail before it strikes: the jade at the tip glows brighter until the sting whips over its head, and whoever it touches starts turning to stone."
+		Bestiary: "A palace guardian built like a scorpion, its bronze plates edged in red lacquer and its jade sting glowing over its back. It runs down intruders and rams them with its claws and bulk."
 	}
 
 	FlyingBuddhaHead: {
@@ -1713,9 +1816,6 @@ Projectiles: {
 		DisplayName: Fire Bolt
 	}
 
-	CogscorpionSting: {
-		DisplayName: Cogscorpion Sting
-	}
 
 	CombinatorBlast: {
 		DisplayName: Combinator Burst
@@ -1791,6 +1891,22 @@ Projectiles: {
 	SporeBolt.DisplayName: Spore Bolt
 	ShroomSpike.DisplayName: Bursting Mushroom
 	FungimancerTongue.DisplayName: Fungimancer's Tongue
+
+	JadeRefractorBeam: {
+		DisplayName: Jade Refractor
+	}
+
+	JadeCoinCounter: {
+		DisplayName: Jade Coin
+	}
+
+	JadeSpirit: {
+		DisplayName: Jade Spirit
+	}
+
+	JadeSpiritBolt: {
+		DisplayName: Jade Bolt
+	}
 }
 
 Tiles: {
@@ -2032,11 +2148,15 @@ Keybinds: {
 
 Secrets: {
 	GateOpened: The sealed gate of the Fundamental Ruins grinds open!
+	StonesAsleep: The Fundamental Stones fall back asleep...
+	StonesAligned: All five Fundamental Stones are awake.
+	GhedalariKnown: "Ghedalari: {0}"
+	GhedalariUnknown: Ghedalari script. Some Fundamental Stone may teach you this word.
 }
 
 Emotes: {
 	FriendoboEmote: {
-		Command: friendobot
+		Command: ghedalari
 	}
 }
 
@@ -2193,6 +2313,10 @@ Research: {
 		SquireBanner: "{0} Zombie, Slime or Demon Eye Banner"
 		BlackLens: "{0} Black Lens"
 		Gel: "{0} Gel"
+		Daybloom: "{0} Daybloom"
+		Mushroom: "{0} Mushrooms"
+		Potions: "{0} different potions"
+		Foods: "{0} different foods"
 	}
 	Nodes: {
 		TheBasics: {
@@ -2245,7 +2369,7 @@ Research: {
 		}
 		HeatManagement: {
 			DisplayName: "Heat Management"
-			Description: "10% less damage taken while overheated"
+			Description: "Overheating no longer keeps you running: you can stand still"
 		}
 		BringAKnife: {
 			DisplayName: "Bring a Knife to a Gunfight"
@@ -2266,6 +2390,90 @@ Research: {
 		Calcified: {
 			DisplayName: "Calcified"
 			Description: "Every enemy you defeat throws a bone that deals 40 damage to another enemy it hits"
+		}
+		AlchemyInitiate: {
+			DisplayName: Alchemy Initiate
+			Description: Potions you brew have a 10% chance to come out doubled
+		}
+		FulfillingConcoction: {
+			DisplayName: Fulfilling Concoction
+			Description: Drinking a potion makes you Well Fed for 5 minutes (a better meal is kept)
+		}
+		EfficientFuel: {
+			DisplayName: Efficient Fuel
+			Description: "-5% steam cost"
+		}
+		Reconstructed: {
+			DisplayName: Reconstructed
+			Description: Unlocks crafting Missing Bones, a raptor skeleton mount
+		}
+		Seasoning: {
+			DisplayName: Seasoning
+			Description: Cooking has a 10% chance to keep its ingredients
+		}
+		ProperMeal: {
+			DisplayName: Proper Meal
+			Description: Unlocks cooking four meals, one for each class
+		}
+		GreenIsGood: {
+			DisplayName: Green = Good
+			Description: Killing an enemy turned to jade heals 20 life; while you are turned to jade you take 20% less damage
+		}
+		GreenDiamond: {
+			DisplayName: Green Diamond
+			Description: Unlocks crafting the Jade Refractor
+		}
+		MadScience: {
+			DisplayName: Mad Science
+			Description: "+5% attack speed with combined weapons"
+		}
+		SigilFleur: {
+			DisplayName: Sigil of the Fleur
+			Description:
+				'''
+				+1 life regeneration
+				Translates the runes on the Fundamental Stone that bears this sigil
+				'''
+		}
+		SigilSun: {
+			DisplayName: Sigil of the Sun
+			Description:
+				'''
+				You give off a soft light
+				Translates the runes on the Fundamental Stone that bears this sigil
+				'''
+		}
+		SigilMountain: {
+			DisplayName: Sigil of the Mountain
+			Description:
+				'''
+				+2 defense
+				Translates the runes on the Fundamental Stone that bears this sigil
+				'''
+		}
+		SigilCross: {
+			DisplayName: Sigil of the Cross
+			Description:
+				'''
+				+5% movement speed
+				Translates the runes on the Fundamental Stone that bears this sigil
+				'''
+		}
+		SigilWave: {
+			DisplayName: Sigil of the Wave
+			Description:
+				'''
+				+50% breath
+				Translates the runes on the Fundamental Stone that bears this sigil
+				'''
+		}
+		Rgbt: {
+			DisplayName: RGBT
+			Description: Unlocks crafting the Rainbow Robe
+		}
+		JadeMenagerie: {
+			DisplayName: Jade Menagerie
+			Description: Unlocks crafting the Jade Coin
 		}
 	}
 	Tasks: {
@@ -2289,6 +2497,7 @@ Research: {
 		Boss: "First defeat of {0} in this world"
 		Event: "First clear of {0} in this world"
 		GlowingMushroom: "Found a glowing mushroom field"
+		DemonAltar: The world's first demon altar smashed
 	}
 	Events: {
 		GoblinArmy: "the Goblin Army"
@@ -2305,4 +2514,18 @@ Research: {
 	KnowledgeName: "Knowledge points"
 	DragHint: "Drag to look around"
 	Teaser: "A secret yet to be revealed: a great foe must fall first"
+	Tabs: {
+		Main: Ancient Research
+		Mystery: Mystery of the Past
+	}
+	Hints: {
+		AlchemyTable: "A secret yet to be revealed: an alchemist's table holds the key"
+		CookingPot: "A secret yet to be revealed: a cooking pot holds the key"
+		Combinator: "A secret yet to be revealed: fuse a weapon at the Combinator"
+		Stone: "A secret yet to be revealed: read the Fundamental Stone that bears this sigil"
+		GemRobe: "A secret yet to be revealed: own a gem robe"
+	}
+	DoubleBrew: Double brew!
+	Seasoned: Ingredients saved!
+	GemRobeGroup: "Any Gem Robe"
 }

@@ -30,6 +30,9 @@ namespace Cogpunk.Content.Secrets
 	/// added onto them, pulsing; a mote now and then), the cursor names it sealed and a right click only hums back. When
 	/// the guardian dies the dome is gone for good, shattering for whoever is looking (a burst of light and the glass sound,
 	/// once per client: <see cref="ResetShields"/>).</para>
+	/// <para><b>Awake</b> (the puzzle, 2026-11-24: <see cref="FundamentalStoneAwakening"/>): a stone woken in its order glows
+	/// gold (<c>_Awake</c>, the same cuts) and lights its slate gold; one touched out of turn flares gold and dies out for its
+	/// toucher.</para>
 	/// <para>Placed whole by world generation (<see cref="FundamentalStones.TryPlace"/>), never by a player: it has no item.
 	/// Its <see cref="TileObjectData"/> has no anchors and it refuses vanilla's framing (<see cref="TileFrame"/>), so no
 	/// neighbour change can break it. The glow (<c>_Glow</c>) is drawn at full brightness, breathing slowly (the fade is in
@@ -47,7 +50,7 @@ namespace Cogpunk.Content.Secrets
 		public const int ShieldFrameTicks = 6;
 		public const float ShieldOpacity = 0.55f;
 
-		private static Asset<Texture2D> glow, shield;
+		private static Asset<Texture2D> glow, awakeGlow, shield;
 		private static readonly sbyte[] seenSealed = new sbyte[FundamentalStones.Count];   // per stone: -1 unseen, 0 open, 1 sealed
 
 		public override void SetStaticDefaults() {
@@ -78,13 +81,14 @@ namespace Cogpunk.Content.Secrets
 			AddMapEntry(new Color(46, 58, 100), CreateMapEntryName());
 			if (!Main.dedServ) {
 				glow = DepthLayers.RequestOptional(Texture + "_Glow");
+				awakeGlow = DepthLayers.RequestOptional(Texture + "_Awake");
 				shield = DepthLayers.RequestOptional("Cogpunk/Content/Secrets/FundamentalShield");
 			}
 			ResetShields();
 		}
 
 		public override void Unload() {
-			glow = shield = null;
+			glow = awakeGlow = shield = null;
 		}
 
 		/// <summary>A new world: no stone seen yet (so a world loaded with a guardian already dead shows no shatter).</summary>
@@ -131,6 +135,8 @@ namespace Cogpunk.Content.Secrets
 		/// <summary>The reader's client: its runes appear over it; a sealed stone (its guardian lives) only hums back.</summary>
 		public override bool RightClick(int i, int j) {
 			int style = StyleAt(i, j, out int left, out int top);
+			// research (user, 2026-11-24): touching a stone, sealed or not, opens the Mystery of the Past's tab
+			Main.LocalPlayer.GetModPlayer<Content.Research.ResearchPlayer>().TouchStone();
 			if (FundamentalStones.Sealed(style)) {
 				SoundEngine.PlaySound(SoundID.Item93 with { Pitch = -0.6f, Volume = 0.6f }, new Vector2(i * 16f + 8f, j * 16f + 8f));
 				CombatText.NewText(new Rectangle(left * 16, top * 16, Width * 16, 16), new Color(198, 189, 255),
@@ -138,6 +144,8 @@ namespace Cogpunk.Content.Secrets
 				return true;
 			}
 			FundamentalStoneReading.Open(style, new Vector2(left * 16f + Width * 8f, top * 16f));
+			// the puzzle (user, 2026-11-24): "the stone of the tar pit should only say "..." and activate right upon interaction"
+			FundamentalStoneAwakening.RequestTouch(style, left, top);
 			return true;
 		}
 
@@ -153,6 +161,12 @@ namespace Cogpunk.Content.Secrets
 			}
 			int style = Math.Clamp(Main.tile[i, j].TileFrameX / StyleWidth, 0, FundamentalStones.Count - 1);
 			float k = Breath(style);
+			if (FundamentalStoneAwakening.Awake(style)) {
+				r = 0.42f * k;                                      // awake: its cuts glow gold
+				g = 0.32f * k;
+				b = 0.10f * k;
+				return;
+			}
 			r = 0.05f * k;
 			g = 0.13f * k;
 			b = 0.32f * k;
@@ -171,6 +185,7 @@ namespace Cogpunk.Content.Secrets
 				Shatter(i, j);
 			}
 			seenSealed[style] = (sbyte)(sealedNow ? 1 : 0);
+			FundamentalStoneAwakening.Seen(style, i, j);
 			if (sealedNow) {
 				Main.instance.TilesRenderer.AddSpecialPoint(i, j, TileDrawing.TileCounterType.CustomNonSolid);
 			}
@@ -234,6 +249,17 @@ namespace Cogpunk.Content.Secrets
 			int style = Math.Clamp(tile.TileFrameX / StyleWidth, 0, FundamentalStones.Count - 1);
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
 			Vector2 at = new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero;
+			// an awake stone's cuts glow gold (the puzzle, 2026-11-24); one touched out of turn flares gold and dies out (its
+			// toucher's view, FundamentalStoneAwakening.Flare)
+			bool awake = FundamentalStoneAwakening.Awake(style);
+			float flare = awake ? 0f : FundamentalStoneAwakening.Flare(style);
+			if ((awake || flare > 0f) && awakeGlow?.IsLoaded == true && source.Right <= awakeGlow.Value.Width && source.Bottom <= awakeGlow.Value.Height) {
+				if (flare < 1f && !awake) {
+					spriteBatch.Draw(glow.Value, at, source, Color.White * (Breath(style) * (1f - flare)), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+				}
+				spriteBatch.Draw(awakeGlow.Value, at, source, Color.White * (awake ? Breath(style) : flare), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+				return;
+			}
 			spriteBatch.Draw(glow.Value, at, source, Color.White * Breath(style), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}
 	}

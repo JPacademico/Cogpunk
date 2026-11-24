@@ -50,6 +50,8 @@ sys.path.insert(0, os.path.join(HERE, "..", "trashtr0m"))
 from westbots import (RAMP, Xf, Poly, Ellipse, Capsule, Union, Canvas, flat, dome, face, P, finish, limb, texture)  # noqa: E402
 from rig import ik, COLOR_INDEX  # noqa: E402
 from make_trashtr0m_art import export, to_image  # noqa: E402
+sys.path.insert(0, HERE)
+import jadey_sculpt  # noqa: E402  (2026-11-23: her body, sculpted)
 
 ROOT = os.getcwd()
 OUT = "Content/Bosses/Jadey/"
@@ -383,24 +385,18 @@ def jade_over(cv, level, cracks, seed=0):
 
 
 def frame(p, flick=None):
-    """(far, mid, near, glow, points). `flick`: render only the far arm in that flick pose (the overlay frames)."""
+    """(far, mid, near, glow, points). `flick`: render only the far arm in that flick pose (the overlay frames).
+    2026-11-23: her body is sculpted (jadey_sculpt.draw, the sprite-quality redesign); the old drawing functions above are
+    kept for reference and for previous/make_jadey_art_2026-11-18.py."""
     far, mid, near, glow = Canvas(), Canvas(), Canvas(), Canvas()
     far_hand = flick if flick is not None else p.far
     far_hand = (far_hand[0] + ARM_OUT, far_hand[1])
-    far_paw = arm(far, glow, SH_FAR, far_hand, 1, -1, p.palms, p.far_glow)
+    near_hand = (p.near[0] - ARM_OUT, p.near[1])
+    near_paw, far_paw = jadey_sculpt.draw(far, mid, near, glow, p, far_hand, near_hand, only_far=flick is not None)
     if flick is not None:
-        finish(far)
         return far, Canvas(), Canvas(), glow, {"far": far_paw}
-    cushion(mid, glow, p)
-    legs(mid, p)
-    torso(mid, p)
-    head(mid, glow, p)
-    near_paw = arm(near, glow, SH_NEAR, (p.near[0] - ARM_OUT, p.near[1]), 0, 1, p.palms, p.hand_glow)
     if p.coil:
         coil(near, near_paw, p.sway)
-    for cv in (far, mid, near):
-        finish(cv)
-    stamp_face(mid, glow, p)
     if p.jade > 0 or p.cracks:
         for cv in (far, mid, near):
             jade_over(cv, p.jade, p.cracks if cv is mid else 0)

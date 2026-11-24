@@ -124,3 +124,68 @@ Columns: 6
 184  58 190	Amethyst 3 #b83abe
 228 112 230	Amethyst 4 #e470e6
 248 184 248	Amethyst 5 #f8b8f8
+# Frog (2026-11-23): the Fungimancer's skin, hue-shifted (teal shadows to yellow-green light)
+ 18  38  40	Frog 0 #122628
+ 22  58  52	Frog 1 #163a34
+ 30  82  58	Frog 2 #1e523a
+ 46 108  60	Frog 3 #2e6c3c
+ 72 136  62	Frog 4 #48883e
+106 162  66	Frog 5 #6aa242
+148 188  84	Frog 6 #94bc54
+190 212 120	Frog 7 #bed478
+# Belly (2026-11-23): its pale belly and throat, cool shadows to warm cream
+ 58  72  70	Belly 0 #3a4846
+ 94 114  94	Belly 1 #5e725e
+136 154 118	Belly 2 #889a76
+176 190 142	Belly 3 #b0be8e
+210 220 168	Belly 4 #d2dca8
+236 238 200	Belly 5 #eceec8
+# Fungimancer (2026-11-23): the user's reference, reduced to 48 colours (its model's own palette)
+  8   4   6	Fungimancer 0 #080406
+  7  11  28	Fungimancer 1 #070b1c
+ 54   5  11	Fungimancer 2 #36050b
+ 22  36  17	Fungimancer 3 #162411
+  5  32  51	Fungimancer 4 #052033
+ 25  56  10	Fungimancer 5 #19380a
+ 84   7  16	Fungimancer 6 #540710
+ 38  79   7	Fungimancer 7 #264f07
+ 10  47  71	Fungimancer 8 #0a2f47
+117  10  17	Fungimancer 9 #750a11
+  6  67  88	Fungimancer 10 #064358
+ 52 105   7	Fungimancer 11 #346907
+ 56  74  54	Fungimancer 12 #384a36
+ 39  89  58	Fungimancer 13 #27593a
+151  14  21	Fungimancer 14 #970e15
+  8 100 114	Fungimancer 15 #086472
+ 75 138  13	Fungimancer 16 #4b8a0d
+152  21  58	Fungimancer 17 #98153a
+188  24  23	Fungimancer 18 #bc1817
+109 121  11	Fungimancer 19 #6d790b
+ 81  99  72	Fungimancer 20 #516348
+ 36  80 141	Fungimancer 21 #24508d
+ 11 135 137	Fungimancer 22 #0b8789
+104  87 110	Fungimancer 23 #68576e
+229  52  26	Fungimancer 24 #e5341a
+216  30  62	Fungimancer 25 #d81e3e
+106 124  89	Fungimancer 26 #6a7c59
+112 188  34	Fungimancer 27 #70bc22
+ 12 176 161	Fungimancer 28 #0cb0a1
+146 117  86	Fungimancer 29 #927556
+130 136  89	Fungimancer 30 #828859
+230  38  97	Fungimancer 31 #e62661
+129 146 104	Fungimancer 32 #819268
+106 155 126	Fungimancer 33 #6a9b7e
+243 129  43	Fungimancer 34 #f3812b
+201 177  44	Fungimancer 35 #c9b12c
+ 74 136 244	Fungimancer 36 #4a88f4
+157 174 129	Fungimancer 37 #9dae81
+167 174 123	Fungimancer 38 #a7ae7b
+191 168 124	Fungimancer 39 #bfa87c
+ 92 172 237	Fungimancer 40 #5caced
+191 195 140	Fungimancer 41 #bfc38c
+ 67 221 248	Fungimancer 42 #43ddf8
+189 202 157	Fungimancer 43 #bdca9d
+216 218 167	Fungimancer 44 #d8daa7
+229 191 190	Fungimancer 45 #e5bfbe
+223 229 187	Fungimancer 46 #dfe5bb
+236 240 210	Fungimancer 47 #ecf0d2

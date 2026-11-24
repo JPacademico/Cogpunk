@@ -56,6 +56,9 @@ RAMP = {
     "sage": [(24, 52, 34), (54, 116, 74), (100, 158, 106), (150, 192, 144), (192, 220, 174), (228, 241, 206)],
     # Amethyst (2026-11-18, the user's Bundle of Wands design: its magenta amethyst rod; the palette had no magenta)
     "amethyst": [(36, 12, 40), (78, 22, 88), (128, 36, 140), (184, 58, 190), (228, 112, 230), (248, 184, 248)],
+    # 2026-11-23 (the sprite-quality study): hue-shifted ramps for the Fungimancer's skin (teal shadows, yellow-green light)
+    "frog": [(18, 38, 40), (22, 58, 52), (30, 82, 58), (46, 108, 60), (72, 136, 62), (106, 162, 66), (148, 188, 84), (190, 212, 120)],
+    "belly": [(58, 72, 70), (94, 114, 94), (136, 154, 118), (176, 190, 142), (210, 220, 168), (236, 238, 200)],
 }
 WHITE = RAMP["steam"][3]
 COLOR_INDEX = {}

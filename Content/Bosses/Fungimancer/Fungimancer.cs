@@ -30,7 +30,9 @@ namespace Cogpunk.Content.Bosses.Fungimancer
 	/// it add a very rare chance for a rainbow mushroom ... if the player breaks the rainbow mushroom (does not drop) it should
 	/// spawn the Fungimancer. allthough it can be spawned pre hardmode the fungimancer is a hardmode intended fight (just like
 	/// duke fishroom ...) ... (floaty boss). add a "fungi manual" for the fungimancer to drop"). A fat frog-mage sitting on a
-	/// floating glowing mushroom (art/bosses/fungimancer/make_fungimancer_art.py, after the user's reference).
+	/// floating glowing mushroom (art/bosses/fungimancer/make_fungimancer_art.py, after the user's reference; since 2026-11-23
+	/// the 2x2 version, "the expected 2x2 pixel doubling that terraria mods uses", in three parallax planes: the raised arm
+	/// behind, the arm on its chest and the hand on its belly in front, shifting with the camera up to <see cref="MaxParallax"/>).
 	/// <para>The fight (the attacks, numbers and cadence are my calls):
 	/// <list type="bullet">
 	/// <item>Floaty (BossNPC rules): it drifts beside and above its target with a lag and a slow figure of eight, comes into a
@@ -88,7 +90,9 @@ namespace Cogpunk.Content.Bosses.Fungimancer
 		public const int CameraEaseTicks = 30;
 		public const float CameraLockRange = 120f * 16f, FightRange = 150f * 16f;
 		public const int CheckInterval = 30, LeaveGrace = 120;
-		public const float MaxParallax = 2f;
+		public const float MaxParallax = 4f;
+		/// <summary>The idle steps (10 ticks each): rest, the hand waves, a breath, the frills lift, the breath out, back.</summary>
+		private static readonly byte[] IdleCycle = { 0, 1, 2, 3, 4, 1 };
 
 		private static LocalizedText epithet;
 		private static Asset<Texture2D> farSheet, nearSheet, glowSheet;
@@ -514,10 +518,10 @@ namespace Cogpunk.Content.Bosses.Fungimancer
 		public int BodyFrame() {
 			int t = (int)Timer;
 			switch (CurrentPhase) {
-				case Phase.Cast:
-					return R.Cast + (t < 12 ? 0 : t < CastRelease ? 1 : t < 34 ? 2 : 3);
-				case Phase.Croak:
-					return R.Croak + (t < 12 ? 0 : t < CroakRelease ? 1 : t < 44 ? 2 : 3);
+				case Phase.Cast:                                    // wind-up, raise, gather | fling, follow-through, recover
+					return R.Cast + (t < 6 ? 0 : t < 14 ? 1 : t < CastRelease ? 2 : t < 30 ? 3 : t < 38 ? 4 : 5);
+				case Phase.Croak:                                   // swell, swell, full | croak, sink
+					return R.Croak + (t < 10 ? 0 : t < 20 ? 1 : t < CroakRelease ? 2 : t < 46 ? 3 : 4);
 				case Phase.Tongue:
 					return R.Tongue + (t < TongueAim ? 0 : t < TongueTicks - 8 ? 1 : 2);
 				case Phase.Fizzle:
@@ -529,10 +533,9 @@ namespace Cogpunk.Content.Bosses.Fungimancer
 				default:
 					int clock = (int)(Main.GameUpdateCount + NPC.whoAmI * 37);
 					if (clock % 200 < 8) {
-						return R.Idle + 3;                          // a blink
+						return R.Idle + 5;                          // a blink
 					}
-					int k = clock / 12 % 4;
-					return R.Idle + (k == 3 ? 1 : k);               // breathing: 0 1 2 1
+					return R.Idle + IdleCycle[clock / 10 % IdleCycle.Length];
 			}
 		}
 

@@ -411,9 +411,12 @@ namespace Cogpunk.Content.Mechanist
 		}
 
 		/// <summary>Overheated: the player can't stop. With no direction held they keep running the way they face; they can
-		/// still turn by holding the other way. Owner only (SetControls runs for the local player, decompiled Player.Update).</summary>
+		/// still turn by holding the other way. The research node Heat Management lets them stand still (user, 2026-11-23: "the
+		/// ability to stay still when overheated (not obligatory to move)"). Owner only (SetControls runs for the local player,
+		/// decompiled Player.Update).</summary>
 		public override void SetControls() {
-			if (!Overheated || Player.whoAmI != Main.myPlayer || Player.dead) {
+			if (!Overheated || Player.whoAmI != Main.myPlayer || Player.dead
+				|| Player.GetModPlayer<Research.ResearchPlayer>().Has(Research.ResearchNodes.HeatManagement)) {
 				return;
 			}
 			if (!Player.controlLeft && !Player.controlRight) {

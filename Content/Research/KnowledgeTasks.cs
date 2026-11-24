@@ -31,6 +31,17 @@ namespace Cogpunk.Content.Research
 
 		public static string Stone(int index) => "FundamentalStone" + (index + 1);
 
+		/// <summary>The keys of <see cref="Stone"/>, built once (the Mystery of the Past's reveals read them every frame the
+		/// window is open: no string building, D1); null outside 0..4.</summary>
+		private static readonly string[] stoneKeys = { "FundamentalStone1", "FundamentalStone2", "FundamentalStone3", "FundamentalStone4",
+			"FundamentalStone5" };
+
+		public static string StoneKey(int index) => index >= 0 && index < stoneKeys.Length ? stoneKeys[index] : null;
+
+		/// <summary>The world's first demon altar smashed (user, 2026-11-24: "breaking a demon altar for the first time rewards a
+		/// knowledge point globally"): every player in the world, once per character (<see cref="ResearchWorld"/>).</summary>
+		public const string DemonAltar = "DemonAltar";
+
 		/// <summary>A boss or mini-boss by its canonical NPC type (the Twins and the Eater of Worlds count once).</summary>
 		public static string Boss(int type) => "Boss:" + NameOf(type);
 

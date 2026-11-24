@@ -186,6 +186,12 @@ namespace Cogpunk.Content.Research
 					Pay(KnowledgeTasks.Event(invasions[k].Name), InvasionBase + k, first);
 				}
 			}
+			// user, 2026-11-24: "breaking a demon altar for the first time rewards a knowledge point globally": vanilla counts the
+			// altars smashed in the world (decompiled WorldGen.SmashAltar: altarCount++, server or singleplayer only; saved with
+			// the world), so the first one this world sees pays every player; a world that smashed some before pays nothing
+			if (WorldGen.altarCount > 0 && paid.Count < MaxSaved && paid.Add(KnowledgeTasks.DemonAltar) && !first) {
+				ResearchGrantPacket.ToAll(ResearchGrantPacket.Kind.DemonAltar, 0);
+			}
 		}
 
 		private static bool VanillaDone(int k) => k switch {
@@ -235,7 +241,7 @@ namespace Cogpunk.Content.Research
 	/// </summary>
 	public sealed class ResearchGrantPacket : CogpunkPacket
 	{
-		public enum Kind : byte { Boss, Event, PinkSlime, Gnome }
+		public enum Kind : byte { Boss, Event, PinkSlime, Gnome, DemonAltar }
 
 		/// <summary>The server (or singleplayer): every player in the world.</summary>
 		public static void ToAll(Kind kind, int arg) {
@@ -305,6 +311,9 @@ namespace Cogpunk.Content.Research
 					break;
 				case Kind.Gnome:
 					r.Grant(KnowledgeTasks.Gnome);
+					break;
+				case Kind.DemonAltar:
+					r.Grant(KnowledgeTasks.DemonAltar);
 					break;
 			}
 		}

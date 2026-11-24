@@ -80,7 +80,7 @@ namespace Cogpunk.Content.Mechanist.Weapons
 	public class SmokerSmoke : CogpunkProjectile
 	{
 		public const int BandHeight = 38;                         // 10% under the player's 42 (user-set)
-		public const int MoveTicks = SmokerBook.RangeTiles * 16 / (int)SmokerBook.Speed;   // 17
+		public const int MoveTicks = (SmokerBook.RangeTiles * 16 + (int)SmokerBook.Speed - 1) / (int)SmokerBook.Speed;
 		public const int FadeTicks = 30;
 		public const float PuffSpacing = 12f;
 		private const int PuffFrames = 4, PuffSize = 40, PuffStride = 42;
@@ -105,7 +105,7 @@ namespace Cogpunk.Content.Mechanist.Weapons
 			Projectile.aiStyle = -1;
 		}
 
-		private bool Moving => StopTick == 0f && Ticks < MoveTicks;
+		private bool Moving => StopTick == 0f && Ticks <= MoveTicks;
 
 		public override void AI() {
 			if (StartX == 0f && StartY == 0f) {
@@ -122,6 +122,10 @@ namespace Cogpunk.Content.Mechanist.Weapons
 					Projectile.Kill();
 				}
 				return;
+			}
+			if (Ticks == MoveTicks) {
+				float finalStep = SmokerBook.RangeTiles * 16f - (MoveTicks - 1) * SmokerBook.Speed;
+				Projectile.velocity = Projectile.velocity.SafeNormalize(Vector2.UnitX) * finalStep;
 			}
 			if (!Main.dedServ && Main.rand.NextBool(3) && CogpunkClientConfig.RollEffect()
 				&& SafeSpawn.TryNewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, out Dust d)) {

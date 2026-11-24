@@ -60,8 +60,18 @@ KB = consts("Content/Dungeon/NPCs/BeatBoxer.cs", "Content/Dungeon/NPCs/BeatBoxer
 KW = consts("Core/Templates/GridWalkerNPC.cs")
 KS = consts(SEC + "FundamentalStoneTile.cs", SEC + "FundamentalStoneReading.cs")
 EMBER, JADE, HIT, HURT, GLOW = (236, 113, 40), (96, 214, 150), (255, 199, 90), (255, 90, 70), (144, 168, 208)
-INSCRIPTIONS = [[int(v) for v in row.split(",")] for row in
-                __import__("re").findall(r"new byte\[\] \{([^}]*)\}", open(SEC + "FundamentalStones.cs", encoding="utf-8").read())]
+# 2026-11-24 (second request): a stone's line is its words in the Ghedalari script (GhedalariScript.Inscriptions, word indices
+# into GhedalariGlyphs.png: runes on its first row, cells GLYPH_W x GLYPH_H on a GLYPH_STRIDE px stride)
+_GS = open(SEC + "GhedalariScript.cs", encoding="utf-8").read()
+_WORDS = __import__("re").search(r"enum Word : byte \{([^}]*)\}", _GS).group(1).replace(" ", "").split(",")
+INSCRIPTIONS = [[_WORDS.index(w) for w in __import__("re").findall(r"Word\.(\w+)", row)] for row in
+                __import__("re").findall(r"new\[\] \{ (Word\.[^}]*)\}", _GS.split("Inscriptions = {")[1].split("};")[0])]
+GLYPH_W, GLYPH_H, GLYPH_STRIDE = 18, 22, 20
+
+
+def word_glyph(sheet, w):
+    """Word w's rune (untranslated) from GhedalariGlyphs.png."""
+    return sheet.crop((w * GLYPH_STRIDE, 0, w * GLYPH_STRIDE + GLYPH_W, GLYPH_H))
 
 
 def lerp(a, b, t):
@@ -500,7 +510,7 @@ def scene_reading(out, font):
     west, at, _ = westworld_crop(margin=(30, 14))
     W, H = west.width, west.height
     gif = Gif(font, (W, H), scale=1.0)
-    runes = load(SEC + "FundamentalRunes.png")
+    runes = load(SEC + "GhedalariGlyphs.png")
     stone_x, stone_y = at
     floor = stone_y + 96
     anchor = (stone_x + 32, stone_y)                          # the stone's top centre
@@ -539,7 +549,7 @@ def scene_reading(out, font):
         if opened:
             alpha = min(1.0, age / KS["FadeInTicks"]) * (1.0 - closing / KS["FadeOutTicks"] if closing else 1.0)
             n = len(line)
-            gw, gh, gap, pad = 14, 18, 4, 12
+            gw, gh, gap, pad = GLYPH_W, GLYPH_H, 4, 12
             pw, ph = n * gw + (n - 1) * gap + 2 * pad, gh + 2 * pad
             x0, y0 = int(anchor[0] - pw / 2), int(anchor[1] - 10 - ph)
             panel = Image.new("RGBA", (pw, ph), (0, 0, 0, 0))
@@ -550,8 +560,8 @@ def scene_reading(out, font):
                 shown = (age - KS["FadeInTicks"] / 2 - k * KS["RevealTicks"]) / KS["RevealTicks"]
                 if shown <= 0:
                     break
-                glyph = runes.crop((g * 16, 0, g * 16 + gw, gh))
-                b = breath if k == 0 else 1.0
+                glyph = word_glyph(runes, g)
+                b = breath                                       # the runes breathe with the stone
                 img.alpha_composite(faded(glyph, alpha * min(1.0, shown) * b), (x0 + pad + k * (gw + gap), y0 + pad))
         note(gif, img, notes, tick)
         gif.push(img)

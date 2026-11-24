@@ -817,7 +817,7 @@ def main():
     a = ap.parse_args()
     only = set(a.only.split(",")) if a.only else None
     jobs = (("island", island_png, "2026-11-12_coghaven-island-chests.png"),
-            ("scorpion", scorpion_gif, "2026-11-12_coghaven-cogscorpion.gif"),
+            # 2026-11-24: the scorpion job is gone (its tail strike was removed; see update_2026_11_24_sim.py --only scorpion)
             ("buddha", buddha_gif, "2026-11-12_coghaven-buddha-head.gif"),
             ("buddha-frames", buddha_frames_png, "2026-11-12_coghaven-buddha-head-frames.png"),
             ("mechromancer", mechromancer_gif, "2026-11-12_bloodmoon-mechromancer.gif"),

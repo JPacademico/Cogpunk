@@ -398,7 +398,7 @@ def sprites_png(out, font):
             img.alpha_composite(im.resize((im.width * 4, im.height * 4), Image.NEAREST), (x, y0 + 200))
             gif.text(img, (x, y0 + 320), n, fill=(238, 241, 243) if half == 0 else (21, 22, 28))
             x += 180
-        gif.text(img, (760, y0 + 200), "Friendobô (town NPC), 25 frames, 2x", fill=(238, 241, 243) if half == 0 else (21, 22, 28))
+        gif.text(img, (760, y0 + 200), "Last Ghedalari (town NPC; the Friendobô until 2026-11-24), 25 frames, 2x", fill=(238, 241, 243) if half == 0 else (21, 22, 28))
         for k in range(25):
             fr = sheet.crop((0, k * FR_H, FR_W, (k + 1) * FR_H))
             img.alpha_composite(fr.resize((FR_W * 2, FR_H * 2), Image.NEAREST), (760 + (k % 13) * 86, y0 + 222 + (k // 13) * 112))

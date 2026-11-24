@@ -26,6 +26,33 @@ namespace Cogpunk.Content.Research
 			gemWeapons = null;
 		}
 
+		/// <summary>Any gem robe: vanilla's seven and the Jade Robe (2026-11-24: the Rainbow Robe's recipe and RGBT's reveal).</summary>
+		public const string GemRobes = "Cogpunk:GemRobes";
+
+		public static readonly int[] VanillaGemRobes = { ItemID.AmethystRobe, ItemID.TopazRobe, ItemID.SapphireRobe, ItemID.EmeraldRobe,
+			ItemID.RubyRobe, ItemID.DiamondRobe, ItemID.AmberRobe };
+
+		/// <summary>A gem robe (vanilla's seven or the Jade Robe).</summary>
+		public static bool IsGemRobe(int type) {
+			if (type == ModContent.ItemType<Gems.Items.JadeRobe>()) {
+				return true;
+			}
+			foreach (int robe in VanillaGemRobes) {
+				if (robe == type) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public override void AddRecipeGroups() {
+			int[] robes = new int[VanillaGemRobes.Length + 1];
+			VanillaGemRobes.CopyTo(robes, 0);
+			robes[^1] = ModContent.ItemType<Gems.Items.JadeRobe>();
+			RecipeGroup.RegisterGroup(GemRobes, new RecipeGroup(
+				() => Language.GetTextValue("Mods.Cogpunk.Research.GemRobeGroup"), robes));
+		}
+
 		private static void FindGemWeapons() {
 			gemWeapons = new bool[ItemLoader.ItemCount];
 			bool[] gem = new bool[ItemLoader.ItemCount];
@@ -65,6 +92,13 @@ namespace Cogpunk.Content.Research
 
 		public override void PostAddRecipes() {
 			FindGemWeapons();
+			// Seasoning (2026-11-24): every recipe made at a Cooking Pot (ours, vanilla's, any mod's) may keep its ingredients
+			for (int k = 0; k < Recipe.numRecipes; k++) {
+				Recipe recipe = Main.recipe[k];
+				if (recipe?.requiredTile != null && recipe.requiredTile.Contains(TileID.CookingPots)) {
+					recipe.AddConsumeIngredientCallback(ResearchCrafting.SeasonIngredient);
+				}
+			}
 			foreach (ResearchNode node in ResearchNodes.All) {
 				if (node.Recipes.Length == 0) {
 					continue;

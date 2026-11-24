@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Cogpunk.Content.Mechanist;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
@@ -28,7 +30,10 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 	/// <item>Right click: one glaive is thrown (<see cref="JadeGlaiveThrown"/>) up to <see cref="JadeGlaiveThrown.RangeTiles"/>
 	/// tiles and comes back; it passes through the first enemy it meets going out and the first coming back (one hit each way),
 	/// x<see cref="PetrifiedBonus"/> on jade. One out at a time; while it flies, the slashes are the other glaive's alone. The
-	/// throw takes x<see cref="ThrowTimeMultiplier"/> a slash's time.</item>
+	/// throw takes x<see cref="ThrowTimeMultiplier"/> a slash's time. Since 2026-11-24 (user: "increase the rotation speed of
+	/// the throw ... (so it looks better like a fan spining) attack and the range a bit. it should cost 10 steam now"): 22
+	/// tiles (18 before), spinning four times as fast with a blurred disc behind the blades, and
+	/// <see cref="ThrowSteamCost"/> steam a throw.</item>
 	/// </list>
 	/// <para>Balance (D3; docs/balance/weapons.csv; T4, Coghaven's): anchor the Night's Edge (decompiled 1.4.4
 	/// <c>Item.SetDefaults</c> 273: 40 damage, 25 use, 4.5 knockback): <see cref="Damage"/> every <see cref="UseTime"/> ticks at
@@ -36,7 +41,7 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 	/// <c>ai[0]</c>, so every client draws the same X. Art: art/bosses/jadey/make_jadey_loot_art.py (the twin-crescent first
 	/// version: previous/make_jadey_loot_art_2026-11-17.py).</para>
 	/// </summary>
-	public class JadeCursedGlaives : CogpunkItem
+	public class JadeCursedGlaives : CogpunkItem, ISteamSkill
 	{
 		public const int Damage = 27;                       // user-set 2026-11-17 (24 before)
 		public const int CritBonus = 8;                     // user-set 2026-11-17: 12% with the player's own 4%
@@ -44,9 +49,18 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 		public const int UseTime = 16;                      // "fast use time"
 		public const float Knockback = 3.5f;
 		public const float ThrowTimeMultiplier = 1.75f;
+		/// <summary>The throw's steam (user-set 2026-11-24: "it should cost 10 steam now"): a steam skill
+		/// (<see cref="ISteamSkill"/>), paid by a Mechanist weapon's rules (no tank: no throw and a hint; a short tank: an
+		/// overheat), as the Sheriff's Revolver's burst is.</summary>
+		public const int ThrowSteamCost = 10;
+
+		public int SkillSteamCost => ThrowSteamCost;
+
+		/// <summary>The alt use is the throw: its hits count its steam for the Spring Gloves.</summary>
+		public int SteamForUse(Player player) => player.altFunctionUse != 0 ? player.GetModPlayer<SteamPlayer>().GetCost(ThrowSteamCost) : 0;
 
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(JadeGlaiveThrown.RangeTiles,
-			(int)System.Math.Round((PetrifiedBonus - 1f) * 100f));
+			(int)System.Math.Round((PetrifiedBonus - 1f) * 100f), ThrowSteamCost);
 
 		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;
@@ -75,9 +89,20 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 
 		public override bool AltFunctionUse(Player player) => true;
 
-		/// <summary>One glaive thrown at a time.</summary>
+		/// <summary>One glaive thrown at a time, and the throw's steam in the tank (the owner asks; the hint or the overheat when
+		/// it can't pay).</summary>
 		public override bool CanUseItem(Player player) {
-			return player.altFunctionUse != 2 || player.ownedProjectileCounts[ModContent.ProjectileType<JadeGlaiveThrown>()] < 1;
+			if (player.altFunctionUse != 2) {
+				return true;
+			}
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<JadeGlaiveThrown>()] >= 1) {
+				return false;
+			}
+			return player.whoAmI != Main.myPlayer || player.GetModPlayer<SteamPlayer>().CanPayAttack(ThrowSteamCost);
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+			SteamSkillTooltip.AddNoTankLine(Mod, tooltips, ThrowSteamCost);
 		}
 
 		public override float UseTimeMultiplier(Player player) => player.altFunctionUse == 2 ? ThrowTimeMultiplier : 1f;
@@ -89,6 +114,7 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 				Vector2 aim = velocity.SafeNormalize(new Vector2(player.direction, 0f));
 				if (SafeSpawn.TryNewProjectile(source, player.MountedCenter, aim * JadeGlaiveThrown.ThrowSpeed, ModContent.ProjectileType<JadeGlaiveThrown>(),
 						damage, knockback, out _, player.whoAmI)) {
+					player.GetModPlayer<SteamPlayer>().Spend(ThrowSteamCost);   // CanUseItem checked it (Shoot runs on the owner)
 					SoundEngine.PlaySound(SoundID.Item7 with { Pitch = 0.1f }, player.Center);
 				}
 				return false;

@@ -22,10 +22,33 @@ namespace Cogpunk.Content.Research.UI
 	/// </summary>
 	public sealed class ResearchUIState : UIState
 	{
-		public const float WindowMaxWidth = 1080f, WindowMaxHeight = 700f, Header = 46f;
+		public const float WindowMaxWidth = 1080f, WindowMaxHeight = 700f, Header = 46f, TabHeight = 28f;
 
 		private ResearchWindow window;
 		private ResearchTreeView tree;
+		private UIElement clip;
+		private ResearchTabStrip tabs;
+		private bool tabsShown;
+
+		/// <summary>The Mystery of the Past's tab (user, 2026-11-24: "a new tab that appears once the player has interacted with
+		/// a fundamental stone"): the strip of tabs shows under the header once there are two, and the field moves down to
+		/// make room; before that the window is as it was.</summary>
+		public override void Update(GameTime gameTime) {
+			bool show = Main.LocalPlayer.GetModPlayer<ResearchPlayer>().MysteryTab;
+			if (show != tabsShown && clip != null) {
+				tabsShown = show;
+				float top = Header + (show ? TabHeight : 0f);
+				clip.Top.Set(top, 0f);
+				clip.Height.Set(-top - 10f, 1f);
+				if (!show) {
+					tree.Tab = ResearchNodes.MainTab;
+				}
+				tree.ResetView();
+				window.Recalculate();
+			}
+			tabs.Shown = show;
+			base.Update(gameTime);
+		}
 
 		public override void OnInitialize() {
 			window = new ResearchWindow();
@@ -39,17 +62,25 @@ namespace Cogpunk.Content.Research.UI
 			window.VAlign = 0.5f;
 			Append(window);
 
-			UIElement clip = new() { OverflowHidden = true };
+			clip = new() { OverflowHidden = true };
 			clip.Left.Set(10f, 0f);
 			clip.Top.Set(Header, 0f);
 			clip.Width.Set(-20f, 1f);
 			clip.Height.Set(-Header - 10f, 1f);
 			window.Append(clip);
+			tabsShown = false;
 
 			tree = new ResearchTreeView();
 			tree.Width.Set(0f, 1f);
 			tree.Height.Set(0f, 1f);
 			clip.Append(tree);
+
+			tabs = new ResearchTabStrip(tree);
+			tabs.Left.Set(10f, 0f);
+			tabs.Top.Set(Header, 0f);
+			tabs.Width.Set(-20f, 1f);
+			tabs.Height.Set(TabHeight, 0f);
+			window.Append(tabs);
 
 			ResearchCloseButton close = new();
 			close.Width.Set(28f, 0f);
@@ -73,6 +104,10 @@ namespace Cogpunk.Content.Research.UI
 		private int shownKnowledge = int.MinValue;
 		private string knowledgeText = "";
 		private static Asset<Texture2D> knowledgeIcon;                 // ResearchKnowledge.png: the knowledge point's sign
+
+		public static void UnloadAssets() {
+			knowledgeIcon = null;
+		}
 
 		public ResearchWindow() {
 			if (!Main.dedServ && knowledgeIcon == null) {
@@ -141,6 +176,87 @@ namespace Cogpunk.Content.Research.UI
 	}
 
 	/// <summary>
+	/// The window's tabs (user, 2026-11-24): "Ancient Research" and, once a Fundamental Stone has been touched, "Mystery of the
+	/// Past" (<see cref="ResearchNodes.MysteryTab"/>): brass folder tabs along the top of the field, the open one lit and joined
+	/// to it, the other dim; a click switches the tree's tab. Drawn by hand (two rectangles and two strings, the widths measured
+	/// when a name changes: D1).
+	/// </summary>
+	public sealed class ResearchTabStrip : UIElement
+	{
+		private static readonly Color Rim = new(21, 22, 28), Brass = new(184, 138, 51), BrassLight = new(223, 185, 78),
+			BrassDark = new(90, 58, 23), Field = new(24, 20, 36), Ink = new(238, 241, 243), Dim = new(138, 144, 150), Aether = new(128, 150, 238);
+		private const float Pad = 14f, Gap = 6f, TextScale = 0.9f;
+
+		private readonly ResearchTreeView tree;
+		private readonly Rectangle[] rects = new Rectangle[ResearchNodes.TabCount];
+		private readonly string[] names = new string[ResearchNodes.TabCount];
+		private readonly float[] widths = new float[ResearchNodes.TabCount];
+		private int hovered = -1;
+
+		/// <summary>Set every update by the state: drawn and clickable only once the second tab exists.</summary>
+		public bool Shown;
+
+		public ResearchTabStrip(ResearchTreeView tree) {
+			this.tree = tree;
+		}
+
+		/// <summary>Hidden, it takes no clicks: the tree under it keeps them (it is hit-tested before the field otherwise).</summary>
+		public override bool ContainsPoint(Vector2 point) => Shown && base.ContainsPoint(point);
+
+		private static string NameKey(int tab) => tab == ResearchNodes.MysteryTab ? "Mods.Cogpunk.Research.Tabs.Mystery" : "Mods.Cogpunk.Research.Tabs.Main";
+
+		private void Layout() {
+			CalculatedStyle d = GetDimensions();
+			float x = d.X;
+			for (int t = 0; t < ResearchNodes.TabCount; t++) {
+				string name = Language.GetTextValue(NameKey(t));
+				if (!ReferenceEquals(name, names[t])) {
+					names[t] = name;                             // the language changed (or the first frame): measure once
+					widths[t] = FontAssets.MouseText.Value.MeasureString(name).X * TextScale;
+				}
+				int w = (int)(widths[t] + Pad * 2f);
+				rects[t] = new Rectangle((int)x, (int)d.Y + 2, w, (int)d.Height - 2);
+				x += w + Gap;
+			}
+		}
+
+		public override void LeftClick(UIMouseEvent evt) {
+			base.LeftClick(evt);
+			if (!Shown || hovered < 0 || hovered == tree.Tab) {
+				return;
+			}
+			tree.Tab = hovered;
+			tree.ResetView();
+			SoundEngine.PlaySound(SoundID.MenuTick);
+		}
+
+		protected override void DrawSelf(SpriteBatch sb) {
+			hovered = -1;
+			if (!Shown) {
+				return;
+			}
+			Layout();
+			Texture2D px = TextureAssets.MagicPixel.Value;
+			Point mouse = Main.MouseScreen.ToPoint();
+			for (int t = 0; t < ResearchNodes.TabCount; t++) {
+				Rectangle r = rects[t];
+				bool open = t == tree.Tab;
+				bool over = IsMouseHovering && r.Contains(mouse);
+				if (over) {
+					hovered = t;
+					Main.LocalPlayer.mouseInterface = true;
+				}
+				Color rim = open ? BrassLight : over ? Brass : BrassDark;
+				sb.Draw(px, r, Rim);
+				sb.Draw(px, new Rectangle(r.X + 2, r.Y + 2, r.Width - 4, r.Height - 2), rim);
+				sb.Draw(px, new Rectangle(r.X + 4, r.Y + 4, r.Width - 8, r.Height - 4), open ? Field : Rim);
+				Color ink = open ? (t == ResearchNodes.MysteryTab ? Aether : BrassLight) : over ? Ink : Dim;
+				Utils.DrawBorderString(sb, names[t], new Vector2(r.X + Pad, r.Y + 6f), ink, TextScale);
+			}
+		}
+	}
+
+	/// <summary>
 	/// The tree (user, 2026-11-18): every visible node (secret ones once revealed) as a square with its item's sprite, row 0 at
 	/// the bottom ("from bottom-up order"); curved arrows only between the nodes a node <see cref="ResearchNode.Links"/> to;
 	/// the starry field behind drifts a little as the view is dragged. Dragging (user, 2026-11-18: "add draggability on the menu
@@ -161,7 +277,13 @@ namespace Cogpunk.Content.Research.UI
 		public const float DragThreshold = 6f, PanMargin = 24f;
 
 		private static Asset<Texture2D> frames;                  // ResearchNode.png: locked, available, researched (56 x 56, 2 apart)
+		private static Asset<Texture2D> runes;                   // the Fundamental Stones' glyphs (14 x 18 on a 16 px stride)
+		private const int GlyphW = 14, GlyphH = 18, GlyphStride = 16;
 		private static readonly Color LinkDim = new(127, 135, 148), LinkLit = new(223, 185, 78);
+
+		/// <summary>The tab shown (<see cref="ResearchNodes.MainTab"/> or <see cref="ResearchNodes.MysteryTab"/>): only its nodes
+		/// are laid out, drawn, hovered and counted for the pan.</summary>
+		public int Tab;
 
 		private Vector2 pan;
 		private bool pressing, moved;
@@ -189,7 +311,14 @@ namespace Cogpunk.Content.Research.UI
 				const string path = "Cogpunk/Content/Research/UI/ResearchNode";
 				frames = ModContent.HasAsset(path) ? ModContent.Request<Texture2D>(path) : null;
 			}
+			if (!Main.dedServ && runes == null) {
+				const string glyphs = "Cogpunk/Content/Secrets/FundamentalRunes";
+				runes = ModContent.HasAsset(glyphs) ? ModContent.Request<Texture2D>(glyphs) : null;
+			}
 		}
+
+		/// <summary>The node belongs to the tab on show.</summary>
+		private bool OnTab(ResearchNode node) => node.Tab == Tab;
 
 		public void ResetView() {
 			pan = Vector2.Zero;
@@ -248,7 +377,7 @@ namespace Cogpunk.Content.Research.UI
 			ResearchPlayer research = Main.LocalPlayer.GetModPlayer<ResearchPlayer>();
 			int minC = 0, maxC = 0, minR = 0, maxR = 0;
 			for (int k = 0; k < nodes.Count; k++) {
-				if (!nodes[k].Teaser && !research.Visible(nodes[k])) {
+				if (!OnTab(nodes[k]) || (!nodes[k].Teaser && !research.Visible(nodes[k]))) {
 					continue;
 				}
 				minC = Math.Min(minC, nodes[k].Column);
@@ -310,14 +439,15 @@ namespace Cogpunk.Content.Research.UI
 			ResearchPlayer research = player.GetModPlayer<ResearchPlayer>();
 			var nodes = ResearchNodes.All;
 
-			// links first (under the nodes)
+			// links first (under the nodes); a teaser's line shows with its question mark (user, 2026-11-24: "connected to this ...
+			// an interrogation (unrevealed, but stiil shows like a interrogation)")
 			for (int k = 0; k < nodes.Count; k++) {
-				if (!research.Visible(nodes[k])) {
+				if (!OnTab(nodes[k]) || (!nodes[k].Teaser && !research.Visible(nodes[k]))) {
 					continue;
 				}
 				foreach (string link in nodes[k].Links) {
 					ResearchNode from = ResearchNodes.Get(link);
-					if (from != null && from.Index < rects.Length && research.Visible(from)) {
+					if (from != null && from.Index < rects.Length && OnTab(from) && research.Visible(from)) {
 						DrawLink(sb, px, rects[from.Index], rects[k], research.Has(from) ? LinkLit : LinkDim);
 					}
 				}
@@ -327,6 +457,9 @@ namespace Cogpunk.Content.Research.UI
 			Point mouse = Main.MouseScreen.ToPoint();
 			for (int k = 0; k < nodes.Count; k++) {
 				ResearchNode node = nodes[k];
+				if (!OnTab(node)) {
+					continue;
+				}
 				bool visible = research.Visible(node);
 				if (!visible && !node.Teaser) {
 					continue;
@@ -352,7 +485,9 @@ namespace Cogpunk.Content.Research.UI
 				}
 				DrawNode(sb, px, r, state, over, k == flashNode ? flashTicks : 0);
 				Color tint = state == 0 ? new Color(120, 120, 130) : Color.White;
-				ItemSlot.DrawItemIcon(icons[k], ItemSlot.Context.InventoryItem, sb, r.Center.ToVector2(), 1f, 32f, tint);
+				if (!DrawGlyph(sb, node.IconGlyph, r, tint)) {
+					ItemSlot.DrawItemIcon(icons[k], ItemSlot.Context.InventoryItem, sb, r.Center.ToVector2(), 1f, 32f, tint);
+				}
 			}
 			Utils.DrawBorderString(sb, Language.GetTextValue("Mods.Cogpunk.Research.DragHint"), new Vector2(area.X + 10f, area.Bottom - 26f),
 				new Color(138, 144, 150), 0.8f);
@@ -362,7 +497,8 @@ namespace Cogpunk.Content.Research.UI
 		}
 
 		private void DrawStars(SpriteBatch sb, Texture2D px, Rectangle area) {
-			sb.Draw(px, area, new Color(18, 16, 30));
+			// the Mystery of the Past's field is the deep blue of the stones' slate (aether's darkest)
+			sb.Draw(px, area, Tab == ResearchNodes.MysteryTab ? new Color(16, 22, 46) : new Color(18, 16, 30));
 			float t = Main.GlobalTimeWrappedHourly;
 			int ox = (int)(pan.X * 0.3f), oy = (int)(pan.Y * 0.3f);
 			for (int k = 0; k < Stars; k++) {
@@ -384,6 +520,27 @@ namespace Cogpunk.Content.Research.UI
 		}
 
 		private static int Mod(int a, int m) => ((a % m) + m) % m;
+
+		/// <summary>A sigil from the Fundamental Stones' glyph sheet as a node's icon, at 2x (whole pixels), glowing pale blue like
+		/// the cuts in the slate; false when the node has none or the sheet is missing (the item icon is drawn instead).</summary>
+		private static bool DrawGlyph(SpriteBatch sb, int glyph, Rectangle r, Color tint) {
+			if (glyph < 0 || runes?.IsLoaded != true) {
+				return false;
+			}
+			Rectangle source = new(glyph * GlyphStride, 0, GlyphW, GlyphH);
+			if (source.Right > runes.Value.Width || source.Bottom > runes.Value.Height) {
+				return false;
+			}
+			Vector2 at = new(r.Center.X - GlyphW, r.Center.Y - GlyphH);
+			sb.Draw(runes.Value, at, source, tint, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+			return true;
+		}
+
+		/// <summary>The static textures go with the mod (D0 rule 12; called by <see cref="ResearchUISystem.Unload"/>).</summary>
+		public static void UnloadAssets() {
+			frames = null;
+			runes = null;
+		}
 
 		/// <summary>A node's square: the generated frame for its state (or a drawn one if the art is missing), lit on hover,
 		/// a flash as it is researched.</summary>
@@ -411,11 +568,25 @@ namespace Cogpunk.Content.Research.UI
 			}
 		}
 
-		/// <summary>A curved arrow from <paramref name="a"/> (below) to <paramref name="b"/>: a quadratic curve of 2 px dots and
-		/// a head of dots at its end.</summary>
+		/// <summary>A curved arrow from <paramref name="a"/> to <paramref name="b"/>: a quadratic curve of 2 px dots and a head of
+		/// dots at its end; from the top of a node below to the bottom of one above, or side to side between nodes on one row
+		/// (2026-11-24: Alchemy Initiate and Fulfilling Concoction sit side by side).</summary>
 		private static void DrawLink(SpriteBatch sb, Texture2D px, Rectangle a, Rectangle b, Color c) {
-			Vector2 p0 = new(a.Center.X, a.Top), p2 = new(b.Center.X, b.Bottom);
-			Vector2 p1 = new((p0.X + p2.X) / 2f + (p2.Y - p0.Y) * 0.25f, (p0.Y + p2.Y) / 2f);
+			Vector2 p0, p2;
+			bool sideways = Math.Abs(b.Center.Y - a.Center.Y) < Math.Abs(b.Center.X - a.Center.X) / 2;
+			if (sideways) {
+				bool right = b.Center.X > a.Center.X;
+				p0 = new(right ? a.Right : a.Left, a.Center.Y);
+				p2 = new(right ? b.Left : b.Right, b.Center.Y);
+			}
+			else {
+				bool up = b.Center.Y <= a.Center.Y;
+				p0 = new(a.Center.X, up ? a.Top : a.Bottom);
+				p2 = new(b.Center.X, up ? b.Bottom : b.Top);
+			}
+			Vector2 p1 = sideways
+				? new((p0.X + p2.X) / 2f, (p0.Y + p2.Y) / 2f - Math.Abs(p2.X - p0.X) * 0.25f)
+				: new((p0.X + p2.X) / 2f + (p2.Y - p0.Y) * 0.25f, (p0.Y + p2.Y) / 2f);
 			const int steps = 40;
 			Vector2 last = p0;
 			for (int s = 0; s <= steps; s++) {
@@ -445,7 +616,8 @@ namespace Cogpunk.Content.Research.UI
 			tipStamp = stamp;
 			builder.Clear();
 			if (node.Teaser && !r.Visible(node)) {
-				builder.Append("[c/DFB94E:???]").Append('\n').Append("[c/8A909A:").Append(Language.GetTextValue("Mods.Cogpunk.Research.Teaser")).Append(']');
+				string hint = node.TeaserHint != null ? "Mods.Cogpunk.Research.Hints." + node.TeaserHint : "Mods.Cogpunk.Research.Teaser";
+				builder.Append("[c/DFB94E:???]").Append('\n').Append("[c/8A909A:").Append(Language.GetTextValue(hint)).Append(']');
 				return tip = builder.ToString();
 			}
 			builder.Append("[c/DFB94E:").Append(node.DisplayName.Value).Append(']').Append('\n');

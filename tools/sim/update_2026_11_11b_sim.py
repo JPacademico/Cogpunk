@@ -1243,7 +1243,7 @@ def main():
             ("barrel", lambda: scene_barrel(o("2026-11-11_mechanist-barrel-gun.gif"), args.font)),
             ("dragonete", lambda: scene_dragonete(o("2026-11-11_underworld-dragonete-miudo.gif"), args.font)),
             ("beetle", lambda: scene_beetle(o("2026-11-11_jungle-rhino-beetle.gif"), args.font)),
-            ("friendobot", lambda: scene_friendobot(o("2026-11-11_town-friendo-bot.gif"), args.font)),
+            # 2026-11-24: the Friendo-bot became the Last Ghedalari (update_2026_11_24_sim.py --only ghedalari)
             ("items", lambda: items_png(o("2026-11-11_items-cutter-barrel-dragonete-glyphs.png"), args.font))]
     only = set(args.only.split(",")) if args.only else None
     for name, job in jobs:

@@ -22,24 +22,28 @@ using Terraria.Utilities;
 namespace Cogpunk.Content.Town
 {
 	/// <summary>
-	/// The Friendo-bot (named Friendobô until 2026-11-11, user: "rework on friendo-bot npc (this should be his name now,
-	/// replace it) it has to match default terraria npc pixel density animations/behavior and details. you are free to change
-	/// the design how you want to match the quality level"; the class, its textures and saves keep the old name
-	/// <c>Friendobo</c>, as Westworld keeps <c>OldBrassTown</c>): an old bartender robot in a top hat and a monocle (user-set
-	/// 2026-11-03), Cogpunk's first town NPC. He moves into a free house once the world has beaten the Mech Army
-	/// (<see cref="CanTownNPCSpawn"/> reads its downed flag, saved and synced by WorldFlagSystem). His shop sells Rusted Cogs
-	/// and Rusted Scrap at <see cref="ScrapPrice"/> copper each (user-set) and each boss's summon once that boss has been
-	/// beaten: the Junkbait (Trash-Tr0m), the Scrapworm (Tar Tyrant), the Cursed Whistle (the Cursed Conductor,
-	/// 2026-11-04) and the Jade Incense (Jadey, 2026-11-17), at the items' own value. Rule (user, 2026-11-17: "make this a
-	/// rule for every boss that we add"): every new boss's summon goes in here, conditioned on its downed flag.
-	/// <para>Vanilla's townsfolk in every respect (set up like ExampleMod 1.4.4's <c>ExamplePerson</c>): vanilla's town AI and
-	/// the Guide's frame rules over a 25-frame sheet at vanilla's density (art/town/make_friendobo_art.py: standing, in the
-	/// air, 14 walking frames, the two chat gestures, sitting, talking, blinking, a 4-frame throw); he throws the
-	/// Tavernkeep's mugs when enemies come near (decompiled <c>NPC.TownNPCAttackProj</c>, type 550: projectile 669, speed 6,
-	/// gravity correction 16); a party hat on top of his top hat (<c>HatOffsetY</c>, decompiled <c>Main.DrawNPCHeadFriendly</c>'s
-	/// party hat: <c>NPC.Top</c> + the offset, down); a shimmered form (<c>ShimmerTownTransform</c>: a chrome head, a navy
-	/// waistcoat, a green lens; <see cref="TownNPCProfile"/>) with its own map head; his face as an emote when other
-	/// townsfolk talk about him (<see cref="FriendoboEmote"/>); happiness and an <c>NPCShop</c> with <c>Condition</c>s.</para>
+	/// The Last Ghedalari (O Último Ghedalari; user, 2026-11-24: "remake our main npc Friendobot it will now be called "last
+	/// Ghedalari" an ancient humanoid species core for our mod lore. the design should be based on the draenei for the
+	/// biological body features (skin color, bigger ears, hoofs/bended backwards legs, glow eyes without pulpil), and on the
+	/// zandalari trolls for the culture adornments (armors, weapons, inka based structures, clothes)"), Cogpunk's first town NPC:
+	/// the last of the Ghedalari, a tall blue-skinned people with long swept-back ears, glowing eyes without pupils and
+	/// hoofed legs bent backwards, dressed in the gold of a culture that built in stepped stone (a sun-disc collar, stepped gold
+	/// pauldrons and belt plate, a red and teal loincloth, gold greaves) and armed with a spear. He was the Friendo-bot (an old
+	/// bartender robot) until 2026-11-24, and the Friendobô before 2026-11-11: the class, its textures and saves keep the old
+	/// name <c>Friendobo</c>, as Westworld keeps <c>OldBrassTown</c>. The Ghedalari are a seed of the mod's lore (more of
+	/// them to come, the user's: nothing more about them is decided here).
+	/// <para>He moves into a free house once the world has beaten the Mech Army (<see cref="CanTownNPCSpawn"/> reads its downed
+	/// flag, saved and synced by WorldFlagSystem). His shop is the Friendo-bot's: Rusted Cogs and Rusted Scrap at
+	/// <see cref="ScrapPrice"/> copper each (user-set), the Steam Injector, and each boss's summon once that boss has been
+	/// beaten (rule, user 2026-11-17: "make this a rule for every boss that we add": the Junkbait, the Scrapworm, the Cursed
+	/// Whistle, the Jade Incense, the Rainbow Mushroom), at the items' own value.</para>
+	/// <para>Vanilla's townsfolk in every respect (ExampleMod 1.4.4's <c>ExamplePerson</c>): vanilla's town AI and the Guide's
+	/// frame rules over a 25-frame sheet at vanilla's density (art/town/make_ghedalari_art.py: standing, in the air, 14
+	/// walking frames, the two chat gestures, sitting, talking, blinking, a 4-frame throw); he throws javelins when enemies come
+	/// near (decompiled <c>NPC.TownNPCAttackProj</c>: projectile 507, the player's Javelin); a party hat on his crest
+	/// (<c>HatOffsetY</c>); a shimmered form (<c>ShimmerTownTransform</c>: pale violet skin and jade where the gold was;
+	/// <see cref="TownNPCProfile"/>) with its own map head; his face as an emote when other townsfolk talk about him
+	/// (<see cref="FriendoboEmote"/>); happiness and an <c>NPCShop</c> with <c>Condition</c>s.</para>
 	/// <para>D2: vanilla runs town NPCs (spawning on the server, shops on the client that opens them, the conditions read
 	/// world flags every side has; the shimmered variant is vanilla's synced <c>townNpcVariationIndex</c>). D0: the shop and
 	/// the profile are built once; the shimmer head and textures are only asked for when they exist, on clients; no per-tick
@@ -50,10 +54,12 @@ namespace Cogpunk.Content.Town
 	{
 		public const string ShopName = "Shop";
 		public const int ScrapPrice = 50;               // copper, Rusted Cogs and Rusted Scrap (user-set)
-		private const int StandardLines = 6;
+		/// <summary>His lines as chat text in the Ghedalari script (<see cref="Secrets.GhedalariScript.Phrases"/>), built once.</summary>
+		private static string[] lines;
+		private static string witchDoctorLine, dryadLine;
 		private static readonly string[] GoreNames = { "Friendobo_GoreHead", "Friendobo_GoreArm", "Friendobo_GoreLeg" };
-		/// <summary>The party hat sits on his top hat: vanilla puts it at the hitbox's top plus this (down), and the crown of
-		/// his hat is 10 px over that (the sheet's top row).</summary>
+		/// <summary>The party hat sits on his gold crest: vanilla puts it at the hitbox's top plus this (down); the crest rises
+		/// over his hitbox as the old top hat did.</summary>
 		public const int PartyHatOffsetY = -10;
 
 		private static int shimmerHead = -1;
@@ -72,6 +78,8 @@ namespace Cogpunk.Content.Town
 		public override void Unload() {
 			profile = null;
 			shimmerHead = -1;
+			lines = null;
+			witchDoctorLine = dryadLine = null;
 		}
 
 		public override void SetStaticDefaults() {
@@ -89,12 +97,11 @@ namespace Cogpunk.Content.Town
 			NPCID.Sets.FaceEmote[Type] = ModContent.EmoteBubbleType<FriendoboEmote>();
 
 			NPC.Happiness
-				.SetBiomeAffection<DesertBiome>(AffectionLevel.Like)
-				.SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike)       // the cold seizes his joints
-				.SetNPCAffection(NPCID.DD2Bartender, AffectionLevel.Love)  // a fellow bartender
-				.SetNPCAffection(NPCID.Mechanic, AffectionLevel.Like)
-				.SetNPCAffection(NPCID.Cyborg, AffectionLevel.Like)
-				.SetNPCAffection(NPCID.GoblinTinkerer, AffectionLevel.Dislike);   // keeps taking him apart "to see"
+				.SetBiomeAffection<JungleBiome>(AffectionLevel.Like)        // stepped stone under green: home, almost
+				.SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike)       // hooves on ice
+				.SetNPCAffection(NPCID.WitchDoctor, AffectionLevel.Love)    // masks like the faces his people carved
+				.SetNPCAffection(NPCID.Dryad, AffectionLevel.Like)          // the one other who remembers
+				.SetNPCAffection(NPCID.ArmsDealer, AffectionLevel.Dislike); // loud weapons
 		}
 
 		public override void SetDefaults() {
@@ -106,8 +113,8 @@ namespace Cogpunk.Content.Town
 			NPC.damage = 10;
 			NPC.defense = 15;
 			NPC.lifeMax = 250;
-			NPC.HitSound = SoundID.NPCHit4;
-			NPC.DeathSound = SoundID.NPCDeath14;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0.5f;
 			AnimationType = NPCID.Guide;
 		}
@@ -136,19 +143,32 @@ namespace Cogpunk.Content.Town
 		}
 
 		public override List<string> SetNPCNameList() => new() {
-			"Gearhart", "Cogsworth", "Barnaby Bolt", "Rivet", "Copperfield", "Monty", "Sir Sprocket", "Old Tinny",
+			"Xal'tuq", "Kazhuro", "Tzuvan", "Ahuyan", "Mal'quri", "Quel'atuk", "Oyan Tekka", "Izharu",
 		};
 
+		/// <summary>He speaks only Ghedalari (user, 2026-11-24: "The last Ghedalari npc should have frases about his species with
+		/// humour and some hints about the stones, but it should talk in Ghedalari symbols"): each line is a phrase of runes
+		/// drawn by the <c>[ghd]</c> chat tag (<see cref="Secrets.GhedalariTagHandler"/>); a rune the player has learned on a
+		/// translated stone shows its picture when hovered.</summary>
 		public override string GetChat() {
+			if (lines == null) {
+				short[][] phrases = Secrets.GhedalariScript.Phrases;
+				lines = new string[phrases.Length];
+				for (int k = 0; k < phrases.Length; k++) {
+					lines[k] = Secrets.GhedalariScript.ChatTag(phrases[k]);
+				}
+				witchDoctorLine = Secrets.GhedalariScript.ChatTag(Secrets.GhedalariScript.WitchDoctorPhrase);
+				dryadLine = Secrets.GhedalariScript.ChatTag(Secrets.GhedalariScript.DryadPhrase);
+			}
 			WeightedRandom<string> chat = new();
-			for (int i = 1; i <= StandardLines; i++) {
-				chat.Add(this.GetLocalization("Chat" + i).Value);
+			foreach (string line in lines) {
+				chat.Add(line);
 			}
-			if (NPC.FindFirstNPC(NPCID.DD2Bartender) >= 0) {
-				chat.Add(this.GetLocalization("ChatTavernkeep").Value, 0.6);
+			if (NPC.FindFirstNPC(NPCID.WitchDoctor) >= 0) {
+				chat.Add(witchDoctorLine, 0.6);
 			}
-			if (NPC.FindFirstNPC(NPCID.Mechanic) >= 0) {
-				chat.Add(this.GetLocalization("ChatMechanic").Value, 0.6);
+			if (NPC.FindFirstNPC(NPCID.Dryad) >= 0) {
+				chat.Add(dryadLine, 0.6);
 			}
 			return chat;
 		}
@@ -183,7 +203,7 @@ namespace Cogpunk.Content.Town
 
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
 			damage = 24;
-			knockback = 9f;                              // the Tavernkeep's
+			knockback = 6f;
 		}
 
 		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
@@ -192,22 +212,23 @@ namespace Cogpunk.Content.Town
 		}
 
 		public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
-			projType = ProjectileID.Ale;                 // a mug, like the Tavernkeep's
+			projType = ProjectileID.JavelinFriendly;     // a spear's people: the player's Javelin
 			attackDelay = 10;
 		}
 
 		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset) {
-			multiplier = 6f;
-			gravityCorrection = 16f;
+			multiplier = 11f;
+			gravityCorrection = 8f;
+			randomOffset = 0.5f;
 		}
 
 		public override void HitEffect(NPC.HitInfo hit) {
 			if (Main.dedServ) {
 				return;
 			}
-			int count = NPC.life > 0 ? 2 : 10;
+			int count = NPC.life > 0 ? 3 : 12;
 			for (int i = 0; i < count; i++) {
-				SafeSpawn.TryNewDust(NPC.position, NPC.width, NPC.height, DustID.Iron, out _);
+				SafeSpawn.TryNewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, out _);
 			}
 			if (NPC.life <= 0) {
 				foreach (string name in GoreNames) {

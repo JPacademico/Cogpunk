@@ -15,11 +15,16 @@ namespace Cogpunk.Content.Research
 		public readonly Func<Item, bool> Matches;
 		public readonly int Count;
 		public readonly string LabelKey;                      // Mods.Cogpunk.Research.Costs.<LabelKey>, "{0}" = Count
+		/// <summary><see cref="Count"/> different kinds, one of each (user, 2026-11-24: "costs 5 different potions to unlock (any
+		/// potion but has to be different not 5 of the same)"): the first kinds met left to right, top to bottom, one item
+		/// taken from each.</summary>
+		public readonly bool Distinct;
 
-		public ResearchItemCost(Func<Item, bool> matches, int count, string labelKey) {
+		public ResearchItemCost(Func<Item, bool> matches, int count, string labelKey, bool distinct = false) {
 			Matches = matches;
 			Count = count;
 			LabelKey = labelKey;
+			Distinct = distinct;
 		}
 	}
 
@@ -56,6 +61,15 @@ namespace Cogpunk.Content.Research
 		/// <summary>A secret shown as a question mark before <see cref="Reveal"/> holds (user, 2026-11-19: "nodes that have a
 		/// question mark and get revealed once you kill a base game boss"); other secrets don't show at all until then.</summary>
 		public bool Teaser { get; init; }
+		/// <summary>The hint a <see cref="Teaser"/> gives while it is a question mark: <c>Mods.Cogpunk.Research.Hints.&lt;key&gt;</c>
+		/// (null: the general "a great foe must fall first").</summary>
+		public string TeaserHint { get; init; }
+		/// <summary>The window's tab the node sits in (user, 2026-11-24: "a new tab ... called "mystery of the past" ... a
+		/// different node set"): <see cref="ResearchNodes.MainTab"/> or <see cref="ResearchNodes.MysteryTab"/>.</summary>
+		public int Tab { get; init; }
+		/// <summary>A Fundamental Stone glyph (an index into <c>FundamentalRunes.png</c>) drawn as the icon instead of an item
+		/// (the Mystery of the Past's sigils); -1: <see cref="IconItem"/>.</summary>
+		public int IconGlyph { get; init; } = -1;
 
 		/// <summary>Index in <see cref="ResearchNodes.All"/> (the sync bit).</summary>
 		public int Index { get; internal set; }
@@ -90,7 +104,33 @@ namespace Cogpunk.Content.Research
 			GemPower = "GemPower", InACaveWithScraps = "InACaveWithScraps", HitTheJoints = "HitTheJoints", Mandacaru = "Mandacaru",
 			CausesAutism = "CausesAutism", Squire = "Squire", JustTheTip = "JustTheTip", BundleUp = "BundleUp",
 			HeatManagement = "HeatManagement", BringAKnife = "BringAKnife", TriggerFinger = "TriggerFinger", DilatedPupils = "DilatedPupils",
-			Slimed = "Slimed", Calcified = "Calcified";
+			Slimed = "Slimed", Calcified = "Calcified",
+			// 2026-11-24
+			AlchemyInitiate = "AlchemyInitiate", FulfillingConcoction = "FulfillingConcoction", EfficientFuel = "EfficientFuel",
+			Reconstructed = "Reconstructed", Seasoning = "Seasoning", ProperMeal = "ProperMeal", GreenIsGood = "GreenIsGood",
+			GreenDiamond = "GreenDiamond", MadScience = "MadScience",
+			SigilFleur = "SigilFleur", SigilSun = "SigilSun", SigilMountain = "SigilMountain", SigilCross = "SigilCross", SigilWave = "SigilWave",
+			// 2026-11-24 (second message)
+			Rgbt = "Rgbt", JadeMenagerie = "JadeMenagerie";
+		/// <summary>The window's tabs (user, 2026-11-24): the main tree, and the Mystery of the Past once a Fundamental Stone has
+		/// been touched (<see cref="ResearchPlayer.MysteryTab"/>).</summary>
+		public const int MainTab = 0, MysteryTab = 1, TabCount = 2;
+		public const int AlchemyDaybloom = 5, AlchemyMushrooms = 5;       // user-set: "requires 5 daybloom and 5 mushroom"
+		public const float PotionDoubleChance = 0.10f;         // user-set: "10% chance to double the potion when crafting"
+		public const int ConcoctionPotions = 5;                // user-set: "5 different potions"
+		public const int ConcoctionWellFedTicks = 5 * 60 * 60; // user-set: "the well fed buff for 5 minutes"
+		public const float EfficientFuelSaving = 0.05f;        // user-set: "decreses steam consuption in 5%"
+		public const int SeasoningFoods = 5;                   // user-set: "5 diferent food itens"
+		public const float SeasoningChance = 0.10f;            // user-set: "10% chance to not consume the itens"
+		public const int GreenIsGoodHeal = 20;                 // user-set: "heal when killing a jade petrified enemy (20 health)"
+		public const float GreenIsGoodResistance = 0.20f;      // user-set: "damage resistance when jade petrified by an enemy (20%)"
+		public const float MadScienceSpeed = 0.05f;            // user-set: "increase the attack speed of combined weapons by 5%"
+		/// <summary>The Mystery of the Past's sigils (my calls, placeholders until the user designs the puzzle's rewards): the
+		/// fleur +1 life regeneration (a Band of Regeneration's), the sun a soft light about you, the mountain +2 defense, the
+		/// cross +5% movement speed, the wave +50% breath.</summary>
+		public const int SigilFleurRegen = 1, SigilMountainDefense = 2;
+		public const float SigilCrossSpeed = 0.05f, SigilWaveBreath = 0.5f;
+		public static readonly Microsoft.Xna.Framework.Vector3 SigilSunLight = new(0.45f, 0.40f, 0.22f);
 		public const float BasicsMiningSpeed = 0.05f;          // user-set: +5% mining speed
 		public const float DoubleOreChance = 0.10f;            // user-set: 10%
 		public const int MineAndCraftOres = 10;                // user-set
@@ -103,7 +143,6 @@ namespace Cogpunk.Content.Research
 		/// <summary>"Just the Tip"'s window: the last thrust frames and the first frames of the pull back ("ending frames of the
 		/// thrust or initial frame of the return motion"; my call: 3 and 1).</summary>
 		public const int TipThrustFrames = 3, TipReturnFrames = 1;
-		public const float HeatManagementResist = 0.10f;       // user-set: 10% damage resistance while overheated
 		public const float TriggerFingerBonus = 0.25f;         // user-set: +25% a missed shot, on the next hit
 		public const int TriggerFingerStacks = 4;              // user-set: up to 4 times
 		public const float DilatedPupilsCrit = 5f;             // user-set: +5% crit at night, -5% by day
@@ -209,7 +248,8 @@ namespace Cogpunk.Content.Research
 			slimeKey = KnowledgeTasks.Boss(NPCID.KingSlime);
 			skeletronKey = KnowledgeTasks.Boss(NPCID.SkeletronHead);
 			Add(new ResearchNode {
-				// "gives the player 10% damage resistance while it is overheated. costs a knowledge point" (ResearchPlayer.ModifyHurt)
+				// user, 2026-11-23 (replacing 2026-11-19's 10% resistance): "gives the player ability to stay still when overheated
+				// (not obligatory to move). costs a knowledge point" (Mechanist.SteamPlayer.SetControls)
 				Name = HeatManagement, Column = 0, Row = 3, Cost = 1, IconItem = ItemID.ObsidianSkull,
 				Requires = new[] { TheBasics },
 			});
@@ -242,6 +282,132 @@ namespace Cogpunk.Content.Research
 				// hits another enemy. costs a research point"
 				Name = Calcified, Column = -4, Row = 2, Cost = 1, IconItem = ItemID.Bone, Teaser = true,
 				Requires = new[] { TheBasics }, Reveal = static p => BossDown(p, NPC.downedBoss3, skeletronKey),
+			});
+			// 2026-11-24; appended (a node's index is its sync bit)
+			Add(new ResearchNode {
+				// "requires 5 daybloom and 5 mushroom and makes so the player has 10% chance to double the potion when crafting"
+				// (ResearchCrafting.OnCreated); on the arch beside Heat Management
+				Name = AlchemyInitiate, Column = -1, Row = 3, Cost = 0, IconItem = ItemID.LesserHealingPotion,
+				Requires = new[] { TheBasics },
+				Items = new[] {
+					new ResearchItemCost(static item => item.type == ItemID.Daybloom, AlchemyDaybloom, "Daybloom"),
+					new ResearchItemCost(static item => item.type == ItemID.Mushroom, AlchemyMushrooms, "Mushroom"),
+				},
+			});
+			Add(new ResearchNode {
+				// "connected to this ... an interrogation ... reveals only when the player finds a alchemy table (gets within crafting
+				// range, or gets one in the inventory), its called "fulfilling concoction" and makes so after drinking a potion the
+				// player gets the well fed buff for 5 minutes, and costs 5 diferent potions" (ResearchCrafting.OnConsumeItem); a
+				// secret, so beside the arch
+				Name = FulfillingConcoction, Column = -2, Row = 3, Cost = 0, IconItem = ItemID.AlchemyTable, Teaser = true,
+				TeaserHint = "AlchemyTable", Requires = new[] { AlchemyInitiate }, Links = new[] { AlchemyInitiate },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().FoundAlchemyTable,
+				Items = new[] { new ResearchItemCost(static item => ResearchCrafting.IsPotion(item), ConcoctionPotions, "Potions", distinct: true) },
+			});
+			Add(new ResearchNode {
+				// secret, the Sticky Pages (the Tar Tyrant's manual): "efficient fuel costs 1 knowledge point and decreses steam
+				// consuption in 5%"; a new source of secrets, its own column (5)
+				Name = EfficientFuel, Column = 5, Row = 0, Cost = 1, IconItem = ModContent.ItemType<Junkyard.Items.CondensedTar>(),
+				Requires = new[] { TheBasics }, Reveal = static p => ReadManual(p, nameof(Manuals.Items.StickyPages)),
+				Passive = static p => p.GetModPlayer<Mechanist.SteamPlayer>().SteamCostMultiplier -= EfficientFuelSaving,
+			});
+			Add(new ResearchNode {
+				// "reconstructed costs a knowledge point and unlocks the crafting recipe for a new mount called "missing bones""
+				Name = Reconstructed, Column = 5, Row = 1, Cost = 1, IconItem = ModContent.ItemType<Mounts.MissingBones>(),
+				Requires = new[] { TheBasics }, Reveal = static p => ReadManual(p, nameof(Manuals.Items.StickyPages)),
+				Recipes = new[] { ModContent.ItemType<Mounts.MissingBones>() },
+			});
+			Add(new ResearchNode {
+				// "an interrogation and gets revealed when the player finds a cooking pot (gets into use range or gets one on the
+				// inventory), called "seasoning" it requires a 5 diferent food itens and makes so cooking has a 10% chance to not
+				// consume the itens used for the recipe" (ResearchRecipes' cooking callback)
+				Name = Seasoning, Column = 2, Row = 2, Cost = 0, IconItem = ItemID.CookingPot, Teaser = true, TeaserHint = "CookingPot",
+				Requires = new[] { TheBasics }, Reveal = static p => p.GetModPlayer<ResearchPlayer>().FoundCookingPot,
+				Items = new[] { new ResearchItemCost(static item => ResearchCrafting.IsFood(item), SeasoningFoods, "Foods", distinct: true) },
+			});
+			Add(new ResearchNode {
+				// "connected to the "seasoning" node called "propper meal" that costs a knowledge point and unlocks crafting recipes
+				// for 4 new meals"; shown with Seasoning (the same reveal), above it
+				Name = ProperMeal, Column = 2, Row = 3, Cost = 1, IconItem = ModContent.ItemType<Meals.FishOnASpear>(),
+				Requires = new[] { Seasoning }, Links = new[] { Seasoning },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().FoundCookingPot,
+				Recipes = new[] { ModContent.ItemType<Meals.BlueStarFruit>(), ModContent.ItemType<Meals.FishOnASpear>(),
+					ModContent.ItemType<Meals.DeadeyeChili>(), ModContent.ItemType<Meals.FireflyJelly>() },
+			});
+			Add(new ResearchNode {
+				// secret, the Jade-shaper Manual (Jadey's): "green = good" heals on killing a jade petrified enemy and resists damage
+				// while petrified (ResearchPlayer); its own column (-5)
+				Name = GreenIsGood, Column = -5, Row = 0, Cost = 1, IconItem = ModContent.ItemType<Gems.Items.Jade>(),
+				Requires = new[] { TheBasics }, Reveal = static p => ReadManual(p, nameof(Manuals.Items.JadeShaperManual)),
+				Passive = static p => {
+					if (p.GetModPlayer<Gems.JadeCursePlayer>().Petrified) {
+						p.endurance += GreenIsGoodResistance;
+					}
+				},
+			});
+			Add(new ResearchNode {
+				// "green diamond costs a knowlegde point and unlocks the "jade refractor" mechanist weapon"
+				Name = GreenDiamond, Column = -5, Row = 1, Cost = 1, IconItem = ModContent.ItemType<Weapons.JadeRefractor>(),
+				Requires = new[] { TheBasics }, Reveal = static p => ReadManual(p, nameof(Manuals.Items.JadeShaperManual)),
+				Recipes = new[] { ModContent.ItemType<Weapons.JadeRefractor>() },
+			});
+			Add(new ResearchNode {
+				// "a new hardmode node that is an interrogation and reveals when the player first crafts a combined weapon from the
+				// combinator, it should be called "mad science" and increase the attack speed of combined weapons by 5% and cost 2
+				// reasearch points" (the Combinator's own knowledge task is paid as a weapon is combined)
+				Name = MadScience, Column = 2, Row = 0, Cost = 2, IconItem = ModContent.ItemType<Combinator.Items.TheCombinator>(),
+				Teaser = true, TeaserHint = "Combinator", Requires = new[] { TheBasics },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().Earned(KnowledgeTasks.Combinator),
+				Passive = static p => {
+					if (Combinator.Combination.CombinedWeapon.IsCombined(p.HeldItem)) {
+						p.GetAttackSpeed(DamageClass.Generic) += MadScienceSpeed;
+					}
+				},
+			});
+			// The Mystery of the Past (user, 2026-11-24: "a new tab that appears once the player has interacted with a
+			// fundamental stone ... have a different node set to unlock based on the fundamental stones puzzle"): one sigil per
+			// stone, laid out as the five points of a star, each a question mark until its stone has been read (the reading is
+			// the price: no points). Their bonuses are my placeholders (SigilFleurRegen...).
+			AddSigil(SigilFleur, FundamentalStonesIndex.Fleur, -1, 0, static p => p.lifeRegen += SigilFleurRegen);
+			AddSigil(SigilSun, FundamentalStonesIndex.Sun, 1, 0, static p => {
+				if (!Main.dedServ) {
+					Lighting.AddLight(p.Center, SigilSunLight);
+				}
+			});
+			AddSigil(SigilMountain, FundamentalStonesIndex.Mountain, 2, 1, static p => p.statDefense += SigilMountainDefense);
+			AddSigil(SigilCross, FundamentalStonesIndex.Cross, 0, 2, static p => p.moveSpeed += SigilCrossSpeed);
+			AddSigil(SigilWave, FundamentalStonesIndex.Wave, -2, 1, static p => p.breathMax += (int)(p.breathMax * SigilWaveBreath));
+			// 2026-11-24 (second message); appended (a node's index is its sync bit)
+			Add(new ResearchNode {
+				// "a new node called "rgbt" it should be connected to the gem mage node but show only an "?" until the player has
+				// obtained at leat one gem robe (any). and unlocks (one knowledge point) the crafting of the rainbow robe"; beside
+				// Gem Power, on its row
+				Name = Rgbt, Column = -2, Row = 2, Cost = 1, IconItem = ModContent.ItemType<Armor.RainbowRobe>(), Teaser = true,
+				TeaserHint = "GemRobe", Requires = new[] { GemPower }, Links = new[] { GemPower },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().FoundGemRobe,
+				Recipes = new[] { ModContent.ItemType<Armor.RainbowRobe>() },
+			});
+			Add(new ResearchNode {
+				// secret, the Jade-shaper Manual: "a new node that is unlocked by the jade manual that unlocks the crafting of a new
+				// summon weapon called "jade coin" using a platinum coin + 8 jades"; under Green Diamond in the manual's column
+				Name = JadeMenagerie, Column = -5, Row = 2, Cost = 1, IconItem = ModContent.ItemType<Summons.JadeCoin>(),
+				Requires = new[] { TheBasics }, Reveal = static p => ReadManual(p, nameof(Manuals.Items.JadeShaperManual)),
+				Recipes = new[] { ModContent.ItemType<Summons.JadeCoin>() },
+			});
+		}
+
+		/// <summary>The Fundamental Stones' numbers (their styles: <see cref="Secrets.FundamentalStones"/>) by their sigil.</summary>
+		private static class FundamentalStonesIndex
+		{
+			public const int Fleur = 0, Sun = 1, Mountain = 2, Cross = 3, Wave = 4;
+		}
+
+		private static void AddSigil(string name, int stone, int column, int row, Action<Player> passive) {
+			Add(new ResearchNode {
+				Name = name, Tab = MysteryTab, Column = column, Row = row, Cost = 0, IconGlyph = stone,
+				IconItem = ModContent.ItemType<Secrets.Ruins.Items.FundamentalRune>(), Teaser = true, TeaserHint = "Stone",
+				Requires = new[] { TheBasics }, Reveal = p => p.GetModPlayer<ResearchPlayer>().Earned(KnowledgeTasks.StoneKey(stone)),
+				Passive = passive,
 			});
 		}
 

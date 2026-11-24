@@ -203,9 +203,12 @@ def glaives_gif(path):
                     hits.append((tick, ex, floor - 46, dmg, tick < stone_until))
                     parts.burst(ex, floor - 14, 14, [S.GHOST[5], S.GHOST[4], S.GHOST[2]], speed=(1.0, 4.0), life=(14, 28))
                 glaive = [gx, gy, gvx, gvy, phase, hp, spin, travelled]
-                f = (spin // g.c["SpinTicks"]) % g.k["SpinFrames"]
-                if gvx < 0:
-                    f = (g.k["SpinFrames"] - f) % g.k["SpinFrames"]
+                n = g.k["SpinFrames"]
+                d = -1 if gvx < 0 else 1                                       # it spins the way it flies
+                f = (spin * g.c["SpinFramesPerTick"] * d) % n                  # 2026-11-24: 2 turns a tick, a fan's blur
+                for b in range(g.c["BlurFrames"], 0, -1):
+                    bf = g.spin_frame((f - d * b) % n)
+                    img.alpha_composite(S.faded(bf, 0.5 / (b + 1)), (int(gx - bf.width / 2), int(gy - bf.height / 2)))
                 sf = g.spin_frame(f)
                 img.alpha_composite(sf, (int(gx - sf.width / 2), int(gy - sf.height / 2)))
         parts.step()
@@ -216,7 +219,7 @@ def glaives_gif(path):
             label(img, "CURSE x%d" % stacks, ex - 24, floor - 70)
         if stone:
             label(img, "PETRIFIED", ex - 26, floor - 70)
-        label(img, "JADE CURSED GLAIVES: one wide slash a swing (reach +3 tiles); right click: throw; x1.5 on jade", 6, 6)
+        label(img, "JADE CURSED GLAIVES: slashes; right click: a 22-tile throw for 10 steam, spinning like a fan; x1.5 on jade", 6, 6)
         if tick % 3 == 0:
             frames.append(img)
     save_gif(frames, path)

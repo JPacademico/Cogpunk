@@ -211,63 +211,69 @@ def shot():
 
 
 # The Bundle of Wands (2026-11-18, the user's design: reference/bundle_of_wands_user_2026-11-18.png, a blurred photo of a
-# small sprite: a maroon grip at the left, the bundled shafts of the seven gem staffs bound by two bands, their gem tips in
-# gilt fittings at the right; too blurred to trace pixel by pixel, so drawn on its layout and colours). Redrawn 2026-11-19
-# (user: "the handle to staff base connection is abrupt and ugly and the metal lines are too big looking out of place"):
-# the seven rods (amber, ruby, the magenta amethyst (the Amethyst ramp), topaz, sapphire, diamond, emerald) run from their
-# gems at the head and converge, lit from the top-left, into a gilt binding ring and a leather-wrapped crimson grip with a
-# gilt pommel; the two bands are a pixel wide, inside the bundle's outline, no brighter than the rods. Held like a gun,
-# pointing right; 30 x 12 at 1x.
+# small sprite, too blurred to trace pixel by pixel, so drawn on its layout and colours). v3, 2026-11-23 (the user, again:
+# "the handle to staff base connection is abrupt and ugly and the metal lines are too big looking out of place. i already
+# sent a pretty small model before try to maintain quality"; v2, the rods fanning out of a straight grip, is in previous/):
+# now the model's own layout: the seven staffs' shafts bound into one CYLINDER (a stripe a shaft: amber, ruby, amethyst,
+# topaz, sapphire, diamond, emerald, lit from the top-left: a highlight streak along the upper shafts, the lower ones darker
+# towards the head), its left end rounded; two thin bands near its ends, a pixel wide and one step darker than the shafts'
+# light (ferrules, not stripes); the maroon wooden HANDLE set under its left end like a stock, with a pistol grip, meeting
+# it through a gilt COLLAR as tall as the cylinder's end (no step); the gems in gilt fittings at the head. Held like a gun,
+# pointing right; 33 x 13 at 1x.
 EB, AM, EM, HD = (RAMP[k] for k in ("ember", "amethyst", "emerald", "hide"))
-BUNDLE_W, BUNDLE_H = 30, 12
-# the seven rods, top to bottom at the head: (dark, mid, light)
+BUNDLE_W, BUNDLE_H = 33, 13
+# the seven shafts, top to bottom: (dark, mid, light)
 RODS = [(EB[1], EB[2], EB[3]), (K[3], K[4], K[5]), (AM[2], AM[3], AM[4]), (G[5], G[7], G[8]), (DN[3], DN[4], DN[5]),
         (ST[5], ST[7], ST[8]), (EM[2], EM[3], EM[4])]
-GRIP_X0, GRIP_X1 = 1, 8            # the wrapped grip
-ROD_X0, ROD_X1 = 8, 22             # the rods: from the grip's binding to the head
-BANDS = (12, 18)
+CYL_X0, CYL_X1, CYL_Y0 = 11, 24, 3     # the cylinder's shafts: x 11..24, rows 3..9 (its outline round them)
+BANDS = (13, 22)
+HEAD_X = 25                            # the gem head's gilt ring closes the cylinder's right end
+HANDLE = (                             # x0..10, y2..12: the stock, its pistol grip, the gilt collar (x9-10)
+    ".........oo",
+    "........oGg",
+    "........ogy",
+    ".oooooooogy",
+    "oWWWWWWWWgy",
+    "oKKhKKhKKyq",
+    "okKhKKhKkyq",
+    ".okkkkkkkqq",
+    "..oooKkkooo",
+    "....okKko..",
+    ".....ooo...",
+)
+HANDLE_LEGEND = {"o": K[0], "W": K[3], "K": K[2], "k": K[1], "h": HD[2], "q": G[3], "g": G[5], "G": G[7], "y": G[4]}
 
 
 def bundle():
     px = {}
-    # rods: each a line from its place at the grip (rows 5..8, packed) to its place at the head (rows 3..9)
+    rows = len(RODS)
     for k, (dk, md, lt) in enumerate(RODS):
-        y0 = 5 + k * 3.0 / 6.0
-        y1 = 3 + k
-        for x in range(ROD_X0, ROD_X1 + 1):
-            t = (x - ROD_X0) / float(ROD_X1 - ROD_X0)
-            y = int(round(y0 + (y1 - y0) * (t ** 0.7)))
-            # lit from the top-left: the upper rods and the head end lighter, the grip end darker
-            if t < 0.2:
-                c = dk
-            elif k <= 2 and 0.35 < t < 0.75:
-                c = lt
-            elif k >= 5 and t < 0.5:
-                c = dk
-            else:
-                c = md
+        y = CYL_Y0 + k
+        for x in range(CYL_X0, CYL_X1 + 1):
+            c = md
+            if k <= 2 and 14 <= x <= 18:
+                c = lt                                     # the light from the top-left along the upper shafts
+            elif k >= rows - 2 and x >= 19:
+                c = dk                                     # the underside, away from the light
+            if x == CYL_X0 and k in (0, rows - 1):
+                continue                                   # the rounded end
+            if x in (CYL_X0, CYL_X1):
+                c = dk                                     # the ends turn away from the light
             px[(x, y)] = c
-    # fill gaps between rods (a bundle, not a fan): a pixel between two rod pixels in a column takes the darker neighbour
-    for x in range(ROD_X0, ROD_X1 + 1):
-        ys = sorted(y for (xx, y) in px if xx == x)
-        for y in range(ys[0], ys[-1] + 1):
-            if (x, y) not in px:
-                px[(x, y)] = ST[2]
-    # thin bands: a pixel wide, only over the bundle, no brighter than the rods (user: "the metal lines are too big")
-    for bx in BANDS:
-        ys = sorted(y for (xx, y) in px if xx == bx)
-        for i, y in enumerate(ys):
-            px[(bx, y)] = ST[6] if i == 0 else ST[5] if i < len(ys) - 1 else ST[4]
-    # the grip: crimson wood wrapped in leather (diagonal turns), tapering to a gilt pommel
-    for x in range(GRIP_X0, GRIP_X1):
-        for y in range(5, 9):
-            wrap = (x + y) % 3 == 0
-            px[(x, y)] = HD[4] if wrap and y == 5 else HD[2] if wrap else (K[2] if y == 5 else K[1])
-    for y in range(5, 9):                          # the binding where the rods leave the grip: a gilt ring
-        px[(GRIP_X1, y)] = G[7] if y == 5 else G[5] if y < 8 else G[3]
-    for (x, y, c) in ((0, 6, G[6]), (0, 7, G[4])):  # the pommel
-        px[(x, y)] = c
-    # the head: the gems in their gilt fittings (as before)
+    for bx in BANDS:                                       # the two ferrules: thin, a step under the shafts' light
+        for k in range(rows):
+            px[(bx, CYL_Y0 + k)] = ST[6] if k == 0 else ST[4] if k < rows - 1 else ST[3]
+    # the outline round the cylinder (steel-dark)
+    for (x, y) in list(px):
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            q = (x + dx, y + dy)
+            if q not in px and q[0] < HEAD_X:
+                px[q] = ST[0]
+    for j, row in enumerate(HANDLE):                       # the handle and its collar, over the cylinder's left end
+        for i, ch in enumerate(row):
+            if ch != ".":
+                px[(i, 2 + j)] = HANDLE_LEGEND[ch]
+    # the head: the gems in their gilt fittings
     head = (
         "..SSS...",
         ".SoAYS..",
@@ -287,21 +293,10 @@ def bundle():
     for j, row in enumerate(head):
         for i, ch in enumerate(row):
             if ch != ".":
-                px[(22 + i, j)] = legend[ch]
-    # the outline: a dark pixel round everything (ramp-dark: the grip's crimson, the rest steel)
-    out = dict(px)
-    for (x, y) in list(px):
-        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            q = (x + dx, y + dy)
-            if q not in px and 0 <= q[0] < BUNDLE_W and 0 <= q[1] < BUNDLE_H:
-                out[q] = K[0] if q[0] <= GRIP_X1 else ST[0]
-    return out
+                px[(HEAD_X + i, 1 + j)] = legend[ch]
+    return {q: c for q, c in px.items() if 0 <= q[0] < BUNDLE_W and 0 <= q[1] < BUNDLE_H}
 
 
-
-# ================================================================================================
-# 2026-11-19: Bandit's Dream, Calcified's bone, the Slimed! debuff
-# ================================================================================================
 BONE, DEN, STM = RAMP["bone"], RAMP["denim"], RAMP["steam"]
 BANDIT_LEGEND = dict({str(i): G[i] for i in range(10)},
                      x=ST[0], a=ST[1], b=ST[2], c=ST[3], d=ST[4], e=ST[5], f=ST[6], g=ST[7], h=ST[8],
@@ -455,7 +450,7 @@ def outputs():
         OUT + "UI/ResearchNode.png": nodes,
         OUT + "UI/ResearchKnowledge.png": image(knowledge(), 14, 13),
         "Content/Bosses/TrashTr0m/Items/TetanusShot.png": image(shot(), 12, 12),
-        OUT + "Weapons/BundleOfWands.png": image(bundle(), 30, 12),
+        OUT + "Weapons/BundleOfWands.png": image(bundle(), BUNDLE_W, BUNDLE_H),
         OUT + "Weapons/BanditsDream.png": image(bandits_dream(), 40, 15),
         OUT + "CalcifiedBone.png": calcified_bone(),
         OUT + "ResearchSlimed.png": image(slimed_icon(), 16, 16),

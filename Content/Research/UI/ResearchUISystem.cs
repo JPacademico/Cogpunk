@@ -27,6 +27,8 @@ namespace Cogpunk.Content.Research.UI
 
 		public override void Unload() {
 			state = null;
+			ResearchTreeView.UnloadAssets();
+			ResearchWindow.UnloadAssets();
 		}
 
 		public override void ClearWorld() {
@@ -41,6 +43,7 @@ namespace Cogpunk.Content.Research.UI
 				return;
 			}
 			Table = topLeft;
+			Main.LocalPlayer.GetModPlayer<ResearchPlayer>().CheckRevealsNow();   // what the world shows now is kept before drawing
 			state ??= new ResearchUIState();
 			IngameFancyUI.OpenUIState(state);
 			SoundEngine.PlaySound(SoundID.MenuOpen);

@@ -163,13 +163,13 @@ namespace Cogpunk.Content.Research.Weapons
 	/// The Bandit's Dream's slash: the whole weapon swept through <see cref="Arc"/> radians round the aim in
 	/// <see cref="Ticks"/> ticks (quick), blade first, out to <see cref="Reach"/> px (the Volcano's: its 54 px sprite held at
 	/// arm's length). Each enemy is hit once; every hostile projectile its blade crosses is destroyed (the server's copy of
-	/// this player projectile does it, authoritative in multiplayer; the owner's copy too, so it shows at once). Huge ones
-	/// (beams over <see cref="MaxCutSize"/> px) are left alone. D0: owner and indices checked; finite life.
+	/// this player projectile does it, authoritative in multiplayer; the owner's copy too, so it shows at once).
+	/// D0: owner and indices checked; finite life and a bounded scan of active projectiles.
 	/// </summary>
 	public class BanditsSlash : CogpunkProjectile
 	{
 		public const int Ticks = 12;
-		public const float Arc = 2.4f, Reach = 80f, BladeWidth = 16f, MaxCutSize = 64f;
+		public const float Arc = 2.4f, Reach = 80f, BladeWidth = 16f;
 		/// <summary>The sprite's hand hold (2x px) and how far its blade's tip sits above the line from there (radians): the
 		/// drawing turns by it so the drawn tip lies on the cutting line.</summary>
 		public const float GripX = 8f, GripY = 17f, TipTilt = 0.22f;
@@ -215,11 +215,10 @@ namespace Cogpunk.Content.Research.Weapons
 			Vector2 tip = Projectile.Center + angle.ToRotationVector2() * Reach;
 			if (Main.netMode != NetmodeID.MultiplayerClient || Projectile.owner == Main.myPlayer) {
 				foreach (Projectile p in Main.ActiveProjectiles) {
-					if (!p.hostile || p.friendly || p.damage <= 0 || p.width > MaxCutSize || p.height > MaxCutSize) {
+					if (!p.hostile || p.friendly || p.damage <= 0) {
 						continue;
 					}
-					float point = 0f;
-					if (Collision.CheckAABBvLineCollision(p.position, p.Size, Projectile.Center, tip, BladeWidth, ref point)) {
+					if (SweptBladeHits(p.Hitbox)) {
 						p.Kill();
 						if (!Main.dedServ) {
 							SoundEngine.PlaySound(SoundID.Item10 with { Pitch = 0.8f, Volume = 0.5f, MaxInstances = 3 }, p.Center);
@@ -237,10 +236,19 @@ namespace Cogpunk.Content.Research.Weapons
 			}
 		}
 
-		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) {
-			float point = 0f;
-			Vector2 tip = Projectile.Center + BladeAngle().ToRotationVector2() * Reach;
-			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, tip, BladeWidth, ref point);
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) => SweptBladeHits(targetHitbox);
+
+		private bool SweptBladeHits(Rectangle target) {
+			float now = BladeAngle();
+			float before = Projectile.timeLeft >= Ticks ? now : now - Side * Arc / Ticks;
+			for (int step = 0; step <= 2; step++) {
+				float point = 0f;
+				Vector2 tip = Projectile.Center + MathHelper.Lerp(before, now, step * 0.5f).ToRotationVector2() * Reach;
+				if (Collision.CheckAABBvLineCollision(target.TopLeft(), target.Size(), Projectile.Center, tip, BladeWidth, ref point)) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		// The weapon itself, turned along the blade (held items turn in vanilla), its grip at the hand. Drawn once, by the

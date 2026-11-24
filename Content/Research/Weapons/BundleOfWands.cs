@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
@@ -6,6 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace Cogpunk.Content.Research.Weapons
 {
@@ -29,7 +31,7 @@ namespace Cogpunk.Content.Research.Weapons
 	public class BundleOfWands : CogpunkItem
 	{
 		public const int Damage = 15, UseTime = 40, Mana = 28, Bolts = 5, RopeCost = 10;   // 15: user-set "at least 112 dps" (2026-11-19)
-		public const float Knockback = 4.5f, SpreadDegrees = 9f, AverageStaffDamage = 19f, MuzzleOffset = 44f;
+		public const float Knockback = 4.5f, SpreadDegrees = 9f, AverageStaffDamage = 19f, MuzzleOffset = 48f;
 
 		/// <summary>The seven pre-Hardmode gem staffs (the recipe, and what <see cref="ResearchPlayer"/> watches for).</summary>
 		public static readonly int[] StaffItems = { ItemID.AmethystStaff, ItemID.TopazStaff, ItemID.SapphireStaff, ItemID.EmeraldStaff,
@@ -58,14 +60,15 @@ namespace Cogpunk.Content.Research.Weapons
 			Item.shoot = ProjectileID.AmethystBolt;             // each bolt's type is picked in Shoot
 			Item.shootSpeed = 8f;
 			Item.knockBack = Knockback;
-			Item.width = 60;
-			Item.height = 24;
+			Item.width = 66;
+			Item.height = 26;
 			Item.value = Item.sellPrice(0, 1);
 			Item.rare = ItemRarityID.Green;
 		}
 
-		/// <summary>The grip (the wooden club at its left end) in the hand.</summary>
-		public override Vector2? HoldoutOffset() => new Vector2(-12f, 2f);
+		/// <summary>The hand on the pistol grip under the stock (the 2026-11-23 redraw: the user's layout, the stock under the
+		/// bundle's left end): the sprite back 10 px and up 4.</summary>
+		public override Vector2? HoldoutOffset() => new Vector2(-10f, -4f);
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
 			Vector2 dir = velocity.SafeNormalize(new Vector2(player.direction, 0f));
@@ -94,6 +97,38 @@ namespace Cogpunk.Content.Research.Weapons
 				recipe.AddIngredient(staff);
 			}
 			recipe.AddIngredient(ItemID.Rope, RopeCost).AddTile(TileID.WorkBenches).Register();
+		}
+	}
+
+	/// <summary>Gem bolts from a Bundle burst have independent hit immunity, so all five can strike the same enemy.
+	/// Their native AI, penetration, speed and debuffs are preserved. The source flag travels with projectile sync.</summary>
+	public sealed class BundledGemBolt : GlobalProjectile
+	{
+		private bool bundled;
+		public override bool InstancePerEntity => true;
+
+		public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) =>
+			entity.type is ProjectileID.AmethystBolt or ProjectileID.TopazBolt or ProjectileID.SapphireBolt
+				or ProjectileID.EmeraldBolt or ProjectileID.RubyBolt or ProjectileID.DiamondBolt or ProjectileID.AmberBolt;
+
+		private void Apply(Projectile projectile) {
+			if (bundled) {
+				projectile.usesLocalNPCImmunity = true;
+				projectile.localNPCHitCooldown = -1;
+			}
+		}
+
+		public override void OnSpawn(Projectile projectile, IEntitySource source) {
+			bundled = source is EntitySource_ItemUse use && use.Item.ModItem is BundleOfWands;
+			Apply(projectile);
+		}
+
+		public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter) =>
+			bitWriter.WriteBit(bundled);
+
+		public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader) {
+			bundled = bitReader.ReadBit();
+			Apply(projectile);
 		}
 	}
 }

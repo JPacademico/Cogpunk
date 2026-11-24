@@ -11,8 +11,9 @@ namespace Cogpunk.Content.Secrets
 	/// The secret puzzle's five Fundamental Stones (user-set 2026-11-10: "add 5 Fundamental stones on the map ... a fixed
 	/// background interactable object that always generates on 5 fixed spots on the map. For now keep one on the bottom of
 	/// the tar pit and one on the westworld. These stones can be read with the right mouse click, saying random
-	/// glyphs/runes"). Every stone is a style of <see cref="FundamentalStoneTile"/> with its own sigil and its own line of
-	/// runes (<see cref="Inscriptions"/>).
+	/// glyphs/runes"). Every stone is a style of <see cref="FundamentalStoneTile"/> with its own sigil and its own words in
+	/// the Ghedalari script (2026-11-24: <see cref="GhedalariScript.Inscriptions"/>, translated by research; woken in order:
+	/// <see cref="FundamentalStoneAwakening"/>).
 	/// <list type="table">
 	/// <item><term>0, <see cref="TarPit"/></term><description>on the floor of the Junkyard's tar pit, in its middle
 	/// (<see cref="Junkyard.Generation.JunkyardPass"/>).</description></item>
@@ -22,8 +23,6 @@ namespace Cogpunk.Content.Secrets
 	/// (2026-11-10b, <see cref="Generation.FundamentalRuinsPass"/>).</description></item>
 	/// <item><term>3-4</term><description>not placed yet: the user will name their spots (their art and runes exist).</description></item>
 	/// </list>
-	/// <para>The runes are placeholders for the puzzle (my call: each stone's line is fixed, so readers can compare them; the
-	/// user asked for "random glyphs/runes"): its own sigil, then nine runes from <c>FundamentalRunes.png</c>.</para>
 	/// <para><b>Sealed</b> (user-set 2026-11-11: "add the force field to every fundamental stone; the shield disables
 	/// permanently (making the stone interactable) once the boss of the area has been killed on the world"): each stone
 	/// has a guardian (<see cref="GuardianDefeated"/>): the tar pit's is the Tar Tyrant (the boss fished out of that tar),
@@ -50,16 +49,6 @@ namespace Cogpunk.Content.Secrets
 
 		/// <summary>The stone wears its shield and can't be read yet.</summary>
 		public static bool Sealed(int style) => !GuardianDefeated(style);
-		public const int RuneCount = 16;                          // glyphs in FundamentalRunes.png: the five sigils, then runes
-
-		/// <summary>Each stone's line, glyph indices into <c>FundamentalRunes.png</c> (its sigil first).</summary>
-		public static readonly byte[][] Inscriptions = {
-			new byte[] { 0, 7, 12, 5, 9, 14, 6, 11, 8, 13 },
-			new byte[] { 1, 10, 5, 15, 7, 12, 9, 6, 14, 8 },
-			new byte[] { 2, 13, 8, 11, 6, 15, 10, 5, 12, 9 },
-			new byte[] { 3, 6, 14, 9, 12, 5, 11, 15, 7, 10 },
-			new byte[] { 4, 15, 9, 7, 13, 10, 8, 12, 5, 11 },
-		};
 
 		/// <summary>World generation: stone <paramref name="style"/> with its left column at <paramref name="left"/>, standing on
 		/// row <paramref name="floorY"/> (it fills the <see cref="FundamentalStoneTile.Height"/> rows above). Liquid and walls

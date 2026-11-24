@@ -281,8 +281,8 @@ class Island:
                 elif ch in "/\\()-":
                     self.tile[(x, y)] = "stone" if ch in "()" else "roof"
                     self.shape[(x, y)] = {"/": "up_right", "(": "up_right", "\\": "up_left", ")": "up_left", "-": "half"}[ch]
-                elif ch in ".,:#;":
-                    self.wall[(x, y)] = {".": "panel", ",": "stonew", ":": "gearw", "#": "lattice", ";": "vaultw"}[ch]
+                elif ch in ".,:#;m":
+                    self.wall[(x, y)] = {".": "panel", ",": "stonew", ":": "gearw", "#": "lattice", ";": "vaultw", "m": "plaster"}[ch]
                 elif ch in "=+%$":
                     self.tile[(x, y)] = "plat"
                     if ch == "=":
@@ -298,8 +298,8 @@ class Island:
                 else:
                     wall = self.wall.get((x, y))                # CoghavenPass.RoomWall: the neighbours' wall, else the cell's own
                     for nx, ny in ((bx - 1, by), (bx + 1, by), (bx, by - 1), (bx, by + 1)):
-                        if 0 <= ny < len(rows) and 0 <= nx < len(rows[ny]) and rows[ny][nx] in ".,:#;":
-                            wall = {".": "panel", ",": "stonew", ":": "gearw", "#": "lattice", ";": "vaultw"}[rows[ny][nx]]
+                        if 0 <= ny < len(rows) and 0 <= nx < len(rows[ny]) and rows[ny][nx] in ".,:#;m":
+                            wall = {".": "panel", ",": "stonew", ":": "gearw", "#": "lattice", ";": "vaultw", "m": "plaster"}[rows[ny][nx]]
                             break
                     if wall:
                         self.wall[(x, y)] = wall
@@ -456,6 +456,8 @@ class Renderer:
         self.sheets["grass"] = stand_in_sheet(STAND_IN["grass"], 4, grass=True)
         self.sheets["gold"] = stand_in_sheet(STAND_IN["gold"], 5)
         self.walls = {k: load(C + "Walls/%sTile.png" % v) for k, v in WALL_SHEETS.items()}
+        plaster = Image.new("RGBA", self.walls["panel"].size, (226, 222, 206, 255))   # vanilla White Dynasty Wall: a stand-in
+        self.walls["plaster"] = plaster
         self.cog = load(C + "Tiles/BronzeCogTile.png")
         self.turbine = load(C + "Tiles/LiftTurbineTile.png")
         self.turbine_glow = load(C + "Tiles/LiftTurbineTile_Glow.png")
@@ -718,7 +720,7 @@ def main():
     if only is None or "sweep" in only:
         sweep(200)
     if only is None or "island" in only:
-        island_png(os.path.join(args.out, "2026-11-17_coghaven-island-chests.png"), args.font, args.seed)   # (2026-11-17: a third chest
+        island_png(os.path.join(args.out, "2026-11-23_coghaven-palace.png"), args.font, args.seed)   # (2026-11-17: a third chest
         # in the Main Hall gallery; 2026-11-16: the
         # Jade Vault under the Main Hall, the Locked Pagoda Chest; before: 2026-11-12_coghaven-island-chests.png)
     if only is None or "underside" in only:

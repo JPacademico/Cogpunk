@@ -971,7 +971,7 @@ Items: {
 		Tooltip:
 			'''
 			Cortes cruzados abrem um único arco largo de jade e lançam a maldição de jade no que cortam
-			Clique direito para arremessar a glaive a até {0} blocos; ela volta à sua mão
+			Clique direito para arremessar a glaive a até {0} blocos por {2} de vapor; ela volta à sua mão
 			Cortes e arremessos causam {1}% a mais de dano a inimigos transformados em jade
 			'''
 	}
@@ -1156,6 +1156,87 @@ Items: {
 			'Certas artes só se aprendem, nunca se encontram'
 			'''
 	}
+
+	JadeRefractor: {
+		DisplayName: Refrator de Jade
+		Tooltip:
+			'''
+			Segure para manter um fino laser de jade no cursor que corta os primeiros {0} inimigos que encontra
+			Ignora {1}% da defesa inimiga e lança a maldição de jade
+			Causa {2}% a mais de dano a inimigos transformados em jade
+			'''
+	}
+
+	JadeClaws: {
+		DisplayName: Garras de Jade
+		Tooltip: "'Garras de cristal numa manopla laqueada: abrem rocha e carne do mesmo jeito'"
+	}
+
+	MissingBones: {
+		DisplayName: Ossos Perdidos
+		Tooltip:
+			'''
+			Invoca um esqueleto de raptor para montar: rápido, e quem o monta não pega a Praga do Piche
+			Ossos não boiam: ele afunda em líquidos e rema para cima enquanto você segura o pulo
+			'''
+	}
+
+	BlueStarFruit: {
+		DisplayName: Fruta-Estrela Azul
+		Tooltip:
+			'''
+			+3% de dano e chance de acerto crítico mágicos, +3% de regeneração de mana, -3% de custo de mana e +20 de mana máxima por {0} minutos
+			Uma refeição de verdade por vez
+			'''
+	}
+
+	FishOnASpear: {
+		DisplayName: Peixe no Espeto
+		Tooltip:
+			'''
+			+3% de dano, chance de acerto crítico, velocidade e repulsão corpo a corpo e +20 de vida máxima por {0} minutos
+			Uma refeição de verdade por vez
+			'''
+	}
+
+	DeadeyeChili: {
+		DisplayName: Chili do Atirador
+		Tooltip:
+			'''
+			+3% de dano, chance de acerto crítico e velocidade de ataque à distância, 3% de chance de não gastar munição e +20 de vida máxima por {0} minutos
+			Uma refeição de verdade por vez
+			'''
+	}
+
+	FireflyJelly: {
+		DisplayName: Geleia de Vaga-lume
+		Tooltip:
+			'''
+			+3% de dano de invocação, velocidade e alcance de chicote e repulsão de lacaios e +20 de vida máxima por {0} minutos
+			Uma refeição de verdade por vez
+			'''
+	}
+
+	RainbowRobe: {
+		DisplayName: Manto Arco-Íris
+		Tooltip:
+			'''
+			Aumenta a mana máxima em {0}
+			Reduz o custo de mana em {1}%
+			Aumenta o dano mágico em {2}%
+			Cajados de gema e outras armas mágicas de gema disparam um projétil a mais sem custo extra de mana
+			'''
+	}
+
+	JadeCoin: {
+		DisplayName: Moeda de Jade
+		Tooltip:
+			'''
+			Invoca um morcego de jade para lutar por você
+			Usá-la de novo faz o espírito crescer: um besouro de jade, um golem de jade e por fim um loong de jade
+			Depois que ele vira um loong, o próximo uso chama um novo morcego
+			'''
+	}
 }
 
 Buffs: {
@@ -1292,6 +1373,36 @@ Buffs: {
 		DisplayName: Gosmado
 		Description: Grudento e lento
 	}
+
+	MissingBonesBuff: {
+		DisplayName: Ossos Perdidos
+		Description: Um raptor reconstruído carrega você, e o piche não pode tocá-lo
+	}
+
+	BlueStarFruitBuff: {
+		DisplayName: Barriga Estrelada
+		Description: Pequenos bônus de magia e mana
+	}
+
+	FishOnASpearBuff: {
+		DisplayName: Vigor do Pescador
+		Description: Pequenos bônus de corpo a corpo e vida
+	}
+
+	DeadeyeChiliBuff: {
+		DisplayName: Calor do Atirador
+		Description: Pequenos bônus de ataques à distância e vida
+	}
+
+	FireflyJellyBuff: {
+		DisplayName: Brilho de Vaga-lume
+		Description: Pequenos bônus de invocação e vida
+	}
+
+	JadeCoinBuff: {
+		DisplayName: Espíritos de Jade
+		Description: Espíritos de jade lutam por você e crescem a cada vez que você os chama
+	}
 }
 
 NPCs: {
@@ -1380,16 +1491,8 @@ NPCs: {
 	}
 
 	Friendobo: {
-		DisplayName: Friendo-bot
-		Bestiary: Um velho robô barman de cartola e monóculo. Ele cuidava de um saloon em algum lugar, há muito tempo, e ainda está lustrando o mesmo copo. Mudou-se quando o Exército Mecânico parou de marchar e negocia sucata e as bugigangas que acordam as grandes máquinas.
-		Chat1: Bem-vindo, bem-vindo! Cuidado com o chão, eu encerei neste século.
-		Chat2: O que vai ser? Tenho engrenagens enferrujadas, sucata enferrujada e mais engrenagens enferrujadas.
-		Chat3: Este monóculo? Latão puro. O olho atrás dele, nem tanto.
-		Chat4: Eu cuidava de um bar numa cidade lá embaixo do deserto. Latão por toda parte. Aí a areia entrou, e os fregueses pararam de sair.
-		Chat5: Cuidado com essa cartola, amigo. Tem uma mola sobrando aí dentro.
-		Chat6: Toda máquina que acorda de mau humor teve algo que a chamou. Eu vendo isso, depois que você mesmo derrotar a fera.
-		ChatTavernkeep: Eu e o Taberneiro trocamos dicas. Ele diz que minha cerveja tem gosto de óleo. É óleo.
-		ChatMechanic: A Mecânica se ofereceu para lubrificar minhas juntas. Muito gentil. Um pouco animada demais com a chave inglesa, porém.
+		DisplayName: Último Ghedalari
+		Bestiary: O último dos ghedalari, um povo antigo que o mundo quase esqueceu. Alto e de pele azul, com longas orelhas voltadas para trás, olhos que brilham sem pupilas e cascos em pernas dobradas para trás, ele ainda veste o ouro do seu povo e carrega a sua lança. Mudou-se assim que o Exército Mecânico parou de marchar, e negocia sucata e os amuletos que despertam as grandes feras.
 	}
 
 	Cogtuna: {
@@ -1443,7 +1546,7 @@ NPCs: {
 
 	Cogscorpion: {
 		DisplayName: Escorpião de Engrenagens
-		Bestiary: "Um guardião do palácio construído como um escorpião, as placas de bronze contornadas de laca vermelha. Ele ergue a cauda antes de atacar: o jade na ponta brilha cada vez mais até o ferrão estalar por cima da cabeça, e quem ele toca começa a virar pedra."
+		Bestiary: "Um guardião do palácio construído como um escorpião, as placas de bronze contornadas de laca vermelha e o ferrão de jade brilhando sobre as costas. Ele corre atrás dos intrusos e os atropela com as garras e o próprio peso."
 	}
 
 	FlyingBuddhaHead: {
@@ -1712,9 +1815,6 @@ Projectiles: {
 		DisplayName: Bola de Fogo
 	}
 
-	CogscorpionSting: {
-		DisplayName: Ferrão do Escorpião de Engrenagens
-	}
 
 	CombinatorBlast: {
 		DisplayName: Explosão do Combinador
@@ -1790,6 +1890,22 @@ Projectiles: {
 	SporeBolt.DisplayName: Esporo Mágico
 	ShroomSpike.DisplayName: Cogumelo Explosivo
 	FungimancerTongue.DisplayName: Língua do Fungimante
+
+	JadeRefractorBeam: {
+		DisplayName: Refrator de Jade
+	}
+
+	JadeCoinCounter: {
+		DisplayName: Moeda de Jade
+	}
+
+	JadeSpirit: {
+		DisplayName: Espírito de Jade
+	}
+
+	JadeSpiritBolt: {
+		DisplayName: Disparo de Jade
+	}
 }
 
 Tiles: {
@@ -2031,11 +2147,15 @@ Keybinds: {
 
 Secrets: {
 	GateOpened: O portão selado das Ruínas Fundamentais se abre rangendo!
+	StonesAsleep: As Pedras Fundamentais voltam a adormecer...
+	StonesAligned: As cinco Pedras Fundamentais estão despertas.
+	GhedalariKnown: "Ghedalari: {0}"
+	GhedalariUnknown: Escrita ghedalari. Alguma Pedra Fundamental pode te ensinar esta palavra.
 }
 
 Emotes: {
 	FriendoboEmote: {
-		Command: friendobot
+		Command: ghedalari
 	}
 }
 
@@ -2192,6 +2312,10 @@ Research: {
 		SquireBanner: "{0} Estandarte de Zumbi, de Slime ou de Olho Demoníaco"
 		BlackLens: "{0} Lente Negra"
 		Gel: "{0} Gel"
+		Daybloom: "{0} Flor-do-dia"
+		Mushroom: "{0} Cogumelos"
+		Potions: "{0} poções diferentes"
+		Foods: "{0} comidas diferentes"
 	}
 	Nodes: {
 		TheBasics: {
@@ -2244,7 +2368,7 @@ Research: {
 		}
 		HeatManagement: {
 			DisplayName: "Gestão de Calor"
-			Description: "10% menos dano sofrido enquanto superaquecido"
+			Description: "O superaquecimento não te obriga mais a correr: você pode ficar parado"
 		}
 		BringAKnife: {
 			DisplayName: "Leve uma Faca para um Tiroteio"
@@ -2265,6 +2389,90 @@ Research: {
 		Calcified: {
 			DisplayName: "Calcificado"
 			Description: "Cada inimigo que você derrota arremessa um osso que causa 40 de dano a outro inimigo que acertar"
+		}
+		AlchemyInitiate: {
+			DisplayName: Iniciado em Alquimia
+			Description: Poções que você prepara têm 10% de chance de sair em dobro
+		}
+		FulfillingConcoction: {
+			DisplayName: Concocção Saciante
+			Description: Beber uma poção deixa você Bem Alimentado por 5 minutos (uma refeição melhor é mantida)
+		}
+		EfficientFuel: {
+			DisplayName: Combustível Eficiente
+			Description: "-5% de custo de vapor"
+		}
+		Reconstructed: {
+			DisplayName: Reconstruído
+			Description: Desbloqueia a criação de Ossos Perdidos, uma montaria de esqueleto de raptor
+		}
+		Seasoning: {
+			DisplayName: Tempero
+			Description: Cozinhar tem 10% de chance de poupar os ingredientes
+		}
+		ProperMeal: {
+			DisplayName: Refeição de Verdade
+			Description: Desbloqueia quatro refeições, uma para cada classe
+		}
+		GreenIsGood: {
+			DisplayName: Verde = Bom
+			Description: Matar um inimigo transformado em jade cura 20 de vida; enquanto você está transformado em jade, recebe 20% menos dano
+		}
+		GreenDiamond: {
+			DisplayName: Diamante Verde
+			Description: Desbloqueia a criação do Refrator de Jade
+		}
+		MadScience: {
+			DisplayName: Ciência Maluca
+			Description: "+5% de velocidade de ataque com armas combinadas"
+		}
+		SigilFleur: {
+			DisplayName: Sigilo da Flor-de-lis
+			Description:
+				'''
+				+1 de regeneração de vida
+				Traduz as runas da Pedra Fundamental que traz este sigilo
+				'''
+		}
+		SigilSun: {
+			DisplayName: Sigilo do Sol
+			Description:
+				'''
+				Você emite uma luz suave
+				Traduz as runas da Pedra Fundamental que traz este sigilo
+				'''
+		}
+		SigilMountain: {
+			DisplayName: Sigilo da Montanha
+			Description:
+				'''
+				+2 de defesa
+				Traduz as runas da Pedra Fundamental que traz este sigilo
+				'''
+		}
+		SigilCross: {
+			DisplayName: Sigilo da Cruz
+			Description:
+				'''
+				+5% de velocidade de movimento
+				Traduz as runas da Pedra Fundamental que traz este sigilo
+				'''
+		}
+		SigilWave: {
+			DisplayName: Sigilo da Onda
+			Description:
+				'''
+				+50% de fôlego
+				Traduz as runas da Pedra Fundamental que traz este sigilo
+				'''
+		}
+		Rgbt: {
+			DisplayName: RGBT
+			Description: Desbloqueia a criação do Manto Arco-Íris
+		}
+		JadeMenagerie: {
+			DisplayName: Bestiário de Jade
+			Description: Desbloqueia a criação da Moeda de Jade
 		}
 	}
 	Tasks: {
@@ -2288,6 +2496,7 @@ Research: {
 		Boss: "Primeira derrota de {0} neste mundo"
 		Event: "Primeira vitória sobre {0} neste mundo"
 		GlowingMushroom: "Encontrou um campo de cogumelos brilhantes"
+		DemonAltar: O primeiro altar demoníaco do mundo destruído
 	}
 	Events: {
 		GoblinArmy: "o Exército Goblin"
@@ -2304,4 +2513,18 @@ Research: {
 	KnowledgeName: "Pontos de conhecimento"
 	DragHint: "Arraste para explorar"
 	Teaser: "Um segredo ainda por revelar: um grande inimigo precisa cair antes"
+	Tabs: {
+		Main: Pesquisa Ancestral
+		Mystery: Mistério do Passado
+	}
+	Hints: {
+		AlchemyTable: "Um segredo ainda por revelar: uma mesa de alquimista guarda a chave"
+		CookingPot: "Um segredo ainda por revelar: uma panela de cozinhar guarda a chave"
+		Combinator: "Um segredo ainda por revelar: funda uma arma no Combinador"
+		Stone: "Um segredo ainda por revelar: leia a Pedra Fundamental que traz este sigilo"
+		GemRobe: "Um segredo ainda por revelar: tenha um manto de gema"
+	}
+	DoubleBrew: Poção em dobro!
+	Seasoned: Ingredientes poupados!
+	GemRobeGroup: "Qualquer Manto de Gema"
 }

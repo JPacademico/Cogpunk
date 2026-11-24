@@ -19,6 +19,8 @@ first, then eleven runes, pale blue with white cores.
 Outputs (Content/Secrets/):
     FundamentalStoneTile.png        360x108: 5 styles side by side, each 4x6 tiles on vanilla's 18 px stride
     FundamentalStoneTile_Glow.png   the same layout: the lit cuts
+    FundamentalStoneTile_Awake.png  the same layout: the cuts of an awake stone (2026-11-24: gold, white-hot hearts; a stone
+                                    woken in the puzzle's order glows gold instead of blue)
     FundamentalRunes.png            256x18: 16 glyphs of 14x18 on a 16 px stride
 """
 import argparse
@@ -41,6 +43,7 @@ STYLES = 5
 D, ST, G, S = RAMP["denim"], RAMP["steel"], RAMP["gilt"], RAMP["steam"]
 GLOW_DIM = D[3]                   # a cut on the stone itself (dark when the glow ebbs)
 GLOW_LIT, GLOW_HOT = D[5], S[3]   # the glow sheet: pale blue, white-hot at the heart
+AWAKE_LIT, AWAKE_HOT = G[7], G[9] # the awake sheet: gold, a white-gold heart
 CENTER = (15.5, 21.0)             # the diamond's middle
 
 # The five sigils (5x7), drawn in the diamond and as the first five glyphs of the reading: '#' a cut, '*' its hot heart.
@@ -227,6 +230,8 @@ def export_all():
     stones = [stone(s) for s in range(STYLES)]
     export(tile_sheet([px for px, _ in stones]), OUT + "FundamentalStoneTile.png")
     export(tile_sheet([gl for _, gl in stones]), OUT + "FundamentalStoneTile_Glow.png")
+    awake = [{k: (AWAKE_HOT if c == GLOW_HOT else AWAKE_LIT) for k, c in gl.items()} for _, gl in stones]
+    export(tile_sheet(awake), OUT + "FundamentalStoneTile_Awake.png")
     export(runes_sheet(), OUT + "FundamentalRunes.png")
 
 

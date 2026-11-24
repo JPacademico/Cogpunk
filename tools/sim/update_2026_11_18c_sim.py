@@ -419,7 +419,8 @@ def main():
     ap.add_argument("--only")
     args = ap.parse_args()
     only = set(args.only.split(",")) if args.only else None
-    jobs = (("research", research_gif, "2026-11-18_research-menu.gif"), ("bundle", bundle_gif, "2026-11-18_research-bundle-of-wands.gif"),
+    # 2026-11-24: the research window got its tabs and new nodes (update_2026_11_24_sim.py --only research)
+    jobs = (("bundle", bundle_gif, "2026-11-18_research-bundle-of-wands.gif"),
             ("tip", tip_gif, "2026-11-18_research-just-the-tip.gif"), ("items", items_png, "2026-11-18_items-c.png"))
     for name, fn, file in jobs:
         if only is None or name in only:

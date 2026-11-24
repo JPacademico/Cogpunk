@@ -35,7 +35,7 @@ from trashtr0m_loot_sim import Gif, consts, load, player_sprite, TPF  # noqa: E4
 from update_2026_11_04_sim import STEAM  # noqa: E402
 from update_2026_11_06b_sim import Planes, numbers, note  # noqa: E402
 from update_2026_11_03b_sim import PLAYER_W, PLAYER_H, GRAVITY, JUMP_SPEED, JUMP_HOLD, IMMUNITY, overlaps  # noqa: E402
-from update_2026_11_10_sim import faded, stone_image, westworld_crop, INSCRIPTIONS, lerp  # noqa: E402
+from update_2026_11_10_sim import faded, stone_image, westworld_crop, INSCRIPTIONS, lerp, word_glyph, GLYPH_W, GLYPH_H  # noqa: E402
 from update_2026_11_10b_sim import additive, font_at, scene_drone  # noqa: E402
 from terrain import load_frames  # noqa: E402
 
@@ -652,7 +652,7 @@ def scene_shield(out, font):
     west, at, _ = westworld_crop(margin=(30, 14))
     W, H = west.width, west.height
     gif = Gif(font, (W, H), scale=1.0)
-    runes = load(SEC + "FundamentalRunes.png")
+    runes = load(SEC + "GhedalariGlyphs.png")
     sx, sy = at
     floor = sy + 96
     anchor = (sx + 32, sy)
@@ -720,7 +720,7 @@ def scene_shield(out, font):
         if opened:
             alpha = min(1.0, age / KS["FadeInTicks"]) * (1.0 - closing / KS["FadeOutTicks"] if closing else 1.0)
             n = len(line)
-            gw, gh, gap, pad = 14, 18, 4, 12
+            gw, gh, gap, pad = GLYPH_W, GLYPH_H, 4, 12
             pw, ph = n * gw + (n - 1) * gap + 2 * pad, gh + 2 * pad
             x0, y0 = int(anchor[0] - pw / 2), int(anchor[1] - 10 - ph)
             panel = Image.new("RGBA", (pw, ph), (0, 0, 0, 0))
@@ -731,7 +731,7 @@ def scene_shield(out, font):
                 shown = (age - KS["FadeInTicks"] / 2 - k * KS["RevealTicks"]) / KS["RevealTicks"]
                 if shown <= 0:
                     break
-                img.alpha_composite(faded(runes.crop((g * 16, 0, g * 16 + gw, gh)), alpha * min(1.0, shown)), (x0 + pad + k * (gw + gap), y0 + pad))
+                img.alpha_composite(faded(word_glyph(runes, g), alpha * min(1.0, shown)), (x0 + pad + k * (gw + gap), y0 + pad))
         gif.text(img, (W - 260, 34), "shield: %s" % ("SEALED (Conductor alive)" if sealed else "gone (Conductor defeated)"),
                  fill=GLOW if sealed else JADE)
         note(gif, img, notes, tick)
