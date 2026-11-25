@@ -1,4 +1,4 @@
-Cogpunk (Alpha) - a steampunk content mod of brass, steam and clockwork.
+Cogpunk (Alpha) - a steampunk content mod.
 
 ALPHA BUILD (version {ModVersion}): Cogpunk is in early development. Expect unfinished content, numbers that will change and the odd bug, and back up your worlds and characters before updating. Reports of problems are very welcome on the mod's Workshop page.
 
