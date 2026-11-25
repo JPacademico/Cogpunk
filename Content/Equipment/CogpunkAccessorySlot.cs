@@ -1,4 +1,7 @@
+using System.IO;
+using Cogpunk.Core.Networking;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -61,8 +64,54 @@ namespace Cogpunk.Content.Equipment
 			Unlocked = tag.GetBool("CogpunkSlot");
 		}
 
+		// tModLoader requires CopyClientState and SendClientChanges together (ModPlayer.ValidateType); the ModPlayer sync
+		// pattern of MeleeFocusPlayer: the owner's flag goes to the server on join and on change, the server relays it.
+		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) {
+			ModContent.GetInstance<CogpunkSlotPacket>().Send(Player.whoAmI, Unlocked, toWho, fromWho);
+		}
+
 		public override void CopyClientState(ModPlayer targetCopy) {
 			((CogpunkSlotPlayer)targetCopy).Unlocked = Unlocked;
+		}
+
+		public override void SendClientChanges(ModPlayer clientPlayer) {
+			if (((CogpunkSlotPlayer)clientPlayer).Unlocked != Unlocked) {
+				SyncPlayer(-1, Main.myPlayer, false);
+			}
+		}
+	}
+
+	/// <summary>Carries <see cref="CogpunkSlotPlayer.Unlocked"/> (D0: the player index is validated, a client speaks only
+	/// for its own player).</summary>
+	public sealed class CogpunkSlotPacket : CogpunkPacket
+	{
+		public void Send(int player, bool unlocked, int toClient = -1, int ignoreClient = -1) {
+			if (Main.netMode == NetmodeID.SinglePlayer) {
+				return;
+			}
+			ModPacket packet = Begin();
+			packet.Write((byte)player);
+			packet.Write(unlocked);
+			packet.Send(toClient, ignoreClient);
+		}
+
+		public override void Receive(BinaryReader reader, int sender) {
+			int player = reader.ReadByte();
+			bool unlocked = reader.ReadBoolean();
+			if (player < 0 || player >= Main.maxPlayers) {
+				return;
+			}
+			if (Main.netMode == NetmodeID.Server && player != sender) {
+				return;
+			}
+			Player p = Main.player[player];
+			if (p == null || (Main.netMode == NetmodeID.Server && !p.active)) {
+				return;
+			}
+			p.GetModPlayer<CogpunkSlotPlayer>().Unlocked = unlocked;
+			if (Main.netMode == NetmodeID.Server) {
+				Send(player, unlocked, -1, sender);
+			}
 		}
 	}
 }
