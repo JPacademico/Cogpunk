@@ -59,6 +59,10 @@ namespace Cogpunk.Core.Templates
 		/// <summary>The glow sheet's brightness this frame (0 hides it).</summary>
 		protected virtual float GlowStrength => 1f;
 
+		/// <summary>Game px cut off the bottom of the sprite this frame (0: none): sinking into the ground (the Crystal Lizard
+		/// digging away, 2026-11-25). Visual only.</summary>
+		protected virtual int Buried => 0;
+
 		/// <summary>Where the cells' origin is drawn, in world space: the hitbox's bottom centre for a walker (its feet).
 		/// A swimmer with no feet (the Cogtuna, 2026-11-04) puts its origin under its centre instead.</summary>
 		protected virtual Vector2 DrawAnchor => NPC.Bottom;
@@ -167,12 +171,13 @@ namespace Cogpunk.Core.Templates
 			Color light = NPC.GetAlpha(drawColor);
 			int frame = dummy ? 0 : Frame;
 			Texture2D middle = TextureAssets.Npc[Type].Value;
+			int buried = dummy ? 0 : Math.Max(0, Buried);
 			DepthLayers.DrawWalker(spriteBatch, FarSheet?.Value, middle, NearSheet?.Value, frame, CellWidth, CellHeight,
-				CellPadding, OriginX, OriginY, anchor, light, flip, dummy ? 0f : MaxParallax, scale, Columns);
+				CellPadding, OriginX, OriginY, anchor, light, flip, dummy ? 0f : MaxParallax, scale, Columns, buried);
 			float glow = GlowStrength;
 			if (glow > 0f && GlowSheet?.IsLoaded == true) {
 				DepthLayers.DrawCell(spriteBatch, GlowSheet.Value, frame, Columns, CellWidth, CellHeight, CellPadding, OriginX, OriginY,
-					anchor, 0, Color.White * glow * NPC.Opacity, flip, scale);
+					anchor, buried, Color.White * glow * NPC.Opacity, flip, scale);
 			}
 			DrawExtras(spriteBatch, anchor, light, flip, scale, dummy);
 			return false;

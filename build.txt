@@ -1,4 +1,4 @@
-displayName = Cogpunk
+displayName = Cogpunk (Alpha)
 author = TBD
 version = 0.1.0
 hideCode = false

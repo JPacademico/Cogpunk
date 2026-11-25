@@ -64,12 +64,20 @@ namespace Cogpunk.Content.Research
 		/// <summary>The hint a <see cref="Teaser"/> gives while it is a question mark: <c>Mods.Cogpunk.Research.Hints.&lt;key&gt;</c>
 		/// (null: the general "a great foe must fall first").</summary>
 		public string TeaserHint { get; init; }
+		/// <summary>A progress line under a teaser's hint (2026-11-25: Bad Luck Protection's kills); null: none.</summary>
+		public Func<Player, string> TeaserProgress { get; init; }
 		/// <summary>The window's tab the node sits in (user, 2026-11-24: "a new tab ... called "mystery of the past" ... a
 		/// different node set"): <see cref="ResearchNodes.MainTab"/> or <see cref="ResearchNodes.MysteryTab"/>.</summary>
 		public int Tab { get; init; }
 		/// <summary>A Fundamental Stone glyph (an index into <c>FundamentalRunes.png</c>) drawn as the icon instead of an item
 		/// (the Mystery of the Past's sigils); -1: <see cref="IconItem"/>.</summary>
 		public int IconGlyph { get; init; } = -1;
+		/// <summary>A texture of its own drawn as the icon (an asset path, 2x art, up to 32 x 32 game px), instead of an item
+		/// (2026-11-25: "Who is he?"'s circled Ghedalari); null: <see cref="IconItem"/> or <see cref="IconGlyph"/>.</summary>
+		public string IconTexture { get; init; }
+		/// <summary>Money it takes, in copper (user, 2026-11-25: "it should cost 10 gold coins to unlock"): paid like a purchase,
+		/// from the inventory and the banks (vanilla's <c>Player.BuyItem</c>); 0: none.</summary>
+		public long Coins { get; init; }
 
 		/// <summary>Index in <see cref="ResearchNodes.All"/> (the sync bit).</summary>
 		public int Index { get; internal set; }
@@ -111,7 +119,12 @@ namespace Cogpunk.Content.Research
 			GreenDiamond = "GreenDiamond", MadScience = "MadScience",
 			SigilFleur = "SigilFleur", SigilSun = "SigilSun", SigilMountain = "SigilMountain", SigilCross = "SigilCross", SigilWave = "SigilWave",
 			// 2026-11-24 (second message)
-			Rgbt = "Rgbt", JadeMenagerie = "JadeMenagerie";
+			Rgbt = "Rgbt", JadeMenagerie = "JadeMenagerie",
+			// 2026-11-25 (the alpha: quality of life at the demon altar, and the Last Ghedalari's arrival)
+			LaceUp = "LaceUp", UnholyCarpentry = "UnholyCarpentry", BadLuckProtection = "BadLuckProtection",
+			CrateExpectations = "CrateExpectations", WhoIsHe = "WhoIsHe";
+		public const int BadLuckKills = 300;                   // user-set: "a "?" until you kill 300 enemies"
+		public const long WhoIsHeCoins = 10L * 100L * 100L;    // user-set: "it should cost 10 gold coins to unlock" (in copper)
 		/// <summary>The window's tabs (user, 2026-11-24): the main tree, and the Mystery of the Past once a Fundamental Stone has
 		/// been touched (<see cref="ResearchPlayer.MysteryTab"/>).</summary>
 		public const int MainTab = 0, MysteryTab = 1, TabCount = 2;
@@ -393,6 +406,51 @@ namespace Cogpunk.Content.Research
 				Name = JadeMenagerie, Column = -5, Row = 2, Cost = 1, IconItem = ModContent.ItemType<Summons.JadeCoin>(),
 				Requires = new[] { TheBasics }, Reveal = static p => ReadManual(p, nameof(Manuals.Items.JadeShaperManual)),
 				Recipes = new[] { ModContent.ItemType<Summons.JadeCoin>() },
+			});
+			// 2026-11-25 (the alpha); appended (a node's index is its sync bit). The quality-of-life recipes (user: "add the quality
+			// of life crafting recipes from calamity ... This quality of life crafts can only be crafting with a demon altar (or the
+			// new demon table)"; Altar/AltarRecipes): one row under The Basics (a cluster of the altar's crafts; secrets go
+			// beside or below the arch, never above it), the Demon Table in the middle
+			Add(new ResearchNode {
+				// "craft for the anklet of the wind and aglet (1 knowledge point, available at any time)": Calamity's two recipes,
+				// at the altar. Not through Recipes: another mod's own Aglet recipe (Calamity's, at an anvil) must stay as it is
+				Name = LaceUp, Column = -1, Row = -1, Cost = 1, IconItem = ItemID.AnkletoftheWind,
+				Requires = new[] { TheBasics },
+			});
+			Add(new ResearchNode {
+				// "be able to craft a demon table (demon/crimson altar crafting station but without spreading corruption or scarying
+				// npcs) ... add a node for it that costs a voodoo doll and stays "?" until a crimson or corruption heart is broken on
+				// the world" (either voodoo doll; vanilla's world flag, synced with the world data)
+				Name = UnholyCarpentry, Column = 0, Row = -1, Cost = 0, IconItem = ModContent.ItemType<Altar.DemonTable>(),
+				Teaser = true, TeaserHint = "EvilHeart", Requires = new[] { TheBasics },
+				Reveal = static p => WorldGen.shadowOrbSmashed || p.GetModPlayer<ResearchPlayer>().Earned(KnowledgeTasks.EvilHeart),
+				Items = new[] { new ResearchItemCost(static item => item.type == ItemID.GuideVoodooDoll || item.type == ItemID.ClothierVoodooDoll,
+					1, "VoodooDoll") },
+				Recipes = new[] { ModContent.ItemType<Altar.DemonTable>() },
+			});
+			Add(new ResearchNode {
+				// "be able to craft a rare drop from the enemy using the enemy banner (add a node for it that is a "?" until you kill
+				// 300 enemies and costs 1 knowledge point)" (the kills: ResearchPlayer.Kills)
+				Name = BadLuckProtection, Column = 1, Row = -1, Cost = 1, IconItem = ItemID.ZombieBanner, Teaser = true, TeaserHint = "Kills",
+				TeaserProgress = static p => Language.GetTextValue("Mods.Cogpunk.Research.Hints.KillsProgress",
+					Math.Min(BadLuckKills, p.GetModPlayer<ResearchPlayer>().Kills), BadLuckKills),
+				Requires = new[] { TheBasics }, Reveal = static p => p.GetModPlayer<ResearchPlayer>().Kills >= BadLuckKills,
+			});
+			Add(new ResearchNode {
+				// "craft a fishing box item using 5 of the same fishing box that the item can come from (a node for this that costs 1
+				// knowledge point, reveals after fishing a crate for the first time)"
+				Name = CrateExpectations, Column = 2, Row = -1, Cost = 1, IconItem = ItemID.WoodenCrate, Teaser = true, TeaserHint = "Crate",
+				Requires = new[] { TheBasics }, Reveal = static p => p.GetModPlayer<ResearchPlayer>().FishedCrate,
+			});
+			Add(new ResearchNode {
+				// "make so our main mod npc the last ghedalari can only appear after unlocking a node on the mystery of the past tab of
+				// the research table. this node should be called "who is he?" and reveal after interacting with a fundamental stone
+				// (globaly) and the icon for it should be the npc miniature with a red circle and arrow arround it (like the "who is
+				// he?" meme). it should cost 10 gold coins to unlock" (ResearchWorld.GhedalariInvited); the middle of the sigils' star
+				Name = WhoIsHe, Tab = MysteryTab, Column = 0, Row = 1, Cost = 0, Coins = WhoIsHeCoins,
+				IconItem = ModContent.ItemType<Secrets.Ruins.Items.FundamentalRune>(), IconTexture = "Cogpunk/Content/Research/UI/WhoIsHe",
+				Teaser = true, TeaserHint = "WhoIsHe", Requires = new[] { TheBasics },
+				Reveal = static p => ResearchWorld.StoneTouched || p.GetModPlayer<ResearchPlayer>().TouchedStone,
 			});
 		}
 

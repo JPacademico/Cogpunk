@@ -105,7 +105,8 @@ namespace Cogpunk.Content.Bosses.Jadey
 		// the drift (BossNPC's floaty rule, user 2026-11-17): px either way of her hover spot, at range and in her melee hover
 		public const float SwayX = 3f * 16f, BobY = 20f, MeleeSwayX = 12f, MeleeBobY = 8f;
 		public const float HoverSpeed = 5f, AttackSpeed = 2f, HoverAccel = 0.08f, HoverApproach = 0.06f;
-		public const float MeleeGap = 14f, MeleeLift = 6f, MeleeSpeed = 8f;  // the Blade of Grass's reach (BossNPC rule)
+		// the Blade of Grass's reach (BossNPC rule); she eases in over BossNPC.MeleeBlendTicks and tracks at BossNPC.MeleeTrackSpeed
+		public const float MeleeGap = 14f, MeleeLift = 6f;
 		public const float ArenaMarginX = 3f * 16f, ArenaMarginTop = 2f * 16f, ArenaMarginBottom = 1f * 16f;
 		// my calls: with less than this share of HoverX between her target and the wall on her side (and more on the other),
 		// she crosses to the other side instead of hanging over a cornered target's head
@@ -417,7 +418,8 @@ namespace Cogpunk.Content.Bosses.Jadey
 		/// <summary>Every side: she eases to her spot beside and above her target (close in, at a melee fighter's side), inside the
 		/// vault; slower while attacking. The spot hangs round a point that follows her target with a lag and sways side to side and
 		/// up and down (BossNPC's drift, user rule 2026-11-17: never a perfect lock-on), a little in her melee hover so she stays in
-		/// a blade's reach.</summary>
+		/// a blade's reach. She slides into the melee hover over 1.5 s and tracks a melee fighter slowly (BossNPC's melee
+		/// approach, user 2026-11-25: "slowly float into melee range and keep traking slowly").</summary>
 		private void Float(float speed) {
 			Player target = CurrentTarget;
 			FaceTarget();
@@ -425,22 +427,14 @@ namespace Cogpunk.Content.Bosses.Jadey
 				NPC.velocity *= 0.92f;
 				return;
 			}
+			TickMeleeBlend(MeleeFocus.Of(target));
 			Vector2 focus = FloatFocus(target);
 			float side = NPC.Center.X < focus.X ? -1f : 1f;
-			bool melee = MeleeFocus.Of(target);
-			if (!melee) {
-				side = RoomySide(side, focus.X);
-			}
-			Vector2 spot = melee
-				? new Vector2(focus.X + side * (target.width * 0.5f + MeleeGap + NPC.width * 0.5f + DriftSway * MeleeSwayX),
-					focus.Y + target.height * 0.5f - MeleeLift - NPC.height * 0.5f + DriftBob * MeleeBobY)
-				: focus + new Vector2(side * HoverX + DriftSway * SwayX, -HoverY + DriftBob * BobY);
-			spot = ClampToArena(spot);
-			float max = melee ? Math.Max(speed, MeleeSpeed) : speed;
-			Vector2 to = spot - NPC.Center;
-			float distance = to.Length();
-			Vector2 want = distance > 1f ? to / distance * Math.Min(max, distance * HoverApproach) : Vector2.Zero;
-			NPC.velocity += (want - NPC.velocity) * HoverAccel;
+			Vector2 near = new(focus.X + side * (target.width * 0.5f + MeleeGap + NPC.width * 0.5f + DriftSway * MeleeSwayX),
+				focus.Y + target.height * 0.5f - MeleeLift - NPC.height * 0.5f + DriftBob * MeleeBobY);
+			Vector2 far = focus + new Vector2(RoomySide(side, focus.X) * HoverX + DriftSway * SwayX, -HoverY + DriftBob * BobY);
+			Vector2 spot = ClampToArena(Vector2.Lerp(far, near, MeleeAmount));
+			FloatSteer(spot, speed, HoverApproach, HoverAccel);
 			if (IsAuthority && (int)Timer % 45 == 0) {
 				NPC.netUpdate = true;                             // a gentle correction for clients' drift
 			}

@@ -54,8 +54,8 @@ namespace Cogpunk.Content.Research.Summons
 			Item.noMelee = true;
 			Item.buffType = ModContent.BuffType<JadeCoinBuff>();
 			Item.shoot = ModContent.ProjectileType<JadeCoinCounter>();
-			Item.width = 32;
-			Item.height = 32;
+			Item.width = 40;
+			Item.height = 40;
 			Item.value = Item.buyPrice(platinum: 1);          // it is a platinum coin (sells for a fifth, as every item)
 			Item.rare = ItemRarityID.Orange;
 		}

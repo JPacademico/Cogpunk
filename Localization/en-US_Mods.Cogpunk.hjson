@@ -24,6 +24,17 @@ Configs: {
 			Tooltip: Tones down bright flashes and strobing effects.
 		}
 	}
+	CogpunkServerConfig: {
+		DisplayName: "Cogpunk: World Settings"
+		HostOnly: "Only the world's host can change Cogpunk's world settings."
+		Headers: {
+			Gameplay: "Gameplay"
+		}
+		CritKillSlowMotion: {
+			Label: "Slow motion on critical kills"
+			Tooltip: "Killing an enemy with a critical hit slows time for 0.33 seconds around it (about one and a half screens).\nEach player can trigger it once every 12 seconds. Set by the world's host for everyone."
+		}
+	}
 }
 
 Items: {
@@ -1238,6 +1249,14 @@ Items: {
 			Once it is a loong, the next use calls a new bat
 			'''
 	}
+	DemonTable: {
+		DisplayName: "Demon Table"
+		Tooltip: "Counts as a demon altar for crafting\nIt never spreads, and townsfolk don't mind it"
+	}
+	Tearstone: {
+		DisplayName: "Tearstone"
+		Tooltip: "{0} defense while at full health"
+	}
 }
 
 Buffs: {
@@ -1403,6 +1422,14 @@ Buffs: {
 	JadeCoinBuff: {
 		DisplayName: Jade Spirits
 		Description: Jade spirits fight for you, and grow each time you call them
+	}
+	Polymorphed: {
+		DisplayName: "Polymorphed"
+		Description: "You are a toadstool: you can only hop around\nOther players can hurt you"
+	}
+	ShellShocked: {
+		DisplayName: "Shell-Shocked"
+		Description: "Your ears are ringing and you can't move"
 	}
 }
 
@@ -1577,9 +1604,30 @@ NPCs: {
 		Bestiary: A rhino beetle copied in jade from one of Jadey's coins. Smaller and more brittle than the jungle's own, but its horn still throws whatever it catches, and it leaves her curse behind.
 	}
 	Fungimancer: {
-		DisplayName: Fungimancer
-		Epithet: The Spore-Addled Sage
-		Bestiary: A frog who sat on a glowing mushroom so long that the mushroom's magic soaked into it, and very little else did. It floats on its toadstool throne, flinging spores of violet light, croaking mushrooms out of the ground and lashing out with a tongue as long as a cavern. Its spells work most of the time. Wake it only by breaking the rarest mushroom of all: the one with a rainbow on its cap.
+		DisplayName: "Fungimancer"
+		Epithet: "The Spore-Addled Sage"
+		Bestiary: "A frog who sat on a glowing mushroom so long that the mushroom's magic soaked into it, and very little else did. Mushrooms rain wherever it looks, rainbow light cuts the air, and a burp from it can turn you into a toad. When it raises both hands, break what grows between them, or cover your ears. It only wakes when someone breaks the rarest mushroom of all: the rainbow-capped one."
+	}
+	Toadstool: {
+		DisplayName: "Toadstool"
+		Bestiary: "A warty toad of the glowing mushroom fields that grows a garden on its back. It leaps at whatever moves, and its spores leave the mind spinning; it bursts into a cloud of them when it dies."
+	}
+	CrystalLizard: {
+		DisplayName: "Crystal Lizard"
+		Bestiary: "A timid lizard of the deep caves, armoured in living crystal. Startle it and it bolts; give it five heartbeats and it is gone into the rock, along with everything it has been hoarding."
+	}
+	Driller: {
+		DisplayName: "Driller"
+		Bestiary: "A mining bot that never stopped digging. It rolls after anything that moves, and when a wall or a ledge is in the way it simply goes through."
+	}
+	FloatyMushroom: {
+		DisplayName: "Drifting Mushroom"
+	}
+	OrbitMushroom: {
+		DisplayName: "Toadstool Egg"
+	}
+	ChannelMushroom: {
+		DisplayName: "Rainbow Mushroom"
 	}
 }
 
@@ -1888,9 +1936,6 @@ Projectiles: {
 	}
 	CogspringSlam.DisplayName: Cogspring Slam
 	SmokerSmoke.DisplayName: Soot
-	SporeBolt.DisplayName: Spore Bolt
-	ShroomSpike.DisplayName: Bursting Mushroom
-	FungimancerTongue.DisplayName: Fungimancer's Tongue
 
 	JadeRefractorBeam: {
 		DisplayName: Jade Refractor
@@ -1906,6 +1951,24 @@ Projectiles: {
 
 	JadeSpiritBolt: {
 		DisplayName: Jade Bolt
+	}
+	SporeCloud: {
+		DisplayName: "Spore Cloud"
+	}
+	RainbowSpore: {
+		DisplayName: "Rainbow Spore"
+	}
+	MushroomMissile: {
+		DisplayName: "Mushroom Missile"
+	}
+	PolymorphBolt: {
+		DisplayName: "Polymorph Burp"
+	}
+	RainbowLaser: {
+		DisplayName: "Rainbow Laser"
+	}
+	ChannelBlast: {
+		DisplayName: "Rainbow Blast"
 	}
 }
 
@@ -2049,6 +2112,12 @@ Tiles: {
 		MapEntry: Ancient Research Table
 	}
 	RainbowMushroomTile.MapEntry: Rainbow Mushroom
+	DemonTableTile: {
+		MapEntry: "Demon Table"
+	}
+	EnemyBannerTile: {
+		MapEntry: "Banner"
+	}
 }
 
 WorldGen: {
@@ -2317,6 +2386,7 @@ Research: {
 		Mushroom: "{0} Mushrooms"
 		Potions: "{0} different potions"
 		Foods: "{0} different foods"
+		VoodooDoll: "{0} {$ItemName.GuideVoodooDoll} or {$ItemName.ClothierVoodooDoll}"
 	}
 	Nodes: {
 		TheBasics: {
@@ -2475,6 +2545,26 @@ Research: {
 			DisplayName: Jade Menagerie
 			Description: Unlocks crafting the Jade Coin
 		}
+		LaceUp: {
+			DisplayName: "Lace Up"
+			Description: "Unlocks crafting the {$ItemName.Aglet} and the {$ItemName.AnkletoftheWind} at a demon altar"
+		}
+		UnholyCarpentry: {
+			DisplayName: "Unholy Carpentry"
+			Description: "Unlocks crafting the Demon Table: a demon altar you can carry home"
+		}
+		BadLuckProtection: {
+			DisplayName: "Bad Luck Protection"
+			Description: "Unlocks crafting an enemy's rare drops from its banner at a demon altar\n(one banner; two for the rarest drops)"
+		}
+		CrateExpectations: {
+			DisplayName: "Crate Expectations"
+			Description: "Unlocks crafting a crate's equipment from 5 of that crate at a demon altar"
+		}
+		WhoIsHe: {
+			DisplayName: "Who is he?"
+			Description: "Someone has been watching the stones...\nThe Last Ghedalari can move into your world"
+		}
 	}
 	Tasks: {
 		Angler5: "Five quests done for the Angler"
@@ -2498,6 +2588,12 @@ Research: {
 		Event: "First clear of {0} in this world"
 		GlowingMushroom: "Found a glowing mushroom field"
 		DemonAltar: The world's first demon altar smashed
+		EvilHeart: "The world's first Shadow Orb or Crimson Heart smashed"
+		Diamond: "Found a diamond"
+		NewTownNPC: "A new kind of townsfolk moved in"
+		NewTownNPCWho: "A new kind of townsfolk moved in: {0}"
+		PlayerKill: "Defeated another player"
+		PiggyBank: "Saved coins in a piggy bank"
 	}
 	Events: {
 		GoblinArmy: "the Goblin Army"
@@ -2524,8 +2620,27 @@ Research: {
 		Combinator: "A secret yet to be revealed: fuse a weapon at the Combinator"
 		Stone: "A secret yet to be revealed: read the Fundamental Stone that bears this sigil"
 		GemRobe: "A secret yet to be revealed: own a gem robe"
+		EvilHeart: "A secret yet to be revealed: a Shadow Orb or a Crimson Heart must break somewhere in this world"
+		Kills: "A secret yet to be revealed: defeat 300 enemies"
+		KillsProgress: "Enemies defeated: {0} / {1}"
+		Crate: "A secret yet to be revealed: fish up a crate"
+		WhoIsHe: "A secret yet to be revealed: someone must touch a Fundamental Stone"
 	}
 	DoubleBrew: Double brew!
 	Seasoned: Ingredients saved!
 	GemRobeGroup: "Any Gem Robe"
+	CoinCost: "Costs {0}"
+	Groups: {
+		Either: "{0} or {1}"
+	}
+}
+
+Banners: {
+	Name: "{0} Banner"
+	Tooltip: "Nearby players get a bonus against: {0}"
+}
+
+Equipment: {
+	SlotName: "Cogpunk Slot"
+	SlotLocked: "Cogpunk Slot (locked)\nA way to unlock it is coming in a future update"
 }

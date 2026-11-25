@@ -48,7 +48,12 @@ namespace Cogpunk.Content.Research
 		private byte edges;                                      // bit 0: the ocean, bit 1: the Junkyard
 		private byte gemStaffs;                                  // bit k: Weapons.BundleOfWands.StaffItems[k] had at some point
 		private byte found;                                      // FoundAlchemy | FoundCooking | FoundStone (2026-11-24), saved
-		private const byte FoundAlchemy = 1, FoundCooking = 2, FoundStone = 4, FoundRobe = 8;
+		private const byte FoundAlchemy = 1, FoundCooking = 2, FoundStone = 4, FoundRobe = 8, FoundCrate = 16;
+		/// <summary>Enemies this character has killed (counted on its own client, saved; 2026-11-25: Bad Luck Protection's
+		/// "?" until 300): kills vanilla counts for banners (<c>NPC.ExcludedFromDeathTally</c> false), not critters, dummies,
+		/// statue spawns or friendly NPCs; the hit that took the enemy's last life.</summary>
+		public int Kills;
+		private const int MaxKills = 1_000_000_000;              // D0: never overflows
 		private bool reportedStaffs;                             // this session: the world was told (Bundle Up!)
 		private int quietTicks;                                  // a manual's own chat line covers the reveals it causes
 		private bool announceReveal;                             // a reveal was kept since the last "Knowledge expanded!"
@@ -77,18 +82,44 @@ namespace Cogpunk.Content.Research
 		/// (gets into use range or gets one on the inventory)"); Seasoning's and Proper Meal's reveal.</summary>
 		public bool FoundCookingPot => (found & FoundCooking) != 0;
 
-		/// <summary>Has touched a Fundamental Stone (right-clicked one, sealed or not): the window's Mystery of the Past tab
-		/// shows (user, 2026-11-24: "a new tab that appears once the player has interacted with a fundamental stone").</summary>
-		public bool MysteryTab => (found & FoundStone) != 0;
+		/// <summary>Has touched a Fundamental Stone (right-clicked one, sealed or not; saved).</summary>
+		public bool TouchedStone => (found & FoundStone) != 0;
+
+		/// <summary>The window's Mystery of the Past tab shows (user, 2026-11-24: "a new tab that appears once the player has
+		/// interacted with a fundamental stone"): this character touched one, or (2026-11-25) anyone in this world has, since
+		/// "Who is he?" is revealed for the whole world (<see cref="ResearchWorld.StoneTouched"/>) and sits in that tab.</summary>
+		public bool MysteryTab => TouchedStone || ResearchWorld.StoneTouched;
+
+		/// <summary>Has fished up a crate (any of vanilla's or another mod's, <c>ItemID.Sets.IsFishingCrate</c>; saved):
+		/// Crate Expectations' reveal (user, 2026-11-25: "reveals after fishing a crate for the first time").</summary>
+		public bool FishedCrate => (found & FoundCrate) != 0;
 
 		/// <summary>Has had a gem robe (any of vanilla's seven or the Jade Robe) in the inventory or worn: RGBT's reveal (user,
 		/// 2026-11-24: "show only an "?" until the player has obtained at leat one gem robe (any)"); saved.</summary>
 		public bool FoundGemRobe => (found & FoundRobe) != 0;
 
-		/// <summary>The local player right-clicked a Fundamental Stone (<see cref="Secrets.FundamentalStoneTile"/>).</summary>
+		/// <summary>The local player right-clicked a Fundamental Stone (<see cref="Secrets.FundamentalStoneTile"/>): saved on the
+		/// character, and the world told (once a session) so "Who is he?" shows for everyone (<see cref="ResearchWorld.StoneTouched"/>).</summary>
 		public void TouchStone() {
-			if (Player.whoAmI == Main.myPlayer && (found & FoundStone) == 0) {
+			if (Player.whoAmI != Main.myPlayer) {
+				return;
+			}
+			if ((found & FoundStone) == 0) {
 				found |= FoundStone;
+				MarkDirty();
+			}
+			if (!ResearchWorld.StoneTouched) {
+				ResearchWorld.ReportStoneTouched();
+			}
+		}
+
+		/// <summary>The fishing player's client, as a catch is made: a crate reveals Crate Expectations.</summary>
+		public override void ModifyCaughtFish(Item fish) {
+			if (Player.whoAmI != Main.myPlayer || fish == null || fish.IsAir || (found & FoundCrate) != 0) {
+				return;
+			}
+			if (fish.type > ItemID.None && fish.type < ItemID.Sets.IsFishingCrate.Length && ItemID.Sets.IsFishingCrate[fish.type]) {
+				found |= FoundCrate;
 				MarkDirty();
 			}
 		}
@@ -103,6 +134,7 @@ namespace Cogpunk.Content.Research
 			edges = 0;
 			gemStaffs = 0;
 			found = 0;
+			Kills = 0;
 			reportedStaffs = false;
 			quietTicks = 0;
 			gotBook = false;
@@ -239,10 +271,13 @@ namespace Cogpunk.Content.Research
 					return Blocker.Items;
 				}
 			}
+			if (node.Coins > 0 && !Player.CanAfford(node.Coins)) {
+				return Blocker.Coins;
+			}
 			return Blocker.None;
 		}
 
-		public enum Blocker { None, Unlocked, Hidden, Requires, Knowledge, Condition, Items }
+		public enum Blocker { None, Unlocked, Hidden, Requires, Knowledge, Condition, Items, Coins }
 
 		/// <summary>How many items in the main inventory (slots 0-49) match <paramref name="cost"/>; for a
 		/// <see cref="ResearchItemCost.Distinct"/> cost, how many different kinds (each kind once, whatever its stack).</summary>
@@ -279,6 +314,9 @@ namespace Cogpunk.Content.Research
 		public bool TryUnlock(ResearchNode node) {
 			if (Player.whoAmI != Main.myPlayer || Check(node) != Blocker.None) {
 				return false;
+			}
+			if (node.Coins > 0 && !Player.BuyItem(node.Coins)) {
+				return false;                                    // paid first, as a purchase: nothing else is taken if it fails
 			}
 			Span<int> taken = stackalloc int[MaxDistinctKinds];          // a Distinct cost's kinds so far (no allocation, D1)
 			foreach (ResearchItemCost cost in node.Items) {
@@ -353,11 +391,40 @@ namespace Cogpunk.Content.Research
 			}
 			Calcify(target, proj.type);
 			GreenIsGoodKill(target);
+			CountKill(target, damageDone);
 		}
 
 		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone) {
 			Calcify(target, -1);
 			GreenIsGoodKill(target);
+			CountKill(target, damageDone);
+		}
+
+		/// <summary>The owner's client: the hit that took an enemy's last life (its life was above 0 before this hit's damage;
+		/// a worm's shared life through its head) is one kill (see <see cref="Kills"/>); saved with the character.</summary>
+		private void CountKill(NPC target, int damageDone) {
+			if (Player.whoAmI != Main.myPlayer || target == null || damageDone <= 0 || Kills >= MaxKills) {
+				return;
+			}
+			NPC root = target.realLife >= 0 && target.realLife < Main.maxNPCs && Main.npc[target.realLife].active ? Main.npc[target.realLife] : target;
+			if (root.life > 0 || root.life + damageDone <= 0 || root.SpawnedFromStatue || !Core.Combat.CritKillSlowMotion.Counts(root)) {
+				return;
+			}
+			Kills++;
+			if (Kills % 25 == 0 || Kills == ResearchNodes.BadLuckKills) {
+				MarkDirty();                                     // saved in batches, not every kill
+			}
+		}
+
+		/// <summary>"Killing another player for the first time (individual)" (user, 2026-11-25): vanilla runs a dead player's
+		/// <c>Kill</c> on every client (decompiled <c>Player.KillMe</c>, then message 118 relayed by the server), so the
+		/// killer's own client sees its PvP kill here and pays itself.</summary>
+		public override void Kill(double damage, int hitDirection, bool pvp, Terraria.DataStructures.PlayerDeathReason damageSource) {
+			if (!pvp || damageSource == null || Player.whoAmI == Main.myPlayer || damageSource.SourcePlayerIndex != Main.myPlayer
+				|| Main.myPlayer < 0 || Main.myPlayer >= Main.maxPlayers) {
+				return;
+			}
+			Main.LocalPlayer.GetModPlayer<ResearchPlayer>().Grant(KnowledgeTasks.PlayerKill);
 		}
 
 		/// <summary>"Green = Good" (user-set 2026-11-24: "heal when killing a jade petrified enemy (20 health)"): the hit that killed
@@ -462,8 +529,14 @@ namespace Cogpunk.Content.Research
 			SoundEngine.PlaySound(SoundID.ResearchComplete with { Volume = 0.6f }, Player.Center);
 		}
 
-		/// <summary>The owner's client: a task named by its static key (Mods.Cogpunk.Research.Tasks.&lt;key&gt; is the reason).</summary>
-		public void Grant(string key) => Grant(key, Language.GetTextValue("Mods.Cogpunk.Research.Tasks." + key));
+		/// <summary>The owner's client: a task named by its static key (Mods.Cogpunk.Research.Tasks.&lt;key&gt; is the reason). A
+		/// task already done returns before the reason is built (the periodic checks call this every half second: D1).</summary>
+		public void Grant(string key) {
+			if (Earned(key)) {
+				return;
+			}
+			Grant(key, Language.GetTextValue("Mods.Cogpunk.Research.Tasks." + key));
+		}
 
 		/// <summary>The owner: research changed; the character is saved <see cref="SaveDelay"/> ticks later (vanilla's own
 		/// in-game character save, the one it runs every 5 minutes in multiplayer and on death), so a crash, a lost
@@ -516,6 +589,11 @@ namespace Cogpunk.Content.Research
 			}
 			if (KnowledgeTasks.HousedTownNPCs() >= TownTarget) {
 				Grant(KnowledgeTasks.Town10);
+			}
+			// user, 2026-11-25: "putting coins on the piggy bank for the first time (individualy)" (the piggy bank and the Money
+			// Trough are the same bank, Player.bank)
+			if (!Earned(KnowledgeTasks.PiggyBank) && Utils.CoinsCount(out _, Player.bank.item, noSlots) > 0) {
+				Grant(KnowledgeTasks.PiggyBank);
 			}
 			if (Player.ZoneBeach) {
 				edges |= 1;
@@ -581,8 +659,12 @@ namespace Cogpunk.Content.Research
 			}
 		}
 
-		/// <summary>A base ore tier collected (<see cref="ResearchNodes.TheBasics"/>), or a gem staff had (Bundle Up!).</summary>
+		/// <summary>A base ore tier collected (<see cref="ResearchNodes.TheBasics"/>), a gem staff had (Bundle Up!), or a Diamond
+		/// (user, 2026-11-25: "after geting a diamond for the first time").</summary>
 		private void Collected(int type) {
+			if (type == ItemID.Diamond) {
+				Grant(KnowledgeTasks.Diamond);                   // once per character (Grant keeps the task)
+			}
 			if ((found & FoundRobe) == 0 && ResearchRecipes.IsGemRobe(type)) {
 				found |= FoundRobe;                                  // RGBT's reveal (2026-11-24)
 				MarkDirty();
@@ -712,6 +794,7 @@ namespace Cogpunk.Content.Research
 				tag["GemStaffs"] = gemStaffs;
 				tag["Found"] = found;
 				tag["GotBook"] = gotBook;
+				tag["Kills"] = Kills;
 			}
 		}
 
@@ -726,6 +809,7 @@ namespace Cogpunk.Content.Research
 				gemStaffs = tag.GetByte("GemStaffs");
 				found = tag.GetByte("Found");
 				gotBook = tag.GetBool("GotBook");
+				Kills = Math.Clamp(tag.GetInt("Kills"), 0, MaxKills);
 				for (int k = 0; k < Secrets.FundamentalStones.Count; k++) {
 					if (earned.Contains(KnowledgeTasks.StoneKey(k))) {
 						found |= FoundStone;                         // read a stone before the tab existed: it shows

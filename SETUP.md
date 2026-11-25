@@ -402,6 +402,10 @@ event,tier,gate,anchor_event,natural_start,size,roster,miniboss,kill_values,rate
 ```
 hazard,biome,tier,anchor_vanilla,damage,interval_ticks,dps,anchor_dps,effects,linger_ticks,delta_pct,tradeoff_note,tested_on
 ```
+`economy.csv` (prices, selling, reforging, stacks: rules over every item, 2026-11-25)
+```
+rule,scope,value,anchor_vanilla,exceptions,code,user_note,tested_on
+```
 **Every enemy and boss number is the Expert value** (user directive 2026-10-27, SKILL D3 rule 0): life, contact and projectile damage as a player sees them in an Expert world, with Classic and Master in brackets where useful, compared with the anchor's Expert stats. `eff_dps = damage × (60 / use_time) × (1 + crit/100) × shots_per_use`, where base crit is 4%. Write any hit-rate or pierce assumptions in `tradeoff_note`. `delta_pct = (eff_dps / anchor_eff_dps − 1) × 100`.
 
 ### 8.9 Tool scripts (`tools/`; create in M0)

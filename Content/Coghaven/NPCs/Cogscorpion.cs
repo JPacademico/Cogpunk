@@ -68,6 +68,7 @@ namespace Cogpunk.Content.Coghaven.NPCs
 		}
 
 		public override void SetDefaults() {
+			Cogpunk.Content.Banners.EnemyBanners.SetBanner(this);         // its banner (2026-11-25)
 			NPC.width = 60;                                  // the carapace and head (D4: matched hitbox; the tail is the sting's)
 			NPC.height = 30;
 			SetExpertStats(Life, ContactDamage, Defense);

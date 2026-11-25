@@ -23,6 +23,17 @@ Configs: {
 			Tooltip: Suaviza clarões fortes e efeitos piscantes.
 		}
 	}
+	CogpunkServerConfig: {
+		DisplayName: "Cogpunk: Configurações do Mundo"
+		HostOnly: "Só o anfitrião do mundo pode mudar as configurações de mundo do Cogpunk."
+		Headers: {
+			Gameplay: "Jogabilidade"
+		}
+		CritKillSlowMotion: {
+			Label: "Câmera lenta em abates críticos"
+			Tooltip: "Matar um inimigo com um acerto crítico desacelera o tempo por 0,33 segundo ao redor dele (cerca de uma tela e meia).\nCada jogador pode ativar isso uma vez a cada 12 segundos. Definido pelo anfitrião do mundo para todos."
+		}
+	}
 }
 
 Items: {
@@ -1237,6 +1248,14 @@ Items: {
 			Depois que ele vira um loong, o próximo uso chama um novo morcego
 			'''
 	}
+	DemonTable: {
+		DisplayName: "Mesa Demoníaca"
+		Tooltip: "Conta como um altar demoníaco para criação\nNunca se espalha, e os moradores não se incomodam com ela"
+	}
+	Tearstone: {
+		DisplayName: "Pedra-Lágrima"
+		Tooltip: "{0} de defesa enquanto estiver com a vida cheia"
+	}
 }
 
 Buffs: {
@@ -1402,6 +1421,14 @@ Buffs: {
 	JadeCoinBuff: {
 		DisplayName: Espíritos de Jade
 		Description: Espíritos de jade lutam por você e crescem a cada vez que você os chama
+	}
+	Polymorphed: {
+		DisplayName: "Transmutado"
+		Description: "Você é um sapo-cogumelo: só consegue pular por aí\nOutros jogadores podem ferir você"
+	}
+	ShellShocked: {
+		DisplayName: "Atordoado"
+		Description: "Seus ouvidos zumbem e você não consegue se mover"
 	}
 }
 
@@ -1576,9 +1603,30 @@ NPCs: {
 		Bestiary: Um besouro-rinoceronte copiado em jade a partir de uma das moedas de Jadey. Menor e mais frágil que o da selva, mas seu chifre ainda arremessa o que pega, e ele deixa a maldição dela para trás.
 	}
 	Fungimancer: {
-		DisplayName: Fungimante
-		Epithet: O Sábio Esporado
-		Bestiary: Um sapo que passou tanto tempo sentado num cogumelo brilhante que a magia do cogumelo o encharcou, e quase nada mais. Ele flutua em seu trono de cogumelo, lançando esporos de luz violeta, fazendo cogumelos brotarem do chão com seu coaxar e chicoteando com uma língua do tamanho de uma caverna. Os feitiços dele funcionam na maioria das vezes. Só desperta quando alguém quebra o mais raro dos cogumelos: o de chapéu arco-íris.
+		DisplayName: "Fungimante"
+		Epithet: "O Sábio Esporado"
+		Bestiary: "Um sapo que ficou tanto tempo sentado num cogumelo brilhante que a magia do cogumelo entrou nele, e quase nada além disso. Chovem cogumelos onde ele olha, luz de arco-íris corta o ar, e um arroto dele pode transformar você num sapo. Quando ele erguer as duas mãos, quebre o que cresce entre elas, ou tape os ouvidos. Só desperta quando alguém quebra o mais raro dos cogumelos: o de chapéu arco-íris."
+	}
+	Toadstool: {
+		DisplayName: "Sapo-Cogumelo"
+		Bestiary: "Um sapo verruguento dos campos de cogumelos brilhantes que cultiva um jardim nas costas. Salta em tudo que se move, e seus esporos deixam a mente girando; explode numa nuvem deles quando morre."
+	}
+	CrystalLizard: {
+		DisplayName: "Lagarto de Cristal"
+		Bestiary: "Um lagarto tímido das cavernas profundas, blindado de cristal vivo. Assuste-o e ele dispara; dê a ele cinco batidas de coração e some pela rocha, junto com tudo o que andou guardando."
+	}
+	Driller: {
+		DisplayName: "Perfurador"
+		Bestiary: "Um robô minerador que nunca parou de cavar. Rola atrás de tudo que se move, e quando uma parede ou um degrau atrapalha, simplesmente atravessa."
+	}
+	FloatyMushroom: {
+		DisplayName: "Cogumelo Flutuante"
+	}
+	OrbitMushroom: {
+		DisplayName: "Ovo de Sapo-Cogumelo"
+	}
+	ChannelMushroom: {
+		DisplayName: "Cogumelo Arco-Íris"
 	}
 }
 
@@ -1887,9 +1935,6 @@ Projectiles: {
 	}
 	CogspringSlam.DisplayName: Golpe Molamecânico
 	SmokerSmoke.DisplayName: Fuligem
-	SporeBolt.DisplayName: Esporo Mágico
-	ShroomSpike.DisplayName: Cogumelo Explosivo
-	FungimancerTongue.DisplayName: Língua do Fungimante
 
 	JadeRefractorBeam: {
 		DisplayName: Refrator de Jade
@@ -1905,6 +1950,24 @@ Projectiles: {
 
 	JadeSpiritBolt: {
 		DisplayName: Disparo de Jade
+	}
+	SporeCloud: {
+		DisplayName: "Nuvem de Esporos"
+	}
+	RainbowSpore: {
+		DisplayName: "Esporo Arco-Íris"
+	}
+	MushroomMissile: {
+		DisplayName: "Míssil de Cogumelo"
+	}
+	PolymorphBolt: {
+		DisplayName: "Arroto Transmutador"
+	}
+	RainbowLaser: {
+		DisplayName: "Laser Arco-Íris"
+	}
+	ChannelBlast: {
+		DisplayName: "Explosão Arco-Íris"
 	}
 }
 
@@ -2048,6 +2111,12 @@ Tiles: {
 		MapEntry: Mesa de Pesquisa Antiga
 	}
 	RainbowMushroomTile.MapEntry: Cogumelo Arco-íris
+	DemonTableTile: {
+		MapEntry: "Mesa Demoníaca"
+	}
+	EnemyBannerTile: {
+		MapEntry: "Estandarte"
+	}
 }
 
 WorldGen: {
@@ -2316,6 +2385,7 @@ Research: {
 		Mushroom: "{0} Cogumelos"
 		Potions: "{0} poções diferentes"
 		Foods: "{0} comidas diferentes"
+		VoodooDoll: "{0} {$ItemName.GuideVoodooDoll} ou {$ItemName.ClothierVoodooDoll}"
 	}
 	Nodes: {
 		TheBasics: {
@@ -2474,6 +2544,26 @@ Research: {
 			DisplayName: Bestiário de Jade
 			Description: Desbloqueia a criação da Moeda de Jade
 		}
+		LaceUp: {
+			DisplayName: "Amarre os Cadarços"
+			Description: "Desbloqueia a criação de {$ItemName.Aglet} e {$ItemName.AnkletoftheWind} num altar demoníaco"
+		}
+		UnholyCarpentry: {
+			DisplayName: "Marcenaria Profana"
+			Description: "Desbloqueia a criação da Mesa Demoníaca: um altar demoníaco para levar para casa"
+		}
+		BadLuckProtection: {
+			DisplayName: "Proteção contra Azar"
+			Description: "Desbloqueia a criação dos itens raros de um inimigo a partir do estandarte dele num altar demoníaco\n(um estandarte; dois para os itens mais raros)"
+		}
+		CrateExpectations: {
+			DisplayName: "Grandes Caixas-pectativas"
+			Description: "Desbloqueia a criação do equipamento de uma caixa a partir de 5 dessa caixa num altar demoníaco"
+		}
+		WhoIsHe: {
+			DisplayName: "Quem é ele?"
+			Description: "Alguém anda observando as pedras...\nO Último Ghedalari pode se mudar para o seu mundo"
+		}
 	}
 	Tasks: {
 		Angler5: "Cinco missões feitas para o Pescador"
@@ -2497,6 +2587,12 @@ Research: {
 		Event: "Primeira vitória sobre {0} neste mundo"
 		GlowingMushroom: "Encontrou um campo de cogumelos brilhantes"
 		DemonAltar: O primeiro altar demoníaco do mundo destruído
+		EvilHeart: "O primeiro Orbe das Sombras ou Coração Carmesim do mundo destruído"
+		Diamond: "Encontrou um diamante"
+		NewTownNPC: "Um novo tipo de morador se mudou"
+		NewTownNPCWho: "Um novo tipo de morador se mudou: {0}"
+		PlayerKill: "Derrotou outro jogador"
+		PiggyBank: "Guardou moedas num cofrinho"
 	}
 	Events: {
 		GoblinArmy: "o Exército Goblin"
@@ -2523,8 +2619,27 @@ Research: {
 		Combinator: "Um segredo ainda por revelar: funda uma arma no Combinador"
 		Stone: "Um segredo ainda por revelar: leia a Pedra Fundamental que traz este sigilo"
 		GemRobe: "Um segredo ainda por revelar: tenha um manto de gema"
+		EvilHeart: "Um segredo ainda por revelar: um Orbe das Sombras ou um Coração Carmesim precisa quebrar em algum lugar deste mundo"
+		Kills: "Um segredo ainda por revelar: derrote 300 inimigos"
+		KillsProgress: "Inimigos derrotados: {0} / {1}"
+		Crate: "Um segredo ainda por revelar: pesque uma caixa"
+		WhoIsHe: "Um segredo ainda por revelar: alguém precisa tocar uma Pedra Fundamental"
 	}
 	DoubleBrew: Poção em dobro!
 	Seasoned: Ingredientes poupados!
 	GemRobeGroup: "Qualquer Manto de Gema"
+	CoinCost: "Custa {0}"
+	Groups: {
+		Either: "{0} ou {1}"
+	}
+}
+
+Banners: {
+	Name: "Estandarte de {0}"
+	Tooltip: "Jogadores próximos recebem um bônus contra: {0}"
+}
+
+Equipment: {
+	SlotName: "Espaço Cogpunk"
+	SlotLocked: "Espaço Cogpunk (trancado)\nUma forma de destrancá-lo virá numa atualização futura"
 }

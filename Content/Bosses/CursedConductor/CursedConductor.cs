@@ -109,7 +109,9 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		public const float MeleeGap = 16f, MeleeLift = 4f;
 		// the drift (BossNPC's floaty rule, user 2026-11-17): px either way of his hover spot, at range and in his melee hover
 		public const float SwayX = 4f * 16f, BobY = 24f, MeleeSwayX = 12f, MeleeBobY = 8f;
-		public const float MeleeHoverSpeed = 12f, MeleeHoverAccel = 0.16f, MeleeApproach = 0.15f, MeleeSideSwitch = 24f;
+		// he eases into the melee hover over BossNPC.MeleeBlendTicks and tracks at BossNPC.MeleeTrackSpeed (user, 2026-11-25:
+		// "too abrupt ... slowly float into melee range"; he flew in at 12 px/tick with a 0.16 turn before)
+		public const float MeleeSideSwitch = 24f;
 		public const float FightRange = 125f * 16f;
 		public const int RespawnGraceTicks = 90;
 		public const int ResyncInterval = 60;
@@ -508,30 +510,25 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 		private Vector2 HoverSpot(Player target) {
 			float side = Side == 0f ? 1f : Side;
 			Vector2 focus = FloatFocus(target);
-			if (MeleeHover) {
-				float x = target.width * 0.5f + MeleeGap + NPC.width * 0.5f + DriftSway * MeleeSwayX;
-				return new Vector2(focus.X + side * x, focus.Y + target.height * 0.5f - MeleeLift - NPC.height * 0.5f + DriftBob * MeleeBobY);
-			}
-			return focus + new Vector2(side * HoverOffsetX + DriftSway * SwayX, HoverOffsetY + DriftBob * BobY);
+			float x = target.width * 0.5f + MeleeGap + NPC.width * 0.5f + DriftSway * MeleeSwayX;
+			Vector2 near = new(focus.X + side * x, focus.Y + target.height * 0.5f - MeleeLift - NPC.height * 0.5f + DriftBob * MeleeBobY);
+			Vector2 far = focus + new Vector2(side * HoverOffsetX + DriftSway * SwayX, HoverOffsetY + DriftBob * BobY);
+			return Vector2.Lerp(far, near, MeleeAmount);
 		}
 
+		/// <summary>Every side: he floats to his hover spot; into and out of the melee hover he slides over 1.5 s and tracks
+		/// slowly (BossNPC's melee approach, user 2026-11-25).</summary>
 		private void Drift(float speed) {
 			Player target = TargetPlayer;
 			FaceTarget();
 			if (target != null) {
-				MoveToward(HoverSpot(target), MeleeHover ? MeleeHoverSpeed : speed);
+				TickMeleeBlend(MeleeHover);
+				FloatSteer(HoverSpot(target), speed, HoverApproach, HoverAccel);
 			}
 			else {
+				TickMeleeBlend(false);
 				NPC.velocity *= 0.9f;
 			}
-		}
-
-		private void MoveToward(Vector2 spot, float maxSpeed) {
-			Vector2 to = spot - NPC.Center;
-			float distance = to.Length();
-			float approach = MeleeHover ? MeleeApproach : HoverApproach;
-			Vector2 want = distance > 1f ? to / distance * Math.Min(maxSpeed, distance * approach) : Vector2.Zero;
-			NPC.velocity += (want - NPC.velocity) * (MeleeHover ? MeleeHoverAccel : HoverAccel);
 		}
 
 		// --- the lantern: his main attack, every 1.5 s (a sub-action: it runs over the hover and the loop) ------------------

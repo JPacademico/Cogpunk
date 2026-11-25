@@ -3,16 +3,26 @@ namespace Cogpunk.Content.Bosses.Fungimancer
 {
 	/// <summary>The Fungimancer's grid sheets (game px, facing left): its far, middle and near planes and its glow, equal
 	/// cells in <see cref="Columns"/> columns with 2 px right of and under each; the origin is under its seat's middle.
-	/// Body*: its hitbox from the origin. Per frame, from the origin, facing left: NearX/NearY the raised hand (its spells
-	/// leave it); Mouth: the mouth's middle (the tongue leaves it); Throat: under the chin (the croak).</summary>
+	/// Body*: its hitbox from the origin. Per frame, from the origin, facing left: NearX/NearY the raised (far) hand's
+	/// fingertips (its spells leave them); Near2X/Near2Y the other hand (raised in the channel); Lift the breath (0/1 art
+	/// px the upper body is raised: the overlays follow it). Mouth: the mouth's middle (the burp leaves it). Overlays (the
+	/// burp's throat and mouth, the hypnotic eyes, the death's puff): their own cells and origins, drawn at the body's
+	/// origin; Burp and Eyes cells come in two rows, lift 0 then lift 1.</summary>
 	public static class FungimancerRigData
 	{
-		public const int CellWidth = 142, CellHeight = 118, OriginX = 74, OriginY = 114, Frames = 28, Columns = 4;
-		public const int Idle = 0, IdleFrames = 6, Cast = 6, CastFrames = 6, Croak = 12, CroakFrames = 5, Tongue = 17, TongueFrames = 3;
-		public const int Fizzle = 20, FizzleFrames = 2, Intro = 22, IntroFrames = 2, Death = 24, DeathFrames = 4;
+		public const int CellWidth = 146, CellHeight = 128, OriginX = 76, OriginY = 124, Frames = 36, Columns = 4;
+		public const int Idle = 0, IdleFrames = 6, Cast = 6, CastFrames = 6, Croak = 12, CroakFrames = 5, Fizzle = 17, FizzleFrames = 2;
+		public const int Intro = 19, IntroFrames = 2, Raise = 21, RaiseFrames = 2, Shake = 23, ShakeFrames = 4, Release = 27, ReleaseFrames = 1;
+		public const int Lower = 28, LowerFrames = 1, ArmsUp = 29, ArmsUpFrames = 3, Hold = 32, HoldFrames = 2, ArmsDown = 34, ArmsDownFrames = 2;
 		public const int BodyLeft = -54, BodyRight = 52, BodyTop = -94, BodyBottom = 0;
 		public const int MouthX = -16, MouthY = -78, ThroatX = -12, ThroatY = -70;
-		public static readonly short[] NearX = { -42, -44, -44, -44, -44, -42, -40, -42, -42, -46, -46, -44, -42, -42, -42, -42, -42, -42, -42, -42, -40, -38, -42, -42, -42, -42, -42, -42 };
-		public static readonly short[] NearY = { -102, -102, -106, -106, -102, -102, -100, -104, -108, -104, -100, -102, -102, -104, -104, -102, -102, -102, -104, -102, -100, -98, -102, -102, -102, -102, -102, -102 };
+		public const int BurpCellW = 54, BurpCellH = 38, BurpOriginX = 38, BurpOriginY = 86, BurpFrames = 5;
+		public const int EyeCellW = 34, EyeCellH = 14, EyeOriginX = 26, EyeOriginY = 96, EyeFrames = 8;
+		public const int PuffCellW = 168, PuffCellH = 152, PuffOriginX = 84, PuffOriginY = 144, PuffFrames = 8;
+		public static readonly short[] NearX = { -42, -44, -44, -44, -44, -42, -40, -42, -42, -46, -46, -44, -42, -42, -42, -42, -42, -40, -38, -42, -42, -42, -42, -42, -40, -42, -40, -46, -44, -42, -42, -42, -42, -42, -42, -44 };
+		public static readonly short[] NearY = { -102, -102, -106, -106, -102, -102, -100, -104, -108, -104, -100, -102, -102, -104, -104, -102, -102, -100, -98, -102, -102, -108, -112, -112, -112, -110, -110, -106, -102, -104, -110, -112, -112, -114, -106, -102 };
+		public static readonly short[] Near2X = { 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 44, 44, 44, 20, 20 };
+		public static readonly short[] Near2Y = { -46, -46, -48, -48, -46, -46, -46, -46, -48, -48, -46, -46, -46, -48, -48, -46, -46, -46, -46, -46, -46, -48, -48, -48, -48, -48, -48, -46, -46, -46, -48, -114, -114, -116, -46, -46 };
+		public static readonly byte[] Lift = { 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0 };
 	}
 }

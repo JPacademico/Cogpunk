@@ -50,6 +50,7 @@ namespace Cogpunk.Content.Junkyard.NPCs
 		}
 
 		public override void SetDefaults() {
+			Cogpunk.Content.Banners.EnemyBanners.SetBanner(this);         // its banner (2026-11-25)
 			NPC.width = 24;                                // vanilla slime size
 			NPC.height = 18;
 			NPC.aiStyle = NPCAIStyleID.Slime;

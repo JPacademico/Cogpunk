@@ -278,6 +278,7 @@ namespace Cogpunk.Content.Research.UI
 
 		private static Asset<Texture2D> frames;                  // ResearchNode.png: locked, available, researched (56 x 56, 2 apart)
 		private static Asset<Texture2D> runes;                   // the Fundamental Stones' glyphs (14 x 18 on a 16 px stride)
+		private static Asset<Texture2D>[] iconTextures;          // nodes' own icons (ResearchNode.IconTexture), by node index
 		private const int GlyphW = 14, GlyphH = 18, GlyphStride = 16;
 		private static readonly Color LinkDim = new(127, 135, 148), LinkLit = new(223, 185, 78);
 
@@ -485,7 +486,7 @@ namespace Cogpunk.Content.Research.UI
 				}
 				DrawNode(sb, px, r, state, over, k == flashNode ? flashTicks : 0);
 				Color tint = state == 0 ? new Color(120, 120, 130) : Color.White;
-				if (!DrawGlyph(sb, node.IconGlyph, r, tint)) {
+				if (!DrawIconTexture(sb, k, r, tint) && !DrawGlyph(sb, node.IconGlyph, r, tint)) {
 					ItemSlot.DrawItemIcon(icons[k], ItemSlot.Context.InventoryItem, sb, r.Center.ToVector2(), 1f, 32f, tint);
 				}
 			}
@@ -536,10 +537,36 @@ namespace Cogpunk.Content.Research.UI
 			return true;
 		}
 
+		/// <summary>A node's own icon texture (<see cref="ResearchNode.IconTexture"/>, 2x art, drawn at scale 1 on whole pixels in
+		/// the middle of its square); false when it has none or it is missing (the glyph or the item is drawn instead). Each is
+		/// asked for once, on clients, only when it exists (D0 rule 10).</summary>
+		private static bool DrawIconTexture(SpriteBatch sb, int k, Rectangle r, Color tint) {
+			var nodes = ResearchNodes.All;
+			if (k < 0 || k >= nodes.Count || nodes[k].IconTexture == null || Main.dedServ) {
+				return false;
+			}
+			if (iconTextures == null || iconTextures.Length != nodes.Count) {
+				iconTextures = new Asset<Texture2D>[nodes.Count];
+				for (int i = 0; i < nodes.Count; i++) {
+					string path = nodes[i].IconTexture;
+					iconTextures[i] = path != null && ModContent.HasAsset(path) ? ModContent.Request<Texture2D>(path) : null;
+				}
+			}
+			Asset<Texture2D> icon = iconTextures[k];
+			if (icon?.IsLoaded != true) {
+				return false;
+			}
+			Texture2D t = icon.Value;
+			Vector2 at = new((int)(r.Center.X - t.Width / 2f) & ~1, (int)(r.Center.Y - t.Height / 2f) & ~1);
+			sb.Draw(t, at, tint);
+			return true;
+		}
+
 		/// <summary>The static textures go with the mod (D0 rule 12; called by <see cref="ResearchUISystem.Unload"/>).</summary>
 		public static void UnloadAssets() {
 			frames = null;
 			runes = null;
+			iconTextures = null;
 		}
 
 		/// <summary>A node's square: the generated frame for its state (or a drawn one if the art is missing), lit on hover,
@@ -618,6 +645,9 @@ namespace Cogpunk.Content.Research.UI
 			if (node.Teaser && !r.Visible(node)) {
 				string hint = node.TeaserHint != null ? "Mods.Cogpunk.Research.Hints." + node.TeaserHint : "Mods.Cogpunk.Research.Teaser";
 				builder.Append("[c/DFB94E:???]").Append('\n').Append("[c/8A909A:").Append(Language.GetTextValue(hint)).Append(']');
+				if (node.TeaserProgress != null) {
+					builder.Append('\n').Append("[c/8A909A:").Append(node.TeaserProgress(Main.LocalPlayer).Replace("]", "")).Append(']');
+				}
 				return tip = builder.ToString();
 			}
 			builder.Append("[c/DFB94E:").Append(node.DisplayName.Value).Append(']').Append('\n');
@@ -644,6 +674,9 @@ namespace Cogpunk.Content.Research.UI
 				int have = r.CountItems(cost);
 				AddLine(Language.GetTextValue("Mods.Cogpunk.Research.Takes", Language.GetTextValue("Mods.Cogpunk.Research.Costs." + cost.LabelKey, cost.Count), have),
 					have >= cost.Count);
+			}
+			if (node.Coins > 0) {
+				AddLine(Language.GetTextValue("Mods.Cogpunk.Research.CoinCost", Main.ValueToCoins(node.Coins)), Main.LocalPlayer.CanAfford(node.Coins));
 			}
 			builder.Append('\n').Append(r.Check(node) == ResearchPlayer.Blocker.None
 				? "[c/8CE458:" + Language.GetTextValue("Mods.Cogpunk.Research.ClickToResearch") + "]"

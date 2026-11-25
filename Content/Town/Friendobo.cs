@@ -5,7 +5,6 @@ using Cogpunk.Content.Bosses.TarTyrant;
 using Cogpunk.Content.Bosses.TarTyrant.Summon;
 using Cogpunk.Content.Bosses.TrashTr0m;
 using Cogpunk.Content.Junkyard.Items;
-using Cogpunk.Content.MechArmy;
 using Cogpunk.Content.Scrap.Items;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Templates;
@@ -32,11 +31,12 @@ namespace Cogpunk.Content.Town
 	/// bartender robot) until 2026-11-24, and the Friendobô before 2026-11-11: the class, its textures and saves keep the old
 	/// name <c>Friendobo</c>, as Westworld keeps <c>OldBrassTown</c>. The Ghedalari are a seed of the mod's lore (more of
 	/// them to come, the user's: nothing more about them is decided here).
-	/// <para>He moves into a free house once the world has beaten the Mech Army (<see cref="CanTownNPCSpawn"/> reads its downed
-	/// flag, saved and synced by WorldFlagSystem). His shop is the Friendo-bot's: Rusted Cogs and Rusted Scrap at
-	/// <see cref="ScrapPrice"/> copper each (user-set), the Steam Injector, and each boss's summon once that boss has been
-	/// beaten (rule, user 2026-11-17: "make this a rule for every boss that we add": the Junkbait, the Scrapworm, the Cursed
-	/// Whistle, the Jade Incense, the Rainbow Mushroom), at the items' own value.</para>
+	/// <para>He moves into a free house once someone in the world has researched "Who is he?" in the Mystery of the Past (user,
+	/// 2026-11-25; <see cref="CanTownNPCSpawn"/> reads a world flag, saved and synced by WorldFlagSystem; the Mech Army's defeat
+	/// before). His shop is the Friendo-bot's: Rusted Cogs and Rusted Scrap at <see cref="ScrapPrice"/> copper each (user-set;
+	/// every shop's prices are +60% since 2026-11-25, <see cref="Economy.ShopPrices"/>), the Steam Injector, and each boss's
+	/// summon once that boss has been beaten (rule, user 2026-11-17: "make this a rule for every boss that we add": the
+	/// Junkbait, the Scrapworm, the Cursed Whistle, the Jade Incense, the Rainbow Mushroom), at the items' own value.</para>
 	/// <para>Vanilla's townsfolk in every respect (ExampleMod 1.4.4's <c>ExamplePerson</c>): vanilla's town AI and the Guide's
 	/// frame rules over a 25-frame sheet at vanilla's density (art/town/make_ghedalari_art.py: standing, in the air, 14
 	/// walking frames, the two chat gestures, sitting, talking, blinking, a 4-frame throw); he throws javelins when enemies come
@@ -126,7 +126,11 @@ namespace Cogpunk.Content.Town
 			});
 		}
 
-		public override bool CanTownNPCSpawn(int numTownNPCs) => ModContent.GetInstance<MechArmyInvasion>().Downed;
+		/// <summary>He comes only once someone in the world has researched "Who is he?" in the Mystery of the Past (user,
+		/// 2026-11-25: "the last ghedalari can only appear after unlocking a node on the mystery of the past tab"; a world flag the
+		/// server sets, <see cref="Research.ResearchWorld.GhedalariInvited"/>). The Mech Army's defeat was the condition before;
+		/// one who already lives in an older world stays, and after a death he comes back only on the same terms.</summary>
+		public override bool CanTownNPCSpawn(int numTownNPCs) => Research.ResearchWorld.GhedalariInvited;
 
 		/// <summary>His two looks (vanilla picks by the synced <c>townNpcVariationIndex</c>: 1 once shimmered); no party texture
 		/// (vanilla then draws the party hat on the plain one). Built once; a client without the shimmered sheet keeps the

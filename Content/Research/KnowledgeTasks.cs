@@ -42,6 +42,24 @@ namespace Cogpunk.Content.Research
 		/// knowledge point globally"): every player in the world, once per character (<see cref="ResearchWorld"/>).</summary>
 		public const string DemonAltar = "DemonAltar";
 
+		// 2026-11-25 (user: "add some more knowledge point rewards")
+		/// <summary>"after breaking a crimsom or corruption heart on the world (globaly)": the world's first Shadow Orb or Crimson
+		/// Heart smashed (vanilla's <c>WorldGen.shadowOrbSmashed</c>), every player in the world (<see cref="ResearchWorld"/>).</summary>
+		public const string EvilHeart = "EvilHeart";
+		/// <summary>"after geting a diamond for the first time": a Diamond picked up or in the inventory.</summary>
+		public const string Diamond = "Diamond";
+		/// <summary>A kind of townsfolk moving into the world for the first time (user, 2026-11-25: "its one time per new npc (not
+		/// counting the guide), for example: the first time a nurse comes, the first time a driad comes and so on. ensure no
+		/// exploits and dont count the traveling merchant"): one point per kind, to every player in the world as it arrives, once
+		/// per character (the key names the kind); the world remembers every kind that has lived in it, so a respawn never
+		/// counts (<see cref="ResearchWorld"/>).</summary>
+		public static string TownNPC(int type) => "TownNPC:" + NameOf(type);
+
+		/// <summary>"after killing another player for the first time (individual)".</summary>
+		public const string PlayerKill = "PlayerKill";
+		/// <summary>"putting coins on the piggy bank for the first time (individualy)".</summary>
+		public const string PiggyBank = "PiggyBank";
+
 		/// <summary>A boss or mini-boss by its canonical NPC type (the Twins and the Eater of Worlds count once).</summary>
 		public static string Boss(int type) => "Boss:" + NameOf(type);
 

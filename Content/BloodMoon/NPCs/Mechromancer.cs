@@ -81,7 +81,9 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 		// the floaty rule (user, 2026-11-18: "yes the mechromancer should follow the floaty rules"; BossNPC's numbers): a lagged
 		// follow, a slow sway and bob round its spot, and a close hover within a blade's reach of a melee fighter
 		public const float SwayX = 3f * 16f, BobY = 20f, MeleeSwayX = 12f, MeleeBobY = 8f;
-		public const float MeleeGap = 14f, MeleeLift = 6f, MeleeFloatSpeed = 6f;
+		// a melee fighter gets it close, eased in over BossNPC.MeleeBlendTicks and tracked at BossNPC.MeleeTrackSpeed (user,
+		// 2026-11-25: "too abrupt ... slowly float into melee range"; it rushed in at 6 px/tick before)
+		public const float MeleeGap = 14f, MeleeLift = 6f;
 		public const float SpellRange = 40f * 16f;
 		public const int GraveOffsetTiles = 6, GraveJitterTiles = 2, GroundSearchTiles = 16;
 		public const int LostTargetTicks = 180;
@@ -104,6 +106,7 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 		private Vector2 focus;
 		private int focusTarget = -1;
 		private int driftClock;
+		private float meleeBlend;                           // 0..1 into the melee hover (BossNPC's melee approach), synced
 
 		protected override int CellWidth => R.CellWidth;
 		protected override int CellHeight => R.CellHeight;
@@ -190,12 +193,14 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 		public override void SendExtraAI(System.IO.BinaryWriter writer) {
 			base.SendExtraAI(writer);
 			writer.Write(driftClock);
+			writer.Write((byte)Math.Clamp((int)MathF.Round(meleeBlend * 255f), 0, 255));
 		}
 
 		public override void ReceiveExtraAI(System.IO.BinaryReader reader) {
 			base.ReceiveExtraAI(reader);
 			int clock = reader.ReadInt32();
 			driftClock = clock >= 0 && clock < BossNPC.DriftPeriodX * BossNPC.DriftPeriodY ? clock : 0;
+			meleeBlend = reader.ReadByte() / 255f;
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
@@ -273,30 +278,34 @@ namespace Cogpunk.Content.BloodMoon.NPCs
 		/// <summary>Every side: eases towards its spot beside the target (the side it is on), slowly, through walls. The floaty
 		/// rule (2026-11-18): the spot hangs round a point that follows the target with a lag (<see cref="BossNPC.FocusFollow"/>)
 		/// and sways and bobs (<see cref="BossNPC.DriftPeriodX"/>, <see cref="BossNPC.DriftPeriodY"/>; its clock synced in its
-		/// ExtraAI); a melee fighter (<see cref="MeleeFocus"/>) gets it close, within a blade's reach, faster.</summary>
+		/// ExtraAI); a melee fighter (<see cref="MeleeFocus"/>) gets it close, within a blade's reach: it slides in over 1.5 s and
+		/// tracks slowly (BossNPC's melee approach, user 2026-11-25: "slowly float into melee range and keep traking slowly").</summary>
 		private void Drift(Player target) {
 			driftClock = (driftClock + 1) % (BossNPC.DriftPeriodX * BossNPC.DriftPeriodY);
+			bool melee = target != null && MeleeFocus.Of(target);
+			meleeBlend = MathHelper.Clamp(meleeBlend + (melee ? 1f : -1f) / BossNPC.MeleeBlendTicks, 0f, 1f);
 			if (target == null) {
 				NPC.velocity *= 0.95f;
 				return;
 			}
+			float m = meleeBlend * meleeBlend * (3f - 2f * meleeBlend);          // eased, as BossNPC.MeleeAmount
 			if (focusTarget != target.whoAmI || !float.IsFinite(focus.X) || !float.IsFinite(focus.Y)) {
 				focusTarget = target.whoAmI;
 				focus = target.Center;
 			}
-			focus += (target.Center - focus) * BossNPC.FocusFollow;
+			focus += (target.Center - focus) * MathHelper.Lerp(BossNPC.FocusFollow, BossNPC.MeleeFocusFollow, m);
 			float sway = MathF.Sin(driftClock * MathHelper.TwoPi / BossNPC.DriftPeriodX);
 			float bob = MathF.Sin(driftClock * MathHelper.TwoPi / BossNPC.DriftPeriodY + MathHelper.PiOver2);
 			float side = NPC.Center.X < focus.X ? -1f : 1f;
-			bool melee = MeleeFocus.Of(target);
-			Vector2 goal = melee
-				? new Vector2(focus.X + side * (target.width * 0.5f + MeleeGap + NPC.width * 0.5f + sway * MeleeSwayX),
-					focus.Y + target.height * 0.5f - MeleeLift - NPC.height * 0.5f + bob * MeleeBobY)
-				: focus + new Vector2(side * KeepX + sway * SwayX, -KeepY + bob * BobY);
-			float speed = melee ? MeleeFloatSpeed : FloatSpeed;
+			Vector2 near = new(focus.X + side * (target.width * 0.5f + MeleeGap + NPC.width * 0.5f + sway * MeleeSwayX),
+				focus.Y + target.height * 0.5f - MeleeLift - NPC.height * 0.5f + bob * MeleeBobY);
+			Vector2 far = focus + new Vector2(side * KeepX + sway * SwayX, -KeepY + bob * BobY);
+			Vector2 goal = Vector2.Lerp(far, near, m);
+			float speed = MathHelper.Lerp(FloatSpeed, BossNPC.MeleeTrackSpeed, m);
+			float turn = MathHelper.Lerp(FloatAccel * 4f, BossNPC.MeleeTrackAccel, m);
 			Vector2 to = goal - NPC.Center;
 			Vector2 want = to.LengthSquared() > 64f ? to.SafeNormalize(Vector2.Zero) * Math.Min(speed, to.Length() * 0.08f + 0.4f) : Vector2.Zero;
-			NPC.velocity = Vector2.Lerp(NPC.velocity, want, FloatAccel * 4f);
+			NPC.velocity = Vector2.Lerp(NPC.velocity, want, turn);
 			if (NPC.velocity.LengthSquared() > speed * speed) {
 				NPC.velocity = NPC.velocity.SafeNormalize(Vector2.Zero) * speed;
 			}

@@ -1,729 +1,750 @@
 # Graph Report - .  (2026-11-24)
 
 ## Corpus Check
-- 323 files · ~4,108,021 words
+- 104 files · ~4,167,512 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 13614 nodes · 25683 edges · 972 communities (604 shown, 368 thin omitted)
-- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 3138 edges (avg confidence: 0.78)
-- Token cost: 501,510 input · 0 output
+- 14215 nodes · 26582 edges · 1006 communities (623 shown, 383 thin omitted)
+- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 3224 edges (avg confidence: 0.78)
+- Token cost: 398,041 input · 0 output
 
 ## Community Hubs (Navigation)
-- bosses trashtr0m: make_trashtr0m_art.py
-- tartyrant previous: Ellipse
-- Mechanist Weapons: Cogpunk.Core.Templates
-- art oldbrasstown: face()
-- jadey previous: dome()
-- oldbrasstown previous: make_sheriff_art_2026-11-04.
-- bosses trashtr0m: Canvas
-- jadey previous: .finish()
-- junkyard previous: make_tar_weapons_2026-11-03.
-- OldBrassTown NPCs: Cogpunk.Core.Systems
-- Coghaven Items: CogpunkItem
-- Mechanist Armor: CogpunkItem
-- tools sim: update_2026_11_10_sim.py
-- tools sim: update_2026_11_11b_sim.py
-- Bosses Jadey: Jadey
-- tools sim: tartyrant_sim.py
-- Bosses TrashTr0m: TrashTr0m
-- bloodmoon previous: Xf
-- art junkyard: make_tar_weapons.py
-- underworld previous: Union
-- Bosses CursedConductor: CursedConductor
-- tools sim: trashtr0m_loot_sim.py
-- bosses jadey: make_jadey_loot_art.py
-- tools sim: Town
-- TrashTr0m Projectiles: CogpunkProjectile
-- Jadey Weapons: Cogpunk.Content.Bosses.Jadey
-- tools promo: View
-- bosses cursedconductor: Canvas
-- OldBrassTown Items: Cogpunk.Content.OldBrassTown
-- Jadey Buffs: CogpunkBuff
-- art ocean: Poly
-- BloodMoon Projectiles: .TryNewDust()
-- tools sim: mech_army_sim.py
-- Mechanist Weapons: CogspringSword
-- art dungeon: flat()
-- cursedconductor previous: box()
-- Bosses TarTyrant: TarTyrant
-- Fungimancer Projectiles: CogpunkProjectile
-- Junkyard Generation: Cogpunk.Core.WorldGeneration
-- cursedconductor previous: make_conductor_art_2026-11-0
-- junkyard previous: make_tar_weapons_2026-10-30.
-- Bosses Fungimancer: Fungimancer
-- Jungle NPCs: RhinoBeetle
-- Junkyard Weapons: Cogpunk.Content.Junkyard.Wea
-- Research: ResearchPlayer
-- art coghaven: make_coghaven_art.py
-- sim previous: update_2026_11_11_sim_2026-1
-- sim previous: Ruins
-- cursedconductor previous: make_conductor_art_2026-11-0 (2)
-- Bosses TrashTr0m: TrashTr0m (2)
-- OldBrassTown NPCs: Sheriff
-- jadey previous: make_jadey_art_2026-11-17.py
-- jadey previous: make_jadey_art_2026-11-18.py
-- art coghaven: make_buddha_head_art.py
-- art mecharmy: make_mecharmy_art.py
-- MechArmy NPCs: AlarmoboMinion
-- Secrets Generation: FundamentalRuinsPass
-- tools sim: Planes
-- tools sim: update_2026_11_12_sim.py
-- art scrap: Canvas
-- Coghaven Walls: CogpunkWall
-- BloodMoon Projectiles: .TryNewProjectile()
-- Coghaven Generation: CoghavenPass
-- Dungeon NPCs: BeatBoxer
-- art coghaven: make_jade_golem_art.py
-- Scrap Pets: Junkbait.cs
-- town previous: P()
-- Jadey Projectiles: JadeCursePlayer
-- Junkyard Tar: ScrapImpact
-- Combinator Combination: CombinedProjectile
-- tools sim: update_2026_11_05_sim.py
-- cursedconductor previous: make_conductor_art_2026-11-0 (3)
-- bosses fungimancer: make_fungimancer_art.py
-- tools sim: trashtr0m_sim.py
-- tools sim: update_2026_11_09_sim.py
-- coghaven previous: make_jade_golem_art_v2_2026-
-- Bosses CursedConductor: CursedConductor (2)
-- TarTyrant Items: SereneTear
-- Bosses TarTyrant: TarTyrant (2)
-- Underworld NPCs: DragoneteMiudo
-- tools promo: make_teaser.py
-- art coghaven: Plan
-- Scrap Minions: MiceBotMinion
-- Combinator Combination: Cogpunk.Content.Combinator.C
-- Mechanist Weapons: DiamondCutterBeam
-- Research UI: ResearchTreeView
-- tools promo: stage.py
-- art jungle: make_rhino_beetle_art.py
-- Core Events: CogpunkInvasion
-- CursedConductor Projectiles: GhostTrain.cs
-- MechArmy NPCs: AnnoyOTron.cs
-- Scrap Armor: AnimatedEquip
-- tools sim: update_2026_11_04b_sim.py
-- art junkyard: make_junkyard_loot.py
-- Combinator UI: CombinatorUI
-- BloodMoon NPCs: Mechromancer
-- Core Combat: ModPlayer
-- Coghaven NPCs: JadeGolem
-- tools sim: Beetle
-- Combinator: ModSystem
-- tools sim: tar_weapons_sim.py
-- art scrap: make_scrap_art.py
-- MechArmy NPCs: Jaeger
-- Core Templates: GridWalkerNPC
-- Scrap Weapons: ScrapBombProjectile
-- Scrap NPCs: DeliveryDrone
-- Research: ResearchNodes
-- TrashTr0m Weapons: Tr0mheadSentry
-- Combinator Combination: CombinedWeapon
-- Combinator Combination: MysteriousMapArrowLayer
-- OldBrassTown Generation: OldBrassTownPass
-- Research Items: AncientResearchTableTile
-- tools promo: .__init__()
-- tools sim: jadey_loot_sim.py
-- tools sim: scene_intro()
-- tools sim: update_2026_11_05b_sim.py
-- coghaven previous: make_jade_golem_art_v1_2026-
-- Coghaven NPCs: FlyingBuddhaHead
-- tools sim: terrain.py
-- tools sim: update_2026_11_18_sim.py
-- fungimancer previous: Frame
-- bosses jadey: make_jadey_art.py
-- Combinator: FirstDropCondition
-- Research: CalcifiedBone
-- Bosses TrashTr0m: Cogpunk.Content.Bosses.Trash
-- Mechanist: SteamPlayer
-- Secrets: FundamentalStoneTile
-- art bloodmoon: make_mechromancer_art.py
-- bosses tartyrant: make_tartyrant_art.py
-- art oldbrasstown: gun()
-- coghaven previous: make_imperial_defender_art_v
-- dungeon previous: make_beatboxer_art_2026-11-0
-- Core WorldGeneration: .Warn()
-- Bosses TarTyrant: TarTyrantRigData
-- Combinator Combination: CombinatorTrait
-- Combinator UI: CombinatorUISystem
-- Mechanist Weapons: Firesaw
-- Core Visuals: SmokeTrails
-- coghaven previous: make_jade_fox_art_2026-11-18
-- art mechanist: make_mechanist_art.py
-- Core Visuals: .RequestOptional()
-- CursedConductor Projectiles: GhostTrain
-- Bosses Jadey: JadeySummon
-- TrashTr0m Weapons: TetanusProjectile
-- Ocean NPCs: Cogtuna
-- Ruins Tiles: FundamentalGlyphTile
-- Core Templates: BossNPC
-- jadey previous: make_jadey_loot_art_2026-11-
-- Junkyard Weapons: TarSlimeMinion
-- Mechanist: MechanistPrefix
-- art rain: make_splasher_art.py
-- coghaven previous: Plan
-- coghaven previous: Plan (2)
-- coghaven previous: Plan (3)
-- coghaven previous: Plan (4)
-- Core Safety: SafeLog
-- Core Systems: WorldFlagSystem
-- Coghaven: CoghavenSystem
-- Gems: JadeCurseNPC
-- Junkyard Weapons: MetalWrench
-- OldBrassTown NPCs: MechanicalBull
-- Rain NPCs: Splasher
-- Ruins Tiles: FundamentalArenaRuneTile
-- tools promo: plates.py
-- tools sim: Island
-- tools sim: Ruins
-- art coghaven: make_cogscorpion_art.py
-- art underworld: make_dragonete_art.py
-- TarTyrant Projectiles: TarTyrantGlob
-- Bosses TrashTr0m: TrashTr0mSummon
-- Coghaven NPCs: Cogscorpion
-- Coghaven Tiles: CoghavenChestTile
-- Desert NPCs: Coghawk
-- Furniture: ScrappyTrunkTile
-- Core Combat: MeleeGear
-- OldBrassTown Minions: SheriffStarMinion
-- tools sim: coghaven_sim.py
-- art templates: Pix
-- tools sim: Planes (2)
-- art oldbrasstown: make_oldbrasstown_art.py
-- art research: make_research_art.py
-- research previous: make_research_art_2026-11-19
-- art town: make_friendobo_art.py
-- Coghaven Pets: .ChangeState()
-- Junkyard Generation: JunkyardPass
-- Mechanist Accessories: SteamContainer
-- Research: PlacedOres
-- Scrap Weapons: ScrappyBow
-- Ruins Items: FundamentalBrick
-- Town: Friendobo
-- Core Events: InvasionRules
-- coghaven previous: make_imperial_defender_art_v (2)
-- art gems: make_jade_art.py
-- oldbrasstown previous: make_oldbrasstown_art_2026-1
-- rain previous: make_splasher_art_2026-11-03
-- rain previous: make_splasher_art_2026-11-04
-- Research: CogpunkPacket
-- Bosses Fungimancer: FungimancerSystem
-- Bosses Jadey: JadeShaperPlayer
-- Core Safety: .TryGetTile()
-- Combinator Combination: CombinationRules
-- Junkyard Weapons: TyrantSkullBolt
-- Mechanist Buffs: StunnedNPC
-- Mechanist: SteamDashPlayer
-- MechArmy NPCs: AnnoyOTron
-- Secrets: FundamentalRuinsSystem
-- fungimancer previous: make_fungimancer_art_2026-11
-- bosses tartyrant: frame()
-- art coghaven: make_coghaven_chests_art.py
-- coghaven previous: make_jade_fox_art_2026-11-18 (2)
-- Dungeon Items: SpringGloves
-- Bosses Jadey: Jadey boss
-- Jadey Projectiles: JadeyRopeDart
-- Jadey Weapons: FireworkRocket
-- Combinator Items: TheCombinator.cs
-- Gems Items: Cogpunk.Content.Gems.Items
-- Jungle NPCs: Trapper
-- Junkyard NPCs: LivingTar
-- Manuals: CraftingManual
-- OldBrassTown NPCs: BrassBandit
-- OldBrassTown NPCs: Dinamitrom
-- Underground NPCs: PuxaFrango
-- tools promo: Particles
-- bosses tartyrant: mass()
-- art coghaven: make_jade_fox_art.py
-- art combinator: make_combinator_art.py
-- gems previous: make_jade_art_2026-11-09.py
-- gems previous: make_jade_art_2026-11-10.py
-- art secrets: make_fundamental_ruins_art.p
-- BloodMoon NPCs: MechromancerThrall
-- tools sim: armor_preview.py
-- docs media: Steam Tank (base capacity 0 
-- bloodmoon previous: make_cogsqueleton_art_2026-1
-- bosses jadey: make_incense_mace_art.py
-- coghaven previous: make_buddha_head_art_v1_2026
-- coghaven previous: Tube
-- secrets previous: make_fundamental_ruins_art_2
-- Ocean NPCs: Cogtuna.cs
-- CursedConductor Weapons: GhostTrainEngine
-- Bosses Jadey: JadeyMinion
-- Jadey Weapons: JadeGlaiveSlash
-- Bosses TrashTr0m: TrashTr0mPlayer
-- TrashTr0m Weapons: ScrapLauncherBall
-- Junkyard Weapons: Macuahuitl
-- Core Systems: MetalClash
-- Junkyard Weapons: MetalWrenchPlayer
-- Scrap Pets: ScrappybotPet
-- art desert: make_coghawk_art.py
-- art mechanist: make_firesaw_art.py
-- Core UI: BiomeTitleSystem
-- Scrap Generation: ScrapMoundPass
-- OldBrassTown: MechArmyInvasion
-- Coghaven Items: Coghaven (floating jade pala
-- TarTyrant NPCs: TarTyrantBubble
-- TarTyrant Projectiles: TarTyrantClaw
-- OldBrassTown: JunkyardBiome
-- Coghaven Projectiles: JadeRay
-- Junkyard NPCs: RustCollector
-- Mechanist Weapons: SmokerSmoke
-- OldBrassTown Weapons: SheriffsRevolver
-- Ruins Tiles: FundamentalSealTile
-- sim previous: Ruins (2)
-- tools sim: Player
-- Manuals Items: CraftingManual
-- bosses tartyrant: claw()
-- coghaven previous: make_jade_fox_art_2026-11-19
-- OldBrassTown Tiles: Cogpunk.Content.OldBrassTown
-- BloodMoon Projectiles: PossessedCogYoyo
-- TrashTr0m Buffs: TetanusContactNPC
-- Combinator Combination: CombinedSprites
-- OldBrassTown Tiles: BrassStrongboxTile
-- Junkyard: JunkyardSystem
-- Junkyard Weapons: TarShower
-- Mechanist: MechanistWeapon
-- Mechanist Weapons: CogLauncherCog
-- Mechanist Weapons: TrapperChainProjectile
-- Core Combat: SwingPose
-- Core Systems: MapTargetSystem
-- tools sim: update_2026_11_10b_sim.py
-- SETUP: Cogpunk Technical Setup
-- bosses jadey: Ell
-- Coghaven Tiles: CogpunkTile
-- Jadey Weapons: JadeGlaiveThrown
-- Bosses TarTyrant: .DoRage()
-- Gems Projectiles: JadeBolt
-- OldBrassTown Generation: OldBrassTownChests
-- Core UI: BossTitleSystem
-- bosses cursedconductor: make_train_whistle_art.py
-- cursedconductor previous: make_train_whistle_art_2026-
-- bosses tartyrant: make_tyrant_armor.py
-- coghaven previous: make_jade_fox_art_2026-11-18 (3)
-- art junkyard: make_tar_art.py
-- art mecharmy: make_jaeger_armor.py
-- OldBrassTown: OldBrassTownSystem
-- OldBrassTown Generation: .BuildStreet()
-- skills cogpunk-dev: cogpunk-dev skill (operating
-- Rain Projectiles: SplasherWater
-- CursedConductor Weapons: SoulFire
-- Jadey NPCs: JadeBat
-- Jadey Weapons: JadeCursedGlaives
-- Desert Weapons: CaktiSpike
-- MechArmy Projectiles: BoombotBlast
-- OldBrassTown Weapons: SheriffsBullet
-- Research Weapons: BanditsDream
-- Ruins Tiles: FundamentalArenaBrickTile
-- tools sim: Conductor
-- Coghaven: ScrapwormFishing
-- mechanist previous: make_firesaw_art_2026-11-10.
-- art secrets: pixkit.py
-- CLAUDE: Cogpunk CLAUDE.md project ru
-- Jadey Items: JadeyBag
-- Jadey Projectiles: JadeCoin
-- Jadey Weapons: IncenseAura
-- Jadey Weapons: GlobalNPC
-- TarTyrant Projectiles: TarTyrantBackBone
-- TarTyrant Projectiles: TarTyrantBoneSpike
-- Core Networking: CogpunkPacket
-- Junkyard: JunkyardSpawnRules
-- Junkyard Projectiles: TarGlob
-- MechArmy Items: CogpunkerManual
-- Mechanist Weapons: BarrelGunFish
-- Mechanist Weapons: FiresawLayer
-- OldBrassTown Accessories: RedClothPlayer
-- OldBrassTown Projectiles: DinamitromBlast
-- Research: ResearchWorld
-- Scrap Armor: ScrapHelmet
-- Core Events: InvasionProgressBar
-- bosses jadey: user_art.py
-- tartyrant previous: make_tyrant_armor_2026-10-29
-- coghaven previous: make_jade_fox_art_2026-11-18 (4)
-- coghaven previous: make_jade_fox_art_2026-11-23
-- art oldbrasstown: make_red_cloth_art.py
-- art oldbrasstown: make_strongbox_art.py
-- Bosses Fungimancer: Fungimancer boss
-- Jadey Weapons: JadeShaperWhipProjectile
-- Coghaven Generation: CoghavenSitePass
-- Coghaven Tiles: Coghaven jade/bronze/cinnaba
-- Combinator Combination: CombinedAltPlayer
-- Core Templates: CogpunkNPC
-- Junkyard Weapons: TarShowerBigGlob
-- Junkyard Weapons: TarSpray
-- Mechanist: SteamGaugeSystem
-- MechArmy NPCs: RogueMiceBot
-- Rain NPCs: Splasher.cs
-- Research Weapons: BundledGemBolt
-- tools sim: scrap_arsenal_sim.py
-- art bloodmoon: make_possessed_cog_art.py
-- CursedConductor Projectiles: ConductorFlame
-- CursedConductor Weapons: GhostTrainWagon
-- Bosses Fungimancer: Fungimancer.cs
-- Jadey Weapons: IncenseMace
-- TarTyrant Armor: Cogpunk.Content.Bosses.TarTy
-- TrashTr0m Weapons: ScrapLauncher
-- TrashTr0m Weapons: Tetanus
-- Coghaven: CoghavenSpawnRules
-- Coghaven NPCs: JadeGolem (2)
-- Coghaven Tiles: LiftTurbineTile
-- Combinator Items: CombinatorBlueprint
-- Desert Items: ChickenSnapper
-- Desert Weapons: Cakti
-- Gems Items: JadeRobe
-- Junkyard Generation: ShimmerPlacementPass
-- Junkyard Tar: TarPlague
-- Junkyard Weapons: TarShowerGlob
-- Junkyard Weapons: TarSlimeShot
-- Junkyard Weapons: TarWhipProjectile
-- Mechanist Weapons: CogLauncherLayer
-- MechArmy Minions: Alarmobo minion sprite sheet
-- OldBrassTown Items: LawHat
-- Research Weapons: BanditsSlash
-- Scrap Armor: ScrapArmorPlayer
-- Core Systems: NPCHaste
-- jadey previous: slash_pose()
-- bosses tartyrant: near_arm()
-- coghaven previous: make_jade_fox_art_2026-11-19 (2)
-- art templates: Poly
-- CursedConductor NPCs: ConductorGhost
-- Fungimancer Items: FungimancerBag
-- TarTyrant Armor: Tyrant Skull helmet item ico
-- TarTyrant Armor: TyrantClaw
-- docs media: Trash-Tr0m Loot PNG
-- TrashTr0m Weapons: Scrapmancer
-- Combinator Combination: .TrySprite()
-- Gems Items: JadePhaseblade
-- Gems Items: JadePhasesaber
-- Jungle Projectiles: TrapperSpikeBall
-- Junkyard Weapons: TarShowerCharge
-- Mechanist Weapons: BarrelGun
-- MechArmy Armor: JaegerArmorPlayer
-- OldBrassTown Weapons: RevolverCylinderLayer
-- Scrap Minions: MiceBot
-- Scrap Weapons: ScrappyWand
-- Secrets: FundamentalStoneReading
-- docs media: Junkyard Tar Sprites Visual 
-- tools sim: update_2026_11_18c_sim.py
-- bosses tartyrant: gore_images()
-- bosses tartyrant: femur_back_xf()
-- art scaffold: make_scaffold_art.py
-- art scrap: make_delivery_drone_art.py
-- README: README.md (Cogpunk overview)
-- CursedConductor Weapons: CursedLantern
-- TarTyrant Armor: TyrantSkull
-- Combinator UI: CombinatorPlayer
-- Furniture: .Generate()
-- Gems Items: JadeStaff
-- Junkyard Tar: .Contains()
-- Junkyard Tar: TarPlagueNPC
-- Junkyard Tar: TarPlayer
-- Junkyard Tar: TarWaterStyle
-- Junkyard Weapons: TarBoneStaff
-- Junkyard Weapons: TarStain
-- Mechanist: SteamRocketBootsTooltip
-- MechArmy Armor: JaegerHelmet
-- MechArmy Minions: AlarmHead
-- OldBrassTown Minions: SheriffBadge
-- Research Weapons: BundleOfWands
-- Scrap Armor: ScrapCogProjectile
-- Scrap NPCs: DeliveryDroneSystem
-- Secrets: FundamentalRuinsSpawnRules
-- docs media: Trash-Tr0m sprite sheet proo
-- Core Hooks: SlowMotionHooks
-- tools sim: scrap_bomb_sim.py
-- docs media: Mech Army enemy sprite sheet
-- README: Content Scope
-- art mechanist: make_cogspring_art.py
-- TarTyrant Summon: CogpunkNPC
-- docs media: Pixel-art study before/after
-- BloodMoon NPCs: Mechromancer.cs
-- CursedConductor Items: CursedWhistle
-- Jadey Weapons: FireworkCannon
-- Bosses TarTyrant: .TouchesSilhouette()
-- Junkyard Weapons: Tarmancer
-- Junkyard Weapons: TarWhipDebuff
-- Mechanist Armor: Polished Chestplate (invento
-- Mechanist Weapons: CogLauncher
-- Mechanist Weapons: MechanistWeapon
-- Research: KnowledgeTasks
-- Underground Generation: .Generate()
-- Core Events: InvasionDirector
-- docs design: Pixel-art study vs vanilla N
-- tools sim: scrappybot_sim.py
-- tools: check_tile_seams.py
-- tools sim: scrap_cog_volley_sim.py
-- tools: check_detail.py
-- tools: check_flicker.py
-- SETUP: check_sprite.py
-- bosses tartyrant: bubble_frame()
-- art mechanist: make_steam_injector_art.py
-- OldBrassTown Minions: SheriffStarMinion.cs
-- CursedConductor Buffs: ConductorCurse
-- CursedConductor Items: LostSoulsPlayer
-- CursedConductor Projectiles: GhostRift
-- CursedConductor Weapons: .Shoot()
-- Bosses Jadey: JadeySystem
-- TarTyrant Armor: TyrantArmorPlayer
-- TarTyrant Armor: TyrantCape
-- Bosses TarTyrant: TarTyrantSystem
-- Coghaven Generation: CoghavenChests
-- Coghaven NPCs: FlyingBuddhaHead.cs
-- Dungeon Items: SpringGlovesPlayer
-- Junkyard Weapons: MetalWrenchSmearLayer
-- Manuals: ManualPlayer
-- Mechanist Stations: SteamInjector
-- Mechanist Stations: SteamInjectorTile
-- Research: ResearchRecipes
-- Scrap Weapons: ScrewdriverProjectile
-- Core Systems: CogpunkSets
-- Core Visuals: CinematicCamera
-- docs media: Junkyard Tar Visual Proof GI
-- docs media: D5 visual proof for 2026-10-
-- tools sim: Train
-- skills cogpunk-dev: Boss-Fight Rules
-- art junkyard: make_junkyard_art.py
-- art mechanist: make_diamond_cutter_art.py
-- mechanist previous: make_firesaw_art_2026-11-09.
-- art mecharmy: make_mecharmy_sounds.py
-- Assets Textures: Scaffold Icons Preview
-- Scrap Generation: ScrapNodePass
-- OldBrassTown Gores: MechanicalBull.cs
-- Bosses CursedConductor: .ReadDrift()
-- Bosses CursedConductor: .WriteDrift()
-- CursedConductor Weapons: CursedTrainWhistle
-- CursedConductor Weapons: .AI()
-- Fungimancer Items: RainbowMushroom
-- Coghaven Pets: Jade Fox pet spritesheet (fe
-- Coghaven Pets: JadeToken
-- Furniture: BuffStationRules
-- Gems Generation: JadeGemPass.cs
-- Junkyard Generation: .Generate()
-- Junkyard Weapons: MetalWrenchGuard
-- Mechanist: .AddNoTankLine()
-- Mechanist Accessories: PolishedCog
-- Mechanist Armor: BrassChestplate
-- Mechanist Armor: BrassGreaves
-- Mechanist: SteamRocketPlayer
-- Underground Items: RustedNailPlayer
-- Core Hooks: .SkipProjectile()
-- docs media: Junkyard Tar Surface Worldge
-- docs media: Item sheet: Jade, Large Jade
-- tools: check_boss_loot.py
-- tools sim: Bullet
-- skills cogpunk-dev: Trash-Tr0m
-- bosses cursedconductor: make_cursed_lantern_art.py
-- jadey previous: draw_glaive()
-- art furniture: make_furniture_art.py
-- art mechanist: make_smoker_book_art.py
-- BloodMoon NPCs: .DrawEyes()
-- CursedConductor Items: BottleOfLostSouls
-- CursedConductor Items: LostSoulsPlayer.cs
-- CursedConductor Weapons: .ModifyHitNPC()
-- Jadey NPCs: Jade Beetle sprite sheet (rh
-- Jadey Items: JadeShaperPendant
-- Jadey Weapons: JadeShaperWhip
-- TrashTr0m Items: TetanusShot
-- TrashTr0m Weapons: Tetanus (rusted diagonal bla
-- Bosses TrashTr0m: Trash-Tr0m boss body sprite 
-- Desert NPCs: Coghawk body sprite sheet (1
-- Gems Generation: SafeGenPass
-- Junkyard Items: Junkbait
-- docs media: Firesaw
-- Mechanist Weapons: SmokerBookPass
-- OldBrassTown Accessories: RedCloth
-- Underground Items: RustedNail
-- Underworld NPCs: DragoneteMiudo.cs
-- docs media: Junkyard Tar Worldgen Overvi
-- docs media: Trash-Tr0m loot sheet PNG
-- tools promo: Encoder
-- tools sim: junkyard_layout_sim.py
-- skills cogpunk-dev: CogpunkInvasion
-- art coghaven: make_koi_art.py
-- build: Config File Contents (build.
-- docs design: Sprite quality study (vanill
-- OldBrassTown Gores: Brass Bandit (Old Brass Town
-- CursedConductor Weapons: .DrawSegment()
-- Fungimancer Tiles: RainbowMushroomTile
-- TrashTr0m Gores: Trash-Tr0m gore: steel cog g
-- Coghaven Gores: Cogscorpion animation sheet
-- Coghaven Items: Koi
-- Coghaven Tiles: BronzeCogTile
-- Coghaven Tiles: VaultGearworkTile
-- Junkyard Weapons: TarShower sprite: tar-sprayi
-- Mechanist: Steam Pressure resource (Mec
-- MechArmy NPCs: .UpdateState()
-- Secrets: FundamentalRuinsBiome
-- docs media: Tyrant armor worn frame shee
-- docs media: Diagonal dive passive train 
-- tools sim: JadeBoltSim
-- skills cogpunk-dev: 1.4.5 Port Readiness
-- Underworld NPCs: Dragonete Miudo enemy sprite
-- bosses cursedconductor: make_lost_souls_art.py
-- art underground: make_rusted_nail_art.py
-- Bosses CursedConductor: CursedConductor near paralla
-- TarTyrant Gores: Tar Tyrant Back Bone project
-- Dungeon Gores: Beat Boxer NPC Sprite Sheet 
-- Junkyard NPCs: RustCollector (wheeled grey 
-- Junkyard Tar: Tar Plague Debuff Icon
-- Junkyard Weapons: Metal Wrench sprite (grey pi
-- Mechanist: SteamDashPacket
-- OldBrassTown Generation: .ChooseCentre()
-- OldBrassTown Items: Brass Sandstone item icon
-- docs media: Proof PNG: five Fundamental 
-- docs design: Melee mechanics study
-- tools sim: biome_title_sim.py
-- docs media: Cog-launcher piston gun GIF
-- tools: check_combinator.py
-- tools: check_sprite.py
-- SETUP: In-game Developer Mods
-- skills cogpunk-dev: SteamPlayer
-- bosses tartyrant: make_tyrant_claw.py
-- art coghaven: make_jade_beetle_art.py
-- coghaven previous: trot()
-- art junkyard: make_tar_weapon_sounds.py
-- art town: Pose
-- docs media: Beat-Boxer (dungeon enemy)
-- CursedConductor Weapons: Ghost Train Engine sprite (s
-- TarTyrant Projectiles: Tar Tyrant Claw projectile s
-- TrashTr0m Projectiles: Trash-Tr0m scrap ball projec
-- TrashTr0m Weapons: Scrap impact explosion anima
-- Junkyard Tar: Tar Drip Animation (form, fa
-- Junkyard Tar: TarWaterStyle Block Texture
-- Junkyard Tar: TarWaterStyle Slope Texture
-- Mechanist Weapons: Trapper Chain (Mechanist wea
-- MechArmy NPCs: Boombot NPC sprite sheet (ro
-- docs media: RedCloth
-- OldBrassTown Items: Weathered Plank item icon
-- docs media: Scrap Content Overview
-- tools sim: scrappy_trunk_sim.py
-- skills cogpunk-dev: GenPassUtils
-- art oldbrasstown: make_law_hat_art.py
-- Junkyard Items: Tar Drop material icon (dark
-- docs media: Scrap Armor Set Bonus: Movem
-- docs media: Proof GIF: Cursed Conductor 
-- docs media: CursedLantern
-- Combinator Items: Combinator Blueprint item sp
-- Gems Items: Jade gem item sprite (round 
-- Jungle NPCs: Trapper (hunched jungle scav
-- Junkyard Map: Mysterious Map guidance arro
-- Junkyard Tar: Tar Waterfall Style Texture
-- Junkyard Weapons: .ModifyTooltips()
-- Junkyard Weapons: TarShowerGlob sprite (16 hea
-- MechArmy Armor: Jaeger Chestplate item icon 
-- MechArmy Armor: Jaeger Greaves item icon (te
-- MechArmy Armor: Jaeger Helmet item icon (tea
-- OldBrassTown Items: Tarnished Brass Ore item ico
-- Scrap Items: Rusted Cog Item Sprite
-- Scrap Items: Rusted Metal Item Sprite
-- Scrap Minions: Mice-bot Minion Spritesheet 
-- docs media: Junkbait Sprite & Recipe Pre
-- docs media: Petroleum Pool Worldgen Over
-- docs media: Screwdriver Thrust Simulatio
-- docs media: Trapper (Jungle enemy: 250 l
-- docs media: Tar Glob projectile
-- docs media: Tar weapons sprite sheet pro
-- docs media: Tyrant summoner-mage armor s
-- docs media: Coghaven underside animation
-- docs media: Tar Whip (29 damage, +7 tag,
-- docs media: Ancient Research system
-- tools: sheet2gif.py
-- Cogspring Sword weapon sprit
+- Westbots Art Primitives
+- Trash-Tr0m & Mech Army Art
+- Sculpt/Xf Rig Art (Fungimancer, Mechromancer)
+- Tar Tyrant Art Generator
+- Item Content (CogpunkItem)
+- Old Brass Town Enemy Art (IK)
+- Jadey Loot Art Canvas
+- Jadey Boss Art
+- Core Safety & Weapon Namespaces
+- Tar Weapons & Friendobo Art (2026-11-03)
+- Core Templates & Systems
+- Boss Summons, Bags & Drops
+- Trash-Tr0m Loot Art
+- Jadey Boss AI
+- Buffs & Jadey Weapons
+- Mechanist & Tar Weapons
+- Jadey Loot & Manuals Art
+- Old Brass Town Items & Brass Armor
+- Tar Weapons Art
+- Cursed Conductor AI
+- Conductor Sim (2026-11-05)
+- Promo Teaser Staging
+- Cursed Conductor Art
+- Rig Shapes & Revolver Art
+- flat
+- ResearchWorld
+- mech_army_sim.py
+- update_2026_11_10b_sim_2026-11-10.py
+- FundamentalStoneTile
+- TrashTr0m
+- GhostTrainEngine
+- update_2026_11_11_sim_2026-11-11.py
+- update_2026_11_11b_sim.py
+- make_conductor_art_2026-11-06.py
+- make_tar_weapons_2026-10-30.py
+- TrashTr0m
+- make_coghaven_art.py
+- trashtr0m_sim.py
+- Island
+- make_jade_golem_art.py
+- Fungimancer
+- TrashTr0mSummon
+- FundamentalRuinsSystem
+- Town
+- .TryNewDust
+- ResearchTreeView
+- Trapper
+- Sheriff
+- make_buddha_head_art.py
+- AnnoyOTron.cs
+- make_conductor_art_2026-11-05b.py
+- BarrelGun
+- Frame
+- TarTyrant
+- CogpunkProjectile
+- ResearchPlayer
+- FundamentalRuinsPass
+- update_2026_11_04_sim.py
+- make_conductor_art_2026-11-05.py
+- Canvas
+- CogpunkWall
+- CombinedWeapon
+- update_2026_11_12_sim.py
+- make_jadey_art_2026-11-18.py
+- CoghavenPass
+- Mechromancer
+- BeatBoxer
+- JadeRobe
+- AlarmoboMinion
+- make_conductor_art_2026-11-04.py
+- Cogpunk.Core.WorldGeneration
+- make_jadey_loot_art_2026-11-17.py
+- make_jade_golem_art_v2_2026-11-09.py
+- CombinedProjectile
+- Sheriff.cs
+- JadeCursePlayer
+- Cogpunk.Content.Bosses.TrashTr0m
+- ScrapImpact
+- update_2026_11_04b_sim.py
+- ProperMealBuff
+- make_fungimancer_art.py
+- CursedConductor
+- TarTyrant
+- make_teaser.py
+- trashtr0m_loot_sim.py
+- update_2026_11_09_sim.py
+- MetalWrench
+- DiamondCutterBeam
+- stage.py
+- make_jadey_art.py
+- make_rhino_beetle_art.py
+- RhinoBeetle
+- CombinatorUI
+- CogpunkInvasion
+- MiceBotMinion
+- JadeGolem
+- Firesaw
+- Jaeger
+- tar_weapons_sim.py
+- JadeRefractorBeam
+- DeliveryDrone
+- GhedalariSnippet
+- update_2026_11_11_sim.py
+- CalcifiedBone
+- TyrantSkull
+- GridWalkerNPC
+- MysteriousMapArrowLayer
+- OldBrassTownPass
+- ScrapCogProjectile
+- .__init__
+- jadey_loot_sim.py
+- update_2026_11_05b_sim.py
+- update_2026_11_10_sim.py
+- Pix
+- FirstDropCondition
+- ModPlayer
+- ModSystem
+- GhostTrain
+- FlyingBuddhaHead
+- make_friendobo_art_2026-11-11.py
+- Tr0mheadSentry
+- CraftingManual
+- CogspringSword
+- terrain.py
+- make_mechromancer_art.py
+- make_tartyrant_art.py
+- make_imperial_defender_art_v2_2026-11-09.py
+- make_mechanist_art.py
+- make_cogtuna_art.py
+- AnimatedEquip
+- tartyrant_sim.py
+- update_2026_11_18_sim.py
+- .RequestOptional
+- TarTyrantRigData
+- CombinatorTrait
+- SteamPlayer
+- SmokeTrails
+- BanditsDream
+- make_jade_fox_art_2026-11-18c.py
+- make_jade_fox_art_2026-11-18d.py
+- make_jade_golem_art_v1_2026-11-06.py
+- make_scrap_art.py
+- make_friendobo_art.py
+- make_ghedalari_art.py
+- make_friendobo_art_2026-11-24.py
+- CogpunkTile
+- .RollEffect
+- MechanicalBull
+- FungimancerTongue
+- JadeySummon
+- TetanusProjectile
+- JaegerHelmet
+- Cogtuna
+- Plan
+- make_dragonete_art.py
+- make_dragonete_art_2026-11-19.py
+- CogpunkItem
+- WorldFlagSystem
+- JunkyardSystem
+- RustPolisherTile
+- TarShower
+- TarSlimeMinion
+- MechanistPrefix
+- CogspringSlam
+- FundamentalArenaRuneTile
+- BossNPC
+- Plan
+- Plan
+- Plan
+- Plan
+- .Has
+- JadeCurseNPC
+- JunkyardPass
+- TarSpray
+- plates.py
+- scene_attacks
+- Ruins
+- Cogpunk development skill (operating manual)
+- make_cogscorpion_art.py
+- make_friendobo_art_2026-11-03b.py
+- SafeLog
+- CoghavenChestTile
+- Coghawk
+- ScrappyTrunkTile
+- RainbowRobe
+- SheriffStarMinion
+- Splasher
+- JadeSpirit
+- FundamentalStoneReading
+- DragoneteMiudo
+- Ruins
+- Cogpunk Technical Setup
+- make_oldbrasstown_art.py
+- make_research_art.py
+- make_research_art_2026-11-19.py
+- ScrapLauncherBall
+- .ChangeState
+- SteamDashPlayer
+- InvasionRules
+- scene_beetle
+- Beetle
+- ResearchNodes
+- make_imperial_defender_art_v1_2026-11-06.py
+- make_jade_art.py
+- make_oldbrasstown_art_2026-11-03.py
+- make_splasher_art_2026-11-03.py
+- make_splasher_art_2026-11-04.py
+- JadeShaperPlayer
+- JadeyRopeDart
+- Cogscorpion
+- CombinationRules
+- TarShowerBigGlob
+- TyrantSkullBolt
+- StunnedNPC
+- Friendobo
+- PuxaFrango
+- make_fungimancer_art_2026-11-23b.py
+- frame
+- make_coghaven_chests_art.py
+- Planes
+- make_missing_bones_art.py
+- make_puxafrango_art.py
+- CogpunkProjectile
+- Jadey boss
+- FireworkRocket
+- TrashTr0mPlayer
+- .Warn
+- LivingTar
+- AnnoyOTron
+- Dinamitrom
+- MissingBones
+- ChickenSnapper
+- Particles
+- mass
+- make_jade_fox_art.py
+- pixkit.py
+- make_combinator_art.py
+- make_jade_art_2026-11-09.py
+- make_jade_art_2026-11-10.py
+- make_junkyard_loot.py
+- make_fundamental_ruins_art.py
+- GhostTrain.cs
+- MechromancerThrall
+- Fungimancer.cs
+- JadeGlaiveThrown
+- Cogpunk.Content.Combinator.Combination
+- BrassBandit
+- ScrapBombProjectile
+- armor_preview.py
+- Steam Tank (base capacity 0 without Mechanist gear)
+- make_cogsqueleton_art_2026-11-12.py
+- make_incense_mace_art.py
+- make_buddha_head_art_v1_2026-11-12.py
+- make_fundamental_ruins_art_2026-11-10.py
+- Cogtuna.cs
+- SheriffBadge
+- JadeyMinion
+- JadeCursedGlaives
+- JadeGlaiveSlash
+- CombinedSprites
+- Macuahuitl
+- MetalClash
+- MetalWrenchPlayer
+- ScrappybotPet
+- CogpunkPacket
+- README.md (Cogpunk overview)
+- make_coghawk_art.py
+- make_firesaw_art.py
+- make_sheriff_art.py
+- BiomeTitleSystem
+- ScrapMoundPass
+- MechArmyInvasion
+- Coghaven (floating jade palace biome)
+- TarTyrantBubble
+- TarTyrantClaw
+- Trash-Tr0m loot sheet PNG
+- JadeRay
+- .Generate
+- JadePhaseblade
+- RustCollector
+- SmokerSmoke
+- SheriffsRevolver
+- FundamentalSealTile
+- MeleeGear
+- Fundamental Stones (5 sigils)
+- Ruins
+- update_2026_11_24_sim.py
+- CraftingManual
+- claw
+- make_jade_fox_art_2026-11-18a.py
+- make_jade_fox_art_2026-11-19a.py
+- PossessedCogYoyo
+- FungimancerSystem
+- .DoRage
+- TetanusContactNPC
+- BrassStrongboxTile
+- SteamContainer
+- MechanistWeapon
+- CogLauncherCog
+- TrapperChainProjectile
+- SwingPose
+- MapTargetSystem
+- OldBrassTownSystem
+- GlobalNPC
+- CoghavenSystem
+- CombinatorUISystem
+- JadeBolt
+- BossTitleSystem
+- update_2026_11_06b_sim_2026-11-09.py
+- update_2026_11_24b_sim.py
+- Boss-Fight Rules
+- ScrapwormFishing
+- make_train_whistle_art.py
+- make_train_whistle_art_2026-11-09.py
+- make_tyrant_armor.py
+- make_jade_fox_art_2026-11-18b.py
+- make_jade_claws_art.py
+- make_tar_art.py
+- make_jaeger_armor.py
+- .BuildStreet
+- Cogpunk CLAUDE.md project rules
+- SplasherWater
+- SoulFire
+- JadeyBag
+- JadeBat
+- TarTyrantGlob
+- JadeToken
+- Cakti
+- CaktiSpike
+- BoombotBlast
+- SheriffsBullet
+- JadeCoin
+- make_firesaw_art_2026-11-10.py
+- make_fundamental_stone_art.py
+- Mechromancer.cs
+- IncenseAura
+- TarTyrantBackBone
+- TarTyrantBoneSpike
+- .TryNewProjectile
+- JunkyardSpawnRules
+- TarGlob
+- BarrelGunFish
+- RedClothPlayer
+- DinamitromBlast
+- Cogpunk.Content.OldBrassTown.Tiles
+- AncientResearchTable
+- InvasionProgressBar
+- D0 No crashes guaranteed
+- user_art.py
+- make_jade_fox_art_2026-11-23c.py
+- make_red_cloth_art.py
+- make_strongbox_art.py
+- make_jade_coin_art.py
+- Fungimancer boss
+- JadeBeetle
+- JadeCoin
+- JadeShaperWhipProjectile
+- CoghavenSitePass
+- Coghaven jade/bronze/cinnabar palace palette
+- CombinedAltPlayer
+- SteamGaugeSystem
+- RogueMiceBot
+- Splasher.cs
+- DragoneteFireBolt
+- Research batch item icons (2026-11-24)
+- scrap_arsenal_sim.py
+- update_2026_11_23_sim.py
+- make_possessed_cog_art.py
+- make_tyrant_armor_2026-10-29.py
+- make_jade_fox_art_2026-11-23a.py
+- make_brass_armor.py
+- whistle
+- ConductorFlame
+- IncenseMace
+- ScrapLauncher
+- Tetanus
+- JadeGolem
+- LiftTurbineTile
+- CombinatorBlueprint
+- TarSlimeShot
+- BrassHelmet.cs
+- CogLauncherLayer
+- Alarmobo minion sprite sheet (7-frame boxy brass radio-bot with antenna and speaker)
+- RedCloth
+- LawHat
+- ResearchCrafting
+- BundledGemBolt
+- ScrapArmorPlayer
+- ScrapHelmet
+- ScrapBomb
+- NPCHaste
+- near_arm
+- make_jade_fox_art_2026-11-19b.py
+- Poly
+- ConductorGhost
+- FungimancerBag
+- Tyrant Skull helmet item icon: brown horned T-rex skull
+- TyrantClaw
+- Scrapmancer
+- CoghavenBiome
+- CoghavenSpawnRules
+- CombinatorBlast
+- CombinatorTile
+- TarPlayer
+- TarShowerGlob
+- TarShowerCharge
+- TarWhipProjectile
+- JaegerArmorPlayer
+- RevolverCylinderLayer
+- .UpdateGolem
+- MiceBot
+- ScrappyBow
+- Junkyard Tar Sprites Visual Proof Sheet
+- junkyard_finds_sim.py
+- D4 Pixel art rules
+- make_fungimancer_art_2026-11-23a.py
+- gore_images
+- femur_back_xf
+- make_scaffold_art.py
+- make_delivery_drone_art.py
+- CursedLantern
+- FireworkCannon
+- IncenseMaceHead
+- TrashTr0mBag
+- Tr0mheadStaff
+- CombinatorPlayer
+- JadeStaff
+- PolishedMetal
+- TarPlagueNPC
+- TarWaterStyle
+- SteamRocketBootsTooltip
+- ResearchRecipes
+- AncientResearchTableTile
+- BundleOfWands
+- RustedScrap
+- DeliveryDroneSystem
+- ScrappyWand
+- Screwdriver
+- FundamentalRuinsSpawnRules
+- Trash-Tr0m sprite sheet proof: far arm, body+glow, near arm layers, scale vs player, suck pose, shockwave/scrap/scrap ball/Lost Key/map icon, death gores
+- SlowMotionHooks
+- scrap_bomb_sim.py
+- Mech Army enemy sprite sheets: clockwork mice, Boombot, Annoy-o-tron alarm, Alarmobo, Jaeger walk frames
+- scene_slam
+- update_2026_11_03b_sim.py
+- make_cogspring_art.py
+- make_meals_art.py
+- CogpunkNPC
+- Pixel-art study before/after of five Old Brass Town enemies
+- MechromancerGrave
+- SoulFireCog
+- .TouchesSilhouette
+- TarTyrantSystem
+- .TouchesSilhouette
+- ShimmerPlacementPass
+- Junkbait
+- TarWhipDebuff
+- Polished Chestplate (inventory icon)
+- SteamInjection
+- CogLauncher
+- MechanistWeapon
+- PlacedOres.cs
+- PlacedOres
+- .Generate
+- InvasionDirector
+- Pixel-art study vs vanilla NPCs
+- scrappybot_sim.py
+- check_tile_seams.py
+- scrap_cog_volley_sim.py
+- check_detail.py
+- check_flicker.py
+- Train
+- Ruins2
+- bubble_frame
+- make_rainbow_robe_art.py
+- make_ruins_gate_art.py
+- ConductorCurse
+- LostSoulsPlayer
+- JadeySystem
+- TyrantArmorPlayer
+- CoghavenChests
+- FlyingBuddhaHead.cs
+- TheCombinator.cs
+- SteamInjector
+- SteamInjectorTile
+- SteamRocketPlayer
+- Blueprint
+- JadeCoinCounter
+- ScrapLeggings
+- ScrewdriverProjectile
+- CogpunkSets
+- Last Ghedalari (town NPC)
+- Junkyard Tar Visual Proof GIF (2026-10-23)
+- D5 visual proof for 2026-10-26 Junkyard and Trash-Tr0m update
+- make_junkyard_art.py
+- make_jade_refractor_art.py
+- make_firesaw_art_2026-11-09.py
+- make_mecharmy_sounds.py
+- Scaffold Icons Preview
+- ScrapNodePass
+- Tar Tyrant melt-and-rise proof GIF (target 45+ tiles away melts into ground, contact 50, untouchable while under)
+- .ReadDrift
+- .WriteDrift
+- RainbowMushroomTile
+- JadeShaperPendant
+- Jade Fox pet spritesheet (fennec, vertical frames)
+- BuffStationRules
+- JadeGemPass.cs
+- PolishedCog
+- FiresawLayer
+- OldBrassTownChests
+- OldBrassTownBiome
+- Summons/JadeCoin.cs
+- JadeSpiritBolt
+- Scrappybot
+- RustedNailPlayer
+- .SkipProjectile
+- Junkyard Tar Surface Worldgen Render (2026-10-23)
+- Item sheet: Jade, Large Jade, Jade Phaseblade/Phasesaber, Jade Robe, Law Hat, Brass armor, Cursed Train Whistle + buff, Cursed Lantern, JadeTile
+- check_boss_loot.py
+- draw_boss
+- Architecture: Core/ engine vs Content/<Slice>/
+- make_cursed_lantern_art.py
+- make_furniture_art.py
+- make_smoker_book_art.py
+- LostSoulsPlayer.cs
+- Jade Beetle sprite sheet (rhino beetle with jade shell, 24-frame crawl and flight)
+- Tetanus (rusted diagonal blade with brass guard, melee)
+- Trash-Tr0m boss body sprite sheet (teal-domed rusty garbage-truck mech, 3/4 view, jaw open/close frames)
+- TagCompound
+- Cogpunk.Content.Combinator.Items
+- Coghawk body sprite sheet (10 frames, mechanical hawk, side view)
+- SafeGenPass
+- TarPitRim
+- Firesaw
+- PolishedChestplate
+- PolishedPants
+- SmokerBookPass
+- .PreDraw
+- ResearchUISystem
+- FriendoboEmote
+- DragoneteMiudo.cs
+- Junkyard Tar Worldgen Overview (2026-10-23)
+- Encoder
+- junkyard_layout_sim.py
+- make_macuahuitl_art.py
+- make_ghedalari_script_art.py
+- Config File Contents (build.txt, global.json, .gitignore, .gitattributes)
+- Sprite quality study (vanilla vs Calamity, Thorium, Lunar Veil)
+- Brass Bandit (Old Brass Town enemy)
+- Trash-Tr0m gore: steel cog gear
+- Cogscorpion animation sheet
+- BronzeCogTile
+- VaultGearworkTile
+- TheFirstHalf
+- RustPolisher
+- JunkyardBiome
+- TarShower sprite: tar-spraying gun/launcher with dark tar tank and brass/metal body
+- Steam Pressure resource (Mechanist class)
+- DamageClass
+- RustedNailPass.cs
+- .TypeOf
+- Tyrant armor worn frame sheet PNG
+- Diagonal dive passive train (45 degrees, 1 s warning, 24 px/tick, a third of Express/Dive/Diagonal)
+- Jade Coin (summon, 1 of 5 uses, 1 slot)
+- Vent
+- 1.4.5 Port Readiness
+- Dragonete Miudo enemy sprite
+- make_lost_souls_art.py
+- CursedConductor near parallax layer (arms swinging green lantern)
+- Tar Tyrant Back Bone projectile sheet: flung spinning bone and cross-shaped vertebra frames
+- Beat Boxer NPC Sprite Sheet (12 frames)
+- ScrappyTrunk
+- RustCollector (wheeled grey iron scrap cart loaded with rusty junk, 12-frame rolling animation)
+- Tar Plague Debuff Icon
+- Metal Wrench sprite (grey pipe wrench weapon)
+- .ChooseCentre
+- Brass Sandstone item icon
+- ProperMealPlayer
+- Melee mechanics study
+- biome_title_sim.py
+- Cog-launcher piston gun GIF
+- check_combinator.py
+- check_sprite.py
+- make_tyrant_claw.py
+- make_jade_beetle_art.py
+- make_tar_weapon_sounds.py
+- .SetBestiary
+- Tar Tyrant attacks proof GIF (3.0 s downtime, glob 50, bone spike 55, flung bone 30, bubble 30, body 50, Tar Plague 1 s)
+- Ghost Train Engine sprite (spectral teal locomotive, 9 pre-rendered rotation frames)
+- Tar Tyrant Claw projectile sheet: large tar pillar with bone claw hand erupting from ground (two columns of rise/grab/sink frames)
+- Trash-Tr0m scrap ball projectile (4-frame rolling compacted junk ball)
+- Scrap impact explosion animation (gold spark burst, expanding ring with debris, fading blue dashed shockwave)
+- CoghawkRigData.cs
+- .Generate
+- Tar Drip Animation (form, fall, splash frames)
+- TarWaterStyle Block Texture
+- TarWaterStyle Slope Texture
+- Trapper Chain (Mechanist weapon)
+- Boombot NPC sprite sheet (round iron bomb-bot with lit fuse, walk and tumble frames)
+- RedCloth
+- Weathered Plank item icon
+- BlueStarFruit
+- Jade Refractor (research weapon)
+- FundamentalKelpTile
+- Scrap Content Overview
+- Cogscorpion (Coghaven enemy)
+- scrappy_trunk_sim.py
+- make_law_hat_art.py
+- Beat-Boxer (dungeon enemy)
+- Tar Drop material icon (dark tar droplet)
+- Scrap Armor Set Bonus: Movement-Triggered Cogs
+- Proof GIF: Cursed Conductor ghost loop / ghost limits
+- CursedLantern
+- .LoadWorldData
+- Combinator Blueprint item sprite
+- Jade gem item sprite (round green cabochon)
+- Trapper (hunched jungle scavenger carrying a large brown pack, 12-frame walk cycle)
+- Mysterious Map guidance arrow sheet (16 headings, gold arrow with gear)
+- Tar Waterfall Style Texture
+- TarShowerGlob sprite (16 headings of tar glob)
+- Jaeger Chestplate item icon (teal plated armor)
+- Jaeger Greaves item icon (teal boots)
+- Jaeger Helmet item icon (teal visored helmet)
+- Tarnished Brass Ore item icon
+- Rusted Cog Item Sprite
+- Rusted Metal Item Sprite
+- Mice-bot Minion Spritesheet (vertical walk/burrow frames)
+- Proof PNG: five Fundamental Stones (sigils, glow sheet, runes) placed in Westworld niche and tar pit
+- Cogpunk.Core.UI
+- Junkbait Sprite & Recipe Preview (PNG)
+- Petroleum Pool Worldgen Overview (PNG)
+- Screwdriver Thrust Simulation (GIF)
+- Trapper (Jungle enemy: 250 life, 35 contact, stalking state)
+- Tar Glob projectile
+- Tar weapons sprite sheet proof (items, projectiles, effects, buffs)
+- Tyrant summoner-mage armor set (skull, cape, sandals)
+- Coghaven underside animation: turbines smoking, cogs turning (2026-11-06)
+- Tar Whip (29 damage, +7 tag, 30-tick lash)
+- Fundamental Stone (Westworld)
+- sheet2gif.py
+- clear_band
+- Cogspring Sword weapon sprite
 - Smoker Book weapon sprite
-- Ancient Research Table item 
-- _without_specks()
+- Ancient Research Table item sprite
 - Brass armor set (Mechanist)
 - Coghaven
 - Cogpunk.csproj
 - Beat-Boxer enemy
 - Cog-launcher weapon
-- D5 Visual Proof via Offline 
+- D5 Visual Proof via Offline Simulation
 - SoulFire glow layer
 - Rainbow Mushroom item icon
-- Incense Blessing buff icon (
+- Incense Blessing buff icon (incense burner)
 - Jade Bat glow mask
-- Tar Tyrant tar glob projecti
-- Scrapworm summon sprite (cur
-- Scrapmancer (purple/blue cla
+- Tar Tyrant tar glob projectile (3-frame spinning tar blob)
+- Scrapworm summon sprite (curled rusty segmented worm)
+- Scrapmancer (purple/blue clawed gauntlet with gold cuff, magic/summon)
 - Tetanus
-- Tr0mhead sentry glow overlay
+- Tr0mhead sentry glow overlay sheet
 - Tr0mheadStaff sprite
 - JadeRay sprite
-- Coghaven chest tile highligh
+- Coghaven chest tile highlight
 - Vault Gearwork tile
 - Combinator tile highlight
-- Cak-ti weapon sprite (green 
+- Cak-ti weapon sprite (green cactus weapon)
 - Spring Gloves Item Icon
-- JadeCurse buff icon (green d
-- Rust Polisher (animated craf
-- Tarmancer Sprite (twisted da
-- Tar Slime buff icon (dark ta
-- Tar Whip item sprite (brown 
-- TyrantSkullBlast Sprite (6-f
+- JadeCurse buff icon (green diamond gem with dark sigil)
+- Rust Polisher (animated crafting station: grinding wheel on brass/wood box with iron legs, 6 frames)
+- Tarmancer Sprite (twisted dark tar claw staff with purple gem)
+- Tar Slime buff icon (dark tar slime blob)
+- Tar Whip item sprite (brown tar handle whip)
+- TyrantSkullBlast Sprite (6-frame expanding purple/dark ring burst)
 - Fungi Manual aura
 - Jade Shaper Manual aura
 - Scrap Manual aura
 - Sheriff's Law Book aura
-- Stunned buff icon (purple di
-- Barrel Gun sprite (red bande
-- FiresawTrail sprite: grey st
-- Boombot gore: fuse lamp (bom
-- Rogue Mice-Bot gore: rusty o
-- Mech Army Icon (brass cog wi
-- Rogue Mice Bot glow layer (e
-- Boombot Blast Explosion Shee
-- Tarnished Brass Plating item
-- DeliveryDrone_Glow sprite: g
+- Stunned buff icon (purple dizzy spiral with gold stars)
+- Barrel Gun sprite (red banded wooden barrel cannon with brass muzzle)
+- FiresawTrail sprite: grey steel swing-arc crescents growing over 6 frames (phantom trail)
+- Boombot gore: fuse lamp (bomb-top light)
+- Rogue Mice-Bot gore: rusty orange mouse shell
+- Mech Army Icon (brass cog with teal core)
+- Rogue Mice Bot glow layer (eye pixel)
+- Boombot Blast Explosion Sheet
+- Tarnished Brass Plating item icon
+- Blue Star Fruit item sprite (blue star-shaped fruit)
+- Deadeye Chili item sprite (red chili stew bowl)
+- Firefly Jelly item sprite (green glowing jelly jar)
+- Fish on a Spear item sprite (roasted fish on a stick)
+- DeliveryDrone_Glow sprite: glowmask of red indicator/scan lights (6 frames)
 - Scrappybot Pet Item Sprite
-- 32x32 buff icon showing the 
-- Vertical animation strip (~1
-- Screwdriver Weapon Sprite (w
-- Friendo-bot shimmered sprite
-- Puxa-frango claw gore (grey 
+- 32x32 buff icon showing the Scrappybot robot
+- Vertical animation strip (~17 frames): idle, walking, hover frames with thruster flame
+- Screwdriver Weapon Sprite (wooden handle, steel shaft, diagonal)
+- Puxa-frango claw gore (grey hooked claw)
 - loadouts.md
-- Petroleum Sinking Simulation
-- Junkyard Structure Clearance
-- Scrappy Trunk Loot Proof (PN
-- Mice-bot Burrow Simulation (
+- Junkyard surface: pool rim, scrap heaps with puddles, central heap cache, beach with palm stand-ins
+- Petroleum Sinking Simulation (GIF)
+- Junkyard Structure Clearance: 300 Rolled Worlds per Size (PNG)
+- Scrappy Trunk Loot Proof (PNG)
+- Mice-bot Burrow Simulation (GIF)
 - Rust Collector GIF
-- Coghawk GIF proof: circles 1
-- Rusted Nail GIF proof: thorn
-- Bottle of Lost Souls (Cursed
-- Cursed Conductor whistle pha
-- Mirror-jump enemy movement b
+- Coghawk GIF proof: circles 10 tiles, 2.5 s 30-tick screech, 48-tick swoop
+- Rusted Nail GIF proof: thorns 30 dmg, Tetanus 3 s +10% damage taken
+- Bottle of Lost Souls (Cursed Conductor Expert item)
+- Cursed Conductor whistle phase proof (immune 7 s) (2026-11-09)
+- Mirror-jump enemy movement behavior
 - .mcp.json
 - Boilerheart
 - Cogsqueletons
 - Sheriff mini-boss
 - AnimatedEquip
-- Attack-Pattern Fairness
 - 4% Base Crit Rule
 - BiomeTitleSystem
 - D0 No Crashes
-- Definition of Done
 - Effective DPS Formula
 - InvasionDirector
 - InvasionItemGuard
 - InvasionProgressBar
 - Kamikaze Enemy Pattern
-- MathSafety
 - MechanistDamage
 - MechWalker
-- Report Template
-- TileSafety
-- Calcified Bone research mate
-- Ancient Research Book item s
-- Research Slimed buff/effect 
-- Research knowledge points UI
+- Calcified Bone research material sprite
+- Ancient Research Book item sprite
+- Research Slimed buff/effect icon
+- Research knowledge points UI icon
 - Research node UI sprite
 - Bandit's Dream weapon sprite
-- Bundle of Wands weapon sprit
-- Action
+- Bundle of Wands weapon sprite
 - BitReader
 - BitWriter
 - BossNPC
 - Chest
-- Facts That Are Easy to Get W
+- Facts That Are Easy to Get Wrong
 - Mechromancer claw gore
 - Mechromancer horn gore
 - Mechromancer skull gore
@@ -735,261 +756,274 @@
 - NPCSpawnInfo
 - string
 - Texture2D
-- int (2)
+- int
 - Mechromancer eye overlay
 - Mechromancer eye glow mask
-- Mechromancer far parallax la
+- Mechromancer far parallax layer
 - Mechromancer glow mask
-- Mechromancer near parallax l
-- Asset (2)
+- Mechromancer near parallax layer
+- Asset
 - Color
-- int (3)
+- int
 - Mechromancer grave glow mask
-- Possessed Cog yoyo eye overl
+- Possessed Cog yoyo eye overlay
 - Possessed Cog yoyo glow mask
-- Cursed Conductor boss head m
-- Cursed Conductor rotor/turbi
-- Cursed Conductor smoke puff 
+- Cursed Conductor boss head map icon
+- Cursed Conductor rotor/turbine blade sprite
+- Cursed Conductor smoke puff frames (grey)
 - SoundStyle
-- Cursed Conductor gore bit 0 
-- Cursed Conductor gore bit 1 
-- Cursed Conductor gore bit 2 
-- GhostTrain diagonal rail seg
-- CursedLantern item icon (dar
-- Cursed Train Whistle sprite 
-- Ghost Train buff icon (small
+- Cursed Conductor gore bit 0 (gold fragment)
+- Cursed Conductor gore bit 1 (dark blue fragment)
+- Cursed Conductor gore bit 2 (grey-blue fragment)
+- GhostTrain diagonal rail segment (dark teal track)
+- CursedLantern item icon (dark lantern with green flame)
+- Cursed Train Whistle sprite (brass train whistle with dark cap, item icon)
+- Ghost Train buff icon (small spectral green-teal locomotive)
 - Jadey rope dart cord texture
-- Jadey rope dart projectile f
-- Firework Cannon weapon icon 
+- Jadey rope dart projectile frames (rotation strip)
+- Firework Cannon weapon icon (jade-themed cannon)
 - Firework Rocket burst effect
-- Firework Rocket projectile s
+- Firework Rocket projectile sprite
 - Incense Mace aura effect
-- Incense Mace weapon icon (go
+- Incense Mace weapon icon (golden flail)
 - Incense Mace chain
 - Incense Mace head
-- Jade Cursed Glaives item (gr
+- Player
+- Jade Cursed Glaives item (green winged glaives with shield)
 - Jade Glaive slash projectile
 - Jade Glaive slash trail
-- Jade Glaive thrown projectil
+- Jade Glaive thrown projectile
 - Jade Shaper Whip item icon
 - Jade Shaper Whip debuff icon
 - Jade Shaper Whip projectile
 - Player
-- float (2)
+- float
 - LocalizedText
 - void
-- Tar Tyrant gore: curved rib 
+- Tar Tyrant gore: curved rib bone
 - ItemLoot
-- Color (2)
-- int (4)
-- Player (2)
-- Color (3)
-- float (3)
-- int (5)
-- Color (4)
-- int (6)
-- HitInfo (2)
-- Tar Tyrant glowmask sheet (e
-- Tar Tyrant boss map head ico
-- Tar Tyrant near parallax lay
-- Tar Tyrant tar vent sprite (
+- Color
+- int
+- Player
+- Color
+- float
+- int
+- Color
+- int
+- HitInfo
+- Tar Tyrant glowmask sheet (eye glow and red mouth/flame cone)
+- Tar Tyrant boss map head icon (bone skull)
+- Tar Tyrant near parallax layer (front tar arm with bone claws, swipe frames)
+- Tar Tyrant tar vent sprite (bubbling tar mound erupting, 7 frames)
 - Item
 - MultipliableFloat
 - Projectile
 - Rectangle
 - ILoot
 - short
-- Tetanus debuff icon (rusty s
+- Tetanus debuff icon (rusty spike on grey)
 - Tetanus Shot item sprite
-- Scrap Launcher ball projecti
-- Scrap Launcher chunk project
-- Scrapmancer junk shockwave s
-- Tetanus flash ring effect sp
+- Scrap Launcher ball projectile sprite
+- Scrap Launcher chunk projectile sprite
+- Scrapmancer junk shockwave sprite
+- Tetanus flash ring effect sprite
 - double
 - Jade-Eyed Koi item sprite
-- Pagoda Chest item (red and g
+- Pagoda Chest item (red and green locked chest)
 - Pagoda Key item sprite
-- Asset (3)
-- Color (5)
-- float (4)
-- HitInfo (3)
-- HitModifiers
-- IBestiaryInfoElement (2)
+- IBestiaryInfoElement
 - IEntitySource
-- int (7)
-- Item (2)
-- NPCSpawnInfo (2)
-- Player (3)
-- Projectile (2)
-- string (2)
-- Texture2D (2)
+- NPCLoot
+- NPCSpawnInfo
+- Player
 - Vector2
-- int (8)
+- Asset
+- Color
+- float
+- HitInfo
+- HitModifiers
+- IBestiaryInfoElement
+- IEntitySource
+- int
+- Item
+- NPCSpawnInfo
+- Player
+- Projectile
+- string
+- Texture2D
+- Vector2
+- int
+- Color
+- HurtInfo
+- int
+- Player
 - DamageClass
-- Spring Punch Mic Projectile 
-- Spring Punch Spring Segment 
-- JadeWard buff icon (jade hea
-- JadePhaseblade sprite (diago
-- JadePhasesaber sprite (wider
-- JadeRobe_Body equip sheet (1
-- JadeRobe item sprite (green 
-- JadeRobe_Legs equip sheet (2
-- LargeJade sprite (large face
+- CombinatorTrait
+- Spring Punch Mic Projectile Sprite
+- Spring Punch Spring Segment Sprite
+- JadeWard buff icon (jade heater shield)
+- JadePhaseblade sprite (diagonal green energy blade, dark hilt)
+- JadePhasesaber sprite (wider jade energy saber with crossguard)
+- JadeRobe_Body equip sheet (1.4 body layout: torso, arms, shoulder pieces in jade/gold)
+- JadeRobe item sprite (green robe with gold trim)
+- JadeRobe_Legs equip sheet (20-frame vertical leg animation, jade robe skirt with gold hem)
+- LargeJade sprite (large faceted jade gem, capture-the-gem style)
 - bool
-- JadeBolt projectile sprite (
-- Rhino Beetle gore: brown cur
-- Rhino Beetle gore: brown joi
-- Rhino Beetle gore: brown car
-- Rhino Beetle far parallax la
-- Rhino Beetle glow layer: gre
-- Rhino Beetle near parallax l
-- Rhino Beetle main sprite: br
-- Rust Collector gore panel (s
-- Junkbait Item Sprite (dark s
-- Polisher Schematic item icon
-- Player (4)
+- JadeBolt projectile sprite (small green cross-shaped spark)
+- Rhino Beetle gore: brown curved horn debris
+- Rhino Beetle gore: brown jointed leg debris
+- Rhino Beetle gore: brown carapace shell piece with green glyph mark
+- Rhino Beetle far parallax layer: dark far-side legs per frame, and elytra wing in flight frames
+- Rhino Beetle glow layer: green glowing shell glyph on walk frames
+- Rhino Beetle near parallax layer sheet (brown near-side legs/horn per walk frame + pale shell-chip debris)
+- Rhino Beetle main sprite: brown horned beetle, walk/charge frames then wings-open flight frames (vertical sheet)
+- Rust Collector gore panel (small gray metal plate)
+- Junkbait Item Sprite (dark scrap ball with brass cog)
+- Polisher Schematic item icon (blue blueprint with gear)
+- Player
 - PlayerDrawSet
-- SoundStyle (2)
-- Player (5)
-- Player (6)
-- Player (7)
-- TarSpray sprite (5 growing s
-- Projectile (3)
-- Tar Whip projectile segments
+- SoundStyle
+- Player
+- Player
+- Player
+- TarSpray sprite (5 growing spray frames)
+- Projectile
+- Tar Whip projectile segments sheet
 - Sticky Pages item
-- Polished Cog accessory sprit
-- BrassChestplate_Body equip s
-- BrassChestplate item sprite 
-- BrassGreaves item sprite (pa
-- BrassGreaves_Legs equip shee
-- BrassHelmet_Head equip sheet
+- Polished Cog accessory sprite (shiny brass cog)
+- BrassChestplate_Body equip sheet (1.4 body layout: brass torso with red/orange plating, dark-iron arm pieces)
+- BrassChestplate item sprite (riveted brass breastplate with plates)
+- BrassGreaves item sprite (pair of brass boots)
+- BrassGreaves_Legs equip sheet (20-frame vertical leg animation, brass greaves)
+- BrassHelmet_Head equip sheet (20-frame vertical head animation, brass helmet with teal porthole)
 - TagCompound
-- Diamond Cutter sprite (brass
-- Diamond Cutter beam segment 
-- Diamond Cutter spark frames 
-- FiresawFire sprite: diagonal
-- Asset (4)
-- Color (6)
-- float (5)
-- HitInfo (4)
-- HitModifiers (2)
-- int (9)
+- Diamond Cutter sprite (brass beam gun with blue diamond lens)
+- Diamond Cutter beam segment (pale blue dotted laser texture)
+- Diamond Cutter spark frames (pale blue crystalline sparkle)
+- FiresawFire sprite: diagonal orange-yellow flame streak with embers along the chainsaw blade (3 frames)
+- Asset
+- Color
+- float
+- HitInfo
+- HitModifiers
+- int
 - NPC
-- Rectangle (2)
-- Vector2 (2)
-- Annoy-o-tron Beacon Gore (or
-- Annoy-o-tron Speaker Gore (d
-- Jaeger gore: steel fist with
-- Jaeger gore: teal hazard-str
+- Rectangle
+- Vector2
+- Annoy-o-tron Beacon Gore (orange dome lamp)
+- Annoy-o-tron Speaker Gore (dark brass grille)
+- Jaeger gore: steel fist with brass cuff
+- Jaeger gore: teal hazard-striped pauldron
 - TooltipLine
 - IDictionary
-- EntitySource_ItemUse_WithAmm
+- EntitySource_ItemUse_WithAmmo
 - DropAttemptInfo
 - BestiaryDatabase
 - BestiaryEntry
 - HurtModifiers
-- MultipliableFloat (2)
+- MultipliableFloat
 - NPCLoot
 - SpriteBatch
-- LawHat item sprite (tan/brow
-- Splasher gun gore (death fra
-- Splasher head gore (death fr
-- Splasher umbrella gore (deat
-- SplasherWater projectile spr
-- Scrap Breastplate body cog-a
-- Scrap Breastplate body cog-a (2)
-- Scrap Helmet head cog-animat
-- Scrap Helmet head cog-animat (2)
-- Scrap Leggings legs cog-anim
-- Scrap Leggings legs cog-anim (2)
-- DeliveryDrone_GoreBox sprite
-- DeliveryDrone_GoreRotor spri
-- Scrappy Bow Item Sprite (bra
-- Scrappy Wand Sprite (rusty c
-- Scrappy Wand Bolt Projectile
-- Friendobo map head icon
-- Friendo-bot shimmered map he
-- Friendo-bot emote icon: 2-fr
-- Friendobo arm gore
-- Friendobo head gore
-- Friendobo leg gore
-- Rusted Nail item sprite (rus
-- Dragonete Miudo death gore: 
-- Dragonete Miudo near-layer s
-- DragoneteFireBolt sprite (4-
+- LawHat item sprite (tan/brown sheriff cowboy hat)
+- Splasher gun gore (death fragment)
+- Splasher head gore (death fragment)
+- Splasher umbrella gore (death fragment)
+- SplasherWater projectile sprite (rotating water droplet frames)
+- Action
+- Player
+- HurtInfo
+- Player
+- Projectile
+- Point
+- Scrap Breastplate body cog-animation frame 2
+- Scrap Breastplate body cog-animation frame 3
+- Scrap Helmet head cog-animation frame 2
+- Scrap Helmet head cog-animation frame 3
+- Scrap Leggings legs cog-animation frame 2
+- Scrap Leggings legs cog-animation frame 3
+- DeliveryDrone_GoreBox sprite: brown cardboard/wood parcel box debris
+- DeliveryDrone_GoreRotor sprite: small T-shaped propeller rotor debris
+- Scrappy Bow Item Sprite (brass-limbed bow with string)
+- Scrappy Wand Sprite (rusty copper-tipped scrap wand)
+- Scrappy Wand Bolt Projectile Sprite (small brass/gold bolt)
+- byte
+- Tile
+- TileDrawInfo
+- BestiaryDatabase
+- BestiaryEntry
+- Rusted Nail item sprite (rusty nail with orange-blue shaft)
+- Dragonete Miudo death gore: red baby-dragon head with horn
+- Dragonete Miudo near-layer sprite sheet (small red dragon head frames with wing bits)
+- DragoneteFireBolt sprite (4-frame orange-yellow fireball with flame tail)
 - Dust
-- Main.DrawSurfaceBG Parallax 
+- Main.DrawSurfaceBG Parallax Formula
 - mech_army_sim.py
-- Decals Must Survive Mirrorin
-- Checklist for a New Detailed
+- Decals Must Survive Mirroring
+- Checklist for a New Detailed Entity
 - Small Enemies and Walkers
 - Yager Reference Walker
-- Scrappy Bow GIF (1-5 arrows 
-- Mice-bot Minion GIF (8 damag
-- Screwdriver GIF (31-tick thr
-- Scrappy Wand GIF (3-bolt bur
-- Puxa-frango stalking proof G
-- Trash-Tr0m loose cog every 1
-- Tar Tyrant attack projectile
-- Old Brass Town blocks, walls
-- Old Brass Town chests proof 
-- Old Brass Town layout PNG (1
+- Scrappy Bow GIF (1-5 arrows per shot, one arrow consumed)
+- Mice-bot Minion GIF (8 damage per bite, 15 ticks between bites, chasing)
+- Screwdriver GIF (31-tick thrust, hits going out and coming back, 2.2 tile reach)
+- Scrappy Wand GIF (3-bolt burst every 26 ticks, only first bolt on target, 9 mana per burst)
+- Puxa-frango stalking proof GIF (640 life, snap yank, drops Chicken Snapper)
+- Trash-Tr0m loose cog every 150 ticks (2.5 s) proof GIF
+- Tar Tyrant attack projectile hitboxes PNG (spike, claw, bones, puddle, bubble)
+- Old Brass Town blocks, walls, items and bestiary icon proof
+- Old Brass Town chests proof (cache, strongbox, Sheriff's Key)
+- Old Brass Town layout PNG (176x42 cavern, 5 buildings)
 - Splasher rain enemy GIF
-- Cursed Conductor DPS targeti
-- Cursed Train Whistle weapon 
-- Sprite sheet: Diamond Cutter
-- Rhino Beetle jungle enemy pr
-- Barrel Gun (fish-firing Mech
-- Diamond Cutter beam weapon p
-- Delivery Drone scrap enemy p
-- Fundamental Ruins 224x120 ma
-- Ruins glyphs lighting and se
-- Stone shields falling when t
-- Friendo-bot town NPC (redraw
-- Cogscorpion tail strike anim
-- Mechromancer float animation
-- Possessed Cog animation proo
-- Jadey Firework Cannon proof 
+- Cursed Conductor DPS targeting proof GIF
+- Cursed Train Whistle weapon proof GIF
+- Sprite sheet: Diamond Cutter + beam/spark, Barrel Gun + fish, Stunned buff, Dragonete Miudo frames + gore + fire bolt, rune glyphs, sealed gate, Rhino Beetle, Friendo-bot 25 frames + shimmered + emote
+- Rhino Beetle jungle enemy proof GIF
+- Barrel Gun (fish-firing Mechanist gun) proof GIF
+- Diamond Cutter beam weapon proof GIF
+- Delivery Drone scrap enemy proof GIF
+- Fundamental Ruins 224x120 map: rooms, arena, sealed gate, glyphs 1-3 (drowned crypt, bell tower, ossuary), rubble
+- Ruins glyphs lighting and sealed gate opening proof GIF
+- Mechromancer float animation proof GIF
+- Possessed Cog animation proof GIF
+- Jadey Firework Cannon proof GIF
 - Jadey pendant proof GIF
-- Floating crafting manuals pr
-- Cak-ti weapon sprites and pr
+- Floating crafting manuals proof GIF
+- Cak-ti weapon sprites and projectile rotations
 - Tar Bone Staff proof GIF
-- Floaty Mechromancer proof GI
+- Floaty Mechromancer proof GIF
 - Floaty boss drift proof GIF
 - Item sprite sheet C
-- Jade-themed item sprite shee
-- Jadey cursed glaive swing fr
-- Jadey glaives proof GIF
-- Bundle of Wands proof GIF
-- Just the Tip research weapon
-- Cak-ti weapon animation proo
-- Incense Mace weapon animatio
-- Dragonete wings animation (G
-- Cogpunk steampunk pixel-art 
+- Jade-themed item sprite sheet (wings, whip, pendants, manual, table, fox)
+- Jadey cursed glaive swing frames
+- Bundle of Wands sprite
+- Just the Tip research weapon proof GIF
+- Cak-ti weapon animation proof (GIF)
+- Incense Mace weapon animation proof (GIF)
+- 2026-11-19 item batch sheet
+- Dragonete wings animation (GIF)
+- Cogpunk steampunk pixel-art logo
 - GameConfiguration
 - GenerationProgress
-- HurtInfo
 - Chronarch
 - The Clockcore Biome
 - Cogscorpion
 - Flying Buddha Head
-- Rusted Scrap slice (block, m
+- Rusted Scrap slice (block, materials, Scrappybot, armor)
 - Rusted Scrap Slice
 - Tyrant mage armor set
+- Ruins
 - Scaffolding Folder Tree
 - ilspycmd Decompiler
 - Machine Audit (2026-10-20)
-- Core Toolchain Install (wing
-- Tile
+- Core Toolchain Install (winget, IDE)
 
 ## God Nodes (most connected - your core abstractions)
 1. `Xf` - 277 edges
-2. `Cogpunk.Core.Templates` - 264 edges
+2. `Cogpunk.Core.Templates` - 259 edges
 3. `Canvas` - 253 edges
 4. `Ellipse` - 229 edges
 5. `Poly` - 209 edges
-6. `Cogpunk.Core.Safety` - 182 edges
-7. `dome()` - 175 edges
+6. `dome()` - 175 edges
+7. `Cogpunk.Core.Safety` - 172 edges
 8. `flat()` - 151 edges
 9. `Capsule` - 108 edges
 10. `face()` - 85 edges
@@ -997,8 +1031,8 @@
 ## Surprising Connections (you probably didn't know these)
 - `Junkyard biome title GIF: camera pan, banner triggers on entering (tick/outside readout)` --references--> `BiomeTitleSystem`  [INFERRED]
   docs/media/2026-10-22_junkyard-title.gif → Core/UI/BiomeTitleSystem.cs
-- `AnimatedEquip` --references--> `Scrap Helmet head cog-animation frame 1`  [INFERRED]
-  Core/Visuals/AnimatedEquip.cs → Content/Scrap/Armor/ScrapHelmet_Head_1.png
+- `AnimatedEquip` --references--> `Scrap Leggings legs cog-animation frame 1`  [INFERRED]
+  Core/Visuals/AnimatedEquip.cs → Content/Scrap/Armor/ScrapLeggings_Legs_1.png
 - `Scrap armor set bonus cog volley GIF: fires a cog every 45 ticks of movement at 140-HP dummies` --references--> `ScrapArmorPlayer`  [INFERRED]
   docs/media/2026-10-22_scrap-armor-cog-volley.gif → Content/Scrap/Armor/ScrapArmorPlayer.cs
 - `Junkyard cache glow GIF: chest inside heap pulses glow every 120 ticks with sparks` --references--> `ScrappyTrunkTile`  [INFERRED]
@@ -1010,6 +1044,18 @@
 - None detected.
 
 ## Hyperedges (group relationships)
+- **Cogpunk Core Directives D0-D5** — _claude_skills_cogpunk_dev_skill_d0_no_crashes, _claude_skills_cogpunk_dev_skill_d1_optimization, _claude_skills_cogpunk_dev_skill_d2_coop, _claude_skills_cogpunk_dev_skill_d3_balance, _claude_skills_cogpunk_dev_skill_d4_pixel_art, _claude_skills_cogpunk_dev_skill_d5_visual_proof [EXTRACTED 1.00]
+- **Core/Safety crash-guard layer** — _claude_skills_cogpunk_dev_skill_safespawn, _claude_skills_cogpunk_dev_skill_tilesafety, _claude_skills_cogpunk_dev_skill_safelog, _claude_skills_cogpunk_dev_skill_mathsafety [EXTRACTED 1.00]
+- **Sprite validation tools** — _claude_skills_cogpunk_dev_skill_check_sprite, _claude_skills_cogpunk_dev_skill_check_tile_seams, _claude_skills_cogpunk_dev_skill_check_flicker, _claude_skills_cogpunk_dev_skill_check_detail [EXTRACTED 1.00]
+- **Rainbow Robe item + body + legs textures** — content_research_armor_rainbowrobe_sprite, content_research_armor_rainbowrobe_body_sprite, content_research_armor_rainbowrobe_legs_sprite [EXTRACTED 1.00]
+- **Research meal food items** — content_research_meals_bluestarfruit_sprite, content_research_meals_deadeyechili_sprite, content_research_meals_fireflyjelly_sprite, content_research_meals_fishonaspear_sprite [INFERRED 0.85]
+- **Research meal buff icons (dish-on-plate style)** — content_research_meals_bluestarfruitbuff_sprite, content_research_meals_deadeyechilibuff_sprite, content_research_meals_fireflyjellybuff_sprite, content_research_meals_fishonaspearbuff_sprite [INFERRED 0.85]
+- **Missing Bones mount asset set (item, buff, mount sheet)** — content_research_mounts_missingbones, content_research_mounts_missingbonesbuff, content_research_mounts_missingbonesmount_back [INFERRED 0.95]
+- **Jade Loong summon asset set (Jade Coin item, buff, minion sheet, glow)** — content_research_summons_jadecoin, content_research_summons_jadecoinbuff, content_research_summons_jadeloong, content_research_summons_jadeloong_glow [INFERRED 0.85]
+- **Last Ghedalari death gore set** — content_town_gores_friendobo_gorearm_sprite, content_town_gores_friendobo_gorehead_sprite, content_town_gores_friendobo_goreleg_sprite [INFERRED 0.95]
+- **Jade Refractor item, beam and spark assets** — content_research_weapons_jaderefractor_sprite, content_research_weapons_jaderefractorbeam_sprite, content_research_weapons_jaderefractorspark_sprite [INFERRED 0.95]
+- **2026-11-24 request visual proofs** — docs_media_2026_11_24_items_research_batch_sheet, docs_media_2026_11_24_mount_missing_bones_proof, docs_media_2026_11_24_jadey_glaives_proof, docs_media_2026_11_24_coghaven_cogscorpion_walk_proof, docs_media_2026_11_24_armor_rainbow_robe_sheet [INFERRED 0.75]
+- **Ghedalari Stone Puzzle (script, stones, wake order, research tab)** — docs_media_2026_11_24_secrets_ghedalari_script_ghedalari_script, docs_media_2026_11_24_secrets_stones_awake_fundamental_stones, docs_media_2026_11_24_secrets_stones_awake_wake_order, docs_media_2026_11_24_secrets_westworld_stone_westworld_sun_stone, docs_media_2026_11_24_research_tabs_mystery_of_the_past_tab [INFERRED 0.85]
 - **Cogpunk core directives D0-D5** — claude_d0, claude_d1, claude_d2, claude_d3, claude_d4, claude_d5 [EXTRACTED 1.00]
 - **Mechromancer art layers** — content_bloodmoon_npcs_mechromancer, content_bloodmoon_npcs_mechromancer_far, content_bloodmoon_npcs_mechromancer_near, content_bloodmoon_npcs_mechromancer_glow [INFERRED 0.85]
 - **Fungimancer sprite set** — content_bosses_fungimancer_fungimancer_near_sprite, content_bosses_fungimancer_fungimancer_glow_sprite, content_bosses_fungimancer_fungimancer_head_boss_sprite [INFERRED 0.85]
@@ -1020,7 +1066,6 @@
 - **Jade Fox pet layers** — content_coghaven_pets_jadefoxpet_sprite, content_coghaven_pets_jadefoxpet_glow_sprite, content_coghaven_pets_jadefoxpet_tail_sprite [INFERRED 0.85]
 - **Dragonete Miudo sprite set** — _content_underworld_gores_dragonetemiudo_goretail, _content_underworld_gores_dragonetemiudo_gorewing, _content_underworld_npcs_dragonetemiudo, _content_underworld_npcs_dragonetemiudo_far, _content_underworld_npcs_dragonetemiudo_glow [INFERRED 0.85]
 - **Ancient Research Table assets** — _content_research_items_ancientresearchtable, content_research_tiles_ancientresearchtabletile, _content_research_tiles_ancientresearchtabletile_highlight [INFERRED 0.85]
-- **Jadey weapon proofs** — docs_media_2026_11_17_jadey_firework_cannon_sprite, docs_media_2026_11_17_jadey_pendant_sprite, docs_media_2026_11_18_jadey_glaives_sprite, docs_media_2026_11_18_jadey_glaives_frames_sprite [INFERRED 0.75]
 - **Jadey redesign proofs** — docs_media_2026_11_23_boss_jadey_before_after, docs_media_2026_11_23_boss_jadey_redesign, docs_media_2026_11_23_boss_jadey_statue, docs_media_2026_11_23_boss_jadey_turn [INFERRED 0.85]
 - **Mechromancer sprite layers (base, far, near, glow)** — content_bloodmoon_npcs_mechromancer_image [EXTRACTED 1.00]
 - **Cogscorpion sprite set (sheet, parallax planes, glow, gores)** — content_coghaven_npcs_cogscorpion_image, content_coghaven_npcs_cogscorpion_far_image, content_coghaven_npcs_cogscorpion_glow_image, content_coghaven_gores_cogscorpion_gorebody_image [INFERRED 0.85]
@@ -1038,10 +1083,8 @@
 - **Stunned debuff icon and overlay drawn by Stunned/StunnedNPC** — content_mechanist_buffs_stunned_sprite, content_mechanist_buffs_stunstars_sprite [INFERRED 0.85]
 - **Firesaw swing rendering: saw, fire, steel trail and fire trail layers drawn by FiresawLayer** — content_mechanist_weapons_firesawswing_sprite, content_mechanist_weapons_firesawfire_sprite, content_mechanist_weapons_firesawtrail_sprite, content_mechanist_weapons_firesawtrailfire_sprite [EXTRACTED 1.00]
 - **Delivery Drone visuals: body, glowmask and death gores (rotor, parcel box)** — content_scrap_npcs_deliverydrone_sprite, content_scrap_npcs_deliverydrone_glow_sprite, content_scrap_gores_deliverydrone_gorerotor_sprite, content_scrap_gores_deliverydrone_gorebox_sprite [INFERRED 0.95]
-- **Friendo-bot town NPC art set (sheet, heads, shimmer, emote)** — content_town_friendobo_sprite, content_town_friendobo_head_sprite, content_town_friendobo_shimmer_sprite, content_town_friendobo_shimmer_head_sprite, content_town_friendoboemote_sprite [INFERRED 0.95]
-- **Friendo-bot death debris gores** — content_town_gores_friendobo_gorearm_sprite, content_town_gores_friendobo_gorehead_sprite, content_town_gores_friendobo_goreleg_sprite [INFERRED 0.95]
 - **Cursed Conductor 2026-11-10 proofs (lantern cap, lantern ghost, ghost loop)** — docs_media_2026_11_10_boss_cursed_conductor_lantern_cap_proof, docs_media_2026_11_10_boss_cursed_conductor_lantern_ghost_proof, docs_media_2026_11_10_boss_cursed_conductor_loop_ghosts_proof, content_bosses_cursedconductor_cursedconductor_cursedconductor, content_bosses_cursedconductor_weapons_cursedlantern_cursedlantern [INFERRED 0.85]
-- **Fundamental Stones secret (stones, tile, reading)** — docs_media_2026_11_10_secrets_fundamental_stones_proof, docs_media_2026_11_10_secrets_fundamental_stone_reading_proof, content_secrets_fundamentalstones_fundamentalstones, content_secrets_fundamentalstonetile_fundamentalstonetile, content_secrets_fundamentalstonereading_fundamentalstonereading [INFERRED 0.85]
+- **Fundamental Stones secret (stones, tile, reading)** — docs_media_2026_11_10_secrets_fundamental_stones_proof, content_secrets_fundamentalstones_fundamentalstones, content_secrets_fundamentalstonetile_fundamentalstonetile [INFERRED 0.85]
 - **Fundamental Ruins visual proofs (map, glyphs/gate, stone shield)** — docs_media_2026_11_11_secrets_fundamental_ruins_proof, docs_media_2026_11_11_secrets_ruins_glyphs_gate_proof, docs_media_2026_11_11_secrets_stone_shield_proof [INFERRED 0.85]
 - **Cursed Conductor multiplane sprite layers (base, glow, near, lantern glow)** — content_bosses_cursedconductor_cursedconductor_image, content_bosses_cursedconductor_cursedconductor_glow_image, content_bosses_cursedconductor_cursedconductor_near_image, content_bosses_cursedconductor_cursedconductor_lanternglow_image [INFERRED 0.85]
 - **Jade Golem death gore set** — content_coghaven_gores_jadegolem_gorecrystal_image, content_coghaven_gores_jadegolem_gorehead_image, content_coghaven_gores_jadegolem_goreheart_image, concept_jade_golem [INFERRED 0.95]
@@ -1112,2419 +1155,2495 @@
 - **Scaffold art set (icon, small icon, placeholder)** — docs_media_2026_10_20_scaffold_icons_image, icon_image, icon_small_image, assets_textures_placeholder_image [INFERRED 0.85]
 - **Rusted Scrap world generation** — docs_media_2026_10_21_scrap_overview_image, docs_media_2026_10_21_scrap_overview_surface_heaps, docs_media_2026_10_21_scrap_overview_underground_nodes [INFERRED 0.85]
 
-## Communities (972 total, 368 thin omitted)
+## Communities (1006 total, 383 thin omitted)
 
-### Community 0 - "bosses trashtr0m: make_trashtr0m_art.py"
+### Community 0 - "Westbots Art Primitives"
+Cohesion: 0.02
+Nodes (180): body(), curse_icon(), The coat, the collar, the buttons and the chain, the head and the cap, built in…, 16x16 (32 in game): a ghost-green punched ticket, the Conductor's Curse., body(), curse_icon(), The turbine under the hem, built in the body's space and placed by the same…, The coat, the collar, the buttons and the chain, the head and the cap, built in… (+172 more)
+
+### Community 1 - "Trash-Tr0m & Mech Army Art"
 Cohesion: 0.03
-Nodes (156): An indigo sleeve from the shoulder to the hand, a brass cuff, an iron hand.…, sleeve_arm(), The inventory look: the gilt handle low on the left, the crimson cord thrown in…, The firework at heading k (k * 22.5 degrees, 0 = right, clockwise on screen): a…, rocket(), whip_item(), The inventory look: the gilt handle low on the left, the crimson cord thrown in…, The firework at heading k (k * 22.5 degrees, 0 = right, clockwise on screen): a… (+148 more)
+Nodes (130): body_mass(), body_xf(), BodyPose, boss_icon(), chewed_frames(), crawl_contacts(), crop_frame(), cs_array() (+122 more)
 
-### Community 1 - "tartyrant previous: Ellipse"
+### Community 2 - "Sculpt/Xf Rig Art (Fungimancer, Mechromancer)"
+Cohesion: 0.03
+Nodes (119): arm_bones(), claw(), crop(), export_all(), flame(), flame_rows(), frame(), gores() (+111 more)
+
+### Community 3 - "Tar Tyrant Art Generator"
 Cohesion: 0.03
 Nodes (124): add(), arc_points(), back_bone(), back_bone_frames(), base_blobs(), base_xf(), bone_drop(), bubble_frame() (+116 more)
 
-### Community 2 - "Mechanist Weapons: Cogpunk.Core.Templates"
-Cohesion: 0.03
-Nodes (33): Sheriff's Revolver weapon, Sheriff's Revolver round/ammo sprite, InvasionStatePacket, BinaryReader, Cogpunk.Content.Bosses.TrashTr0m.Projectiles, Cogpunk.Content.MechArmy.Armor, Cogpunk.Content.Secrets.Ruins.Tiles, Cogpunk.Content.Junkyard.Projectiles (+25 more)
+### Community 4 - "Item Content (CogpunkItem)"
+Cohesion: 0.02
+Nodes (34): CogpunkItem, Scrapworm, int, BronzeCog, BronzeGearwork, BronzeGearworkWall, BronzeLatticeWall, CinnabarLacquer (+26 more)
 
-### Community 3 - "art oldbrasstown: face()"
-Cohesion: 0.03
-Nodes (117): face(), A flat face whose local normal (nx, ny, nz) is turned by the part's transform., Material texture in the part's own space (stable on a moving part, D4 rule 17),…, texture(), body(), bullet(), crop(), cycle_foot() (+109 more)
-
-### Community 4 - "jadey previous: dome()"
-Cohesion: 0.03
-Nodes (108): bag(), rainbow_mushroom(), The Fungimancer's small things (2026-11-19, kept from v1 when the boss was…, Three rainbow mushrooms (1 x 1 tile each, 8 x 8 at 1x, 9 px apart: 18 at 2x) of…, A spore of violet light: a round glow (aether) round a bright core, sparkles…, A glowing mushroom bursting up out of the ground, 4 frames of 14 x 18: a bump,…, The treasure bag: a blue cloth sack tied with a violet cord, a glowing mushroom…, A glowing mushroom whose cap runs through the rainbow in bands (red at the… (+100 more)
-
-### Community 5 - "oldbrasstown previous: make_sheriff_art_2026-11-04."
+### Community 5 - "Old Brass Town Enemy Art (IK)"
 Cohesion: 0.04
-Nodes (88): body(), bullet(), crop(), cycle_foot(), export_all(), frame(), gores(), Pose (+80 more)
+Nodes (104): ik(), Two-bone IK: the elbow for a shoulder-hand pair (bend = +1 puts the elbow on…, body(), bullet(), crop(), cycle_foot(), export_all(), frame() (+96 more)
 
-### Community 6 - "bosses trashtr0m: Canvas"
+### Community 6 - "Jadey Loot Art Canvas"
 Cohesion: 0.04
-Nodes (85): burst(), cannon(), icon(), incense(), outputs(), pendant(), The user's glaive as drawn: level, its blades curling up, the emblem in the…, 8 x 40 (1x): the handle (rows 0-13), a jade bead (15-19), a gilt bead (21-25),… (+77 more)
+Nodes (107): A glowing mushroom bursting up out of the ground, 4 frames of 14 x 18: a bump,…, shroom_spike(), cannon(), incense(), pendant(), 8 x 40 (1x): the handle (rows 0-13), a jade bead (15-19), a gilt bead (21-25),…, 26 x 12, pointing right: a cinnabar lacquered tube in gilt bands, a jade…, 12 x 16: a red cord loop, a gilt bail, a round jade medallion carved as a… (+99 more)
 
-### Community 7 - "jadey previous: .finish()"
-Cohesion: 0.04
-Nodes (86): add(), barbs(), blade(), blade_shade(), blade_width(), bounds(), burst(), cannon() (+78 more)
+### Community 7 - "Jadey Boss Art"
+Cohesion: 0.03
+Nodes (105): ik(), arm(), A black panda arm: a thick upper arm and forearm (steel), a jade cuff with a…, arm(), bag(), bat(), body_box(), coil() (+97 more)
 
-### Community 8 - "junkyard previous: make_tar_weapons_2026-11-03."
+### Community 8 - "Core Safety & Weapon Namespaces"
+Cohesion: 0.03
+Nodes (35): JadeyRigData, bool, int, short, CoghavenBlueprints, int, string, CogscorpionRigData (+27 more)
+
+### Community 9 - "Tar Weapons & Friendobo Art (2026-11-03)"
 Cohesion: 0.05
 Nodes (84): ball(), blast_frames(), build(), charge_frames(), clash_frames(), cooldown_icon(), curve(), despeckle() (+76 more)
 
-### Community 9 - "OldBrassTown NPCs: Cogpunk.Core.Systems"
-Cohesion: 0.03
-Nodes (45): Dinamitrom enemy, Dinamitrom (Old Brass Town enemy), Sheriff (Old Brass Town enemy), CoghawkRigData, int, ScrappyTrunk, ScrappyTrunk item sprite (rusty chest), ScrappyTrunkTile sheet (2x2 chest frames, open/closed/locked) (+37 more)
+### Community 10 - "Core Templates & Systems"
+Cohesion: 0.04
+Nodes (24): Item, Player, IsArmorSet(), UpdateArmorSet(), Cog-launcher (brass piston gun weapon), Cogpunk.Content.Secrets.Ruins.Tiles, Cogpunk.Content.Scrap.Minions, Cogpunk.Content.Junkyard.Projectiles (+16 more)
 
-### Community 10 - "Coghaven Items: CogpunkItem"
+### Community 11 - "Boss Summons, Bags & Drops"
 Cohesion: 0.03
-Nodes (21): CogpunkItem, Scrapworm, int, BronzeCog, BronzeGearwork, BronzeGearworkWall, BronzeLatticeWall, CinnabarLacquer (+13 more)
+Nodes (42): CursedConductorLoot, int, Cursed Conductor Gore Bit 3 (green fragment), Cursed Conductor Gore Bit 4, Cursed Conductor Gore Bit 5, Cursed Conductor Gore Cap (blue conductor cap), Cursed Conductor Gore Coat (blue coat halves), Cursed Conductor Gore Head (skull with cap) (+34 more)
 
-### Community 11 - "Mechanist Armor: CogpunkItem"
-Cohesion: 0.03
-Nodes (38): Tr0mheadStaff, EntitySource_ItemUse_WithAmmo, List, LocalizedText, Player, TooltipLine, Vector2, PolishedMetal (+30 more)
-
-### Community 12 - "tools sim: update_2026_11_10_sim.py"
+### Community 12 - "Trash-Tr0m Loot Art"
 Cohesion: 0.05
-Nodes (57): Distance from the segment a-b to the box (0 if they touch); sampled every 2 px…, seg_box_dist(), additive(), chests_png(), font_at(), GolemSprite, items_png(), K_in() (+49 more)
+Nodes (75): blit(), boom_detail(), boom_section(), boss_cog_frames(), boxed(), exhaust(), export(), export_all() (+67 more)
 
-### Community 13 - "tools sim: update_2026_11_11b_sim.py"
-Cohesion: 0.05
-Nodes (60): Ruins, beetle_backdrop(), chat_line(), dummy(), flat_backdrop(), macuahuitl_hand(), main(), Motes (+52 more)
-
-### Community 14 - "Bosses Jadey: Jadey"
+### Community 13 - "Jadey Boss AI"
 Cohesion: 0.05
 Nodes (25): Jadey, Player, Vector2, Phase, BestiaryDatabase, BestiaryEntry, bool, byte (+17 more)
 
-### Community 15 - "tools sim: tartyrant_sim.py"
-Cohesion: 0.06
-Nodes (61): Tar Plague debuff (1 s on every hit), Flung bones attack (3 bones, bounce once then shatter, 30 dmg Expert), Melt attack (burrow when target far, untouchable, hurts from 4th frame), Tar Tyrant attacks proof GIF (3.0 s downtime, glob 50, bone spike 55, flung bone 30, bubble 30, body 50, Tar Plague 1 s), Tar Tyrant flung bones proof GIF (hump heaves, boils 30 ticks, 3 bones lobbed at player's feet every 3.5 s), Tar Tyrant death cinematic proof GIF (300 ticks, 32 frames, femur topples, bones gore at 290), Tar Tyrant hitbox strips PNG (per-part red hitboxes over frames 0/21/55/64/46/84 at 100% and 51%), Tar Tyrant melt-and-rise proof GIF (target 45+ tiles away melts into ground, contact 50, untouchable while under) (+53 more)
+### Community 14 - "Buffs & Jadey Weapons"
+Cohesion: 0.03
+Nodes (37): CogpunkBuff, CursedTrainWhistle, GhostTrainBuff, EntitySource_ItemUse_WithAmmo, float, int, List, Player (+29 more)
 
-### Community 16 - "Bosses TrashTr0m: TrashTr0m"
-Cohesion: 0.06
-Nodes (19): TrashTr0m, float, int, Player, Projectile, Vector2, Item, MultipliableFloat (+11 more)
+### Community 15 - "Mechanist & Tar Weapons"
+Cohesion: 0.03
+Nodes (28): SpringGloves, float, LocalizedText, TarDroplet, TarBoneStaff, EntitySource_ItemUse_WithAmmo, float, int (+20 more)
 
-### Community 17 - "bloodmoon previous: Xf"
+### Community 16 - "Jadey Loot & Manuals Art"
 Cohesion: 0.05
-Nodes (60): arm_bones(), claw(), crop(), export_all(), flame(), flame_rows(), frame(), gores() (+52 more)
+Nodes (70): add(), bounds(), burst(), cells(), columns(), cross(), cs_array(), _darker() (+62 more)
 
-### Community 18 - "art junkyard: make_tar_weapons.py"
+### Community 17 - "Old Brass Town Items & Brass Armor"
+Cohesion: 0.03
+Nodes (25): Brass Strongbox (Old Brass Town chest), Sheriff enemy, BrassChestplate, int, LocalizedText, Player, BrassGreaves, int (+17 more)
+
+### Community 18 - "Tar Weapons Art"
 Cohesion: 0.07
 Nodes (68): ball(), blast_frames(), build(), charge_frames(), clash_frames(), cooldown_icon(), curve(), despeckle() (+60 more)
 
-### Community 19 - "underworld previous: Union"
-Cohesion: 0.04
-Nodes (49): bat(), cushion(), head(), A big round panda head: white fur (ivory, lit as a dome in its own space),…, A jade bat, one of Jadey's coin minions: a carved jade body (lit as a dome in…, A plump crimson silk cushion (lit from the top-left in its own space, its top…, Info, Minus (+41 more)
-
-### Community 20 - "Bosses CursedConductor: CursedConductor"
+### Community 19 - "Cursed Conductor AI"
 Cohesion: 0.06
 Nodes (16): CursedConductor, Phase, BestiaryDatabase, BestiaryEntry, bool, byte, float, IEntitySource (+8 more)
 
-### Community 21 - "tools sim: trashtr0m_loot_sim.py"
-Cohesion: 0.07
-Nodes (50): creatures_png(), frames(), gif_text(), main(), polisher_frame(), D5 proofs for the Junkyard update of 2026-10-26: the Rust Collector, the Living…, One animation frame assembled from its 3x3 tile cells exactly as the game draws…, scene_collector() (+42 more)
+### Community 20 - "Conductor Sim (2026-11-05)"
+Cohesion: 0.08
+Nodes (36): Smoke, extension(), Player, SpringPunch.Extension: eased out, held, reeled back., scene_boxer(), Bullet, faded(), heading_frame() (+28 more)
 
-### Community 22 - "bosses jadey: make_jadey_loot_art.py"
-Cohesion: 0.05
-Nodes (65): add(), bounds(), cells(), columns(), cross(), cs_array(), _darker(), dot() (+57 more)
-
-### Community 23 - "tools sim: Town"
-Cohesion: 0.06
-Nodes (36): export_all(), glyph(), preview(), Source for the Fundamental Stones (D4), 2026-11-10 (user, with a reference…, The slate's pixels: 20 wide (x 6..25), from the arched crown (y 3) down into…, The stone (32x48 at 1x) of `style`, and its glow., The styles side by side, each cut into 8x8 tiles on vanilla's stride (1 px gap…, A 7x9 glyph from a 5x7 pattern: pale blue strokes, white-hot hearts ('*'), a… (+28 more)
-
-### Community 24 - "TrashTr0m Projectiles: CogpunkProjectile"
-Cohesion: 0.04
-Nodes (28): ConfigScope, TrashTr0mCog, Color, float, int, Vector2, TrashTr0mScrapBall, Color (+20 more)
-
-### Community 25 - "Jadey Weapons: Cogpunk.Content.Bosses.Jadey"
-Cohesion: 0.04
-Nodes (29): JadeyRigData, bool, int, short, JadeGlaiveRigData, byte, int, short (+21 more)
-
-### Community 26 - "tools promo: View"
+### Community 21 - "Promo Teaser Staging"
 Cohesion: 0.05
 Nodes (32): Black, CoghavenWide, CogMacro, Combinator, Flashes, HallMacro, LogoCard, Mechanist (+24 more)
 
-### Community 27 - "bosses cursedconductor: Canvas"
+### Community 22 - "Cursed Conductor Art"
 Cohesion: 0.06
 Nodes (57): bits(), body(), body_box(), car(), crop(), curse_icon(), engine(), export_all() (+49 more)
 
-### Community 28 - "OldBrassTown Items: Cogpunk.Content.OldBrassTown"
-Cohesion: 0.03
-Nodes (23): Sheriff enemy, BrassHelmet, int, Item, LocalizedText, Player, IsArmorSet(), UpdateArmorSet() (+15 more)
-
-### Community 29 - "Jadey Buffs: CogpunkBuff"
+### Community 23 - "Rig Shapes & Revolver Art"
 Cohesion: 0.04
-Nodes (29): CogpunkBuff, IncenseBlessing, LocalizedText, Player, IncenseBurntOut, LocalizedText, JadeShaperRest, JadeStatue (+21 more)
+Nodes (42): _hash(), Info, level(), lit(), Minus, A tiny 2D pixel-art renderer for Cogpunk's layered bosses (D4: drawn at 1x,…, The rotation part only (a scaled pose keeps unit normals unit)., Lighting intensity (-1..1) -> a ramp index in [lo, hi], hard steps. dither=(lx,… (+34 more)
 
-### Community 30 - "art ocean: Poly"
+### Community 24 - "flat"
+Cohesion: 0.07
+Nodes (57): flat(), arm(), body(), coil(), crop(), despeckle(), export_all(), fist_image() (+49 more)
+
+### Community 25 - "ResearchWorld"
 Cohesion: 0.06
-Nodes (52): dart(), legs(), Black panda legs folded in the lotus over the cushion: one rounded mass (the…, Black panda shoulders; a sleeveless jade qipao top tapering from a high collar…, The rope dart's jade blade pointing along heading k (k * 22.5 degrees, 0 =…, torso(), cannon(), incense() (+44 more)
+Nodes (22): CogpunkPacket, SteamDashPacket, BinaryReader, KnowledgeTasks, int, string, GemStaffsPacket, Kind (+14 more)
 
-### Community 31 - "BloodMoon Projectiles: .TryNewDust()"
-Cohesion: 0.05
-Nodes (26): HitInfo, SoulFireCog, Asset, Color, int, TrashTr0mChewedScrap, Color, float (+18 more)
-
-### Community 32 - "tools sim: mech_army_sim.py"
+### Community 26 - "mech_army_sim.py"
 Cohesion: 0.09
 Nodes (47): cell(), draw_jaeger(), draw_player(), draw_walker(), hit(), jaeger_part(), jaeger_strips(), main() (+39 more)
 
-### Community 33 - "Mechanist Weapons: CogspringSword"
+### Community 27 - "update_2026_11_10b_sim_2026-11-10.py"
 Cohesion: 0.07
-Nodes (21): CogspringLayer, CogspringPlayer, CogspringSlam, CogspringSword, Asset, bool, Color, float (+13 more)
+Nodes (43): Distance from the segment a-b to the box (0 if they touch); sampled every 2 px…, seg_box_dist(), additive(), chests_png(), font_at(), GolemSprite, items_png(), K_in() (+35 more)
 
-### Community 34 - "art dungeon: flat()"
+### Community 28 - "FundamentalStoneTile"
 Cohesion: 0.06
-Nodes (53): bag(), Her treasure bag: jade silk tied with a gilt cord, a crimson tassel, a pagoda-…, pendant(), 8 x 40 (1x): the handle (rows 0-13), a jade bead (15-19), a gilt bead (21-25),…, 12 x 16: a red cord loop, a gilt bail, a round jade medallion carved as a…, 16 x 16 debuff: the pendant's medallion gone dull, and a little gilt hourglass., rest_icon(), whip_sheet() (+45 more)
+Nodes (17): FundamentalStoneAwakening, StoneTouchPacket, BinaryReader, float, int, sbyte, Vector2, FundamentalStones (+9 more)
 
-### Community 35 - "cursedconductor previous: box()"
+### Community 29 - "TrashTr0m"
+Cohesion: 0.05
+Nodes (14): Phase, TrashTr0m, BestiaryDatabase, BestiaryEntry, BinaryReader, BinaryWriter, bool, float (+6 more)
+
+### Community 30 - "GhostTrainEngine"
+Cohesion: 0.05
+Nodes (23): GhostTrainArt, GhostTrainEngine, Mode, Asset, byte, Color, float, HitModifiers (+15 more)
+
+### Community 31 - "update_2026_11_11_sim_2026-11-11.py"
 Cohesion: 0.07
-Nodes (53): bits(), body(), body_box(), car(), crop(), curse_icon(), engine(), export_all() (+45 more)
+Nodes (43): beetle_backdrop(), chat_line(), dummy(), flat_backdrop(), items_png(), macuahuitl_hand(), main(), Motes (+35 more)
 
-### Community 36 - "Bosses TarTyrant: TarTyrant"
-Cohesion: 0.05
-Nodes (14): Phase, TarTyrant, BestiaryDatabase, BestiaryEntry, BinaryReader, BinaryWriter, bool, float (+6 more)
+### Community 32 - "update_2026_11_11b_sim.py"
+Cohesion: 0.08
+Nodes (44): dummy(), flat_backdrop(), A cavern sample: tiles (kind), walls, water, a spider nest (Spider Wall and…, A dark cavern over a floor of Fundamental Brick (the real tile, framed)., A stand-in for vanilla's Target Dummy: a straw sack on a post (it wobbles when…, World, beam_strip(), build_world() (+36 more)
 
-### Community 37 - "Fungimancer Projectiles: CogpunkProjectile"
-Cohesion: 0.04
-Nodes (24): CogpunkProjectile, FungimancerTongue, ShroomSpike, SporeBolt, Color, float, HurtInfo, int (+16 more)
-
-### Community 38 - "Junkyard Generation: Cogpunk.Core.WorldGeneration"
-Cohesion: 0.05
-Nodes (28): ScrappyTrunkPass, ScrappyTrunkWorldGen, int, JunkyardLayoutPass, GameConfiguration, GenerationProgress, JunkyardReservePass, int (+20 more)
-
-### Community 39 - "cursedconductor previous: make_conductor_art_2026-11-0"
+### Community 33 - "make_conductor_art_2026-11-06.py"
 Cohesion: 0.07
 Nodes (50): bits(), body(), body_box(), car(), crop(), curse_icon(), engine(), export_all() (+42 more)
 
-### Community 40 - "junkyard previous: make_tar_weapons_2026-10-30."
+### Community 34 - "make_tar_weapons_2026-10-30.py"
 Cohesion: 0.09
 Nodes (51): ball(), blast_frames(), build(), charge_frames(), clash_frames(), cooldown_icon(), curve(), despeckle() (+43 more)
 
-### Community 41 - "Bosses Fungimancer: Fungimancer"
-Cohesion: 0.06
+### Community 35 - "TrashTr0m"
+Cohesion: 0.08
+Nodes (14): TrashTr0m, float, int, Projectile, Vector2, Asset, Color, float (+6 more)
+
+### Community 36 - "make_coghaven_art.py"
+Cohesion: 0.07
+Nodes (43): biome_icon(), Block, cog_frame(), cog_item(), dark_outline(), export(), export_all(), flagstone_wall_detail() (+35 more)
+
+### Community 37 - "trashtr0m_sim.py"
+Cohesion: 0.12
+Nodes (43): build_heap(), buried_pixels(), crawl_step(), far_hand(), hitbox_png(), inbetweens_png(), lock_envelope(), main() (+35 more)
+
+### Community 38 - "Island"
+Cohesion: 0.08
+Nodes (22): assemble(), constants(), furniture_sprite(), Island, island_png(), main(), D5 proofs for Coghaven (2026-11-06): replays…, CoghavenPass.Below: the rows the island hangs under its surface in column i. (+14 more)
+
+### Community 39 - "make_jade_golem_art.py"
+Cohesion: 0.07
+Nodes (47): arm(), arm_cell(), arm_frame(), body(), boulder(), crop(), export_all(), export_ray() (+39 more)
+
+### Community 40 - "Fungimancer"
+Cohesion: 0.07
 Nodes (16): Fungimancer, Phase, Asset, BestiaryDatabase, BestiaryEntry, bool, byte, Color (+8 more)
 
-### Community 42 - "Jungle NPCs: RhinoBeetle"
-Cohesion: 0.05
-Nodes (27): JadeBeetle, Asset, BestiaryDatabase, BestiaryEntry, float, IBestiaryInfoElement, int, NPCSpawnInfo (+19 more)
-
-### Community 43 - "Junkyard Weapons: Cogpunk.Content.Junkyard.Wea"
-Cohesion: 0.04
-Nodes (16): TarDroplet, TarSlimeBuff, Player, TarWhip, float, int, LocalizedText, WrenchRiposteBuff (+8 more)
-
-### Community 44 - "Research: ResearchPlayer"
-Cohesion: 0.07
-Nodes (16): Blocker, ResearchPlayer, bool, byte, HashSet, HitInfo, HitModifiers, HurtInfo (+8 more)
-
-### Community 45 - "art coghaven: make_coghaven_art.py"
-Cohesion: 0.08
-Nodes (42): biome_icon(), Block, cog_frame(), cog_item(), dark_outline(), export_all(), flagstone_wall_detail(), flagstone_wall_texture() (+34 more)
-
-### Community 46 - "sim previous: update_2026_11_11_sim_2026-1"
-Cohesion: 0.09
-Nodes (41): beetle_backdrop(), chat_line(), dummy(), flat_backdrop(), items_png(), macuahuitl_hand(), main(), Motes (+33 more)
-
-### Community 47 - "sim previous: Ruins"
-Cohesion: 0.10
-Nodes (12): Beetle, blocked(), ground_at(), FundamentalRuinsPass's build (2026-11-11), step for step, on a World (its rng…, BuildRight: the red herring at the left way's levels, down to a dead end behind…, The floor under x for something whose feet are at `feet` (tops are one-way: you…, Moving from x0 to x1 (centres) with this half-width and feet: where a solid…, The scripted player: vanilla-ish run, jump, gravity; hurt knockback (decompiled… (+4 more)
-
-### Community 48 - "cursedconductor previous: make_conductor_art_2026-11-0 (2)"
-Cohesion: 0.08
-Nodes (46): bits(), body(), body_box(), car(), crop(), curse_icon(), engine(), export_all() (+38 more)
-
-### Community 49 - "Bosses TrashTr0m: TrashTr0m (2)"
+### Community 41 - "TrashTr0mSummon"
 Cohesion: 0.06
-Nodes (14): Phase, TrashTr0m, BestiaryDatabase, BestiaryEntry, BinaryReader, BinaryWriter, bool, float (+6 more)
+Nodes (22): TrashTr0mBaitPacket, TrashTr0mSummon, TrashTr0mSummonPacket, BinaryReader, bool, Color, float, IEntitySource (+14 more)
 
-### Community 50 - "OldBrassTown NPCs: Sheriff"
+### Community 42 - "FundamentalRuinsSystem"
+Cohesion: 0.06
+Nodes (19): FundamentalRuinsSystem, BinaryReader, BinaryWriter, bool, float, int, Point, Rectangle (+11 more)
+
+### Community 43 - "Town"
+Cohesion: 0.08
+Nodes (23): apply_light(), art(), blocks_png(), blueprints(), check_blueprint(), chests_png(), constants(), draw_town() (+15 more)
+
+### Community 44 - ".TryNewDust"
+Cohesion: 0.06
+Nodes (22): HitInfo, HitInfo, HitInfo, HitInfo, HitInfo, HitInfo, MechArmyGores, NPC (+14 more)
+
+### Community 45 - "ResearchTreeView"
+Cohesion: 0.09
+Nodes (22): ResearchCloseButton, ResearchTabStrip, ResearchTreeView, ResearchUIState, ResearchWindow, Asset, bool, byte (+14 more)
+
+### Community 46 - "Trapper"
+Cohesion: 0.05
+Nodes (21): Phase, Trapper, BestiaryDatabase, BestiaryEntry, float, HitInfo, int, NPCLoot (+13 more)
+
+### Community 47 - "Sheriff"
 Cohesion: 0.07
 Nodes (22): Phase, Sheriff, Asset, float, IBestiaryInfoElement, IEntitySource, int, NPCLoot (+14 more)
 
-### Community 51 - "jadey previous: make_jadey_art_2026-11-17.py"
-Cohesion: 0.07
-Nodes (45): arm(), bag(), bat(), body_box(), coil(), coin(), cord_link(), cursed_ground() (+37 more)
-
-### Community 52 - "jadey previous: make_jadey_art_2026-11-18.py"
-Cohesion: 0.07
-Nodes (45): arm(), bag(), bat(), body_box(), coil(), coin(), cord_link(), cursed_ground() (+37 more)
-
-### Community 53 - "art coghaven: make_buddha_head_art.py"
+### Community 48 - "make_buddha_head_art.py"
 Cohesion: 0.08
 Nodes (42): brow_v(), collar_part(), cone_hw(), crop(), ear_part(), export_all(), face_hw(), face_part() (+34 more)
 
-### Community 54 - "art mecharmy: make_mecharmy_art.py"
+### Community 49 - "AnnoyOTron.cs"
+Cohesion: 0.05
+Nodes (24): MechArmySounds, MechArmyRigData, byte, int, short, AlarmHead, int, LocalizedText (+16 more)
+
+### Community 50 - "make_conductor_art_2026-11-05b.py"
 Cohesion: 0.08
-Nodes (45): alarm_head_icon(), alarmobo_buff_icon(), annoy_frame(), beacon_frame(), blast_frame(), bomb(), boombot_frame(), crop() (+37 more)
+Nodes (44): bits(), body_box(), car(), crop(), engine(), export_all(), fl(), flame() (+36 more)
 
-### Community 55 - "MechArmy NPCs: AlarmoboMinion"
+### Community 51 - "BarrelGun"
+Cohesion: 0.06
+Nodes (22): SpringGlovesPlayer, bool, Item, Tarmancer, EntitySource_ItemUse_WithAmmo, Player, Vector2, BarrelGun (+14 more)
+
+### Community 52 - "Frame"
+Cohesion: 0.09
+Nodes (30): arm(), ellpart(), HalfEll, model(), Pose, Green upper arm, the forearm turning red, a red hand: palm and three long…, The parts of one pose., The top of an ellipsoid, cut flat `cut` px under its centre (a mushroom's cap). (+22 more)
+
+### Community 53 - "TarTyrant"
 Cohesion: 0.07
-Nodes (17): AlarmoboMinion, Mode, Asset, bool, float, int, Player, Vector2 (+9 more)
+Nodes (14): Phase, TarTyrant, BestiaryDatabase, BestiaryEntry, BinaryReader, BinaryWriter, bool, float (+6 more)
 
-### Community 56 - "Secrets Generation: FundamentalRuinsPass"
+### Community 54 - "CogpunkProjectile"
+Cohesion: 0.05
+Nodes (18): TrashTr0mChewedScrap, Color, float, int, TrashTr0mScrapBall, Color, float, int (+10 more)
+
+### Community 55 - "ResearchPlayer"
+Cohesion: 0.08
+Nodes (10): Blocker, ResearchPlayer, bool, byte, HashSet, int, Item, TagCompound (+2 more)
+
+### Community 56 - "FundamentalRuinsPass"
 Cohesion: 0.10
 Nodes (13): FundamentalRuinsPass, Nest, bool, double, GameConfiguration, GenerationProgress, int, List (+5 more)
 
-### Community 57 - "tools sim: Planes"
+### Community 57 - "update_2026_11_04_sim.py"
 Cohesion: 0.11
-Nodes (34): load(), aim_index(), bandit_muzzle(), fire(), heading_frame(), items_png(), main(), ocean_backdrop() (+26 more)
+Nodes (35): load(), The game's thin smoke trails (Core/Visuals/SmokeTrails.cs, 2026-11-05) for the…, aim_index(), bandit_muzzle(), fire(), heading_frame(), items_png(), main() (+27 more)
 
-### Community 58 - "tools sim: update_2026_11_12_sim.py"
-Cohesion: 0.12
-Nodes (41): add(), buddha_frames_png(), buddha_gif(), combinator_png(), combine(), consts(), default_name(), dummy() (+33 more)
+### Community 58 - "make_conductor_art_2026-11-05.py"
+Cohesion: 0.09
+Nodes (42): bits(), body_box(), car(), crop(), engine(), export_all(), fl(), flame() (+34 more)
 
-### Community 59 - "art scrap: Canvas"
+### Community 59 - "Canvas"
 Cohesion: 0.08
 Nodes (35): back_shoulder_cell(), body_idle(), cog4(), cog6(), crop_to_content(), helmet_frame(), legs_frame(), make_body_sheet() (+27 more)
 
-### Community 60 - "Coghaven Walls: CogpunkWall"
+### Community 60 - "CogpunkWall"
 Cohesion: 0.05
 Nodes (18): CogpunkWall, BronzeGearworkWallTile, BronzeLatticeWallTile, CinnabarPanelWallTile, JadeBrickWallTile, PalaceFlagstoneWallTile, VaultGearworkWallTile, BrassSandstoneWallTile (+10 more)
 
-### Community 61 - "BloodMoon Projectiles: .TryNewProjectile()"
-Cohesion: 0.05
-Nodes (22): MechromancerGrave, Asset, Color, int, ScrapBomb, EntitySource_ItemUse_WithAmmo, float, int (+14 more)
+### Community 61 - "CombinedWeapon"
+Cohesion: 0.10
+Nodes (16): CombinatorCraftRefund, CombinedWeapon, BinaryReader, BinaryWriter, Item, List, TagCompound, TooltipLine (+8 more)
 
-### Community 62 - "Coghaven Generation: CoghavenPass"
+### Community 62 - "update_2026_11_12_sim.py"
+Cohesion: 0.11
+Nodes (40): add(), buddha_frames_png(), buddha_gif(), combinator_png(), combine(), consts(), default_name(), dummy() (+32 more)
+
+### Community 63 - "make_jadey_art_2026-11-18.py"
+Cohesion: 0.07
+Nodes (41): arm(), bag(), bat(), body_box(), coil(), coin(), cord_link(), cursed_ground() (+33 more)
+
+### Community 64 - "CoghavenPass"
 Cohesion: 0.09
 Nodes (12): char, CoghavenPass, Piece, bool, GameConfiguration, GenerationProgress, int, List (+4 more)
 
-### Community 63 - "Dungeon NPCs: BeatBoxer"
+### Community 65 - "Mechromancer"
+Cohesion: 0.07
+Nodes (19): Mechromancer, Phase, Asset, BestiaryDatabase, BestiaryEntry, BinaryReader, BinaryWriter, Color (+11 more)
+
+### Community 66 - "BeatBoxer"
 Cohesion: 0.06
 Nodes (22): BeatBoxer, Phase, Asset, float, IBestiaryInfoElement, int, NPCLoot, NPCSpawnInfo (+14 more)
 
-### Community 64 - "art coghaven: make_jade_golem_art.py"
-Cohesion: 0.08
-Nodes (39): arm_cell(), arm_frame(), body(), boulder(), crop(), export_all(), export_ray(), foot_cycle() (+31 more)
-
-### Community 65 - "Scrap Pets: Junkbait.cs"
+### Community 67 - "JadeRobe"
 Cohesion: 0.05
-Nodes (20): RustPolisherTile, int, Overheat, Player, MiceBotBuff, Player, Scrappybot, EntitySource_ItemUse_WithAmmo (+12 more)
+Nodes (16): Jade, int, JadePhasesaber, Color, int, Player, Rectangle, JadeRobe (+8 more)
 
-### Community 66 - "town previous: P()"
+### Community 68 - "AlarmoboMinion"
+Cohesion: 0.07
+Nodes (17): AlarmoboMinion, Mode, Asset, bool, float, int, Player, Vector2 (+9 more)
+
+### Community 69 - "make_conductor_art_2026-11-04.py"
 Cohesion: 0.09
-Nodes (39): arm(), foot_block(), leg(), limb_mottle(), open_hand(), The mottling on a limb, counted along and across its own axis (from joint a…, A block foot of rough jade with split toes, under the ankle (toes forward,…, A huge open stone hand off the wrist. Aimed: the palm faces along the arm `u`… (+31 more)
+Nodes (40): body(), body_box(), car(), crop(), engine(), export_all(), fl(), flame() (+32 more)
 
-### Community 67 - "Jadey Projectiles: JadeCursePlayer"
+### Community 70 - "Cogpunk.Core.WorldGeneration"
+Cohesion: 0.06
+Nodes (21): JunkyardLayoutPass, GameConfiguration, GenerationProgress, JunkyardReservePass, int, Rectangle, GlassContainerPass, Chest (+13 more)
+
+### Community 71 - "make_jadey_loot_art_2026-11-17.py"
+Cohesion: 0.10
+Nodes (40): add(), blade_shade(), blade_width(), bounds(), cells(), crescent(), cross(), cs_array() (+32 more)
+
+### Community 72 - "make_jade_golem_art_v2_2026-11-09.py"
+Cohesion: 0.09
+Nodes (38): arm(), body(), boulder(), crop(), export_all(), export_ray(), foot_block(), foot_cycle() (+30 more)
+
+### Community 73 - "CombinedProjectile"
+Cohesion: 0.09
+Nodes (20): CombinatorTrait, CombinatorTraits, Dictionary, float, Item, string, CombinedProjectile, BinaryReader (+12 more)
+
+### Community 74 - "Sheriff.cs"
+Cohesion: 0.07
+Nodes (30): Dinamitrom enemy, Dinamitrom (Old Brass Town enemy), Mechanical Bull enemy, Sheriff (Old Brass Town enemy), Dinamitrom hoop gore, Dinamitrom stave gore, Dinamitrom dynamite stick gore, Mechanical Bull head gore (+22 more)
+
+### Community 75 - "JadeCursePlayer"
 Cohesion: 0.06
 Nodes (19): HurtInfo, Player, Player, JadeCursedGround, Color, int, Player, Rectangle (+11 more)
 
-### Community 68 - "Junkyard Tar: ScrapImpact"
+### Community 76 - "Cogpunk.Content.Bosses.TrashTr0m"
+Cohesion: 0.05
+Nodes (14): TetanusShot, int, Player, TrashTr0mRigData, byte, int, short, Cogpunk.Content.Junkyard (+6 more)
+
+### Community 77 - "ScrapImpact"
 Cohesion: 0.06
 Nodes (27): ScrapImpact, Color, Dust, int, TurbineSmoke, Color, Dust, int (+19 more)
 
-### Community 69 - "Combinator Combination: CombinedProjectile"
+### Community 78 - "update_2026_11_04b_sim.py"
+Cohesion: 0.13
+Nodes (26): numbers(), overlaps(), Conductor, draw_mist(), draw_rails(), Flame, idle_frame(), main() (+18 more)
+
+### Community 79 - "ProperMealBuff"
+Cohesion: 0.06
+Nodes (28): DeadeyeChili, DeadeyeChiliBuff, GetAttackSpeed, GetCritChance, statLifeMax2, void, FireflyJelly, FireflyJellyBuff (+20 more)
+
+### Community 80 - "make_fungimancer_art.py"
 Cohesion: 0.09
-Nodes (20): CombinatorTraits, CombinatorTrait, Dictionary, float, Item, string, CombinedProjectile, BinaryReader (+12 more)
+Nodes (37): composite(), crop(), ellipse(), export_all(), face(), far_arm(), frame(), frill_wave() (+29 more)
 
-### Community 70 - "tools sim: update_2026_11_05_sim.py"
-Cohesion: 0.12
-Nodes (27): The game's thin smoke trails (Core/Visuals/SmokeTrails.cs, 2026-11-05) for the…, Smoke, title(), draw_track(), Ghost, ghost_sprite(), half(), idle_frame() (+19 more)
-
-### Community 71 - "cursedconductor previous: make_conductor_art_2026-11-0 (3)"
-Cohesion: 0.10
-Nodes (38): body(), body_box(), car(), crop(), engine(), export_all(), fl(), flame() (+30 more)
-
-### Community 72 - "bosses fungimancer: make_fungimancer_art.py"
-Cohesion: 0.08
-Nodes (38): composite(), crop(), ellipse(), export_all(), face(), far_arm(), frame(), frill_wave() (+30 more)
-
-### Community 73 - "tools sim: trashtr0m_sim.py"
-Cohesion: 0.08
-Nodes (35): build_heap(), buried_pixels(), clear_band(), crawl_step(), darken(), draw_boss(), draw_cell(), far_hand() (+27 more)
-
-### Community 74 - "tools sim: update_2026_11_09_sim.py"
-Cohesion: 0.10
-Nodes (28): capsule_hits(), draw_diagonal(), draw_halo(), halo_frame(), hover_spot(), idle_frame(), items_png(), lantern_point() (+20 more)
-
-### Community 75 - "coghaven previous: make_jade_golem_art_v2_2026-"
-Cohesion: 0.09
-Nodes (36): arm(), body(), boulder(), crop(), export_all(), export_ray(), foot_block(), foot_cycle() (+28 more)
-
-### Community 76 - "Bosses CursedConductor: CursedConductor (2)"
+### Community 81 - "CursedConductor"
 Cohesion: 0.12
 Nodes (14): CursedConductor, SmokePuff, Asset, bool, Color, float, HitInfo, int (+6 more)
 
-### Community 77 - "TarTyrant Items: SereneTear"
-Cohesion: 0.06
-Nodes (17): CursedConductorLoot, int, CursedConductorBag, SereneTear, int, LocalizedText, Player, TarTyrantBag (+9 more)
-
-### Community 78 - "Bosses TarTyrant: TarTyrant (2)"
+### Community 82 - "TarTyrant"
 Cohesion: 0.13
 Nodes (12): TarTyrant, float, int, Asset, Color, float, int, Player (+4 more)
 
-### Community 79 - "Underworld NPCs: DragoneteMiudo"
-Cohesion: 0.06
-Nodes (20): DragoneteMiudo, Phase, Asset, bool, float, IBestiaryInfoElement, int, NPCSpawnInfo (+12 more)
-
-### Community 80 - "tools promo: make_teaser.py"
+### Community 83 - "make_teaser.py"
 Cohesion: 0.11
 Nodes (25): BarrelShot, CutterShot, Duel, FiresawShot, JadeShot, main(), memo(), player() (+17 more)
 
-### Community 81 - "art coghaven: Plan"
-Cohesion: 0.13
-Nodes (28): all_plans(), check(), gate(), main(), main_hall(), pagoda(), pavilion(), Plan (+20 more)
+### Community 84 - "trashtr0m_loot_sim.py"
+Cohesion: 0.15
+Nodes (29): backdrop(), collector_sprite(), consts(), Enemy, extension(), frames(), Gif, glow_over() (+21 more)
 
-### Community 82 - "Scrap Minions: MiceBotMinion"
-Cohesion: 0.11
-Nodes (11): MiceBotMinion, Mode, bool, Color, float, HitInfo, HitModifiers, int (+3 more)
+### Community 85 - "update_2026_11_09_sim.py"
+Cohesion: 0.10
+Nodes (27): capsule_hits(), draw_diagonal(), draw_halo(), halo_frame(), hover_spot(), idle_frame(), items_png(), lantern_point() (+19 more)
 
-### Community 83 - "Combinator Combination: Cogpunk.Content.Combinator.C"
-Cohesion: 0.06
-Nodes (19): CombinatorBlast, float, HitModifiers, int, NPC, Rectangle, Combinator UI button, Combinator help (?) icon (+11 more)
+### Community 86 - "MetalWrench"
+Cohesion: 0.10
+Nodes (16): MetalWrench, float, HitInfo, HitModifiers, int, List, LocalizedText, NPC (+8 more)
 
-### Community 84 - "Mechanist Weapons: DiamondCutterBeam"
+### Community 87 - "DiamondCutterBeam"
 Cohesion: 0.07
 Nodes (17): DiamondCutter, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2, DiamondCutterBeam (+9 more)
 
-### Community 85 - "Research UI: ResearchTreeView"
-Cohesion: 0.08
-Nodes (22): ResearchCloseButton, ResearchTreeView, ResearchUIState, ResearchWindow, Asset, bool, byte, Color (+14 more)
-
-### Community 86 - "tools promo: stage.py"
+### Community 88 - "stage.py"
 Cohesion: 0.10
 Nodes (28): big_word(), boss_card(), hit_flash(), lower_third(), number(), A damage number rising and fading (the game's combat text, in the palette's…, A location / weapon name sliding in over the bottom bar: a brass title, a rule…, A word slammed onto the middle of the stage: three frames oversize, then it… (+20 more)
 
-### Community 87 - "art jungle: make_rhino_beetle_art.py"
+### Community 89 - "make_jadey_art.py"
+Cohesion: 0.08
+Nodes (35): bag(), bat(), body_box(), coil(), coin(), cord_link(), cursed_ground(), dart() (+27 more)
+
+### Community 90 - "make_rhino_beetle_art.py"
 Cohesion: 0.09
 Nodes (35): abdomen(), antenna(), charge_pose(), crop(), elytron(), export_all(), frame(), gait() (+27 more)
 
-### Community 88 - "Core Events: CogpunkInvasion"
+### Community 91 - "RhinoBeetle"
 Cohesion: 0.08
-Nodes (18): CommandCaller, CommandType, MechArmyCommand, CogpunkInvasion, Asset, BinaryReader, BinaryWriter, bool (+10 more)
+Nodes (17): Phase, RhinoBeetle, RhinoTossPlayer, Asset, BestiaryDatabase, BestiaryEntry, float, HurtInfo (+9 more)
 
-### Community 89 - "CursedConductor Projectiles: GhostTrain.cs"
-Cohesion: 0.06
-Nodes (24): Cursed Conductor Ghost Train attack, CursedConductorRigData, int, sbyte, Cursed Conductor Gore Bit 3 (green fragment), Cursed Conductor Gore Bit 4, Cursed Conductor Gore Bit 5, Cursed Conductor Gore Cap (blue conductor cap) (+16 more)
-
-### Community 90 - "MechArmy NPCs: AnnoyOTron.cs"
-Cohesion: 0.06
-Nodes (18): MechArmySounds, MechArmyRigData, byte, int, short, AlarmoboBuff, Player, Annoy-o-tron (boxy brown radio/speaker bot, gold trim, round speaker grille, antenna; 7-frame vertical sheet) (+10 more)
-
-### Community 91 - "Scrap Armor: AnimatedEquip"
-Cohesion: 0.07
-Nodes (21): Scrap Breastplate body cog-animation frame 1, Scrap Breastplate body equip sheet (9x4 composite: torso with cog emblem, arm swing poses, shoulders), ScrapBreastplate, int, LocalizedText, Player, Scrap Breastplate item icon (rust-brown plated torso with grey rivets), ScrapLeggings (+13 more)
-
-### Community 92 - "tools sim: update_2026_11_04b_sim.py"
-Cohesion: 0.14
-Nodes (23): overlaps(), Old Brass Town: a dim clapboard wall behind, a floor of real Brass Sandstone…, town_backdrop(), draw_mist(), draw_rails(), Flame, heading_frame(), idle_frame() (+15 more)
-
-### Community 93 - "art junkyard: make_junkyard_loot.py"
-Cohesion: 0.10
-Nodes (35): condensed_tar(), export(), export_all(), living_tar_frames(), map_arrow(), map_arrow_frames(), mysterious_map(), polisher_picture() (+27 more)
-
-### Community 94 - "Combinator UI: CombinatorUI"
+### Community 92 - "CombinatorUI"
 Cohesion: 0.16
 Nodes (16): CombinatorPlayer, CombinatorUI, SlotKind, Action, Asset, bool, Color, int (+8 more)
 
-### Community 95 - "BloodMoon NPCs: Mechromancer"
+### Community 93 - "CogpunkInvasion"
 Cohesion: 0.08
-Nodes (16): Mechromancer, Phase, Asset, BestiaryDatabase, BestiaryEntry, BinaryReader, BinaryWriter, float (+8 more)
+Nodes (17): CommandCaller, CommandType, MechArmyCommand, CogpunkInvasion, Asset, BinaryReader, BinaryWriter, bool (+9 more)
 
-### Community 96 - "Core Combat: ModPlayer"
-Cohesion: 0.06
-Nodes (17): ConductorFightPlayer, int, TetanusPlayer, HurtModifiers, BrassArmorPlayer, bool, HurtModifiers, AlarmPlayer (+9 more)
+### Community 94 - "MiceBotMinion"
+Cohesion: 0.12
+Nodes (11): MiceBotMinion, Mode, bool, Color, float, HitInfo, HitModifiers, int (+3 more)
 
-### Community 97 - "Coghaven NPCs: JadeGolem"
+### Community 95 - "JadeGolem"
 Cohesion: 0.10
 Nodes (15): JadeGolem, Phase, Asset, Color, float, HurtInfo, IBestiaryInfoElement, IEntitySource (+7 more)
 
-### Community 98 - "tools sim: Beetle"
-Cohesion: 0.11
-Nodes (15): Beetle, blocked(), ground_at(), The floor under x for something whose feet are at `feet` (tops are one-way: you…, Moving from x0 to x1 (centres) with this half-width and feet: where a solid…, The scripted player: vanilla-ish run, jump, gravity; hurt knockback (decompiled…, RhinoBeetle.UpdateState, state for state (the server's decisions and every…, Runner (+7 more)
+### Community 96 - "Firesaw"
+Cohesion: 0.12
+Nodes (15): Firesaw, EntitySource_ItemUse_WithAmmo, float, HitInfo, int, LocalizedText, NPC, Player (+7 more)
 
-### Community 99 - "Combinator: ModSystem"
-Cohesion: 0.07
-Nodes (14): CursedConductorSystem, int, string, CombinedSpritesSystem, CombinatorSystem, SteamDashSystem, RustedNailWorldGen, GenPass (+6 more)
+### Community 97 - "Jaeger"
+Cohesion: 0.09
+Nodes (15): Jaeger, Phase, Asset, Color, float, HitInfo, int, Item (+7 more)
 
-### Community 100 - "tools sim: tar_weapons_sim.py"
+### Community 98 - "tar_weapons_sim.py"
 Cohesion: 0.13
 Nodes (30): Enemy, centre(), draw_guard(), draw_whip(), draw_wrench_swing(), Foe, heading(), living_tar() (+22 more)
 
-### Community 101 - "art scrap: make_scrap_art.py"
-Cohesion: 0.09
-Nodes (29): make_biome_icon(), club(), paddle(), preview(), Source for the Macuahuitl (D4), 2026-11-11 (user, with a reference image of an…, The paddle at (s, a): wood within |a| <= 4, obsidian chips at |a| 5..6 (two…, crop(), draw_body() (+21 more)
-
-### Community 102 - "MechArmy NPCs: Jaeger"
+### Community 99 - "JadeRefractorBeam"
 Cohesion: 0.08
-Nodes (16): BestiaryDatabase, BestiaryEntry, Jaeger, Phase, Asset, Color, float, HitInfo (+8 more)
+Nodes (17): JadeRefractor, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Vector2, JadeRefractorBeam, Asset (+9 more)
 
-### Community 103 - "Core Templates: GridWalkerNPC"
-Cohesion: 0.07
-Nodes (15): MechWalker, GridWalkerNPC, Asset, BestiaryDatabase, BestiaryEntry, bool, Color, float (+7 more)
-
-### Community 104 - "Scrap Weapons: ScrapBombProjectile"
-Cohesion: 0.09
-Nodes (13): ScrapBombProjectile, bool, Color, float, HitInfo, HitModifiers, int, NPC (+5 more)
-
-### Community 105 - "Scrap NPCs: DeliveryDrone"
+### Community 100 - "DeliveryDrone"
 Cohesion: 0.08
 Nodes (17): DeliveryDrone, Phase, Asset, BestiaryDatabase, BestiaryEntry, Color, float, HitInfo (+9 more)
 
-### Community 106 - "Research: ResearchNodes"
+### Community 101 - "GhedalariSnippet"
+Cohesion: 0.07
+Nodes (18): GhedalariSnippet, GhedalariTagHandler, GhedalariTagSystem, Kind, Asset, Color, int, SpriteBatch (+10 more)
+
+### Community 102 - "update_2026_11_11_sim.py"
 Cohesion: 0.11
-Nodes (17): Blocker, ResearchItemCost, ResearchItems, ResearchNode, ResearchNodes, Action, Dictionary, float (+9 more)
+Nodes (29): Old Brass Town's replay with its stone (old_brass_town_sim.Town, seed 7),…, The tar pit's floor (JunkyardPass: two rows of sand on stone under the tar)…, Word w's rune (untranslated) from GhedalariGlyphs.png., scene_reading(), stone_image(), stones_png(), tar_pit_crop(), westworld_crop() (+21 more)
 
-### Community 107 - "TrashTr0m Weapons: Tr0mheadSentry"
-Cohesion: 0.09
-Nodes (12): SentryState, Tr0mheadSentry, Asset, Color, float, HitInfo, HitModifiers, int (+4 more)
+### Community 103 - "CalcifiedBone"
+Cohesion: 0.07
+Nodes (16): ConditionalWeakTable, CalcifiedBone, ResearchSlimed, TriggerFingerShot, Volley, bool, Color, float (+8 more)
 
-### Community 108 - "Combinator Combination: CombinedWeapon"
-Cohesion: 0.13
-Nodes (10): CombinatorCraftRefund, CombinedWeapon, BinaryReader, BinaryWriter, Item, List, TagCompound, TooltipLine (+2 more)
+### Community 104 - "TyrantSkull"
+Cohesion: 0.06
+Nodes (16): TyrantCape, int, LocalizedText, Player, string, TyrantClawRigData, int, TyrantSandals (+8 more)
 
-### Community 109 - "Combinator Combination: MysteriousMapArrowLayer"
+### Community 105 - "GridWalkerNPC"
+Cohesion: 0.08
+Nodes (14): MechWalker, GridWalkerNPC, Asset, BestiaryDatabase, BestiaryEntry, bool, Color, float (+6 more)
+
+### Community 106 - "MysteriousMapArrowLayer"
 Cohesion: 0.09
 Nodes (14): CombinedHeldItemLayer, CombinedHeldItemMark, int, LargeJadeLayer, Asset, float, MysteriousMapArrowLayer, Asset (+6 more)
 
-### Community 110 - "OldBrassTown Generation: OldBrassTownPass"
+### Community 107 - "OldBrassTownPass"
 Cohesion: 0.13
 Nodes (8): OldBrassTownPass, Piece, double, GameConfiguration, GenerationProgress, int, Tile, ushort
 
-### Community 111 - "Research Items: AncientResearchTableTile"
-Cohesion: 0.07
-Nodes (12): AncientResearchBook, AncientResearchTable, int, AncientResearchTableTile, int, Point, SmartInteractScanSettings, ResearchUISystem (+4 more)
+### Community 108 - "ScrapCogProjectile"
+Cohesion: 0.08
+Nodes (13): ScrapCogProjectile, Color, float, int, string, Vector2, MathSafety, Vector2 (+5 more)
 
-### Community 112 - "tools promo: .__init__()"
+### Community 109 - ".__init__"
 Cohesion: 0.12
 Nodes (15): combine(), Junkyard, A Sheet from a generated RigData file (CellWidth/CellHeight/OriginX/OriginY,…, CombinedSprites.Build, line for line: the augment's first half and the base's…, A dark workshop wall: the Bronze Gearwork Wall's own texture tiled, deepened, a…, sheet_of(), arrays(), consts() (+7 more)
 
-### Community 113 - "tools sim: jadey_loot_sim.py"
+### Community 110 - "jadey_loot_sim.py"
 Cohesion: 0.15
 Nodes (27): backdrop(), cakti_gif(), cakti_png(), cannon_gif(), capsule_hits(), drift_gif(), fling_seed(), glaive_frames_png() (+19 more)
 
-### Community 114 - "tools sim: scene_intro()"
-Cohesion: 0.20
-Nodes (21): lock_envelope(), main(), particles_draw(), particles_step(), player_sprite(), The player walks out of the Junkyard: after LeaveGraceTicks with nobody inside,…, 2026-10-27: the automatic cog volley. Every CogInterval ticks (2.5 s since the…, TrashTr0m.ResolvePose, line for line (the in-between timeline of 2026-10-26). (+13 more)
-
-### Community 115 - "tools sim: update_2026_11_05b_sim.py"
+### Community 111 - "update_2026_11_05b_sim.py"
 Cohesion: 0.12
 Nodes (32): arcs_png(), blade_hits(), blade_point(), capsule_hits(), clamp(), draw_gun(), draw_wrench(), ground_angle() (+24 more)
 
-### Community 116 - "coghaven previous: make_jade_golem_art_v1_2026-"
+### Community 112 - "update_2026_11_10_sim.py"
 Cohesion: 0.11
-Nodes (29): export(), aim_dir(), arm(), body(), crop(), cycle_foot(), export_all(), export_ray() (+21 more)
+Nodes (21): ease_in_out(), ease_out(), JadeBoltSim, lerp(), main(), phase(), D5 proofs for the request of 2026-11-10, built from the real sprites and the…, Vanilla's draw colour on a sprite: each channel multiplied (DrawEffects' r, g,… (+13 more)
 
-### Community 117 - "Coghaven NPCs: FlyingBuddhaHead"
-Cohesion: 0.08
-Nodes (16): FlyingBuddhaHead, Phase, Asset, Color, float, IBestiaryInfoElement, IEntitySource, int (+8 more)
+### Community 113 - "Pix"
+Cohesion: 0.09
+Nodes (19): fish(), gun(), icon(), _kind(), main(), Source for the Barrel Gun (D4), 2026-11-11 (user, with a reference image of a…, A fish's key: its own ramp for the body (index 0 its outline), the belly a…, stars() (+11 more)
 
-### Community 118 - "tools sim: terrain.py"
-Cohesion: 0.12
-Nodes (23): Repulsing sludge GIF: player bounced off 8 sludge rows above pool water (depth/vy readout), cache_sim(), main(), D5 simulations of two Junkyard effects, using the real sprites and the…, tar_sim(), generate(), main(), D5 simulation of the Junkyard world generation… (+15 more)
-
-### Community 119 - "tools sim: update_2026_11_18_sim.py"
-Cohesion: 0.12
-Nodes (29): fox_gif(), icon_img(), items_png(), mace_gif(), main(), mechromancer_gif(), D5 proofs for the request of 2026-11-18. Run from the repo root: python -P…, The fox after its owner (JadeFoxPet's constants and rules): it trots after… (+21 more)
-
-### Community 120 - "fungimancer previous: Frame"
-Cohesion: 0.11
-Nodes (24): arm(), crop(), ellpart(), export_all(), frame(), grid(), HalfEll, main() (+16 more)
-
-### Community 121 - "bosses jadey: make_jadey_art.py"
-Cohesion: 0.10
-Nodes (29): body_box(), coil(), coin(), cord_link(), cursed_ground(), export_all(), fit_cell(), frame() (+21 more)
-
-### Community 122 - "Combinator: FirstDropCondition"
+### Community 114 - "FirstDropCondition"
 Cohesion: 0.08
 Nodes (17): CommonDrop, FirstKillCondition, DropAttemptInfo, BlueprintDrop, FirstDefeatCondition, FirstDropCondition, ManualDrop, int (+9 more)
 
-### Community 123 - "Research: CalcifiedBone"
-Cohesion: 0.08
-Nodes (15): ConditionalWeakTable, CalcifiedBone, ResearchSlimed, TriggerFingerShot, Volley, bool, Color, float (+7 more)
+### Community 115 - "ModPlayer"
+Cohesion: 0.07
+Nodes (15): ConductorFightPlayer, int, TetanusPlayer, HurtModifiers, BrassArmorPlayer, bool, HurtModifiers, AlarmPlayer (+7 more)
 
-### Community 124 - "Bosses TrashTr0m: Cogpunk.Content.Bosses.Trash"
+### Community 116 - "ModSystem"
 Cohesion: 0.08
-Nodes (12): LostKey, TrashTr0mBag, ItemLoot, TrashTr0mLoot, ILoot, int, TrashTr0mRigData, byte (+4 more)
+Nodes (12): CursedConductorSystem, int, string, CombinatorSystem, SteamDashSystem, SmokerBookWorldGen, List, SpawnBudgetSystem (+4 more)
 
-### Community 125 - "Mechanist: SteamPlayer"
+### Community 117 - "GhostTrain"
+Cohesion: 0.10
+Nodes (13): GhostTrain, Route, Asset, bool, Color, float, HurtModifiers, int (+5 more)
+
+### Community 118 - "FlyingBuddhaHead"
+Cohesion: 0.08
+Nodes (16): FlyingBuddhaHead, Phase, Asset, Color, float, IBestiaryInfoElement, IEntitySource, int (+8 more)
+
+### Community 119 - "make_friendobo_art_2026-11-11.py"
 Cohesion: 0.12
-Nodes (6): SteamPlayer, bool, float, int, Item, LocalizedText
+Nodes (29): apron(), arm(), body(), bow_tie(), crop(), despeckle(), export_all(), frame() (+21 more)
 
-### Community 126 - "Secrets: FundamentalStoneTile"
-Cohesion: 0.09
-Nodes (12): FundamentalStones, byte, int, FundamentalStoneTile, Asset, Color, float, int (+4 more)
+### Community 120 - "Tr0mheadSentry"
+Cohesion: 0.10
+Nodes (12): SentryState, Tr0mheadSentry, Asset, Color, float, HitInfo, HitModifiers, int (+4 more)
 
-### Community 127 - "art bloodmoon: make_mechromancer_art.py"
+### Community 121 - "CraftingManual"
+Cohesion: 0.07
+Nodes (15): CraftingManual, Asset, Color, int, List, LocalizedText, Player, SpriteBatch (+7 more)
+
+### Community 122 - "CogspringSword"
+Cohesion: 0.14
+Nodes (12): CogspringSword, Color, HitInfo, LocalizedText, NPC, Player, PlayerDrawSet, Rectangle (+4 more)
+
+### Community 123 - "terrain.py"
+Cohesion: 0.12
+Nodes (23): Repulsing sludge GIF: player bounced off 8 sludge rows above pool water (depth/vy readout), cache_sim(), main(), D5 simulations of two Junkyard effects, using the real sprites and the…, tar_sim(), generate(), main(), D5 simulation of the Junkyard world generation… (+15 more)
+
+### Community 124 - "make_mechromancer_art.py"
 Cohesion: 0.11
 Nodes (28): arm(), chest(), claws(), crop(), export_all(), floating_eye(), frame(), gores() (+20 more)
 
-### Community 128 - "bosses tartyrant: make_tartyrant_art.py"
+### Community 125 - "make_tartyrant_art.py"
 Cohesion: 0.10
 Nodes (28): columns(), export_all(), glob_frame(), head_icon(), hit_strips(), merged(), puddle_frame(), Source for Tar Tyrant, the Junkyard tar pool's boss (T3 since the 2026-10-29… (+20 more)
 
-### Community 129 - "art oldbrasstown: gun()"
-Cohesion: 0.10
-Nodes (28): Selective outline on the lit side: a silhouette pixel in its ramp's darkest…, selout(), gun(), The gun with its ram `ram` art px forward; `cog_drop` = rows the next cog still…, bullet(), export_all(), preview(), Source for the Sheriff's Revolver, its bullet and cylinder pips, the Broken… (+20 more)
-
-### Community 130 - "coghaven previous: make_imperial_defender_art_v"
+### Community 126 - "make_imperial_defender_art_v2_2026-11-09.py"
 Cohesion: 0.11
 Nodes (27): arm(), blade_profile(), body(), boot(), crop(), dadao(), export_all(), foot_cycle() (+19 more)
 
-### Community 131 - "dungeon previous: make_beatboxer_art_2026-11-0"
+### Community 127 - "make_mechanist_art.py"
 Cohesion: 0.13
-Nodes (28): arm(), body(), coil(), crop(), despeckle(), export_all(), fist_image(), frame() (+20 more)
+Nodes (29): back_shoulder_cell(), body_idle(), body_sheet(), chain_link(), container_icon(), crop(), export_all(), _fit() (+21 more)
 
-### Community 132 - "Core WorldGeneration: .Warn()"
-Cohesion: 0.09
-Nodes (18): GenPass, List, GenPass, List, GlassContainerWorldGen, GenPass, List, RustedScrapWorldGen (+10 more)
-
-### Community 133 - "Bosses TarTyrant: TarTyrantRigData"
-Cohesion: 0.09
-Nodes (15): Collapse and melt into tar puddle poses, Tar Tyrant far-plane atlas (far arm and tail frames), Dark far arm with claws and short tar tail curls, Tar Tyrant atlas page 1 (attack, melt and death poses), Brown tar mass body with embedded ribs, spikes and bone club, Horned T-rex skull head with red eye and opening jaw, TarTyrantRigData, int (+7 more)
-
-### Community 134 - "Combinator Combination: CombinatorTrait"
-Cohesion: 0.09
-Nodes (20): DamageClass, Player, Vector2, HitInfo, HitModifiers, Item, NPC, Player (+12 more)
-
-### Community 135 - "Combinator UI: CombinatorUISystem"
-Cohesion: 0.08
-Nodes (10): CombinatorTile, int, Point, SmartInteractScanSettings, CombinatorUISystem, List, Point, List (+2 more)
-
-### Community 136 - "Mechanist Weapons: Firesaw"
-Cohesion: 0.15
-Nodes (11): Firesaw, EntitySource_ItemUse_WithAmmo, float, HitInfo, int, LocalizedText, NPC, Player (+3 more)
-
-### Community 137 - "Core Visuals: SmokeTrails"
-Cohesion: 0.08
-Nodes (16): FiresawPlayer, bool, int, Player, RustyBullet, Color, int, Segment (+8 more)
-
-### Community 138 - "coghaven previous: make_jade_fox_art_2026-11-18"
-Cohesion: 0.11
-Nodes (26): _body_pixels(), boxed(), buff_icon(), _cover(), _flicker(), fox(), _gold(), _leg() (+18 more)
-
-### Community 139 - "art mechanist: make_mechanist_art.py"
+### Community 128 - "make_cogtuna_art.py"
 Cohesion: 0.13
-Nodes (27): back_shoulder_cell(), body_idle(), body_sheet(), chain_link(), container_icon(), crop(), export_all(), _fit() (+19 more)
+Nodes (29): belly_shape(), body_shade(), body_shape(), built(), crop(), despeckle(), export_all(), frame() (+21 more)
 
-### Community 140 - "Core Visuals: .RequestOptional()"
+### Community 129 - "AnimatedEquip"
+Cohesion: 0.09
+Nodes (17): Scrap Breastplate body cog-animation frame 1, Scrap Breastplate body equip sheet (9x4 composite: torso with cog emblem, arm swing poses, shoulders), ScrapBreastplate, int, LocalizedText, Player, Scrap Breastplate item icon (rust-brown plated torso with grey rivets), Scrap Helmet head cog-animation frame 1 (+9 more)
+
+### Community 130 - "tartyrant_sim.py"
+Cohesion: 0.17
+Nodes (28): Tar Tyrant death cinematic proof GIF (300 ticks, 32 frames, femur topples, bones gore at 290), Tar Tyrant hitbox strips PNG (per-part red hitboxes over frames 0/21/55/64/46/84 at 100% and 51%), Tar Tyrant Sprite Sheet (all animations, dark and light backgrounds), draw_boss(), draw_player(), hitbox_png(), loot_png(), main() (+20 more)
+
+### Community 131 - "update_2026_11_18_sim.py"
+Cohesion: 0.12
+Nodes (27): fox_gif(), icon_img(), items_png(), mace_gif(), main(), mechromancer_gif(), D5 proofs for the request of 2026-11-18. Run from the repo root: python -P…, The fox after its owner (JadeFoxPet's constants and rules): it trots after… (+19 more)
+
+### Community 132 - ".RequestOptional"
 Cohesion: 0.12
 Nodes (9): Color, DepthLayers, Asset, Color, float, int, SpriteBatch, Texture2D (+1 more)
 
-### Community 141 - "CursedConductor Projectiles: GhostTrain"
-Cohesion: 0.12
-Nodes (11): GhostTrain, Route, Asset, bool, Color, float, HurtModifiers, int (+3 more)
+### Community 133 - "TarTyrantRigData"
+Cohesion: 0.09
+Nodes (14): TarTyrantPuddle, Color, int, Collapse and melt into tar puddle poses, Tar Tyrant far-plane atlas (far arm and tail frames), Dark far arm with claws and short tar tail curls, Tar Tyrant atlas page 1 (attack, melt and death poses), Brown tar mass body with embedded ribs, spikes and bone club (+6 more)
 
-### Community 142 - "Bosses Jadey: JadeySummon"
+### Community 134 - "CombinatorTrait"
+Cohesion: 0.09
+Nodes (20): DamageClass, Player, Vector2, HitInfo, HitModifiers, Item, NPC, Player (+12 more)
+
+### Community 135 - "SteamPlayer"
+Cohesion: 0.13
+Nodes (6): SteamPlayer, bool, float, int, Item, LocalizedText
+
+### Community 136 - "SmokeTrails"
+Cohesion: 0.08
+Nodes (16): FiresawPlayer, bool, int, Player, RustyBullet, Color, int, Segment (+8 more)
+
+### Community 137 - "BanditsDream"
+Cohesion: 0.09
+Nodes (14): BanditsDream, BanditsDreamPlayer, BanditsSlash, Color, EntitySource_ItemUse_WithAmmo, float, int, List (+6 more)
+
+### Community 138 - "make_jade_fox_art_2026-11-18c.py"
+Cohesion: 0.11
+Nodes (26): _body_pixels(), boxed(), buff_icon(), _cover(), _flicker(), fox(), _gold(), _leg() (+18 more)
+
+### Community 139 - "make_jade_fox_art_2026-11-18d.py"
+Cohesion: 0.11
+Nodes (24): boxed(), _boxsum(), buff_icon(), fox(), _indexed(), _leg(), main(), outputs() (+16 more)
+
+### Community 140 - "make_jade_golem_art_v1_2026-11-06.py"
+Cohesion: 0.13
+Nodes (26): aim_dir(), arm(), body(), crop(), cycle_foot(), export_all(), export_ray(), frame() (+18 more)
+
+### Community 141 - "make_scrap_art.py"
+Cohesion: 0.12
+Nodes (24): make_biome_icon(), crop(), draw_body(), draw_eye(), draw_head(), draw_treads(), make_bomb_sheet(), make_cog() (+16 more)
+
+### Community 142 - "make_friendobo_art.py"
+Cohesion: 0.13
+Nodes (26): arm(), blit(), emote(), export_all(), frame(), gores(), head_icon(), image() (+18 more)
+
+### Community 143 - "make_ghedalari_art.py"
+Cohesion: 0.15
+Nodes (26): arm(), blit(), darker(), emote(), export_all(), frame(), gores(), head_icon() (+18 more)
+
+### Community 144 - "make_friendobo_art_2026-11-24.py"
+Cohesion: 0.13
+Nodes (26): arm(), blit(), emote(), export_all(), frame(), gores(), head_icon(), image() (+18 more)
+
+### Community 145 - "CogpunkTile"
+Cohesion: 0.08
+Nodes (11): CogpunkTile, BronzeGearworkTile, CinnabarLacquerTile, JadeBrickTile, JadeRoofTile, PalaceFlagstoneTile, JadeTile, FundamentalArenaBrickTile (+3 more)
+
+### Community 146 - ".RollEffect"
+Cohesion: 0.08
+Nodes (13): ConfigScope, TrashTr0mCog, Color, float, int, Vector2, Vector2, TarSteamSystem (+5 more)
+
+### Community 147 - "MechanicalBull"
+Cohesion: 0.09
+Nodes (13): MechanicalBull, Phase, Asset, float, HurtInfo, HurtModifiers, IBestiaryInfoElement, int (+5 more)
+
+### Community 148 - "FungimancerTongue"
+Cohesion: 0.10
+Nodes (11): FungimancerTongue, ShroomSpike, SporeBolt, Color, float, HurtInfo, int, Player (+3 more)
+
+### Community 149 - "JadeySummon"
 Cohesion: 0.11
 Nodes (12): JadeIncense, ItemGroup, Player, JadeySummon, JadeySummonPacket, BinaryReader, bool, Color (+4 more)
 
-### Community 143 - "TrashTr0m Weapons: TetanusProjectile"
+### Community 150 - "TetanusProjectile"
 Cohesion: 0.11
 Nodes (12): TetanusProjectile, Asset, Color, float, HitInfo, HitModifiers, int, NPC (+4 more)
 
-### Community 144 - "Ocean NPCs: Cogtuna"
+### Community 151 - "JaegerHelmet"
+Cohesion: 0.07
+Nodes (15): JaegerChestplate, int, LocalizedText, Player, JaegerGreaves, float, int, LocalizedText (+7 more)
+
+### Community 152 - "Cogtuna"
 Cohesion: 0.10
 Nodes (12): Cogtuna, Phase, Asset, float, HitInfo, IBestiaryInfoElement, int, NPCLoot (+4 more)
 
-### Community 145 - "Ruins Tiles: FundamentalGlyphTile"
-Cohesion: 0.10
-Nodes (9): FundamentalGlyphTile, Asset, Color, float, int, sbyte, SpriteBatch, Tile (+1 more)
+### Community 153 - "Plan"
+Cohesion: 0.20
+Nodes (18): all_plans(), check(), gate(), main(), main_hall(), pagoda(), pavilion(), Plan (+10 more)
 
-### Community 146 - "Core Templates: BossNPC"
-Cohesion: 0.12
-Nodes (9): Player, BossNPC, bool, float, HitInfo, int, Player, uint (+1 more)
-
-### Community 147 - "jadey previous: make_jadey_loot_art_2026-11-"
+### Community 154 - "make_dragonete_art.py"
 Cohesion: 0.13
-Nodes (26): blade_width(), bounds(), burst(), cells(), crescent(), cs_array(), flat_image(), icon() (+18 more)
+Nodes (25): body(), bolt(), crop(), export_all(), frame(), gores(), head(), horn() (+17 more)
 
-### Community 148 - "Junkyard Weapons: TarSlimeMinion"
-Cohesion: 0.11
-Nodes (10): Mode, TarSlimeMinion, Asset, bool, Color, float, int, NPC (+2 more)
-
-### Community 149 - "Mechanist: MechanistPrefix"
-Cohesion: 0.12
-Nodes (18): Calibrated, Corroded, Efficient, Engineered, Geared, Hissing, Jammed, Leaky (+10 more)
-
-### Community 150 - "art rain: make_splasher_art.py"
+### Community 155 - "make_dragonete_art_2026-11-19.py"
 Cohesion: 0.13
-Nodes (23): Despeckle that keeps texture: a lone pixel (no 4-neighbour of its colour, all…, soften_orphans(), body(), crop(), export_all(), frame(), gores(), leg() (+15 more)
+Nodes (25): body(), bolt(), crop(), export_all(), frame(), gores(), head(), horn() (+17 more)
 
-### Community 151 - "coghaven previous: Plan"
-Cohesion: 0.22
-Nodes (17): all_plans(), check(), engine_deck(), gate(), main(), main_hall(), pagoda(), pavilion() (+9 more)
+### Community 156 - "CogpunkItem"
+Cohesion: 0.07
+Nodes (12): LostKey, PolisherSchematic, TarDrop, MysteriousMap, PolishedHelmet, int, LocalizedText, void (+4 more)
 
-### Community 152 - "coghaven previous: Plan (2)"
-Cohesion: 0.22
-Nodes (17): all_plans(), check(), engine_deck(), gate(), main(), main_hall(), pagoda(), pavilion() (+9 more)
-
-### Community 153 - "coghaven previous: Plan (3)"
-Cohesion: 0.21
-Nodes (17): all_plans(), check(), gate(), main(), main_hall(), pagoda(), pavilion(), Plan (+9 more)
-
-### Community 154 - "coghaven previous: Plan (4)"
-Cohesion: 0.21
-Nodes (17): all_plans(), check(), gate(), main(), main_hall(), pagoda(), pavilion(), Plan (+9 more)
-
-### Community 155 - "Core Safety: SafeLog"
-Cohesion: 0.09
-Nodes (14): CogpunkMod, BinaryReader, PacketRegistry, BinaryReader, bool, int, List, SafeLog (+6 more)
-
-### Community 156 - "Core Systems: WorldFlagSystem"
+### Community 157 - "WorldFlagSystem"
 Cohesion: 0.08
 Nodes (12): TrashTr0mSystem, int, string, uint, WorldFlagSystem, BinaryReader, BinaryWriter, bool (+4 more)
 
-### Community 157 - "Coghaven: CoghavenSystem"
-Cohesion: 0.09
-Nodes (11): CoghavenSystem, BinaryReader, BinaryWriter, GenPass, int, List, Rectangle, string (+3 more)
+### Community 158 - "JunkyardSystem"
+Cohesion: 0.13
+Nodes (10): JunkyardSystem, BinaryReader, BinaryWriter, Chest, int, Point, Rectangle, string (+2 more)
 
-### Community 158 - "Gems: JadeCurseNPC"
+### Community 159 - "RustPolisherTile"
+Cohesion: 0.08
+Nodes (15): RustPolisherTile, int, Overheat, Player, MiceBotBuff, Player, ScrappybotBuff, Player (+7 more)
+
+### Community 160 - "TarShower"
+Cohesion: 0.08
+Nodes (13): TarShower, EntitySource_ItemUse_WithAmmo, float, int, List, LocalizedText, TooltipLine, Vector2 (+5 more)
+
+### Community 161 - "TarSlimeMinion"
+Cohesion: 0.11
+Nodes (10): Mode, TarSlimeMinion, Asset, bool, Color, float, int, NPC (+2 more)
+
+### Community 162 - "MechanistPrefix"
+Cohesion: 0.12
+Nodes (18): Calibrated, Corroded, Efficient, Engineered, Geared, Hissing, Jammed, Leaky (+10 more)
+
+### Community 163 - "CogspringSlam"
+Cohesion: 0.11
+Nodes (9): CogspringLayer, CogspringPlayer, CogspringSlam, Asset, bool, float, int, Position (+1 more)
+
+### Community 164 - "FundamentalArenaRuneTile"
+Cohesion: 0.09
+Nodes (12): FundamentalArenaRuneTile, Asset, SpriteBatch, string, FundamentalRuneTile, SpriteBatch, RuinBlocks, Asset (+4 more)
+
+### Community 165 - "BossNPC"
+Cohesion: 0.14
+Nodes (8): BossNPC, bool, float, HitInfo, int, Player, uint, Vector2
+
+### Community 166 - "Plan"
+Cohesion: 0.22
+Nodes (17): all_plans(), check(), engine_deck(), gate(), main(), main_hall(), pagoda(), pavilion() (+9 more)
+
+### Community 167 - "Plan"
+Cohesion: 0.22
+Nodes (17): all_plans(), check(), engine_deck(), gate(), main(), main_hall(), pagoda(), pavilion() (+9 more)
+
+### Community 168 - "Plan"
+Cohesion: 0.21
+Nodes (17): all_plans(), check(), gate(), main(), main_hall(), pagoda(), pavilion(), Plan (+9 more)
+
+### Community 169 - "Plan"
+Cohesion: 0.21
+Nodes (17): all_plans(), check(), gate(), main(), main_hall(), pagoda(), pavilion(), Plan (+9 more)
+
+### Community 170 - ".Has"
+Cohesion: 0.14
+Nodes (10): Blocker, ResearchNode, LocalizedText, HitInfo, HitModifiers, NPC, ResearchNode, HurtInfo (+2 more)
+
+### Community 171 - "JadeCurseNPC"
 Cohesion: 0.16
 Nodes (11): JadeCurseNPC, JadeCursePacket, BinaryReader, bool, byte, Color, float, int (+3 more)
 
-### Community 159 - "Junkyard Weapons: MetalWrench"
-Cohesion: 0.17
-Nodes (9): MetalWrench, float, HitInfo, HitModifiers, int, LocalizedText, NPC, Player (+1 more)
+### Community 172 - "JunkyardPass"
+Cohesion: 0.14
+Nodes (10): JunkyardPass, Chest, float, GameConfiguration, GenerationProgress, int, Rectangle, Tile (+2 more)
 
-### Community 160 - "OldBrassTown NPCs: MechanicalBull"
-Cohesion: 0.10
-Nodes (13): MechanicalBull, Phase, Asset, float, HurtInfo, HurtModifiers, IBestiaryInfoElement, int (+5 more)
+### Community 173 - "TarSpray"
+Cohesion: 0.08
+Nodes (14): TarPlague, float, NPC, HitInfo, NPC, HitInfo, NPC, TarSpray (+6 more)
 
-### Community 161 - "Rain NPCs: Splasher"
-Cohesion: 0.09
-Nodes (14): Phase, Splasher, Asset, BestiaryDatabase, BestiaryEntry, float, HitInfo, int (+6 more)
-
-### Community 162 - "Ruins Tiles: FundamentalArenaRuneTile"
-Cohesion: 0.09
-Nodes (11): FundamentalArenaRuneTile, Asset, SpriteBatch, string, FundamentalRuneTile, SpriteBatch, Asset, Color (+3 more)
-
-### Community 163 - "tools promo: plates.py"
+### Community 174 - "plates.py"
 Cohesion: 0.12
 Nodes (18): Coghaven, dusk_sky(), junkyard(), junkyard_top(), once(), World backdrops ("plates") for Cogpunk's teaser, rendered by the same replays…, (plate, street floor y in px, (x of the town's left end, x of its right end))., The gate hall over the arena (81 x 52 tiles): (plate, stone centre px, gate… (+10 more)
 
-### Community 164 - "tools sim: Island"
-Cohesion: 0.14
-Nodes (8): Island, CoghavenPass.Below: the rows the island hangs under its surface in column i., CoghavenPass.ChooseSite + ChooseHeights., Synthetic first-obstacle rows under the band's columns (the island's 220 and 24…, Every world size: the surface over vanilla's whole clamped range, with trees,…, obstacle: the first occupied row under each column of the band (a list of W +…, sweep(), terrain()
+### Community 175 - "scene_attacks"
+Cohesion: 0.11
+Nodes (18): Bone, Bubble, cell(), draw_slime(), draw_vent(), lob(), point(), TarTyrant.DrawVent: the overlay's origin on the body frame's Vent point,… (+10 more)
 
-### Community 165 - "tools sim: Ruins"
+### Community 176 - "Ruins"
 Cohesion: 0.22
 Nodes (4): FundamentalRuinsPass's build (2026-11-11), step for step, on a World (its rng…, BuildRight: the red herring at the left way's levels, down to a dead end behind…, Ruins, ruins_png()
 
-### Community 166 - "art coghaven: make_cogscorpion_art.py"
+### Community 177 - "Cogpunk development skill (operating manual)"
+Cohesion: 0.11
+Nodes (25): Attack-Pattern Fairness, docs/balance/*.csv balance rows, tools/check_combinator.py, The Combinator, D1 Optimization (zero allocations in hot paths), D3 Balance (vanilla anchor, +/-15% effective DPS), Definition of Done, ExampleMod 1.4.4 reference map (+17 more)
+
+### Community 178 - "make_cogscorpion_art.py"
 Cohesion: 0.13
 Nodes (22): carapace(), claw(), crop(), export_all(), frame(), gait(), gores(), head() (+14 more)
 
-### Community 167 - "art underworld: make_dragonete_art.py"
-Cohesion: 0.13
-Nodes (23): body(), bolt(), crop(), export_all(), frame(), gores(), leg(), plates() (+15 more)
+### Community 179 - "make_friendobo_art_2026-11-03b.py"
+Cohesion: 0.15
+Nodes (23): apron(), arm(), body(), bow_tie(), crop(), despeckle(), export_all(), frame() (+15 more)
 
-### Community 168 - "TarTyrant Projectiles: TarTyrantGlob"
-Cohesion: 0.08
-Nodes (10): TarTyrantGlob, Color, float, HurtInfo, int, Player, Vector2, TarTyrantPuddle (+2 more)
+### Community 180 - "SafeLog"
+Cohesion: 0.10
+Nodes (13): CogpunkMod, BinaryReader, PacketRegistry, BinaryReader, bool, int, List, SafeLog (+5 more)
 
-### Community 169 - "Bosses TrashTr0m: TrashTr0mSummon"
-Cohesion: 0.14
-Nodes (10): TrashTr0mBaitPacket, TrashTr0mSummon, bool, Color, float, IEntitySource, int, Player (+2 more)
-
-### Community 170 - "Coghaven NPCs: Cogscorpion"
-Cohesion: 0.09
-Nodes (13): Cogscorpion, Phase, Asset, float, IBestiaryInfoElement, IEntitySource, int, NPCLoot (+5 more)
-
-### Community 171 - "Coghaven Tiles: CoghavenChestTile"
+### Community 181 - "CoghavenChestTile"
 Cohesion: 0.12
 Nodes (7): CoghavenChestTile, int, LocalizedText, SmartInteractScanSettings, SpriteBatch, Tile, TileDrawInfo
 
-### Community 172 - "Desert NPCs: Coghawk"
+### Community 182 - "Coghawk"
 Cohesion: 0.10
 Nodes (12): Coghawk, Phase, Asset, float, HitInfo, IBestiaryInfoElement, int, NPCLoot (+4 more)
 
-### Community 173 - "Furniture: ScrappyTrunkTile"
+### Community 183 - "ScrappyTrunkTile"
 Cohesion: 0.11
 Nodes (9): ScrappyTrunkTile, int, LocalizedText, Point, SpriteBatch, Tile, uint, ScrappyTrunkTile_Highlight (smart-cursor outline mask, near-blank) (+1 more)
 
-### Community 174 - "Core Combat: MeleeGear"
-Cohesion: 0.12
-Nodes (11): MechanistDamage, MeleeFocus, MeleeGear, byte, float, int, Item, Player (+3 more)
+### Community 184 - "RainbowRobe"
+Cohesion: 0.09
+Nodes (14): Jade Claws item sprite (green jade blades on purple-gold gauntlet), Rainbow Robe body equip sheet (torso and arm frames), RainbowRobe, RainbowRobePlayer, bool, EntitySource_ItemUse_WithAmmo, float, int (+6 more)
 
-### Community 175 - "OldBrassTown Minions: SheriffStarMinion"
+### Community 185 - "SheriffStarMinion"
 Cohesion: 0.12
 Nodes (11): Mode, SheriffStarMinion, Asset, Color, float, HitModifiers, int, NPC (+3 more)
 
-### Community 176 - "tools sim: coghaven_sim.py"
-Cohesion: 0.14
-Nodes (14): assemble(), constants(), furniture_sprite(), island_png(), main(), D5 proofs for Coghaven (2026-11-06): replays…, A terrain sheet for a vanilla block the repo has no art for: speckled squares,…, `const int/float/double NAME = value;` (and comma lists) from C# files. (+6 more)
+### Community 186 - "Splasher"
+Cohesion: 0.09
+Nodes (13): Phase, Splasher, Asset, BestiaryDatabase, BestiaryEntry, float, HitInfo, int (+5 more)
 
-### Community 177 - "art templates: Pix"
-Cohesion: 0.12
-Nodes (12): fish(), gun(), icon(), _kind(), main(), Source for the Barrel Gun (D4), 2026-11-11 (user, with a reference image of a…, A fish's key: its own ramp for the body (index 0 its outline), the belly a…, stars() (+4 more)
+### Community 187 - "JadeSpirit"
+Cohesion: 0.13
+Nodes (8): Form, JadeSpirit, Asset, bool, float, int, Rectangle, Form
 
-### Community 178 - "tools sim: Planes (2)"
-Cohesion: 0.15
-Nodes (20): export_all(), frames(), preview(), Source for the Cog-launcher (D4), redrawn 2026-11-05b. Run from the repo root:…, The Rusted Cog item at 1x (its 2x export halved): the same pixels as the cog…, Every opaque pixel to the nearest allowed colour (the cog's own pixels are…, rusted_cog(), snap() (+12 more)
+### Community 188 - "FundamentalStoneReading"
+Cohesion: 0.10
+Nodes (12): FundamentalStoneReading, Asset, bool, float, int, Vector2, GhedalariScript, Word (+4 more)
 
-### Community 179 - "art oldbrasstown: make_oldbrasstown_art.py"
+### Community 189 - "DragoneteMiudo"
+Cohesion: 0.11
+Nodes (13): DragoneteMiudo, Phase, Asset, bool, float, IBestiaryInfoElement, int, NPCSpawnInfo (+5 more)
+
+### Community 190 - "Ruins"
+Cohesion: 0.23
+Nodes (3): FundamentalRuinsPass's build (2026-11-11), step for step, on a World (its rng…, BuildRight: the red herring at the left way's levels, down to a dead end behind…, Ruins
+
+### Community 191 - "Cogpunk Technical Setup"
+Cohesion: 0.13
+Nodes (24): D2 Co-op Compatibility, D4 Pixel Art, D5 Visual Proof, Metal Slug-level Detail, Three-Quarter View, Long material ramps, build.txt Config, check_sprite.py (+16 more)
+
+### Community 192 - "make_oldbrasstown_art.py"
 Cohesion: 0.13
 Nodes (19): biome_icon(), Block, brass_bar(), export_all(), plank_wall_detail(), plank_wall_texture(), Source for Old Brass Town's blocks, walls and materials (D4), 2026-11-03. Run…, texture(x, y) -> letter for world-aligned art pixel (x, y) (period 8). Each… (+11 more)
 
-### Community 180 - "art research: make_research_art.py"
+### Community 193 - "make_research_art.py"
 Cohesion: 0.14
 Nodes (23): bandits_dream(), book(), bundle(), calcified_bone(), highlight(), image(), knowledge(), main() (+15 more)
 
-### Community 181 - "research previous: make_research_art_2026-11-19"
+### Community 194 - "make_research_art_2026-11-19.py"
 Cohesion: 0.14
 Nodes (23): bandits_dream(), book(), bundle(), calcified_bone(), highlight(), image(), knowledge(), main() (+15 more)
 
-### Community 182 - "art town: make_friendobo_art.py"
-Cohesion: 0.16
-Nodes (23): arm(), blit(), emote(), export_all(), frame(), gores(), head_icon(), image() (+15 more)
+### Community 195 - "ScrapLauncherBall"
+Cohesion: 0.10
+Nodes (11): ScrapLauncherBall, Color, float, int, Vector2, ScrapLauncherChunk, Color, int (+3 more)
 
-### Community 183 - "Coghaven Pets: .ChangeState()"
+### Community 196 - ".ChangeState"
 Cohesion: 0.13
 Nodes (12): JadeFoxPet, PetState, Asset, bool, byte, Color, float, int (+4 more)
 
-### Community 184 - "Junkyard Generation: JunkyardPass"
-Cohesion: 0.14
-Nodes (11): JunkyardPass, Chest, float, GameConfiguration, GenerationProgress, int, Rectangle, ushort (+3 more)
-
-### Community 185 - "Mechanist Accessories: SteamContainer"
-Cohesion: 0.10
-Nodes (12): BrassContainer, int, LocalizedText, Player, GlassContainer, int, SteamContainer, Item (+4 more)
-
-### Community 186 - "Research: PlacedOres"
-Cohesion: 0.11
-Nodes (11): PlacedOreGlobalTile, PlacedOrePacket, PlacedOres, BinaryReader, HashSet, int, Item, TagCompound (+3 more)
-
-### Community 187 - "Scrap Weapons: ScrappyBow"
-Cohesion: 0.09
-Nodes (13): ScrappyBow, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2, Screwdriver (+5 more)
-
-### Community 188 - "Ruins Items: FundamentalBrick"
-Cohesion: 0.08
-Nodes (6): FundamentalBrick, FundamentalBrickWall, FundamentalColumnWall, FundamentalCoral, FundamentalRune, Cogpunk.Content.Secrets.Ruins.Items
-
-### Community 189 - "Town: Friendobo"
-Cohesion: 0.09
-Nodes (8): Friendobo, BestiaryDatabase, BestiaryEntry, bool, int, List, string, ITownNPCProfile
-
-### Community 190 - "Core Events: InvasionRules"
-Cohesion: 0.11
-Nodes (12): IDictionary, NPCSpawnInfo, InvasionItemGuard, InvasionKillCredit, InvasionRules, IDictionary, int, Item (+4 more)
-
-### Community 191 - "coghaven previous: make_imperial_defender_art_v (2)"
-Cohesion: 0.15
-Nodes (21): body(), crop(), cycle_foot(), dadao(), export_all(), frame(), gores(), guard_blade() (+13 more)
-
-### Community 192 - "art gems: make_jade_art.py"
-Cohesion: 0.15
-Nodes (22): back_shoulder_cell(), blade(), body_sheet(), export_all(), icon(), _img(), legs_sheet(), pauldron_cell() (+14 more)
-
-### Community 193 - "oldbrasstown previous: make_oldbrasstown_art_2026-1"
-Cohesion: 0.13
-Nodes (18): biome_icon(), Block, brass_bar(), export_all(), plank_wall_detail(), plank_wall_texture(), ARCHIVED 2026-11-03: the first Weathered Plank Wall (short staggered boards…, texture(x, y) -> letter for world-aligned art pixel (x, y) (period 8). Each… (+10 more)
-
-### Community 194 - "rain previous: make_splasher_art_2026-11-03"
-Cohesion: 0.15
-Nodes (21): body(), crop(), despeckle(), export_all(), frame(), gores(), leg(), limb() (+13 more)
-
-### Community 195 - "rain previous: make_splasher_art_2026-11-04"
-Cohesion: 0.15
-Nodes (21): body(), crop(), despeckle(), export_all(), frame(), gores(), leg(), limb() (+13 more)
-
-### Community 196 - "Research: CogpunkPacket"
-Cohesion: 0.16
-Nodes (9): CogpunkPacket, GemStaffsPacket, Kind, ResearchGlobalNPC, ResearchGrantPacket, ResearchSyncPacket, BinaryReader, NPC (+1 more)
-
-### Community 197 - "Bosses Fungimancer: FungimancerSystem"
-Cohesion: 0.11
-Nodes (9): FungimancerSystem, RainbowMushroomGrowth, int, List, Point, string, TagCompound, uint (+1 more)
-
-### Community 198 - "Bosses Jadey: JadeShaperPlayer"
-Cohesion: 0.12
-Nodes (9): JadeShaperPlayer, bool, HurtInfo, int, PlayerDrawSet, LargeJadePlayer, bool, int (+1 more)
-
-### Community 199 - "Core Safety: .TryGetTile()"
-Cohesion: 0.11
-Nodes (11): Vector2, Chest, GlassContainerPass, Chest, GameConfiguration, GenerationProgress, TileSafety, int (+3 more)
-
-### Community 200 - "Combinator Combination: CombinationRules"
-Cohesion: 0.20
-Nodes (6): CombinationRefusal, CombinationRules, float, int, Item, Player
-
-### Community 201 - "Junkyard Weapons: TyrantSkullBolt"
-Cohesion: 0.10
-Nodes (10): TyrantSkullBolt, Asset, Color, float, HitInfo, HitModifiers, int, NPC (+2 more)
-
-### Community 202 - "Mechanist Buffs: StunnedNPC"
-Cohesion: 0.14
-Nodes (11): StunnedNPC, Asset, bool, Color, float, int, NPC, Player (+3 more)
-
-### Community 203 - "Mechanist: SteamDashPlayer"
+### Community 197 - "SteamDashPlayer"
 Cohesion: 0.10
 Nodes (10): SteamDashPlayer, bool, Color, float, HurtInfo, int, NPC, Projectile (+2 more)
 
-### Community 204 - "MechArmy NPCs: AnnoyOTron"
+### Community 198 - "InvasionRules"
 Cohesion: 0.11
-Nodes (11): AnnoyOTron, Asset, Color, float, HitInfo, int, NPC, NPCLoot (+3 more)
+Nodes (12): IDictionary, NPCSpawnInfo, InvasionItemGuard, InvasionKillCredit, InvasionRules, IDictionary, int, Item (+4 more)
 
-### Community 205 - "Secrets: FundamentalRuinsSystem"
-Cohesion: 0.11
-Nodes (11): FundamentalRuinsSystem, RuinsGlyphPacket, BinaryReader, BinaryWriter, bool, float, int, Point (+3 more)
-
-### Community 206 - "fungimancer previous: make_fungimancer_art_2026-11"
-Cohesion: 0.15
-Nodes (19): blink(), crop(), ellipse(), export_all(), frame(), grid(), magic(), main() (+11 more)
-
-### Community 207 - "bosses tartyrant: frame()"
-Cohesion: 0.12
-Nodes (22): base_xf(), collar(), drip(), frame(), gloss_line(), head(), jaw_xf(), P() (+14 more)
-
-### Community 208 - "art coghaven: make_coghaven_chests_art.py"
+### Community 199 - "scene_beetle"
 Cohesion: 0.16
-Nodes (21): blank(), body(), chest(), cut(), export(), export_all(), interior(), key_icon() (+13 more)
+Nodes (9): Beetle, blocked(), ground_at(), The floor under x for something whose feet are at `feet` (tops are one-way: you…, Moving from x0 to x1 (centres) with this half-width and feet: where a solid…, The scripted player: vanilla-ish run, jump, gravity; hurt knockback (decompiled…, RhinoBeetle.UpdateState, state for state (the server's decisions and every…, Runner (+1 more)
 
-### Community 209 - "coghaven previous: make_jade_fox_art_2026-11-18 (2)"
-Cohesion: 0.14
-Nodes (19): boxed(), _boxsum(), buff_icon(), fox(), _indexed(), _leg(), main(), outputs() (+11 more)
+### Community 200 - "Beetle"
+Cohesion: 0.16
+Nodes (9): Beetle, blocked(), ground_at(), The floor under x for something whose feet are at `feet` (tops are one-way: you…, Moving from x0 to x1 (centres) with this half-width and feet: where a solid…, The scripted player: vanilla-ish run, jump, gravity; hurt knockback (decompiled…, RhinoBeetle.UpdateState, state for state (the server's decisions and every…, Runner (+1 more)
 
-### Community 210 - "Dungeon Items: SpringGloves"
-Cohesion: 0.08
-Nodes (13): PossessedCog, float, int, SpringGloves, float, LocalizedText, CondensedTar, int (+5 more)
+### Community 201 - "ResearchNodes"
+Cohesion: 0.13
+Nodes (13): Action, FundamentalStonesIndex, ResearchItemCost, ResearchItems, ResearchNodes, bool, Dictionary, float (+5 more)
 
-### Community 211 - "Bosses Jadey: Jadey boss"
-Cohesion: 0.09
-Nodes (22): Jade Shaper Rest buff icon, Jade Statue buff icon (jade figurine on a pedestal), Jadey body gore, Jadey cushion gore, Jadey head gore, Jade Incense item sprite, Jade Shaper Pendant sprite (round jade pendant on cord), Jadey treasure bag sprite (+14 more)
+### Community 202 - "make_imperial_defender_art_v1_2026-11-06.py"
+Cohesion: 0.15
+Nodes (21): body(), crop(), cycle_foot(), dadao(), export_all(), frame(), gores(), guard_blade() (+13 more)
 
-### Community 212 - "Jadey Projectiles: JadeyRopeDart"
+### Community 203 - "make_jade_art.py"
+Cohesion: 0.15
+Nodes (22): back_shoulder_cell(), blade(), body_sheet(), export_all(), icon(), _img(), legs_sheet(), pauldron_cell() (+14 more)
+
+### Community 204 - "make_oldbrasstown_art_2026-11-03.py"
+Cohesion: 0.13
+Nodes (18): biome_icon(), Block, brass_bar(), export_all(), plank_wall_detail(), plank_wall_texture(), ARCHIVED 2026-11-03: the first Weathered Plank Wall (short staggered boards…, texture(x, y) -> letter for world-aligned art pixel (x, y) (period 8). Each… (+10 more)
+
+### Community 205 - "make_splasher_art_2026-11-03.py"
+Cohesion: 0.15
+Nodes (21): body(), crop(), despeckle(), export_all(), frame(), gores(), leg(), limb() (+13 more)
+
+### Community 206 - "make_splasher_art_2026-11-04.py"
+Cohesion: 0.15
+Nodes (21): body(), crop(), despeckle(), export_all(), frame(), gores(), leg(), limb() (+13 more)
+
+### Community 207 - "JadeShaperPlayer"
+Cohesion: 0.12
+Nodes (9): JadeShaperPlayer, bool, HurtInfo, int, PlayerDrawSet, LargeJadePlayer, bool, int (+1 more)
+
+### Community 208 - "JadeyRopeDart"
 Cohesion: 0.15
 Nodes (9): JadeyRopeDart, Asset, Color, float, HurtInfo, int, Jadey, Player (+1 more)
 
-### Community 213 - "Jadey Weapons: FireworkRocket"
+### Community 209 - "Cogscorpion"
+Cohesion: 0.09
+Nodes (11): Cogscorpion, Asset, float, HitInfo, int, string, Texture2D, GridWalkerNPC (+3 more)
+
+### Community 210 - "CombinationRules"
+Cohesion: 0.20
+Nodes (6): CombinationRefusal, CombinationRules, float, int, Item, Player
+
+### Community 211 - "TarShowerBigGlob"
+Cohesion: 0.10
+Nodes (10): TarShowerBigGlob, Color, float, int, Tile, Vector2, TarStain, Color (+2 more)
+
+### Community 212 - "TyrantSkullBolt"
+Cohesion: 0.10
+Nodes (10): TyrantSkullBolt, Asset, Color, float, HitInfo, HitModifiers, int, NPC (+2 more)
+
+### Community 213 - "StunnedNPC"
+Cohesion: 0.14
+Nodes (11): StunnedNPC, Asset, bool, Color, float, int, NPC, Player (+3 more)
+
+### Community 214 - "Friendobo"
+Cohesion: 0.09
+Nodes (7): Friendobo, bool, HitInfo, int, List, string, ITownNPCProfile
+
+### Community 215 - "PuxaFrango"
+Cohesion: 0.09
+Nodes (13): Phase, PuxaFrango, Asset, float, HitInfo, HurtModifiers, IBestiaryInfoElement, int (+5 more)
+
+### Community 216 - "make_fungimancer_art_2026-11-23b.py"
+Cohesion: 0.15
+Nodes (19): blink(), crop(), ellipse(), export_all(), frame(), grid(), magic(), main() (+11 more)
+
+### Community 217 - "frame"
+Cohesion: 0.12
+Nodes (22): base_xf(), collar(), drip(), frame(), gloss_line(), head(), jaw_xf(), P() (+14 more)
+
+### Community 218 - "make_coghaven_chests_art.py"
+Cohesion: 0.16
+Nodes (21): blank(), body(), chest(), cut(), export(), export_all(), interior(), key_icon() (+13 more)
+
+### Community 219 - "Planes"
+Cohesion: 0.16
+Nodes (18): export_all(), frames(), preview(), Source for the Cog-launcher (D4), redrawn 2026-11-05b. Run from the repo root:…, The Rusted Cog item at 1x (its 2x export halved): the same pixels as the cog…, Every opaque pixel to the nearest allowed colour (the cog's own pixels are…, rusted_cog(), snap() (+10 more)
+
+### Community 220 - "make_missing_bones_art.py"
+Cohesion: 0.15
+Nodes (20): bone(), buff_icon(), export_all(), frame(), frames_preview(), item(), leg(), Pose (+12 more)
+
+### Community 221 - "make_puxafrango_art.py"
+Cohesion: 0.17
+Nodes (20): arm(), claw(), crop(), export_all(), frame(), gores(), joint(), leg() (+12 more)
+
+### Community 222 - "CogpunkProjectile"
+Cohesion: 0.09
+Nodes (11): CogpunkProjectile, GhostRift, bool, Color, int, MetalWrenchGuard, Color, float (+3 more)
+
+### Community 223 - "Jadey boss"
+Cohesion: 0.09
+Nodes (22): Jade Shaper Rest buff icon, Jade Statue buff icon (jade figurine on a pedestal), Jadey body gore, Jadey cushion gore, Jadey head gore, Jade Incense item sprite, Jade Shaper Pendant sprite (round jade pendant on cord), Jadey treasure bag sprite (+14 more)
+
+### Community 224 - "FireworkRocket"
 Cohesion: 0.11
 Nodes (10): FireworkRocket, Asset, Color, float, HitInfo, HitModifiers, int, NPC (+2 more)
 
-### Community 214 - "Combinator Items: TheCombinator.cs"
-Cohesion: 0.10
-Nodes (10): TheCombinator, ItemGroup, The Combinator item sprite, TheFirstHalf, The First Half item sprite, TheSecondHalf, The Second Half item sprite, Cogpunk.Content.Combinator.Items (+2 more)
+### Community 225 - "TrashTr0mPlayer"
+Cohesion: 0.13
+Nodes (6): Player, TrashTr0mPlayer, bool, float, int, PlayerDrawSet
 
-### Community 215 - "Gems Items: Cogpunk.Content.Gems.Items"
-Cohesion: 0.09
-Nodes (9): Jade, int, LargeJade, int, JaegerChestplate, int, LocalizedText, Player (+1 more)
+### Community 226 - ".Warn"
+Cohesion: 0.13
+Nodes (13): GenPass, List, GlassContainerWorldGen, GenPass, List, RustedScrapWorldGen, GenPass, List (+5 more)
 
-### Community 216 - "Jungle NPCs: Trapper"
-Cohesion: 0.11
-Nodes (10): Phase, Trapper, BestiaryDatabase, BestiaryEntry, float, HitInfo, int, NPCLoot (+2 more)
-
-### Community 217 - "Junkyard NPCs: LivingTar"
+### Community 227 - "LivingTar"
 Cohesion: 0.10
 Nodes (11): LivingTar, BestiaryDatabase, BestiaryEntry, bool, float, HitInfo, HurtInfo, int (+3 more)
 
-### Community 218 - "Manuals: CraftingManual"
-Cohesion: 0.10
-Nodes (10): CraftingManual, Asset, Color, int, List, LocalizedText, Player, SpriteBatch (+2 more)
-
-### Community 219 - "OldBrassTown NPCs: BrassBandit"
+### Community 228 - "AnnoyOTron"
 Cohesion: 0.12
-Nodes (11): BrassBandit, Phase, Asset, float, HitInfo, IBestiaryInfoElement, int, NPCLoot (+3 more)
+Nodes (11): AnnoyOTron, Asset, Color, float, HitInfo, int, NPC, NPCLoot (+3 more)
 
-### Community 220 - "OldBrassTown NPCs: Dinamitrom"
+### Community 229 - "Dinamitrom"
 Cohesion: 0.11
 Nodes (11): Dinamitrom, Phase, Asset, float, IBestiaryInfoElement, int, NPCLoot, NPCSpawnInfo (+3 more)
 
-### Community 221 - "Underground NPCs: PuxaFrango"
+### Community 230 - "MissingBones"
 Cohesion: 0.10
-Nodes (13): Phase, PuxaFrango, Asset, float, HitInfo, HurtModifiers, IBestiaryInfoElement, int (+5 more)
+Nodes (12): MissingBones, MissingBonesBuff, int, Missing Bones Buff icon (bone skull), Missing Bones Mount back layer (10-frame skeletal raptor run cycle), MissingBonesMount, MissingBonesPlayer, float (+4 more)
 
-### Community 222 - "tools promo: Particles"
+### Community 231 - "ChickenSnapper"
+Cohesion: 0.10
+Nodes (13): ChickenSnapper, int, LocalizedText, void, RustedNail, float, int, LocalizedText (+5 more)
+
+### Community 232 - "Particles"
 Cohesion: 0.15
 Nodes (7): BossShot, ConductorShot, JadeyShot, MechromancerShot, TarTyrantShot, TrashTr0mShot, Particles
 
-### Community 223 - "bosses tartyrant: mass()"
+### Community 233 - "mass"
 Cohesion: 0.10
 Nodes (18): base_blobs(), mass(), merge_creases(), Posed, A dome lit in the space `xf` maps from (for a part drawn with the identity…, Light bounced off the pool onto the shadow side of a bulge (bottom-right):…, Where the lower and the upper body meet inside the mass their outlines leave…, Points and radii along the tail's quadratic curve, root to tip: it tapers… (+10 more)
 
-### Community 224 - "art coghaven: make_jade_fox_art.py"
+### Community 234 - "make_jade_fox_art.py"
 Cohesion: 0.16
 Nodes (20): buff_icon(), features(), frames(), main(), old_token(), origin_x(), part(), pose() (+12 more)
 
-### Community 225 - "art combinator: make_combinator_art.py"
+### Community 235 - "pixkit.py"
+Cohesion: 0.12
+Nodes (18): export_all(), jade_eyed_koi(), koi(), Source for the Koi (D4), 2026-11-12 (user: "add a new fish called Koi, it can…, The Jade Vault's treasure: the koi cast in gold (gilt ramp, lit from the top-…, buff_icon(), export_all(), highlight() (+10 more)
+
+### Community 236 - "make_combinator_art.py"
 Cohesion: 0.17
 Nodes (20): aura(), beam(), blueprint(), button(), cog(), export_all(), half(), help_icon() (+12 more)
 
-### Community 226 - "gems previous: make_jade_art_2026-11-09.py"
+### Community 237 - "make_jade_art_2026-11-09.py"
 Cohesion: 0.17
 Nodes (20): back_shoulder_cell(), blade(), body_sheet(), export_all(), icon(), _img(), legs_sheet(), pauldron_cell() (+12 more)
 
-### Community 227 - "gems previous: make_jade_art_2026-11-10.py"
+### Community 238 - "make_jade_art_2026-11-10.py"
 Cohesion: 0.17
 Nodes (20): back_shoulder_cell(), blade(), body_sheet(), export_all(), icon(), _img(), legs_sheet(), pauldron_cell() (+12 more)
 
-### Community 228 - "art secrets: make_fundamental_ruins_art.p"
+### Community 239 - "make_junkyard_loot.py"
+Cohesion: 0.20
+Nodes (20): condensed_tar(), export(), export_all(), living_tar_frames(), map_arrow_frames(), mysterious_map(), polisher_schematic(), polisher_tile_frames() (+12 more)
+
+### Community 240 - "make_fundamental_ruins_art.py"
 Cohesion: 0.14
 Nodes (19): biome_icon(), brick_wall_detail(), brick_wall_texture(), column_wall_texture(), export_all(), kelp_sheet(), preview(), Block (+11 more)
 
-### Community 229 - "BloodMoon NPCs: MechromancerThrall"
+### Community 241 - "GhostTrain.cs"
+Cohesion: 0.11
+Nodes (12): Cursed Conductor Ghost Train attack, CursedConductorRigData, int, sbyte, Ghost Train passenger car (9 rotation poses), Ghost Train car glow overlay, Ghost Train locomotive glow overlay, Ghost Train rail telegraph sprites (+4 more)
+
+### Community 242 - "MechromancerThrall"
 Cohesion: 0.15
 Nodes (10): MechromancerThrall, BinaryReader, BinaryWriter, BitReader, BitWriter, float, IEntitySource, int (+2 more)
 
-### Community 230 - "tools sim: armor_preview.py"
+### Community 243 - "Fungimancer.cs"
+Cohesion: 0.10
+Nodes (10): FungimancerRigData, int, short, RainbowMushroom, ItemGroup, Player, Cogpunk.Content.Bosses.Fungimancer.Items, Cogpunk.Content.Bosses.Fungimancer.Tiles (+2 more)
+
+### Community 244 - "JadeGlaiveThrown"
+Cohesion: 0.12
+Nodes (9): JadeGlaiveThrown, Color, float, HitInfo, HitModifiers, int, NPC, Rectangle (+1 more)
+
+### Community 245 - "Cogpunk.Content.Combinator.Combination"
+Cohesion: 0.12
+Nodes (10): Combinator UI button, Combinator help (?) icon, Combinator UI panel frame, Combinator product slot, Combinator base/augment slot, IRightClickSkill, Cogpunk.Content.Combinator.Tiles, Cogpunk.Core.Combat (+2 more)
+
+### Community 246 - "BrassBandit"
+Cohesion: 0.12
+Nodes (11): BrassBandit, Phase, Asset, float, HitInfo, IBestiaryInfoElement, int, NPCLoot (+3 more)
+
+### Community 247 - "ScrapBombProjectile"
+Cohesion: 0.14
+Nodes (10): ScrapBombProjectile, bool, Color, float, HitInfo, HitModifiers, int, NPC (+2 more)
+
+### Community 248 - "armor_preview.py"
 Cohesion: 0.16
 Nodes (19): Scrap Armor walk GIF: animated walk cycle on dark and sky backgrounds (frame/cog counter), Scrap Armor PNG: 12-frame walk sheet on dark and light backgrounds, Scrap armor walk offset check: old preview (bug) vs game-accurate head bob on frames 7-8, 14-15, cell(), compose(), _layout(), load_frames(), main() (+11 more)
 
-### Community 231 - "docs media: Steam Tank (base capacity 0 "
+### Community 249 - "Steam Tank (base capacity 0 without Mechanist gear)"
 Cohesion: 0.11
 Nodes (21): Rust Polisher GIF, Rust Polisher (crafting station, grinding wheel, 6 frames x 4 ticks, no steam stack), Chain (grapple claw) and Glass/Brass Containers, Mechanist Polished Armor PNG, Polished armor set (worn idle/jump/walk, helmet/chest/legs icons), Steam gauge and Overheat indicator, Polished Pants Fix GIF, Polished pants leg-frame fix (frame / cog index check) (+13 more)
 
-### Community 232 - "bloodmoon previous: make_cogsqueleton_art_2026-1"
+### Community 250 - "make_cogsqueleton_art_2026-11-12.py"
 Cohesion: 0.19
 Nodes (18): arm(), body(), bone_limb(), cog(), crop(), cycle_foot(), export_all(), frame() (+10 more)
 
-### Community 233 - "bosses jadey: make_incense_mace_art.py"
+### Community 251 - "make_incense_mace_art.py"
 Cohesion: 0.17
 Nodes (19): boxed(), censer(), censer_icon(), chain_link(), head(), icon(), image_of(), main() (+11 more)
 
-### Community 234 - "coghaven previous: make_buddha_head_art_v1_2026"
+### Community 252 - "make_buddha_head_art_v1_2026-11-12.py"
 Cohesion: 0.16
 Nodes (18): bands(), crop(), export_all(), face_shade(), features(), frame(), gores(), halo() (+10 more)
 
-### Community 235 - "coghaven previous: Tube"
-Cohesion: 0.15
-Nodes (15): buff_icon(), frame(), leg(), main(), model(), old_token(), Pose, The Jade Token and its spirit fox, v3 2026-11-23. Run from the repo root:… (+7 more)
-
-### Community 236 - "secrets previous: make_fundamental_ruins_art_2"
+### Community 253 - "make_fundamental_ruins_art_2026-11-10.py"
 Cohesion: 0.14
 Nodes (17): biome_icon(), brick_wall_detail(), brick_wall_texture(), column_wall_texture(), export_all(), kelp_sheet(), preview(), Block (+9 more)
 
-### Community 237 - "Ocean NPCs: Cogtuna.cs"
+### Community 254 - "Cogtuna.cs"
 Cohesion: 0.11
 Nodes (15): Cogtuna (ocean enemy), Cogtuna fin gore, Cogtuna head gore, Cogtuna tail gore, SharkEye, int, LocalizedText, void (+7 more)
 
-### Community 238 - "CursedConductor Weapons: GhostTrainEngine"
-Cohesion: 0.13
-Nodes (9): GhostTrainArt, GhostTrainEngine, Mode, Asset, byte, float, int, Rectangle (+1 more)
+### Community 255 - "SheriffBadge"
+Cohesion: 0.12
+Nodes (10): Sheriff Star summon minion, SheriffBadge, EntitySource_ItemUse_WithAmmo, int, List, TooltipLine, Vector2, SheriffStarBuff (+2 more)
 
-### Community 239 - "Bosses Jadey: JadeyMinion"
+### Community 256 - "JadeyMinion"
 Cohesion: 0.16
 Nodes (10): JadeyMinion, BinaryReader, BinaryWriter, BitReader, BitWriter, Color, float, IEntitySource (+2 more)
 
-### Community 240 - "Jadey Weapons: JadeGlaiveSlash"
+### Community 257 - "JadeCursedGlaives"
+Cohesion: 0.11
+Nodes (9): JadeCursedGlaives, JadeGlavePlayer, EntitySource_ItemUse_WithAmmo, float, int, List, LocalizedText, TooltipLine (+1 more)
+
+### Community 258 - "JadeGlaiveSlash"
 Cohesion: 0.12
 Nodes (10): JadeGlaiveSlash, Asset, Color, float, HitInfo, HitModifiers, List, NPC (+2 more)
 
-### Community 241 - "Bosses TrashTr0m: TrashTr0mPlayer"
-Cohesion: 0.15
-Nodes (5): TrashTr0mPlayer, bool, float, int, PlayerDrawSet
+### Community 259 - "CombinedSprites"
+Cohesion: 0.17
+Nodes (8): CombinedSprite, CombinedSprites, CombinedSpritesSystem, Dictionary, int, Point, Rectangle, Texture2D
 
-### Community 242 - "TrashTr0m Weapons: ScrapLauncherBall"
-Cohesion: 0.11
-Nodes (10): ScrapLauncherBall, Color, float, int, Vector2, ScrapLauncherChunk, Color, int (+2 more)
-
-### Community 243 - "Junkyard Weapons: Macuahuitl"
+### Community 260 - "Macuahuitl"
 Cohesion: 0.15
 Nodes (11): Macuahuitl, MacuahuitlStruck, bool, float, HitInfo, HitModifiers, int, LocalizedText (+3 more)
 
-### Community 244 - "Core Systems: MetalClash"
+### Community 261 - "MetalClash"
 Cohesion: 0.12
 Nodes (7): MetalClash, Color, float, int, SlowMotion, float, int
 
-### Community 245 - "Junkyard Weapons: MetalWrenchPlayer"
+### Community 262 - "MetalWrenchPlayer"
 Cohesion: 0.14
 Nodes (7): MetalWrenchPlayer, bool, HurtInfo, int, NPC, PlayerDeathReason, Vector2
 
-### Community 246 - "Scrap Pets: ScrappybotPet"
+### Community 263 - "ScrappybotPet"
 Cohesion: 0.17
 Nodes (9): PetState, ScrappybotPet, bool, Color, float, int, Player, Vector2 (+1 more)
 
-### Community 247 - "art desert: make_coghawk_art.py"
+### Community 264 - "CogpunkPacket"
+Cohesion: 0.12
+Nodes (19): Biomes, tiles, world generation patterns, Co-op boss bag loot (per-player instanced), tools/check_boss_loot.py, CogpunkInvasion, CogpunkPacket, CogpunkSets, D2 Co-op compatibility, GenPassUtils (+11 more)
+
+### Community 265 - "README.md (Cogpunk overview)"
+Cohesion: 0.12
+Nodes (19): Mechanist Class & Steam, README.md (Cogpunk overview), Beat-Boxer and Spring Gloves, CLAUDE.md, Cog-launcher, Cogtuna, Coghawk, Splasher surface enemies, Content Scope, Core Directives table D0-D5 (+11 more)
+
+### Community 266 - "make_coghawk_art.py"
 Cohesion: 0.19
 Nodes (17): body(), chest_cog(), crop(), despeckle(), export_all(), frame(), gores(), P() (+9 more)
 
-### Community 248 - "art mechanist: make_firesaw_art.py"
+### Community 267 - "make_firesaw_art.py"
 Cohesion: 0.18
 Nodes (18): blade_span(), crescent(), export_all(), fire(), is_out(), part_at(), preview(), Source for the Firesaw (D4). Redrawn 2026-11-10 (user, with a reference image… (+10 more)
 
-### Community 249 - "Core UI: BiomeTitleSystem"
+### Community 268 - "make_sheriff_art.py"
+Cohesion: 0.19
+Nodes (16): badge_icon(), buff_icon(), crop(), cycle_foot(), export_all(), gores(), Pose, preview() (+8 more)
+
+### Community 269 - "BiomeTitleSystem"
 Cohesion: 0.12
 Nodes (11): BiomeTitleOrnament (brass gear-ended bar ornament), BiomeTitleSystem, Asset, Color, float, GameInterfaceLayer, int, List (+3 more)
 
-### Community 250 - "Scrap Generation: ScrapMoundPass"
+### Community 270 - "ScrapMoundPass"
 Cohesion: 0.20
 Nodes (10): biome, ScrapMoundPass, SurfaceBiome, GameConfiguration, GenerationProgress, int, List, end (+2 more)
 
-### Community 251 - "OldBrassTown: MechArmyInvasion"
+### Community 271 - "MechArmyInvasion"
 Cohesion: 0.12
 Nodes (12): CogpunkInvasion, MechArmyInvasion, Color, float, int, NPCSpawnInfo, NPCSpawnInfo, OldBrassTownSpawnRules (+4 more)
 
-### Community 252 - "Coghaven Items: Coghaven (floating jade pala"
+### Community 272 - "Coghaven (floating jade palace biome)"
 Cohesion: 0.13
 Nodes (19): Coghaven (floating jade palace biome), Jade Golem (Coghaven enemy), Coghaven biome icon: small jade-green pagoda-roofed palace atop a bronze turbine base with white steam puffs, Turbine smoke dust sheet: three grey-white smoke puff frames growing in size, Jade Golem gore: small dark jade crystal shard, Jade Golem gore: carved jade golem head in profile, Jade Golem gore: glowing green jade core gem in a gold setting, Bronze Cog item: bronze gear with a jade gem centre (+11 more)
 
-### Community 253 - "TarTyrant NPCs: TarTyrantBubble"
+### Community 273 - "TarTyrantBubble"
 Cohesion: 0.12
 Nodes (9): TarTyrantBubble, Color, float, HitInfo, HurtInfo, int, Player, SpriteBatch (+1 more)
 
-### Community 254 - "TarTyrant Projectiles: TarTyrantClaw"
+### Community 274 - "TarTyrantClaw"
 Cohesion: 0.13
 Nodes (8): TarTyrantClaw, Asset, Color, float, HurtInfo, int, Player, Rectangle
 
-### Community 255 - "OldBrassTown: JunkyardBiome"
-Cohesion: 0.12
-Nodes (11): CoghavenBiome, Player, SceneEffectPriority, JunkyardBiome, ModWaterStyle, Player, JunkyardBiome icon (rusty scrap heap), OldBrassTownBiome (+3 more)
+### Community 275 - "Trash-Tr0m loot sheet PNG"
+Cohesion: 0.11
+Nodes (19): Treasure Bag sprite (brown scrap sack), Trash-Tr0m Loot PNG, Scrap Launcher, Scrapmancer, Tetanus (lance weapon + debuff), Tr0mhead Staff (summon: idle/opening/sucking/resting), Trash-Tr0m Treasure Bag, Trash-Tr0m loot sheet PNG (+11 more)
 
-### Community 256 - "Coghaven Projectiles: JadeRay"
+### Community 276 - "JadeRay"
 Cohesion: 0.12
 Nodes (9): JadeRay, Asset, Color, float, HurtInfo, int, Player, Rectangle (+1 more)
 
-### Community 257 - "Junkyard NPCs: RustCollector"
+### Community 277 - ".Generate"
+Cohesion: 0.13
+Nodes (13): ScrappyTrunkPass, ScrappyTrunkWorldGen, GameConfiguration, GenerationProgress, GenPass, int, List, ScrappyTrunkLoot (+5 more)
+
+### Community 278 - "JadePhaseblade"
+Cohesion: 0.12
+Nodes (9): JadePhaseblade, Color, int, Player, Rectangle, ScrappyWandBolt, Color, int (+1 more)
+
+### Community 279 - "RustCollector"
 Cohesion: 0.12
 Nodes (10): Phase, RustCollector, BestiaryDatabase, BestiaryEntry, float, HurtModifiers, int, NPCLoot (+2 more)
 
-### Community 258 - "Mechanist Weapons: SmokerSmoke"
+### Community 280 - "SmokerSmoke"
 Cohesion: 0.12
 Nodes (10): SmokerBook, SmokerSmoke, Color, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player (+2 more)
 
-### Community 259 - "OldBrassTown Weapons: SheriffsRevolver"
+### Community 281 - "SheriffsRevolver"
 Cohesion: 0.14
 Nodes (9): SheriffsRevolver, EntitySource_ItemUse_WithAmmo, float, int, List, LocalizedText, Player, TooltipLine (+1 more)
 
-### Community 260 - "Ruins Tiles: FundamentalSealTile"
+### Community 282 - "FundamentalSealTile"
 Cohesion: 0.12
 Nodes (6): FundamentalSealTile, Asset, int, SpriteBatch, Tile, TileDrawInfo
 
-### Community 262 - "tools sim: Player"
-Cohesion: 0.17
-Nodes (14): dungeon_backdrop(), extension(), main(), mug_sprite(), plank_room(), Player, D5 proofs for the second request of 2026-11-03: the Beat-Boxer and its Spring…, The room: Weathered Plank Wall behind (its framed sheet, every cell a centre… (+6 more)
+### Community 283 - "MeleeGear"
+Cohesion: 0.16
+Nodes (8): MeleeFocus, MeleeGear, byte, float, int, Item, Player, Span
 
-### Community 263 - "Manuals Items: CraftingManual"
+### Community 284 - "Fundamental Stones (5 sigils)"
+Cohesion: 0.13
+Nodes (19): Research Tabs Proof (PNG), Ancient Research Tab, Knowledge Points Counter, Mystery of the Past Tab, Research Node States (researched gold, ready jade, locked grey, teasers ?), Ghedalari Script Proof (PNG), Last Ghedalari [ghd] Rune Chat Lines, Ghedalari Script (runes + pictograms) (+11 more)
+
+### Community 286 - "update_2026_11_24_sim.py"
+Cohesion: 0.26
+Nodes (18): bands(), cells(), fit(), ghedalari_gif(), ghedalari_png(), items_png(), label(), main() (+10 more)
+
+### Community 287 - "CraftingManual"
 Cohesion: 0.14
 Nodes (13): Sticky Pages aura effect sprite, FungiManual, Vector3, JadeShaperManual, Vector3, ScrapManual, Vector3, SheriffsLawBook (+5 more)
 
-### Community 264 - "bosses tartyrant: claw()"
+### Community 288 - "claw"
 Cohesion: 0.14
 Nodes (18): back_bone(), back_bone_frames(), claw(), claw_frames(), despeckle(), knob(), lerp2(), long_bone() (+10 more)
 
-### Community 265 - "coghaven previous: make_jade_fox_art_2026-11-19"
+### Community 289 - "make_jade_fox_art_2026-11-18a.py"
+Cohesion: 0.18
+Nodes (16): boxed(), buff_icon(), fox(), _leg(), main(), outputs(), Pose, The Jade Token and its spirit fox (2026-11-18). Run from the repo root: python… (+8 more)
+
+### Community 290 - "make_jade_fox_art_2026-11-19a.py"
 Cohesion: 0.16
 Nodes (16): boxed(), buff_icon(), fox(), _leg(), main(), outputs(), part_of(), Pose (+8 more)
 
-### Community 266 - "OldBrassTown Tiles: Cogpunk.Content.OldBrassTown"
-Cohesion: 0.11
-Nodes (8): Brass Strongbox (Old Brass Town chest), BrassSandstoneTile, Brass Strongbox highlight overlay, TarnishedBrassOreTile, int, TarnishedBrassPlatingTile, WeatheredPlankTile, Cogpunk.Content.OldBrassTown.Tiles
-
-### Community 267 - "BloodMoon Projectiles: PossessedCogYoyo"
+### Community 291 - "PossessedCogYoyo"
 Cohesion: 0.12
 Nodes (10): PossessedCogYoyo, Asset, bool, Color, float, HitInfo, HitModifiers, int (+2 more)
 
-### Community 268 - "TrashTr0m Buffs: TetanusContactNPC"
+### Community 292 - "FungimancerSystem"
+Cohesion: 0.14
+Nodes (7): FungimancerSystem, RainbowMushroomGrowth, int, List, Point, string, uint
+
+### Community 293 - ".DoRage"
+Cohesion: 0.18
+Nodes (3): Player, Vector2, Vector2
+
+### Community 294 - "TetanusContactNPC"
 Cohesion: 0.14
 Nodes (10): TetanusContactNPC, TetanusDebuff, TetanusGlobalNPC, bool, float, HitModifiers, HurtInfo, int (+2 more)
 
-### Community 269 - "Combinator Combination: CombinedSprites"
-Cohesion: 0.20
-Nodes (7): CombinedSprite, CombinedSprites, Dictionary, int, Point, Rectangle, Texture2D
-
-### Community 270 - "OldBrassTown Tiles: BrassStrongboxTile"
+### Community 295 - "BrassStrongboxTile"
 Cohesion: 0.12
 Nodes (4): BrassStrongboxTile, int, LocalizedText, SmartInteractScanSettings
 
-### Community 271 - "Junkyard: JunkyardSystem"
-Cohesion: 0.19
-Nodes (7): JunkyardSystem, BinaryReader, BinaryWriter, int, Rectangle, string, TagCompound
-
-### Community 272 - "Junkyard Weapons: TarShower"
+### Community 296 - "SteamContainer"
 Cohesion: 0.12
-Nodes (7): TarShower, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Vector2, ISteamSkill
+Nodes (10): BrassContainer, int, LocalizedText, Player, GlassContainer, int, SteamContainer, Item (+2 more)
 
-### Community 273 - "Mechanist: MechanistWeapon"
+### Community 297 - "MechanistWeapon"
 Cohesion: 0.18
 Nodes (7): MechanistWeapon, float, int, List, LocalizedText, Player, TooltipLine
 
-### Community 274 - "Mechanist Weapons: CogLauncherCog"
+### Community 298 - "CogLauncherCog"
 Cohesion: 0.14
 Nodes (9): CogLauncherCog, Color, float, HitInfo, HitModifiers, int, NPC, string (+1 more)
 
-### Community 275 - "Mechanist Weapons: TrapperChainProjectile"
+### Community 299 - "TrapperChainProjectile"
 Cohesion: 0.14
 Nodes (8): TrapperChainProjectile, Asset, Color, float, HitInfo, int, NPC, Vector2
 
-### Community 276 - "Core Combat: SwingPose"
+### Community 300 - "SwingPose"
 Cohesion: 0.24
 Nodes (3): SwingPose, Rectangle, Vector2
 
-### Community 277 - "Core Systems: MapTargetSystem"
+### Community 301 - "MapTargetSystem"
 Cohesion: 0.16
 Nodes (9): MapTargetSystem, BinaryReader, BinaryWriter, bool, float, int, Point, TagCompound (+1 more)
 
-### Community 278 - "tools sim: update_2026_11_10b_sim.py"
-Cohesion: 0.18
-Nodes (12): chests_png(), GolemSprite, K_in(), main(), D5 proofs for the second request of 2026-11-10, built from the real sprites and…, The Jade Golem drawn as JadeGolem.PreDraw does: far, middle, the raised arm…, A cell turned about its pivot by `degrees` (clockwise on screen), point-…, scene_cloth() (+4 more)
+### Community 302 - "OldBrassTownSystem"
+Cohesion: 0.13
+Nodes (8): BinaryReader, BinaryWriter, OldBrassTownSystem, GenPass, List, Rectangle, string, Vector2
 
-### Community 279 - "SETUP: Cogpunk Technical Setup"
-Cohesion: 0.16
-Nodes (17): D2 Co-op Compatibility, D5 Visual Proof, Ground Truth Facts, build.txt Config, check_tile_seams.py, Claude Code Plugins & MCP (DeepWiki, csharp-lsp, pixel-mcp, SpriteCook), DeepWiki MCP, global.json SDK Pin (+9 more)
+### Community 303 - "GlobalNPC"
+Cohesion: 0.13
+Nodes (11): JadeShaperWhipDebuffNPC, HitModifiers, NPC, Projectile, WallOfFleshBlueprint, NPC, NPCLoot, BossFightSpawnRule (+3 more)
 
-### Community 280 - "bosses jadey: Ell"
-Cohesion: 0.16
-Nodes (11): arm_parts(), draw(), HalfTop, model(), Jadey's body, sculpted (2026-11-23, the sprite-quality study: "provide a…, The face, the gem and the small gilt, by hand at the target size (rig…, The top of an ellipsoid down to `cut` px under its centre (a cap of hair)., Renders her into the canvases (rig coordinates); returns (near paw, far paw). (+3 more)
+### Community 304 - "CoghavenSystem"
+Cohesion: 0.14
+Nodes (9): CoghavenSystem, BinaryReader, BinaryWriter, GenPass, int, List, Rectangle, string (+1 more)
 
-### Community 281 - "Coghaven Tiles: CogpunkTile"
-Cohesion: 0.12
-Nodes (8): CogpunkTile, BronzeGearworkTile, CinnabarLacquerTile, JadeBrickTile, JadeRoofTile, PalaceFlagstoneTile, JadeTile, FundamentalKelpTile
-
-### Community 282 - "Jadey Weapons: JadeGlaiveThrown"
+### Community 305 - "CombinatorUISystem"
 Cohesion: 0.15
-Nodes (8): JadeGlaiveThrown, Color, float, HitInfo, HitModifiers, int, NPC, Vector2
+Nodes (6): CombinatorUISystem, List, Point, List, GameInterfaceLayer, GameTime
 
-### Community 283 - "Bosses TarTyrant: .DoRage()"
-Cohesion: 0.20
-Nodes (3): Player, Vector2, Vector2
-
-### Community 284 - "Gems Projectiles: JadeBolt"
+### Community 306 - "JadeBolt"
 Cohesion: 0.17
 Nodes (7): JadeBolt, Color, float, HitInfo, int, NPC, Vector2
 
-### Community 285 - "OldBrassTown Generation: OldBrassTownChests"
-Cohesion: 0.14
-Nodes (8): Blueprint, OldBrassTownBlueprints, string, OldBrassTownChests, Chest, int, Item, Cogpunk.Content.OldBrassTown.Generation
-
-### Community 286 - "Core UI: BossTitleSystem"
+### Community 307 - "BossTitleSystem"
 Cohesion: 0.15
 Nodes (8): BossTitleSystem, Color, float, GameInterfaceLayer, int, List, LocalizedText, string
 
-### Community 287 - "bosses cursedconductor: make_train_whistle_art.py"
+### Community 308 - "update_2026_11_06b_sim_2026-11-09.py"
+Cohesion: 0.18
+Nodes (10): coghaven_backdrop(), main(), note(), numbers(), Planes, D5 proofs for the second request of 2026-11-06, built from the real sprite…, A grid enemy's far, middle, near and glow cells (in k["Columns"] columns),…, The island's sky over Palace Flagstone (the real tile's top and middle frames),… (+2 more)
+
+### Community 309 - "update_2026_11_24b_sim.py"
+Cohesion: 0.22
+Nodes (15): bands(), cell(), coin_gif(), float_array(), int_array(), label(), main(), put_cell() (+7 more)
+
+### Community 310 - "Boss-Fight Rules"
+Cohesion: 0.13
+Nodes (16): Boss Bags Expert/Master Only, Boss-Fight Rules, BossFightSpawnRule, BossNPC, BossTitleSystem, Expert-first stats (Classic half, Master 1.5x), Expert-First Balance Rule, ExpertStats (+8 more)
+
+### Community 311 - "ScrapwormFishing"
+Cohesion: 0.13
+Nodes (8): AdvancedPopupRequest, ScrapwormFishing, Item, Vector2, KoiFishing, Vector2, Cogpunk.Content.Coghaven, FishingAttempt
+
+### Community 312 - "make_train_whistle_art.py"
 Cohesion: 0.25
 Nodes (15): buff_icon(), car(), engine(), export_all(), ghost_face(), preview(), Source for the Cursed Train Whistle and its ghost train minion (D4), 2026-11-09…, A little passenger car at `heading`, its middle at the cell's centre. (+7 more)
 
-### Community 288 - "cursedconductor previous: make_train_whistle_art_2026-"
+### Community 313 - "make_train_whistle_art_2026-11-09.py"
 Cohesion: 0.25
 Nodes (15): buff_icon(), car(), engine(), export_all(), ghost_face(), preview(), Source for the Cursed Train Whistle and its ghost train minion (D4), 2026-11-09…, A little passenger car at `heading`, its middle at the cell's centre. (+7 more)
 
-### Community 289 - "bosses tartyrant: make_tyrant_armor.py"
+### Community 314 - "make_tyrant_armor.py"
 Cohesion: 0.22
 Nodes (15): back_sheet(), bobbed_sheet(), body_sheet(), cape_frame(), cape_outline(), export_all(), icon(), legs_frame() (+7 more)
 
-### Community 290 - "coghaven previous: make_jade_fox_art_2026-11-18 (3)"
+### Community 315 - "make_jade_fox_art_2026-11-18b.py"
 Cohesion: 0.17
 Nodes (14): boxed(), buff_icon(), flame(), main(), outputs(), Pose, The Jade Token and its spirit fox (2026-11-18). Run from the repo root: python…, The spirit flame off the tail's end (the user's design): three tongues of… (+6 more)
 
-### Community 291 - "art junkyard: make_tar_art.py"
+### Community 316 - "make_jade_claws_art.py"
+Cohesion: 0.18
+Nodes (15): claws(), crescent(), gauntlet(), light(), line(), Source for the Jade Claws (D4), 2026-11-24. Run from the repo root: python -P…, Three long jade crystals growing out of the crescent towards the top-right,…, The two leather straps hanging loose off the gauntlet's back end. (+7 more)
+
+### Community 317 - "make_tar_art.py"
 Cohesion: 0.19
 Nodes (12): body(), liquid_cell(), make_block(), make_slope(), make_steam(), make_water(), make_waterfall(), Source for the Junkyard's steaming tar (D4). Run from the repo root: python -P… (+4 more)
 
-### Community 292 - "art mecharmy: make_jaeger_armor.py"
+### Community 318 - "make_jaeger_armor.py"
 Cohesion: 0.23
 Nodes (15): back_shoulder_cell(), body_sheet(), export_all(), hazard(), head_sheet(), helmet_frame(), legs_frame(), legs_sheet() (+7 more)
 
-### Community 293 - "OldBrassTown: OldBrassTownSystem"
-Cohesion: 0.14
-Nodes (8): BinaryReader, BinaryWriter, OldBrassTownSystem, GenPass, List, Rectangle, string, Vector2
-
-### Community 294 - "OldBrassTown Generation: .BuildStreet()"
+### Community 319 - ".BuildStreet"
 Cohesion: 0.23
 Nodes (4): Blueprint, Chest, List, Piece
 
-### Community 295 - "skills cogpunk-dev: cogpunk-dev skill (operating"
-Cohesion: 0.12
-Nodes (16): D0 No crashes, cogpunk-dev skill (operating manual), 3.6 Animations API, 4. Anti-patterns, 3.5 Biomes, tiles, world generation, 3.4 NPC/boss AI state machine, 1. Core Directives, 5. Definition of Done (+8 more)
+### Community 320 - "Cogpunk CLAUDE.md project rules"
+Cohesion: 0.13
+Nodes (16): Cogpunk CLAUDE.md project rules, Core vs Content slice architecture, D0 No crashes, D1 Optimization, D2 Co-op compatibility, D3 Balance, D4 Pixel art, D5 Visual proof (+8 more)
 
-### Community 296 - "Rain Projectiles: SplasherWater"
+### Community 321 - "SplasherWater"
 Cohesion: 0.12
 Nodes (8): Splasher (rain weapon), SplasherWater, Color, float, HurtInfo, int, Vector2, Cogpunk.Content.Rain.Projectiles
 
-### Community 297 - "CursedConductor Weapons: SoulFire"
+### Community 322 - "SoulFire"
 Cohesion: 0.14
 Nodes (6): SoulFire, Asset, Color, float, IEntitySource, int
 
-### Community 298 - "Jadey NPCs: JadeBat"
-Cohesion: 0.12
-Nodes (9): JadeBat, Asset, BestiaryDatabase, BestiaryEntry, Color, HitInfo, int, SpriteBatch (+1 more)
-
-### Community 299 - "Jadey Weapons: JadeCursedGlaives"
-Cohesion: 0.17
-Nodes (8): JadeCursedGlaives, JadeGlavePlayer, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
-
-### Community 300 - "Desert Weapons: CaktiSpike"
-Cohesion: 0.15
-Nodes (6): CaktiSpike, Color, float, HitInfo, int, NPC
-
-### Community 301 - "MechArmy Projectiles: BoombotBlast"
-Cohesion: 0.15
-Nodes (7): BoombotBlast, Color, float, HurtModifiers, int, Player, Rectangle
-
-### Community 302 - "OldBrassTown Weapons: SheriffsBullet"
-Cohesion: 0.15
-Nodes (8): SheriffsBullet, Color, float, HitInfo, HitModifiers, int, NPC, Vector2
-
-### Community 303 - "Research Weapons: BanditsDream"
-Cohesion: 0.14
-Nodes (9): BanditsDream, EntitySource_ItemUse_WithAmmo, float, List, LocalizedText, Player, TooltipLine, Vector2 (+1 more)
-
-### Community 304 - "Ruins Tiles: FundamentalArenaBrickTile"
-Cohesion: 0.12
-Nodes (5): FundamentalArenaBrickTile, FundamentalBrickTile, FundamentalCoralTile, FundamentalRubbleTile, RuinBlocks
-
-### Community 305 - "tools sim: Conductor"
-Cohesion: 0.21
-Nodes (7): Conductor, faded(), optional(), His 2-column grid sheets drawn at the rig origin, mirrored when he faces right…, UpdateSmoke, `ticks` times: drift (drag, a little rise) and a new puff out of…, sprites_png(), boss_planes()
-
-### Community 306 - "Coghaven: ScrapwormFishing"
-Cohesion: 0.14
-Nodes (8): AdvancedPopupRequest, ScrapwormFishing, Item, Vector2, KoiFishing, Vector2, Cogpunk.Content.Coghaven, FishingAttempt
-
-### Community 307 - "mechanist previous: make_firesaw_art_2026-11-10."
-Cohesion: 0.23
-Nodes (14): blade_span(), export_all(), fire(), is_out(), part_at(), preview(), Source for the Firesaw (D4). Redrawn 2026-11-10 (user, with a reference image…, True if a 4-neighbour of (x, y) is not this part: the part's outline. (+6 more)
-
-### Community 308 - "art secrets: pixkit.py"
-Cohesion: 0.16
-Nodes (13): export_all(), glyph(), Source for the Fundamental Ruins' rune glyphs and their sealed gate (D4),…, A 1x object split into 8x8 tiles laid out on the 9 px (18 px at 2x) stride., One glyph, 16x24 at 1x: the slab and its foot; and its glow (the cut rune)., The gate's slab, 72x24 at 1x, and its sockets' glow., seal(), tiles() (+5 more)
-
-### Community 309 - "CLAUDE: Cogpunk CLAUDE.md project ru"
-Cohesion: 0.14
-Nodes (15): Cogpunk CLAUDE.md project rules, Core vs Content slice architecture, D1 Optimization, D2 Co-op compatibility, D3 Balance, D4 Pixel art, D5 Visual proof, Mechanist class and Steam Pressure (+7 more)
-
-### Community 310 - "Jadey Items: JadeyBag"
+### Community 323 - "JadeyBag"
 Cohesion: 0.15
 Nodes (7): JadeyBag, JadeyLoot, ILoot, int, ItemLoot, LeadingConditionRule, NPCLoot
 
-### Community 311 - "Jadey Projectiles: JadeCoin"
-Cohesion: 0.13
-Nodes (7): JadeCoin, Kind, Asset, Color, float, int, Vector2
+### Community 324 - "JadeBat"
+Cohesion: 0.12
+Nodes (9): JadeBat, Asset, BestiaryDatabase, BestiaryEntry, Color, HitInfo, int, SpriteBatch (+1 more)
 
-### Community 312 - "Jadey Weapons: IncenseAura"
+### Community 325 - "TarTyrantGlob"
+Cohesion: 0.13
+Nodes (7): TarTyrantGlob, Color, float, HurtInfo, int, Player, Vector2
+
+### Community 326 - "JadeToken"
+Cohesion: 0.13
+Nodes (7): JadeFoxBuff, Player, JadeToken, EntitySource_ItemUse_WithAmmo, Player, Vector2, Cogpunk.Content.Coghaven.Pets
+
+### Community 327 - "Cakti"
+Cohesion: 0.14
+Nodes (8): Cakti, float, int, Item, LocalizedText, Player, Vector2, Cogpunk.Content.Desert.Weapons
+
+### Community 328 - "CaktiSpike"
+Cohesion: 0.15
+Nodes (6): CaktiSpike, Color, float, HitInfo, int, NPC
+
+### Community 329 - "BoombotBlast"
+Cohesion: 0.15
+Nodes (7): BoombotBlast, Color, float, HurtModifiers, int, Player, Rectangle
+
+### Community 330 - "SheriffsBullet"
+Cohesion: 0.15
+Nodes (8): SheriffsBullet, Color, float, HitInfo, HitModifiers, int, NPC, Vector2
+
+### Community 331 - "JadeCoin"
+Cohesion: 0.14
+Nodes (8): JadeCoin, JadeCoinPlayer, EntitySource_ItemUse_WithAmmo, int, List, TooltipLine, Vector2, IEntitySource
+
+### Community 332 - "make_firesaw_art_2026-11-10.py"
+Cohesion: 0.23
+Nodes (14): blade_span(), export_all(), fire(), is_out(), part_at(), preview(), Source for the Firesaw (D4). Redrawn 2026-11-10 (user, with a reference image…, True if a 4-neighbour of (x, y) is not this part: the part's outline. (+6 more)
+
+### Community 333 - "make_fundamental_stone_art.py"
+Cohesion: 0.22
+Nodes (14): to_image(), export_all(), glyph(), preview(), Source for the Fundamental Stones (D4), 2026-11-10 (user, with a reference…, The slate's pixels: 20 wide (x 6..25), from the arched crown (y 3) down into…, The stone (32x48 at 1x) of `style`, and its glow., The styles side by side, each cut into 8x8 tiles on vanilla's stride (1 px gap… (+6 more)
+
+### Community 334 - "Mechromancer.cs"
+Cohesion: 0.13
+Nodes (9): Mechromancer sprite sheet, MechromancerRigData, int, Soul Fire Cog glow layer, Soul Fire Cog sprite (spinning brass cog), PossessedCog, float, int (+1 more)
+
+### Community 335 - "IncenseAura"
 Cohesion: 0.21
 Nodes (5): IncenseAura, bool, Color, int, Player
 
-### Community 313 - "Jadey Weapons: GlobalNPC"
-Cohesion: 0.15
-Nodes (10): JadeShaperWhipDebuffNPC, HitModifiers, NPC, Projectile, WallOfFleshBlueprint, NPC, NPCLoot, BossFightSpawnRule (+2 more)
-
-### Community 314 - "TarTyrant Projectiles: TarTyrantBackBone"
+### Community 336 - "TarTyrantBackBone"
 Cohesion: 0.14
 Nodes (7): TarTyrantBackBone, Color, float, HurtInfo, int, Player, Vector2
 
-### Community 315 - "TarTyrant Projectiles: TarTyrantBoneSpike"
+### Community 337 - "TarTyrantBoneSpike"
 Cohesion: 0.16
 Nodes (7): TarTyrantBoneSpike, Color, float, HurtInfo, int, Player, Rectangle
 
-### Community 316 - "Core Networking: CogpunkPacket"
-Cohesion: 0.15
-Nodes (7): TrashTr0mSummonPacket, BinaryReader, CogpunkPacket, BinaryReader, Mod, ILoadable, ModPacket
-
-### Community 317 - "Junkyard: JunkyardSpawnRules"
+### Community 339 - "JunkyardSpawnRules"
 Cohesion: 0.18
 Nodes (8): JunkyardSpawnRules, float, IDictionary, int, NPC, NPCSpawnInfo, Player, NPCSpawnInfo
 
-### Community 318 - "Junkyard Projectiles: TarGlob"
+### Community 340 - "TarGlob"
 Cohesion: 0.15
 Nodes (7): TarGlob, Color, float, HurtInfo, int, Player, Vector2
 
-### Community 319 - "MechArmy Items: CogpunkerManual"
-Cohesion: 0.14
-Nodes (7): List, CogpunkerManual, List, LocalizedText, Player, List, TooltipLine
-
-### Community 320 - "Mechanist Weapons: BarrelGunFish"
+### Community 341 - "BarrelGunFish"
 Cohesion: 0.16
 Nodes (7): BarrelGunFish, Color, float, HitInfo, HitModifiers, int, NPC
 
-### Community 321 - "Mechanist Weapons: FiresawLayer"
-Cohesion: 0.20
-Nodes (8): FiresawLayer, Asset, Color, float, int, Player, PlayerDrawSet, Texture2D
-
-### Community 322 - "OldBrassTown Accessories: RedClothPlayer"
+### Community 342 - "RedClothPlayer"
 Cohesion: 0.18
 Nodes (9): RedClothPacket, RedClothPlayer, BinaryReader, bool, Color, HurtInfo, int, Player (+1 more)
 
-### Community 323 - "OldBrassTown Projectiles: DinamitromBlast"
+### Community 343 - "DinamitromBlast"
 Cohesion: 0.14
 Nodes (7): DinamitromBlast, Color, float, HurtModifiers, int, Rectangle, string
 
-### Community 324 - "Research: ResearchWorld"
-Cohesion: 0.17
-Nodes (5): ResearchWorld, bool, HashSet, string, TagCompound
+### Community 344 - "Cogpunk.Content.OldBrassTown.Tiles"
+Cohesion: 0.13
+Nodes (6): BrassSandstoneTile, TarnishedBrassOreTile, int, TarnishedBrassPlatingTile, WeatheredPlankTile, Cogpunk.Content.OldBrassTown.Tiles
 
-### Community 325 - "Scrap Armor: ScrapHelmet"
+### Community 345 - "AncientResearchTable"
 Cohesion: 0.14
-Nodes (8): ScrapHelmet, int, Item, LocalizedText, Player, Scrap Helmet head cog-animation frame 1, Scrap Helmet head equip sheet (20 vertical frames), Scrap Helmet item icon (brass/rust helmet with dark visor)
+Nodes (6): AncientResearchBook, AncientResearchTable, int, Cogpunk.Content.Research.Items, Cogpunk.Content.Research.Tiles, Cogpunk.Content.Research.UI
 
-### Community 326 - "Core Events: InvasionProgressBar"
+### Community 346 - "InvasionProgressBar"
 Cohesion: 0.16
 Nodes (7): InvasionProgressBar, GameInterfaceLayer, GameTime, int, List, SpriteBatch, string
 
-### Community 327 - "bosses jadey: user_art.py"
+### Community 347 - "D0 No crashes guaranteed"
+Cohesion: 0.18
+Nodes (14): Anti-patterns to fix table, Clear outdated docs/media proofs, CrossMod.TryCall, D0 No crashes guaranteed, D5 Visual proof (GIF/PNG), MathSafety, SafeLog rate-limited logging, SafeSpawn (TryNewNPC/TryNewProjectile/TryNewDust/TryNewItem) (+6 more)
+
+### Community 348 - "user_art.py"
 Cohesion: 0.16
 Nodes (13): lab(), _lin(), measure_grid(), native(), Turning the user's own pixel-art references into Cogpunk sprites (2026-11-18).…, Down by `scale` (> 1) by area: a pixel is filled when `fill` of its footprint…, Lone pixels (no 4-neighbour of their colour, all four filled) take the…, The block size and offset with the least colour variance inside the blocks… (+5 more)
 
-### Community 328 - "tartyrant previous: make_tyrant_armor_2026-10-29"
-Cohesion: 0.26
-Nodes (13): back_shoulder_cell(), body_sheet(), export_all(), head_sheet(), legs_frame(), legs_sheet(), limb(), pauldron_cell() (+5 more)
-
-### Community 329 - "coghaven previous: make_jade_fox_art_2026-11-18 (4)"
-Cohesion: 0.21
-Nodes (12): boxed(), buff_icon(), main(), outputs(), Pose, The Jade Token and its spirit fox (2026-11-18). Run from the repo root: python…, Six-frame trot: diagonal pairs (near front with far hind) swing together; the…, The buff: the fox's head, its eye alight, the spirit flame of its tail curling… (+4 more)
-
-### Community 330 - "coghaven previous: make_jade_fox_art_2026-11-23"
+### Community 349 - "make_jade_fox_art_2026-11-23c.py"
 Cohesion: 0.22
 Nodes (13): buff_icon(), frames(), main(), model(), old_token(), origin_x(), The Jade Token and its spirit fox, v5 2026-11-23. Run from the repo root:…, The buff: its head and ears (the model's left 14 columns, rows 0-15), mirrored,… (+5 more)
 
-### Community 331 - "art oldbrasstown: make_red_cloth_art.py"
+### Community 350 - "make_red_cloth_art.py"
 Cohesion: 0.23
 Nodes (13): cloth_shape(), cooldown_icon(), inside(), item(), paint_cloth(), preview(), Source for the Red Cloth (D4), 2026-11-10b (user: "a new accessory that can be…, The cloth's pixels: columns left..right, from the rod's row under `top(x)` down… (+5 more)
 
-### Community 332 - "art oldbrasstown: make_strongbox_art.py"
+### Community 351 - "make_strongbox_art.py"
 Cohesion: 0.24
 Nodes (13): chest(), export_all(), key_icon(), outline_ring(), preview(), Source for Old Brass Town's locked strongbox and the Sheriff's Key (D4),…, The highlight: the frame's outer ring (opaque pixels with an empty 4-neighbour)…, A 16x17 chest at 1x cut into vanilla's 2x2 tile frame at 1x: tiles 8x8 / 8x9… (+5 more)
 
-### Community 333 - "Bosses Fungimancer: Fungimancer boss"
+### Community 352 - "make_jade_coin_art.py"
+Cohesion: 0.26
+Nodes (13): buff_icon(), coin(), export_all(), item_icon(), loong_sheets(), m(), preview(), Source for the Jade Coin summon (D4), 2026-11-24 (user: "a new summon weapon… (+5 more)
+
+### Community 353 - "Fungimancer boss"
 Cohesion: 0.14
 Nodes (14): Fungimancer far parallax layer, Fungimancer boss, Fungimancer glow layer sprite, Fungimancer boss head map icon, Fungimancer near parallax layer sheet (red fungal parts, repeated frames), Fungimancer body gore, Fungimancer head gore, Fungimancer seat gore (+6 more)
 
-### Community 334 - "Jadey Weapons: JadeShaperWhipProjectile"
+### Community 354 - "JadeBeetle"
+Cohesion: 0.14
+Nodes (10): JadeBeetle, Asset, BestiaryDatabase, BestiaryEntry, float, IBestiaryInfoElement, int, NPCSpawnInfo (+2 more)
+
+### Community 355 - "JadeCoin"
+Cohesion: 0.14
+Nodes (7): JadeCoin, Kind, Asset, Color, float, int, Vector2
+
+### Community 356 - "JadeShaperWhipProjectile"
 Cohesion: 0.16
 Nodes (8): JadeShaperWhipProjectile, Color, float, HitInfo, HitModifiers, int, List, NPC
 
-### Community 335 - "Coghaven Generation: CoghavenSitePass"
+### Community 357 - "CoghavenSitePass"
 Cohesion: 0.27
 Nodes (5): CoghavenSitePass, GameConfiguration, GenerationProgress, int, Rectangle
 
-### Community 336 - "Coghaven Tiles: Coghaven jade/bronze/cinnaba"
+### Community 358 - "Coghaven jade/bronze/cinnabar palace palette"
 Cohesion: 0.27
 Nodes (14): BronzeCogTile sprite sheet, BronzeGearworkTile sheet, CinnabarLacquerTile sheet, Coghaven jade/bronze/cinnabar palace palette, JadeBrickTile sheet, Vanilla block/wall framing sheet layout, JadeRoofTile sheet, LiftTurbineTile glow layer (+6 more)
 
-### Community 337 - "Combinator Combination: CombinedAltPlayer"
+### Community 359 - "CombinedAltPlayer"
 Cohesion: 0.24
 Nodes (5): CombinedAltPlayer, bool, int, Item, PlayerDeathReason
 
-### Community 338 - "Core Templates: CogpunkNPC"
-Cohesion: 0.16
-Nodes (6): CogpunkNPC, int, ExpertStats, float, NPC, ModNPC
-
-### Community 339 - "Junkyard Weapons: TarShowerBigGlob"
-Cohesion: 0.18
-Nodes (6): TarShowerBigGlob, Color, float, int, Tile, Vector2
-
-### Community 340 - "Junkyard Weapons: TarSpray"
-Cohesion: 0.14
-Nodes (7): TarSpray, Color, float, HitInfo, int, NPC, Vector2
-
-### Community 341 - "Mechanist: SteamGaugeSystem"
+### Community 360 - "SteamGaugeSystem"
 Cohesion: 0.15
 Nodes (8): SteamGaugeSystem, Asset, GameInterfaceLayer, int, List, LocalizedText, string, LegacyGameInterfaceLayer
 
-### Community 342 - "MechArmy NPCs: RogueMiceBot"
+### Community 361 - "RogueMiceBot"
 Cohesion: 0.14
 Nodes (8): Phase, RogueMiceBot, Asset, float, HitInfo, int, NPCLoot, Texture2D
 
-### Community 343 - "Rain NPCs: Splasher.cs"
+### Community 362 - "Splasher.cs"
 Cohesion: 0.15
 Nodes (12): Splasher head gore sprite, Splasher umbrella gore sprite, Splasher gun gore sprite, Splasher enemy (Rain biome), Splasher far parallax layer, Splasher far parallax plane (12 frames), Splasher glow layer, Splasher glow plane (+4 more)
 
-### Community 344 - "Research Weapons: BundledGemBolt"
-Cohesion: 0.21
-Nodes (9): BundledGemBolt, BinaryReader, BinaryWriter, BitReader, BitWriter, bool, IEntitySource, Projectile (+1 more)
+### Community 363 - "DragoneteFireBolt"
+Cohesion: 0.14
+Nodes (7): DragoneteFireBolt, bool, Color, float, HurtInfo, int, Player
 
-### Community 345 - "tools sim: scrap_arsenal_sim.py"
+### Community 364 - "Research batch item icons (2026-11-24)"
+Cohesion: 0.16
+Nodes (14): Beat-Boxer (Dungeon enemy, walk/idle/windup/punch frames), Last Ghedalari town NPC (formerly Friendobo, 25 frames), Dungeon/Town Sprite Sheet (Beat-Boxer + Last Ghedalari), Spring Gloves (item), SpringPunch projectile (glove, mic, spring), Rainbow Robe armor sprite sheet (body frames + item icon), Ghedalari head icons (NPC/research variants), Jade Claws (item icon) (+6 more)
+
+### Community 365 - "scrap_arsenal_sim.py"
 Cohesion: 0.38
 Nodes (13): main(), player_sprite(), popup(), D5 simulations of the scrap arsenal, using the real sprites and the constants…, AABB vs thick segment, sampled every 2 px along the segment (stand-in for…, rect_hits_line(), save(), scene() (+5 more)
 
-### Community 346 - "art bloodmoon: make_possessed_cog_art.py"
+### Community 366 - "update_2026_11_23_sim.py"
+Cohesion: 0.26
+Nodes (13): cell(), dragonete_gif(), fox_gif(), fungimancer_ba(), fungimancer_gif(), items_png(), main(), D5 proofs for the 2026-11-23 sprite redesigns (the sprite-quality study). Run… (+5 more)
+
+### Community 367 - "make_possessed_cog_art.py"
 Cohesion: 0.29
 Nodes (12): cog(), export_all(), eye_frame(), icon(), preview(), Source for the Possessed Cog, the Mechromancer's yoyo (D4). Run from the repo…, 16x16: the cog (a bigger one) with its eye looking at the viewer and a loop of…, A brass cog centred on (cx, cy) (pixel centres at +0.5), its teeth turned `rot`… (+4 more)
 
-### Community 347 - "CursedConductor Projectiles: ConductorFlame"
+### Community 368 - "make_tyrant_armor_2026-10-29.py"
+Cohesion: 0.29
+Nodes (12): back_shoulder_cell(), body_sheet(), export_all(), head_sheet(), legs_frame(), legs_sheet(), limb(), pauldron_cell() (+4 more)
+
+### Community 369 - "make_jade_fox_art_2026-11-23a.py"
+Cohesion: 0.23
+Nodes (11): buff_icon(), frame(), main(), old_token(), Pose, The Jade Token and its spirit fox, v3 2026-11-23. Run from the repo root:…, The face and the gilt, by hand at the target size., The buff: the fox's head (frame 0) in 16 x 16. (+3 more)
+
+### Community 370 - "make_brass_armor.py"
+Cohesion: 0.29
+Nodes (12): back_shoulder_cell(), body_sheet(), export_all(), head_sheet(), helmet_frame(), legs_frame(), legs_sheet(), limb() (+4 more)
+
+### Community 371 - "whistle"
+Cohesion: 0.26
+Nodes (12): bullet(), export_all(), preview(), Source for the Sheriff's Revolver, its bullet and cylinder pips, the Broken…, 14x14: a conductor's hand whistle at a slant: its round barrel facing us, the…, Dark and light backdrops, 6x., 22x13 at 1x, pointing right, the grip down and back., A brass slug flying along heading_deg (0 = right, clockwise), a short aether… (+4 more)
+
+### Community 372 - "ConductorFlame"
 Cohesion: 0.15
 Nodes (7): ConductorFlame, bool, Color, HurtInfo, int, Player, Vector2
 
-### Community 348 - "CursedConductor Weapons: GhostTrainWagon"
-Cohesion: 0.15
-Nodes (5): GhostTrainWagon, Asset, int, Rectangle, uint
-
-### Community 349 - "Bosses Fungimancer: Fungimancer.cs"
-Cohesion: 0.17
-Nodes (7): FungimancerRigData, int, short, Cogpunk.Content.Bosses.Fungimancer.Items, Cogpunk.Content.Bosses.Fungimancer.Tiles, Cogpunk.Content.Bosses.Fungimancer.Projectiles, Cogpunk.Content.Bosses.Fungimancer
-
-### Community 350 - "Jadey Weapons: IncenseMace"
+### Community 373 - "IncenseMace"
 Cohesion: 0.19
 Nodes (7): IncenseMace, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
 
-### Community 351 - "TarTyrant Armor: Cogpunk.Content.Bosses.TarTy"
-Cohesion: 0.17
-Nodes (6): TyrantClawRigData, int, TyrantSandals, int, Player, Cogpunk.Content.Bosses.TarTyrant.Armor
-
-### Community 352 - "TrashTr0m Weapons: ScrapLauncher"
+### Community 374 - "ScrapLauncher"
 Cohesion: 0.23
 Nodes (6): ScrapLauncher, EntitySource_ItemUse_WithAmmo, float, int, Player, Vector2
 
-### Community 353 - "TrashTr0m Weapons: Tetanus"
+### Community 375 - "Tetanus"
 Cohesion: 0.18
 Nodes (7): Tetanus, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
 
-### Community 354 - "Coghaven: CoghavenSpawnRules"
-Cohesion: 0.19
-Nodes (7): CoghavenSpawnRules, IDictionary, int, NPC, NPCSpawnInfo, Player, NPCSpawnInfo
-
-### Community 355 - "Coghaven NPCs: JadeGolem (2)"
+### Community 376 - "JadeGolem"
 Cohesion: 0.19
 Nodes (13): Jade Golem gore: severed jade hand with gold cuff, Jade Golem arm layer (jade forearm with gold band and open palm, ~37 pre-rendered aim-angle frames), Jade Golem arm glow layer (cyan palm-emitter sparkle pixels per aim-angle frame), Jade Golem far parallax layer: dark-green jade back arm and leg with brass bracer, 3x7 walk frame sheet, Jade Golem glow layer: green glowing eye/gem sparks per frame, 3x7 sheet, JadeGolem, Jade Golem near parallax layer: light jade front arm with gold bracer and open palm, 3x7 frame sheet, Jade Golem sprite sheet (hulking jade stone golem with glowing gold-green core belt, 21-frame walk cycle, 3/4 view) (+5 more)
 
-### Community 356 - "Coghaven Tiles: LiftTurbineTile"
+### Community 377 - "LiftTurbineTile"
 Cohesion: 0.15
 Nodes (6): LiftTurbineTile, Asset, Color, int, SpriteBatch, Tile
 
-### Community 357 - "Combinator Items: CombinatorBlueprint"
+### Community 378 - "CombinatorBlueprint"
 Cohesion: 0.19
 Nodes (6): CombinatorBlueprint, Asset, Color, int, SpriteBatch, Texture2D
 
-### Community 358 - "Desert Items: ChickenSnapper"
-Cohesion: 0.14
-Nodes (9): HawkEye, int, LocalizedText, void, ChickenSnapper, int, LocalizedText, void (+1 more)
-
-### Community 359 - "Desert Weapons: Cakti"
-Cohesion: 0.18
-Nodes (7): Cakti, float, int, Item, LocalizedText, Player, Vector2
-
-### Community 360 - "Gems Items: JadeRobe"
-Cohesion: 0.17
-Nodes (5): JadeRobe, int, Item, LocalizedText, Player
-
-### Community 361 - "Junkyard Generation: ShimmerPlacementPass"
-Cohesion: 0.17
-Nodes (9): ShimmerPlacementPass, GameConfiguration, GenerationProgress, int, string, SmokerBookWorldGen, List, List (+1 more)
-
-### Community 362 - "Junkyard Tar: TarPlague"
-Cohesion: 0.17
-Nodes (7): TarPlague, float, NPC, HitInfo, NPC, HitInfo, NPC
-
-### Community 363 - "Junkyard Weapons: TarShowerGlob"
-Cohesion: 0.17
-Nodes (5): TarShowerGlob, Color, float, int, Vector2
-
-### Community 364 - "Junkyard Weapons: TarSlimeShot"
+### Community 379 - "TarSlimeShot"
 Cohesion: 0.17
 Nodes (6): TarSlimeShot, Color, HitInfo, HitModifiers, int, NPC
 
-### Community 365 - "Junkyard Weapons: TarWhipProjectile"
-Cohesion: 0.17
-Nodes (7): TarWhipProjectile, Color, float, HitInfo, int, List, NPC
+### Community 380 - "BrassHelmet.cs"
+Cohesion: 0.15
+Nodes (8): BrassHelmet, int, Item, LocalizedText, Player, IsArmorSet(), UpdateArmorSet(), void
 
-### Community 366 - "Mechanist Weapons: CogLauncherLayer"
+### Community 381 - "CogLauncherLayer"
 Cohesion: 0.18
 Nodes (6): CogLauncherLayer, Asset, float, int, PlayerDrawSet, Position
 
-### Community 367 - "MechArmy Minions: Alarmobo minion sprite sheet"
+### Community 382 - "Alarmobo minion sprite sheet (7-frame boxy brass radio-bot with antenna and speaker)"
 Cohesion: 0.17
 Nodes (13): Cogpunker Manual item sprite (brown book with brass cog emblem), Alarm Head item icon (teal alarm dome on brass base), Alarmobo minion buff icon (teal alarm dome), Alarmobo minion beacon layer (8-frame teal alarm dome), Alarmobo minion beacon glow layer (rotating light sweep frames), Alarmobo minion far parallax layer (dark tread strip), Alarmobo minion glow layer (single-pixel indicator light), Alarmobo minion near parallax layer (grey tread strip) (+5 more)
 
-### Community 368 - "OldBrassTown Items: LawHat"
+### Community 383 - "RedCloth"
+Cohesion: 0.15
+Nodes (6): RedCloth, int, LocalizedText, Player, RedClothCooldown, Cogpunk.Content.OldBrassTown.Accessories
+
+### Community 384 - "LawHat"
 Cohesion: 0.15
 Nodes (7): LawHat, LawHatPlayer, bool, int, Item, LocalizedText, Player
 
-### Community 369 - "Research Weapons: BanditsSlash"
-Cohesion: 0.23
-Nodes (5): BanditsDreamPlayer, BanditsSlash, Color, int, Rectangle
+### Community 385 - "ResearchCrafting"
+Cohesion: 0.26
+Nodes (5): ResearchCrafting, bool, Item, ItemCreationContext, Recipe
 
-### Community 370 - "Scrap Armor: ScrapArmorPlayer"
+### Community 386 - "BundledGemBolt"
+Cohesion: 0.23
+Nodes (8): BundledGemBolt, BinaryReader, BinaryWriter, BitReader, BitWriter, bool, IEntitySource, Projectile
+
+### Community 387 - "ScrapArmorPlayer"
 Cohesion: 0.21
 Nodes (7): ScrapArmorPlayer, bool, float, HurtModifiers, int, NPC, Vector2
 
-### Community 371 - "Core Systems: NPCHaste"
+### Community 388 - "ScrapHelmet"
+Cohesion: 0.17
+Nodes (6): ScrapHelmet, int, Item, LocalizedText, Player, Scrap Helmet item icon (brass/rust helmet with dark visor)
+
+### Community 389 - "ScrapBomb"
+Cohesion: 0.15
+Nodes (9): ScrapBomb, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2, ScrapBomb item sprite (pipe bomb) (+1 more)
+
+### Community 390 - "NPCHaste"
 Cohesion: 0.23
 Nodes (5): NPCHaste, Color, float, int, NPC
 
-### Community 372 - "jadey previous: slash_pose()"
-Cohesion: 0.30
-Nodes (12): add(), cross(), face_axis(), mul(), norm(), projected(), The blade's v axis: the way it moves, rolled FACE_BLEND of the way towards…, (hub 3D, e_u radial, e_v leading/rolled, blade normal, scale) for a swing angle. (+4 more)
-
-### Community 373 - "bosses tartyrant: near_arm()"
+### Community 391 - "near_arm"
 Cohesion: 0.23
 Nodes (12): bone_drop(), far_arm(), head_xf(), lit_side(), near_arm(), The local normal (0, -1) or (0, 1) of a segment frame that faces the light., How far the bones sit below their places (rising out of / sinking into the…, The claw arm (near plane): a thick tar arm, the forearm's bones showing, a bone… (+4 more)
 
-### Community 374 - "coghaven previous: make_jade_fox_art_2026-11-19 (2)"
+### Community 392 - "make_jade_fox_art_2026-11-19b.py"
 Cohesion: 0.38
 Nodes (11): body_pixels(), boxed(), buff_icon(), fox_frame(), leg_pose(), main(), outputs(), pixel_image() (+3 more)
 
-### Community 375 - "art templates: Poly"
+### Community 393 - "Poly"
 Cohesion: 0.21
 Nodes (4): Poly, Renders the parts into a w x h cell (art px), the rig origin at (ox, oy).…, A flat polygon facing the viewer (a membrane, a plate): its normal straight…, render()
 
-### Community 376 - "CursedConductor NPCs: ConductorGhost"
+### Community 394 - "ConductorGhost"
 Cohesion: 0.17
 Nodes (6): ConductorGhost, BestiaryDatabase, BestiaryEntry, float, HitInfo, int
 
-### Community 377 - "Fungimancer Items: FungimancerBag"
+### Community 395 - "FungimancerBag"
 Cohesion: 0.18
 Nodes (6): NPCLoot, FungimancerBag, ILoot, int, ItemLoot, LeadingConditionRule
 
-### Community 378 - "TarTyrant Armor: Tyrant Skull helmet item ico"
+### Community 396 - "Tyrant Skull helmet item icon: brown horned T-rex skull"
 Cohesion: 0.17
 Nodes (12): Tyrant Cape back equip sheet: 20-frame player back cape animation, Tyrant Cape body equip sheet: shoulder/arm strap pieces on player body layout, Tyrant Cape item icon: dark brown tar-stained cape, Tyrant Sandals legs equip sheet: 20-frame player legs walk animation, Tyrant Sandals item icon: brown tar-bone sandals, Tyrant Skull head equip sheet: 20-frame horned skull helmet on player head, Tyrant Skull helmet item icon: brown horned T-rex skull, Tar Tyrant gore: curved bone horn (+4 more)
 
-### Community 379 - "TarTyrant Armor: TyrantClaw"
+### Community 397 - "TyrantClaw"
 Cohesion: 0.20
 Nodes (5): TyrantClaw, Color, float, int, Rectangle
 
-### Community 380 - "docs media: Trash-Tr0m Loot PNG"
-Cohesion: 0.17
-Nodes (12): Treasure Bag sprite (brown scrap sack), Trash-Tr0m Loot PNG, Scrap Launcher, Scrapmancer, Tetanus (lance weapon + debuff), Tr0mhead Staff (summon: idle/opening/sucking/resting), Trash-Tr0m Treasure Bag, Chewed scrap shot (no gravity, 1920px range, 20 dmg, KB 6.5) with hit burst (+4 more)
-
-### Community 381 - "TrashTr0m Weapons: Scrapmancer"
+### Community 398 - "Scrapmancer"
 Cohesion: 0.29
 Nodes (6): Scrapmancer, EntitySource_ItemUse_WithAmmo, float, int, Player, Vector2
 
-### Community 382 - "Combinator Combination: .TrySprite()"
-Cohesion: 0.26
-Nodes (7): Color, Item, Player, Point, Rectangle, SpriteBatch, Vector2
+### Community 399 - "CoghavenBiome"
+Cohesion: 0.20
+Nodes (7): CoghavenBiome, Player, SceneEffectPriority, FundamentalRuinsBiome, Player, SceneEffectPriority, ModBiome
 
-### Community 383 - "Gems Items: JadePhaseblade"
+### Community 400 - "CoghavenSpawnRules"
+Cohesion: 0.21
+Nodes (7): CoghavenSpawnRules, IDictionary, int, NPC, NPCSpawnInfo, Player, NPCSpawnInfo
+
+### Community 401 - "CombinatorBlast"
 Cohesion: 0.18
-Nodes (6): JadePhaseblade, Color, int, Player, Rectangle, Vector3
+Nodes (6): CombinatorBlast, float, HitModifiers, int, NPC, Rectangle
 
-### Community 384 - "Gems Items: JadePhasesaber"
+### Community 402 - "CombinatorTile"
 Cohesion: 0.18
-Nodes (5): JadePhasesaber, Color, int, Player, Rectangle
+Nodes (4): CombinatorTile, int, Point, SmartInteractScanSettings
 
-### Community 385 - "Jungle Projectiles: TrapperSpikeBall"
+### Community 403 - "TarPlayer"
+Cohesion: 0.17
+Nodes (5): TarPlayer, bool, float, int, LocalizedText
+
+### Community 404 - "TarShowerGlob"
 Cohesion: 0.18
-Nodes (5): TrapperSpikeBall, Color, float, int, Vector2
+Nodes (5): TarShowerGlob, Color, float, int, Vector2
 
-### Community 386 - "Junkyard Weapons: TarShowerCharge"
+### Community 405 - "TarShowerCharge"
 Cohesion: 0.21
 Nodes (4): TarShowerCharge, Color, float, int
 
-### Community 387 - "Mechanist Weapons: BarrelGun"
-Cohesion: 0.26
-Nodes (7): BarrelGun, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
+### Community 406 - "TarWhipProjectile"
+Cohesion: 0.18
+Nodes (7): TarWhipProjectile, Color, float, HitInfo, int, List, NPC
 
-### Community 388 - "MechArmy Armor: JaegerArmorPlayer"
+### Community 407 - "JaegerArmorPlayer"
 Cohesion: 0.20
 Nodes (7): JaegerArmorPlayer, bool, float, HurtModifiers, int, NPC, uint
 
-### Community 389 - "OldBrassTown Weapons: RevolverCylinderLayer"
+### Community 408 - "RevolverCylinderLayer"
 Cohesion: 0.18
 Nodes (6): RevolverCylinderLayer, Asset, float, int, PlayerDrawSet, Position
 
-### Community 390 - "Scrap Minions: MiceBot"
+### Community 409 - ".UpdateGolem"
+Cohesion: 0.26
+Nodes (3): HitModifiers, NPC, Vector2
+
+### Community 410 - "MiceBot"
 Cohesion: 0.20
 Nodes (6): MiceBot, EntitySource_ItemUse_WithAmmo, List, Player, TooltipLine, Vector2
 
-### Community 391 - "Scrap Weapons: ScrappyWand"
-Cohesion: 0.17
-Nodes (7): ScrappyWand, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
-
-### Community 392 - "Secrets: FundamentalStoneReading"
+### Community 411 - "ScrappyBow"
 Cohesion: 0.18
-Nodes (5): FundamentalStoneReading, Asset, float, int, Vector2
+Nodes (7): ScrappyBow, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
 
-### Community 393 - "docs media: Junkyard Tar Sprites Visual "
+### Community 412 - "Junkyard Tar Sprites Visual Proof Sheet"
 Cohesion: 0.20
 Nodes (12): Tar _Block Texture, D5 Visual Proof Directive, Tar Droplet (15 frames), Dark/Light Background Readability Check, Junkyard Tar Sprites Visual Proof Sheet, Tar _Slope Texture, Tar Splash Dust, Tar Steam Stages (small/medium/large puffs) (+4 more)
 
-### Community 394 - "tools sim: update_2026_11_18c_sim.py"
-Cohesion: 0.29
-Nodes (11): bundle_gif(), fit(), items_png(), loc_nodes(), main(), D5 proofs for the third request of 2026-11-18. Run from the repo root: python…, [(name, column, row, cost, icon image, secret)] in registration order, from…, read_nodes() (+3 more)
+### Community 413 - "junkyard_finds_sim.py"
+Cohesion: 0.38
+Nodes (11): creatures_png(), frames(), gif_text(), main(), polisher_frame(), D5 proofs for the Junkyard update of 2026-10-26: the Rust Collector, the Living…, One animation frame assembled from its 3x3 tile cells exactly as the game draws…, scene_collector() (+3 more)
 
-### Community 395 - "bosses tartyrant: gore_images()"
+### Community 414 - "D4 Pixel art rules"
+Cohesion: 0.20
+Nodes (11): tools/check_detail.py, tools/check_flicker.py, tools/check_sprite.py, tools/check_tile_seams.py, Cogpunk palette (art/palettes/cogpunk.gpl), cogpunk-pixel-art skill, D4 Pixel art rules, Seamless blocks (clump look) (+3 more)
+
+### Community 415 - "make_fungimancer_art_2026-11-23a.py"
+Cohesion: 0.31
+Nodes (10): crop(), export_all(), frame(), grid(), main(), Source for the Fungimancer (D4), v2 2026-11-23. Run from the repo root: python…, The features at the target size, by hand (after the render: they are smaller…, stamp_face() (+2 more)
+
+### Community 416 - "gore_images"
 Cohesion: 0.18
 Nodes (11): crop(), femur(), femur_shapes(), gore_images(), horn(), A rib in its own space: from the root (0, 0) down (+y), bowing forward (-x) and…, A neural spine in its own space: base (0, 0), the blade up (-y), a knob of…, The femur in its own space: the grip at (0, 0), the ball end up (-y), the… (+3 more)
 
-### Community 396 - "bosses tartyrant: femur_back_xf()"
+### Community 417 - "femur_back_xf"
 Cohesion: 0.18
 Nodes (9): femur_back_xf(), lerp(), place(), Pose, The pose a fraction t of the way from a to b (numbers and points lerp; discrete…, A rigid bone placed at point `pt` of the space `xf`, turned by `angle` (+ the…, The femur in its back, condyles in, ball end out. As it dies (p.fall) it first…, smooth() (+1 more)
 
-### Community 397 - "art scaffold: make_scaffold_art.py"
+### Community 418 - "make_scaffold_art.py"
 Cohesion: 0.29
 Nodes (8): gear_mask(), hole_core(), make_icon(), make_small_icon(), Source for the scaffold sprites (icon.png, icon_small.png,…, Pixel-centre test: True where the gear (body + teeth, minus the hole) is solid., Flat brass face lit from the top-left: lit rim, shadowed rim, ramp-0 outline., shade_gear()
 
-### Community 398 - "art scrap: make_delivery_drone_art.py"
+### Community 419 - "make_delivery_drone_art.py"
 Cohesion: 0.22
 Nodes (7): blades(), frame(), glow(), preview(), Source for the Delivery Drone (D4; the Amazonian Drone until 2026-11-11),…, The eye and the antenna's tip, full bright., A rotor seen edge-on at (cx, y): the brass hub and the blade's blur, its length…
 
-### Community 399 - "README: README.md (Cogpunk overview)"
-Cohesion: 0.22
-Nodes (11): 3.0 Architecture, README.md (Cogpunk overview), CLAUDE.md, Core Directives table D0-D5, Design Pillars, Objectives, Proposed Progression Map, Repository layout (+3 more)
-
-### Community 400 - "CursedConductor Weapons: CursedLantern"
+### Community 420 - "CursedLantern"
 Cohesion: 0.22
 Nodes (7): CursedLantern, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
 
-### Community 401 - "TarTyrant Armor: TyrantSkull"
+### Community 421 - "FireworkCannon"
 Cohesion: 0.20
-Nodes (5): TyrantSkull, int, Item, LocalizedText, Player
+Nodes (6): FireworkCannon, float, int, LocalizedText, Player, Vector2
 
-### Community 402 - "Combinator UI: CombinatorPlayer"
+### Community 422 - "IncenseMaceHead"
+Cohesion: 0.18
+Nodes (5): IncenseMaceHead, Asset, Color, float, int
+
+### Community 423 - "TrashTr0mBag"
+Cohesion: 0.20
+Nodes (5): TrashTr0mBag, ItemLoot, TrashTr0mLoot, ILoot, int
+
+### Community 424 - "Tr0mheadStaff"
+Cohesion: 0.18
+Nodes (7): Tr0mheadStaff, EntitySource_ItemUse_WithAmmo, List, LocalizedText, Player, TooltipLine, Vector2
+
+### Community 425 - "CombinatorPlayer"
 Cohesion: 0.29
 Nodes (3): CombinatorPlayer, Item, TagCompound
 
-### Community 403 - "Furniture: .Generate()"
-Cohesion: 0.25
-Nodes (7): GameConfiguration, GenerationProgress, ScrappyTrunkLoot, Chest, int, List, UnifiedRandom
-
-### Community 404 - "Gems Items: JadeStaff"
+### Community 426 - "JadeStaff"
 Cohesion: 0.18
 Nodes (7): JadeStaff, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
 
-### Community 405 - "Junkyard Tar: .Contains()"
-Cohesion: 0.24
-Nodes (4): Point, Vector2, TarSteamSystem, int
+### Community 427 - "PolishedMetal"
+Cohesion: 0.18
+Nodes (6): PolishedMetal, int, PolishedMetal item sprite (steel block), PolishedMetalTile, int, PolishedMetalTile framing sheet (grey metal plates)
 
-### Community 406 - "Junkyard Tar: TarPlagueNPC"
+### Community 428 - "TarPlagueNPC"
 Cohesion: 0.24
 Nodes (6): TarPlagueNPC, bool, Color, float, int, NPC
 
-### Community 407 - "Junkyard Tar: TarPlayer"
-Cohesion: 0.18
-Nodes (5): TarPlayer, bool, float, int, LocalizedText
-
-### Community 408 - "Junkyard Tar: TarWaterStyle"
+### Community 429 - "TarWaterStyle"
 Cohesion: 0.18
 Nodes (5): TarWaterfallStyle, TarWaterStyle, Color, ModWaterfallStyle, ModWaterStyle
 
-### Community 409 - "Junkyard Weapons: TarBoneStaff"
-Cohesion: 0.18
-Nodes (6): TarBoneStaff, EntitySource_ItemUse_WithAmmo, float, int, Player, Vector2
-
-### Community 410 - "Junkyard Weapons: TarStain"
-Cohesion: 0.18
-Nodes (5): TarStain, Color, int, Vector2, Projectile
-
-### Community 411 - "Mechanist: SteamRocketBootsTooltip"
+### Community 430 - "SteamRocketBootsTooltip"
 Cohesion: 0.20
 Nodes (6): SteamRocketBootsTooltip, Item, List, LocalizedText, TooltipLine, Steam-powered Rocket Boots animation GIF
 
-### Community 412 - "MechArmy Armor: JaegerHelmet"
+### Community 431 - "ResearchRecipes"
+Cohesion: 0.24
+Nodes (5): ResearchRecipes, bool, int, Item, string
+
+### Community 432 - "AncientResearchTableTile"
 Cohesion: 0.20
-Nodes (5): JaegerHelmet, int, Item, LocalizedText, Player
+Nodes (4): AncientResearchTableTile, int, Point, SmartInteractScanSettings
 
-### Community 413 - "MechArmy Minions: AlarmHead"
-Cohesion: 0.22
-Nodes (6): AlarmHead, int, LocalizedText, Player, Vector2, EntitySource_ItemUse_WithAmmo
-
-### Community 414 - "OldBrassTown Minions: SheriffBadge"
-Cohesion: 0.20
-Nodes (6): SheriffBadge, EntitySource_ItemUse_WithAmmo, int, List, TooltipLine, Vector2
-
-### Community 415 - "Research Weapons: BundleOfWands"
+### Community 433 - "BundleOfWands"
 Cohesion: 0.20
 Nodes (6): BundleOfWands, EntitySource_ItemUse_WithAmmo, float, int, Player, Vector2
 
-### Community 416 - "Scrap Armor: ScrapCogProjectile"
-Cohesion: 0.22
-Nodes (6): ScrapCogProjectile, Color, float, int, string, Vector2
+### Community 434 - "RustedScrap"
+Cohesion: 0.18
+Nodes (6): RustedScrap, int, RustedScrap item sprite (rust chunk), RustedScrapTile, int, RustedScrapTile framing sheet (rust ore)
 
-### Community 417 - "Scrap NPCs: DeliveryDroneSystem"
+### Community 435 - "DeliveryDroneSystem"
 Cohesion: 0.24
 Nodes (5): DeliveryDroneSystem, float, int, Item, Player
 
-### Community 418 - "Secrets: FundamentalRuinsSpawnRules"
+### Community 436 - "ScrappyWand"
+Cohesion: 0.18
+Nodes (7): ScrappyWand, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Player, Vector2
+
+### Community 437 - "Screwdriver"
+Cohesion: 0.20
+Nodes (6): Screwdriver, EntitySource_ItemUse_WithAmmo, int, LocalizedText, Player, Vector2
+
+### Community 438 - "FundamentalRuinsSpawnRules"
 Cohesion: 0.24
 Nodes (6): FundamentalRuinsSpawnRules, IDictionary, int, NPC, NPCSpawnInfo, Player
 
-### Community 419 - "docs media: Trash-Tr0m sprite sheet proo"
+### Community 439 - "Trash-Tr0m sprite sheet proof: far arm, body+glow, near arm layers, scale vs player, suck pose, shockwave/scrap/scrap ball/Lost Key/map icon, death gores"
 Cohesion: 0.20
 Nodes (11): Puxa-frango leg gore sprite (thin dark jointed metal limb), Chicken Snapper item sprite (grey grabber/claw tool with orange handle), Puxa-frango far parallax layer sheet (darker jointed legs/arm, 14 frames), Puxa-frango near parallax layer sheet (jointed legs/claw arm, 14 frames), Puxa-frango NPC body sheet (middle layer, 14 frames: grey boxy machine with claw head), Trash-Tr0m hitbox proof: NPC rect, silhouette strips, swallow box per pose (idle, slams, suck, raised fist, dying) plus projectile hitboxes; suction 40 tiles (80 enraged), Trash-Tr0m in-between frames proof: slam wind-up 45 ticks, enraged far claw 32 ticks, spitball at tick 24, death 240 ticks, Trash-Tr0m crawl loop GIF (2.5 s cycle, suction range ring, planted-hand drag on desert) (+3 more)
 
-### Community 420 - "Core Hooks: SlowMotionHooks"
+### Community 440 - "SlowMotionHooks"
 Cohesion: 0.18
 Nodes (6): SlowMotionHooks, Item, NPC, orig_UpdateDust, orig_UpdateItem, orig_UpdateNPC
 
-### Community 421 - "tools sim: scrap_bomb_sim.py"
+### Community 441 - "scrap_bomb_sim.py"
 Cohesion: 0.27
 Nodes (10): Blast radius 4 tiles (64 px), no tile damage, Scrap Bomb buff GIF: direct hit 43 + 32 blast, 5-tile (80px) radius vs Grenade 8x8, Direct hit 51 + 32 blast damage, Scrap Bomb Throw Simulation GIF, dummy_rect(), first_hit(), in_blast(), main() (+2 more)
 
-### Community 422 - "docs media: Mech Army enemy sprite sheet"
+### Community 442 - "Mech Army enemy sprite sheets: clockwork mice, Boombot, Annoy-o-tron alarm, Alarmobo, Jaeger walk frames"
 Cohesion: 0.20
 Nodes (11): Mech Army Annoy-o-tron alarm GIF: clockwork mice get +50% speed within 15 tiles, Alarm Head / Alarmobo minion GIF: +20% move, +10% attack speed per Alarmobo within 15 tiles, Boombot GIF: walking bomb, 70 Expert blast on touch, trip/stumble/roll then blast, Jaeger armor set animation GIF (teal mech armor on player, cog frame), Jaeger armor set worn-frames PNG on dark and light backgrounds, Jaeger walker mech GIF: walks 0.75 px/tick, contact 100 Expert, knockback 13, 0 px foot slip, Mech Army loot item sprites (alarm bell, Jaeger helmet/chest/legs, Cogpunker Manual book), Clockwork mouse enemy vs minion frames comparison (two rows of wind-up mice) (+3 more)
 
-### Community 423 - "README: Content Scope"
-Cohesion: 0.20
-Nodes (10): Mechanist Class & Steam, 3.10 The Combinator, Beat-Boxer and Spring Gloves, Cog-launcher, Cogtuna, Coghawk, Splasher surface enemies, Content Scope, Planned biomes: Foundry, Skyport, Clockcore, Mechanist class (Gunsmith, Brawler, Tinker archetypes) (+2 more)
+### Community 443 - "scene_slam"
+Cohesion: 0.27
+Nodes (3): The vanilla fall-damage block (Player.Update, i == myPlayer, before movement)., scene_slam(), SimPlayer
 
-### Community 424 - "art mechanist: make_cogspring_art.py"
+### Community 444 - "update_2026_11_03b_sim.py"
+Cohesion: 0.25
+Nodes (10): dungeon_backdrop(), main(), mug_sprite(), plank_room(), D5 proofs for the second request of 2026-11-03: the Beat-Boxer and its Spring…, The room: Weathered Plank Wall behind (its framed sheet, every cell a centre…, A stand-in for vanilla's Ale (projectile 669): a wooden mug with foam., Blue dungeon brick behind, a brick floor. (+2 more)
+
+### Community 445 - "make_cogspring_art.py"
 Cohesion: 0.36
 Nodes (9): blade_end(), export_all(), is_out(), main(), part_at(), Source for the Cogspring Sword (D4), 2026-11-19. Run from the repo root: python…, (pixels, glow): {(x, y): colour}., The blade's last s at a: the clipped tip, the spine reaching furthest. (+1 more)
 
-### Community 425 - "TarTyrant Summon: CogpunkNPC"
+### Community 446 - "make_meals_art.py"
+Cohesion: 0.31
+Nodes (9): blue_star_fruit(), buff_icon(), deadeye_chili(), draw(), firefly_jelly(), fish_on_a_spear(), main(), Source for the four meals of the "Proper Meal" research node (D4), 2026-11-24.… (+1 more)
+
+### Community 447 - "CogpunkNPC"
 Cohesion: 0.20
 Nodes (6): CogpunkNPC, ScrapwormCritter, BestiaryDatabase, BestiaryEntry, float, NPCSpawnInfo
 
-### Community 426 - "docs media: Pixel-art study before/after"
+### Community 448 - "Pixel-art study before/after of five Old Brass Town enemies"
 Cohesion: 0.22
 Nodes (10): Pixel-art study (vanilla density metrics), Sheriff Badge accessory/minion, Sheriff Badge minion simulation GIF (3 stars, 15 dmg), Pixel-art study before/after of five Old Brass Town enemies, Directional melee arcs design proposal (not in mod), Items sheet: Shark Eye, Hawk Eye, Sheriff Badge, stars, bullet, Dinamitrom blast, Cogtuna ocean enemy GIF (lunge attack), Brass Bandit GIF (six rusty bullets) (+2 more)
 
-### Community 427 - "BloodMoon NPCs: Mechromancer.cs"
+### Community 449 - "MechromancerGrave"
 Cohesion: 0.20
-Nodes (6): Mechromancer sprite sheet, MechromancerRigData, int, Soul Fire Cog glow layer, Soul Fire Cog sprite (spinning brass cog), Cogpunk.Content.BloodMoon.Weapons
+Nodes (4): MechromancerGrave, Asset, Color, int
 
-### Community 428 - "CursedConductor Items: CursedWhistle"
-Cohesion: 0.22
-Nodes (4): CursedWhistle, int, Player, ItemGroup
+### Community 450 - "SoulFireCog"
+Cohesion: 0.20
+Nodes (4): SoulFireCog, Asset, Color, int
 
-### Community 429 - "Jadey Weapons: FireworkCannon"
-Cohesion: 0.22
-Nodes (6): FireworkCannon, float, int, LocalizedText, Player, Vector2
-
-### Community 430 - "Bosses TarTyrant: .TouchesSilhouette()"
+### Community 451 - ".TouchesSilhouette"
 Cohesion: 0.27
 Nodes (5): Item, MultipliableFloat, Player, Projectile, Rectangle
 
-### Community 431 - "Junkyard Weapons: Tarmancer"
-Cohesion: 0.24
-Nodes (4): Tarmancer, EntitySource_ItemUse_WithAmmo, Player, Vector2
+### Community 452 - "TarTyrantSystem"
+Cohesion: 0.20
+Nodes (4): TarTyrantSystem, int, string, uint
 
-### Community 432 - "Junkyard Weapons: TarWhipDebuff"
+### Community 453 - ".TouchesSilhouette"
+Cohesion: 0.27
+Nodes (5): Item, MultipliableFloat, Player, Projectile, Rectangle
+
+### Community 454 - "ShimmerPlacementPass"
+Cohesion: 0.22
+Nodes (7): ShimmerPlacementPass, GameConfiguration, GenerationProgress, int, string, List, GenPass
+
+### Community 455 - "Junkbait"
+Cohesion: 0.22
+Nodes (4): Junkbait, int, ItemGroup, Player
+
+### Community 456 - "TarWhipDebuff"
 Cohesion: 0.22
 Nodes (6): TarWhipDebuff, TarWhipDebuffNPC, HitModifiers, int, NPC, Projectile
 
-### Community 433 - "Mechanist Armor: Polished Chestplate (invento"
+### Community 457 - "Polished Chestplate (inventory icon)"
 Cohesion: 0.22
 Nodes (10): Polished Chestplate body equip sheet (torso + arm frames), Steel cuirass with brass trim and pressure-gauge plate, Polished Chestplate (inventory icon), Brass-banded steel dome helmet with dark visor, Polished Helmet head equip sheet (20 vertical frames), Polished Armor Set (Mechanist), Polished Helmet (inventory icon), Polished Pants legs equip sheet (20 walk/jump frames) (+2 more)
 
-### Community 434 - "Mechanist Weapons: CogLauncher"
+### Community 458 - "SteamInjection"
+Cohesion: 0.20
+Nodes (7): SteamInjection, int, LocalizedText, Player, Steam Injector tile highlight, Steam Injector tile sprite, Cogpunk.Content.Mechanist.Stations
+
+### Community 459 - "CogLauncher"
 Cohesion: 0.24
 Nodes (6): CogLauncher, EntitySource_ItemUse_WithAmmo, float, int, LocalizedText, Vector2
 
-### Community 435 - "Mechanist Weapons: MechanistWeapon"
+### Community 460 - "MechanistWeapon"
 Cohesion: 0.22
 Nodes (7): TrapperChain, EntitySource_ItemUse_WithAmmo, float, int, Player, Vector2, MechanistWeapon
 
-### Community 436 - "Research: KnowledgeTasks"
-Cohesion: 0.22
-Nodes (3): KnowledgeTasks, int, string
+### Community 461 - "PlacedOres.cs"
+Cohesion: 0.24
+Nodes (5): PlacedOreGlobalTile, PlacedOrePacket, BinaryReader, Item, GlobalTile
 
-### Community 437 - "Underground Generation: .Generate()"
+### Community 462 - "PlacedOres"
+Cohesion: 0.24
+Nodes (5): PlacedOres, HashSet, int, TagCompound, Queue
+
+### Community 463 - ".Generate"
 Cohesion: 0.22
 Nodes (6): RustedNailPass, Chest, GameConfiguration, GenerationProgress, UndergroundChests, int
 
-### Community 438 - "Core Events: InvasionDirector"
+### Community 464 - "InvasionDirector"
 Cohesion: 0.31
 Nodes (3): InvasionDirector, bool, int
 
-### Community 439 - "docs design: Pixel-art study vs vanilla N"
+### Community 465 - "Pixel-art study vs vanilla NPCs"
 Cohesion: 0.20
 Nodes (10): Art direction: detailed entities, Themed Death Cinematics, Fluid Motion In-betweens, Multiplane parallax layers, Rig generator and RigData.cs, Root Motion (0 px slip), Pixel-art study vs vanilla NPCs, check_detail.py hard limits (+2 more)
 
-### Community 440 - "tools sim: scrappybot_sim.py"
+### Community 466 - "scrappybot_sim.py"
 Cohesion: 0.27
 Nodes (9): Follow state: pet walks behind player over terrain, Scrappybot Pet Behavior Simulation GIF, draw_owner(), main(), owner_script(), D5 simulation of the Scrappybot pet: follow -> owner stands still -> power down…, Owner x position and velocity: walks right, stands still for 7 s, then walks…, Neutral placeholder for the player (no vanilla art is used). (+1 more)
 
-### Community 441 - "tools: check_tile_seams.py"
+### Community 467 - "check_tile_seams.py"
 Cohesion: 0.29
 Nodes (9): After: seamless merged scrap texture, Before: visible per-tile seams on heap and cave node, Rusted Scrap Tile Seamless Before/After, edge_bias(), interior_frames(), luminance(), main(), Check that a block's tile sheet connects seamlessly (D4 "seamless blocks"… (+1 more)
 
-### Community 442 - "tools sim: scrap_cog_volley_sim.py"
+### Community 468 - "scrap_cog_volley_sim.py"
 Cohesion: 0.29
 Nodes (6): Scrap armor set bonus cog volley GIF: fires a cog every 45 ticks of movement at 140-HP dummies, aim_lob(), main(), D5 simulation of the Scrap armor set bonus: while the player moves, a Scrap Cog…, ScrapArmorPlayer.AimLob: low-arc launch velocity through (dx, dy) (y down), 45…, Slime
 
-### Community 443 - "tools: check_detail.py"
+### Community 469 - "check_detail.py"
 Cohesion: 0.31
 Nodes (8): frame_image(), judge(), main(), metrics(), Detail check for Cogpunk's detailed mobs and bosses (D4 rule 18, 2026-11-05):…, 2x game texture -> 1x art pixels (the top-left of each 2x2 block)., rig_consts(), to_art()
 
-### Community 444 - "tools: check_flicker.py"
+### Community 470 - "check_flicker.py"
 Cohesion: 0.36
 Nodes (9): analyse(), composite(), frame_image(), is_grid(), main(), opaque(), parse(), Flicker check for generated multiplane sprites (D4, user 2026-10-29: "the boss… (+1 more)
 
-### Community 445 - "SETUP: check_sprite.py"
-Cohesion: 0.28
-Nodes (9): D4 Pixel Art, Metal Slug-level Detail, Three-Quarter View, Long material ramps, check_sprite.py, Cogpunk Master Palette, pixel-mcp (Aseprite MCP), Sprite Specifications (+1 more)
+### Community 472 - "Ruins2"
+Cohesion: 0.33
+Nodes (3): FundamentalRuinsPass's build (2026-11-11b), step for step, on a World (its rng…, BuildArena (2026-11-11b): the dome, no side door; the gate in its crown;…, Ruins2
 
-### Community 446 - "bosses tartyrant: bubble_frame()"
+### Community 473 - "bubble_frame"
 Cohesion: 0.22
 Nodes (9): add(), arc_points(), bubble_frame(), crescent(), near_edge(), A condensed tar bubble (30x30 cell): size step k (it grows over its life),…, Points on an ellipse arc (degrees, screen angles: 180 left, 270 up) at k x the…, The pixels of a region within d px of its outside (a band along the silhouette). (+1 more)
 
-### Community 447 - "art mechanist: make_steam_injector_art.py"
+### Community 474 - "make_rainbow_robe_art.py"
 Cohesion: 0.33
-Nodes (8): buff_icon(), export_all(), highlight(), injector(), Source for the Steam Injector (D4), 2026-11-12 (user: "add a new buff station…, The 1x object cut into 8 px tiles and laid out with 1 px gaps (2 x 3, the…, White on the silhouette's edge pixels (a pixel with an empty 4-neighbour)., tile_sheet()
+Nodes (8): build(), dye(), dye_icon(), main(), Source for the Rainbow Robe (D4), 2026-11-24 (user: "add a new node called…, Each jade pixel takes its band's gem ramp at the same step; the band from the…, The item icon (13x15 art px): five gem bands, each in two shades (the jade's…, save()
 
-### Community 448 - "OldBrassTown Minions: SheriffStarMinion.cs"
-Cohesion: 0.28
-Nodes (4): Sheriff Star summon minion, SheriffStarBuff, Sheriff Star minion glow mask sheet, Cogpunk.Content.OldBrassTown.Minions
+### Community 475 - "make_ruins_gate_art.py"
+Cohesion: 0.31
+Nodes (8): export_all(), glyph(), Source for the Fundamental Ruins' rune glyphs and their sealed gate (D4),…, A 1x object split into 8x8 tiles laid out on the 9 px (18 px at 2x) stride., One glyph, 16x24 at 1x: the slab and its foot; and its glow (the cut rune)., The gate's slab, 72x24 at 1x, and its sockets' glow., seal(), tiles()
 
-### Community 449 - "CursedConductor Buffs: ConductorCurse"
+### Community 476 - "ConductorCurse"
 Cohesion: 0.22
 Nodes (5): ConductorCurse, float, HurtModifiers, int, HurtModifiers
 
-### Community 450 - "CursedConductor Items: LostSoulsPlayer"
+### Community 477 - "LostSoulsPlayer"
 Cohesion: 0.28
 Nodes (5): LostSoulsPlayer, bool, HitModifiers, NPC, Projectile
 
-### Community 451 - "CursedConductor Projectiles: GhostRift"
-Cohesion: 0.22
-Nodes (4): GhostRift, bool, Color, int
-
-### Community 452 - "CursedConductor Weapons: .Shoot()"
-Cohesion: 0.22
-Nodes (5): GhostTrainBuff, EntitySource_ItemUse_WithAmmo, Player, Vector2, Projectile
-
-### Community 453 - "Bosses Jadey: JadeySystem"
+### Community 478 - "JadeySystem"
 Cohesion: 0.22
 Nodes (4): JadeySystem, int, string, uint
 
-### Community 454 - "TarTyrant Armor: TyrantArmorPlayer"
+### Community 479 - "TyrantArmorPlayer"
 Cohesion: 0.25
 Nodes (5): TyrantArmorPlayer, bool, float, int, Vector2
 
-### Community 455 - "TarTyrant Armor: TyrantCape"
-Cohesion: 0.22
-Nodes (5): TyrantCape, int, LocalizedText, Player, string
-
-### Community 456 - "Bosses TarTyrant: TarTyrantSystem"
-Cohesion: 0.22
-Nodes (4): TarTyrantSystem, int, string, uint
-
-### Community 457 - "Coghaven Generation: CoghavenChests"
+### Community 480 - "CoghavenChests"
 Cohesion: 0.28
 Nodes (3): CoghavenChests, Chest, int
 
-### Community 458 - "Coghaven NPCs: FlyingBuddhaHead.cs"
+### Community 481 - "FlyingBuddhaHead.cs"
 Cohesion: 0.22
 Nodes (8): Flying Buddha Head cog gore, Flying Buddha Head ear gore, Flying Buddha Head half gore, Flying Buddha Head far parallax plane, Flying Buddha Head glow mask, Flying Buddha Head animation sheet, Flying Buddha Head frame sheet (Float, Wrath, Smash, Stunned), Flying Buddha Head animation GIF
 
-### Community 459 - "Dungeon Items: SpringGlovesPlayer"
-Cohesion: 0.36
-Nodes (4): SpringGlovesPlayer, bool, Item, StatModifier
-
-### Community 460 - "Junkyard Weapons: MetalWrenchSmearLayer"
-Cohesion: 0.22
-Nodes (5): MetalWrenchSmearLayer, float, int, PlayerDrawSet, Position
-
-### Community 461 - "Manuals: ManualPlayer"
+### Community 482 - "TheCombinator.cs"
 Cohesion: 0.25
-Nodes (5): ManualPlayer, HashSet, int, string, TagCompound
+Nodes (4): TheCombinator, ItemGroup, Combinator station animation GIF, Combinator UI window: Base + Augment = Product, with combined sprites
 
-### Community 462 - "Mechanist Stations: SteamInjector"
+### Community 483 - "SteamInjector"
 Cohesion: 0.22
 Nodes (6): Steam Injection buff icon, SteamInjector, int, LocalizedText, Steam Injector item sprite (brass canister), Steam Injector, Koi, Combinator item sprites on dark and light
 
-### Community 463 - "Mechanist Stations: SteamInjectorTile"
+### Community 484 - "SteamInjectorTile"
 Cohesion: 0.25
 Nodes (3): SteamInjectorTile, int, SmartInteractScanSettings
 
-### Community 464 - "Research: ResearchRecipes"
-Cohesion: 0.31
-Nodes (4): ResearchRecipes, bool, int, Item
+### Community 485 - "SteamRocketPlayer"
+Cohesion: 0.25
+Nodes (3): SteamRocketPlayer, float, int
 
-### Community 465 - "Scrap Weapons: ScrewdriverProjectile"
+### Community 486 - "Blueprint"
+Cohesion: 0.25
+Nodes (4): Blueprint, OldBrassTownBlueprints, string, Cogpunk.Content.OldBrassTown.Generation
+
+### Community 487 - "JadeCoinCounter"
+Cohesion: 0.22
+Nodes (3): JadeCoinCounter, Color, float
+
+### Community 488 - "ScrapLeggings"
+Cohesion: 0.22
+Nodes (6): ScrapLeggings, LocalizedText, Player, Scrap Leggings legs cog-animation frame 1, Scrap Leggings legs equip sheet (20 vertical walk/jump frames), Scrap Leggings item icon (pair of rust-brown boots)
+
+### Community 489 - "ScrewdriverProjectile"
 Cohesion: 0.25
 Nodes (4): ScrewdriverProjectile, Color, float, Rectangle
 
-### Community 466 - "Core Systems: CogpunkSets"
+### Community 490 - "CogpunkSets"
 Cohesion: 0.25
 Nodes (5): HitModifiers, NPC, CogpunkSets, bool, NPC
 
-### Community 467 - "Core Visuals: CinematicCamera"
-Cohesion: 0.25
-Nodes (4): CinematicCamera, float, uint, Vector2
+### Community 491 - "Last Ghedalari (town NPC)"
+Cohesion: 0.28
+Nodes (9): Friendobo map head icon, Last Ghedalari shimmered map head icon, Last Ghedalari shimmered variant sheet (green helm, purple-blue palette), Friendobo town NPC sheet (25 frames, top-hat robot), Last Ghedalari emote bubble (2 frames), Friendobo arm gore, Friendobo head gore, Friendobo leg gore (+1 more)
 
-### Community 468 - "docs media: Junkyard Tar Visual Proof GI"
+### Community 492 - "Junkyard Tar Visual Proof GIF (2026-10-23)"
 Cohesion: 0.33
 Nodes (9): Junkyard Tar Visual Proof GIF (2026-10-23), Junkyard Biome Terrain (sand, stone, scrap pile), Offline Simulation (D5 Visual Proof), Player HP Bar (100/100 start), Steam Rising From Tar (VFX), Tar Plague Damage Ticks, Tar Pool (dark liquid pit), Tar Movement Slow (speed px/tick) (+1 more)
 
-### Community 469 - "docs media: D5 visual proof for 2026-10-"
+### Community 493 - "D5 visual proof for 2026-10-26 Junkyard and Trash-Tr0m update"
 Cohesion: 0.36
 Nodes (9): Junkyard creatures and items sprite sheet (Rust Collector frames, Living Tar, gores, Polisher Schematic, Rust Polisher, Mysterious Map, 16-heading arrow), Living Tar simulation: 60 life, contact 5, tar glob 4 + Tar Plague 120 ticks, range 28 tiles, Mysterious Map simulation: compass arrow with 16 pre-rendered headings, 22.5 deg apart, Rust Collector simulation: rolling accel 0.05->0.22 over 150 ticks, max 7.5, skid 0.28, wall stun, Rust Polisher simulation: 3x3 station, 6 frames x 4 ticks, 2 Rusted Metal -> Polished Metal, schematic recipe, D5 visual proof for 2026-10-26 Junkyard and Trash-Tr0m update, Scrap Launcher simulation: bullets as ammo, every 3rd shot big scrap ball x2.5 = 50, bounces once, Scrapmancer simulation: ground junk shockwave, 16 px/tick for 120 ticks, pierces all, climbs 3 tiles (+1 more)
 
-### Community 471 - "skills cogpunk-dev: Boss-Fight Rules"
-Cohesion: 0.29
-Nodes (8): Boss-Fight Rules, BossFightSpawnRule, BossNPC, BossTitleSystem, InvasionRules, Yager, rig.py Generator (two-bone IK), *RigData.cs Generated Tables
-
-### Community 472 - "art junkyard: make_junkyard_art.py"
+### Community 494 - "make_junkyard_art.py"
 Cohesion: 0.32
 Nodes (6): make_metal_icon(), make_terrain_sheet(), Source for the Junkyard slice sprites (D4). Run from the repo root: python -P…, The item reads as a single welded cube: square corners instead of the terrain…, 8x8 art for one terrain frame. exposure = 'TRBL' with 'o'/'d' (exposed) or '-'…, terrain_frame()
 
-### Community 473 - "art mechanist: make_diamond_cutter_art.py"
+### Community 495 - "make_jade_refractor_art.py"
 Cohesion: 0.36
-Nodes (7): beam(), gun(), main(), Source for the Diamond Cutter (D4), 2026-11-11 (user: "add a new mechanist…, 3 frames, 8x3 at 1x: a white core between pale blue edges; thinning; broken…, 4 frames, 7x7 at 1x: a four-point star flashing out to a dot., spark()
+Nodes (7): beam(), gun(), main(), Source for the Jade Refractor (D4), 2026-11-24 (user: "unlocks the "jade…, 4 frames, 8x3 at 1x: a pale core between jade edges, with a bright knot that…, 4 frames, 7x7 at 1x: a jade four-point star that turns as it pulses (held while…, spark()
 
-### Community 474 - "mechanist previous: make_firesaw_art_2026-11-09."
+### Community 496 - "make_firesaw_art_2026-11-09.py"
 Cohesion: 0.43
 Nodes (7): export_all(), fire(), preview(), Source for the Firesaw (D4), 2026-11-09 (user: "a new mechanist weapon ...…, The flames along the bar and the jet past its nose, frame k: three tongues per…, reduce(), saw()
 
-### Community 475 - "art mecharmy: make_mecharmy_sounds.py"
+### Community 497 - "make_mecharmy_sounds.py"
 Cohesion: 0.39
 Nodes (6): beep(), fade(), Source for the Mech Army's sound effects, 2026-10-27. Run from the repo root:…, A band-limited square wave (odd harmonics only, below Nyquist): buzzy but not…, siren(), square()
 
-### Community 476 - "Assets Textures: Scaffold Icons Preview"
+### Community 498 - "Scaffold Icons Preview"
 Cohesion: 0.29
 Nodes (8): Placeholder Texture Sprite, Missing-texture fallback (gray checker with gold question mark), Icons shown on dark and light backgrounds, Scaffold Icons Preview, Brass cog with glowing orange core on dark slate frame, Cogpunk Mod Icon, Small brass cog with orange core (mod browser icon), Cogpunk Small Mod Icon
 
-### Community 477 - "Scrap Generation: ScrapNodePass"
+### Community 499 - "ScrapNodePass"
 Cohesion: 0.36
 Nodes (5): BitArray, ScrapNodePass, GameConfiguration, GenerationProgress, int
 
-### Community 478 - "OldBrassTown Gores: MechanicalBull.cs"
-Cohesion: 0.46
-Nodes (7): Mechanical Bull enemy, Mechanical Bull head gore, Mechanical Bull horn gore, Mechanical Bull leg gore, Mechanical Bull far parallax layer sheet, Mechanical Bull glow overlay sheet, Mechanical Bull near parallax layer sheet
+### Community 500 - "Tar Tyrant melt-and-rise proof GIF (target 45+ tiles away melts into ground, contact 50, untouchable while under)"
+Cohesion: 0.14
+Nodes (8): Melt attack (burrow when target far, untouchable, hurts from 4th frame), Tar Tyrant melt-and-rise proof GIF (target 45+ tiles away melts into ground, contact 50, untouchable while under), Tar Tyrant Rage Proof GIF (tar claws at one-third life), Rage mechanic: untouchable growl, claw every 2s x5, returns 18-32 tiles away (Expert), Tar Tyrant Summon Proof GIF (fished out of tar with Scrapworm bait), Summon mechanic: Scrapworm bait bite in Junkyard tar, rises in 10 frames over 120 ticks, harmless until roar, Tar Tyrant Tail Fix Proof (strands removed, short tail on pool), Tail fix 2026-10-30: no strands up its back, short tail, ooze 1.6 px/tick
 
-### Community 479 - "Bosses CursedConductor: .ReadDrift()"
+### Community 501 - ".ReadDrift"
 Cohesion: 0.25
 Nodes (4): BinaryReader, BinaryReader, BinaryReader, BinaryReader
 
-### Community 480 - "Bosses CursedConductor: .WriteDrift()"
+### Community 502 - ".WriteDrift"
 Cohesion: 0.25
 Nodes (4): BinaryWriter, BinaryWriter, BinaryWriter, BinaryWriter
 
-### Community 481 - "CursedConductor Weapons: CursedTrainWhistle"
+### Community 504 - "JadeShaperPendant"
 Cohesion: 0.25
-Nodes (5): CursedTrainWhistle, float, int, List, TooltipLine
+Nodes (4): JadeShaperPendant, int, LocalizedText, Player
 
-### Community 483 - "Fungimancer Items: RainbowMushroom"
-Cohesion: 0.29
-Nodes (3): RainbowMushroom, ItemGroup, Player
-
-### Community 484 - "Coghaven Pets: Jade Fox pet spritesheet (fe"
+### Community 505 - "Jade Fox pet spritesheet (fennec, vertical frames)"
 Cohesion: 0.25
 Nodes (8): Jade Fox Buff icon, Jade Fox pet glow layer, JadeFoxPet class, Jade Fox pet spritesheet (fennec, vertical frames), Jade Fox pet tail sprite, Jade Token item (green jade gem coin), Jade Fox pet animation (GIF), Jade Fox pet reference
 
-### Community 485 - "Coghaven Pets: JadeToken"
-Cohesion: 0.29
-Nodes (4): JadeToken, EntitySource_ItemUse_WithAmmo, Player, Vector2
-
-### Community 486 - "Furniture: BuffStationRules"
+### Community 506 - "BuffStationRules"
 Cohesion: 0.29
 Nodes (3): BuffStationRules, bool, int
 
-### Community 487 - "Gems Generation: JadeGemPass.cs"
+### Community 507 - "JadeGemPass.cs"
 Cohesion: 0.25
 Nodes (5): JadeGemSystem, GenPass, List, Cogpunk.Content.Gems.Generation, Cogpunk.Content.Gems.Tiles
 
-### Community 488 - "Junkyard Generation: .Generate()"
-Cohesion: 0.25
-Nodes (3): Tile, GameConfiguration, GenerationProgress
-
-### Community 489 - "Junkyard Weapons: MetalWrenchGuard"
-Cohesion: 0.25
-Nodes (4): MetalWrenchGuard, Color, float, int
-
-### Community 490 - "Mechanist: .AddNoTankLine()"
-Cohesion: 0.25
-Nodes (5): List, TooltipLine, SteamSkillTooltip, List, TooltipLine
-
-### Community 491 - "Mechanist Accessories: PolishedCog"
+### Community 508 - "PolishedCog"
 Cohesion: 0.25
 Nodes (4): PolishedCog, int, LocalizedText, Player
 
-### Community 492 - "Mechanist Armor: BrassChestplate"
+### Community 509 - "FiresawLayer"
 Cohesion: 0.25
-Nodes (4): BrassChestplate, int, LocalizedText, Player
+Nodes (4): FiresawLayer, Asset, float, int
 
-### Community 493 - "Mechanist Armor: BrassGreaves"
+### Community 510 - "OldBrassTownChests"
+Cohesion: 0.32
+Nodes (4): OldBrassTownChests, Chest, int, Item
+
+### Community 511 - "OldBrassTownBiome"
 Cohesion: 0.25
-Nodes (4): BrassGreaves, int, LocalizedText, Player
+Nodes (3): OldBrassTownBiome, Cogpunk.Content.OldBrassTown, SceneEffectPriority
 
-### Community 494 - "Mechanist: SteamRocketPlayer"
+### Community 512 - "Summons/JadeCoin.cs"
+Cohesion: 0.25
+Nodes (5): JadeCoinBuff, Jade Coin Buff icon (jade coin with sparkle), Jade Loong minion sheet (segmented jade dragon: head, body, legged body, tail rows x 32 rotations), Jade Loong glow mask (gold eye pixels per head rotation), Segmented worm-style minion (pre-rendered rotations)
+
+### Community 514 - "Scrappybot"
 Cohesion: 0.29
-Nodes (3): SteamRocketPlayer, float, int
+Nodes (4): Scrappybot, EntitySource_ItemUse_WithAmmo, Player, Vector2
 
-### Community 495 - "Underground Items: RustedNailPlayer"
+### Community 515 - "RustedNailPlayer"
 Cohesion: 0.25
 Nodes (5): RustedNailPlayer, bool, HurtInfo, int, NPC
 
-### Community 496 - "Core Hooks: .SkipProjectile()"
+### Community 516 - ".SkipProjectile"
 Cohesion: 0.25
 Nodes (4): Player, Projectile, Gore, orig_Update
 
-### Community 497 - "docs media: Junkyard Tar Surface Worldge"
+### Community 517 - "Junkyard Tar Surface Worldgen Render (2026-10-23)"
 Cohesion: 0.46
 Nodes (8): Junkyard Tar Surface Worldgen Render (2026-10-23), Beach Edge with Palm Stand-ins, Buried Cache (in central heap), Tar Pool Stone Rim Wall, Junkyard Sand Surface Layer, Junkyard Scrap Heaps, Tar Pool, Surface Tar Puddles
 
-### Community 498 - "docs media: Item sheet: Jade, Large Jade"
+### Community 518 - "Item sheet: Jade, Large Jade, Jade Phaseblade/Phasesaber, Jade Robe, Law Hat, Brass armor, Cursed Train Whistle + buff, Cursed Lantern, JadeTile"
 Cohesion: 0.32
 Nodes (8): Item sheet: Jade, Large Jade, Jade Phaseblade/Phasesaber, Jade Robe, Law Hat, Brass armor, Cursed Train Whistle + buff, Cursed Lantern, JadeTile, Jade Robe worn animation GIF, Jade Robe worn frames contact sheet (walk/use poses), Brass armor (Mechanist) worn animation GIF, Brass armor worn frames contact sheet (diving-helmet look), Brass armor set (Helmet, Chestplate, Greaves), Jade gem set (Jade, Large Jade, Phaseblade, Phasesaber, Robe, Staff), JadeTile (gem in stone, frames as Main.tileStone)
 
-### Community 499 - "tools: check_boss_loot.py"
+### Community 519 - "check_boss_loot.py"
 Cohesion: 0.39
 Nodes (7): cs_files(), loot_text(), main(), Co-op loot check for every Cogpunk boss (D2 rule 10, D3 rule 0; user…, The boss's own source plus the loot helpers it names…, read(), strip_comments()
 
-### Community 500 - "tools sim: Bullet"
-Cohesion: 0.25
-Nodes (3): Bullet, SheriffsBullet: 2 updates a tick, one ricochet (an enemy it hit, excluded, or a…, Bolt
+### Community 520 - "draw_boss"
+Cohesion: 0.36
+Nodes (7): darken(), draw_boss(), draw_cell(), parallax(), DepthLayers.Shift (2 px snapped)., DepthLayers.DrawCell., sprite_png()
 
-### Community 501 - "skills cogpunk-dev: Trash-Tr0m"
+### Community 521 - "Architecture: Core/ engine vs Content/<Slice>/"
 Cohesion: 0.29
-Nodes (7): Boss Bags Expert/Master Only, Expert-First Balance Rule, ExpertStats, No Pose Snaps (In-betweens), Trash-Tr0m, Cogpunk README, Balance Sheet Schema
+Nodes (7): Animations quick API, Architecture: Core/ engine vs Content/<Slice>/, BossNPC death cinematic + CinematicCamera, Core/Templates bases (CogpunkItem, CogpunkNPC, CogpunkProjectile), DepthLayers multiplane parallax, Art direction for detailed entities (3/4 view, Metal Slug detail), StateMachineNPC AI template
 
-### Community 502 - "bosses cursedconductor: make_cursed_lantern_art.py"
+### Community 522 - "make_cursed_lantern_art.py"
 Cohesion: 0.52
 Nodes (6): export(), image(), lantern(), main(), Source for the Cursed Lantern (D4), the Cursed Conductor's mage weapon (user,…, sheet()
 
-### Community 503 - "jadey previous: draw_glaive()"
-Cohesion: 0.29
-Nodes (7): blade_shade(), dot(), draw_glaive(), hub_shade(), The blade in its own space: a bright cutting (outer) edge, a light band inside…, A sphere lit in screen space (it looks the same from every angle, so its light…, One glaive placed by xf (local u, v -> rig px), its plane's 3D normal for the…
-
-### Community 504 - "art furniture: make_furniture_art.py"
+### Community 523 - "make_furniture_art.py"
 Cohesion: 0.43
 Nodes (6): cache_variant(), cut_into_cells(), make_sheets(), outline(), Source for shared furniture sprites (D4). Run from the repo root: python -P…, 16x17 chest art -> 18x19 tile frame with 1-px gutters (8x8 top cells, 8x9…
 
-### Community 505 - "art mechanist: make_smoker_book_art.py"
+### Community 524 - "make_smoker_book_art.py"
 Cohesion: 0.43
 Nodes (6): book(), main(), puff(), Source for the Smoker Book (D4), 2026-11-19. Run from the repo root: python -P…, A soot puff: lobes (circles) round the middle make its shape; it is shaded as…, smoke_sheet()
 
-### Community 506 - "BloodMoon NPCs: .DrawEyes()"
-Cohesion: 0.57
-Nodes (3): Color, SpriteBatch, Vector2
-
-### Community 507 - "CursedConductor Items: BottleOfLostSouls"
-Cohesion: 0.29
-Nodes (4): BottleOfLostSouls, int, LocalizedText, Player
-
-### Community 508 - "CursedConductor Items: LostSoulsPlayer.cs"
+### Community 525 - "LostSoulsPlayer.cs"
 Cohesion: 0.33
 Nodes (4): LostSoulsTooltip, Item, List, TooltipLine
 
-### Community 509 - "CursedConductor Weapons: .ModifyHitNPC()"
-Cohesion: 0.29
-Nodes (4): HitModifiers, NPC, HitModifiers, NPC
-
-### Community 510 - "Jadey NPCs: Jade Beetle sprite sheet (rh"
+### Community 526 - "Jade Beetle sprite sheet (rhino beetle with jade shell, 24-frame crawl and flight)"
 Cohesion: 0.29
 Nodes (7): Jade Beetle horn gore, Jade Beetle leg gore, Jade Beetle shell gore, Jade Beetle far parallax layer, Jade Beetle glow mask, Jade Beetle near parallax layer, Jade Beetle sprite sheet (rhino beetle with jade shell, 24-frame crawl and flight)
 
-### Community 511 - "Jadey Items: JadeShaperPendant"
-Cohesion: 0.29
-Nodes (4): JadeShaperPendant, int, LocalizedText, Player
-
-### Community 512 - "Jadey Weapons: JadeShaperWhip"
-Cohesion: 0.29
-Nodes (4): JadeShaperWhip, float, int, LocalizedText
-
-### Community 513 - "TrashTr0m Items: TetanusShot"
-Cohesion: 0.29
-Nodes (3): TetanusShot, int, Player
-
-### Community 514 - "TrashTr0m Weapons: Tetanus (rusted diagonal bla"
+### Community 527 - "Tetanus (rusted diagonal blade with brass guard, melee)"
 Cohesion: 0.29
 Nodes (7): Rusty spinning cog projectile (4-frame rotation, copper/brown), TrashTr0mCog sprite sheet, Tetanus (rusted diagonal blade with brass guard, melee), Tetanus sprite, TetanusProjectile_Glow sheet (6 frames of gold/blue glint highlights), Tetanus held/thrust projectile (horizontal rusty blade with brass hilt), TetanusProjectile sprite
 
-### Community 515 - "Bosses TrashTr0m: Trash-Tr0m boss body sprite "
+### Community 528 - "Trash-Tr0m boss body sprite sheet (teal-domed rusty garbage-truck mech, 3/4 view, jaw open/close frames)"
 Cohesion: 0.33
 Nodes (7): Trash-Tr0m far arm sheet (rust-orange lattice crane arm with grey claw, back parallax layer), Trash-Tr0m near arm sheet (yellow hydraulic arm with saw-disc shoulder and grey fist, front parallax layer), Trash-Tr0m glowmask sheet (emissive headlight slits and orange furnace grille), Trash-Tr0m boss map/head icon, Trash-Tr0m extra body page sheet (8 additional chomp/attack frames), Trash-Tr0m boss body sprite sheet (teal-domed rusty garbage-truck mech, 3/4 view, jaw open/close frames), Condensed Tar item icon (dark brown tar lump)
 
-### Community 516 - "Desert NPCs: Coghawk body sprite sheet (1"
+### Community 530 - "Cogpunk.Content.Combinator.Items"
+Cohesion: 0.29
+Nodes (3): TheSecondHalf, The Second Half item sprite, Cogpunk.Content.Combinator.Items
+
+### Community 531 - "Coghawk body sprite sheet (10 frames, mechanical hawk, side view)"
 Cohesion: 0.33
 Nodes (7): Coghawk Gore Cog (death gore: small brass cog), Coghawk Gore Head (death gore: orange-beaked head), Coghawk Gore Wing (death gore: steel wing), Coghawk Far wing layer (parallax far plane, 10 frames), Coghawk Glow layer (orange eye/ember glow dots, 10 frames), Coghawk Near wing layer (parallax near plane, 10 frames), Coghawk body sprite sheet (10 frames, mechanical hawk, side view)
 
-### Community 517 - "Gems Generation: SafeGenPass"
+### Community 532 - "SafeGenPass"
 Cohesion: 0.29
 Nodes (6): JadeGemPass, double, GameConfiguration, GenerationProgress, int, SafeGenPass
 
-### Community 518 - "Junkyard Items: Junkbait"
-Cohesion: 0.29
-Nodes (3): Junkbait, int, ItemGroup
-
-### Community 519 - "docs media: Firesaw"
+### Community 534 - "Firesaw"
 Cohesion: 0.29
 Nodes (7): Macuahuitl, Macuahuitl sprite (red wooden club studded with dark obsidian/cog teeth), Firesaw, Firesaw sprite (grey chainsaw greatsword blade with brass guard and red grip), FiresawSwing sprite: grey chainsaw greatsword with brass cog guard and wooden grip, diagonal (3 chain-running frames), Proof GIF: Firesaw phantom slash trail, Macuahuitl swing proof GIF (23 dmg, 25-tick swings, 12% crit, vanilla-style swing vs 3 training dummies)
 
-### Community 520 - "Mechanist Weapons: SmokerBookPass"
+### Community 535 - "PolishedChestplate"
+Cohesion: 0.29
+Nodes (4): PolishedChestplate, int, LocalizedText, Player
+
+### Community 536 - "PolishedPants"
+Cohesion: 0.29
+Nodes (4): PolishedPants, int, LocalizedText, Player
+
+### Community 537 - "SmokerBookPass"
 Cohesion: 0.48
 Nodes (4): SmokerBookPass, Chest, GameConfiguration, GenerationProgress
 
-### Community 521 - "OldBrassTown Accessories: RedCloth"
-Cohesion: 0.29
-Nodes (4): RedCloth, int, LocalizedText, Player
+### Community 539 - "ResearchUISystem"
+Cohesion: 0.38
+Nodes (3): ResearchUISystem, GameTime, Point
 
-### Community 522 - "Underground Items: RustedNail"
+### Community 540 - "FriendoboEmote"
 Cohesion: 0.29
-Nodes (4): RustedNail, float, int, LocalizedText
+Nodes (4): FriendoboEmote, string, Cogpunk.Content.Town, ModEmoteBubble
 
-### Community 523 - "Underworld NPCs: DragoneteMiudo.cs"
+### Community 541 - "DragoneteMiudo.cs"
 Cohesion: 0.33
 Nodes (4): DragoneteMiudoRigData, int, Cogpunk.Content.Underworld.Projectiles, Cogpunk.Content.Underworld.NPCs
 
-### Community 524 - "docs media: Junkyard Tar Worldgen Overvi"
+### Community 542 - "Junkyard Tar Worldgen Overview (2026-10-23)"
 Cohesion: 0.43
 Nodes (7): Junkyard Tar Worldgen Overview (2026-10-23), Beach Segment (19 wide), Junkyard Rust Heaps, Junkyard Strip with Scrap Heaps (118 wide), Tar Pool Floor (halfway to underworld, y=652), Deep Steaming Tar Pool (155 wide, 347 deep), World Border Unreachable Zone (x<40)
 
-### Community 525 - "docs media: Trash-Tr0m loot sheet PNG"
-Cohesion: 0.33
-Nodes (7): Trash-Tr0m loot sheet PNG, Impact bursts and flash ring VFX, Scrap Launcher (chewed scrap / scrap ball), Scrapmancer (glove), Tetanus (lance weapon), Tetanus debuff, Tr0mhead (idle/opening/sucking/resting summon)
-
-### Community 526 - "tools promo: Encoder"
+### Community 543 - "Encoder"
 Cohesion: 0.33
 Nodes (4): Encoder, pick_encoder(), The first H.264 encoder that really encodes here (hardware ones are listed even…, Pipes 1920x1080 RGB frames to ffmpeg, with the music cut to the teaser's length…
 
-### Community 527 - "tools sim: junkyard_layout_sim.py"
+### Community 544 - "junkyard_layout_sim.py"
 Cohesion: 0.48
 Nodes (6): cogpunk(), cuts_reserve(), main(), D5 simulation: how the Junkyard keeps vanilla's big structures away…, roll_world(), vanilla_shimmer()
 
-### Community 528 - "skills cogpunk-dev: CogpunkInvasion"
-Cohesion: 0.33
-Nodes (6): CogpunkInvasion, CogpunkPacket, CogpunkSets, NPCHaste, PacketRegistry, WorldFlagSystem
-
-### Community 529 - "art coghaven: make_koi_art.py"
+### Community 545 - "make_macuahuitl_art.py"
 Cohesion: 0.47
-Nodes (5): export_all(), jade_eyed_koi(), koi(), Source for the Koi (D4), 2026-11-12 (user: "add a new fish called Koi, it can…, The Jade Vault's treasure: the koi cast in gold (gilt ramp, lit from the top-…
+Nodes (5): club(), paddle(), preview(), Source for the Macuahuitl (D4), 2026-11-11 (user, with a reference image of an…, The paddle at (s, a): wood within |a| <= 4, obsidian chips at |a| 5..6 (two…
 
-### Community 530 - "build: Config File Contents (build."
+### Community 546 - "make_ghedalari_script_art.py"
+Cohesion: 0.60
+Nodes (5): main(), picto(), Source for the Ghedalari script (D4), 2026-11-24. Run from the repo root:…, rune(), sheet()
+
+### Community 547 - "Config File Contents (build.txt, global.json, .gitignore, .gitattributes)"
 Cohesion: 0.40
 Nodes (6): build.txt Mod Build Config, buildIgnore (art/docs/tools/py/ps1 excluded from .tmod), Mod Description (in-game), Steam Workshop Description, Config File Contents (build.txt, global.json, .gitignore, .gitattributes), Mod Identity (internal name Cogpunk)
 
-### Community 531 - "docs design: Sprite quality study (vanill"
+### Community 548 - "Sprite quality study (vanilla vs Calamity, Thorium, Lunar Veil)"
 Cohesion: 0.47
 Nodes (6): codixel method, cogpunk-pixel-art skill, MagicPixel brief: rules for generated sprites, Sprite quality study (vanilla vs Calamity, Thorium, Lunar Veil), MagicPixel MCP, 2x nearest-neighbour export rule
 
-### Community 532 - "OldBrassTown Gores: Brass Bandit (Old Brass Town"
+### Community 549 - "Brass Bandit (Old Brass Town enemy)"
 Cohesion: 0.47
 Nodes (6): Brass Bandit (Old Brass Town enemy), Brass Bandit gun gore, Brass Bandit hat gore, Brass Bandit head gore, Brass Bandit glow overlay sheet (small orange emissive dots, 18 frames), Brass Bandit near parallax layer sheet
 
-### Community 533 - "CursedConductor Weapons: .DrawSegment()"
-Cohesion: 0.33
-Nodes (3): Color, Texture2D, Color
-
-### Community 535 - "TrashTr0m Gores: Trash-Tr0m gore: steel cog g"
+### Community 550 - "Trash-Tr0m gore: steel cog gear"
 Cohesion: 0.33
 Nodes (6): Trash-Tr0m gore: teal crest plate, Trash-Tr0m gore: steel cog gear, Trash-Tr0m gore: hazard-striped jaw piece, Trash-Tr0m gore: brass piston rod, Trash-Tr0m gore: hazard-striped armor plate, Trash-Tr0m gore: tyre wheel with brass hub
 
-### Community 536 - "Coghaven Gores: Cogscorpion animation sheet"
+### Community 551 - "Cogscorpion animation sheet"
 Cohesion: 0.33
 Nodes (6): Cogscorpion body gore, Cogscorpion claw gore, Cogscorpion tail gore, Cogscorpion far parallax plane, Cogscorpion glow mask, Cogscorpion animation sheet
 
-### Community 540 - "Junkyard Weapons: TarShower sprite: tar-sprayi"
+### Community 554 - "TheFirstHalf"
+Cohesion: 0.33
+Nodes (3): The Combinator item sprite, TheFirstHalf, The First Half item sprite
+
+### Community 555 - "RustPolisher"
+Cohesion: 0.33
+Nodes (3): RustPolisher, int, ItemGroup
+
+### Community 556 - "JunkyardBiome"
+Cohesion: 0.40
+Nodes (4): JunkyardBiome, ModWaterStyle, Player, JunkyardBiome icon (rusty scrap heap)
+
+### Community 557 - "TarShower sprite: tar-spraying gun/launcher with dark tar tank and brass/metal body"
 Cohesion: 0.33
 Nodes (6): TarBoneStaff sprite: bone-skull-topped staff with dark tar and brown wood shaft, TarBoneStaff, TarShower sprite: tar-spraying gun/launcher with dark tar tank and brass/metal body, TarShower, TarShowerBigGlob sprite: 16 pre-rendered headings of a dark teardrop tar glob with trailing drip, TarShowerBigGlob
 
-### Community 541 - "Mechanist: Steam Pressure resource (Mec"
+### Community 558 - "Steam Pressure resource (Mechanist class)"
 Cohesion: 0.47
 Nodes (6): Brass Container accessory icon (brass-capped steam canister), Glass Container accessory icon (glass steam jar), Overheat debuff, Overheat Debuff Icon (brass pressure gauge, red needle), Steam Gauge UI Sheet (empty tube, steam fill, overheat fill, brass frame parts), Steam Pressure resource (Mechanist class)
 
-### Community 543 - "Secrets: FundamentalRuinsBiome"
-Cohesion: 0.40
-Nodes (3): FundamentalRuinsBiome, Player, SceneEffectPriority
+### Community 559 - "DamageClass"
+Cohesion: 0.47
+Nodes (3): MechanistDamage, DamageClass, StatInheritanceData
 
-### Community 544 - "docs media: Tyrant armor worn frame shee"
+### Community 560 - "RustedNailPass.cs"
+Cohesion: 0.33
+Nodes (4): RustedNailWorldGen, GenPass, List, Cogpunk.Content.Underground.Generation
+
+### Community 561 - ".TypeOf"
+Cohesion: 0.33
+Nodes (4): RightClickOwner, Item, Player, Func
+
+### Community 562 - "Tyrant armor worn frame sheet PNG"
 Cohesion: 0.33
 Nodes (6): Tyrant armor (skull/cape/sandals) worn animation GIF, Tyrant armor (female body) worn animation GIF, dark/light backgrounds, Tyrant armor (female body) worn frame sheet PNG, Tyrant armor worn frame sheet PNG, Tar Tyrant loot PNG (Tyrant Skull/Cape/Sandals, Serene Tear, treasure bag, map head, gores), Condensed Tar PNG (4 Tar Drops at Solidifier; Polished Metal material)
 
-### Community 545 - "docs media: Diagonal dive passive train "
+### Community 563 - "Diagonal dive passive train (45 degrees, 1 s warning, 24 px/tick, a third of Express/Dive/Diagonal)"
 Cohesion: 0.33
 Nodes (6): Sheriff star throw rework proof (2026-11-06), Sheriff's stars (one every 2 s, 36 tiles, 36 Expert damage; stick in terrain, recalled after third throw), Diagonal dive passive train (45 degrees, 1 s warning, 24 px/tick, a third of Express/Dive/Diagonal), Cursed Conductor Diagonal dive proof (2026-11-09), Cursed Conductor pose contact sheet (Idle, Whistle, Call, Point, Tip, Dying; lantern halo, diagonal track) (2026-11-09), Conductor lantern halo (4 frames) and diagonal track piece
 
-### Community 547 - "skills cogpunk-dev: 1.4.5 Port Readiness"
+### Community 564 - "Jade Coin (summon, 1 of 5 uses, 1 slot)"
+Cohesion: 0.33
+Nodes (6): Jade Coin Summon Proof (GIF), Jade Bat Minion (10 per hit), Jade Coin (summon, 1 of 5 uses, 1 slot), Jade Refractor Proof (GIF), Jade Curse, Jade Refractor (held jade laser, 13 per hit / 10 ticks, first 3 enemies)
+
+### Community 565 - "Vent"
+Cohesion: 0.33
+Nodes (3): TarTyrant.UpdateVent / VentFrame, line for line: the count runs in the fighting…, One tick; True on the tick the volley flies., Vent
+
+### Community 566 - "1.4.5 Port Readiness"
 Cohesion: 0.40
 Nodes (5): Biome Liquid as Restyled Water, 1.4.5 Port Readiness, SceneOverlayRegistry, Technical Baseline, Monthly Maintenance
 
-### Community 548 - "Underworld NPCs: Dragonete Miudo enemy sprite"
+### Community 567 - "Dragonete Miudo enemy sprite"
 Cohesion: 0.40
 Nodes (5): Dragonete Miudo tail gore, Dragonete Miudo wing gore, Dragonete Miudo enemy sprite, Dragonete Miudo far parallax layer, Dragonete Miudo glow overlay
 
-### Community 549 - "bosses cursedconductor: make_lost_souls_art.py"
+### Community 568 - "make_lost_souls_art.py"
 Cohesion: 0.60
 Nodes (4): base(), frame(), main(), Source for the Bottle of Lost Souls (D4), the Cursed Conductor's Expert item…
 
-### Community 550 - "art underground: make_rusted_nail_art.py"
-Cohesion: 0.50
-Nodes (4): _h(), Source for the Rusted Nail accessory (D4), 2026-11-03. Run from the repo root:…, 16x16: the shank from under the head (top left) to a bend and on to the point…, rusted_nail()
-
-### Community 551 - "Bosses CursedConductor: CursedConductor near paralla"
+### Community 569 - "CursedConductor near parallax layer (arms swinging green lantern)"
 Cohesion: 0.40
 Nodes (5): CursedConductor glow layer (green eyes, buttons, turbine glow), CursedConductor sprite sheet (25 frames: blue-uniformed robot conductor, cap, green eyes, on brass turbine), CursedConductor lantern glow (4-frame expanding green ring), CursedConductor near parallax layer (arms swinging green lantern), CursedConductor lantern gore (green lantern)
 
-### Community 552 - "TarTyrant Gores: Tar Tyrant Back Bone project"
+### Community 570 - "Tar Tyrant Back Bone projectile sheet: flung spinning bone and cross-shaped vertebra frames"
 Cohesion: 0.40
 Nodes (5): Tar Tyrant gore: bone femur, Tar Tyrant gore: vertebra bone, Tar Tyrant Bubble NPC sheet: dark tar bubble growing and swelling over 14 frames, Tar Tyrant Back Bone projectile sheet: flung spinning bone and cross-shaped vertebra frames, Tar Tyrant Bone Spike projectile sheet: bone spike erupting from tar puddle and retracting
 
-### Community 553 - "Dungeon Gores: Beat Boxer NPC Sprite Sheet "
+### Community 571 - "Beat Boxer NPC Sprite Sheet (12 frames)"
 Cohesion: 0.40
 Nodes (5): Beat Boxer Glove Gore Sprite, Beat Boxer Head Gore Sprite, Beat Boxer Microphone Gore Sprite, Beat Boxer Glow Layer, Beat Boxer NPC Sprite Sheet (12 frames)
 
-### Community 554 - "Junkyard NPCs: RustCollector (wheeled grey "
+### Community 572 - "ScrappyTrunk"
+Cohesion: 0.40
+Nodes (3): ScrappyTrunk, ScrappyTrunk item sprite (rusty chest), ScrappyTrunkTile sheet (2x2 chest frames, open/closed/locked)
+
+### Community 573 - "RustCollector (wheeled grey iron scrap cart loaded with rusty junk, 12-frame rolling animation)"
 Cohesion: 0.40
 Nodes (5): RustCollector wheel gore (small dark wheel with brass hub), RustPolisher item sprite (grey dome tank and brass/wood box on a dark bench), RustCollector (wheeled grey iron scrap cart loaded with rusty junk, 12-frame rolling animation), RustCollector NPC sprite sheet, TarGlob projectile sprite (dark brown tar blob, ~28 tumbling/rotation frames)
 
-### Community 555 - "Junkyard Tar: Tar Plague Debuff Icon"
+### Community 574 - "Tar Plague Debuff Icon"
 Cohesion: 0.50
 Nodes (5): Tar Plague Debuff, Tar Plague Debuff Icon, Junkyard Biome Tar, Dark Tar Droplet Motif, Toxic Green Accent (plague/sickness cue)
 
-### Community 556 - "Junkyard Weapons: Metal Wrench sprite (grey pi"
+### Community 575 - "Metal Wrench sprite (grey pipe wrench weapon)"
 Cohesion: 0.40
 Nodes (5): MetalClash, MetalClash sprite: 6-frame golden clash-flash sparks (star burst growing into scattered spark fragments), Metal Wrench sprite (grey pipe wrench weapon), Wrench Parry Cooldown debuff icon (wrench with purple swirl), Wrench Riposte buff icon (wrench with spark)
 
-### Community 559 - "OldBrassTown Items: Brass Sandstone item icon"
+### Community 577 - "Brass Sandstone item icon"
 Cohesion: 0.40
 Nodes (5): Brass Sandstone item icon, Brass Sandstone Wall item icon, Old Brass Town bestiary biome icon, Brass Sandstone tile frame sheet, Brass Sandstone wall frame sheet
 
-### Community 560 - "docs media: Proof PNG: five Fundamental "
+### Community 578 - "ProperMealPlayer"
 Cohesion: 0.40
-Nodes (5): FundamentalStoneReading, FundamentalStones, FundamentalStoneTile, Proof GIF: reading a Fundamental Stone, Proof PNG: five Fundamental Stones (sigils, glow sheet, runes) placed in Westworld niche and tar pit
+Nodes (3): ProperMealPlayer, bool, Item
 
-### Community 561 - "docs design: Melee mechanics study"
+### Community 579 - "Melee mechanics study"
 Cohesion: 0.40
 Nodes (5): Melee mechanics study, Directional melee swings, Metal Wrench slam, SwingPose, Vanilla ItemCheck swing pipeline
 
-### Community 562 - "tools sim: biome_title_sim.py"
+### Community 580 - "biome_title_sim.py"
 Cohesion: 0.50
 Nodes (4): Junkyard biome title GIF: camera pan, banner triggers on entering (tick/outside readout), main(), opacity(), D5 simulation of the biome title banner (Core/UI/BiomeTitleSystem.cs): the…
 
-### Community 563 - "docs media: Cog-launcher piston gun GIF"
+### Community 581 - "Cog-launcher piston gun GIF"
 Cohesion: 0.50
 Nodes (5): Cog-launcher piston gun GIF, Metal Wrench slam GIF, Sheriff's Revolver GIF, Cog-launcher and magnum sprite sheet PNG, Cog-launcher (Mechanist weapon)
 
-### Community 564 - "tools: check_combinator.py"
+### Community 582 - "check_combinator.py"
 Cohesion: 0.50
 Nodes (4): class_bodies(), main(), Check that every Cogpunk weapon has decided what it lends the Combinator as a…, (name, bases, body, abstract) for each class: the body runs to the next class…
 
-### Community 565 - "tools: check_sprite.py"
+### Community 583 - "check_sprite.py"
 Cohesion: 0.60
 Nodes (4): check(), load_gpl(), main(), Check sprites against the Cogpunk pixel-art rules (D4). Exit code 1 if any file…
 
-### Community 566 - "SETUP: In-game Developer Mods"
-Cohesion: 0.67
-Nodes (4): CrossMod.TryCall, Out of Scope, Boss Checklist, In-game Developer Mods
-
-### Community 567 - "skills cogpunk-dev: SteamPlayer"
-Cohesion: 0.50
-Nodes (4): MechanistWeapon, SteamContainer, SteamGaugeSystem, SteamPlayer
-
-### Community 568 - "bosses tartyrant: make_tyrant_claw.py"
+### Community 584 - "make_tyrant_claw.py"
 Cohesion: 0.67
 Nodes (3): main(), Source for the Tyrant armor's set-bonus claw (D4), restored 2026-11-06. Run…, write_rig_data()
 
-### Community 569 - "art coghaven: make_jade_beetle_art.py"
+### Community 585 - "make_jade_beetle_art.py"
 Cohesion: 0.67
 Nodes (3): main(), Source for the Jade Beetle (D4, 2026-11-16): Jadey's lesser jade copy of the…, recolour()
 
-### Community 570 - "coghaven previous: trot()"
+### Community 588 - "Tar Tyrant attacks proof GIF (3.0 s downtime, glob 50, bone spike 55, flung bone 30, bubble 30, body 50, Tar Plague 1 s)"
 Cohesion: 0.50
-Nodes (3): Pose, Six frames: the near foreleg with the far hind leg, then the far foreleg with…, trot()
+Nodes (4): Tar Plague debuff (1 s on every hit), Flung bones attack (3 bones, bounce once then shatter, 30 dmg Expert), Tar Tyrant attacks proof GIF (3.0 s downtime, glob 50, bone spike 55, flung bone 30, bubble 30, body 50, Tar Plague 1 s), Tar Tyrant flung bones proof GIF (hump heaves, boils 30 ticks, 3 bones lobbed at player's feet every 3.5 s)
 
-### Community 572 - "art town: Pose"
-Cohesion: 0.50
-Nodes (3): Pose, 14 walking frames: a full stride (the boots 3 px either side of their rest),…, walk_pose()
-
-### Community 573 - "docs media: Beat-Boxer (dungeon enemy)"
-Cohesion: 0.67
-Nodes (4): Beat-Boxer (dungeon enemy), Beat-Boxer dungeon enemy GIF (440 life, two spring punches), Beat-Boxer punch GIF, Dungeon and town sprites proof PNG
-
-### Community 574 - "CursedConductor Weapons: Ghost Train Engine sprite (s"
+### Community 589 - "Ghost Train Engine sprite (spectral teal locomotive, 9 pre-rendered rotation frames)"
 Cohesion: 0.50
 Nodes (4): Ghost Train Engine glow layer (lamp, window and speed-line highlights per rotation frame), Ghost Train Engine sprite (spectral teal locomotive, 9 pre-rendered rotation frames), Ghost Train Wagon glow layer (glowing window dots per rotation frame), Ghost Train Wagon sprite (spectral teal passenger car, 9 pre-rendered rotation frames)
 
-### Community 575 - "TarTyrant Projectiles: Tar Tyrant Claw projectile s"
+### Community 590 - "Tar Tyrant Claw projectile sheet: large tar pillar with bone claw hand erupting from ground (two columns of rise/grab/sink frames)"
 Cohesion: 0.50
 Nodes (4): Tyrant Claw sheet: tar pillar erupting from ground topped by bone claw fingers (rise, grasp, sink frames), Tar Tyrant gore: bone claw hand with grey talons, Tar Tyrant Claw projectile sheet: large tar pillar with bone claw hand erupting from ground (two columns of rise/grab/sink frames), Tar Tyrant Claw warning sheet: orange exclamation telegraph marker frames
 
-### Community 576 - "TrashTr0m Projectiles: Trash-Tr0m scrap ball projec"
+### Community 591 - "Trash-Tr0m scrap ball projectile (4-frame rolling compacted junk ball)"
 Cohesion: 0.50
 Nodes (4): Lost Key item (brass gear-headed key), Trash-Tr0m chewed scrap projectile (3-frame small scrap chunk), Trash-Tr0m scrap ball projectile (4-frame rolling compacted junk ball), Trash-Tr0m shockwave projectile (4-frame dirt mound with debris)
 
-### Community 577 - "TrashTr0m Weapons: Scrap impact explosion anima"
+### Community 592 - "Scrap impact explosion animation (gold spark burst, expanding ring with debris, fading blue dashed shockwave)"
 Cohesion: 0.50
 Nodes (4): Scrap impact explosion animation (gold spark burst, expanding ring with debris, fading blue dashed shockwave), ScrapImpact sprite sheet, Scrap Launcher (brass/teal junk cannon, ranged), ScrapLauncher sprite
 
-### Community 578 - "Junkyard Tar: Tar Drip Animation (form, fa"
+### Community 593 - "CoghawkRigData.cs"
+Cohesion: 0.50
+Nodes (3): CoghawkRigData, int, Cogpunk.Content.Desert.NPCs
+
+### Community 595 - "Tar Drip Animation (form, fall, splash frames)"
 Cohesion: 0.50
 Nodes (4): Tar Drip Animation (form, fall, splash frames), Tar Droplet Splash Frames, TarDroplet Sprite Sheet, Junkyard Tar Liquid
 
-### Community 579 - "Junkyard Tar: TarWaterStyle Block Texture"
+### Community 596 - "TarWaterStyle Block Texture"
 Cohesion: 0.50
 Nodes (4): Liquid Drawn Behind Half Blocks, Tar Surface Highlight Strip, Tar Liquid (dark brown, opaque), TarWaterStyle Block Texture
 
-### Community 580 - "Junkyard Tar: TarWaterStyle Slope Texture"
+### Community 597 - "TarWaterStyle Slope Texture"
 Cohesion: 0.50
 Nodes (4): Liquid Behind Sloped Tiles Rendering, Tar Liquid (dark brown viscous fluid), TarWaterStyle Slope Texture, Tar Slope Variants (4 frames)
 
-### Community 581 - "Mechanist Weapons: Trapper Chain (Mechanist wea"
+### Community 598 - "Trapper Chain (Mechanist weapon)"
 Cohesion: 0.67
 Nodes (4): TrapperChain Item Sprite, Trapper Chain (Mechanist weapon), TrapperChain Link Sprite, TrapperChain Projectile Sprite (2 frames, claw head)
 
-### Community 582 - "MechArmy NPCs: Boombot NPC sprite sheet (ro"
+### Community 599 - "Boombot NPC sprite sheet (round iron bomb-bot with lit fuse, walk and tumble frames)"
 Cohesion: 0.50
 Nodes (4): Boombot far parallax layer (far leg/limb frames), Boombot glow layer (fuse sparks), Boombot near parallax layer (near leg/limb frames), Boombot NPC sprite sheet (round iron bomb-bot with lit fuse, walk and tumble frames)
 
-### Community 583 - "docs media: RedCloth"
+### Community 600 - "RedCloth"
 Cohesion: 0.50
 Nodes (4): RedCloth, RedCloth sprite: red bullfighter cloth with gold trim hanging from a rod (accessory icon), RedClothCooldown sprite: buff icon of the red cloth draped/folded (dodge recharging), Proof GIF: Red Cloth accessory (Westworld / Old Brass Town)
 
-### Community 584 - "OldBrassTown Items: Weathered Plank item icon"
+### Community 601 - "Weathered Plank item icon"
 Cohesion: 0.50
 Nodes (4): Weathered Plank item icon, Weathered Plank Wall item icon, Weathered Plank tile frame sheet, Weathered Plank wall frame sheet
 
-### Community 585 - "docs media: Scrap Content Overview"
+### Community 603 - "Jade Refractor (research weapon)"
+Cohesion: 0.67
+Nodes (4): Jade Refractor (item sprite: brass-and-jade beam gun), Jade Refractor Beam (green beam segment frames), Jade Refractor Spark (4-frame green sparkle), Jade Refractor (research weapon)
+
+### Community 605 - "Scrap Content Overview"
 Cohesion: 0.50
 Nodes (4): Extractinator table from Rusted Scrap: Rusted Cog 66%, Rusted Metal 33%, Scrappybot 1%, Scrap Content Overview, Surface scrap heaps, heights 3-6, one per left-side biome, Underground silt nodes converted (1 in 10); needs Gold/Platinum pickaxe (55%)
 
-### Community 586 - "tools sim: scrappy_trunk_sim.py"
+### Community 606 - "Cogscorpion (Coghaven enemy)"
+Cohesion: 0.50
+Nodes (4): Cogscorpion (Coghaven enemy), Cogscorpion walk GIF (touch-only damage, tail strike removed), Jade Cursed Glaives (Jadey weapon), Jade Cursed Glaives GIF (slash + 22-tile spinning throw, 10 steam)
+
+### Community 607 - "scrappy_trunk_sim.py"
 Cohesion: 0.67
 Nodes (3): fill(), main(), D5 replay of the Scrappy Trunk world-generation rules…
 
-### Community 587 - "skills cogpunk-dev: GenPassUtils"
+### Community 609 - "Beat-Boxer (dungeon enemy)"
 Cohesion: 1.00
-Nodes (3): GenPassUtils, Junkyard Vanilla Region Replacement, SafeGenPass
+Nodes (3): Beat-Boxer (dungeon enemy), Beat-Boxer dungeon enemy GIF (440 life, two spring punches), Beat-Boxer punch GIF
 
-### Community 589 - "Junkyard Items: Tar Drop material icon (dark"
+### Community 610 - "Tar Drop material icon (dark tar droplet)"
 Cohesion: 0.67
 Nodes (3): Junkyard tar theme, Tar Drop material icon (dark tar droplet), Living Tar enemy sheet (dark tar slime, 2 frames)
 
-### Community 590 - "docs media: Scrap Armor Set Bonus: Movem"
+### Community 611 - "Scrap Armor Set Bonus: Movement-Triggered Cogs"
 Cohesion: 1.00
 Nodes (3): Scrap Armor Set Bonus: Movement-Triggered Cogs, Scrap Armor Cog Aim GIF (set bonus: cogs aimed at nearest slime, every 45 ticks of movement), Scrap Armor Cog Lob GIF (set bonus: lobs a cog ahead while moving)
 
-### Community 591 - "docs media: Proof GIF: Cursed Conductor "
+### Community 612 - "Proof GIF: Cursed Conductor ghost loop / ghost limits"
 Cohesion: 0.67
 Nodes (3): CursedConductor, ConductorGhost, Proof GIF: Cursed Conductor ghost loop / ghost limits
 
-### Community 592 - "docs media: CursedLantern"
+### Community 613 - "CursedLantern"
 Cohesion: 0.67
 Nodes (3): CursedLantern, Proof GIF: Cursed Lantern soul cap (Cursed Conductor drop), Proof GIF: Cursed Lantern ghost souls
 
-### Community 593 - "Combinator Items: Combinator Blueprint item sp"
+### Community 615 - "Combinator Blueprint item sprite"
 Cohesion: 0.67
 Nodes (3): Combinator Blueprint aura overlay, Combinator Blueprint light beam, Combinator Blueprint item sprite
 
-### Community 594 - "Gems Items: Jade gem item sprite (round "
+### Community 616 - "Jade gem item sprite (round green cabochon)"
 Cohesion: 0.67
 Nodes (3): Jade gem set, Jade gem item sprite (round green cabochon), JadeTile framing sheet (grey stone with embedded jade flecks, vanilla gem-ore tile frame layout)
 
-### Community 595 - "Jungle NPCs: Trapper (hunched jungle scav"
+### Community 617 - "Trapper (hunched jungle scavenger carrying a large brown pack, 12-frame walk cycle)"
 Cohesion: 0.67
 Nodes (3): Trapper (hunched jungle scavenger carrying a large brown pack, 12-frame walk cycle), Trapper NPC sprite sheet, TrapperSpikeBall projectile sprite (4-frame dark iron spiked ball)
 
-### Community 596 - "Junkyard Map: Mysterious Map guidance arro"
+### Community 618 - "Mysterious Map guidance arrow sheet (16 headings, gold arrow with gear)"
 Cohesion: 0.67
 Nodes (3): Mysterious Map item icon (parchment map), Mysterious Map arrow glow sheet (16 headings, faint violet marks), Mysterious Map guidance arrow sheet (16 headings, gold arrow with gear)
 
-### Community 597 - "Junkyard Tar: Tar Waterfall Style Texture"
+### Community 619 - "Tar Waterfall Style Texture"
 Cohesion: 0.67
 Nodes (3): Tar Waterfall 16-Frame Animation Strip, Dark Tar Flow (brown-black viscous liquid), Tar Waterfall Style Texture
 
-### Community 599 - "Junkyard Weapons: TarShowerGlob sprite (16 hea"
+### Community 620 - "TarShowerGlob sprite (16 headings of tar glob)"
 Cohesion: 0.67
 Nodes (3): TarShowerCharge sprite (6-frame swelling tar ball), TarShowerGlob sprite (16 headings of tar glob), TarSlimeShot sprite (16 headings of tar glob)
 
-### Community 600 - "MechArmy Armor: Jaeger Chestplate item icon "
+### Community 621 - "Jaeger Chestplate item icon (teal plated armor)"
 Cohesion: 0.67
 Nodes (3): Jaeger Chestplate body equip sheet (torso and arm frames), Jaeger Chestplate item icon (teal plated armor), Jaeger gore: teal chest plate with brass warning emblem
 
-### Community 601 - "MechArmy Armor: Jaeger Greaves item icon (te"
+### Community 622 - "Jaeger Greaves item icon (teal boots)"
 Cohesion: 0.67
 Nodes (3): Jaeger Greaves legs equip sheet (20-frame walk column), Jaeger Greaves item icon (teal boots), Jaeger gore: grey steel boot
 
-### Community 602 - "MechArmy Armor: Jaeger Helmet item icon (tea"
+### Community 623 - "Jaeger Helmet item icon (teal visored helmet)"
 Cohesion: 0.67
 Nodes (3): Jaeger Helmet head equip sheet (20-frame column), Jaeger Helmet item icon (teal visored helmet), Jaeger gore: teal helmeted head with brass crest
 
-### Community 603 - "OldBrassTown Items: Tarnished Brass Ore item ico"
+### Community 624 - "Tarnished Brass Ore item icon"
 Cohesion: 0.67
 Nodes (3): Tarnished Brass Bar item icon, Tarnished Brass Ore item icon, Tarnished Brass Ore tile frame sheet
 
-### Community 604 - "Scrap Items: Rusted Cog Item Sprite"
+### Community 625 - "Rusted Cog Item Sprite"
 Cohesion: 0.67
 Nodes (3): Extractinator drop from Rusted Scrap (66%), Rusted Cog Item Sprite, Rusty orange gear icon (crafting material)
 
-### Community 605 - "Scrap Items: Rusted Metal Item Sprite"
+### Community 626 - "Rusted Metal Item Sprite"
 Cohesion: 0.67
 Nodes (3): Extractinator drop from Rusted Scrap (33%), Rusted Metal Item Sprite, Rusty copper-colored metal plate with rivets
 
-### Community 606 - "Scrap Minions: Mice-bot Minion Spritesheet "
+### Community 627 - "Mice-bot Minion Spritesheet (vertical walk/burrow frames)"
 Cohesion: 0.67
 Nodes (3): Mice-bot Summon Item Sprite (rusty clockwork mouse), Mice-bot Buff Icon (clockwork mouse), Mice-bot Minion Spritesheet (vertical walk/burrow frames)
 
-### Community 607 - "docs media: Junkbait Sprite & Recipe Pre"
+### Community 628 - "Proof PNG: five Fundamental Stones (sigils, glow sheet, runes) placed in Westworld niche and tar pit"
+Cohesion: 0.67
+Nodes (3): FundamentalStones, FundamentalStoneTile, Proof PNG: five Fundamental Stones (sigils, glow sheet, runes) placed in Westworld niche and tar pit
+
+### Community 630 - "Junkbait Sprite & Recipe Preview (PNG)"
 Cohesion: 0.67
 Nodes (3): Junkbait Sprite & Recipe Preview (PNG), Junkbait Recipe (Scrappybot + 10 Rusted Scrap + 10 Copper/Tin Bar @ Anvil), Junkbait Not Usable Until Junkyard Boss Exists (Never Consumed)
 
-### Community 608 - "docs media: Petroleum Pool Worldgen Over"
+### Community 631 - "Petroleum Pool Worldgen Overview (PNG)"
 Cohesion: 0.67
 Nodes (3): Petroleum Pool Worldgen Overview (PNG), Junkyard Surface: Pool Rim, Heaps, Puddles, Cache, Beach (PNG), Deep Petroleum Pool Layout (155 wide, 347 deep, 8 petroleum rows, floor halfway to underworld, past x<40 world border)
 
-### Community 609 - "docs media: Screwdriver Thrust Simulatio"
+### Community 632 - "Screwdriver Thrust Simulation (GIF)"
 Cohesion: 0.67
 Nodes (3): Screwdriver Thrust Simulation (GIF), Screwdriver Sprites Proof (PNG), Screwdriver 31-tick thrust to 6.5 tiles, hits on extend and retract
 
-### Community 610 - "docs media: Trapper (Jungle enemy: 250 l"
+### Community 633 - "Trapper (Jungle enemy: 250 life, 35 contact, stalking state)"
 Cohesion: 0.67
 Nodes (3): Jungle Trapper GIF, Trapper spike balls: bounce, lie on ground 10 s, fade in last 1 s, Trapper (Jungle enemy: 250 life, 35 contact, stalking state)
 
-### Community 611 - "docs media: Tar Glob projectile"
+### Community 634 - "Tar Glob projectile"
 Cohesion: 0.67
 Nodes (3): Tar Glob GIF, 16 pre-rendered headings x 2 wobbles picked from velocity (no runtime rotation), Tar Glob projectile
 
-### Community 612 - "docs media: Tar weapons sprite sheet pro"
+### Community 635 - "Tar weapons sprite sheet proof (items, projectiles, effects, buffs)"
 Cohesion: 0.67
 Nodes (3): Tar-Shower GIF proof: ~16 tile spray (was ~12), Tar Plague, pierce 3, Tarmancer GIF proof: Living Tar slimes, 11 dmg every 68 ticks, Tar Plague, Tar weapons sprite sheet proof (items, projectiles, effects, buffs)
 
-### Community 613 - "docs media: Tyrant summoner-mage armor s"
+### Community 636 - "Tyrant summoner-mage armor set (skull, cape, sandals)"
 Cohesion: 0.67
 Nodes (3): Tyrant armor set bonus tar claw proof (2026-11-06), Tar claw set bonus (every 4 s, 100 magic, 5 tiles wide), Tyrant summoner-mage armor set (skull, cape, sandals)
 
-### Community 614 - "docs media: Coghaven underside animation"
+### Community 637 - "Coghaven underside animation: turbines smoking, cogs turning (2026-11-06)"
 Cohesion: 0.67
 Nodes (3): Cloud cog animation (12 frames of 5 degrees, a turn in 9.6 s), Coghaven underside animation: turbines smoking, cogs turning (2026-11-06), TurbineSmoke (puff 1 in 2 drawn ticks, 96 ticks life)
 
-### Community 615 - "docs media: Tar Whip (29 damage, +7 tag,"
+### Community 638 - "Tar Whip (29 damage, +7 tag, 30-tick lash)"
 Cohesion: 0.67
 Nodes (3): Tar Whip proof (2026-11-06), Tar Plague debuff (2.0 s per lash, 10 every 0.5 s, half speed), Tar Whip (29 damage, +7 tag, 30-tick lash)
 
-### Community 616 - "docs media: Ancient Research system"
+### Community 639 - "Fundamental Stone (Westworld)"
 Cohesion: 0.67
-Nodes (3): Ancient Research menu proof (GIF), 2026-11-19 item batch sheet, Ancient Research system
+Nodes (3): Cursed Conductor (area boss gating the shield), Fundamental Stone (Westworld), Westworld Fundamental Stone shield proof (sealed while Conductor alive)
+
+### Community 641 - "clear_band"
+Cohesion: 0.67
+Nodes (3): clear_band(), holds_container(), TrashTr0mSummon.ClearHeapRows.
 
 ## Ambiguous Edges - Review These
 - `ScrapBombProjectile` → `ScrapBombProjectile sprite (2-frame pipe bomb, lit fuse)`  [AMBIGUOUS]
@@ -3561,13 +3680,11 @@ Nodes (3): Ancient Research menu proof (GIF), 2026-11-19 item batch sheet, Ancie
   docs/media/2026-11-05_design-directional-melee-arcs.png · relation: semantically_similar_to
 - `Proof GIF: enemy mirror jumps` → `Mirror-jump enemy movement behavior`  [AMBIGUOUS]
   docs/media/2026-11-10_enemies-mirror-jump.gif · relation: references
-- `2026-11-19 item batch sheet` → `Ancient Research system`  [AMBIGUOUS]
-  docs/media/2026-11-23_items-2026-11-19-batch.png · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **791 isolated node(s):** `Microsoft.NET.Sdk`, `Cogpunk`, `Cogpunk.Content.Furniture.Generation`, `Phase`, `Phase` (+786 more)
+- **808 isolated node(s):** `Microsoft.NET.Sdk`, `Cogpunk`, `Cogpunk.Content.Furniture.Generation`, `Phase`, `Phase` (+803 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **368 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **383 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_

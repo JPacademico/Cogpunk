@@ -81,6 +81,7 @@ namespace Cogpunk.Content.Underground.NPCs
 		}
 
 		public override void SetDefaults() {
+			Cogpunk.Content.Banners.EnemyBanners.SetBanner(this);         // its banner (2026-11-25)
 			NPC.width = 34;
 			NPC.height = 56;
 			SetExpertStats(Life, ContactDamage, Defense);

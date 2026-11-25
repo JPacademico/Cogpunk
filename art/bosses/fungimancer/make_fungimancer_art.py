@@ -23,19 +23,29 @@ with atenttion and you can remove the blue silluete effect he has".
    belly, in front; MIDDLE, the rest (head, belly, frills, back leg, the far foot, the mushroom cap), filled in under the
    near parts (each hole takes the nearest middle colour in its row) so they can slide over it. In game the far and near
    planes shift with the camera (DepthLayers, up to Fungimancer.MaxParallax), the far one a little darker.
-3. Every frame is the model with its parts moved by whole pixels (no resampling: the pixels never flicker), eased:
-     Idle 0-5      a breath (the upper body rises a pixel over the belly, the row under it repeated), the raised hand
-                   waving a pixel, the frills' tips lifting; 5 is a blink (the C# plays 0 1 2 3 2 1 and the blink)
-     Cast 6-11     wind-up (the hand dips), raise, gather (violet motes round the fingers, the chest swelling), fling (the
-                   hand thrown forward, the mouth wide), follow-through, recover
-     Croak 12-16   the throat sac swells, swells, full, croaks (the mouth wide), sinks
-     Tongue 17-19  the mouth gaping wider, widest (the tongue is out: the projectile), closing
-     Fizzle 20-21  the spell goes wrong: eyes squeezed shut, the hand drooping, the mouth hanging open (dumb)
-     Intro 22-23   eyes shut, then open
-     Death 24-27   glowing mushrooms sprout on it, one, three, five, seven; its eyes shut
+3. Every frame is the model with its parts moved by whole pixels (no resampling: the pixels never flicker), eased. The
+   2026-11-25 fight (user: his eight mechanics; "the best one is the one i send on this prompt image, just fix the arm colors to
+   match the body like the other arm, only the hand is suposed to be red"): the raised near arm is the far arm's own pixels
+   mirrored (RAISE_AXIS, RAISE_DY) in their own colours (green skin, red hand), CHEST_PATCH fills the chest it uncovers, and
+   SWING adds in-betweens so no pose jumps:
+     Idle 0-5       a breath (the upper body rises a pixel over the belly), the raised hand waving a pixel, the frills' tips
+                    lifting; 5 is a blink (the C# plays 0 1 2 3 2 1 and the blink)
+     Cast 6-11      the orbit's summoning gesture: wind-up, raise, gather, fling, follow-through, recover
+     Croak 12-16    the throat sac swells, swells, full, croaks (the mouth wide), sinks (the defeat's croak)
+     Fizzle 17-18   dazed: eyes squeezed shut, the hand drooping (the stun and the defeat's start)
+     Intro 19-20    eyes shut, then open
+     Raise 21-22    the near hand raised quickly to cast (the delayed spells)
+     Shake 23-26    the raised hand shaken (the spell gathering at the fingers)
+     Release 27     the spell let go; Lower 28 the hand coming down
+     ArmsUp 29-31   both arms rising for the channel; Hold 32-33 the strain (a pixel's tremble); ArmsDown 34-35 lowering
+   Overlays drawn over any pose (their two rows follow Lift, the breath): the BURP (Fungimancer_Burp.png: the throat and mouth
+   in 5 poses), the hypnotic EYES (Fungimancer_Eyes.png: a spinning rainbow pinwheel, 8 frames, during the channel) and the PUFF
+   of magic smoke of the defeat (Fungimancer_Puff.png, 8 frames over the body as it turns into a vanilla Frog).
 Outputs (Content/Bosses/Fungimancer/): Fungimancer.png (the middle plane), _Far.png, _Near.png, _Glow.png (grid sheets,
-COLUMNS wide, 1 px right of and under each cell at 1x), FungimancerRigData.cs, Fungimancer_Head_Boss.png, Gores/*, and the
-small things (fungimancer_things.py). v1 (procedural), v2 (sculpted) and v3 (the reference at full size) are in previous/.
+COLUMNS wide, 1 px right of and under each cell at 1x), _Burp.png, _Eyes.png, _Puff.png, FungimancerRigData.cs,
+Fungimancer_Head_Boss.png, the fight's sprites (fungimancer_fight.py: spores, missile, polymorph bolt, the three mushrooms,
+the buff icons) and the small things (fungimancer_things.py). v1 (procedural), v2 (sculpted), v3 (the reference at full size)
+and the generator before the 2026-11-25 fight (make_fungimancer_art_2026-11-25a.py) are in previous/.
 """
 import argparse
 import math
@@ -51,6 +61,7 @@ sys.path.insert(0, HERE)
 from rig import RAMP  # noqa: E402
 from make_trashtr0m_art import export, to_image  # noqa: E402
 import fungimancer_things as things  # noqa: E402
+import fungimancer_fight as fight  # noqa: E402
 
 OUT = "Content/Bosses/Fungimancer/"
 BASE = os.path.join(HERE, "reference", "fungimancer_base_2026-11-23.png")
@@ -306,7 +317,7 @@ FAR0, MID0, NEAR0 = split_planes()
 # ==========================================================================================================================
 # 3. Poses
 # ==========================================================================================================================
-MARGIN_X, MARGIN_TOP, MARGIN_BOTTOM = 3, 4, 1
+MARGIN_X, MARGIN_TOP, MARGIN_BOTTOM = 4, 9, 1
 W, H = W0 + 2 * MARGIN_X, H0 + MARGIN_TOP + MARGIN_BOTTOM
 SEAT_MID_X = 34                                          # under the seat's middle (the origin)
 OX, OY = MARGIN_X + SEAT_MID_X, MARGIN_TOP + H0 - 1      # the origin: under the cap's middle, on its last row
@@ -318,9 +329,12 @@ SPROUT_CAP, SPROUT_LIGHT, SPROUT_STALK = C["E"], (67, 221, 248), C["W"]
 
 
 class Pose:
-    def __init__(self, breath=0, hand=(0, 0), magic=0, blink=None, sac=0.0, mouth=1, sprouts=0, frills=0, chest=0):
+    def __init__(self, breath=0, hand=(0, 0), magic=0, blink=None, sac=0.0, mouth=1, sprouts=0, frills=0, chest=0, near_up=0,
+                 tremble=0):
         self.breath, self.hand, self.magic, self.blink, self.sac = breath, hand, magic, blink, sac
         self.mouth, self.sprouts, self.frills, self.chest = mouth, sprouts, frills, chest
+        self.near_up = near_up            # the chest arm: 0 resting, 1 swinging up (a smear), 2 raised, 3 swinging down
+        self.tremble = tremble            # 0/1: both raised hands a pixel up (the channel's strain; never -1/+1)
 
 
 def lift_upper(plane, b, keep_lower=True):
@@ -439,6 +453,61 @@ def sprouts(plane, glow, n, lift):
                 glow[(x + dx, y + dy)] = c
 
 
+# --- the channel's raised near arm (2026-11-25) ------------------------------------------------------------------------
+# The user: "he stops and raises bot arms". The chest arm is raised by mirroring the far (raised) arm's own pixels round the
+# near shoulder: the same arm and hand drawing, so the pose is the model's own. Its colours are the far arm's (user, 2026-11-25,
+# on the first try's pink arm: "fix the arm colors to match the body like the other arm, only the hand is suposed to be red
+# not the whole arm"): green skin, a red hand. Its swing up and down is an in-between: the same arm, lower and further out.
+NEAR_SHOULDER = (49, 18)                 # where the chest arm leaves the body, under the frills
+RAISE_AXIS, RAISE_DY = 69, -5            # x' = RAISE_AXIS - x, y' = y + RAISE_DY (the far arm's root lands on the shoulder)
+RAISED_HAND = (RAISE_AXIS - 13, 2 + RAISE_DY)   # the raised near hand's fingertips (the far hand's HAND_POINT mirrored)
+
+
+def chest_arm(q, c):
+    return near_region(q[0], q[1], c) == "chest" or (c in OUTLINES and 37 <= q[0] <= 52 and 15 <= q[1] <= CHEST_LOW)
+
+
+def raised_near_arm():
+    out = {}
+    for (x, y), c in FAR0.items():
+        if x > 21:
+            continue                                     # the far arm's hidden root under the shoulder
+        out[(RAISE_AXIS - x, y + RAISE_DY)] = c          # its own colours: green skin, red hand
+    return out
+
+
+RAISED_NEAR = raised_near_arm()
+
+
+SWING = {1: (2, 8), 3: (3, 9)}            # the in-between of the swing up (1) and down (3): the raised arm, lower and out
+
+
+def chest_patch():
+    """The middle plane under the chest arm, for when the arm is raised: the outline and red pixels the arm used to hide
+    (its own outline left in the middle plane) take the nearest skin or belly colour in their row."""
+    patch = {}
+    for (x, y), c in MID0.items():
+        if not (37 <= x <= 53 and 14 <= y <= CHEST_LOW + 2) or not (c in OUTLINES or c in REDS or c in PINKS):
+            continue
+        if not any(chest_arm(q, NEAR0[q]) for q in ((x + dx, y + dy) for dx in (-2, -1, 0, 1, 2) for dy in (-1, 0, 1)) if q in NEAR0):
+            continue
+        best = None
+        for d in range(1, 10):
+            for q in ((x - d, y), (x + d, y)):
+                c2 = MID0.get(q)
+                if c2 is not None and c2 not in OUTLINES and c2 not in REDS and c2 not in PINKS:
+                    best = c2
+                    break
+            if best:
+                break
+        if best:
+            patch[(x, y)] = best
+    return patch
+
+
+CHEST_PATCH = chest_patch()
+
+
 def frame(p):
     """One frame -> (far, mid, near, glow), each {(x, y): rgb} in the cell (margins added)."""
     b = p.breath
@@ -446,8 +515,22 @@ def frame(p):
     mid = frill_wave(lift_upper(MID0, b), p.frills)
     near = {}
     for (x, y), c in NEAR0.items():                      # the chest arm rides the breath; the belly hand stays
-        chest = near_region(x, y, c) == "chest" or (c in OUTLINES and 37 <= x <= 52 and 15 <= y <= CHEST_LOW)
+        chest = chest_arm((x, y), c)
+        if chest and p.near_up:
+            continue                                     # raised or swinging: drawn below instead
         near[(x, y - (b + p.chest if chest else 0))] = c
+    if p.near_up == 2:
+        for (x, y), c in RAISED_NEAR.items():            # raised over the frills, trembling a pixel with the far hand
+            near[(x, y - b - p.tremble)] = c
+    elif p.near_up in SWING:
+        dx, dy = SWING[p.near_up]
+        for (x, y), c in RAISED_NEAR.items():            # half way up (or down): the same arm, lower and further out
+            near[(x + dx, y + dy - b)] = c
+    if p.near_up:
+        for (x, y), c in CHEST_PATCH.items():            # the chest the arm uncovers
+            q = (x, y - b if y < BREATH_SPLIT else y)
+            if q in mid:
+                mid[q] = c
     sac(mid, p.sac, b)
     face(mid, p, b)
     glow = {}
@@ -472,13 +555,24 @@ FRAMES = (
        ("Cast3", Pose(breath=1, hand=(-2, 0), mouth=2)), ("Cast4", Pose(hand=(-2, 1), mouth=2)), ("Cast5", Pose(hand=(-1, 0)))]
     + [("Croak0", Pose(sac=0.3)), ("Croak1", Pose(sac=0.7, breath=1)), ("Croak2", Pose(sac=1.0, breath=1)),
        ("Croak3", Pose(sac=0.8, mouth=3)), ("Croak4", Pose(sac=0.3))]
-    + [("Tongue0", Pose(mouth=2)), ("Tongue1", Pose(mouth=3, breath=1)), ("Tongue2", Pose(mouth=2))]
     + [("Fizzle0", Pose(blink="tight", mouth=2, hand=(1, 1))), ("Fizzle1", Pose(blink=True, mouth=3, hand=(2, 2)))]
     + [("Intro0", Pose(blink=True)), ("Intro1", Pose())]
-    + [("Death%d" % k, Pose(sprouts=n, blink=k >= 2 or None, mouth=3 if k == 3 else 1)) for k, n in enumerate((1, 3, 5, 7))]
+    # 2026-11-25, the delayed spells ("he raises quickly shakes his raised hand"): up in two frames, shaken (0/1 px, never
+    # -1/+1: D4 rule 17), the spell let go with a little fling, lowered
+    + [("Raise0", Pose(breath=1, hand=(0, -2), magic=1)), ("Raise1", Pose(breath=1, hand=(0, -4), magic=2, mouth=2))]
+    + [("Shake0", Pose(breath=1, hand=(0, -4), magic=2)), ("Shake1", Pose(breath=1, hand=(1, -4), magic=2)),
+       ("Shake2", Pose(breath=1, hand=(0, -3), magic=2)), ("Shake3", Pose(breath=1, hand=(1, -3), magic=2))]
+    + [("Release0", Pose(hand=(-2, -2), mouth=2, magic=1))]
+    + [("Lower0", Pose(hand=(-1, 0)))]
+    # the channel ("he stops and raises bot arms"): a breath in, the chest arm swung up (a smear), raised with the far one
+    # higher, held trembling, swung down
+    + [("ArmsUp0", Pose(hand=(0, -1), chest=1)), ("ArmsUp1", Pose(breath=1, hand=(0, -3), near_up=1, mouth=2)),
+       ("ArmsUp2", Pose(breath=1, hand=(0, -4), near_up=2, mouth=2))]
+    + [("Hold0", Pose(breath=1, hand=(0, -4), near_up=2, mouth=2)), ("Hold1", Pose(breath=1, hand=(0, -5), near_up=2, mouth=2, tremble=1))]
+    + [("ArmsDown0", Pose(hand=(0, -2), near_up=3)), ("ArmsDown1", Pose(hand=(-1, 0)))]
 )
 INDEX = {n: k for k, (n, _) in enumerate(FRAMES)}
-SEQUENCES = ("Idle", "Cast", "Croak", "Tongue", "Fizzle", "Intro", "Death")
+SEQUENCES = ("Idle", "Cast", "Croak", "Fizzle", "Intro", "Raise", "Shake", "Release", "Lower", "ArmsUp", "Hold", "ArmsDown")
 
 
 # ==========================================================================================================================
@@ -514,6 +608,8 @@ def write_rig(path):
     def rel(x, y):
         return int(round((x + MARGIN_X - OX) * 2)), int(round((y + MARGIN_TOP - OY) * 2))
     near = [rel(HAND_POINT[0] + p.hand[0], HAND_POINT[1] + p.hand[1] - p.breath) for (_, p) in FRAMES]
+    near2 = [rel(RAISED_HAND[0], RAISED_HAND[1] - p.breath - p.tremble) if p.near_up == 2 else rel(44.0, 30.0 - p.breath)
+             for (_, p) in FRAMES]
     mx, my = rel(*MOUTH_PT)
     tx, ty = rel(*THROAT)
     lines = [
@@ -522,18 +618,29 @@ def write_rig(path):
         "{",
         "\t/// <summary>The Fungimancer's grid sheets (game px, facing left): its far, middle and near planes and its glow, equal",
         "\t/// cells in <see cref=\"Columns\"/> columns with 2 px right of and under each; the origin is under its seat's middle.",
-        "\t/// Body*: its hitbox from the origin. Per frame, from the origin, facing left: NearX/NearY the raised hand (its spells",
-        "\t/// leave it); Mouth: the mouth's middle (the tongue leaves it); Throat: under the chin (the croak).</summary>",
+        "\t/// Body*: its hitbox from the origin. Per frame, from the origin, facing left: NearX/NearY the raised (far) hand's",
+        "\t/// fingertips (its spells leave them); Near2X/Near2Y the other hand (raised in the channel); Lift the breath (0/1 art",
+        "\t/// px the upper body is raised: the overlays follow it). Mouth: the mouth's middle (the burp leaves it). Overlays (the",
+        "\t/// burp's throat and mouth, the hypnotic eyes, the death's puff): their own cells and origins, drawn at the body's",
+        "\t/// origin; Burp and Eyes cells come in two rows, lift 0 then lift 1.</summary>",
         "\tpublic static class FungimancerRigData",
         "\t{",
         "\t\tpublic const int CellWidth = %d, CellHeight = %d, OriginX = %d, OriginY = %d, Frames = %d, Columns = %d;"
         % (W * 2, H * 2, OX * 2, OY * 2, len(FRAMES), COLUMNS),
-        "\t\tpublic const int " + ", ".join(seq[:4]) + ";",
-        "\t\tpublic const int " + ", ".join(seq[4:]) + ";",
+    ]
+    for k in range(0, len(seq), 4):
+        lines.append("\t\tpublic const int " + ", ".join(seq[k:k + 4]) + ";")
+    lines += [
         "\t\tpublic const int BodyLeft = %d, BodyRight = %d, BodyTop = %d, BodyBottom = 0;" % (left * 2, right * 2, top * 2),
         "\t\tpublic const int MouthX = %d, MouthY = %d, ThroatX = %d, ThroatY = %d;" % (mx, my, tx, ty),
+        "\t\tpublic const int BurpCellW = %d, BurpCellH = %d, BurpOriginX = %d, BurpOriginY = %d, BurpFrames = %d;" % BURP_RIG,
+        "\t\tpublic const int EyeCellW = %d, EyeCellH = %d, EyeOriginX = %d, EyeOriginY = %d, EyeFrames = %d;" % EYE_RIG,
+        "\t\tpublic const int PuffCellW = %d, PuffCellH = %d, PuffOriginX = %d, PuffOriginY = %d, PuffFrames = %d;" % PUFF_RIG,
         "\t\tpublic static readonly short[] NearX = { %s };" % ", ".join(str(a) for a, _ in near),
         "\t\tpublic static readonly short[] NearY = { %s };" % ", ".join(str(b) for _, b in near),
+        "\t\tpublic static readonly short[] Near2X = { %s };" % ", ".join(str(a) for a, _ in near2),
+        "\t\tpublic static readonly short[] Near2Y = { %s };" % ", ".join(str(b) for _, b in near2),
+        "\t\tpublic static readonly byte[] Lift = { %s };" % ", ".join(str(p.breath) for _, p in FRAMES),
         "\t}",
         "}",
         "",
@@ -541,6 +648,130 @@ def write_rig(path):
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines))
     print("wrote", path)
+
+
+# --- overlays (2026-11-25) -----------------------------------------------------------------------------------------------
+FACE_BOX = (15, 11, 42, 29)              # model px (x0, y0, x1, y1 exclusive): the mouth and the throat, never the eyes
+BURP_POSES = (dict(sac=0.4), dict(sac=0.8), dict(sac=1.15), dict(sac=0.6, mouth=3), dict(sac=0.2, mouth=2))
+
+
+def crop_cell(px, box):
+    """`px` (cell coords) inside `box` (model coords; one more row on top for the breath) -> (cell, w, h, origin x, y)."""
+    x0, y0, x1, y1 = box
+    cx0, cy0 = x0 + MARGIN_X, y0 + MARGIN_TOP - 1
+    w, h = x1 - x0, y1 - y0 + 1
+    cell = {(x - cx0, y - cy0): c for (x, y), c in px.items() if cx0 <= x < cx0 + w and cy0 <= y < cy0 + h}
+    return cell, w, h, OX - cx0, OY - cy0
+
+
+def burp_cells():
+    """The burp (user: "he quickly burps a pink ... projectile"; "can be performed on the midle of other attacks"): the throat
+    sac swelling and the mouth popping open, as an overlay of the middle plane's face over any body frame (its lift's row)."""
+    rows = []
+    for b in (0, 1):
+        row = []
+        for kw in BURP_POSES:
+            mid = frame(Pose(breath=b, **kw))[1]
+            row.append(crop_cell(mid, FACE_BOX))
+        rows.append(row)
+    return rows
+
+
+RAINBOW = (RAMP["crimson"][4], RAMP["ember"][2], RAMP["ember"][3], RAMP["fel"][6], RAMP["emerald"][4], (67, 221, 248),
+           RAMP["aether"][2], RAMP["amethyst"][4])
+EYE_FRAMES = 8
+EYE_BOX = (21, 6, 38, 12)
+
+
+def ring_order(x0, y0, x1, y1):
+    """The border of a box, clockwise from its top-left pixel."""
+    top = [(x, y0) for x in range(x0, x1)]
+    right = [(x1 - 1, y) for y in range(y0 + 1, y1)]
+    bottom = [(x, y1 - 1) for x in range(x1 - 2, x0 - 1, -1)]
+    left = [(x0, y) for y in range(y1 - 2, y0, -1)]
+    return top + right + bottom + left
+
+
+def eye_cells():
+    """The hypnotic eyes (user: "during this time his eyes become spinnig rainbow colored hipotic pattern"): each iris's rim a
+    ring of the rainbow that steps round a pixel a frame (it spins), its middle cycling the other way; 8 frames, full-bright."""
+    rows = []
+    for b in (0, 1):
+        row = []
+        for k in range(EYE_FRAMES):
+            px = {}
+            for (x0, y0, x1, y1) in EYES:
+                ring = ring_order(x0, y0, x1, y1)
+                for i, (x, y) in enumerate(ring):
+                    px[(x + MARGIN_X, y - b + MARGIN_TOP)] = RAINBOW[(i + k) % len(RAINBOW)]
+                inner = [(x, y) for y in range(y0 + 1, y1 - 1) for x in range(x0 + 1, x1 - 1)]
+                for (x, y) in inner:
+                    px[(x + MARGIN_X, y - b + MARGIN_TOP)] = RAINBOW[(len(RAINBOW) - k + 3) % len(RAINBOW)]
+            row.append(crop_cell(px, EYE_BOX))
+        rows.append(row)
+    return rows
+
+
+PUFF_W, PUFF_H, PUFF_FRAMES = 84, 76, 8
+
+
+def puff_cell(k, seed=11):
+    """The death's puff (user: "he should croack and puff transform into a default terraria frog critter"): a magic poof that
+    swells over him in three frames, billows, and thins away; built, not drawn (blobs x noise cut into bands: white at the core,
+    pink, violet at the edge), with sparkles. Origin: the body's (under the seat's middle)."""
+    import random
+    rnd = random.Random(seed)
+    blobs = [(rnd.uniform(-24, 24), rnd.uniform(-52, -4), rnd.uniform(12, 18), rnd.uniform(0, math.tau)) for _ in range(13)]
+    grow = (0.35, 0.7, 1.0, 1.08, 1.12, 1.1, 0.98, 0.85)[k]
+    thin = (0.0, 0.0, 0.0, 0.02, 0.08, 0.2, 0.38, 0.56)[k]
+    ox, oy = PUFF_W // 2, PUFF_H - 4
+    bands = (RAMP["amethyst"][2], RAMP["amethyst"][4], RAMP["amethyst"][5], RAMP["steam"][1], RAMP["steam"][2], RAMP["steam"][3])
+    px = {}
+    for y in range(PUFF_H):
+        for x in range(PUFF_W):
+            v = 0.0
+            for (bx, by, r, ph) in blobs:
+                cx = ox + bx * (0.7 + 0.3 * grow) + math.cos(ph + k * 0.6) * 1.5
+                cy = oy + by * (0.6 + 0.4 * grow) + math.sin(ph + k * 0.6) * 1.5 - k * 1.2
+                v = max(v, 1.0 - math.hypot(x + 0.5 - cx, y + 0.5 - cy) / (r * grow))
+            n = 0.5 + 0.5 * math.sin(x * 0.45 + y * 0.31 + k * 0.9) * math.cos(x * 0.27 - y * 0.52 - k * 0.4)
+            v = v * (0.85 + 0.15 * n) - thin
+            if v <= 0.05:
+                continue
+            f = v * 8.0
+            band = min(len(bands) - 1, int(f))
+            if (x + y) % 2 == 0 and f - int(f) > 0.78 and band < len(bands) - 1:
+                band += 1
+            px[(x, y)] = bands[band]
+    spr = random.Random(seed + 3)
+    for i in range(18):                                   # sparkles of the spell
+        q = (int(ox + spr.uniform(-30, 30) * grow), int(oy - 26 + spr.uniform(-26, 22) * grow))
+        if q in px and (i + k) % 3:
+            px[q] = RAMP["ember"][3] if i % 2 else (67, 221, 248)
+    edge = {}
+    for (x, y) in px:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            q = (x + dx, y + dy)
+            if q not in px and 0 <= q[0] < PUFF_W and 0 <= q[1] < PUFF_H:
+                edge[q] = RAMP["amethyst"][1]
+    px.update(edge)
+    return px
+
+
+def overlay_sheet(rows, w, h):
+    out = Image.new("RGBA", ((w + 1) * len(rows[0]), (h + 1) * len(rows)), (0, 0, 0, 0))
+    for r, row in enumerate(rows):
+        for k, cell in enumerate(row):
+            for (x, y), c in cell[0].items():
+                out.putpixel((k * (w + 1) + x, r * (h + 1) + y), tuple(c) + (255,))
+    return out
+
+
+_burp = burp_cells()
+_eyes = eye_cells()
+BURP_RIG = (_burp[0][0][1] * 2, _burp[0][0][2] * 2, _burp[0][0][3] * 2, _burp[0][0][4] * 2, len(BURP_POSES))
+EYE_RIG = (_eyes[0][0][1] * 2, _eyes[0][0][2] * 2, _eyes[0][0][3] * 2, _eyes[0][0][4] * 2, EYE_FRAMES)
+PUFF_RIG = (PUFF_W * 2, PUFF_H * 2, (PUFF_W // 2) * 2, (PUFF_H - 4) * 2, PUFF_FRAMES)
 
 
 def crop(px, keep):
@@ -558,16 +789,17 @@ def export_all():
     write_rig(OUT + "FungimancerRigData.cs")
     base = composite(frames[0])
     export(crop(base, lambda x, y: 19 <= x <= 38 and 3 <= y <= 17), OUT + "Fungimancer_Head_Boss.png")
-    dead = composite(frames[INDEX["Death3"]])
-    export(crop(dead, lambda x, y: y < 17), OUT + "Gores/Fungimancer_GoreHead.png")
-    export(crop(dead, lambda x, y: 17 <= y < 44), OUT + "Gores/Fungimancer_GoreBody.png")
-    export(crop(dead, lambda x, y: y >= 44), OUT + "Gores/Fungimancer_GoreSeat.png")
-    export(things.spore_bolt(), OUT + "Projectiles/SporeBolt.png")
-    export(things.shroom_spike(), OUT + "Projectiles/ShroomSpike.png")
-    export(things.tongue_tip(), OUT + "Projectiles/FungimancerTongue.png")
+    export(overlay_sheet(_burp, _burp[0][0][1], _burp[0][0][2]), OUT + "Fungimancer_Burp.png")
+    export(overlay_sheet(_eyes, _eyes[0][0][1], _eyes[0][0][2]), OUT + "Fungimancer_Eyes.png")
+    puff = Image.new("RGBA", (PUFF_W, (PUFF_H + 1) * PUFF_FRAMES), (0, 0, 0, 0))
+    for k in range(PUFF_FRAMES):
+        for (x, y), c in puff_cell(k).items():
+            puff.putpixel((x, k * (PUFF_H + 1) + y), tuple(c) + (255,))
+    export(puff, OUT + "Fungimancer_Puff.png")
     export(things.bag(), OUT + "Items/FungimancerBag.png")
     export(things.summon_item(), OUT + "Items/RainbowMushroom.png")
     export(things.tile_sheet(), OUT + "Tiles/RainbowMushroomTile.png")
+    fight.export_fight(OUT)
     return frames
 
 

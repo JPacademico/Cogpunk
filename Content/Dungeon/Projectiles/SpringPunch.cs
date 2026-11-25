@@ -18,7 +18,7 @@ namespace Cogpunk.Content.Dungeon.Projectiles
 	/// One of the <see cref="BeatBoxer"/>'s spring punches: a fist on a coiled spring fixed at its shoulder. It shoots out
 	/// along the boxer's facing to <c>ai[2]</c> px (at most 7 tiles, locked when the volley started) in <see cref="OutTicks"/>
 	/// ticks, holds for <see cref="HoldTicks"/> and is reeled back in <see cref="BackTicks"/>; only the fist hurts (its own
-	/// <see cref="FistSize"/> box), with 1.5x vanilla's push (hostile projectiles push 4.5 whatever their own knockback:
+	/// <see cref="HitWidth"/> x <see cref="HitHeight"/> box: the glove's own outline, 2026-11-25), with 1.5x vanilla's push (hostile projectiles push 4.5 whatever their own knockback:
 	/// SKILL 3.9, so <see cref="ModifyHitPlayer"/> scales it). Decompiled <c>Player.Hurt</c> launches the player at the
 	/// knockback sideways and 7/9 of it upwards, so this is 6.75 and 5.25 px/tick: about 11 tiles on flat ground, twice
 	/// a vanilla hit's ~5 (2x was tried first and threw players about 20 tiles: tools/sim/update_2026_11_03b_sim.py).
@@ -33,7 +33,7 @@ namespace Cogpunk.Content.Dungeon.Projectiles
 		public const int NearArm = 0, FarArm = 1;
 		public const int OutTicks = 6, HoldTicks = 4, BackTicks = 12;
 		public const int Lifetime = OutTicks + HoldTicks + BackTicks;
-		public const int FistSize = 26;
+		public const int HitWidth = 20, HitHeight = 16;            // the glove's opaque bounds (26 x 26 until 2026-11-25: tools/check_hitboxes.py)
 		public const float KnockbackMultiplier = 1.5f;    // "good knockback" (user): 6.75 instead of vanilla's 4.5
 		private const int FistWidth = 28, FistHeight = 24, SpringCell = 8, SpringHeight = 10;
 
@@ -51,8 +51,8 @@ namespace Cogpunk.Content.Dungeon.Projectiles
 		}
 
 		public override void SetDefaults() {
-			Projectile.width = FistSize;
-			Projectile.height = FistSize;
+			Projectile.width = HitWidth;
+			Projectile.height = HitHeight;
 			Projectile.hostile = true;
 			Projectile.friendly = false;
 			Projectile.tileCollide = false;

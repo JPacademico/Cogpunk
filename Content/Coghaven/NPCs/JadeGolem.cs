@@ -143,7 +143,9 @@ namespace Cogpunk.Content.Coghaven.NPCs
 		}
 
 		public override void SetDefaults() {
-			NPC.width = 56;                                 // the barrel torso and the head's top (D4: matched hitbox; v2, 2026-11-09)
+			Cogpunk.Content.Banners.EnemyBanners.SetBanner(this);         // its banner (2026-11-25)
+			NPC.width = 72;                                 // the chest plates, the inner shoulders and the head (D4: matched hitbox;
+			                                                // 56 until 2026-11-25 cut through the chest: tools/check_hitboxes.py)
 			NPC.height = 104;
 			SetExpertStats(Life, ContactDamage, Defense);
 			NPC.knockBackResist = 0f;

@@ -3,7 +3,7 @@
 jade beetle and then into a jade golem and then into a jade loong (like defalult terraria cloud hard mode loong, but
 smaller and jade colored)"). Run from the repo root:
 
-    python -P art/research/make_jade_coin_art.py [--preview FILE]
+    python -P art/research/make_jade_coin_art.py [--coin] [--preview FILE]
 
 The bat, the beetle and the golem are Jadey's and Coghaven's own jade creatures (their sheets are drawn as they are). New
 here:
@@ -14,15 +14,18 @@ here:
   rotated at runtime), each heading modelled in its own pose: the parts' frames turn, the light stays top-left, the
   checker dither stays in the parts' own space. A segment heading left is modelled mirrored, so its back stays up (as
   vanilla's worms flip). Its eye glows (the _Glow sheet).
-* the JADE COIN (the item): a jade disc in a platinum rim with a square hole, as old cash coins are, four gold marks round
-  the hole.
-* the buff icon: the coin with a jade wisp curling out of it.
+* the JADE COIN (the item), redrawn 2026-11-25 from the user's example ("perform a design rework for the jade coin sprite
+  so it looks more like this prompt picture example coin (remove the green effect arround it if necessary)"): a ring of
+  carved jade blocks round a recessed jade disc that carries a raised leaf (a pointed leaf with a dark midrib and a leaf
+  curling up either side of its stem), in the emerald ramp; the example's green aura and motes are left out. The design
+  before it (a jade disc in a platinum rim with a square hole) is kept in previous/make_jade_coin_art_2026-11-24.py.
+* the buff icon: the same coin at 16 px.
 
 Outputs (Content/Research/Summons/):
     JadeLoong.png        the segments: HEADINGS columns (heading k points k x 360/HEADINGS degrees clockwise from right),
                          4 rows (head, body, legs, tail); cells CELL x CELL art px (2x in game) with 1 art px between
     JadeLoong_Glow.png   the same layout: the eyes
-    JadeCoin.png         the item (16x16 art)
+    JadeCoin.png         the item (20x20 art, 40x40 in game)
     JadeCoinBuff.png     the buff icon (16x16 art)
 """
 import argparse
@@ -47,6 +50,7 @@ SPACING = 8                            # art px between segment centres in game 
 STRIDE = CELL + 1
 KINDS = ("head", "body", "legs", "tail")
 JADE, EMERALD, GILT, STEEL = RAMP["ghost"], RAMP["emerald"], RAMP["gilt"], RAMP["steel"]
+COIN = EMERALD                         # the coin: the bright green of the user's example (2026-11-25)
 EYE = GILT[7]                          # warm gold: stands out of the jade (whose light end is near white)
 
 
@@ -166,50 +170,125 @@ def loong_sheets():
     return sheet, glow
 
 
-def coin(p, cx, cy, r):
-    """A jade disc in a platinum rim, a square hole, four gold marks round it; lit from the top-left."""
-    for y in range(p.h):
-        for x in range(p.w):
-            dx, dy = x + 0.5 - cx, y + 0.5 - cy
+def coin_tones(n, ring_in, disc, seams, outer_at):
+    """The coin's tones before its emblem: a ring of jade blocks (a raised half-round, so the outer row is lit at the
+    top-left and the inner row at the bottom-right) split by one-pixel seams, a dark groove, and a recessed disc whose
+    top-left rim lies in the lip's shadow and whose bottom-right rim catches the light. A dict (x, y) -> tone."""
+    c, R = n / 2, n / 2
+    cells = {}
+    for y in range(n):
+        for x in range(n):
+            dx, dy = x + 0.5 - c, y + 0.5 - c
             d = math.hypot(dx, dy)
-            if d > r:
-                continue
-            if abs(dx) < 1.0 and abs(dy) < 1.0:
-                continue                                   # the hole
-            lit = -(dx + dy) / (r * 1.41)                  # +1 at the top-left edge
-            if d > r - 1.3:                                # the rim: platinum
-                p.put(x, y, STEEL, 6 + round(lit * 2))
-            elif abs(dx) < 2.0 and abs(dy) < 2.0:          # the hole's gold lip (lit on its far side: it is a hollow)
-                p.put(x, y, GILT, 6 + round(-lit * 1.5))
+            if d <= R:
+                cells[(x, y)] = (dx, dy, d)
+    edge = {q for q in cells if any((q[0] + a, q[1] + b) not in cells for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
+    tone = {}
+    for (x, y), (dx, dy, d) in cells.items():
+        face = (-dx - dy) / (math.sqrt(2) * d)             # +1 facing the light (top-left)
+        if d > ring_in:
+            if (x, y) in seams and (x, y) not in edge:     # seams never cut the outline
+                tone[(x, y)] = 1
+            elif (x, y) in edge:
+                tone[(x, y)] = 4                           # the outline pass recolours it
+            elif face > 0.35:
+                tone[(x, y)] = 5 if d > outer_at else 3
+            elif face < -0.35:
+                tone[(x, y)] = 3 if d > outer_at else 5
             else:
-                p.put(x, y, JADE, 3 + round(lit * 1.4))
+                tone[(x, y)] = 4
+        elif d > disc:
+            tone[(x, y)] = 0                               # the groove
+        else:
+            tone[(x, y)] = 2                               # the disc
+    for (x, y), t in list(tone.items()):
+        dx, dy, d = cells[(x, y)]
+        if t == 2 and any(tone.get((x + a, y + b)) == 0 and cells[(x + a, y + b)][2] > disc
+                          for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+            face = (-dx - dy) / (math.sqrt(2) * max(d, 0.01))
+            tone[(x, y)] = 1 if face > 0.75 else 3 if face < -0.6 else 2
+    return tone
+
+
+def coin(n, ring_in, disc, seams, outer_at, emblem):
+    """The coin at n x n art px: its tones, the selective outline, then the raised emblem (stamped after the outline,
+    one ramp step per tone digit) casting a one-pixel shadow down and right onto the disc."""
+    tone = coin_tones(n, ring_in, disc, seams, outer_at)
+    p = Pix(n, n)
+    for (x, y), t in tone.items():
+        p.put(x, y, COIN, t)
     p.outline()
-    for (x, y) in ((cx - 0.5, cy - 4.5), (cx - 0.5, cy + 3.5), (cx - 4.5, cy - 0.5), (cx + 3.5, cy - 0.5)):
-        p.put(int(x), int(y), GILT, 7, lock=True)          # four marks
-    p.put(int(cx - r * 0.55), int(cy - r * 0.6), JADE, 5, lock=True)   # a glint
+    raised = set()
+    for y, row in enumerate(emblem):
+        for x, ch in enumerate(row):
+            if ch.isdigit():
+                p.put(x, y, COIN, int(ch), lock=True)
+                raised.add((x, y))
+    for (x, y) in raised:
+        for (a, b) in ((1, 0), (0, 1), (1, 1)):
+            q = (x + a, y + b)
+            if q not in raised and tone.get(q) == 2:
+                p.put(q[0], q[1], COIN, 1, lock=True)
+    return p
+
+
+# The emblem (the user's example, 2026-11-25): a pointed jade leaf, lit on its left half, a dark midrib, and a leaf curling
+# up on either side of its stem. Digits are emerald ramp steps; '.' leaves the coin as it is.
+EMBLEM_ITEM = [
+    "....................",
+    "....................",
+    "....................",
+    "....................",
+    "....................",
+    "............6.......",
+    "...........654......",
+    "..........6244......",
+    ".........65244......",
+    ".....6..65244.5.....",
+    ".....65.55244.5.....",
+    ".....55.5244.44.....",
+    "......54524.44......",
+    ".......44444........",
+]
+SEAMS_ITEM = {(11, 1), (11, 2), (14, 4), (15, 4), (16, 4), (17, 8), (18, 8), (15, 14), (16, 14), (17, 14),
+              (10, 17), (10, 18), (5, 15), (5, 16), (5, 17), (1, 10), (2, 10), (5, 2), (5, 3), (5, 4)}
+EMBLEM_BUFF = [
+    "................",
+    "................",
+    "................",
+    "................",
+    ".........6......",
+    "........654.....",
+    ".......6524.....",
+    "....6.6524.5....",
+    "....5.5524.4....",
+    "....5.524.4.....",
+    ".....44444......",
+]
+SEAMS_BUFF = {(9, 1), (9, 2), (12, 4), (13, 4), (13, 8), (14, 8), (11, 12), (11, 13), (6, 13), (6, 14),
+              (2, 11), (3, 11), (1, 6), (2, 6), (4, 2), (4, 3)}
 
 
 def item_icon():
-    p = Pix(16, 16)
-    coin(p, 8.0, 8.0, 7.2)
-    return p.image()
+    """20 x 20 art (40 x 40 in game): ten blocks of varied length round the disc."""
+    return coin(20, 7.0, 5.9, SEAMS_ITEM, 8.0, EMBLEM_ITEM).image()
 
 
 def buff_icon():
-    p = Pix(16, 16)
-    coin(p, 6.5, 9.5, 5.6)
-    for (x, y, i) in ((10, 8, 3), (11, 7, 4), (12, 6, 4), (12, 5, 5), (11, 4, 4), (10, 3, 3), (12, 3, 2), (13, 4, 3)):
-        p.put(x, y, JADE, i, lock=True)                    # a jade wisp curling up out of it
-    p.put(13, 2, GILT, 8, lock=True)                       # its spark
-    return p.image()
+    """16 x 16 art (the 32 x 32 buff icon): the same coin, eight blocks."""
+    return coin(16, 5.4, 4.4, SEAMS_BUFF, 6.3, EMBLEM_BUFF).image()
+
+
+def export_coin():
+    export(item_icon(), OUT + "JadeCoin.png")
+    export(buff_icon(), OUT + "JadeCoinBuff.png")
 
 
 def export_all():
     sheet, glow = loong_sheets()
     export(sheet, OUT + "JadeLoong.png")
     export(glow, OUT + "JadeLoong_Glow.png")
-    export(item_icon(), OUT + "JadeCoin.png")
-    export(buff_icon(), OUT + "JadeCoinBuff.png")
+    export_coin()
 
 
 def preview(path):
@@ -255,8 +334,11 @@ def preview(path):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--preview")
+    ap.add_argument("--coin", action="store_true", help="export only the coin and its buff icon")
     a = ap.parse_args()
     if a.preview:
         preview(a.preview)
+    elif a.coin:
+        export_coin()
     else:
         export_all()

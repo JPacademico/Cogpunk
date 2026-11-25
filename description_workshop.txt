@@ -1,4 +1,22 @@
-[h1]Cogpunk[/h1]
-A steampunk content mod of brass, steam and clockwork: a new Mechanist class, weapons, armor, biomes, enemies and bosses, built for co-op.
+[h1]Cogpunk (Alpha)[/h1]
+A steampunk content mod of brass, steam and clockwork for tModLoader.
 
-[i]Early development build.[/i]
+[h2]Alpha build[/h2]
+Cogpunk is in early development. Expect unfinished content, numbers that will change and the odd bug, and [b]back up your worlds and characters before updating[/b]. Reports of problems are very welcome in the comments and discussions.
+
+[h2]What this alpha has[/h2]
+[list]
+[*][b]The Mechanist[/b], a new class that fires on steam: weapons, armor, accessories, reforges and the Combinator, which fuses two weapons into one.
+[*][b]New places[/b]: the Junkyard and its tar pools, Westworld (an abandoned old-west town under the desert), Coghaven (a floating jade palace) and the Fundamental Ruins.
+[*][b]Bosses[/b]: Trash-Tr0m, the Tar Tyrant, the Cursed Conductor, Jadey and a secret one hiding in the glowing mushrooms.
+[*][b]New enemies[/b] in most biomes, the Mech Army invasion, a Blood Moon mini-boss, and a banner for every new enemy.
+[*][b]Research[/b]: earn knowledge points by exploring and fighting, and spend them on a research tree full of secrets.
+[*][b]Quality of life built in[/b]: items stack to 9999, research unlocks demon-altar recipes that turn banners and crates into the loot they guard, and crit kills slow time for a moment (the server can turn it off).
+[*][b]A harder economy[/b]: shops and reforging cost 60% more, and items sell for 60% less.
+[*]Balanced for [b]Expert mode[/b] and made for [b]co-op[/b] (singleplayer, host and play, and dedicated servers).
+[/list]
+
+Languages: English and Brazilian Portuguese. No other mods are needed.
+
+[h2]Want to help?[/h2]
+Artists and developers who would like to support the project are welcome to get in touch, and [b]every contributor will be credited in the mod[/b]. In the future we will also accept donations, with in-game rewards for the people who support us.

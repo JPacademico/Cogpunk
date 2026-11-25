@@ -1,4 +1,17 @@
-Cogpunk: a steampunk overhaul of brass, steam and clockwork.
-New Mechanist class, weapons, armor, biomes, enemies and bosses. Built for co-op.
+Cogpunk (Alpha) - a steampunk content mod of brass, steam and clockwork.
 
-Early development build: the framework is in place, content is coming.
+ALPHA BUILD (version {ModVersion}): Cogpunk is in early development. Expect unfinished content, numbers that will change and the odd bug, and back up your worlds and characters before updating. Reports of problems are very welcome on the mod's Workshop page.
+
+What this alpha has:
+- The Mechanist, a new class that fires on steam: weapons, armor, accessories, reforges and the Combinator, which fuses two weapons into one.
+- New places: the Junkyard and its tar pools, Westworld (an abandoned old-west town under the desert), Coghaven (a floating jade palace) and the Fundamental Ruins.
+- Bosses: Trash-Tr0m, the Tar Tyrant, the Cursed Conductor, Jadey and a secret one hiding in the glowing mushrooms.
+- New enemies in most biomes, the Mech Army invasion, a Blood Moon mini-boss, and a banner for every new enemy.
+- Research: earn knowledge points by exploring and fighting, and spend them on a research tree full of secrets.
+- Quality of life built in: items stack to 9999, research unlocks demon-altar recipes that turn banners and crates into the loot they guard, and crit kills slow time for a moment (the server can turn it off).
+- A harder economy: shops and reforging cost 60% more, and items sell for 60% less.
+- Balanced for Expert mode and made for co-op (singleplayer, host and play, and dedicated servers).
+
+Languages: English and Brazilian Portuguese. No other mods are needed.
+
+Want to help? Artists and developers who would like to support the project are welcome to get in touch, and every contributor will be credited in the mod. In the future we will also accept donations, with in-game rewards for the people who support us.

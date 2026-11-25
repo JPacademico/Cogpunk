@@ -25,6 +25,7 @@ namespace Cogpunk
 		public override void Unload() {
 			PacketRegistry.Clear();
 			CogpunkClientConfig.Instance = null;
+			CogpunkServerConfig.Instance = null;
 			SafeLog.Clear();
 			Instance = null;
 		}

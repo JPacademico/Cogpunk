@@ -121,6 +121,49 @@ namespace Cogpunk.Core.Templates
 		private Vector2 focus;
 		private int focusTarget = -1;
 
+		// --- the floaty bosses' melee approach (user, 2026-11-25: "the floaty bosses melee tracking is too abrupt it should
+		// slowly float into melee range and keep traking slowly so it does not feed disruptive") ---------------------------
+
+		/// <summary>Ticks a floaty boss takes to come all the way into its melee hover, or back out of it (1.5 s): its hover spot,
+		/// speed and steering slide between the two, eased, instead of snapping when its target picks up or puts down a blade.</summary>
+		public const int MeleeBlendTicks = 90;
+
+		/// <summary>How much of the way to a melee target the hover's focus moves each tick (about a 25-tick lag, against
+		/// <see cref="FocusFollow"/>'s 10 at range): it keeps tracking, slowly.</summary>
+		public const float MeleeFocusFollow = 0.04f;
+
+		/// <summary>The melee hover's steering: top speed (px/tick, about a walking player's), the share of the distance it
+		/// wants to close a tick, and how much of the way its velocity turns towards that a tick (a slow float, never a dash).</summary>
+		public const float MeleeTrackSpeed = 4.5f, MeleeTrackApproach = 0.05f, MeleeTrackAccel = 0.045f;
+
+		/// <summary>0..1: how far into its melee hover a floaty boss is (every side; rides <see cref="WriteDrift"/>).</summary>
+		protected float MeleeBlend;
+
+		/// <summary><see cref="MeleeBlend"/> eased in and out (smoothstep): 0 the ranged hover, 1 the melee hover.</summary>
+		protected float MeleeAmount => MeleeBlend * MeleeBlend * (3f - 2f * MeleeBlend);
+
+		/// <summary>Every side, once a tick in the hover: the blend moves a <see cref="MeleeBlendTicks"/>th of the way towards
+		/// the melee hover while <paramref name="melee"/>, back out otherwise.</summary>
+		protected void TickMeleeBlend(bool melee) {
+			const float step = 1f / MeleeBlendTicks;
+			MeleeBlend = MathHelper.Clamp(MeleeBlend + (melee ? step : -step), 0f, 1f);
+		}
+
+		/// <summary>Every side: eases the boss towards <paramref name="spot"/> with the ranged hover's steering
+		/// (<paramref name="speed"/>, <paramref name="approach"/>, <paramref name="accel"/>) blended into the melee hover's by
+		/// <see cref="MeleeAmount"/>: a speed that grows with the distance up to the top speed, the velocity turned towards it a
+		/// share a tick.</summary>
+		protected void FloatSteer(Vector2 spot, float speed, float approach, float accel) {
+			float m = MeleeAmount;
+			float max = MathHelper.Lerp(speed, MeleeTrackSpeed, m);
+			float close = MathHelper.Lerp(approach, MeleeTrackApproach, m);
+			float turn = MathHelper.Lerp(accel, MeleeTrackAccel, m);
+			Vector2 to = spot - NPC.Center;
+			float distance = to.Length();
+			Vector2 want = distance > 1f && float.IsFinite(distance) ? to / distance * Math.Min(max, distance * close) : Vector2.Zero;
+			NPC.velocity += (want - NPC.velocity) * turn;
+		}
+
 		/// <summary>-1..1: where the boss is in its side-to-side sway.</summary>
 		protected float DriftSway => MathF.Sin(DriftClock * MathHelper.TwoPi / DriftPeriodX);
 
@@ -133,7 +176,7 @@ namespace Cogpunk.Core.Templates
 		}
 
 		/// <summary>The point a floaty boss hovers round: <paramref name="target"/>'s centre, followed <see cref="FocusFollow"/> of the
-		/// way a tick (a new target is taken at once).</summary>
+		/// way a tick at range and <see cref="MeleeFocusFollow"/> in the melee hover (blended; a new target is taken at once).</summary>
 		protected Vector2 FloatFocus(Player target) {
 			if (target == null) {
 				return focus;
@@ -142,16 +185,18 @@ namespace Cogpunk.Core.Templates
 				focusTarget = target.whoAmI;
 				focus = target.Center;
 			}
-			focus += (target.Center - focus) * FocusFollow;
+			focus += (target.Center - focus) * MathHelper.Lerp(FocusFollow, MeleeFocusFollow, MeleeAmount);
 			return focus;
 		}
 
 		protected void WriteDrift(System.IO.BinaryWriter writer) {
 			writer.Write((short)Math.Clamp(DriftClock % 30000, 0, short.MaxValue));
+			writer.Write((byte)Math.Clamp((int)MathF.Round(MeleeBlend * 255f), 0, 255));
 		}
 
 		protected void ReadDrift(System.IO.BinaryReader reader) {
 			DriftClock = Math.Max(0, (int)reader.ReadInt16());
+			MeleeBlend = reader.ReadByte() / 255f;
 		}
 
 		protected sealed override void UpdateState() {

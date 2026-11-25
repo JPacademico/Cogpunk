@@ -112,6 +112,7 @@ namespace Cogpunk.Content.Coghaven.NPCs
 		}
 
 		public override void SetDefaults() {
+			Cogpunk.Content.Banners.EnemyBanners.SetBanner(this);         // its banner (2026-11-25)
 			NPC.width = 64;                                  // the face and its ears, the collar up to the cap (D4: matched hitbox;
 			NPC.height = 96;                                 // the halo and the thin top of the cone are decoration)
 			SetExpertStats(Life, SmashDamage, Defense);

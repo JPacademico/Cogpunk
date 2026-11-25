@@ -24,6 +24,23 @@ namespace Cogpunk.Content.Research
 
 		public override void Unload() {
 			gemWeapons = null;
+			nodeConditions.Clear();
+		}
+
+		private static readonly System.Collections.Generic.Dictionary<string, Condition> nodeConditions = new();
+
+		/// <summary>A recipe condition "Researched: &lt;node&gt;" for recipes added one by one (2026-11-25: the altar's), built once
+		/// per node: the crafting player has unlocked <paramref name="nodeName"/>. Call after <see cref="ResearchNodes"/> is set up
+		/// (in <c>AddRecipes</c>).</summary>
+		public static Condition NodeCondition(string nodeName) {
+			if (nodeConditions.TryGetValue(nodeName, out Condition existing)) {
+				return existing;
+			}
+			ResearchNode node = ResearchNodes.Get(nodeName);
+			Condition c = new(Language.GetText("Mods.Cogpunk.Research.RecipeCondition").WithFormatArgs(node?.DisplayName ?? Language.GetText(nodeName)),
+				() => Main.LocalPlayer.GetModPlayer<ResearchPlayer>().Has(nodeName));
+			nodeConditions[nodeName] = c;
+			return c;
 		}
 
 		/// <summary>Any gem robe: vanilla's seven and the Jade Robe (2026-11-24: the Rainbow Robe's recipe and RGBT's reveal).</summary>

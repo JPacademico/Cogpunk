@@ -8,6 +8,7 @@ using Cogpunk.Core.Systems;
 using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -47,16 +48,62 @@ namespace Cogpunk.Content.Research
 
 		private static readonly HashSet<string> paid = new();
 		private static bool noted;
-		private static int gemStaffsFlag = -1;
+		private static int gemStaffsFlag = -1, stoneTouchedFlag = -1, ghedalariFlag = -1;
+		/// <summary>Every kind of town NPC that has lived in this world (by type; saved by name): a respawn is never "new".</summary>
+		private static bool[] townSeen = Array.Empty<bool>();
+		private static bool orbSeen;                              // the server pushed the world data for a smashed orb once
+		private const int MaxTownSaved = 512;
 
 		/// <summary>"Bundle Up!"'s reveal (user, 2026-11-18: "appears when a any player has obtained all pre hardmode gem staffs
 		/// (globally)"): a player of this world has had all seven (<see cref="ResearchPlayer.AllGemStaffs"/>); a world flag,
 		/// saved with the world and synced to every client (<see cref="WorldFlagSystem"/>), so the node shows for everyone.</summary>
 		public static bool AllGemStaffs => WorldFlagSystem.Get(gemStaffsFlag);
 
+		/// <summary>Someone in this world has touched a Fundamental Stone (user, 2026-11-25: "Who is he?" reveals "after interacting
+		/// with a fundamental stone (globaly)"); a world flag (saved, synced).</summary>
+		public static bool StoneTouched => WorldFlagSystem.Get(stoneTouchedFlag);
+
+		/// <summary>Someone in this world has researched "Who is he?" (user, 2026-11-25: "the last ghedalari can only appear after
+		/// unlocking a node"): the Last Ghedalari may move in (<see cref="Town.Friendobo.CanTownNPCSpawn"/>). Set by the server
+		/// when any player in the world has the node (their unlocked nodes are synced to it); a world flag (saved, synced).</summary>
+		public static bool GhedalariInvited => WorldFlagSystem.Get(ghedalariFlag);
+
 		public override void Load() {
 			gemStaffsFlag = WorldFlagSystem.Register("AllGemStaffs");
+			stoneTouchedFlag = WorldFlagSystem.Register("StoneTouched");
+			ghedalariFlag = WorldFlagSystem.Register("GhedalariInvited");
 		}
+
+		public override void PostSetupContent() {
+			townSeen = new bool[NPCLoader.NPCCount];
+		}
+
+		public override void Unload() {
+			townSeen = Array.Empty<bool>();
+		}
+
+		/// <summary>The owner's client: its player touched a Fundamental Stone. Singleplayer sets the flag; a client asks the server
+		/// (<see cref="StoneTouchedPacket"/>).</summary>
+		public static void ReportStoneTouched() {
+			if (Main.netMode == NetmodeID.MultiplayerClient) {
+				ModContent.GetInstance<StoneTouchedPacket>().Send();
+				return;
+			}
+			SetFlag(stoneTouchedFlag);
+		}
+
+		/// <summary>The server (or singleplayer): a world flag set, and the world data sent so every client has it.</summary>
+		internal static void SetFlag(int flag) {
+			if (Main.netMode == NetmodeID.MultiplayerClient || flag < 0 || WorldFlagSystem.Get(flag)) {
+				return;
+			}
+			WorldFlagSystem.Flag(flag) = true;
+			if (Main.netMode == NetmodeID.Server) {
+				NetMessage.SendData(MessageID.WorldData);
+			}
+		}
+
+		internal static int StoneTouchedFlagIndex => stoneTouchedFlag;
 
 		/// <summary>The owner's client: its player has had all seven gem staffs. Singleplayer sets the flag; a client asks the
 		/// server (<see cref="GemStaffsPacket"/>).</summary>
@@ -82,24 +129,67 @@ namespace Cogpunk.Content.Research
 		public override void ClearWorld() {
 			paid.Clear();
 			noted = false;
+			orbSeen = false;
+			Array.Clear(townSeen);
 		}
 
 		public override void SaveWorldData(TagCompound tag) {
 			if (paid.Count > 0) {
 				tag["ResearchPaid"] = new List<string>(paid);
 			}
+			List<string> town = new();
+			for (int type = 1; type < townSeen.Length && town.Count < MaxTownSaved; type++) {
+				if (townSeen[type]) {
+					town.Add(KnowledgeTasks.NameOf(type));
+				}
+			}
+			if (town.Count > 0) {
+				tag["TownSeen"] = town;
+			}
 		}
 
 		public override void LoadWorldData(TagCompound tag) {
 			paid.Clear();
-			if (!tag.ContainsKey("ResearchPaid")) {
-				return;
-			}
-			foreach (string s in tag.GetList<string>("ResearchPaid")) {
-				if (!string.IsNullOrEmpty(s) && paid.Count < MaxSaved) {
-					paid.Add(s);
+			Array.Clear(townSeen);
+			if (tag.ContainsKey("ResearchPaid")) {
+				foreach (string s in tag.GetList<string>("ResearchPaid")) {
+					if (!string.IsNullOrEmpty(s) && paid.Count < MaxSaved) {
+						paid.Add(s);
+					}
 				}
 			}
+			if (tag.ContainsKey("TownSeen")) {
+				int n = 0;
+				foreach (string s in tag.GetList<string>("TownSeen")) {
+					if (++n > MaxTownSaved) {
+						break;
+					}
+					int type = TypeOf(s);
+					if (type > 0 && type < townSeen.Length) {
+						townSeen[type] = true;
+					}
+				}
+			}
+		}
+
+		/// <summary>An NPC type from its saved name (<see cref="KnowledgeTasks.NameOf"/>): vanilla's internal name or Mod/Name;
+		/// 0 when it no longer exists (a removed mod).</summary>
+		private static int TypeOf(string name) {
+			if (string.IsNullOrEmpty(name)) {
+				return 0;
+			}
+			if (NPCID.Search.TryGetId(name, out int id)) {
+				return id;
+			}
+			return ModContent.TryFind(name, out ModNPC modNPC) ? modNPC.Type : 0;
+		}
+
+		/// <summary>A town NPC whose first arrival pays (user, 2026-11-25): not the Guide (every world starts with him) nor the
+		/// Travelling Merchant (he comes and goes), not the Old Man, not a town pet or a town slime.</summary>
+		private static bool IsResident(NPC npc) {
+			int t = npc.type;
+			return npc.townNPC && t > NPCID.None && t != NPCID.Guide && t != NPCID.TravellingMerchant && t != NPCID.OldMan
+				&& !(t < NPCID.Sets.IsTownPet.Length && NPCID.Sets.IsTownPet[t]) && !(t < NPCID.Sets.IsTownSlime.Length && NPCID.Sets.IsTownSlime[t]);
 		}
 
 		/// <summary>The server (or singleplayer): a boss or mini-boss just died.</summary>
@@ -192,6 +282,47 @@ namespace Cogpunk.Content.Research
 			if (WorldGen.altarCount > 0 && paid.Count < MaxSaved && paid.Add(KnowledgeTasks.DemonAltar) && !first) {
 				ResearchGrantPacket.ToAll(ResearchGrantPacket.Kind.DemonAltar, 0);
 			}
+			// user, 2026-11-25: "after breaking a crimsom or corruption heart on the world (globaly)": vanilla's own flag (set on the
+			// server as an orb or heart is smashed, saved, sent with the world data); the world data goes out at once the first
+			// time it is seen set, so Unholy Carpentry's question mark lifts on every client without waiting
+			if (WorldGen.shadowOrbSmashed) {
+				if (!orbSeen) {
+					orbSeen = true;
+					if (!first && Main.netMode == NetmodeID.Server) {
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+				if (paid.Count < MaxSaved && paid.Add(KnowledgeTasks.EvilHeart) && !first) {
+					ResearchGrantPacket.ToAll(ResearchGrantPacket.Kind.EvilHeart, 0);
+				}
+			}
+			CheckTownArrivals(first);
+			if (!GhedalariInvited) {
+				foreach (Player player in Main.ActivePlayers) {
+					if (player.GetModPlayer<ResearchPlayer>().Has(ResearchNodes.WhoIsHe)) {
+						SetFlag(ghedalariFlag);                      // "Who is he?" researched: he may come (Town.Friendobo)
+						break;
+					}
+				}
+			}
+		}
+
+		/// <summary>The server (or singleplayer), every poll: town NPCs of a kind this world has never had (user, 2026-11-25: one
+		/// point per new kind, "the first time a nurse comes, the first time a driad comes and so on"). The kinds living here
+		/// when the world loads are noted without pay (older worlds' townsfolk); after that each new kind pays every player in
+		/// the world once as it moves in (each character keeps that kind's task once, so another world can't pay it again); a
+		/// respawn is a kind already noted, so killing one to bring it back pays nothing. Bounded: the active NPCs once a second.</summary>
+		private static void CheckTownArrivals(bool first) {
+			foreach (NPC npc in Main.ActiveNPCs) {
+				int t = npc.type;
+				if (t <= 0 || t >= townSeen.Length || townSeen[t] || !IsResident(npc)) {
+					continue;
+				}
+				townSeen[t] = true;
+				if (!first) {
+					ResearchGrantPacket.ToAll(ResearchGrantPacket.Kind.NewTownNPC, t);
+				}
+			}
 		}
 
 		private static bool VanillaDone(int k) => k switch {
@@ -241,7 +372,7 @@ namespace Cogpunk.Content.Research
 	/// </summary>
 	public sealed class ResearchGrantPacket : CogpunkPacket
 	{
-		public enum Kind : byte { Boss, Event, PinkSlime, Gnome, DemonAltar }
+		public enum Kind : byte { Boss, Event, PinkSlime, Gnome, DemonAltar, EvilHeart, NewTownNPC }
 
 		/// <summary>The server (or singleplayer): every player in the world.</summary>
 		public static void ToAll(Kind kind, int arg) {
@@ -315,7 +446,37 @@ namespace Cogpunk.Content.Research
 				case Kind.DemonAltar:
 					r.Grant(KnowledgeTasks.DemonAltar);
 					break;
+				case Kind.EvilHeart:
+					r.Grant(KnowledgeTasks.EvilHeart);
+					break;
+				case Kind.NewTownNPC:
+					if (arg > NPCID.None && arg < NPCLoader.NPCCount) {
+						string key = KnowledgeTasks.TownNPC(arg);
+						if (!r.Earned(key)) {
+							r.Grant(key, Language.GetTextValue("Mods.Cogpunk.Research.Tasks.NewTownNPCWho", Lang.GetNPCNameValue(arg)));
+						}
+					}
+					break;
 			}
+		}
+	}
+
+	/// <summary>A client's player touched a Fundamental Stone (client -> server; no payload): the server sets
+	/// <see cref="ResearchWorld.StoneTouched"/> (once; later ones are ignored). Only from an active player (D0 rule 7).</summary>
+	public sealed class StoneTouchedPacket : CogpunkPacket
+	{
+		public void Send() {
+			if (Main.netMode != NetmodeID.MultiplayerClient) {
+				return;
+			}
+			Begin().Send();
+		}
+
+		public override void Receive(BinaryReader reader, int sender) {
+			if (Main.netMode != NetmodeID.Server || sender < 0 || sender >= Main.maxPlayers || !Main.player[sender].active) {
+				return;
+			}
+			ResearchWorld.SetFlag(ResearchWorld.StoneTouchedFlagIndex);
 		}
 	}
 
