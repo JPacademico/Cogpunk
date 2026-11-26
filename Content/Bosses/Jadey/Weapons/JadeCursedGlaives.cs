@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cogpunk.Content.Mechanist;
 using Cogpunk.Core.Safety;
+using Cogpunk.Core.Systems;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -13,7 +14,9 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.Bosses.Jadey.Weapons
 {
 	/// <summary>
-	/// Jade Cursed Glaives (Glaives Amaldiçoadas de Jade), one of Jadey's three weapons (user-set 2026-11-17: "melee weapon with
+	/// Jade Cursed Glaives (Glaives Amaldiçoadas de Jade), an artifact since 2026-11-26 (user: "make the jade cursed glaive a
+	/// artifact weapon, it does not drop from jadey anymore, instead it has a 1% drop chance when killing an enemy that is jade
+	/// petrified. increse its damage by 30%": <see cref="Artifacts.ArtifactGlobalNPC"/>), once one of Jadey's weapons (user-set 2026-11-17: "melee weapon with
 	/// fast use time that perform mid range (grass blade range) diagonal stylized slashes (ensure cool crossing diagonal slash
 	/// animation, perspective techniques) and apply jade curse, on right mouse it should throw the glaive up to 18 tiles dealing
 	/// damage and returning (like a boomerang, pierces one enemy only and hits on the way back as well) deals bonus damage to
@@ -22,7 +25,8 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 	/// weapon: two long jade blades sweeping out from a gilt shield guard and curling up into points (the user's reference,
 	/// redrawn in Cogpunk's jade, gilt and steel).
 	/// <list type="bullet">
-	/// <item>Left click: a diagonal slash (<see cref="JadeGlaiveSlash"/>), the glaives taking turns, one down-and-across (""),
+	/// <item>Left click: a diagonal slash (<see cref="JadeGlaiveSlash"/>) aimed at the cursor (2026-11-26: the whole X turns towards
+	/// it, up or down, on the cursor's side), the glaives taking turns, one down-and-across (""),
 	/// the other up-and-across ("/"), so two slashes cross in an X in front of the wielder; a jade wave runs ahead of the blade to
 	/// 3 tiles past the Blade of Grass's reach (the hits reach as far); each hit adds a jade curse stack
 	/// (<see cref="Gems.JadeCurseNPC.Hit"/>; three turn a basic enemy to jade) and deals x<see cref="PetrifiedBonus"/> to an enemy
@@ -43,7 +47,7 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 	/// </summary>
 	public class JadeCursedGlaives : CogpunkItem, ISteamSkill
 	{
-		public const int Damage = 27;                       // user-set 2026-11-17 (24 before)
+		public const int Damage = 35;                       // user-set 2026-11-26: +30% (27 -> 35.1); 27 since 2026-11-17, 24 before
 		public const int CritBonus = 8;                     // user-set 2026-11-17: 12% with the player's own 4%
 		public const float PetrifiedBonus = 1.5f;           // user-set: +50% on an enemy turned to jade, slashes and throw (2026-11-17)
 		public const int UseTime = 16;                      // "fast use time"
@@ -63,8 +67,9 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 			(int)System.Math.Round((PetrifiedBonus - 1f) * 100f), ThrowSteamCost);
 
 		public override void SetStaticDefaults() {
-			Item.ResearchUnlockCount = 1;
+			Item.ResearchUnlockCount = 0;                       // an artifact: never duplicated in Journey mode
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+			CogpunkSets.Artifact[Type] = true;                  // user, 2026-11-26: "make the jade cursed glaive a artifact weapon"
 		}
 
 		public override void SetDefaults() {
@@ -84,7 +89,7 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 			Item.shootSpeed = 1f;
 			Item.UseSound = SoundID.Item1 with { Pitch = 0.25f, Volume = 0.8f };
 			Item.value = Item.sellPrice(gold: 3);
-			Item.rare = ItemRarityID.Orange;
+			Item.rare = ModContent.RarityType<Artifacts.ArtifactRarity>();
 		}
 
 		public override bool AltFunctionUse(Player player) => true;
@@ -120,7 +125,10 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 				return false;
 			}
 			int kind = player.GetModPlayer<JadeGlavePlayer>().NextSlash(player.ownedProjectileCounts[ModContent.ProjectileType<JadeGlaiveThrown>()] > 0);
-			SafeSpawn.TryNewProjectile(source, player.MountedCenter, Vector2.Zero, type, damage, knockback, out _, player.whoAmI, kind, player.itemAnimationMax);
+			// aimed at the cursor (user, 2026-11-26: "make the basic atack actualy directional so it follows the player cursor"):
+			// vanilla's shot gives the direction to the mouse (Shoot use style); the slash keeps it in its synced ai[2]
+			SafeSpawn.TryNewProjectile(source, player.MountedCenter, Vector2.Zero, type, damage, knockback, out _, player.whoAmI, kind, player.itemAnimationMax,
+				JadeGlaiveSlash.PackAim(velocity));
 			return false;
 		}
 	}

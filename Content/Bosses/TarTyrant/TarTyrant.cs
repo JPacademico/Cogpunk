@@ -188,7 +188,7 @@ namespace Cogpunk.Content.Bosses.TarTyrant
 			NPC.value = Item.buyPrice(gold: 5);           // Deerclops' 5 gold (terraria.wiki.gg)
 			NPC.SpawnWithHigherTime(30);
 			if (!Main.dedServ) {
-				Music = MusicID.Boss2;
+				Music = MusicID.Boss3;                       // vanilla's "Boss 3" until his own track (user, 2026-11-26)
 			}
 		}
 

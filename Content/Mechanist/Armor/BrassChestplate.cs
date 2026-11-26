@@ -17,7 +17,7 @@ namespace Cogpunk.Content.Mechanist.Armor
 	{
 		public const int Defense = 9;
 		public const int DamageBonus = 7;
-		public const int SteamCapacity = 40;
+		public const int SteamCapacity = 45;           // 40, +5 (user, 2026-11-26: "increase amount of max steam that all max steam increasing itens give in 5 points")
 		public const int BarCost = 20, MetalCost = 8;
 
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(DamageBonus, SteamCapacity);

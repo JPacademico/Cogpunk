@@ -24,7 +24,7 @@ namespace Cogpunk.Content.Mechanist.Weapons
 	/// </summary>
 	public class DiamondCutter : MechanistWeapon
 	{
-		public const int Cost = 8, Damage = 19, UseTime = 30;      // user-set
+		public const int Cost = 3, Damage = 21, UseTime = 30;      // user-set: 8 steam and 19 until 2026-11-26 (3 steam, +12%: 21.3)
 		public const int CritBonus = 8;                            // + the player's base 4% = 12% (user-set)
 		public const int Diamonds = 1, Bars = 10;                  // "a diamond and some platinum/gold bars"
 		public const float Knockback = 2f;

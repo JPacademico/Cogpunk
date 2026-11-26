@@ -36,6 +36,14 @@ namespace Cogpunk.Content.Bosses.Jadey.Projectiles
 
 		/// <summary>A statue coin's <c>ai[2]</c> (user-set 2026-11-17: "3 jade coins that spawn 1-2 random jade minions each"):
 		/// 1 + (count - 1) + 2 * (first + 3 * second), 1..18; 0 is an ordinary coin (it hatches by <c>ai[0]</c>).</summary>
+		/// <summary>Server: what a coin hatches: the bats or the beetle 2 times in 5 each, the Golem 1 in 5 (user, 2026-11-26: "jadey
+		/// summoning a golem is too frequent make so the chance for a golem to be summoned is lower than the beetle and bats";
+		/// a third each before). The roll travels as the coin's <c>ai[0]</c> (or the statue code).</summary>
+		public static int RollKind() {
+			int r = Main.rand.Next(5);
+			return r < 2 ? (int)Kind.Bats : r < 4 ? (int)Kind.Beetle : (int)Kind.Golem;
+		}
+
 		public static float StatueCode(int count, int first, int second) => 1 + (Math.Clamp(count, 1, 2) - 1) + 2 * (Math.Clamp(first, 0, 2) + 3 * Math.Clamp(second, 0, 2));
 		public const int MaxTicks = 300;
 		public const float Gravity = 0.3f, MaxFall = 12f;

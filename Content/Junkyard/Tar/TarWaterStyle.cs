@@ -1,3 +1,4 @@
+using Cogpunk.Core.Hooks;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -21,6 +22,22 @@ namespace Cogpunk.Content.Junkyard.Tar
 	/// </summary>
 	public class TarWaterStyle : ModWaterStyle
 	{
+		/// <summary>The Junkyard's tar outranks the ocean's water (2026-11-26: vanilla answers the ocean background itself and
+		/// never asked for this style; <see cref="WaterStyleHooks"/>). Clients only: water styles load there.</summary>
+		public override void Load() {
+			WaterStyleHooks.Override = ForLocalPlayer;
+		}
+
+		public override void Unload() {
+			WaterStyleHooks.Override = null;
+		}
+
+		private static int ForLocalPlayer() {
+			Player player = Main.LocalPlayer;
+			return player != null && player.active && !Main.gameMenu && player.InModBiome<JunkyardBiome>()
+				? ModContent.GetInstance<TarWaterStyle>().Slot : -1;
+		}
+
 		public override int ChooseWaterfallStyle() => ModContent.GetInstance<TarWaterfallStyle>().Slot;
 
 		public override int GetSplashDust() => ModContent.DustType<TarSplash>();

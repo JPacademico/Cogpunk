@@ -53,7 +53,7 @@ namespace Cogpunk.Content.Mechanist.Weapons
 		public const int SlamSteam = 10;                          // my call: a charged slam
 		public const int ChargeTicks = 120;                       // user-set: "2 seconds of charge"
 		public const float MaxMultiplier = 4f;                    // user-set: "up to 4x the damage"
-		public const int BarCost = 12, CogCost = 15, ChainCost = 8;   // my call: the user named the parts, not the counts
+		public const int BarCost = 12, CogCost = 18, ChainCost = 8;   // the cogs 15 -> 18, x1.2 (user, 2026-11-26);   // my call: the user named the parts, not the counts
 
 		// --- the swing: fractions of the use; angles in the facing frame (radians, 0 ahead, + down, - up) -------------------
 		public const float WindEnd = 0.24f, SlashEnd = 0.5f, OverEnd = 0.62f, SettleEnd = 0.85f;
@@ -94,8 +94,10 @@ namespace Cogpunk.Content.Mechanist.Weapons
 		protected override bool CanUseMechanist(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<CogspringSlam>()] <= 0;
 
 		public override bool? UseItem(Player player) {
-			player.GetModPlayer<CogspringPlayer>().BeginSwing(player);   // every side: the swing's direction
-			return base.UseItem(player);                         // the owner pays the steam
+			if (player.ItemAnimationJustStarted) {
+				player.GetModPlayer<CogspringPlayer>().BeginSwing(player);   // every side, once a swing: its direction
+			}
+			return base.UseItem(player);                         // the owner pays the steam, once a swing (MechanistWeapon)
 		}
 
 		// ------------------------------------------------------------------------------------------------------------

@@ -27,6 +27,7 @@ namespace Cogpunk.Content.MechArmy.Items
 			SteamDashPlayer.CooldownTicks / 60);
 
 		public override void SetStaticDefaults() {
+			Cogpunk.Core.Systems.CogpunkSets.NeverStolen[Type] = true;        // a once-only drop: no thief takes it (2026-11-26)
 			Item.ResearchUnlockCount = 1;
 			readText = this.GetLocalization("Learned");
 			alreadyReadText = this.GetLocalization("AlreadyRead");

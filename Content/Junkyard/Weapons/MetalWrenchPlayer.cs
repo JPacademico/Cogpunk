@@ -1,4 +1,6 @@
+using Cogpunk.Content.Dungeon.Items;
 using Cogpunk.Content.Mechanist;
+using Cogpunk.Core.Combat;
 using Cogpunk.Core.Safety;
 using Cogpunk.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -9,21 +11,69 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.Junkyard.Weapons
 {
 	/// <summary>
-	/// The Metal Wrench's parry and riposte (user-set 2026-10-30), on the owning client.
+	/// A weapon whose right click is the parry below (<see cref="MetalWrenchPlayer"/>). None has it since 2026-11-26: the Metal
+	/// Wrench lost it (user: "remove the parry passive as we will use in another weapon on the future"); the weapon that gets it
+	/// declares this, calls <see cref="MetalWrenchPlayer.BeginSwing"/> from its <c>UseItem</c>,
+	/// <see cref="WrenchParry.ApplyRiposte"/> from its <c>ModifyHitNPC</c> and <see cref="MetalWrenchPlayer.OnSwingHit"/> from
+	/// its <c>OnHitNPC</c>, and pays <see cref="WrenchParry.ParrySteamCost"/> as an <see cref="ISteamSkill"/>.
+	/// </summary>
+	public interface IParryWeapon : IRightClickSkill
+	{
+	}
+
+	/// <summary>The parry's numbers (user-set 2026-10-30 / 2026-11-04 on the Metal Wrench) and who wields it.</summary>
+	public static class WrenchParry
+	{
+		public const int ParryTicks = 60;                 // a 1 s window (user-set)
+		public const int CooldownTicks = 180;             // 3 s (user-set), from the end of the guard
+		public const float RiposteMultiplier = 2.5f;      // user-set
+		public const int RiposteBuffTicks = 18000;        // it waits for the next swing (5 min, then it fades)
+		public const int SlowMotionTicks = 42;            // 0.7 s (user, 2026-11-26: every slow motion "should last 0.7 seconds now")
+		public const float SlowMotionSpeed = 0.2f;        // "slows 80%" (user-set)
+		public const int ParrySteamCost = 10;             // user-set 2026-11-04
+
+		/// <summary>The held item parries: an <see cref="IParryWeapon"/>, or a Combinator product whose right click is one's
+		/// (<see cref="RightClickOwner"/>).</summary>
+		public static bool Wields(Player player) {
+			if (player == null) {
+				return false;
+			}
+			int type = RightClickOwner.TypeOf(player.HeldItem, player);
+			return type > 0 && ItemLoader.GetItem(type) is IParryWeapon;
+		}
+
+		/// <summary>A riposte swing's hit: x<see cref="RiposteMultiplier"/>, plus the Spring Gloves' bonus for the parry's steam.</summary>
+		public static void ApplyRiposte(Player player, ref NPC.HitModifiers modifiers) {
+			MetalWrenchPlayer wrench = player.GetModPlayer<MetalWrenchPlayer>();
+			if (!wrench.RiposteSwing) {
+				return;
+			}
+			modifiers.SourceDamage *= RiposteMultiplier;
+			float gloves = SpringGlovesPlayer.BonusFor(player, wrench.RiposteSteam);   // the parry's steam (user, 2026-11-04)
+			if (gloves > 0f) {
+				modifiers.SourceDamage += gloves;
+				modifiers.Knockback += gloves;
+			}
+		}
+	}
+
+	/// <summary>
+	/// The parry and riposte (user-set 2026-10-30 on the Metal Wrench, kept for a future <see cref="IParryWeapon"/>), on the
+	/// owning client.
 	/// <list type="bullet">
 	/// <item><b>Guard</b>: a right click with the wrench in hand, idle, under the same conditions vanilla checks before a
 	/// right-click feature (decompiled <c>Player.ItemCheck_ManageRightClickFeatures</c>: not over the UI, no tile or NPC
-	/// interaction this tick, a fresh press), and not cooling down; it costs <see cref="MetalWrench.ParrySteamCost"/> steam
+	/// interaction this tick, a fresh press), and not cooling down; it costs <see cref="WrenchParry.ParrySteamCost"/> steam
 	/// (user, 2026-11-04: <see cref="SteamPlayer.TryPayAttack"/>, a Mechanist weapon's rules: no tank, no parry and a hint;
 	/// too little steam, an overheat), and the click is used up either way so a refusal can't repeat every tick. It lasts
-	/// <see cref="MetalWrench.ParryTicks"/>; a <see cref="MetalWrenchGuard"/> shows it to everyone.</item>
+	/// <see cref="WrenchParry.ParryTicks"/>; a <see cref="MetalWrenchGuard"/> shows it to everyone.</item>
 	/// <item><b>Parry</b>: vanilla asks the hit player's own client before every dodgeable hit (decompiled
 	/// <c>Player.Hurt</c>: <c>PlayerLoader.FreeDodge</c> only when <c>whoAmI == Main.myPlayer</c>), which is where contact
 	/// and hostile projectile hits on a player are decided. A hit from an NPC or a hostile projectile during the guard is
 	/// refused: a <see cref="MetalClash"/> where it struck, the riposte buff, the cooldown, and vanilla's usual hurt
 	/// immunity (40 ticks, 80 with a Cross Necklace) so the same enemy can't land a second later.</item>
-	/// <item><b>Riposte</b>: the next swing (<see cref="MetalWrench.UseItem"/>) carries it to its end, whether it lands or
-	/// not; every NPC it hits takes x<see cref="MetalWrench.RiposteMultiplier"/>, plus the Spring Gloves' bonus for the steam
+	/// <item><b>Riposte</b>: the next swing (the weapon's <c>UseItem</c>) carries it to its end, whether it lands or
+	/// not; every NPC it hits takes x<see cref="WrenchParry.RiposteMultiplier"/>, plus the Spring Gloves' bonus for the steam
 	/// the parry took (<see cref="RiposteSteam"/>); the first boss or mini-boss it hits sets off a boss clash
 	/// (<see cref="MetalClash"/> mode 1: every side slows down when it arrives).</item>
 	/// </list>
@@ -56,14 +106,14 @@ namespace Cogpunk.Content.Junkyard.Weapons
 				guardTicks = 0;
 				return;
 			}
-			if (guardTicks > 0 && (Player.dead || Player.CCed || Player.noItems || !MetalWrench.Wields(Player))) {
+			if (guardTicks > 0 && (Player.dead || Player.CCed || Player.noItems || !WrenchParry.Wields(Player))) {
 				EndGuard();
 			}
 		}
 
 		// Just before the item check, right where vanilla handles its own right-click features.
 		public override bool PreItemCheck() {
-			if (Player.whoAmI != Main.myPlayer || guardTicks > 0 || !MetalWrench.Wields(Player)) {
+			if (Player.whoAmI != Main.myPlayer || guardTicks > 0 || !WrenchParry.Wields(Player)) {
 				return true;
 			}
 			bool rightClick = Player.controlUseTile && Main.mouseRightRelease && !Player.tileInteractionHappened && Player.releaseUseItem
@@ -72,10 +122,10 @@ namespace Cogpunk.Content.Junkyard.Weapons
 				return true;
 			}
 			Main.mouseRightRelease = false;                 // the click is used up, as vanilla does with its own
-			if (!Player.GetModPlayer<SteamPlayer>().TryPayAttack(MetalWrench.ParrySteamCost, out guardSteam)) {
+			if (!Player.GetModPlayer<SteamPlayer>().TryPayAttack(WrenchParry.ParrySteamCost, out guardSteam)) {
 				return true;                                // no tank (a hint) or too little steam (an overheat): no guard
 			}
-			guardTicks = MetalWrench.ParryTicks;
+			guardTicks = WrenchParry.ParryTicks;
 			guardProjectile = -1;
 			if (SafeSpawn.TryNewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.Zero,
 				ModContent.ProjectileType<MetalWrenchGuard>(), 0, 0f, out Projectile guard, Player.whoAmI)) {
@@ -151,7 +201,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 			SafeSpawn.TryNewProjectile(Player.GetSource_FromThis(), Player.Center + toward * ClashDistance, Vector2.Zero,
 				ModContent.ProjectileType<MetalClash>(), 0, 0f, out _, Player.whoAmI, ai0: MetalClash.ParryMode);
 			Player.SetImmuneTimeForAllTypes(Player.longInvince ? 80 : 40);
-			Player.AddBuff(ModContent.BuffType<WrenchRiposteBuff>(), MetalWrench.RiposteBuffTicks);
+			Player.AddBuff(ModContent.BuffType<WrenchRiposteBuff>(), WrenchParry.RiposteBuffTicks);
 			RiposteSteam = guardSteam;
 			EndGuard();
 			return true;
@@ -179,7 +229,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		/// <summary>Owner: the guard is over (parried or timed out): the cooldown starts and the guard pose goes.</summary>
 		private void EndGuard() {
 			guardTicks = 0;
-			Player.AddBuff(ModContent.BuffType<WrenchParryCooldown>(), MetalWrench.CooldownTicks);
+			Player.AddBuff(ModContent.BuffType<WrenchParryCooldown>(), WrenchParry.CooldownTicks);
 			int index = guardProjectile;
 			guardProjectile = -1;
 			if (index >= 0 && index < Main.maxProjectiles && Main.projectile[index].active && Main.projectile[index].owner == Player.whoAmI

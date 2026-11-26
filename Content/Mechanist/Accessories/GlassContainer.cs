@@ -12,7 +12,7 @@ namespace Cogpunk.Content.Mechanist.Accessories
 	/// </summary>
 	public class GlassContainer : SteamContainer
 	{
-		public const int Capacity = 10;
+		public const int Capacity = 15;                // 10, +5 (user, 2026-11-26: "increase amount of max steam that all max steam increasing itens give in 5 points")
 		public const int ChestChance = 10;               // percent of plain Wooden Chests
 
 		public override int SteamCapacity => Capacity;

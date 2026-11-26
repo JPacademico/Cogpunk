@@ -13,7 +13,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 		public const int ShaftX = 16;
 		/// <summary>The Jade Vault's unbreakable shell (vault coordinates: x from the Main Hall's x 0, rows from the island's
 		/// surface row), inclusive; the arena is the inside of it.</summary>
-		public const int VaultLeft = 11, VaultRight = 60, VaultTop = 1, VaultFloor = 18;
+		public const int VaultLeft = 5, VaultRight = 66, VaultTop = 1, VaultFloor = 21;
 		public static readonly int[] TurbineX = { 38, 72, 108, 144, 178 };
 		public static readonly int[] LampX = { 25, 58, 66, 140, 176, 202 };
 		public static readonly int[] TreeX = { 8, 206, 211 };
@@ -33,12 +33,12 @@ namespace Cogpunk.Content.Coghaven.Generation
 			"\\TTTTTTTTT/   \\TTTTTTTTT/",
 			"  r     rrrrrrrrr     r  ",
 			"  rrrrrrrO    O rrrrrrr  ",
-			"  r r r r       r r r r  ",
-			"  r     r       r     r  ",
-			"  r     r       r     r  ",
-			"  r     r       r     r  ",
-			"  r     r       r     r  ",
-			"  r     r       r     r  ",
+			"  . r r .       . r r .  ",
+			"  .     .       .     .  ",
+			"  .     .       .     .  ",
+			"  .     .       .     .  ",
+			"  .     .       .     .  ",
+			"  .     .       .     .  ",
 			" (f)   (f)     (f)   (f) ",
 			"fffffffffffffffffffffffff",
 		};
@@ -302,36 +302,39 @@ namespace Cogpunk.Content.Coghaven.Generation
 			"\\TTTTTTTTTTTTTTTTT/",
 			"    rGrrrGrrrGr    ",
 			"   rrrrrrrrrrrrr   ",
-			"   r  O    O   r   ",
-			"   r           r   ",
-			"   r           r   ",
-			"   r     i     r   ",
-			"   r           r   ",
-			"   r   > A <   r   ",
+			"   .  O    O   .   ",
+			"   .           .   ",
+			"   .           .   ",
+			"   .     i     .   ",
+			"   .           .   ",
+			"   .   > A <   .   ",
 			" (FFFFFFFFFFFFFFF) ",
 			"(FFFFFFFFFFFFFFFFF)",
 		};
 
 		public static readonly string[] Vault = {
 			"               G,,,G                                                                            ",
-			"           XXXXX$$$XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                   ",
-			"           X;;;;;;;;^;;;;;;;;^;;;;;;;;;;;;^;;;;;;;;^;;;;;;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$$$$$;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$$$$$;;;X                                   ",
-			"           X;;;;;;;;;;;Z;;;;;;;;;;;;;;;;;;;z;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                                   ",
-			"           X;;U;;;;;;;;;;;;;;;;V;;;&;;V;;;;;;;;;;;;;;;;;;U;;X                                   ",
-			"           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                   ",
+			"     XXXXXXXXXXX$$$XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                             ",
+			"     X;;;;;;;;;;;;;;^;;;;;;;;^;;;;;;;;;;;;^;;;;;;;;^;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$$$$$;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$$$$$;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;Z;;;;;;;;;;;;;;;;;;;z;;;;;;;;;;;;;;$$$$$;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;$$$$$;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;X                             ",
+			"     X;;U;;;;;;;;;;;;;;;;;;;;;;V;;;&;;V;;;;;;;;;;;;;;;;;;;;;;;;U;;X                             ",
+			"     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                             ",
 		};
 
 		/// <summary>The pagodas from the tallest down: the pass builds the tallest that fits under the sky's ceiling.</summary>

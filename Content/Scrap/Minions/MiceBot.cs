@@ -73,7 +73,7 @@ namespace Cogpunk.Content.Scrap.Minions
 
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient<RustedCog>(8)
+				.AddIngredient<RustedCog>(10)                          // 8 -> 10, x1.2 rounded (user, 2026-11-26)
 				.AddRecipeGroup(VanillaRecipeGroups.CopperBar, 6)
 				.AddTile(TileID.Anvils)
 				.Register();

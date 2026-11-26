@@ -24,7 +24,11 @@ namespace Cogpunk.Content.Bosses.CursedConductor.Weapons
 	/// </summary>
 	public class CursedLantern : CogpunkItem
 	{
-		public const int Damage = 40, UseTime = 18, Mana = 10;
+		public const int Damage = 40, UseTime = 18;
+		/// <summary>Its cost a cast (user, 2026-11-26: "decrease steam cost for the conductor latern": the lantern is a mage
+		/// weapon, so its cost is mana; 10 before, 7 my call), then user-set 2026-11-26 (0.2.1): "increase conductor lantern mana cost to
+		/// 16".</summary>
+		public const int Mana = 16;
 		public const float SoulSpeed = 3.5f;                // "slow moving"
 		private const float GlassReach = 18f;               // from the hand's pivot out along the aim to the lantern's glass
 		private static readonly Vector2 Holdout = new(-2f, 0f);

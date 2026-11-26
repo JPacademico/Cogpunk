@@ -31,7 +31,9 @@ namespace Cogpunk.Content.Coghaven.NPCs
 	/// </summary>
 	public class Cogscorpion : GridWalkerNPC
 	{
-		public const int Life = 380, ContactDamage = 56, Defense = 16;
+		/// <summary>2026-11-26b (user: "decrease a bit the size and health of cogscorpions"): 320 life (380 before, my call:
+		/// -16%), drawn at 85% of its first size (art/coghaven/make_cogscorpion_art.py SIZE; the hitbox with it).</summary>
+		public const int Life = 320, ContactDamage = 56, Defense = 16;
 		public const float WalkSpeed = 1.6f, WalkAccel = 0.08f, JumpSpeed = 6.5f;
 		public const int JadeOdds = 4, JadeMin = 1, JadeMax = 2;
 		public const float SpawnWeight = 1f;
@@ -69,8 +71,8 @@ namespace Cogpunk.Content.Coghaven.NPCs
 
 		public override void SetDefaults() {
 			Cogpunk.Content.Banners.EnemyBanners.SetBanner(this);         // its banner (2026-11-25)
-			NPC.width = 60;                                  // the carapace and head (D4: matched hitbox; the tail is the sting's)
-			NPC.height = 30;
+			NPC.width = 52;                                  // the carapace and head (D4: matched hitbox; the tail is the sting's;
+			NPC.height = 26;                                 // 60 x 30 before the 85% redraw, 2026-11-26b)
 			SetExpertStats(Life, ContactDamage, Defense);
 			NPC.knockBackResist = 0.5f;
 			NPC.HitSound = SoundID.NPCHit4;                  // metal

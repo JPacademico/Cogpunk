@@ -31,7 +31,7 @@ namespace Cogpunk.Content.Mechanist.Weapons
 	public class CogLauncher : MechanistWeapon
 	{
 		public const int Cost = 7, Damage = 31, UseTime = 24;      // user-set
-		public const int BrassBars = 8, PolishedMetals = 4, RustedCogs = 23;   // user-set
+		public const int BrassBars = 8, PolishedMetals = 4, RustedCogs = 28;   // user-set; the cogs 23 -> 28, x1.2 rounded (user, 2026-11-26)
 		public const float ShotSpeed = 13f;
 		public const float MuzzleDistance = 34f;                   // the hand to the cog's hub in the cup
 

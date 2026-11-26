@@ -141,9 +141,10 @@ def gate():
     p = Plan("Gate", 25, 19)
     floor = p.h - 1
     p.hline(0, p.w - 1, floor, "f")                         # its own strip of terrace
-    for x in (2, 8, 16, 22):                                # pillars
-        top = 6 if x in (8, 16) else 9
-        p.vline(x, top, floor - 1, "r")
+    for x in (2, 8, 16, 22):                                # pillars: solid through the lintels, background below them
+        top = 6 if x in (8, 16) else 9                      # (user, 2026-11-26: the arches "have solid wall instead of
+        p.vline(x, top, 10, "r")                            # background walls so the payer needs to break or go up arround
+        p.vline(x, 11, floor - 1, ".")                      # it"): air on the Cinnabar Panel Wall where people walk
         p.put(x - 1, floor - 1, "(")                        # jade plinths
         p.put(x, floor - 1, "f")
         p.put(x + 1, floor - 1, ")")
@@ -351,8 +352,8 @@ def pavilion():
     p.put(1, floor - 1, "(")
     p.put(p.w - 2, floor - 1, ")")
     base = floor - 1
-    for x in (3, 15):
-        p.vline(x, base - 7, base - 1, "r")
+    for x in (3, 15):                                       # posts: background, as the gate's (2026-11-26)
+        p.vline(x, base - 7, base - 1, ".")
     p.hline(3, 15, base - 7, "r")
     p.hline(4, 14, base - 8, "r")
     for x in (5, 9, 13):
@@ -371,8 +372,9 @@ def pavilion():
 # ================================================================================================
 # The Jade Vault: inside the island's bronze core, under the Main Hall; reached by the hall's stair shaft
 # ================================================================================================
-VAULT_X0, VAULT_X1 = 11, 60             # the shell's columns (deck x; the deck's x 0 = the Main Hall's x 0)
-VAULT_TOP, VAULT_FLOOR = 1, 18          # the shell's ceiling and floor rows (deck rows from the island's surface row)
+VAULT_X0, VAULT_X1 = 5, 66              # the shell's columns (deck x; the deck's x 0 = the Main Hall's x 0); 11-60 until
+VAULT_TOP, VAULT_FLOOR = 1, 21          # 2026-11-26b (user: "increase a bit the size of jadey arena"): 60 x 19 inside, from
+                                        # 48 x 16, the middle (the chest's column, 35) where it was
 
 
 def vault(shaft_x):
@@ -393,9 +395,9 @@ def vault(shaft_x):
     p.rect(VAULT_X0 + 1, VAULT_TOP + 1, VAULT_X1 - 1, VAULT_FLOOR - 1, ";")
     for x in range(shaft_x, shaft_x + 3):
         p.put(x, VAULT_TOP, "$")                            # the way in: platforms in the ceiling under the shaft
-    for y in (VAULT_TOP + 4, VAULT_TOP + 8, VAULT_TOP + 12):
+    for y in range(VAULT_TOP + 4, VAULT_FLOOR - 2, 4):
         p.hline(shaft_x - 1, shaft_x + 3, y, "$")           # the ladder back up
-    for y in (VAULT_TOP + 6, VAULT_TOP + 10):
+    for y in range(VAULT_TOP + 6, VAULT_FLOOR - 3, 4):
         p.hline(VAULT_X1 - 8, VAULT_X1 - 4, y, "$")         # ledges on the far side
     floor_in = VAULT_FLOOR - 1                              # the row things stand on
     mid = (VAULT_X0 + 1 + VAULT_X1 - 1) // 2                # the hall's middle column (35)

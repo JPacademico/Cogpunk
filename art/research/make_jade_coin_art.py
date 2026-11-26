@@ -20,6 +20,12 @@ here:
   curling up either side of its stem), in the emerald ramp; the example's green aura and motes are left out. The design
   before it (a jade disc in a platinum rim with a square hole) is kept in previous/make_jade_coin_art_2026-11-24.py.
 * the buff icon: the same coin at 16 px.
+* the SPIRIT'S COIN (2026-11-26, the user: "the jade coin summons should be a floaty jade coin above the player while theres
+  no enemies to target, and transform (smooth quick tranform animation) when theres enemies in range"): the buff icon's coin
+  turning about its upright axis in eight frames (front, three-quarter, edge, three-quarter back, back ...): the turned faces
+  are the front's own columns, picked evenly (the rims stay on the edges: no new colours, no mixels), the back mirrored, the
+  edge a lit rim of jade; and the BURST that covers the change: a jade star whose rays grow into a ring of sparks and scatter,
+  five frames (no outline: it is light).
 
 Outputs (Content/Research/Summons/):
     JadeLoong.png        the segments: HEADINGS columns (heading k points k x 360/HEADINGS degrees clockwise from right),
@@ -27,6 +33,8 @@ Outputs (Content/Research/Summons/):
     JadeLoong_Glow.png   the same layout: the eyes
     JadeCoin.png         the item (20x20 art, 40x40 in game)
     JadeCoinBuff.png     the buff icon (16x16 art)
+    JadeSpirit_Coin.png  the spirit's coin turning: 8 frames of 16 x 16 art stacked, 1 art px under each
+    JadeSpirit_Burst.png the change's burst: 5 frames of 24 x 24 art stacked, 1 art px under each
 """
 import argparse
 import math
@@ -39,7 +47,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "templates"))
 sys.path.insert(0, os.path.join(HERE, "..", "bosses", "trashtr0m"))
 from sculpt import Ell, Frame, Part, Poly, Tube, render  # noqa: E402
-from pixkit import Pix, export  # noqa: E402
+from pixkit import Pix, export, sheet  # noqa: E402
 from rig import RAMP  # noqa: E402
 
 OUT = "Content/Research/Summons/"
@@ -50,6 +58,7 @@ SPACING = 8                            # art px between segment centres in game 
 STRIDE = CELL + 1
 KINDS = ("head", "body", "legs", "tail")
 JADE, EMERALD, GILT, STEEL = RAMP["ghost"], RAMP["emerald"], RAMP["gilt"], RAMP["steel"]
+STEAM = RAMP["steam"]
 COIN = EMERALD                         # the coin: the bright green of the user's example (2026-11-25)
 EYE = GILT[7]                          # warm gold: stands out of the jade (whose light end is near white)
 
@@ -279,9 +288,86 @@ def buff_icon():
     return coin(16, 5.4, 4.4, SEAMS_BUFF, 6.3, EMBLEM_BUFF).image()
 
 
+SPIN = (16, 11, 3, -11, -16, -11, 3, 11)                # the turning coin's widths: negative = its back (mirrored)
+
+
+def squeeze(face, width):
+    """The coin's face seen turned: `width` of its columns, picked evenly so the first and last are its rims."""
+    w, h = face.size
+    out = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    x0 = (w - width) // 2
+    for j in range(width):
+        src = int(round(j * (w - 1) / max(1, width - 1)))
+        out.paste(face.crop((src, 0, src + 1, h)), (x0 + j, 0))
+    return out
+
+
+def edge_on(n=16):
+    """The coin seen edge on: three columns of its rim (dark, lit jade, mid), rounded at the ends."""
+    p = Pix(n, n)
+    x = n // 2 - 1
+    for y in range(1, n - 1):
+        p.put(x, y, COIN, 2)
+        p.put(x + 1, y, COIN, 4 if y < n // 2 else 3)
+        p.put(x + 2, y, COIN, 2)
+    p.outline()
+    p.put(x + 1, 3, COIN, 6, lock=True)                   # the rim's glint (top-left light)
+    return p.image()
+
+
+def spirit_coin_sheet():
+    face = buff_icon()
+    frames = []
+    for w in SPIN:
+        if abs(w) <= 3:
+            frames.append(edge_on())
+        elif w > 0:
+            frames.append(squeeze(face, w))
+        else:
+            frames.append(squeeze(face.transpose(Image.FLIP_LEFT_RIGHT), -w))
+    return sheet(frames)
+
+
+def burst_frame(k, n=24):
+    """The change's burst, frame k of 5: a star (k 0), its rays out to a ring (1), a broken ring of sparks (2), scattering
+    (3), the last motes (4). Emerald's light end and white; no outline."""
+    p = Pix(n, n)
+    c = n / 2 - 0.5
+    radius = (2, 5, 8, 10, 11)[k]
+    if k <= 1:
+        ray = (6, 9)[k]
+        for d in range(0, ray + 1):                        # the four long rays, thinning
+            tone = 6 if d <= 1 else 5 if d <= ray // 2 else 4
+            for (a, b) in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                p.put(int(c + 0.5 + a * d), int(c + 0.5 + b * d), COIN, tone)
+        for d in range(1, (3, 5)[k]):                      # the short diagonals
+            for (a, b) in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
+                p.put(int(c + 0.5 + a * d), int(c + 0.5 + b * d), COIN, 5 if d == 1 else 4)
+        p.put(int(c + 0.5), int(c + 0.5), STEAM, 3)
+        if k == 0:
+            for (a, b) in ((1, 0), (0, 1), (1, 1)):
+                p.put(int(c + 0.5) + a, int(c + 0.5) + b, STEAM, 2)
+    if k >= 1:
+        count = (0, 16, 12, 8, 6)[k]
+        for i in range(count):
+            ang = i * 2 * math.pi / count + k * 0.3
+            x, y = int(round(c + math.cos(ang) * radius)), int(round(c + math.sin(ang) * radius))
+            tone = (6, 6, 5, 4, 3)[k]
+            p.put(x, y, COIN, tone)
+            if k <= 2:                                     # the near sparks are two pixels long, along the ring
+                p.put(x + (1 if math.sin(ang) < 0 else -1), y, COIN, tone - 1)
+    return p.image()
+
+
+def spirit_burst_sheet():
+    return sheet([burst_frame(k) for k in range(5)])
+
+
 def export_coin():
     export(item_icon(), OUT + "JadeCoin.png")
     export(buff_icon(), OUT + "JadeCoinBuff.png")
+    export(spirit_coin_sheet(), OUT + "JadeSpirit_Coin.png")
+    export(spirit_burst_sheet(), OUT + "JadeSpirit_Burst.png")
 
 
 def export_all():

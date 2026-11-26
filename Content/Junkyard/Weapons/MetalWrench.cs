@@ -27,18 +27,12 @@ namespace Cogpunk.Content.Junkyard.Weapons
 	/// <c>Player.ItemCheck_GetMeleeHitbox</c>; the item's own 40x40 is only its hitbox on the ground, as the Blade of
 	/// Grass's) that deals +<see cref="MechanicalBonus"/>% to mechanical enemies
 	/// (<see cref="CogpunkSets.Mechanical"/>, like the Screwdriver).
-	/// <list type="bullet">
-	/// <item><b>Right click</b>: a parry, for <see cref="ParrySteamCost"/> steam (user, 2026-11-04; a steam skill,
-	/// <see cref="ISteamSkill"/>: paid by a Mechanist weapon's rules, so it needs a steam tank and an empty one overheats).
-	/// For <see cref="ParryTicks"/> ticks the wrench is held up on guard (<see cref="MetalWrenchGuard"/>); an enemy attack
-	/// landing in that window (contact or projectile) clangs off it (<see cref="MetalClash"/>), deals nothing and readies the
-	/// riposte. Then <see cref="CooldownTicks"/> ticks of cooldown (<see cref="WrenchParryCooldown"/>).</item>
-	/// <item><b>The riposte</b> (<see cref="WrenchRiposteBuff"/>): the next swing deals x<see cref="RiposteMultiplier"/> to
-	/// whatever it hits (and the Spring Gloves' bonus for the parry's steam); landed on a boss or a mini-boss
-	/// (<see cref="CogpunkSets.IsBossOrMiniboss"/>) it clashes and every entity slows by 80% for half a second
-	/// (<see cref="SlowMotion"/>, for the effect).</item>
-	/// </list>
-	/// The rules live in <see cref="MetalWrenchPlayer"/>. Balance: docs/balance/weapons.csv (anchor: Blade of Grass).
+	/// <para>It swings towards the cursor: each swing, auto-swing included, turns the player to the cursor's side as it starts
+	/// (user, 2026-11-26: it kept the first click's side "until the player lets go and clicks again"; vanilla only turns a
+	/// player for items that shoot, decompiled <c>Player.ItemCheck_Shoot</c>). Its right-click parry was taken off on
+	/// 2026-11-26 (user: "remove the parry passive as we will use in another weapon on the future"): the parry and riposte
+	/// live on in <see cref="MetalWrenchPlayer"/> for a weapon that declares <see cref="IParryWeapon"/>.</para>
+	/// Balance: docs/balance/weapons.csv (anchor: Blade of Grass).
 	/// <para><b>The slam</b> (user, 2026-11-05b: "change the attack animation for the metal wrench to look like a faster (in
 	/// animation, not in use time) slam that stops on the ground/player foot line, like the updated terraria chlorophyte
 	/// claymore does"; 1.4.5.7 reworked the Claymore into a ground slam, terraria.wiki.gg): the same <see cref="UseTime"/>,
@@ -53,26 +47,15 @@ namespace Cogpunk.Content.Junkyard.Weapons
 	/// part. D2: everything follows the synced use (itemAnimation, direction) on every client; only the hits are the
 	/// owner's, as vanilla's. D1: arithmetic only.</para>
 	/// </summary>
-	public class MetalWrench : CogpunkItem, ISteamSkill, IRightClickSkill
+	public class MetalWrench : CogpunkItem
 	{
 		/// <summary>32 (user-set 2026-10-30), +20% (user, 2026-11-05: "increase the damage of the metal wrench in 20% since
-		/// it does not shoot projectiles"): 38.4, rounded to 38.</summary>
-		public const int Damage = 38;
+		/// it does not shoot projectiles"): 38.4, rounded to 38; 4 less (user, 2026-11-26: "nerf metal wrench damage by 4
+		/// points"): 34.</summary>
+		public const int Damage = 34;
 		public const int UseTime = 30;
 		public const int MechanicalBonus = 50;            // percent
 
-		/// <summary>The held item parries as the wrench: the wrench itself, or a Combinator product whose right click is the
-		/// wrench's (its base is one, 2026-11-12; <see cref="RightClickOwner"/>).</summary>
-		public static bool Wields(Player player) {
-			return player != null && RightClickOwner.TypeOf(player.HeldItem, player) == ModContent.ItemType<MetalWrench>();
-		}
-		public const int ParryTicks = 60;                 // a 1 s window (user-set)
-		public const int CooldownTicks = 180;             // 3 s (user-set), from the end of the guard
-		public const float RiposteMultiplier = 2.5f;      // user-set
-		public const int RiposteBuffTicks = 18000;        // it waits for the next swing (5 min, then it fades)
-		public const int SlowMotionTicks = 30;            // half a second (user-set)
-		public const float SlowMotionSpeed = 0.2f;        // "slows 80%" (user-set)
-		public const int ParrySteamCost = 10;             // user-set 2026-11-04
 
 		// --- the slam (2026-11-05b): fractions of the use; angles in the facing frame (radians, 0 ahead, + down) -------
 		public const float LiftEnd = 0.2f, HangEnd = 0.26f, ImpactAt = 0.42f, BounceEnd = 0.54f;
@@ -87,10 +70,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		private static readonly SoundStyle ThudSound = SoundID.DD2_MonkStaffGroundImpact with { Pitch = -0.25f, Volume = 0.85f, MaxInstances = 3 };
 		private static readonly SoundStyle WhiffSound = SoundID.DD2_MonkStaffGroundMiss with { Pitch = -0.2f, Volume = 0.6f, MaxInstances = 3 };
 
-		public int SkillSteamCost => ParrySteamCost;
-
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MechanicalBonus, ParryTicks / 60f, CooldownTicks / 60f, RiposteMultiplier,
-			ParrySteamCost);
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MechanicalBonus);
 
 		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;
@@ -112,13 +92,12 @@ namespace Cogpunk.Content.Junkyard.Weapons
 			Item.rare = ItemRarityID.Orange;
 		}
 
-		// The parry isn't an item use (a swing would show): MetalWrenchPlayer starts it on a right click. No swing while
-		// on guard.
-		public override bool CanUseItem(Player player) => !player.GetModPlayer<MetalWrenchPlayer>().Guarding;
-
+		/// <summary>The owner turns to the cursor's side as every swing starts, auto-swing included (vanilla calls this on every
+		/// tick of a swing that shoots nothing, so only on its first: a turn mid-swing would flip the slam); the direction
+		/// reaches the other clients with the player's controls, as vanilla's own turns do.</summary>
 		public override bool? UseItem(Player player) {
-			if (player.whoAmI == Main.myPlayer) {
-				player.GetModPlayer<MetalWrenchPlayer>().BeginSwing();
+			if (player.whoAmI == Main.myPlayer && player.ItemAnimationJustStarted) {
+				player.ChangeDir(Main.MouseWorld.X >= player.Center.X ? 1 : -1);
 			}
 			return null;
 		}
@@ -127,23 +106,6 @@ namespace Cogpunk.Content.Junkyard.Weapons
 			if (CogpunkSets.IsMechanical(target)) {
 				modifiers.SourceDamage *= 1f + MechanicalBonus / 100f;
 			}
-			MetalWrenchPlayer wrench = player.GetModPlayer<MetalWrenchPlayer>();
-			if (wrench.RiposteSwing) {
-				modifiers.SourceDamage *= RiposteMultiplier;
-				float gloves = SpringGlovesPlayer.BonusFor(player, wrench.RiposteSteam);   // the parry's steam (user, 2026-11-04)
-				if (gloves > 0f) {
-					modifiers.SourceDamage += gloves;
-					modifiers.Knockback += gloves;
-				}
-			}
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips) {
-			SteamSkillTooltip.AddNoTankLine(Mod, tooltips, ParrySteamCost);
-		}
-
-		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone) {
-			player.GetModPlayer<MetalWrenchPlayer>().OnSwingHit(target);
 		}
 
 		// ------------------------------------------------------------------------------------------------------------
@@ -281,25 +243,11 @@ namespace Cogpunk.Content.Junkyard.Weapons
 			return SwingPose.CapsuleHitsRect(headA, headB, HeadRadius * scale, box) || SwingPose.CapsuleHitsRect(shaftA, shaftB, ShaftRadius * scale, box);
 		}
 
-		// The riposte swing throws brass sparks off the wrench (every client: the buff is synced and stays on until the
-		// swing ends).
-		public override void MeleeEffects(Player player, Rectangle hitbox) {
-			if (Main.dedServ || !player.HasBuff<WrenchRiposteBuff>() || !CogpunkClientConfig.RollEffect() || !Main.rand.NextBool(2)) {
-				return;
-			}
-			if (SafeSpawn.TryNewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, Main.rand.NextBool(3) ? DustID.GoldFlame : DustID.Enchanted_Gold,
-				out Dust spark, player.velocity.X * 0.2f, -1f)) {
-				spark.noGravity = true;
-				spark.scale = 1.1f;
-			}
-			Lighting.AddLight(hitbox.Center.ToVector2(), 0.5f, 0.4f, 0.15f);
-		}
-
 		public override void AddRecipes() {
 			CreateRecipe()
 				.AddIngredient<PolishedMetal>(22)
 				.AddIngredient<CondensedTar>(4)
-				.AddIngredient<RustedCog>(16)
+				.AddIngredient<RustedCog>(19)                          // 16 -> 19, x1.2 rounded (user, 2026-11-26)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

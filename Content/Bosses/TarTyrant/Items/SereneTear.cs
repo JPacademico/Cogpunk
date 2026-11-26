@@ -14,7 +14,8 @@ namespace Cogpunk.Content.Bosses.TarTyrant.Items
 	/// it (<see cref="SteamPlayer.SteamAsMana"/>, one steam per point of mana);</item>
 	/// <item>immunity to <see cref="Overheat"/> (<see cref="SteamPlayer.OverheatImmune"/>: a Mechanist weapon without
 	/// enough steam just doesn't fire, the way a staff without mana doesn't);</item>
-	/// <item>+<see cref="RegenBonusPercent"/>% steam regeneration (<see cref="SteamPlayer.SteamRegenMultiplier"/>);</item>
+	/// <item>(until 2026-11-26) +15% steam regeneration: taken off (user: "nerf serene tear by removing the +15% to steam regen
+	/// buff");</item>
 	/// <item>(user, 2026-11-12) the other way round too: a steam cost the tank can't cover (a Mechanist weapon, a steam
 	/// skill) is paid in mana at half the efficiency, <see cref="SteamPlayer.ManaPerSteam"/> mana a steam, and the bonuses
 	/// that count the steam an attack spends (the Spring Gloves) count half of it (<see cref="SteamPlayer.Spend"/>,
@@ -31,9 +32,6 @@ namespace Cogpunk.Content.Bosses.TarTyrant.Items
 	/// </summary>
 	public class SereneTear : CogpunkItem
 	{
-		public const int RegenBonusPercent = 15;
-
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RegenBonusPercent);
 
 		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;
@@ -52,7 +50,6 @@ namespace Cogpunk.Content.Bosses.TarTyrant.Items
 			SteamPlayer steam = player.GetModPlayer<SteamPlayer>();
 			steam.SteamAsMana = true;
 			steam.OverheatImmune = true;
-			steam.SteamRegenMultiplier += RegenBonusPercent / 100f;
 			player.buffImmune[ModContent.BuffType<Overheat>()] = true;
 		}
 	}

@@ -36,7 +36,7 @@ namespace Cogpunk.Content.Mechanist
 	public sealed class SteamDashPlayer : ModPlayer
 	{
 		public const string SaveKey = "CogpunkerManual";
-		public const int ManualSteamMax = 20;
+		public const int ManualSteamMax = 25;          // 20, +5 (user, 2026-11-26: "increase amount of max steam that all max steam increasing itens give in 5 points")
 		public const int SteamCost = 15;
 		public const int CooldownTicks = 240;
 		public const int DashTicks = 12;

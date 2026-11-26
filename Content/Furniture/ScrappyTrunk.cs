@@ -18,7 +18,7 @@ namespace Cogpunk.Content.Furniture
 
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient<RustedMetal>(8)
+				.AddIngredient<RustedMetal>(10)                        // 8 -> 10, x1.2 rounded (user, 2026-11-26)
 				.AddRecipeGroup(RecipeGroupID.IronBar, 2)
 				.AddTile(TileID.WorkBenches)
 				.Register();

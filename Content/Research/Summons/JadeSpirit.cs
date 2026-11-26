@@ -25,13 +25,21 @@ namespace Cogpunk.Content.Research.Summons
 	/// <item><b>a jade bat</b> (Jadey's, <c>JadeBat.png</c>): flits beside its target and darts through it, a bite a pass;</item>
 	/// <item><b>a jade beetle</b> (Jadey's, the Rhino Beetle's rig in jade, its flight frames): backs off on the target's side
 	/// and rams straight through it, wings buzzing;</item>
-	/// <item><b>a jade golem</b> (Coghaven's, floating): stands guard beside its owner on the target's side, its arm raised and
-	/// following the target (the arm sheets, 5 degrees apart: never rotated), and shoots a jade bolt from its palm
+	/// <item><b>a jade golem's arm</b> (Coghaven's golem's own arm sheet; user, 2026-11-26: "instead off a full jade golem the
+	/// jade coin should summon a jade golem arm that floats next to the player and shoots jade bolts"; the whole golem until
+	/// then): it floats beside its owner on the target's side, hanging when idle, raised and following the target with a
+	/// target (the arm sheet's frames, 5 degrees apart: never rotated), and shoots a jade bolt from its palm
 	/// (<see cref="JadeSpiritBolt"/>);</item>
 	/// <item><b>a jade loong</b> (new art, art/research/make_jade_coin_art.py: user, "like default terraria cloud hard mode loong,
 	/// but smaller and jade colored"): a serpent of <see cref="LoongSegments"/> segments that weaves through its target and
 	/// coils over its owner when idle; head and body both bite (one projectile, so one local cooldown per enemy).</item>
 	/// </list>
+	/// <para>Between fights each spirit is a <b>jade coin</b> (user, 2026-11-26: "the jade coin summons should be a floaty jade coin
+	/// above the player while theres no enemies to target, and transform (smooth quick tranform animation) when theres enemies in
+	/// range"): the coins float in a row over their owner's head, turning slowly. When a spirit has a target, its coin spins up
+	/// and bursts into its creature (<see cref="TransformTicks"/>: a jade burst covers the change, <c>JadeSpirit_Burst.png</c>);
+	/// <see cref="CoinGrace"/> ticks after its last target is gone it bursts back into its coin and floats home. Only a whole
+	/// creature attacks.</para>
 	/// Each form is stronger than the one before (per hit, and worth its slots: <see cref="FormDamage"/> x the coin's damage,
 	/// one hit per <see cref="FormCooldown"/> ticks), and changing form plays a burst of jade and a chime on every client.
 	/// <para>Targeting as ExampleMod 1.4.4's <c>ExampleSimpleMinion</c>: the owner's whip or right-click target first, else the
@@ -49,11 +57,12 @@ namespace Cogpunk.Content.Research.Summons
 		public enum Form { None = 0, Bat = 1, Beetle = 2, Golem = 3, Loong = 4 }
 
 		public const int StagesPerSpirit = 4, MaxSpirits = 10;
-		/// <summary>Per form (index = <see cref="Form"/>): hit damage over the coin's (10: 10, 22, 30, 34) and the ticks between
-		/// hits on one enemy. The eff DPS a slot: 15.6 (bat), 15.3 (beetle), 15.6 (golem), 15.6 (loong): the Imp Staff's 15.6.</summary>
-		public static readonly float[] FormDamage = { 0f, 1f, 2.2f, 3f, 3.4f };
+		/// <summary>Per form (index = <see cref="Form"/>): hit damage over the coin's (15: 15, 22, 30, 34) and the ticks between
+		/// hits on one enemy. The eff DPS a slot: 23.4 (bat, 2026-11-26: the user's buff; 15.6 before), 15.3 (beetle), 15.6 (the
+		/// arm), 15.6 (the loong): the Imp Staff's 15.6, each form still more in all than the one before.</summary>
+		public static readonly float[] FormDamage = { 0f, 1f, 22f / 15f, 30f / 15f, 34f / 15f };
 		public static readonly int[] FormCooldown = { 20, 40, 45, 40, 34 };
-		public static readonly int[] FormWidth = { 24, 28, 52, 44, 28 }, FormHeight = { 24, 24, 32, 96, 28 };
+		public static readonly int[] FormWidth = { 24, 28, 52, 32, 28 }, FormHeight = { 24, 24, 32, 32, 28 };   // the arm: its shoulder
 
 		public const float TargetRange = 900f, TeleportDistance = 2000f;
 		public const int RetargetInterval = 10, DuplicateCheck = 30;
@@ -66,7 +75,7 @@ namespace Cogpunk.Content.Research.Summons
 		// the golem: a bolt every GolemCycle ticks once its arm is on the target
 		public const int GolemCycle = 40;
 		public const float GolemTurn = 0.12f, GolemFollow = 0.2f, GolemAimError = 0.2f, BoltSpeed = 12f, GolemSpeed = 9f;
-		public const float GolemGuard = 96f, GolemHeight = -40f;           // beside its owner, clear of them (its art is wide)
+		public const float GolemGuard = 52f, GolemHeight = -30f;           // the arm's shoulder: beside its owner's shoulder, clear of them
 		// the loong
 		public const int LoongSegments = 8;
 		public const float LoongSpacing = 16f, LoongSpeed = 13f, LoongIdleSpeed = 8f, LoongTurn = 0.14f, LoongIdleTurn = 0.08f;
@@ -74,10 +83,16 @@ namespace Cogpunk.Content.Research.Summons
 		public const int LoongHeadings = 32, LoongCell = 60, LoongStride = 62;
 		// idling round the owner
 		public const float IdleBack = 48f, IdleGap = 40f, IdleHeight = -56f;
+		/// <summary>The coin (2026-11-26): ticks from coin to creature (0.23 s: "smooth quick"; the creature shows from the middle,
+		/// under the burst), ticks without a target before it turns back, its spot over its owner's head (game px above the top of
+		/// the head, and between coins), its turn (ticks a frame of <see cref="CoinFrames"/>), the burst's length.</summary>
+		public const int TransformTicks = 14, CoinGrace = 45, CoinFrames = 8, CoinTurnTicks = 6, BurstTicks = 10, BurstFrames = 5;
+		public const float CoinHeight = 30f, CoinGap = 30f, CoinSpeed = 10f;
+		public const int CoinCell = 32, BurstCell = 48;
 		private const float MaxParallax = 2f;
 
-		private static Asset<Texture2D> bat, batGlow, beetleFar, beetle, beetleNear, beetleGlow, golemFar, golem, golemNear,
-			golemGlow, golemArm, golemArmGlow, loong, loongGlow;
+		private static Asset<Texture2D> bat, batGlow, beetleFar, beetle, beetleNear, beetleGlow, golemArm, golemArmGlow, loong,
+			loongGlow, coin, burst;
 
 		private Vector2[] segments;
 		private bool segmentsReady;
@@ -101,6 +116,19 @@ namespace Cogpunk.Content.Research.Summons
 			set => Projectile.localAI[0] = (float)value;
 		}
 
+		/// <summary>Coin (0) to creature (<see cref="TransformTicks"/>), every side from the synced target: a creature only
+		/// fights at the top. Local, as its timers.</summary>
+		private ref float Morph => ref Projectile.localAI[1];
+
+		/// <summary>Ticks since its last target (every side, from the synced target).</summary>
+		private ref float Idle => ref Projectile.localAI[2];
+
+		private bool creatureShown;                              // the drawn half of the change (flips under the burst)
+		private int burstLeft;                                    // the burst's ticks left (clients)
+
+		/// <summary>A whole creature (it fights).</summary>
+		private bool Awake => Morph >= TransformTicks;
+
 		public static Form FormOf(int counters, int index) => (Form)Math.Clamp(counters - index * StagesPerSpirit, 0, StagesPerSpirit);
 
 		public override void SetStaticDefaults() {
@@ -117,10 +145,8 @@ namespace Cogpunk.Content.Research.Summons
 				beetle = DepthLayers.RequestOptional(jadey + "JadeBeetle");
 				beetleNear = DepthLayers.RequestOptional(jadey + "JadeBeetle_Near");
 				beetleGlow = DepthLayers.RequestOptional(jadey + "JadeBeetle_Glow");
-				golemFar = DepthLayers.RequestOptional(haven + "JadeGolem_Far");
-				golem = DepthLayers.RequestOptional(haven + "JadeGolem");
-				golemNear = DepthLayers.RequestOptional(haven + "JadeGolem_Near");
-				golemGlow = DepthLayers.RequestOptional(haven + "JadeGolem_Glow");
+				coin = DepthLayers.RequestOptional("Cogpunk/Content/Research/Summons/JadeSpirit_Coin");
+				burst = DepthLayers.RequestOptional("Cogpunk/Content/Research/Summons/JadeSpirit_Burst");
 				golemArm = DepthLayers.RequestOptional(haven + "JadeGolem_Arm");
 				golemArmGlow = DepthLayers.RequestOptional(haven + "JadeGolem_ArmGlow");
 				loong = DepthLayers.RequestOptional("Cogpunk/Content/Research/Summons/JadeLoong");
@@ -129,8 +155,8 @@ namespace Cogpunk.Content.Research.Summons
 		}
 
 		public override void Unload() {
-			bat = batGlow = beetleFar = beetle = beetleNear = beetleGlow = golemFar = golem = golemNear = golemGlow = golemArm =
-				golemArmGlow = loong = loongGlow = null;
+			bat = batGlow = beetleFar = beetle = beetleNear = beetleGlow = golemArm =
+				golemArmGlow = loong = loongGlow = coin = burst = null;
 		}
 
 		public override void SetDefaults() {
@@ -175,9 +201,9 @@ namespace Cogpunk.Content.Research.Summons
 
 		public override bool? CanCutTiles() => false;
 
-		public override bool MinionContactDamage() => CurrentForm != Form.Golem;
+		public override bool MinionContactDamage() => CurrentForm != Form.Golem && Awake;
 
-		public override bool? CanDamage() => CurrentForm == Form.Golem ? false : null;
+		public override bool? CanDamage() => CurrentForm == Form.Golem || !Awake ? false : null;
 
 		private Form CurrentForm => Shown;
 
@@ -223,6 +249,10 @@ namespace Cogpunk.Content.Research.Summons
 				Projectile.netUpdate = true;
 			}
 			NPC target = AcquireTarget(owner, isOwner, form);
+			if (!UpdateCoin(owner, target)) {
+				MathSafety.Sanitize(ref Projectile.velocity);
+				return;                                          // a coin, or changing: no fighting
+			}
 			switch (form) {
 				case Form.Bat:
 					UpdateDarter(owner, target, isOwner, BatCycle, BatDash, BatHover, -60f, BatSpeed, BatDashSpeed);
@@ -248,6 +278,60 @@ namespace Cogpunk.Content.Research.Summons
 			}
 		}
 
+		/// <summary>The coin (2026-11-26): <see cref="Morph"/> climbs while it has a target and falls <see cref="CoinGrace"/> ticks
+		/// after its last one; below the top it floats as a coin over its owner's head (spinning up as it changes) and doesn't
+		/// fight. True: a whole creature, which fights as before. The change's burst and chime play as the drawn half flips.</summary>
+		private bool UpdateCoin(Player owner, NPC target) {
+			Idle = target != null ? 0f : Math.Min(Idle + 1f, 10000f);
+			bool wanted = target != null || (Morph > 0f && Idle < CoinGrace);
+			Morph = Math.Clamp(Morph + (wanted ? 1f : -1f), 0f, TransformTicks);
+			bool shown = Morph >= TransformTicks * 0.5f;
+			if (shown != creatureShown) {
+				creatureShown = shown;
+				Changed(shown);
+			}
+			if (Awake) {
+				return true;
+			}
+			Projectile.friendly = false;
+			Cycle = 0f;
+			if (!creatureShown) {
+				segmentsReady = false;                           // a loong lays itself out afresh as it appears
+			}
+			else if (!segmentsReady && CurrentForm == Form.Loong) {
+				LayOutSegments();                                // shown under the burst, still
+			}
+			aim = MathHelper.PiOver2;
+			int spirits = Math.Max(1, (owner.ownedProjectileCounts[ModContent.ProjectileType<JadeCoinCounter>()] + StagesPerSpirit - 1) / StagesPerSpirit);
+			float bob = MathF.Sin(Main.GlobalTimeWrappedHourly * 2.4f + Index * 0.9f) * 3f;
+			Vector2 spot = owner.Top + new Vector2((Index - (spirits - 1) * 0.5f) * CoinGap, -CoinHeight + bob);
+			if (Morph <= 0f) {
+				MoveTo(spot, CoinSpeed, 0.12f);                  // home over the head
+			}
+			else {
+				Projectile.velocity *= 0.85f;                    // changing: it holds still under the burst
+			}
+			Projectile.spriteDirection = owner.direction;
+			return false;
+		}
+
+		/// <summary>The drawn half of the change flipped (to the creature, or back to the coin): the burst, a chime and jade dust.</summary>
+		private void Changed(bool toCreature) {
+			if (Main.dedServ) {
+				return;
+			}
+			burstLeft = BurstTicks;
+			SoundEngine.PlaySound((toCreature ? SoundID.Item29 : SoundID.Item4) with { Pitch = toCreature ? 0.35f : 0.6f, Volume = 0.45f,
+				MaxInstances = 3 }, Projectile.Center);
+			for (int k = 0; k < 10 && CogpunkClientConfig.RollEffect(); k++) {
+				if (SafeSpawn.TryNewDust(Projectile.Center - new Vector2(8f), 16, 16, DustID.GemEmerald, out Dust d)) {
+					d.noGravity = true;
+					d.velocity = Main.rand.NextVector2Circular(3f, 3f);
+					d.scale = 1.1f;
+				}
+			}
+		}
+
 		/// <summary>Another spirit of this owner already has this number (an older one): this one goes.</summary>
 		private bool Duplicated() {
 			foreach (Projectile p in Main.ActiveProjectiles) {
@@ -266,8 +350,8 @@ namespace Cogpunk.Content.Research.Summons
 			Cycle = 0f;
 			segmentsReady = false;
 			aim = MathHelper.PiOver2;
-			if (Main.dedServ) {
-				return;
+			if (Main.dedServ || !Awake) {
+				return;                                          // a coin takes its new form quietly: it shows when it next wakes
 			}
 			SoundEngine.PlaySound(SoundID.Item4 with { Pitch = -0.2f + 0.15f * (int)to, Volume = 0.6f }, Projectile.Center);
 			if (from != Form.None) {
@@ -384,8 +468,8 @@ namespace Cogpunk.Content.Research.Summons
 			}
 		}
 
-		/// <summary>The golem: floats beside its owner (on the target's side when it has one), its arm easing onto the target,
-		/// a bolt from its palm every <see cref="GolemCycle"/> ticks once the arm is on it.</summary>
+		/// <summary>The golem's arm: floats beside its owner (on the target's side when it has one), easing onto the target, a bolt
+		/// from its palm every <see cref="GolemCycle"/> ticks once it is on it; hanging when it has nothing to aim at.</summary>
 		private void UpdateGolem(Player owner, NPC target, bool isOwner) {
 			Projectile.friendly = false;
 			float side = target != null ? Math.Sign(target.Center.X - owner.Center.X) : -owner.direction;
@@ -421,10 +505,12 @@ namespace Cogpunk.Content.Research.Summons
 			}
 		}
 
-		/// <summary>The golem's anchor (the ground point under its hips: the bottom of its hitbox).</summary>
-		private Vector2 Anchor => Projectile.Bottom;
+		/// <summary>The arm's shoulder: the spirit's centre (it floats there).</summary>
+		private Vector2 Shoulder() => Projectile.Center;
 
-		private Vector2 Shoulder() => Anchor + new Vector2(Golem.ShoulderX * -Projectile.spriteDirection, Golem.ShoulderY);
+		/// <summary>Where the arm sheet's cell origin goes (the golem's hip point, which the sheet is drawn from) so that its
+		/// shoulder lands on <see cref="Shoulder"/>.</summary>
+		private Vector2 Anchor => Shoulder() - new Vector2(Golem.ShoulderX * -Projectile.spriteDirection, Golem.ShoulderY);
 
 		private Vector2 Aim() => new(Projectile.spriteDirection * MathF.Cos(aim), MathF.Sin(aim));
 
@@ -502,6 +588,14 @@ namespace Cogpunk.Content.Research.Summons
 		// --- drawing --------------------------------------------------------------------------------------------------------
 
 		public override bool PreDraw(ref Color lightColor) {
+			if (burstLeft > 0) {
+				burstLeft--;
+			}
+			if (!creatureShown) {
+				DrawCoin(lightColor);
+				DrawBurst();
+				return false;
+			}
 			switch (CurrentForm) {
 				case Form.Bat:
 					DrawBat(lightColor);
@@ -516,7 +610,37 @@ namespace Cogpunk.Content.Research.Summons
 					DrawLoong();
 					break;
 			}
+			DrawBurst();
 			return false;
+		}
+
+		/// <summary>The coin turning (its turn quickens as it spins up to change), lit where it is with a little of its own light.</summary>
+		private void DrawCoin(Color light) {
+			if (coin?.IsLoaded != true) {
+				return;
+			}
+			int turn = Morph > 0f ? Math.Max(1, CoinTurnTicks - (int)Morph) : CoinTurnTicks;
+			int frame = (int)((Main.GameUpdateCount / (uint)turn + (uint)(Index * 3)) % CoinFrames);
+			Rectangle source = new(0, frame * (CoinCell + 2), CoinCell, CoinCell);
+			if (source.Bottom > coin.Value.Height) {
+				return;
+			}
+			Vector2 at = Snapped(Projectile.Center - Main.screenPosition - new Vector2(CoinCell / 2f));
+			Main.EntitySpriteDraw(coin.Value, at, source, Color.Lerp(light, Color.White, 0.35f), 0f, Vector2.Zero, 1f, SpriteEffects.None);
+		}
+
+		/// <summary>The change's burst over whatever shows (full-bright), its five frames over <see cref="BurstTicks"/>.</summary>
+		private void DrawBurst() {
+			if (burstLeft <= 0 || burst?.IsLoaded != true) {
+				return;
+			}
+			int frame = Math.Clamp((BurstTicks - burstLeft) * BurstFrames / BurstTicks, 0, BurstFrames - 1);
+			Rectangle source = new(0, frame * (BurstCell + 2), BurstCell, BurstCell);
+			if (source.Bottom > burst.Value.Height) {
+				return;
+			}
+			Vector2 at = Snapped(Projectile.Center - Main.screenPosition - new Vector2(BurstCell / 2f));
+			Main.EntitySpriteDraw(burst.Value, at, source, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None);
 		}
 
 		private static Vector2 Snapped(Vector2 v) => new(DepthLayers.Snap(v.X), DepthLayers.Snap(v.Y));
@@ -556,41 +680,21 @@ namespace Cogpunk.Content.Research.Summons
 			}
 		}
 
-		/// <summary>The jade golem: its planes in a breathing idle frame, or, with a target, its aiming body with the raised arm
-		/// (the arm sheet's frame nearest its aim) between the middle and near planes; its runes glowing.</summary>
+		/// <summary>The golem's arm alone (2026-11-26): the arm sheet's frame nearest its aim (hanging when idle), its runes
+		/// glowing, and a soft jade light at the shoulder it floats from.</summary>
 		private void DrawGolem(Color light) {
-			if (golem?.IsLoaded != true) {
+			if (golemArm?.IsLoaded != true) {
 				return;
 			}
 			SpriteBatch sb = Main.spriteBatch;
 			Vector2 anchor = Snapped(Anchor - Main.screenPosition);
 			bool flip = Projectile.spriteDirection == 1;          // the art faces left
-			bool aiming = TargetIndex >= 0 && aim < MathHelper.PiOver2 - 0.05f;
-			int frame = aiming ? Golem.AimBody : Golem.Idle + (int)(Main.GameUpdateCount / 15 % Golem.IdleFrames);
-			Vector2 farShift = new(DepthLayers.Shift(anchor, DepthLayers.Far, MaxParallax).X, 0f);
-			Vector2 nearShift = new(DepthLayers.Shift(anchor, DepthLayers.Near, MaxParallax).X, 0f);
-			if (golemFar?.IsLoaded == true) {
-				DepthLayers.DrawCell(sb, golemFar.Value, frame, Golem.Columns, Golem.CellWidth, Golem.CellHeight, 2, Golem.OriginX,
-					Golem.OriginY, anchor + farShift, 0, DepthLayers.Tint(light, DepthLayers.Far), flip);
-			}
-			DepthLayers.DrawCell(sb, golem.Value, frame, Golem.Columns, Golem.CellWidth, Golem.CellHeight, 2, Golem.OriginX,
-				Golem.OriginY, anchor, 0, light, flip);
 			int arm = Math.Clamp((int)Math.Round((MathHelper.ToDegrees(aim) - Golem.ArmMinDegrees) / Golem.ArmStepDegrees), 0, Golem.ArmFrames - 1);
-			if (aiming && golemArm?.IsLoaded == true) {
-				DepthLayers.DrawCell(sb, golemArm.Value, arm, Golem.ArmColumns, Golem.ArmCellWidth, Golem.ArmCellHeight, 2,
-					Golem.ArmOriginX, Golem.ArmOriginY, anchor + nearShift, 0, light, flip);
-			}
-			if (golemNear?.IsLoaded == true) {
-				DepthLayers.DrawCell(sb, golemNear.Value, frame, Golem.Columns, Golem.CellWidth, Golem.CellHeight, 2, Golem.OriginX,
-					Golem.OriginY, anchor + nearShift, 0, light, flip);
-			}
-			if (golemGlow?.IsLoaded == true) {
-				DepthLayers.DrawCell(sb, golemGlow.Value, frame, Golem.Columns, Golem.CellWidth, Golem.CellHeight, 2, Golem.OriginX,
-					Golem.OriginY, anchor, 0, Color.White * 0.8f, flip);
-			}
-			if (aiming && golemArmGlow?.IsLoaded == true) {
+			DepthLayers.DrawCell(sb, golemArm.Value, arm, Golem.ArmColumns, Golem.ArmCellWidth, Golem.ArmCellHeight, 2,
+				Golem.ArmOriginX, Golem.ArmOriginY, anchor, 0, Color.Lerp(light, Color.White, 0.2f), flip);
+			if (golemArmGlow?.IsLoaded == true) {
 				DepthLayers.DrawCell(sb, golemArmGlow.Value, arm, Golem.ArmColumns, Golem.ArmCellWidth, Golem.ArmCellHeight, 2,
-					Golem.ArmOriginX, Golem.ArmOriginY, anchor + nearShift, 0, Color.White * 0.8f, flip);
+					Golem.ArmOriginX, Golem.ArmOriginY, anchor, 0, Color.White * 0.8f, flip);
 			}
 		}
 

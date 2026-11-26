@@ -54,7 +54,7 @@ namespace Cogpunk.Content.Coghaven.Generation
 	{
 		// --- the base (tiles) ---
 		public const int BaseDepth = 34;               // at the middle; a vanilla cloud island is 15-20 deep
-		public const int MinBaseDepth = 24;            // the Jade Vault (19 rows) still fits under the middle, with cloud under it
+		public const int MinBaseDepth = 27;            // the Jade Vault (22 rows since 2026-11-26b) still fits under the middle, with cloud under it
 		public const int DepthStep = 2;
 		public const double FlatTop = 0.93;            // of the half-width: beyond it the surface rounds down (x 8-212 flat)
 		public const int EdgeDrop = 6;

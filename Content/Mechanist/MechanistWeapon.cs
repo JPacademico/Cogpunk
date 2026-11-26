@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -84,11 +85,23 @@ namespace Cogpunk.Content.Mechanist
 			return player.GetModPlayer<SteamPlayer>().CanPayAttack(ItemSteamCost(player));   // the hint or the overheat when it can't
 		}
 
+		/// <summary>
+		/// The owner pays the steam, once a use. Vanilla calls this on every tick while the player's item time is 0 (decompiled
+		/// 1.4.4 <c>Player.ItemCheck_Inner</c>: <c>if (ItemTimeIsZero &amp;&amp; itemAnimation &gt; 0)</c>, until it answers true); a
+		/// weapon that shoots reaches it through vanilla's shot instead, which sets the item time, so it is called once a shot.
+		/// A swing that shoots nothing never set it: the Cogspring Sword paid its steam every tick of its swing and flipped its
+		/// slash back and forth (user, 2026-11-26: "a glitched animation that consumes all the steam"). So a swing pays as its
+		/// animation starts and answers true, and vanilla applies its use time once.
+		/// </summary>
 		public override bool? UseItem(Player player) {
+			bool swing = Item.shoot <= ProjectileID.None;
+			if (swing && !player.ItemAnimationJustStarted) {
+				return null;
+			}
 			if (player.whoAmI == Main.myPlayer) {
 				player.GetModPlayer<SteamPlayer>().Spend(ItemSteamCost(player));
 			}
-			return null;
+			return swing ? true : null;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {

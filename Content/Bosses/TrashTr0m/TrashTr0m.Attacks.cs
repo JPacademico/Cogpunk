@@ -292,15 +292,13 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			}
 		}
 
-		/// <summary>Server: is any living player (in the Junkyard, if the world has one) within suction range of the mouth?
-		/// The mouth is read from the jaw-open pose the suck would use.</summary>
+		/// <summary>Server: is any living player within suction range of the mouth (in the Junkyard or out of it, since it
+		/// follows its foes out: user, 2026-11-26)? The mouth is read from the jaw-open pose the suck would use.</summary>
 		private bool AnyPlayerInSuckRange() {
 			Vector2 mouth = RigToWorld(TrashTr0mRigData.Mouth[TrashTr0mRigData.BodySuck0 * 2], TrashTr0mRigData.Mouth[TrashTr0mRigData.BodySuck0 * 2 + 1]);
 			float range2 = CurrentSuckRange * CurrentSuckRange;
-			bool needJunkyard = Junkyard.JunkyardSystem.Exists;
 			foreach (Player player in Main.ActivePlayers) {
-				if (!player.dead && (!needJunkyard || Junkyard.JunkyardSystem.Contains(player.Center))
-					&& Vector2.DistanceSquared(player.Center, mouth) <= range2) {
+				if (!player.dead && Vector2.DistanceSquared(player.Center, mouth) <= range2) {
 					return true;
 				}
 			}

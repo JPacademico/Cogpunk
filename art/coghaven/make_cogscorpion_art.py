@@ -21,6 +21,11 @@ Frames:
 - Strike x3: the tail whips over the head (a smear frame), the sting at full reach in front of the face, the recoil.
 - Recover x2: back to the walk's tail.
 
+2026-11-26b (user: "decrease a bit the size and health of cogscorpions"): drawn at SIZE (0.85) of the first size: the body,
+head, claws and tail through the pose's own scale (so their shading and plates scale with them), the legs' hips, reach and
+stride by hand; the limbs keep their widths and the stamps their sizes (so it stays as readable). The full-size version
+is in previous/make_cogscorpion_art_2026-11-26.py.
+
 Outputs:
     Content/Coghaven/NPCs/Cogscorpion.png, _Far.png, _Near.png, _Glow.png   grid sheets
     Content/Coghaven/NPCs/CogscorpionRigData.cs   cells, origin, frames, the walk's step, the sting (from the origin, facing left)
@@ -45,6 +50,7 @@ ROOT = os.getcwd()
 OUT = "Content/Coghaven/"
 G, ST, K, JD, IV = RAMP["gilt"], RAMP["steel"], RAMP["crimson"], RAMP["ghost"], RAMP["ivory"]
 FAR = (2, -1)                                    # the far side's legs and claw: back and up a pixel (whole px)
+SIZE = 0.85                                      # 2026-11-26b: "decrease a bit the size" (the rig below is the first size's)
 
 # --- the rig (art px, facing left, y down, the origin on the ground under the middle) -----------------------------------
 BODY = (1.4, -8.0, 12.4, 5.0)                    # the carapace: centre, radii
@@ -120,8 +126,8 @@ def head(mid, T, p):
 
 def leg(cv, hip, rest_x, foot, depth):
     """A thin steel leg rising to a cog knee and down to a hooked tip on the ground."""
-    femur, tibia = LEG
-    ankle = (rest_x + foot[0], -1.0 - foot[1])
+    femur, tibia = LEG[0] * SIZE, LEG[1] * SIZE
+    ankle = (rest_x + foot[0] * SIZE, -1.0 - foot[1])
     knee, ankle = ik(hip, ankle, femur, tibia, -1 if rest_x < hip[0] else 1)
     if knee[1] > hip[1] - 1.0:                         # scorpion knees stand above the hip
         knee = (knee[0], hip[1] - 1.6)
@@ -168,7 +174,7 @@ def tail(mid, glow, T, p):
     segs = []
     for k in range(5):
         a, b = pts[k], pts[k + 1]
-        segs.append(limb(mid, T.fwd(a), T.fwd(b), TAIL_R[k], "gilt", 0, lo=3, hi=8))
+        segs.append(limb(mid, T.fwd(a), T.fwd(b), max(1.6, TAIL_R[k] * SIZE), "gilt", 0, lo=3, hi=8))
     joints = []
     for k in range(1, 5):                                # the joints' cogs and the lacquer bands
         c = P(T, pts[k])
@@ -190,10 +196,10 @@ def tail(mid, glow, T, p):
 # --- a frame ---------------------------------------------------------------------------------------------------------------
 def frame(p):
     far, mid, near, glow = Canvas(), Canvas(), Canvas(), Canvas()
-    T = Xf.pose(0.0, (0.0, 0.0), (0.0, float(p.bob)))
+    T = Xf(SIZE, 0.0, 0.0, SIZE, 0.0, float(p.bob))     # scaled about the ground point, then the bob (whole px)
     for k in range(4):                                   # the far legs and claw
         hx, hy = HIPS[k]
-        leg(far, (hx + FAR[0], hy + FAR[1] + p.bob), REST[k] + FAR[0], p.feet[4 + k], 1)
+        leg(far, (hx * SIZE + FAR[0], hy * SIZE + FAR[1] + p.bob), REST[k] * SIZE + FAR[0], p.feet[4 + k], 1)
     claw(far, glow, T, p, 1)
     body = carapace(mid, T, p)
     hd = head(mid, T, p)
@@ -203,7 +209,7 @@ def frame(p):
         mid.put(vent[0] + dx, vent[1] + dy, col)
     for k in range(4):                                   # the near legs and claw
         hx, hy = HIPS[k]
-        leg(near, (hx, hy + p.bob), REST[k], p.feet[k], 0)
+        leg(near, (hx * SIZE, hy * SIZE + p.bob), REST[k] * SIZE, p.feet[k], 0)
     claw(near, glow, T, p, 0)
     for cv in (far, mid, near):
         finish(cv)
@@ -243,11 +249,15 @@ LIFT = 1.6
 
 
 def gait(k, n, stride, lift):
+    """A foot's offset at frame k of n: planted for the first half, sliding from the front of its reach to the back as the
+    body walks on (the art faces left, so the front is -x: it slides towards +x), then lifted and carried forward again.
+    2026-11-26 (user: "the walking animation for the cogscorpions looks like they are walking backwards"): the planted
+    foot slid towards -x, ahead of the body, until then (previous/make_cogscorpion_art_2026-11-24.py)."""
     t = (k % n) / n
     if t < 0.5:
-        return (stride / 2 - stride * (t / 0.5), 0.0)
+        return (-stride / 2 + stride * (t / 0.5), 0.0)
     u = (t - 0.5) / 0.5
-    return (-stride / 2 + stride * u, round(lift * math.sin(math.pi * u)))
+    return (stride / 2 - stride * u, round(lift * math.sin(math.pi * u)))
 
 
 def walk_pose(k):
@@ -296,7 +306,7 @@ def write_rig(path, cell, sting):
          "\t\tpublic const int Walk = 0, WalkFrames = %d, Raise = %d, RaiseFrames = 4, Strike = %d, StrikeFrames = 3, Recover = %d, RecoverFrames = 2;"
          % (WALK, INDEX["Raise0"], INDEX["Strike0"], INDEX["Recover0"]),
          "\t\t/// <summary>Game px a planted foot slides back per walk frame (the stride over half the cycle).</summary>",
-         "\t\tpublic const int WalkStep = %d;" % round(STRIDE * 2 / (WALK / 2)),
+         "\t\tpublic const int WalkStep = %d;" % round(STRIDE * SIZE * 2 / (WALK / 2)),
          "\t\tpublic const int StingX = %d, StingY = %d;" % (round(sting[0] * 2), round(sting[1] * 2)),
          "\t}",
          "}"]

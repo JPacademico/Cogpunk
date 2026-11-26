@@ -17,7 +17,7 @@ namespace Cogpunk.Content.Junkyard.Items
 	public class RustPolisher : CogpunkItem
 	{
 		public const int BarCost = 30;
-		public const int CogCost = 35;
+		public const int CogCost = 42;                     // 35 -> 42, x1.2 (user, 2026-11-26)
 		public const int SandCost = 50;
 
 		public override void SetDefaults() {

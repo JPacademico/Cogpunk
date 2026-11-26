@@ -65,6 +65,7 @@ namespace Cogpunk.Content.Manuals
 		}
 
 		public override void SetStaticDefaults() {
+			Cogpunk.Core.Systems.CogpunkSets.NeverStolen[Type] = true;        // a once-only drop: no thief takes it (2026-11-26)
 			Item.ResearchUnlockCount = 1;
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			learnedText = Mod.GetLocalization("Manuals.Learned");

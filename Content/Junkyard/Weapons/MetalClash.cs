@@ -22,8 +22,8 @@ namespace Cogpunk.Content.Junkyard.Weapons
 	/// <item><see cref="ParryMode"/>: a blow turned aside by the guard.</item>
 	/// <item><see cref="HitMode"/>: the riposte landing on an ordinary enemy (smaller).</item>
 	/// <item><see cref="BossMode"/>: the riposte landing on a boss or a mini-boss: the clang an octave down, a heavier camera
-	/// punch, and <see cref="SlowMotion"/> for every entity (<see cref="MetalWrench.SlowMotionTicks"/> ticks at
-	/// <see cref="MetalWrench.SlowMotionSpeed"/>). It starts on each side as this projectile first updates there: the owner at
+	/// punch, and <see cref="SlowMotion"/> for every entity (<see cref="WrenchParry.SlowMotionTicks"/> ticks at
+	/// <see cref="WrenchParry.SlowMotionSpeed"/>). It starts on each side as this projectile first updates there: the owner at
 	/// once, the server and the other clients when vanilla's projectile sync brings it (D2, no packet of its own).</item>
 	/// </list>
 	/// It keeps full speed through the slow motion it starts (<see cref="CogpunkSets.IgnoresSlowMotion"/>), deals no damage
@@ -69,7 +69,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 			if (Started == 0f) {
 				Started = 1f;
 				if (Mode == BossMode) {
-					SlowMotion.Start(MetalWrench.SlowMotionTicks, MetalWrench.SlowMotionSpeed);
+					SlowMotion.Start(WrenchParry.SlowMotionTicks, WrenchParry.SlowMotionSpeed);
 				}
 				if (!Main.dedServ) {
 					Burst();

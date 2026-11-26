@@ -54,7 +54,8 @@ namespace Cogpunk.Content.Research.UI
 				return;
 			}
 			Player player = Main.LocalPlayer;
-			bool keep = player.active && !player.dead && TableStands() && player.IsInInteractionRangeToMultiTileHitbox(Table.X + 1, Table.Y + 1);
+			bool keep = player.active && !player.dead && TableStands()
+				&& StationReach.InReach(player, Table, AncientResearchTableTile.Width, AncientResearchTableTile.Height);
 			if (!keep) {
 				IngameFancyUI.Close();
 			}

@@ -29,7 +29,7 @@ namespace Cogpunk.Content.Desert.Weapons
 		public const float ShootSpeed = 11f;
 		public const float Knockback = 1f;
 		public const float MuzzleDistance = 30f;
-		public const int CactusCost = 20, CogCost = 6;      // my calls
+		public const int CactusCost = 20, CogCost = 7;      // my calls; the cogs 6 -> 7, x1.2 (user, 2026-11-26)
 
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(CaktiSpike.StickTicks / 60, (int)System.Math.Round(AmmoSaveChance * 100f));
 

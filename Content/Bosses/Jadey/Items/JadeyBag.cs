@@ -33,8 +33,8 @@ namespace Cogpunk.Content.Bosses.Jadey.Items
 	}
 
 	/// <summary>
-	/// Jadey's loot (user-set 2026-11-17): one of her weapons (<see cref="WeaponPool"/>: the Jade-shaper Whip, the Jade Cursed
-	/// Glaives, the Firework Cannon and, since 2026-11-18, the Incense Mace), <see cref="MinJade"/>-<see cref="MaxJade"/> Jade ("1-10 jades and not 15-25") and a
+	/// Jadey's loot (user-set 2026-11-17): one of her weapons (<see cref="WeaponPool"/>: the Jade-shaper Whip, the Firework
+	/// Cannon and, since 2026-11-18, the Incense Mace; the Jade Cursed Glaives until 2026-11-26), <see cref="MinJade"/>-<see cref="MaxJade"/> Jade ("1-10 jades and not 15-25") and a
 	/// Large Jade; the bag adds her Expert item, the <see cref="JadeShaperPendant"/> ("Jadey should give from her bag the
 	/// Jade-shaper pendant"), and her coins. Her Jade-shaper Manual drops beside the bag, one per player, on her first defeat
 	/// (<see cref="Manuals.ManualDrop"/>).
@@ -43,11 +43,11 @@ namespace Cogpunk.Content.Bosses.Jadey.Items
 	{
 		public const int MinJade = 1, MaxJade = 10;        // user-set 2026-11-17
 
-		/// <summary>One of her four weapons, one per class she suits (summoner, melee, mage and, since 2026-11-18, mechanist:
-		/// user, "add a new weapon to Jadey weapon pool called Incense mace").</summary>
+		/// <summary>One of her three weapons (summoner, mage and, since 2026-11-18, mechanist: user, "add a new weapon to Jadey weapon
+		/// pool called Incense mace"). The Jade Cursed Glaives left the pool on 2026-11-26 (user: "it does not drop from jadey
+		/// anymore"): an artifact now, from enemies turned to jade (<see cref="Artifacts.ArtifactGlobalNPC"/>).</summary>
 		public static int[] WeaponPool() => new[] {
 			ModContent.ItemType<Weapons.JadeShaperWhip>(),
-			ModContent.ItemType<Weapons.JadeCursedGlaives>(),
 			ModContent.ItemType<Weapons.FireworkCannon>(),
 			ModContent.ItemType<Weapons.IncenseMace>(),
 		};

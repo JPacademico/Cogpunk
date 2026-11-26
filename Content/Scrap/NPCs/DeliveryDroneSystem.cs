@@ -1,5 +1,6 @@
 using System;
 using Cogpunk.Core.Safety;
+using Cogpunk.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -43,7 +44,8 @@ namespace Cogpunk.Content.Scrap.NPCs
 		public static bool CanSteal(Item item, int lying) {
 			return item != null && item.active && !item.IsAir && item.stack > 0 && item.type > ItemID.None && item.type < ItemLoader.ItemCount
 				&& item.timeSinceItemSpawned >= lying && !item.beingGrabbed && !item.instanced && !item.questItem
-				&& !ItemID.Sets.IsAPickup[item.type] && !ItemID.Sets.BossBag[item.type];
+				&& !ItemID.Sets.IsAPickup[item.type] && !ItemID.Sets.BossBag[item.type] && !CogpunkSets.NeverStolen[item.type]
+				&& !CogpunkSets.IsArtifactType(item.type);           // user, 2026-11-26: "artifacts cant be stolen by the drone"
 		}
 
 		public override void PostUpdateWorld() {

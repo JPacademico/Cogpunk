@@ -258,7 +258,10 @@ WAIST = (0.0, -24.0)                                          # big moves lean t
 NECK = (-28.0, -72.0)                                         # the skull's jaw hinge sits here, at the end of the neck of tar
 SHOULDER_NEAR = (-26.0, -46.0)                                # the arms hang off the lower body (they stay put while it breathes)
 SHOULDER_FAR = (16.0, -56.0)
-REST_NEAR = (-50.0, -4.0)                                     # the claw planted in the puddle in front
+REST_NEAR = (-50.0, -12.0)                                    # the claw resting on the ground in front, its talons above it
+                                                              # (2026-11-26, user: the hand "is cropped on his iddle position and its
+                                                              # noticeable once he climbs a blocks": at -4 the ground clip cut 216 px
+                                                              # of talon; at -12 the lowest talon row is the ground row)
 REST_FAR = (46.0, -5.0)
 NEAR_L1, NEAR_L2 = 28.0, 26.0
 FAR_L1, FAR_L2 = 20.0, 19.0

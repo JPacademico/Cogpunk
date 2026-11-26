@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using Cogpunk.Content.Research;
 using Cogpunk.Content.Underground.Items;
 using Cogpunk.Core.Configs;
 using Cogpunk.Core.Safety;
@@ -12,6 +14,7 @@ using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using R = Cogpunk.Content.Underground.NPCs.CrystalLizardRigData;
 
@@ -29,6 +32,15 @@ namespace Cogpunk.Content.Underground.NPCs
 	/// (<see cref="DigTicks"/>: nose down, sinking, dirt flying; it can still be hit for the first half) and is gone: no loot.</item>
 	/// <item>Killed: 1-5 Gold Coins, 1-3 of one random gem (vanilla's seven and Jade), the <see cref="Tearstone"/> 1 time in
 	/// <see cref="TearstoneOdds"/> (all user-set but the gem list and the Tearstone's odds, my calls).</item>
+	/// <item>Its gem (user, 2026-11-26: "the cristal lizard cristals on his back should have a different color to match the gem
+	/// he would drop when killed"): rolled by the server as it appears (<see cref="RollGem"/>: the rarer gems less often; with the
+	/// nearest player's Twinkling researched, more often: "increase chance for rarer gems") and synced; its crystals grow in that
+	/// gem's colours (its own column of the sheets) and it drops 1-3 of it. Twinkling also adds 1-3 Gold Coins to a lizard its
+	/// owner kills ("and more gold to drop from them").</item>
+	/// <item>Its tail (user, 2026-11-26: "a small chance to let go of his tail which keeps twitching on the ground for some
+	/// seconds while he scapes (just for cool detail animation)"): each hit it lives through, 1 in <see cref="TailOdds"/>, the
+	/// server lets it drop its tail (synced); it runs on without it (the sheets' tailless columns) and on every client the tail
+	/// lies where it fell, twitching (<see cref="Gores.CrystalLizard_Tail"/>, a client-side gore).</item>
 	/// <item>Harmless: no contact damage. Spawns underground (the dirt and cavern layers, not the Dungeon or the Temple), rarely
 	/// (<see cref="SpawnWeight"/>), one at a time; the Lifeform Analyzer calls it out.</item>
 	/// </list>
@@ -52,6 +64,41 @@ namespace Cogpunk.Content.Underground.NPCs
 		public const float SpawnWeight = 0.012f;
 		public const int TearstoneOdds = 10;                            // "a small chance" (my call: 10%; the lizard is rare)
 		public const int GoldMin = 1, GoldMax = 5, GemMin = 1, GemMax = 3;
+		/// <summary>Twinkling's extra gold (my call: 1-3 more Gold Coins, about two thirds more).</summary>
+		public const int TwinklingGoldMin = 1, TwinklingGoldMax = 3;
+		/// <summary>"a small chance" to drop its tail (my call: 1 in 6 a hit it lives through, once).</summary>
+		public const int TailOdds = 6;
+
+		/// <summary>The gems, in the art's order (art/underground/make_crystal_lizard_art.py GEMS): amethyst, topaz, sapphire,
+		/// emerald, ruby, diamond, amber, jade.</summary>
+		public const int GemCount = R.GemCount;
+		/// <summary>How often each gem grows (my calls, by vanilla's gem rarity: amethyst the commonest, diamond and jade the
+		/// rarest), and with Twinkling: the four rarer ones (ruby, diamond, amber, jade) 29% -> 52%.</summary>
+		private static readonly int[] GemWeights = { 22, 19, 16, 14, 11, 6, 8, 4 };
+		private static readonly int[] TwinklingWeights = { 10, 11, 13, 14, 15, 14, 13, 10 };
+		private static readonly short[] GemDusts = { DustID.GemAmethyst, DustID.GemTopaz, DustID.GemSapphire, DustID.GemEmerald, DustID.GemRuby,
+			DustID.GemDiamond, DustID.GemAmber, DustID.GemEmerald };
+		private static readonly Vector3[] GemLights = { new(0.20f, 0.06f, 0.24f), new(0.24f, 0.18f, 0.04f), new(0.06f, 0.12f, 0.28f),
+			new(0.06f, 0.24f, 0.08f), new(0.26f, 0.05f, 0.05f), new(0.20f, 0.22f, 0.26f), new(0.26f, 0.14f, 0.04f), new(0.06f, 0.24f, 0.18f) };
+
+		/// <summary>The item of gem <paramref name="k"/>.</summary>
+		public static int GemItem(int k) => k switch {
+			0 => ItemID.Amethyst,
+			1 => ItemID.Topaz,
+			2 => ItemID.Sapphire,
+			3 => ItemID.Emerald,
+			4 => ItemID.Ruby,
+			5 => ItemID.Diamond,
+			6 => ItemID.Amber,
+			_ => ModContent.ItemType<Gems.Items.Jade>(),
+		};
+
+		private byte gem;                                               // synced (SendExtraAI): the server's roll
+		private bool tailDropped;                                       // synced: the server's roll
+		private bool tailShed;                                          // this client has dropped the tail's gore
+
+		/// <summary>Its gem (0..<see cref="GemCount"/> - 1).</summary>
+		public int Gem => gem;
 
 		private static Asset<Texture2D> far, glow;
 
@@ -107,6 +154,45 @@ namespace Cogpunk.Content.Underground.NPCs
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
+		/// <summary>The server (or singleplayer), as it appears: its gem, rolled with the nearest player's Twinkling.</summary>
+		public override void OnSpawn(Terraria.DataStructures.IEntitySource source) {
+			if (!IsAuthority) {
+				return;
+			}
+			int nearest = Player.FindClosest(NPC.position, NPC.width, NPC.height);
+			bool twinkling = nearest >= 0 && nearest < Main.maxPlayers && Main.player[nearest].active
+				&& Main.player[nearest].GetModPlayer<ResearchPlayer>().Has(ResearchNodes.Twinkling);
+			gem = RollGem(twinkling);
+			NPC.netUpdate = true;
+		}
+
+		/// <summary>A gem by <see cref="GemWeights"/> (or <see cref="TwinklingWeights"/>).</summary>
+		public static byte RollGem(bool twinkling) {
+			int[] weights = twinkling ? TwinklingWeights : GemWeights;
+			int total = 0;
+			for (int k = 0; k < weights.Length; k++) {
+				total += weights[k];
+			}
+			int roll = Main.rand.Next(Math.Max(1, total));
+			for (int k = 0; k < weights.Length; k++) {
+				roll -= weights[k];
+				if (roll < 0) {
+					return (byte)k;
+				}
+			}
+			return 0;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer) {
+			writer.Write(gem);
+			writer.Write(tailDropped);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader) {
+			gem = (byte)Math.Min((int)reader.ReadByte(), GemCount - 1);      // D0: a bad byte can't index past the sheet
+			tailDropped = reader.ReadBoolean();
+		}
+
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
 			Player player = spawnInfo.Player;
 			bool underground = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
@@ -116,12 +202,38 @@ namespace Cogpunk.Content.Underground.NPCs
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 			npcLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 1, GoldMin, GoldMax));
-			npcLoot.Add(new OneFromRulesRule(1,
-				ItemDropRule.Common(ItemID.Amethyst, 1, GemMin, GemMax), ItemDropRule.Common(ItemID.Topaz, 1, GemMin, GemMax),
-				ItemDropRule.Common(ItemID.Sapphire, 1, GemMin, GemMax), ItemDropRule.Common(ItemID.Emerald, 1, GemMin, GemMax),
-				ItemDropRule.Common(ItemID.Ruby, 1, GemMin, GemMax), ItemDropRule.Common(ItemID.Diamond, 1, GemMin, GemMax),
-				ItemDropRule.Common(ItemID.Amber, 1, GemMin, GemMax), ItemDropRule.Common(ModContent.ItemType<Gems.Items.Jade>(), 1, GemMin, GemMax)));
+			npcLoot.Add(ItemDropRule.ByCondition(new TwinklingCondition(), ItemID.GoldCoin, 1, TwinklingGoldMin, TwinklingGoldMax));
+			for (int k = 0; k < GemCount; k++) {
+				npcLoot.Add(ItemDropRule.ByCondition(new GemCondition(k), GemItem(k), 1, GemMin, GemMax));   // the gem on its back
+			}
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tearstone>(), TearstoneOdds));
+		}
+
+		/// <summary>The lizard's crystals are gem <c>k</c>.</summary>
+		private sealed class GemCondition : IItemDropRuleCondition
+		{
+			private readonly int k;
+
+			public GemCondition(int k) {
+				this.k = k;
+			}
+
+			public bool CanDrop(DropAttemptInfo info) => info.npc?.ModNPC is CrystalLizard lizard && lizard.gem == k;
+
+			public bool CanShowItemDropInUI() => true;
+
+			public string GetConditionDescription() => Language.GetTextValue("Mods.Cogpunk.DropConditions.LizardGem");
+		}
+
+		/// <summary>The player it drops for has Twinkling researched.</summary>
+		private sealed class TwinklingCondition : IItemDropRuleCondition
+		{
+			public bool CanDrop(DropAttemptInfo info) => info.player != null && info.player.active
+				&& info.player.GetModPlayer<ResearchPlayer>().Has(ResearchNodes.Twinkling);
+
+			public bool CanShowItemDropInUI() => true;
+
+			public string GetConditionDescription() => Language.GetTextValue("Mods.Cogpunk.DropConditions.Twinkling");
 		}
 
 		protected override void UpdateState() {
@@ -215,13 +327,18 @@ namespace Cogpunk.Content.Underground.NPCs
 		public override void HitEffect(NPC.HitInfo hit) {
 			if (NPC.life > 0) {
 				Startle();                                               // any hit sets it running (the server's copy decides)
+				if (IsAuthority && !tailDropped && Main.rand.NextBool(TailOdds)) {
+					tailDropped = true;                                  // it lets go of its tail (synced: every client drops the gore)
+					NPC.netUpdate = true;
+				}
 			}
 			if (Main.dedServ) {
 				return;
 			}
 			int count = NPC.life > 0 ? 4 : 18;
+			short shard = GemDusts[Math.Clamp((int)gem, 0, GemCount - 1)];
 			for (int i = 0; i < count; i++) {
-				if (SafeSpawn.TryNewDust(NPC.position, NPC.width, NPC.height, i % 2 == 0 ? DustID.BlueCrystalShard : DustID.GemDiamond, out Dust d)) {
+				if (SafeSpawn.TryNewDust(NPC.position, NPC.width, NPC.height, i % 2 == 0 ? shard : DustID.Stone, out Dust d)) {
 					d.noGravity = i % 3 != 0;
 					d.velocity *= NPC.life > 0 ? 1f : 1.8f;
 				}
@@ -229,6 +346,9 @@ namespace Cogpunk.Content.Underground.NPCs
 		}
 
 		private void Effects() {
+			if (tailDropped && !tailShed) {
+				ShedTail();
+			}
 			if (CurrentPhase == Phase.Flee && Timer == 1f) {
 				SoundEngine.PlaySound(SoundID.Item25 with { Pitch = 0.6f, Volume = 0.5f }, NPC.Center);   // a startled chirp
 			}
@@ -241,13 +361,54 @@ namespace Cogpunk.Content.Underground.NPCs
 					dirt.velocity = new Vector2(Main.rand.NextFloat(-2f, 2f), Main.rand.NextFloat(-3f, -1f));
 				}
 			}
+			int g = Math.Clamp((int)gem, 0, GemCount - 1);
 			if (Main.rand.NextBool(30) && CogpunkClientConfig.RollEffect()
-				&& SafeSpawn.TryNewDust(NPC.position, NPC.width, 8, DustID.GemDiamond, out Dust sparkle)) {
+				&& SafeSpawn.TryNewDust(NPC.position, NPC.width, 8, GemDusts[g], out Dust sparkle)) {
 				sparkle.noGravity = true;                               // its crystals glint
 				sparkle.velocity = Vector2.Zero;
 				sparkle.scale = 0.6f;
 			}
-			Lighting.AddLight(NPC.Top + new Vector2(0f, 6f), 0.06f, 0.20f, 0.26f);
+			Lighting.AddLight(NPC.Top + new Vector2(0f, 6f), GemLights[g]);
+		}
+
+		/// <summary>Every client, once: the tail drops where it joined the body and lies twitching (a gore, client-side); a
+		/// lizard already tailless when this client first sees it (joined late) sheds nothing.</summary>
+		private void ShedTail() {
+			tailShed = true;
+			if (NPC.oldPosition == Vector2.Zero) {
+				return;                                                  // just appeared here without its tail: nothing to drop
+			}
+			int facing = NPC.spriteDirection == 1 ? 1 : -1;             // the art faces left: its tail is on its right
+			Vector2 join = DrawAnchor + new Vector2(-facing * R.TailJoinX, R.TailJoinY);
+			int type = ModContent.GoreType<Gores.CrystalLizard_Tail>();
+			Vector2 at = join - new Vector2(facing == 1 ? R.TailCellWidth - R.TailBaseX : R.TailBaseX, R.TailBaseY);
+			if (SafeSpawn.TryNewGore(NPC.GetSource_FromThis(), at, new Vector2(-facing * 1.2f, -2.2f), type, out Gore tail)) {
+				Gores.CrystalLizard_Tail.Face(tail, facing);
+			}
+			SoundEngine.PlaySound(SoundID.Item10 with { Pitch = 0.5f, Volume = 0.4f }, join);
+		}
+
+		/// <summary>The far legs, the body in its gem's column (with or without its tail) and its gem's glow.</summary>
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
+			bool dummy = NPC.IsABestiaryIconDummy;
+			float scale = dummy ? NPC.scale : 1f;
+			Vector2 anchor = DrawAnchor - screenPos + new Vector2(0f, NPC.gfxOffY);
+			anchor = new Vector2(MathF.Round(anchor.X), MathF.Round(anchor.Y));
+			bool flip = NPC.spriteDirection == 1;                       // the art faces left
+			Color light = NPC.GetAlpha(drawColor);
+			int frame = dummy ? 0 : Frame;
+			int buried = dummy ? 0 : Math.Max(0, Buried);
+			int g = Math.Clamp((int)gem, 0, GemCount - 1);
+			int column = g + (tailDropped && !dummy ? GemCount : 0);
+			DepthLayers.DrawWalker(spriteBatch, far?.Value, null, null, frame, CellWidth, CellHeight, 2, OriginX, OriginY, anchor, light,
+				flip, dummy ? 0f : MaxParallax, scale, 1, buried);
+			DepthLayers.DrawCell(spriteBatch, Terraria.GameContent.TextureAssets.Npc[Type].Value, frame * R.MiddleColumns + column, R.MiddleColumns,
+				CellWidth, CellHeight, 2, OriginX, OriginY, anchor, buried, light, flip, scale);
+			if (glow?.IsLoaded == true) {
+				DepthLayers.DrawCell(spriteBatch, glow.Value, frame * GemCount + g, GemCount, CellWidth, CellHeight, 2, OriginX, OriginY,
+					anchor, buried, Color.White * NPC.Opacity, flip, scale);
+			}
+			return false;
 		}
 
 		protected override int PickFrame() {

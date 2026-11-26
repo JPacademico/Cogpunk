@@ -15,10 +15,10 @@ namespace Cogpunk.Content.Mechanist.Accessories
 	/// </summary>
 	public class BrassContainer : SteamContainer
 	{
-		public const int Capacity = 15;
+		public const int Capacity = 20;                // 15, +5 (user, 2026-11-26: "increase amount of max steam that all max steam increasing itens give in 5 points")
 		public const int DamagePercent = 4;
 		public const int MetalCost = 8;
-		public const int CogCost = 18;
+		public const int CogCost = 22;                     // 18 -> 22, x1.2 rounded (user, 2026-11-26)
 
 		public override int SteamCapacity => Capacity;
 

@@ -24,13 +24,15 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 	/// <see cref="CrawlTicks"/> (2.5 s, hand over hand, moving only while a planted hand drags), then attacks, then crawls
 	/// again:</para>
 	/// <list type="bullet">
-	/// <item><b>Suck</b> (<see cref="Phase.Suck"/>) when any player is within its suction range: it opens its jaw for
+	/// <item><b>Suck</b> (<see cref="Phase.Suck"/>), only with a player within its suction range, never twice running and only
+	/// <see cref="SuckChance"/> of the time when it may (user, 2026-11-26: "make so it can never use the suction 2 times in a
+	/// row. his slam should be his most common attack"; it sucked whenever anyone was near, which was nearly always): it opens its jaw for
 	/// <see cref="SuckTicks"/> (5 s) and inhales. Players are dragged towards the mouth (<see cref="TrashTr0mPlayer"/>: a
 	/// conveyor pull a player can only outrun at Hermes Boots speed) and friendly projectiles are swallowed. A player who
 	/// reaches the mouth is swallowed, chewed and spat high into the air and out behind it (user-set 2026-10-27) (<see cref="Phase.SwallowPlayer"/>,
 	/// <see cref="Phase.SpitPlayer"/>). Otherwise it gulps and spits the swallowed projectiles back as chewed scrap
 	/// (<see cref="Phase.SpitScrap"/>), or, if it caught nothing, one big ball of scrap (<see cref="Phase.SpitBall"/>).</item>
-	/// <item><b>Slam</b> (<see cref="Phase.SlamWindup"/>) when nobody is in range: it raises its near fist and smashes it
+	/// <item><b>Slam</b> (<see cref="Phase.SlamWindup"/>), its usual attack (about 70% of them): it raises its near fist and smashes it
 	/// down; a fast ground shockwave runs away from the fist along the terrain (<see cref="Projectiles.TrashTr0mShockwave"/>),
 	/// jumped over at the right moment.</item>
 	/// </list>
@@ -42,8 +44,9 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 	/// <para><b>Enraged</b> below <see cref="EnrageLifeFraction"/> of its life: the suction reaches twice as far, and the
 	/// slam comes twice, the near fist and then the far claw, each with its own shockwave. The 2.5 s crawl between
 	/// attacks stays.</para>
-	/// <para>It only fights in the Junkyard: when no living player has been inside it for <see cref="LeaveGraceTicks"/>,
-	/// it burrows back into the ground and despawns (<see cref="Phase.Retreat"/>).</para>
+	/// <para>It follows its foes out of the Junkyard (user, 2026-11-26: "trashtr0m should not despawn or enrage outside of the
+	/// junkyard no more"); it burrows back into the ground and despawns (<see cref="Phase.Retreat"/>) only when no living player
+	/// is within <see cref="DespawnRange"/>.</para>
 	/// <para>Spawn: it bursts out from under the Junkyard's central heap when the locked cache is touched, or out of the
 	/// ground in front of a player who uses <see cref="Junkyard.Items.Junkbait"/> (<see cref="TrashTr0mSummon"/>). Death:
 	/// a scripted breakdown with the camera locked (<see cref="Phase.Dying"/>, <see cref="BossNPC"/>); the first kill drops
@@ -108,8 +111,9 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 		public const int CrawlTicks = 150;                 // 2.5 s of crawling between attacks (user-set)
 		public const int CrawlCycleTicks = 75;             // 12 frames in 75 ticks: two cycles fill the crawl exactly
 		public const float DespawnRange = 300f * 16f;
-		public const int LeaveGraceTicks = 60;             // a knockback over the border doesn't despawn it
-		public const int JunkyardCheckInterval = 10;
+		/// <summary>When a suction is allowed (a player in range, and the last attack wasn't one), the chance it is chosen over the
+		/// slam (my call, 2026-11-26): with no two suctions running, about 29% of its attacks suck and 71% slam.</summary>
+		public const float SuckChance = 0.4f;
 
 		// --- intro -----------------------------------------------------------------------------------------------------------
 		public const int RumbleTicks = 45;
@@ -142,7 +146,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 		private ref float TitleShown => ref NPC.localAI[0];
 
 		private bool playerScaled;                          // life already scaled for players (Expert/Master hook ran)
-		private int outsideTicks;                           // server: how long no player has been in the Junkyard
+		private bool lastWasSuck;                           // server: the last attack was a suction (never two running)
 
 		public bool IsEmerging => CurrentPhase == Phase.Emerge;
 
@@ -199,7 +203,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			NPC.value = Item.buyPrice(gold: 3);
 			NPC.SpawnWithHigherTime(30);
 			if (!Main.dedServ) {
-				Music = MusicID.Boss1;
+				Music = MusicID.Boss1;                       // vanilla's "Boss 1" until his own track (user, 2026-11-26)
 			}
 		}
 
@@ -342,7 +346,6 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			if (CurrentPhase != Phase.Dying) {
 				UpdateCogs();
 				CheckEnrage();
-				CheckJunkyard();
 			}
 			FollowGround();
 			if (!Main.dedServ) {
@@ -393,29 +396,6 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 				NPC.ai[3] = 1f;
 				NPC.netUpdate = true;
 			}
-		}
-
-		/// <summary>Server: burrow away when no living player has been in the Junkyard for <see cref="LeaveGraceTicks"/>.
-		/// Checked every <see cref="JunkyardCheckInterval"/> ticks (a loop over the players, D1). Worlds without a Junkyard
-		/// skip the rule.</summary>
-		private void CheckJunkyard() {
-			if (!IsAuthority || !JunkyardSystem.Exists || (int)Timer % JunkyardCheckInterval != 0) {
-				return;
-			}
-			outsideTicks = AnyPlayerInJunkyard() ? 0 : outsideTicks + JunkyardCheckInterval;
-			if (outsideTicks >= LeaveGraceTicks) {
-				outsideTicks = 0;
-				ChangeState((int)Phase.Retreat);
-			}
-		}
-
-		private static bool AnyPlayerInJunkyard() {
-			foreach (Player player in Main.ActivePlayers) {
-				if (!player.dead && JunkyardSystem.Contains(player.Center)) {
-					return true;
-				}
-			}
-			return false;
 		}
 
 		/// <summary>Every attack ends here: straight back to crawling (the 2.5 s between attacks), or away if nobody is left.</summary>
@@ -471,10 +451,12 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 			KeepInWorld();
 		}
 
-		/// <summary>Server: suck if any player is within suction range of the mouth, slam otherwise.</summary>
+		/// <summary>Server: the slam, mostly; a suction only with a player within range of the mouth, never right after another,
+		/// and then <see cref="SuckChance"/> of the time (the server's roll; the choice reaches clients as the state).</summary>
 		private void PickAttack() {
 			FaceTarget();
-			bool suck = AnyPlayerInSuckRange();
+			bool suck = !lastWasSuck && AnyPlayerInSuckRange() && Main.rand.NextFloat() < SuckChance;
+			lastWasSuck = suck;
 			ChangeState((int)(suck ? Phase.SuckWindup : Phase.SlamWindup));
 			Arg = 0f;                                      // the slam starts with the near arm
 		}
@@ -493,7 +475,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 
 		/// <summary>Server: keeps a target (since 2026-11-09 the shared rule picks it: the top damage dealer, a different
 		/// one every 5 s, <see cref="BossNPC"/>); burrows away only if nobody is alive within <see cref="DespawnRange"/>.
-		/// (Players all leaving the Junkyard is handled with a grace period by <see cref="CheckJunkyard"/>.) True while
+		/// (It no longer cares whether they are in the Junkyard: user, 2026-11-26.) True while
 		/// fighting.</summary>
 		private bool RetargetOrRetreat() {
 			if (!IsAuthority) {

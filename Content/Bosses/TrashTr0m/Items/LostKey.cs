@@ -14,6 +14,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m.Items
 	public class LostKey : CogpunkItem
 	{
 		public override void SetStaticDefaults() {
+			Cogpunk.Core.Systems.CogpunkSets.NeverStolen[Type] = true;        // a once-only drop: no thief takes it (2026-11-26)
 			Item.ResearchUnlockCount = 3;
 		}
 

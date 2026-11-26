@@ -34,17 +34,19 @@ namespace Cogpunk.Content.Research.UI
 		/// a fundamental stone"): the strip of tabs shows under the header once there are two, and the field moves down to
 		/// make room; before that the window is as it was.</summary>
 		public override void Update(GameTime gameTime) {
-			bool show = Main.LocalPlayer.GetModPlayer<ResearchPlayer>().MysteryTab;
+			ResearchPlayer r = Main.LocalPlayer.GetModPlayer<ResearchPlayer>();
+			bool show = r.MysteryTab || r.ArtifactsTab;          // the strip shows once there is a second tab (2026-11-26: Artifacts)
 			if (show != tabsShown && clip != null) {
 				tabsShown = show;
 				float top = Header + (show ? TabHeight : 0f);
 				clip.Top.Set(top, 0f);
 				clip.Height.Set(-top - 10f, 1f);
-				if (!show) {
-					tree.Tab = ResearchNodes.MainTab;
-				}
 				tree.ResetView();
 				window.Recalculate();
+			}
+			if (!ResearchTabStrip.TabShown(tree.Tab, r)) {
+				tree.Tab = ResearchNodes.MainTab;                 // its tab went away (another character, another world)
+				tree.ResetView();
 			}
 			tabs.Shown = show;
 			base.Update(gameTime);
@@ -203,12 +205,23 @@ namespace Cogpunk.Content.Research.UI
 		/// <summary>Hidden, it takes no clicks: the tree under it keeps them (it is hit-tested before the field otherwise).</summary>
 		public override bool ContainsPoint(Vector2 point) => Shown && base.ContainsPoint(point);
 
-		private static string NameKey(int tab) => tab == ResearchNodes.MysteryTab ? "Mods.Cogpunk.Research.Tabs.Mystery" : "Mods.Cogpunk.Research.Tabs.Main";
+		private static string NameKey(int tab) => tab == ResearchNodes.MysteryTab ? "Mods.Cogpunk.Research.Tabs.Mystery"
+			: tab == ResearchNodes.ArtifactsTab ? "Mods.Cogpunk.Research.Tabs.Artifacts" : "Mods.Cogpunk.Research.Tabs.Main";
+
+		/// <summary>A tab the player has: the main one always, the Mystery of the Past once a stone was touched, the Artifacts once
+		/// an artifact was found (2026-11-26).</summary>
+		public static bool TabShown(int tab, ResearchPlayer r) => tab == ResearchNodes.MainTab
+			|| (tab == ResearchNodes.MysteryTab && r.MysteryTab) || (tab == ResearchNodes.ArtifactsTab && r.ArtifactsTab);
 
 		private void Layout() {
 			CalculatedStyle d = GetDimensions();
 			float x = d.X;
+			ResearchPlayer r = Main.LocalPlayer.GetModPlayer<ResearchPlayer>();
 			for (int t = 0; t < ResearchNodes.TabCount; t++) {
+				if (!TabShown(t, r)) {
+					rects[t] = Rectangle.Empty;                     // a tab the player hasn't got: no room, no click
+					continue;
+				}
 				string name = Language.GetTextValue(NameKey(t));
 				if (!ReferenceEquals(name, names[t])) {
 					names[t] = name;                             // the language changed (or the first frame): measure once
@@ -240,6 +253,9 @@ namespace Cogpunk.Content.Research.UI
 			Point mouse = Main.MouseScreen.ToPoint();
 			for (int t = 0; t < ResearchNodes.TabCount; t++) {
 				Rectangle r = rects[t];
+				if (r.IsEmpty) {
+					continue;
+				}
 				bool open = t == tree.Tab;
 				bool over = IsMouseHovering && r.Contains(mouse);
 				if (over) {
@@ -250,7 +266,8 @@ namespace Cogpunk.Content.Research.UI
 				sb.Draw(px, r, Rim);
 				sb.Draw(px, new Rectangle(r.X + 2, r.Y + 2, r.Width - 4, r.Height - 2), rim);
 				sb.Draw(px, new Rectangle(r.X + 4, r.Y + 4, r.Width - 8, r.Height - 4), open ? Field : Rim);
-				Color ink = open ? (t == ResearchNodes.MysteryTab ? Aether : BrassLight) : over ? Ink : Dim;
+				Color ink = open ? (t == ResearchNodes.MysteryTab ? Aether : t == ResearchNodes.ArtifactsTab ? Artifacts.ArtifactRarity.Tint : BrassLight)
+					: over ? Ink : Dim;
 				Utils.DrawBorderString(sb, names[t], new Vector2(r.X + Pad, r.Y + 6f), ink, TextScale);
 			}
 		}
@@ -498,8 +515,9 @@ namespace Cogpunk.Content.Research.UI
 		}
 
 		private void DrawStars(SpriteBatch sb, Texture2D px, Rectangle area) {
-			// the Mystery of the Past's field is the deep blue of the stones' slate (aether's darkest)
-			sb.Draw(px, area, Tab == ResearchNodes.MysteryTab ? new Color(16, 22, 46) : new Color(18, 16, 30));
+			// the Mystery of the Past's field is the deep blue of the stones' slate (aether's darkest); the Artifacts' a dark jade
+			sb.Draw(px, area, Tab == ResearchNodes.MysteryTab ? new Color(16, 22, 46) : Tab == ResearchNodes.ArtifactsTab ? new Color(12, 26, 22)
+				: new Color(18, 16, 30));
 			float t = Main.GlobalTimeWrappedHourly;
 			int ox = (int)(pan.X * 0.3f), oy = (int)(pan.Y * 0.3f);
 			for (int k = 0; k < Stars; k++) {
@@ -653,7 +671,8 @@ namespace Cogpunk.Content.Research.UI
 			builder.Append("[c/DFB94E:").Append(node.DisplayName.Value).Append(']').Append('\n');
 			builder.Append(node.Description.Value).Append('\n');
 			if (r.Has(node)) {
-				builder.Append('\n').Append("[c/8CE458:").Append(Language.GetTextValue("Mods.Cogpunk.Research.Researched")).Append(']');
+				string done = node.Record ? "Mods.Cogpunk.Artifacts.Found" : "Mods.Cogpunk.Research.Researched";
+				builder.Append('\n').Append("[c/8CE458:").Append(Language.GetTextValue(done)).Append(']');
 				return tip = builder.ToString();
 			}
 			builder.Append('\n');

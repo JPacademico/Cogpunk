@@ -32,6 +32,7 @@ namespace Cogpunk.Content.Bosses.Jadey
 		}
 
 		public override void OnWorldUnload() {
+			Jadey.ForgetArena();                                 // the next world's vault is measured afresh
 			bossIndex = -1;
 			JadeySummon.ResetCooldown();
 		}

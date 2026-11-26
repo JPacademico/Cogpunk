@@ -18,8 +18,8 @@ namespace Cogpunk.Content.Combinator.UI
 	/// <see cref="CombinatorUI"/> in vanilla's own way (vanilla draws and handles its inventory, chests and reforge slot
 	/// together, in UI scale). It behaves like a chest: right click the station to open it (with the inventory; an open chest
 	/// closes first, as vanilla closes one, decompiled <c>Player.Update</c>: <c>chest = -1</c>, <c>Recipe.FindRecipes</c>), right
-	/// click it again, close the inventory, walk out of reach (vanilla's multi-tile reach,
-	/// <c>Player.IsInInteractionRangeToMultiTileHitbox</c>), open a chest or talk to someone, die, or lose the station, and it
+	/// click it again, close the inventory, walk out of reach (vanilla's reach on the station's own box,
+	/// <see cref="StationReach"/>), open a chest or talk to someone, die, or lose the station, and it
 	/// closes, handing every slot's item back (<see cref="CombinatorPlayer.ReturnAll"/>).
 	/// <para>D2: client-local UI. D0: the tile is re-checked every tick (<see cref="TileSafety"/>); textures are cached on
 	/// clients at load (<see cref="CombinatorUI.Load"/>). Also installs the right-click resolver the Metal Wrench asks
@@ -87,7 +87,7 @@ namespace Cogpunk.Content.Combinator.UI
 			}
 			Player player = Main.LocalPlayer;
 			bool keep = Main.playerInventory && !player.dead && player.chest == -1 && player.talkNPC == -1 && !Main.editSign
-				&& StationStands() && player.IsInInteractionRangeToMultiTileHitbox(Station.X + 1, Station.Y + 1);
+				&& StationStands() && StationReach.InReach(player, Station, CombinatorTile.Width, CombinatorTile.Height);
 			if (!keep) {
 				Close();
 			}

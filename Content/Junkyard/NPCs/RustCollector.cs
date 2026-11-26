@@ -19,8 +19,10 @@ namespace Cogpunk.Content.Junkyard.NPCs
 	/// Junkyard's common enemy. It
 	/// rolls at its target and keeps accelerating the longer it rolls the same way (<see cref="BaseAccel"/> ramping to
 	/// <see cref="MaxAccel"/> over <see cref="RampTicks"/>, up to <see cref="MaxSpeed"/>), so it overshoots, skids, turns and
-	/// comes back faster. It can't jump (it only rolls over one-tile steps, like any walker); slamming into a wall at speed
-	/// stuns it for <see cref="StunTicks"/> ticks. Its ram throws players hard, the harder the faster it was rolling
+	/// comes back faster. Slamming into a wall at speed stuns it for <see cref="StunTicks"/> ticks; met at a crawl, a wall or a
+	/// ledge it can't roll up is jumped (user, 2026-11-26: "make so the rust collector can jump (it is getting stuck on
+	/// terrain every time)"; it only rolled over one-tile steps): the server reads the wall's height in front of it and
+	/// hops just over it (<see cref="TryJump"/>). Its ram throws players hard, the harder the faster it was rolling
 	/// (user-set 2026-10-27): knockback <see cref="BaseKnockback"/> + <see cref="KnockbackPerSpeed"/> per px/tick of speed
 	/// (vanilla's contact knockback is 4.5; 12 at full speed), thrown the way it was rolling.
 	/// <para>Stats (user-set 2026-10-26, Expert values like every Cogpunk number, see <see cref="ExpertStats"/>;
@@ -49,6 +51,12 @@ namespace Cogpunk.Content.Junkyard.NPCs
 		public const float KnockbackPerSpeed = 1f;         // + 7.5 at MaxSpeed: 12 (velocity 12 sideways, 9.3 up)
 		public const float RamSpeed = 1.5f;                // slower than this, it pushes like any enemy
 		public const int Life = 100, ContactDamage = 25, Defense = 8;    // Expert (user-set)
+		public const int JumpCooldownTicks = 40;           // a jump that fails (a ceiling) isn't tried again every tick
+		public const int MaxWallTiles = 6;                 // the tallest wall it reads (and so the highest jump)
+		public const float JumpBase = 5.5f, JumpPerTile = 1.25f, JumpMin = 6.5f, JumpMax = 10.5f;   // px/tick (NPC gravity 0.3)
+		public const float JumpRun = 2.5f;                 // the sideways speed it takes into the jump
+
+		private int jumpCooldown;                          // server
 
 		private ref float Ramp => ref NPC.ai[2];
 
@@ -141,6 +149,50 @@ namespace Cogpunk.Content.Junkyard.NPCs
 			}
 			NPC.velocity.X = vx;
 			Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
+			TryJump(want);
+		}
+
+		/// <summary>Server: standing, blocked the way it wants to go (vanilla stopped it against a wall last tick, or a wall stands
+		/// right in front), it jumps: the wall's height in tiles in front of its feet (at most <see cref="MaxWallTiles"/>, read
+		/// through <see cref="TileSafety"/>) sets the launch, high enough to clear it with vanilla's NPC gravity (0.3), and it
+		/// keeps rolling into the jump. The velocity reaches clients with <c>netUpdate</c>.</summary>
+		private void TryJump(int want) {
+			if (!IsAuthority) {
+				return;
+			}
+			if (jumpCooldown > 0) {
+				jumpCooldown--;
+				return;
+			}
+			if (NPC.velocity.Y != 0f || want == 0) {
+				return;
+			}
+			int wall = WallTilesAhead(want);
+			if (!NPC.collideX && wall < 2) {
+				return;                                    // nothing in the way it can't step up (StepUp takes one tile)
+			}
+			if (wall == 0) {
+				wall = 2;                                  // stopped by something it can't read (a slope's lip): a modest hop
+			}
+			NPC.velocity.Y = -MathHelper.Clamp(JumpBase + JumpPerTile * wall, JumpMin, JumpMax);
+			NPC.velocity.X = want * Math.Max(Math.Abs(NPC.velocity.X), JumpRun);
+			jumpCooldown = JumpCooldownTicks;
+			NPC.netUpdate = true;
+		}
+
+		/// <summary>How many tiles of solid wall stand in the column just in front of it, counted up from its feet (0 if none).</summary>
+		private int WallTilesAhead(int want) {
+			int x = (int)((want > 0 ? NPC.position.X + NPC.width + 2f : NPC.position.X - 2f) / 16f);
+			int foot = (int)((NPC.position.Y + NPC.height - 1f) / 16f);
+			int count = 0;
+			for (int k = 0; k < MaxWallTiles; k++) {
+				if (!TileSafety.TryGetTile(x, foot - k, out Tile tile) || !tile.HasTile || tile.IsActuated || !Main.tileSolid[tile.TileType]
+					|| Main.tileSolidTop[tile.TileType]) {
+					break;
+				}
+				count++;
+			}
+			return count;
 		}
 
 		/// <summary>The ram: knockback grows with its speed and throws the player the way it was rolling. Runs on the hit

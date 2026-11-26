@@ -38,6 +38,26 @@ namespace Cogpunk.Core.Systems
 			.RegisterBoolSet(false);
 
 		/// <summary>
+		/// Items no thief takes (the Delivery Drone, <c>DeliveryDroneSystem.CanSteal</c>): what drops only once and would lock its
+		/// owner out of content if lost (user, 2026-11-26: "drones should not be able to steal the manuals never. since they only
+		/// drop once and it would lock the player out of content"): every manual, and the other once-a-world drops (the Lost Key,
+		/// the Combinator's two halves and its Blueprint). Set in the item's <c>SetStaticDefaults</c>:
+		/// <c>CogpunkSets.NeverStolen[Type] = true;</c>
+		/// </summary>
+		public static bool[] NeverStolen = ItemID.Sets.Factory.CreateNamedSet("Cogpunk", nameof(NeverStolen))
+			.Description("Items a thieving enemy never takes: one-time drops whose loss would lock content (manuals, keys, parts).")
+			.RegisterBoolSet(false);
+
+		/// <summary>
+		/// Artifacts (user, 2026-11-26): once-per-world rare drops and secrets with the artifact tag (<c>Content/Artifacts</c>):
+		/// never combined, never stolen, one artifact accessory worn at a time. Set in the item's <c>SetStaticDefaults</c>
+		/// (and list its name in <c>ArtifactSystem.Names</c>): <c>CogpunkSets.Artifact[Type] = true;</c>
+		/// </summary>
+		public static bool[] Artifact = ItemID.Sets.Factory.CreateNamedSet("Cogpunk", nameof(Artifact))
+			.Description("Cogpunk artifacts: once-per-world items that can't be combined or stolen; one artifact accessory at a time.")
+			.RegisterBoolSet(false);
+
+		/// <summary>
 		/// NPCs whose own AI applies <see cref="NPCHaste.FactorOf"/> (top speed, acceleration, animation rate: the haste and,
 		/// since 2026-10-30, the Tar Plague's slow), so <see cref="NPCHaste"/> skips its generic extra step for them. Set it in
 		/// <c>SetStaticDefaults</c> only if the AI really reads the factor.
@@ -104,6 +124,11 @@ namespace Cogpunk.Core.Systems
 			}
 			int head = npc.realLife;
 			return head >= 0 && head < Main.maxNPCs && head != npc.whoAmI && Main.npc[head].active && Main.npc[head].boss;
+		}
+
+		/// <summary>Bounds-checked lookup (D0) of <see cref="Artifact"/>.</summary>
+		public static bool IsArtifactType(int type) {
+			return type > ItemID.None && type < Artifact.Length && Artifact[type];
 		}
 
 		/// <summary>Bounds-checked lookup (D0) of <see cref="IgnoresSlowMotion"/>.</summary>

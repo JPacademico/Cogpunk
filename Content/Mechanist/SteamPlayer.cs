@@ -13,19 +13,19 @@ namespace Cogpunk.Content.Mechanist
 	/// <summary>
 	/// The Mechanist's Steam (user-set 2026-10-27): what mana is to a mage. Mechanist weapons spend it
 	/// (<see cref="MechanistWeapon"/>); it refills only after the player has gone <see cref="RegenDelayTicks"/> (1.5 s)
-	/// without a Mechanist attack, then by <see cref="BaseRegenAmount"/> every <see cref="RegenIntervalTicks"/> (10 per
-	/// 0.5 s; gear raises <see cref="SteamRegen"/>). Trying to fire without enough of it <b>overheats</b> the player
+	/// without a Mechanist attack, then at <see cref="BaseRegenAmount"/> every <see cref="RegenIntervalTicks"/> (10 per
+	/// 0.5 s; gear raises <see cref="SteamRegen"/>), a little every tick so the gauge rises smoothly (2026-11-26). Trying to fire without enough of it <b>overheats</b> the player
 	/// (<see cref="Overheat"/>): no items, and they can't stop moving, until the tank has refilled completely.
 	/// <para>Capacity: <see cref="BaseSteamMax"/> (0: a player has no tank of their own) + <see cref="SteamMaxBonus"/>
 	/// (Mechanist armor and steam containers add to it every tick, like <c>statManaMax2</c>) + <see cref="SteamMaxInnate"/>
-	/// (permanent upgrades: the Cogpunker Manual's +20, 2026-10-28; it alone doesn't keep the gauge up). Costs are scaled by
+	/// (permanent upgrades: the Cogpunker Manual's +25, 2026-10-28 / 2026-11-26; it alone doesn't keep the gauge up). Costs are scaled by
 	/// <see cref="SteamCostMultiplier"/> (the Polished set: -10%). Tuned 2026-10-27 (user): refill doubled, delay 2 s ->
 	/// 1.5 s, base capacity 100 -> 0.</para>
 	/// <para>Steam as mana (the Serene Tear, 2026-10-29): with <see cref="SteamAsMana"/> a mana cost the tank can cover is
 	/// paid in steam instead (<see cref="ModifyManaCost"/> zeroes it, <see cref="OnConsumeMana"/> takes the steam), and mana
 	/// pays once the steam runs short; <see cref="OverheatImmune"/> turns an overheat into a plain refusal to fire;
 	/// <see cref="SteamRegenMultiplier"/> scales the refill (the fraction carries over to the next refill).</para>
-	/// <para>Steam-costing skills of other classes (user, 2026-11-04: the Metal Wrench's parry, the Tar-Shower's charge;
+	/// <para>Steam-costing skills of other classes (user, 2026-11-04: the Tar-Shower's charge, the Metal Wrench's parry until 2026-11-26;
 	/// <see cref="ISteamSkill"/>) pay through <see cref="TryPayAttack"/>, by the same rules as a Mechanist weapon.
 	/// <see cref="SteamForUse"/> tells what a use takes from the tank (a Mechanist weapon, a spell the steam pays for, a
 	/// skill), which is what the Spring Gloves count.</para>
@@ -75,7 +75,6 @@ namespace Cogpunk.Content.Mechanist
 		public bool Overheated { get; private set; }
 
 		private int sinceAttack = RegenDelayTicks;
-		private int regenTimer;
 		private int gaugeTimer;
 		private int noTankHintTimer;
 		private float regenCarry;
@@ -142,7 +141,6 @@ namespace Cogpunk.Content.Mechanist
 		/// regen while any is being consumed"; vanilla's delay, decompiled <c>Player.ItemCheck_ApplyManaRegenDelay</c>).</summary>
 		public void NoteAttack() {
 			sinceAttack = 0;
-			regenTimer = 0;
 			gaugeTimer = GaugeLingerTicks;
 			if (SteamAsMana) {
 				HoldManaRegen();
@@ -345,19 +343,18 @@ namespace Cogpunk.Content.Mechanist
 			}
 			if (sinceAttack < RegenDelayTicks) {
 				sinceAttack++;
-				regenTimer = 0;
 			}
 			else if (Steam < SteamMax) {
-				if (++regenTimer >= RegenIntervalTicks) {
-					regenTimer = 0;
-					float amount = Math.Max(0, SteamRegen) * Math.Max(0f, SteamRegenMultiplier) + regenCarry;
-					int whole = (int)amount;
-					regenCarry = amount - whole;
-					Steam = Math.Min(SteamMax, Steam + whole);
-				}
+				// The same rate (SteamRegen every RegenIntervalTicks) spread over every tick, the fraction carried, so the gauge
+				// rises steadily the way vanilla's mana refills (user, 2026-11-26: "it fills in chunks instead of a consistant
+				// filling, make it more smooth like the mana regeneration filling animation"): 10 every 0.5 s is 1 every 3 ticks.
+				float amount = Math.Max(0, SteamRegen) * Math.Max(0f, SteamRegenMultiplier) / RegenIntervalTicks + regenCarry;
+				int whole = (int)amount;
+				regenCarry = amount - whole;
+				Steam = Math.Min(SteamMax, Steam + whole);
 			}
 			else {
-				regenTimer = 0;
+				regenCarry = 0f;
 			}
 			if (Overheated && (Steam >= SteamMax || OverheatImmune)) {
 				EndOverheat();

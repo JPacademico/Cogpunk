@@ -5,6 +5,7 @@ using Cogpunk.Content.Coghaven;
 using Cogpunk.Content.Coghaven.Generation;
 using Cogpunk.Content.Gems.Buffs;
 using Cogpunk.Core.Combat;
+using Cogpunk.Core.Safety;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -191,7 +192,7 @@ namespace Cogpunk.Content.Bosses.Jadey
 			NPC.value = Item.buyPrice(gold: 6);
 			NPC.SpawnWithHigherTime(30);
 			if (!Main.dedServ) {
-				Music = MusicID.Boss2;
+				Music = MusicID.QueenSlime;                  // vanilla's Queen Slime theme until her own track (user, 2026-11-26)
 			}
 		}
 
@@ -445,15 +446,53 @@ namespace Cogpunk.Content.Bosses.Jadey
 		public Rectangle Arena => HasHome ? ArenaFor(HomeX, HomeY) : Rectangle.Empty;
 
 		/// <summary>The hall of the vault whose chest's top-left tile is (<paramref name="homeX"/>, <paramref name="homeY"/>), in world
-		/// px (the inside of the shell), from the blueprint's numbers (also the Jade Incense's test, <see cref="JadeySummon"/>).</summary>
+		/// px (the inside of the shell; also the Jade Incense's test, <see cref="JadeySummon"/>). Measured from the world: the
+		/// first Vault Gearwork left and right of the chest along the row it stands on, and over it (2026-11-26b: the vault grew
+		/// in new worlds, "increase a bit the size of jadey arena"; a world made before keeps its smaller hall, and she keeps to
+		/// that one, never into its walls). Each wall is looked for at most <see cref="MaxWallScan"/> tiles away; a side not found
+		/// (the shell broken by another mod) falls back to the blueprint's number. Remembered for the last home asked (the shell
+		/// is unbreakable: it never changes in a world).</summary>
 		public static Rectangle ArenaFor(int homeX, int homeY) {
+			if (homeX == arenaHomeX && homeY == arenaHomeY && !arenaCache.IsEmpty) {
+				return arenaCache;
+			}
 			int mid = (CoghavenBlueprints.VaultLeft + 1 + CoghavenBlueprints.VaultRight - 1) / 2;
 			int chestTop = CoghavenBlueprints.VaultFloor - 2;
-			int left = homeX - (mid - (CoghavenBlueprints.VaultLeft + 1));
-			int right = homeX + (CoghavenBlueprints.VaultRight - 1 - mid);
-			int top = homeY - (chestTop - (CoghavenBlueprints.VaultTop + 1));
-			int bottom = homeY + (CoghavenBlueprints.VaultFloor - 1 - chestTop);
-			return new Rectangle(left * 16, top * 16, (right - left + 1) * 16, (bottom - top + 1) * 16);
+			int row = homeY + 1;                                 // the chest's lower row: the row things stand on
+			int left = WallFrom(homeX - 1, row, -1, 0, homeX - (mid - (CoghavenBlueprints.VaultLeft + 1)) - 1) + 1;
+			int right = WallFrom(homeX + 2, row, 1, 0, homeX + (CoghavenBlueprints.VaultRight - 1 - mid) + 1) - 1;
+			int top = WallFrom(homeX - 2, homeY - 1, 0, -1, homeY - (chestTop - (CoghavenBlueprints.VaultTop + 1)) - 1) + 1;
+			int bottom = homeY + 1;                              // the floor's row is homeY + 2: the hall ends over it
+			arenaHomeX = homeX;
+			arenaHomeY = homeY;
+			arenaCache = new Rectangle(left * 16, top * 16, Math.Max(1, right - left + 1) * 16, Math.Max(1, bottom - top + 1) * 16);
+			return arenaCache;
+		}
+
+		/// <summary>The farthest the vault's walls are looked for from her chest (the hall is 60 wide: 30 a side).</summary>
+		public const int MaxWallScan = 48;
+		private static int arenaHomeX = int.MinValue, arenaHomeY = int.MinValue;
+		private static Rectangle arenaCache;
+
+		/// <summary>The first Vault Gearwork tile from (<paramref name="x"/>, <paramref name="y"/>) stepping (<paramref name="dx"/>,
+		/// <paramref name="dy"/>), its column (dx) or row (dy); <paramref name="fallback"/> when none is met (D0: bounded, bounds-checked).</summary>
+		private static int WallFrom(int x, int y, int dx, int dy, int fallback) {
+			int shell = ModContent.TileType<Coghaven.Tiles.VaultGearworkTile>();
+			for (int k = 0; k < MaxWallScan; k++, x += dx, y += dy) {
+				if (!TileSafety.TryGetTile(x, y, out Tile t)) {
+					break;
+				}
+				if (t.HasTile && t.TileType == shell) {
+					return dx != 0 ? x : y;
+				}
+			}
+			return fallback;
+		}
+
+		/// <summary>A new world: the hall is measured again.</summary>
+		public static void ForgetArena() {
+			arenaHomeX = arenaHomeY = int.MinValue;
+			arenaCache = Rectangle.Empty;
 		}
 
 		/// <summary>Her side of the focus, or the other one when the hall's wall leaves less than <see cref="WallRoomShare"/> of

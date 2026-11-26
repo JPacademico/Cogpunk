@@ -243,6 +243,16 @@ Items: {
 		Tooltip: Uma bolota do piche do Ferro-Velho. Ainda está morna.
 	}
 
+	Cogfish: {
+		DisplayName: Peixe-engrenagem
+		Tooltip: Sua engrenagem continua girando, mesmo fora do piche
+	}
+
+	TarImmunityPotion: {
+		DisplayName: Poção de Imunidade ao Piche
+		Tooltip: Dá imunidade à Praga do Piche
+	}
+
 	CondensedTar: {
 		DisplayName: Piche Condensado
 		Tooltip: Quatro gotas de piche, fervidas até manterem a forma.
@@ -415,7 +425,6 @@ Items: {
 			'''
 			Os custos de mana são pagos primeiro com vapor, e com mana quando o vapor acaba
 			Imunidade a Superaquecido
-			{0}% de aumento na regeneração de vapor
 			Armas de vapor usam mana quando o vapor acaba, a 2 de mana por vapor (com metade dos bônus de vapor)
 			Gastar vapor ou mana impede os dois de recarregarem
 			'Não caiu de olho nenhum. Foi o piche que a chorou'
@@ -465,15 +474,7 @@ Items: {
 
 	MetalWrench: {
 		DisplayName: Chave Inglesa de Metal
-		Tooltip:
-			'''
-			{0}% a mais de dano contra inimigos mecânicos
-			Botão direito para aparar por {4} de vapor: por {1} segundo, um ataque inimigo ricocheteia na chave e não causa nada
-			Aparar prepara um contra-ataque: seu próximo golpe causa {3}x de dano
-			Um contra-ataque num chefe ou mini-chefe desacelera o tempo por um instante
-			O aparo leva {2} segundos para se recuperar
-			'Todo problema parece um parafuso solto'
-			'''
+		Tooltip: "{0}% a mais de dano contra inimigos mecânicos\nGolpeia o chão na direção do cursor\n'Todo problema parece um parafuso solto'"
 	}
 
 	Tarmancer: {
@@ -1244,7 +1245,7 @@ Items: {
 		Tooltip:
 			'''
 			Invoca um morcego de jade para lutar por você
-			Usá-la de novo faz o espírito crescer: um besouro de jade, um golem de jade e por fim um loong de jade
+			Usá-la de novo faz o espírito crescer: um besouro de jade, um braço de golem de jade flutuante e por fim um loong de jade
 			Depois que ele vira um loong, o próximo uso chama um novo morcego
 			'''
 	}
@@ -1267,6 +1268,11 @@ Buffs: {
 	MiceBotBuff: {
 		DisplayName: Rato-Robô
 		Description: Um ratinho de corda está mordendo seus inimigos
+	}
+
+	TarImmunity: {
+		DisplayName: Imunidade ao Piche
+		Description: Imune à Praga do Piche
 	}
 
 	TarPlague: {
@@ -2185,6 +2191,8 @@ DropConditions: {
 
 	CombinatorFirstKill: Só na primeira derrota num mundo
 	ManualFirstKill: Uma vez por mundo, na primeira derrota: um para cada jogador na luta
+	LizardGem: A gema que cresceu em seus cristais
+	Twinkling: Com Cintilante pesquisado
 }
 
 Events: {
@@ -2314,6 +2322,7 @@ Combinator: {
 		Summon: Armas de invocação não podem ser combinadas
 		AlreadyCombined: Armas combinadas não podem ser combinadas de novo
 		DifferentClass: As duas armas precisam ser da mesma classe
+		Artifact: Artefatos não podem ser combinados
 	}
 
 	Trait: {
@@ -2386,6 +2395,7 @@ Research: {
 		Potions: "{0} poções diferentes"
 		Foods: "{0} comidas diferentes"
 		VoodooDoll: "{0} {$ItemName.GuideVoodooDoll} ou {$ItemName.ClothierVoodooDoll}"
+		RustedCogs: "{0} Engrenagens Enferrujadas"
 	}
 	Nodes: {
 		TheBasics: {
@@ -2564,6 +2574,22 @@ Research: {
 			DisplayName: "Quem é ele?"
 			Description: "Alguém anda observando as pedras...\nO Último Ghedalari pode se mudar para o seu mundo"
 		}
+		PassiveIncome: {
+			DisplayName: "Renda Passiva"
+			Description: "Seu cofrinho cria uma moeda de cobre a cada segundo"
+		}
+		Twinkling: {
+			DisplayName: "Cintilante"
+			Description: "Lagartos de cristal crescem gemas mais raras nas costas e soltam mais ouro"
+		}
+		YouBrokeIt: {
+			DisplayName: "Você Quebrou!"
+			Description: "Reforjar um item com modificador negativo custa 40% menos"
+		}
+		BuildTerraria2: {
+			DisplayName: "Faça o Terraria 2, sem erros."
+			Description: "Modificadores negativos aparecem com menos frequência ao reforjar"
+		}
 	}
 	Tasks: {
 		Angler5: "Cinco missões feitas para o Pescador"
@@ -2593,6 +2619,7 @@ Research: {
 		NewTownNPCWho: "Um novo tipo de morador se mudou: {0}"
 		PlayerKill: "Derrotou outro jogador"
 		PiggyBank: "Guardou moedas num cofrinho"
+		Artifact: "Encontrou um artefato: {0}"
 	}
 	Events: {
 		GoblinArmy: "o Exército Goblin"
@@ -2612,6 +2639,7 @@ Research: {
 	Tabs: {
 		Main: Pesquisa Ancestral
 		Mystery: Mistério do Passado
+		Artifacts: Artefatos
 	}
 	Hints: {
 		AlchemyTable: "Um segredo ainda por revelar: uma mesa de alquimista guarda a chave"
@@ -2624,6 +2652,10 @@ Research: {
 		KillsProgress: "Inimigos derrotados: {0} / {1}"
 		Crate: "Um segredo ainda por revelar: pesque uma caixa"
 		WhoIsHe: "Um segredo ainda por revelar: alguém precisa tocar uma Pedra Fundamental"
+		PiggyBank: "Um segredo ainda por revelar: abra um cofrinho"
+		CrystalLizard: "Um segredo ainda por revelar: pegue um lagarto de cristal antes que ele cave para longe"
+		Reforge: "Um segredo ainda por revelar: reforje um item"
+		Artifact: "Um artefato ainda não encontrado: cada mundo esconde um de cada"
 	}
 	DoubleBrew: Poção em dobro!
 	Seasoned: Ingredientes poupados!
@@ -2631,6 +2663,19 @@ Research: {
 	CoinCost: "Custa {0}"
 	Groups: {
 		Either: "{0} ou {1}"
+	}
+}
+
+Artifacts: {
+	Tag: "Artefato: um por mundo"
+	OneAccessory: "Só um acessório artefato pode ser usado por vez"
+	Found: "Encontrado"
+	Lore: {
+		ArtifactJadeCursedGlaives:
+			'''
+			Lâminas gêmeas de um moldador de jade, amaldiçoadas pela pedra que moldaram.
+			Só surgem daqueles que já viraram jade.
+			'''
 	}
 }
 

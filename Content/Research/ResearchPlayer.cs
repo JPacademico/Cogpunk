@@ -49,6 +49,10 @@ namespace Cogpunk.Content.Research
 		private byte gemStaffs;                                  // bit k: Weapons.BundleOfWands.StaffItems[k] had at some point
 		private byte found;                                      // FoundAlchemy | FoundCooking | FoundStone (2026-11-24), saved
 		private const byte FoundAlchemy = 1, FoundCooking = 2, FoundStone = 4, FoundRobe = 8, FoundCrate = 16;
+		private byte found2;                                     // FoundPiggy | FoundReforge | FoundLizard (2026-11-26), saved
+		private const byte FoundPiggy = 1, FoundReforge = 2, FoundLizard = 4;
+		private int incomeTicks;                                 // Passive Income: ticks towards the next copper coin (owner)
+		private bool artifactFound;                              // a record of the Artifacts tab is filled (or its task earned)
 		/// <summary>Enemies this character has killed (counted on its own client, saved; 2026-11-25: Bad Luck Protection's
 		/// "?" until 300): kills vanilla counts for banners (<c>NPC.ExcludedFromDeathTally</c> false), not critters, dummies,
 		/// statue spawns or friendly NPCs; the hit that took the enemy's last life.</summary>
@@ -94,6 +98,22 @@ namespace Cogpunk.Content.Research
 		/// Crate Expectations' reveal (user, 2026-11-25: "reveals after fishing a crate for the first time").</summary>
 		public bool FishedCrate => (found & FoundCrate) != 0;
 
+		/// <summary>Has opened a piggy bank (or a Money Trough: the same bank, <c>Player.chest</c> -2): Passive Income's reveal (user,
+		/// 2026-11-26: "a "?" until the uses a piggy bank"); saved.</summary>
+		public bool UsedPiggyBank => (found2 & FoundPiggy) != 0;
+
+		/// <summary>Has reforged an item at the Goblin Tinkerer: You broke it!'s reveal (user, 2026-11-26: "a "?" until the player
+		/// reforges an item"; <see cref="ResearchReforge"/>); saved.</summary>
+		public bool Reforged => (found2 & FoundReforge) != 0;
+
+		/// <summary>Has killed a Crystal Lizard (the hit that took its last life was theirs): Twinkling's reveal (user, 2026-11-26: "an
+		/// "?" until a player kills a cristal lizard"); saved.</summary>
+		public bool KilledCrystalLizard => (found2 & FoundLizard) != 0;
+
+		/// <summary>The window's Artifacts tab shows (user, 2026-11-26: "Picking an artifact for the first time ... unlocks a new tab
+		/// on the ancient research table called "Artifacts""): this character has found an artifact.</summary>
+		public bool ArtifactsTab => artifactFound;
+
 		/// <summary>Has had a gem robe (any of vanilla's seven or the Jade Robe) in the inventory or worn: RGBT's reveal (user,
 		/// 2026-11-24: "show only an "?" until the player has obtained at leat one gem robe (any)"); saved.</summary>
 		public bool FoundGemRobe => (found & FoundRobe) != 0;
@@ -134,6 +154,9 @@ namespace Cogpunk.Content.Research
 			edges = 0;
 			gemStaffs = 0;
 			found = 0;
+			found2 = 0;
+			incomeTicks = 0;
+			artifactFound = false;
 			Kills = 0;
 			reportedStaffs = false;
 			quietTicks = 0;
@@ -255,6 +278,9 @@ namespace Cogpunk.Content.Research
 			if (!Visible(node)) {
 				return Blocker.Hidden;                              // a secret node can't be had before it is revealed
 			}
+			if (node.Record) {
+				return Blocker.Record;                              // filled in by the game, never by a click
+			}
 			foreach (string req in node.Requires) {
 				if (!Has(req)) {
 					return Blocker.Requires;
@@ -277,7 +303,7 @@ namespace Cogpunk.Content.Research
 			return Blocker.None;
 		}
 
-		public enum Blocker { None, Unlocked, Hidden, Requires, Knowledge, Condition, Items, Coins }
+		public enum Blocker { None, Unlocked, Hidden, Requires, Knowledge, Condition, Items, Coins, Record }
 
 		/// <summary>How many items in the main inventory (slots 0-49) match <paramref name="cost"/>; for a
 		/// <see cref="ResearchItemCost.Distinct"/> cost, how many different kinds (each kind once, whatever its stack).</summary>
@@ -413,6 +439,10 @@ namespace Cogpunk.Content.Research
 			Kills++;
 			if (Kills % 25 == 0 || Kills == ResearchNodes.BadLuckKills) {
 				MarkDirty();                                     // saved in batches, not every kill
+			}
+			if (root.type == ModContent.NPCType<Underground.NPCs.CrystalLizard>() && (found2 & FoundLizard) == 0) {
+				found2 |= FoundLizard;                           // Twinkling's "?" (2026-11-26)
+				MarkDirty();
 			}
 		}
 
@@ -555,6 +585,11 @@ namespace Cogpunk.Content.Research
 				WorldGen.saveToonWhilePlaying();
 			}
 			CheckChest();
+			if (Player.chest == -2 && (found2 & FoundPiggy) == 0) {
+				found2 |= FoundPiggy;                                // the piggy bank (or a Money Trough) opened: Passive Income's "?"
+				MarkDirty();
+			}
+			PassiveIncome();
 			if (quietTicks > 0) {
 				quietTicks--;
 			}
@@ -757,6 +792,74 @@ namespace Cogpunk.Content.Research
 			}
 		}
 
+		// --- 2026-11-26: Passive Income, the reforge, the artifacts ------------------------------------------------------------
+
+		/// <summary>"Passive Income" (user-set 2026-11-26: "the player piggy bank generates a copper coin inside it per second on its
+		/// own"): the owner's client, every <see cref="ResearchNodes.PassiveIncomeTicks"/> ticks in a world, one Copper Coin into the
+		/// piggy bank (<c>Player.bank</c>, which the Money Trough opens too), coins stacked up as vanilla counts them (100 of a coin
+		/// make one of the next); nothing when the bank has no room. The bank is the character's own data, saved with it (D2).</summary>
+		private void PassiveIncome() {
+			if (!Has(ResearchNodes.PassiveIncome)) {
+				incomeTicks = 0;
+				return;
+			}
+			if (++incomeTicks < ResearchNodes.PassiveIncomeTicks) {
+				return;
+			}
+			incomeTicks = 0;
+			ResearchEconomy.AddCoin(Player.bank.item, ItemID.CopperCoin);
+		}
+
+		/// <summary>The owner: an item was just reforged at the Goblin Tinkerer (<see cref="ResearchReforge"/>): You broke it!'s
+		/// "?" is lifted.</summary>
+		public void NoteReforge() {
+			if (Player.whoAmI == Main.myPlayer && (found2 & FoundReforge) == 0) {
+				found2 |= FoundReforge;
+				MarkDirty();
+			}
+		}
+
+		/// <summary>The owner's client picked up an artifact (<see cref="Artifacts.ArtifactSystem.OnPickedUp"/>): the first of each kind
+		/// pays one knowledge point (user, 2026-11-26: "Picking an artifact for the first time rewards a knowledge point") and fills
+		/// its record in the Artifacts tab (researched without a click), which shows from then on.</summary>
+		public void FoundArtifact(int type) {
+			if (Player.whoAmI != Main.myPlayer) {
+				return;
+			}
+			int index = Artifacts.ArtifactSystem.IndexOf(type);
+			string key = Artifacts.ArtifactSystem.TaskKey(type);
+			if (index < 0 || key == null) {
+				return;
+			}
+			if (!Earned(key)) {
+				Grant(key, Language.GetTextValue("Mods.Cogpunk.Research.Tasks.Artifact", Lang.GetItemNameValue(type)));
+			}
+			ResearchNode record = ResearchNodes.Get(ResearchNodes.ArtifactNode(Artifacts.ArtifactSystem.Names[index]));
+			if (record != null && !Has(record)) {
+				lock (sync) {
+					unlocked.Add(record.Name);
+					if (revealed.Count < MaxSaved) {
+						revealed.Add(record.Name);
+					}
+				}
+				RebuildBits();
+				SyncPlayer(-1, Main.myPlayer, false);
+				MarkDirty();
+			}
+			artifactFound = true;
+		}
+
+		/// <summary>A record of the Artifacts tab is filled, or an artifact's task was earned (a save from before its record).</summary>
+		private bool AnyArtifactRecord() {
+			var nodes = ResearchNodes.All;
+			for (int k = 0; k < nodes.Count; k++) {
+				if (nodes[k].Record && (Has(nodes[k]) || Earned(Artifacts.ArtifactSystem.TaskKey(nodes[k].IconItem)))) {
+					return true;
+				}
+			}
+			return false;
+		}
+
 		// --- the book ---------------------------------------------------------------------------------------------------------
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
@@ -793,6 +896,7 @@ namespace Cogpunk.Content.Research
 				tag["Edges"] = edges;
 				tag["GemStaffs"] = gemStaffs;
 				tag["Found"] = found;
+				tag["Found2"] = found2;
 				tag["GotBook"] = gotBook;
 				tag["Kills"] = Kills;
 			}
@@ -808,6 +912,7 @@ namespace Cogpunk.Content.Research
 				edges = tag.GetByte("Edges");
 				gemStaffs = tag.GetByte("GemStaffs");
 				found = tag.GetByte("Found");
+				found2 = tag.GetByte("Found2");
 				gotBook = tag.GetBool("GotBook");
 				Kills = Math.Clamp(tag.GetInt("Kills"), 0, MaxKills);
 				for (int k = 0; k < Secrets.FundamentalStones.Count; k++) {
@@ -817,6 +922,7 @@ namespace Cogpunk.Content.Research
 				}
 			}
 			RebuildBits();
+			artifactFound = AnyArtifactRecord();
 		}
 
 		private static void Fill(HashSet<string> set, TagCompound tag, string key) {

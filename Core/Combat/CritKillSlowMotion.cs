@@ -18,8 +18,8 @@ namespace Cogpunk.Core.Combat
 	/// multiplayer compatibility (it should be a global setting so the owner of the world should control if it enables or
 	/// disables) and make it so it has a 12 seconds cooldown before being able to activate again").
 	/// <list type="bullet">
-	/// <item>What: <see cref="Ticks"/> real ticks (0.33 s) of <see cref="SlowMotion"/>'s zone (80% slower, the Metal Wrench's
-	/// speed) over a rectangle 1.5 times vanilla's largest view (<c>Main.maxScreenW</c> x <c>Main.maxScreenH</c>, 1920 x 1200:
+	/// <item>What: <see cref="Ticks"/> real ticks (0.7 s since 2026-11-26) of <see cref="SlowMotion"/>'s zone (eased down to
+	/// 80% slower, the Metal Wrench's speed, and smoothly back up) over a rectangle 1.5 times vanilla's largest view (<c>Main.maxScreenW</c> x <c>Main.maxScreenH</c>, 1920 x 1200:
 	/// <see cref="ZoneHalf"/>), centred on the enemy; everything whose centre is outside runs on.</item>
 	/// <item>Which kills: a hit flagged critical that takes an enemy's life to 0 (any weapon, projectile or minion), where the
 	/// enemy is one vanilla counts as a kill (<c>NPC.ExcludedFromDeathTally</c> false: no projectile-like or temporary NPCs),
@@ -40,8 +40,9 @@ namespace Cogpunk.Core.Combat
 	/// </summary>
 	public sealed class CritKillSlowMotion : ModSystem
 	{
-		/// <summary>0.33 s (user-set).</summary>
-		public const int Ticks = 20;
+		/// <summary>0.7 s (user-set 2026-11-26: "they should last 0.7 seconds now"; 0.33 s before), eased in and out by
+		/// <see cref="SlowMotion.Speed"/>.</summary>
+		public const int Ticks = 42;
 
 		/// <summary>12 s (user-set).</summary>
 		public const int CooldownTicks = 12 * 60;

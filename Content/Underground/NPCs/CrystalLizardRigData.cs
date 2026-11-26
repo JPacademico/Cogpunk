@@ -10,5 +10,12 @@ namespace Cogpunk.Content.Underground.NPCs
 		public const int Idle = 0, IdleFrames = 2, Alert = 2, Run = 3, RunFrames = 6, Dig = 9, DigFrames = 4;
 		public const int BodyLeft = -32, BodyRight = 24, BodyTop = -24;
 		public const int RunStep = 4;
+		/// <summary>The gems (2026-11-26): the middle sheet's column k is gem k with its tail, column GemCount + k without it;
+		/// the glow sheet's column k is gem k's.</summary>
+		public const int GemCount = 8, MiddleColumns = 16;
+		/// <summary>The dropped tail (Gores/CrystalLizard_Tail.png): cells, its base point in the cell, and where it joins the
+		/// body, game px from the origin (facing left, the Idle frame).</summary>
+		public const int TailCellWidth = 52, TailCellHeight = 20, TailFrames = 4, TailBaseX = 4, TailBaseY = 14;
+		public const int TailJoinX = 16, TailJoinY = -8;
 	}
 }

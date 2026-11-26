@@ -14,7 +14,7 @@ namespace Cogpunk.Content.Mechanist.Armor
 	public class PolishedChestplate : CogpunkItem
 	{
 		public const int Defense = 7;
-		public const int SteamCapacity = 30;
+		public const int SteamCapacity = 35;           // 30, +5 (user, 2026-11-26: "increase amount of max steam that all max steam increasing itens give in 5 points")
 		public const int MetalCost = 16;
 		public const int TarCost = 12;
 

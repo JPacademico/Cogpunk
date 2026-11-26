@@ -19,7 +19,17 @@ Frames:
 
 Also the Tearstone (Items/Tearstone.png, 16 x 16 art): a silver ring set with a tear-shaped stone of the same crystal.
 
-Outputs (Content/Underground/): NPCs/CrystalLizard.png, _Far.png, _Glow.png, NPCs/CrystalLizardRigData.cs, Items/Tearstone.png.
+Version 2 (2026-11-26, the user: "the cristal lizard cristals on his back should have a different color to match the gem
+he would drop when killed. also make it so he has a small chance to let go of his tail which keeps twitching on the ground
+for some seconds while he scapes (just for cool detail animation)"; version 1 in art/underground/previous/): the crystals
+come in the eight gems it can drop (GEMS: amethyst, topaz, sapphire, emerald, ruby, diamond, amber, jade; each a ramp of the
+palette's own, darkest first, as the first version's teal-to-white), and every frame is rendered with and without its tail.
+The dropped tail is a gore of its own (Gores/CrystalLizard_Tail.png): lying on the ground, its tip curling up in four steps
+(the twitch), in two columns (facing left as the lizard, and mirrored).
+
+Outputs (Content/Underground/): NPCs/CrystalLizard.png (16 columns: gem k with its tail in column k, without it in column
+8 + k), _Far.png (the far legs: one column), _Glow.png (8 columns, one per gem), NPCs/CrystalLizardRigData.cs, Gores/
+CrystalLizard_Tail.png, Items/Tearstone.png (the first version's teal crystal, unchanged).
 """
 import argparse
 import math
@@ -40,6 +50,21 @@ OUT = "Content/Underground/"
 IRON, IV, DN, STM, ST = RAMP["iron"], RAMP["ivory"], RAMP["denim"], RAMP["steam"], RAMP["steel"]
 # the crystals: deep teal to cyan to white (the glowing mushrooms' cyans, already in the palette), darkest first
 CRYSTAL = ((10, 47, 71), (8, 100, 114), (11, 135, 137), (12, 176, 161), (67, 221, 248), STM[1], STM[2])
+GT, CP, EM, CR, AM, GH, EB, BR = (RAMP["gilt"], RAMP["copper"], RAMP["emerald"], RAMP["crimson"], RAMP["amethyst"], RAMP["ghost"],
+                                  RAMP["ember"], RAMP["brass"])
+# The gems it can grow (and drop), in the C#'s order (CrystalLizard.GemItems): seven steps each, darkest first, as CRYSTAL
+# (0 the outline's, 1-3 the shadowed facets, 4-6 the lit ones and the glint), every colour one of the palette's ramps'.
+GEMS = (
+    ("Amethyst", (AM[0], AM[1], AM[2], AM[3], AM[4], AM[5], STM[2])),
+    ("Topaz", (GT[1], GT[3], GT[5], GT[6], GT[7], GT[8], GT[9])),
+    ("Sapphire", ((7, 11, 28), DN[1], DN[2], (36, 80, 141), (74, 136, 244), (92, 172, 237), STM[2])),   # the deep blues of the palette (the Fungimancer's)
+    ("Emerald", (EM[0], EM[1], EM[2], EM[3], EM[4], EM[5], EM[6])),
+    ("Ruby", (CR[0], CR[1], CR[2], CR[3], CR[4], CR[5], STM[2])),
+    ("Diamond", (ST[1], ST[3], ST[5], ST[7], ST[8], STM[2], STM[3])),
+    ("Amber", (CP[0], CP[1], EB[1], EB[2], EB[3], BR[5], GT[9])),
+    ("Jade", (GH[0], GH[1], GH[2], GH[3], GH[4], GH[5], STM[2])),
+)
+TAIL_W, TAIL_H, TAIL_OX, TAIL_OY = 26, 10, 2, 7                       # the dropped tail's cell (art px) and its base point
 SKIN = DN                                                                # a blue-grey hide (denim): one body under the crystals
 S = 1.4                                                                  # the model's scale (it was too small to read)
 W, H, OX, OY = 50, 24, 22, 22
@@ -70,7 +95,7 @@ def sc(pts):
     return [(x * S, y * S) for (x, y) in pts]
 
 
-def parts(p):
+def parts(p, crystal=CRYSTAL, with_tail=True):
     b = -p.bob / S                                                       # the bob stays a whole pixel after scaling
     pitch = 0.32 * p.dig                                                 # digging: the whole body tips nose down
     body = Frame(0.0, (-3.6 + b + 1.2 * p.dig) * S, pitch, S, S)
@@ -87,9 +112,10 @@ def parts(p):
                                               [1.0 * S, 0.8 * S, 0.7 * S]), SKIN, 0, None, lo=1, hi=3, plane="far"))
     # the tail (a long taper, swaying)
     sway = p.tail
-    out.append(Part("tail", Tube([(0.0, 0.0), (5.0, 0.6 + 0.4 * sway), (10.0, 1.4 + 1.0 * sway), (14.0, 1.8 + 1.6 * sway)],
-                                 [2.2, 1.6, 1.0, 0.5]), SKIN, 1, tailf, lo=1, hi=5,
-                    bumps=((3.0, -0.8, 0.8), (7.0, 0.0, 0.7))))
+    if with_tail:
+        out.append(Part("tail", Tube([(0.0, 0.0), (5.0, 0.6 + 0.4 * sway), (10.0, 1.4 + 1.0 * sway), (14.0, 1.8 + 1.6 * sway)],
+                                     [2.2, 1.6, 1.0, 0.5]), SKIN, 1, tailf, lo=1, hi=5,
+                        bumps=((3.0, -0.8, 0.8), (7.0, 0.0, 0.7))))
     out.append(Part("body", Ell(0.0, 0.0, 6.8, 3.2), SKIN, 2, body, lo=1, hi=5,
                     bumps=((-3.0, -1.6, 1.0), (1.0, -2.0, 1.0), (4.0, -1.2, 0.9))))
     out.append(Part("belly", Ell(-0.6, 1.7, 5.8, 1.4, 0.4), IV, 3, body, lo=1, hi=4))
@@ -110,13 +136,13 @@ def parts(p):
         tip = (sx + lean * height, sy - height)
         left = Poly([(sx - half, sy + 0.6), tip, (sx + 0.2, sy + 0.8)], tilt=(-0.7, -0.5))
         right = Poly([(sx + 0.2, sy + 0.8), tip, (sx + half, sy + 0.4)], tilt=(0.8, 0.1))
-        out.append(Part("shardL%d" % i, left, CRYSTAL, 7 + 2 * i, body, lo=4, hi=6, dither=0.0, glow_from=5))
-        out.append(Part("shardR%d" % i, right, CRYSTAL, 8 + 2 * i, body, lo=1, hi=3, dither=0.0))
+        out.append(Part("shardL%d" % i, left, crystal, 7 + 2 * i, body, lo=4, hi=6, dither=0.0, glow_from=5))
+        out.append(Part("shardR%d" % i, right, crystal, 8 + 2 * i, body, lo=1, hi=3, dither=0.0))
     return out, headf, body, shards
 
 
-def frame(p):
-    ps, headf, body, shards = parts(p)
+def frame(p, crystal=CRYSTAL, with_tail=True):
+    ps, headf, body, shards = parts(p, crystal, with_tail)
     far, _, _ = render([q for q in ps if q.plane == "far"], W, H, OX, OY)
     far = {q: SKIN[max(0, SKIN.index(c) - 1)] if c in SKIN else c for q, c in far.items()}
     mid, glow, owner = render([q for q in ps if q.plane != "far"], W, H, OX, OY)
@@ -134,8 +160,8 @@ def frame(p):
     gx, gy = body.to_world(sx + lean * height - 0.3, sy - height + 1.4)
     g = (int(math.floor(gx + OX)), int(math.floor(gy + OY)))
     if g in mid and owner.get(g, "").startswith("shard"):
-        mid[g] = STM[3]
-        glow[g] = STM[3]
+        mid[g] = crystal[6] if crystal is not CRYSTAL else STM[3]
+        glow[g] = mid[g]
     if p.dig > 0.0:                                                    # dirt kicked up by the claws as it digs in
         oak = RAMP["oak"]
         k = int(round(p.dig * 4))
@@ -164,15 +190,50 @@ def to_image(px, w=W, h=H):
     return im
 
 
-def grid(images):
-    out = Image.new("RGBA", (W, (H + 1) * len(images)), (0, 0, 0, 0))
+def grid(images, columns=1):
+    """Cells of W x H, 1 px apart (2 in game); image k goes to column k % columns, row k // columns."""
+    rows = (len(images) + columns - 1) // columns
+    out = Image.new("RGBA", ((W + 1) * columns - 1, (H + 1) * rows), (0, 0, 0, 0))
     for k, im in enumerate(images):
-        out.alpha_composite(im, (0, k * (H + 1)))
+        out.alpha_composite(im, ((k % columns) * (W + 1), (k // columns) * (H + 1)))
     return out
+
+
+def tail_frames():
+    """The dropped tail lying on the ground (its base at TAIL_OX, TAIL_OY), its tip curling up in four steps (the twitch);
+    lit from the top-left as on the lizard, the hide's ramp, the cut end a ramp step darker."""
+    out = []
+    for c in (0.0, 0.35, 0.7, 1.0):
+        pts = [(0.0, 0.0), (5.0, -0.1 - 0.3 * c), (10.0, -0.3 - 1.4 * c), (14.0, -0.5 - 3.2 * c)]
+        part = Part("tail", Tube(pts, [2.2, 1.6, 1.0, 0.5]), SKIN, 1, Frame(0.0, 0.0, 0.0, S, S), lo=1, hi=5,
+                    bumps=((3.0, -0.8, 0.8), (7.0, 0.0, 0.7)))
+        px, _, _ = render([part], TAIL_W, TAIL_H, TAIL_OX, TAIL_OY)
+        for y in range(TAIL_H):                                        # the cut: its first column a step darker
+            xs = [x for (x, yy) in px if yy == y]
+            if not xs:
+                continue
+            q = (min(xs), y)
+            if q[0] <= TAIL_OX + 1 and px[q] in SKIN:
+                px[q] = SKIN[max(0, SKIN.index(px[q]) - 1)]
+        out.append(px)
+    return out
+
+
+def tail_sheet():
+    """Two columns (as drawn, and mirrored for a lizard facing right), four rows, each cell followed by 1 px (2 in game: vanilla's
+    SpriteFrame padding, which a gore's frame is cut by)."""
+    frames = tail_frames()
+    sheet = Image.new("RGBA", ((TAIL_W + 1) * 2, (TAIL_H + 1) * len(frames)), (0, 0, 0, 0))
+    for k, px in enumerate(frames):
+        im = to_image(px, TAIL_W, TAIL_H)
+        sheet.alpha_composite(im, (0, k * (TAIL_H + 1)))
+        sheet.alpha_composite(im.transpose(Image.FLIP_LEFT_RIGHT), (TAIL_W + 1, k * (TAIL_H + 1)))
+    return sheet
 
 
 def write_rig(path, frames):
     _, mid, _ = frames[0]
+    tx, ty = tail_base()
     xs = sorted(x for (x, y) in mid)
     ys = sorted(y for (x, y) in mid)
     left, right, top = (xs[1] - OX) * 2, (min(xs[-1], OX + 11) - OX + 1) * 2, (ys[len(ys) // 20] - OY) * 2   # the tail left out
@@ -189,6 +250,14 @@ def write_rig(path, frames):
          % (INDEX["Alert"], INDEX["Run0"], RUN, INDEX["Dig0"]),
          "\t\tpublic const int BodyLeft = %d, BodyRight = %d, BodyTop = %d;" % (left, right, top),
          "\t\tpublic const int RunStep = %d;" % round(4.4 * S * 2 / (RUN / 2)),
+         "\t\t/// <summary>The gems (2026-11-26): the middle sheet's column k is gem k with its tail, column GemCount + k without it;",
+         "\t\t/// the glow sheet's column k is gem k's.</summary>",
+         "\t\tpublic const int GemCount = %d, MiddleColumns = %d;" % (len(GEMS), 2 * len(GEMS)),
+         "\t\t/// <summary>The dropped tail (Gores/CrystalLizard_Tail.png): cells, its base point in the cell, and where it joins the",
+         "\t\t/// body, game px from the origin (facing left, the Idle frame).</summary>",
+         "\t\tpublic const int TailCellWidth = %d, TailCellHeight = %d, TailFrames = 4, TailBaseX = %d, TailBaseY = %d;"
+         % (TAIL_W * 2, TAIL_H * 2, TAIL_OX * 2, TAIL_OY * 2),
+         "\t\tpublic const int TailJoinX = %d, TailJoinY = %d;" % (tx, ty),
          "\t}",
          "}"]
     with open(path, "w", encoding="utf-8", newline="\n") as f:
@@ -221,17 +290,42 @@ def tearstone():
     return p.image()
 
 
+def tail_base():
+    """Where the tail joins the body in the Idle frame, game px from the origin (facing left)."""
+    _, p = FRAMES[0]
+    b = -p.bob / S
+    tailf = Frame(5.6 * S, (-3.0 + b) * S, 0.10 * p.tail, S, S)
+    x, y = tailf.to_world(0.0, 0.0)
+    return round(x * 2), round(y * 2)
+
+
+def all_frames():
+    """frames[g][t][k]: gem g, t 0 with the tail and 1 without, frame k: (far, mid, glow)."""
+    return [[[frame(p, ramp, tail) for _, p in FRAMES] for tail in (True, False)] for _, ramp in GEMS]
+
+
 def export_all():
-    frames = [frame(p) for _, p in FRAMES]
-    export(grid([to_image(f[0]) for f in frames]), OUT + "NPCs/CrystalLizard_Far.png")
-    export(grid([to_image(f[1]) for f in frames]), OUT + "NPCs/CrystalLizard.png")
-    export(grid([to_image(f[2]) for f in frames]), OUT + "NPCs/CrystalLizard_Glow.png")
-    write_rig(OUT + "NPCs/CrystalLizardRigData.cs", frames)
+    frames = all_frames()
+    n = len(FRAMES)
+    g = len(GEMS)
+    export(grid([to_image(f[0]) for f in frames[0][0]]), OUT + "NPCs/CrystalLizard_Far.png")
+    mids = []
+    for k in range(n):                                                 # row k: every gem with its tail, then without
+        mids += [to_image(frames[j][0][k][1]) for j in range(g)] + [to_image(frames[j][1][k][1]) for j in range(g)]
+    export(grid(mids, 2 * g), OUT + "NPCs/CrystalLizard.png")
+    glows = []
+    for k in range(n):
+        glows += [to_image(frames[j][0][k][2]) for j in range(g)]
+    export(grid(glows, g), OUT + "NPCs/CrystalLizard_Glow.png")
+    write_rig(OUT + "NPCs/CrystalLizardRigData.cs", frames[0][0])
+    os.makedirs(OUT + "Gores", exist_ok=True)
+    export(tail_sheet(), OUT + "Gores/CrystalLizard_Tail.png")
     export(tearstone(), OUT + "Items/Tearstone.png")
     return frames
 
 
-def preview(path, frames, sc=6):
+def preview(path, all_fr, sc=6):
+    frames = [all_fr[0][0][k] for k in range(len(FRAMES))]
     cols = 7
     rows = (len(frames) + cols - 1) // cols
     out = Image.new("RGBA", (cols * (W * sc + 6) + 6 + 16 * sc + 12, rows * 2 * (H * sc + 6) + 6), (20, 20, 24, 255))
@@ -255,6 +349,6 @@ if __name__ == "__main__":
     ap.add_argument("--preview")
     ap.add_argument("--no-export", action="store_true")
     a = ap.parse_args()
-    fr = [frame(p) for _, p in FRAMES] if a.no_export else export_all()
+    fr = all_frames() if a.no_export else export_all()
     if a.preview:
         preview(a.preview, fr)

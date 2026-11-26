@@ -85,6 +85,16 @@ namespace Cogpunk.Content.Junkyard.NPCs
 
 		// After vanilla's slime AI (aiStyle 1) has moved it this tick.
 		public override void PostAI() {
+			// It faces its target (user, 2026-11-26: "the tar slimes are allways looking left make them look right when the
+			// player in right to them"): vanilla's slime AI never sets the sprite's direction (its slimes look the same both
+			// ways), and vanilla draws a sheet that faces left flipped only for spriteDirection 1. Every side, from the synced
+			// target: visual only.
+			if (NPC.HasValidTarget) {
+				NPC.spriteDirection = Main.player[NPC.target].Center.X >= NPC.Center.X ? 1 : -1;
+			}
+			else if (NPC.direction != 0) {
+				NPC.spriteDirection = NPC.direction;
+			}
 			if (!Main.dedServ && Main.rand.NextBool(40)
 				&& SafeSpawn.TryNewDust(NPC.position, NPC.width, 6, DustID.Smoke, out Dust wisp, 0f, -0.8f, 120, new Color(195, 200, 205), 0.8f)) {
 				wisp.noGravity = true;                     // steam rising off the tar

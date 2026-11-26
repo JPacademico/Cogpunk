@@ -34,7 +34,7 @@ namespace Cogpunk.Content.Scrap.Armor
 
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient<RustedCog>(7)
+				.AddIngredient<RustedCog>(8)                           // 7 -> 8, x1.2 rounded (user, 2026-11-26)
 				.AddRecipeGroup(RecipeGroupID.IronBar, 8)
 				.AddTile(TileID.Anvils)
 				.Register();

@@ -79,11 +79,17 @@ namespace Cogpunk.Content.Research
 		/// from the inventory and the banks (vanilla's <c>Player.BuyItem</c>); 0: none.</summary>
 		public long Coins { get; init; }
 
+		/// <summary>A record, not a step (2026-11-26, the Artifacts tab: one per artifact): it can't be researched by a click; it
+		/// is filled in by the game (<see cref="ResearchPlayer.FoundArtifact"/>) and shows lit from then on. Its name is its
+		/// item's (<see cref="IconItem"/>) and its text <c>Mods.Cogpunk.Artifacts.Lore.&lt;Name&gt;</c>.</summary>
+		public bool Record { get; init; }
+
 		/// <summary>Index in <see cref="ResearchNodes.All"/> (the sync bit).</summary>
 		public int Index { get; internal set; }
 
-		public LocalizedText DisplayName => Language.GetText("Mods.Cogpunk.Research.Nodes." + Name + ".DisplayName");
-		public LocalizedText Description => Language.GetText("Mods.Cogpunk.Research.Nodes." + Name + ".Description");
+		public LocalizedText DisplayName => Record ? Lang.GetItemName(IconItem) : Language.GetText("Mods.Cogpunk.Research.Nodes." + Name + ".DisplayName");
+		public LocalizedText Description => Record ? Language.GetText("Mods.Cogpunk.Artifacts.Lore." + Name)
+			: Language.GetText("Mods.Cogpunk.Research.Nodes." + Name + ".Description");
 	}
 
 	/// <summary>
@@ -122,12 +128,25 @@ namespace Cogpunk.Content.Research
 			Rgbt = "Rgbt", JadeMenagerie = "JadeMenagerie",
 			// 2026-11-25 (the alpha: quality of life at the demon altar, and the Last Ghedalari's arrival)
 			LaceUp = "LaceUp", UnholyCarpentry = "UnholyCarpentry", BadLuckProtection = "BadLuckProtection",
-			CrateExpectations = "CrateExpectations", WhoIsHe = "WhoIsHe";
+			CrateExpectations = "CrateExpectations", WhoIsHe = "WhoIsHe",
+			// 2026-11-26 (the 0.2.0 batch)
+			PassiveIncome = "PassiveIncome", Twinkling = "Twinkling", YouBrokeIt = "YouBrokeIt", BuildTerraria2 = "BuildTerraria2";
+		/// <summary>"Passive Income" (user-set 2026-11-26: "makes so the player piggy bank generates a copper coin inside it per
+		/// second on its own"): <see cref="PassiveIncomeTicks"/> between coins.</summary>
+		public const int PassiveIncomeTicks = 60;
+		/// <summary>"You broke it!" (user-set 2026-11-26: "itens that are with a negative reforge modifier are 40% cheaper to reforge.
+		/// costs 30 rusted cogs").</summary>
+		public const float BrokenReforgeDiscount = 0.40f;
+		public const int YouBrokeItCogs = 30;
+		/// <summary>"Build Terraria 2, make no mistakes." ("gives slightly less chance for negative reforges"; my call: a negative
+		/// prefix rolled at the Goblin Tinkerer is rolled again a quarter of the time, so negative ones come about a quarter less
+		/// often).</summary>
+		public const float NegativeRerollChance = 0.25f;
 		public const int BadLuckKills = 300;                   // user-set: "a "?" until you kill 300 enemies"
 		public const long WhoIsHeCoins = 10L * 100L * 100L;    // user-set: "it should cost 10 gold coins to unlock" (in copper)
 		/// <summary>The window's tabs (user, 2026-11-24): the main tree, and the Mystery of the Past once a Fundamental Stone has
 		/// been touched (<see cref="ResearchPlayer.MysteryTab"/>).</summary>
-		public const int MainTab = 0, MysteryTab = 1, TabCount = 2;
+		public const int MainTab = 0, MysteryTab = 1, ArtifactsTab = 2, TabCount = 3;
 		public const int AlchemyDaybloom = 5, AlchemyMushrooms = 5;       // user-set: "requires 5 daybloom and 5 mushroom"
 		public const float PotionDoubleChance = 0.10f;         // user-set: "10% chance to double the potion when crafting"
 		public const int ConcoctionPotions = 5;                // user-set: "5 different potions"
@@ -452,7 +471,52 @@ namespace Cogpunk.Content.Research
 				Teaser = true, TeaserHint = "WhoIsHe", Requires = new[] { TheBasics },
 				Reveal = static p => ResearchWorld.StoneTouched || p.GetModPlayer<ResearchPlayer>().TouchedStone,
 			});
+			// 2026-11-26 (the 0.2.0 batch); appended (a node's index is its sync bit). Secrets, so beside or below the arch: the
+			// row under The Basics (Passive Income, Twinkling) and a new row under it (You broke it! and its child)
+			Add(new ResearchNode {
+				// "a new node called "passive income" that is a "?" until the uses a piggy bank. it should cost 1 knowledge point and
+				// makes so the player piggy bank generates a copper coin inside it per second on its own" (ResearchPlayer.PassiveIncome)
+				Name = PassiveIncome, Column = 3, Row = -1, Cost = 1, IconItem = ItemID.PiggyBank, Teaser = true, TeaserHint = "PiggyBank",
+				Requires = new[] { TheBasics }, Reveal = static p => p.GetModPlayer<ResearchPlayer>().UsedPiggyBank,
+			});
+			Add(new ResearchNode {
+				// "a new node that is an "?" until a player kills a cristal lizard. it should be called "twinkling" and increase chance
+				// for rarer gems and more gold to drop from them" (Underground.NPCs.CrystalLizard; the cost is my call: 1 point)
+				Name = Twinkling, Column = -2, Row = -1, Cost = 1, IconItem = ItemID.Diamond, Teaser = true, TeaserHint = "CrystalLizard",
+				Requires = new[] { TheBasics }, Reveal = static p => p.GetModPlayer<ResearchPlayer>().KilledCrystalLizard,
+			});
+			Add(new ResearchNode {
+				// "a new node that is a "?" until the player reforges an item. it should be called "you broke it!" and makes so itens
+				// that are with a negative reforge modifier are 40% cheaper to reforge. costs 30 rusted cogs" (ResearchReforge)
+				Name = YouBrokeIt, Column = 0, Row = -2, Cost = 0, IconItem = ItemID.TinkerersWorkshop, Teaser = true, TeaserHint = "Reforge",
+				Requires = new[] { TheBasics }, Reveal = static p => p.GetModPlayer<ResearchPlayer>().Reforged,
+				Items = new[] { new ResearchItemCost(static item => item.type == ModContent.ItemType<Scrap.Items.RustedCog>(), YouBrokeItCogs, "RustedCogs") },
+			});
+			Add(new ResearchNode {
+				// "and reveals another node connected to it called "build terraria 2, make no mistakes." that costs a research point
+				// and gives slightly less chance for negative reforges" (shown once You broke it! is researched)
+				Name = BuildTerraria2, Column = 1, Row = -2, Cost = 1, IconItem = ItemID.Toolbox,
+				Requires = new[] { YouBrokeIt }, Links = new[] { YouBrokeIt },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().Has(YouBrokeIt),
+			});
+			// The Artifacts tab (user, 2026-11-26: "Picking an artifact for the first time ... unlocks a new tab on the ancient
+			// research table called "Artifacts""): one record per artifact, a question mark until this character has found it
+			for (int k = 0; k < Artifacts.ArtifactSystem.Names.Length; k++) {
+				int type = k < Artifacts.ArtifactSystem.Types.Count ? Artifacts.ArtifactSystem.Types[k] : 0;
+				if (type <= 0) {
+					continue;
+				}
+				string key = Artifacts.ArtifactSystem.TaskKey(type);
+				Add(new ResearchNode {
+					Name = ArtifactNode(Artifacts.ArtifactSystem.Names[k]), Tab = ArtifactsTab, Column = k % 5 - 2, Row = k / 5, Cost = 0,
+					IconItem = type, Teaser = true, TeaserHint = "Artifact", Record = true,
+					Reveal = p => p.GetModPlayer<ResearchPlayer>().Earned(key),
+				});
+			}
 		}
+
+		/// <summary>An artifact's record node's name (its item's class name with a prefix; saved: never rename).</summary>
+		public static string ArtifactNode(string itemName) => "Artifact" + itemName;
 
 		/// <summary>The Fundamental Stones' numbers (their styles: <see cref="Secrets.FundamentalStones"/>) by their sigil.</summary>
 		private static class FundamentalStonesIndex

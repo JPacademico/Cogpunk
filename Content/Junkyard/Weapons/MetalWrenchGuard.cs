@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.Junkyard.Weapons
 {
 	/// <summary>
-	/// The Metal Wrench on guard (the parry window, <see cref="MetalWrench.ParryTicks"/>): the wrench swings up from the hip
+	/// The Metal Wrench on guard (the parry window, <see cref="WrenchParry.ParryTicks"/>): the wrench swings up from the hip
 	/// in <see cref="RaiseTicks"/> ticks and is held up across the body, head high, in the front hand (vanilla's composite
 	/// arm, posed the way its own swings pose it: decompiled <c>Player.ItemCheck_ApplyUseStyle_Inner</c>,
 	/// <c>SetCompositeArmFront</c> + <c>GetFrontHandPosition</c>). Purely visual: the window itself is
@@ -39,7 +39,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.hide = true;                        // drawn by the player as heldProj
-			Projectile.timeLeft = MetalWrench.ParryTicks + 2;
+			Projectile.timeLeft = WrenchParry.ParryTicks + 2;
 			Projectile.aiStyle = -1;
 		}
 
@@ -51,11 +51,11 @@ namespace Cogpunk.Content.Junkyard.Weapons
 				return;
 			}
 			Player player = Main.player[Projectile.owner];
-			if (!player.active || player.dead || !MetalWrench.Wields(player)) {
+			if (!player.active || player.dead || !WrenchParry.Wields(player)) {
 				Projectile.Kill();
 				return;
 			}
-			int age = MetalWrench.ParryTicks + 2 - Projectile.timeLeft;
+			int age = WrenchParry.ParryTicks + 2 - Projectile.timeLeft;
 			if (age == 0 && !Main.dedServ) {
 				SoundEngine.PlaySound(SoundID.Item1 with { Pitch = -0.6f, Volume = 0.6f }, player.Center);
 			}

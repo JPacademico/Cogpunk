@@ -267,7 +267,7 @@ namespace Cogpunk.Content.Bosses.CursedConductor
 			NPC.value = Item.buyPrice(gold: 8);               // the Wall of Flesh's 8 gold (terraria.wiki.gg)
 			NPC.SpawnWithHigherTime(30);
 			if (!Main.dedServ) {
-				Music = MusicID.Boss3;
+				Music = MusicID.Boss5;                       // vanilla's "Boss 5" until his own track (user, 2026-11-26)
 			}
 		}
 

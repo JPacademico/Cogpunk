@@ -6,10 +6,10 @@ namespace Cogpunk.Content.Coghaven.NPCs
 	/// the origin, facing left.</summary>
 	public static class CogscorpionRigData
 	{
-		public const int CellWidth = 128, CellHeight = 64, OriginX = 64, OriginY = 62, Frames = 17;
+		public const int CellWidth = 108, CellHeight = 54, OriginX = 54, OriginY = 52, Frames = 17;
 		public const int Walk = 0, WalkFrames = 8, Raise = 8, RaiseFrames = 4, Strike = 12, StrikeFrames = 3, Recover = 15, RecoverFrames = 2;
 		/// <summary>Game px a planted foot slides back per walk frame (the stride over half the cycle).</summary>
 		public const int WalkStep = 3;
-		public const int StingX = -34, StingY = -16;
+		public const int StingX = -29, StingY = -13;
 	}
 }

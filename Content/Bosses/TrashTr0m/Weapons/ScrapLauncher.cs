@@ -25,7 +25,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m.Weapons
 	/// </summary>
 	public class ScrapLauncher : MechanistWeapon
 	{
-		public const int ChunkSteam = 4, BallSteam = 9;  // my calls (2026-11-17)
+		public const int ChunkSteam = 3, BallSteam = 8;  // my calls (2026-11-17: 4 and 9); 1 less each (user, 2026-11-26)
 
 		public const int UseTime = 20;
 		public const int BigShotUseTime = 31;

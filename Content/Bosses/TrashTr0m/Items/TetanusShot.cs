@@ -19,7 +19,7 @@ namespace Cogpunk.Content.Bosses.TrashTr0m.Items
 	/// </summary>
 	public class TetanusShot : CogpunkItem
 	{
-		public const int GlassCost = 8, MetalCost = 4;
+		public const int GlassCost = 8, MetalCost = 5;    // Rusted Metal 4 -> 5, x1.2 rounded (user, 2026-11-26: "increase the amount of rusted cog and rusted metal used in any craft that uses them for 20% (rounded)")
 
 		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;

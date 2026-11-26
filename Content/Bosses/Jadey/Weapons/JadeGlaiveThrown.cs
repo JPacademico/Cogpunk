@@ -28,6 +28,10 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 	/// "increase the rotation speed ... so it looks better like a fan spining": four times the old 1 frame every 2 ticks), the
 	/// turns it just passed through drawn faintly over it (<see cref="BlurFrames"/>: a fan's blurred disc), and two fading
 	/// afterimages from its recent positions (the fades in code, D4 rule 9).</para>
+	/// <para>Boxes (user, 2026-11-26: "the right mouse hitbox hits the ground before hiting enemies ... make it hitbox for tiles
+	/// smaller and for entities bigger"): it meets enemies with a <see cref="HitSize"/> px box (the spinning blades' disc) but
+	/// walls only with its <see cref="TileSize"/> px middle (<see cref="TileCollideStyle"/>); thrown level from the hand, its
+	/// old 60 px box reached under the wielder's feet and bounced off the floor at once.</para>
 	/// <para>D2: the owner's projectile: the owner turns it (wall, range) and counts its hits (<c>ai[0]</c> phase, <c>ai[1]</c>
 	/// hits, synced with <c>netUpdate</c>); every side flies it home the same way. D0: <c>timeLeft</c> caps a glaive that
 	/// can't get home; it dies with its thrower. D1: no allocation.</para>
@@ -44,6 +48,8 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 		public const int SpinFramesPerTick = 2;            // 45 degrees a tick (2026-11-24; was half a frame a tick)
 		public const int BlurFrames = 3;                   // the turns just passed, drawn fainter and fainter behind it
 		public const int WhooshTicks = 8;                  // the whirr of a faster spin (2026-11-24; 12 before)
+		public const int HitSize = 96;                     // its box for enemies (2026-11-26; 60 before): the blades' disc
+		public const int TileSize = 20;                    // its box for walls and floors (2026-11-26): the hub
 
 		private ref float Phase => ref Projectile.ai[0];
 		private ref float PhaseHits => ref Projectile.ai[1];
@@ -56,8 +62,8 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 		}
 
 		public override void SetDefaults() {
-			Projectile.width = 60;                               // 2026-11-18: the user's bigger glaive
-			Projectile.height = 60;
+			Projectile.width = HitSize;                          // enemies: the spinning blades (TileCollideStyle shrinks it for tiles)
+			Projectile.height = HitSize;
 			Projectile.friendly = true;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.penetrate = -1;
@@ -107,6 +113,14 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 			Array.Clear(Projectile.localNPCImmunity);
 			Projectile.tileCollide = false;
 			Projectile.netUpdate = true;
+		}
+
+		/// <summary>Walls and floors stop only its middle (<see cref="TileSize"/>), centred; enemies meet the whole box.</summary>
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) {
+			width = TileSize;
+			height = TileSize;
+			hitboxCenterFrac = new Vector2(0.5f, 0.5f);
+			return true;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity) {

@@ -20,7 +20,7 @@ namespace Cogpunk.Content.Research.Summons
 	/// <para>Built as vanilla's Abigail's Flower (decompiled 1.4.4: every use makes an invisible counter, projectile 970, that
 	/// takes the minion slot, and one visible Abigail, 963, with no slot of her own, grows with the counters): every use makes
 	/// a <see cref="JadeCoinCounter"/> (one slot); the visible <see cref="JadeSpirit"/>s take none, and spirit k shows
-	/// counters 4k+1 .. 4k+4 as a bat, a beetle, a golem, a loong (<see cref="JadeSpirit.FormOf"/>): the fifth use starts a
+	/// counters 4k+1 .. 4k+4 as a bat, a beetle, a golem's arm, a loong (<see cref="JadeSpirit.FormOf"/>): the fifth use starts a
 	/// second bat. Freeing a slot (vanilla sacrifices the oldest counter when another minion needs it) takes the youngest
 	/// spirit a form back.</para>
 	/// <para>Balance (D3, docs/balance/weapons.csv; anchor the Imp Staff, T4: Jadey's tier): every form is worth its slots
@@ -32,7 +32,9 @@ namespace Cogpunk.Content.Research.Summons
 	/// </summary>
 	public class JadeCoin : CogpunkItem
 	{
-		public const int Damage = 10, UseTime = 36, ManaCost = 10;
+		/// <summary>The bat's bite (user, 2026-11-26: "jade coin base bat summon should be stronger as 10 damage is too low": 10
+		/// until then, now 15); the other forms keep their hits through <see cref="JadeSpirit.FormDamage"/>.</summary>
+		public const int Damage = 15, UseTime = 36, ManaCost = 10;
 
 		public override void SetStaticDefaults() {
 			ItemID.Sets.GamepadWholeScreenUseRange[Type] = true;

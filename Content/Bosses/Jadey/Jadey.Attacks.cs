@@ -129,7 +129,7 @@ namespace Cogpunk.Content.Bosses.Jadey
 			float dir = k == 0 ? -1f : k == StatueCoins - 1 ? 1f : 0.35f * toward;
 			Vector2 v = new(dir * Main.rand.NextFloat(2.6f, 4.2f), -Main.rand.NextFloat(6f, 7.2f));
 			int count = Main.rand.Next(1, 3);
-			int first = Main.rand.Next(3), second = Main.rand.Next(3);
+			int first = JadeCoin.RollKind(), second = JadeCoin.RollKind();
 			SafeSpawn.TryNewProjectile(NPC.GetSource_FromAI(), FarPawWorld, v, ModContent.ProjectileType<JadeCoin>(), 0, 0f, out _,
 				ai0: first, ai1: NPC.whoAmI, ai2: JadeCoin.StatueCode(count, first, second));
 		}
@@ -157,7 +157,7 @@ namespace Cogpunk.Content.Bosses.Jadey
 					return;
 				}
 				flickTick = 0;                                     // the flick starts; the coin leaves at its top
-				nextKind = (byte)Main.rand.Next(3);
+				nextKind = (byte)JadeCoin.RollKind();
 				NPC.netUpdate = true;
 			}
 			if (coinClock == CoinInterval + FlickTicks / 2) {

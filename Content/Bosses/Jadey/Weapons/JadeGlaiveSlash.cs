@@ -33,7 +33,13 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 	/// generated samples, interpolated by the swing's progress), a capsule <see cref="BladeRadius"/> px thick
 	/// (<see cref="SwingPose.CapsuleHitsRect"/>); each enemy once a slash (local immunity); not through walls
 	/// (<c>ownerHitCheck</c>); every hit adds a jade curse stack (<see cref="JadeCurseNPC.Hit"/>).</para>
-	/// <para>D2: the owner's projectile; its kind and length (<c>ai[1]</c>: the use's <c>itemAnimationMax</c>) are synced, its
+	/// <para><b>Aimed</b> (user, 2026-11-26: "jade cursed glaives only attacks to the right and isnt follow the cursor on the basic
+	/// attacks ... make the basic atack acrtualy directional so it follows the player cursor (dont change design)"): the
+	/// slash is the same pre-rendered sweep, turned as a whole towards the cursor: <c>ai[2]</c> carries the side and the tilt
+	/// (<see cref="PackAim"/>), and the arm, the blade's hits and the drawn frame all turn by the tilt about the hand. Turning the
+	/// frame is the one runtime rotation of a pre-rendered sprite here, asked for by the user (vanilla turns every swung
+	/// weapon the same way).</para>
+	/// <para>D2: the owner's projectile; its kind, length (<c>ai[1]</c>: the use's <c>itemAnimationMax</c>) and aim are synced, its
 	/// age counts on every side, and it follows its owner's synced position. D0: it dies with its owner, its use, or its
 	/// length; every table read is clamped. D1: no allocation; textures cached on clients.</para>
 	/// </summary>
@@ -71,6 +77,36 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 			Projectile.hide = true;
 		}
 
+		/// <summary>The aim in one float for <c>ai[2]</c>: its sign is the side the cursor is on, its size 2 + the tilt
+		/// (-pi/2 straight up .. pi/2 straight down; 2 keeps it clear of 0); 0 means "not aimed" (the wielder's facing, level),
+		/// so a slash from an older version still swings.</summary>
+		public static float PackAim(Vector2 toCursor) {
+			if (!MathSafety.IsFinite(toCursor) || toCursor == Vector2.Zero) {
+				return 0f;
+			}
+			int side = toCursor.X < 0f ? -1 : 1;
+			float tilt = MathF.Atan2(toCursor.Y, MathF.Abs(toCursor.X));
+			return side * (2f + tilt);
+		}
+
+		/// <summary>The side (1 right, -1 left) and the tilt (radians, down positive) this slash was aimed with.</summary>
+		private void Aim(Player owner, out int dir, out float tilt) {
+			float a = Projectile.ai[2];
+			if (a == 0f || !float.IsFinite(a)) {
+				dir = owner.direction == -1 ? -1 : 1;
+				tilt = 0f;
+				return;
+			}
+			dir = a < 0f ? -1 : 1;
+			tilt = MathHelper.Clamp(MathF.Abs(a) - 2f, -MathHelper.PiOver2, MathHelper.PiOver2);
+		}
+
+		/// <summary>A facing-right rig offset turned by the tilt, then mirrored to the side.</summary>
+		private static Vector2 Turn(Vector2 v, float tilt, int dir) {
+			float c = MathF.Cos(tilt), s = MathF.Sin(tilt);
+			return new Vector2((v.X * c - v.Y * s) * dir, v.X * s + v.Y * c);
+		}
+
 		/// <summary>The swing's progress, 0 to 1.</summary>
 		private float Progress => MathHelper.Clamp(Age / Length, 0f, 1f);
 
@@ -93,11 +129,11 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 				return;
 			}
 			Age++;
-			int dir = owner.direction == -1 ? -1 : 1;
+			Aim(owner, out int dir, out float tilt);
 			Projectile.direction = Projectile.spriteDirection = dir;
 			owner.heldProj = Projectile.whoAmI;
 			Sample(Progress, out Vector2 hub, out Vector2 _);
-			Vector2 toHub = new((hub.X - R.ShoulderX) * dir, hub.Y - R.ShoulderY);   // the arm turns on the shoulder
+			Vector2 toHub = Turn(new Vector2(hub.X - R.ShoulderX, hub.Y - R.ShoulderY), tilt, dir);   // the arm turns on the shoulder
 			float arm = toHub.ToRotation() - MathHelper.PiOver2;
 			if (!float.IsFinite(arm)) {
 				arm = 0f;
@@ -120,11 +156,11 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 			if (Progress < 1f / R.FramesPerSlash) {
 				return false;                                   // the wind-up, behind the wielder: no hits yet
 			}
-			int dir = Projectile.direction == -1 ? -1 : 1;
+			Aim(Main.player[Projectile.owner], out int dir, out float tilt);
 			float p = Progress, step = 1f / Length;
 			for (int k = 0; k < 3; k++) {
 				Sample(p - step * k * 0.5f, out Vector2 hub, out Vector2 tip);
-				Vector2 blade = new((tip.X - hub.X) * dir, tip.Y - hub.Y);
+				Vector2 blade = Turn(tip - hub, tilt, dir);
 				if (SwingPose.CapsuleHitsRect(Projectile.Center, Projectile.Center + blade, BladeRadius, targetHitbox)) {
 					return true;
 				}
@@ -170,6 +206,8 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 			int f = Frame;
 			int s = Math.Clamp(Kind * R.SamplesPerSlash + f % R.FramesPerSlash * 2, 0, R.HubX.Length - 1);
 			bool left = Projectile.direction == -1;
+			Aim(Main.player[Projectile.owner], out _, out float tilt);
+			float rotation = left ? -tilt : tilt;                    // the mirrored sweep turns the other way to tilt down
 			// the cell's origin is the wielder's centre; the hub (in the hand) is HubX/HubY from it
 			Vector2 origin = new(left ? R.CellWidth - (R.OriginX + R.HubX[s]) : R.OriginX + R.HubX[s], R.OriginY + R.HubY[s]);
 			Vector2 at = Projectile.Center - Main.screenPosition;
@@ -177,12 +215,12 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 			Rectangle frame = new(Kind * (R.CellWidth + R.Gap), f % R.FramesPerSlash * (R.CellHeight + R.Gap), R.CellWidth, R.CellHeight);   // a column a kind
 			SpriteEffects flip = left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 			if (trail?.IsLoaded == true && frame.Bottom <= trail.Value.Height) {
-				Main.EntitySpriteDraw(trail.Value, at, frame, new Color(255, 255, 255, 0) * 0.85f, 0f, origin, 1f, flip);
+				Main.EntitySpriteDraw(trail.Value, at, frame, new Color(255, 255, 255, 0) * 0.85f, rotation, origin, 1f, flip);
 			}
 			if (frame.Bottom <= sheet.Height) {
 				Color light = Lighting.GetColor(Projectile.Center.ToTileCoordinates());
 				Color lit = Color.Lerp(light, Color.White, 0.35f);       // jade catches the light
-				Main.EntitySpriteDraw(sheet, at, frame, lit, 0f, origin, 1f, flip);
+				Main.EntitySpriteDraw(sheet, at, frame, lit, rotation, origin, 1f, flip);
 			}
 			return false;
 		}

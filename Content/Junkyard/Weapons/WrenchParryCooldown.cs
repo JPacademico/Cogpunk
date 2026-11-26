@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.Junkyard.Weapons
 {
 	/// <summary>
-	/// The Metal Wrench's parry is cooling down (<see cref="MetalWrench.CooldownTicks"/> ticks from the end of a guard,
+	/// The Metal Wrench's parry is cooling down (<see cref="WrenchParry.CooldownTicks"/> ticks from the end of a guard,
 	/// user-set 3 s): <see cref="MetalWrenchPlayer"/> won't start a guard while it lasts. A debuff the player can't cancel,
 	/// shown with its time like vanilla's Potion Sickness.
 	/// </summary>
@@ -20,7 +20,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		}
 
 		public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare) {
-			tip = Description.Format(MetalWrench.CooldownTicks / 60f);
+			tip = Description.Format(WrenchParry.CooldownTicks / 60f);
 		}
 	}
 }

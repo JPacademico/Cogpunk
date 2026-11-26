@@ -33,7 +33,7 @@ namespace Cogpunk.Content.Research.Weapons
 	/// </summary>
 	public class JadeRefractor : MechanistWeapon
 	{
-		public const int Cost = 3, Damage = 13, UseTime = 12;       // 15 until the 2026-11-24 nerf
+		public const int Cost = 1, Damage = 16, UseTime = 12;       // 15, 13 after the 2026-11-24 nerf; 2026-11-26 (user): 1 steam, +20% (15.6)
 		public const int CritBonus = 8;                            // + the player's base 4% = 12% (the Diamond Cutter's)
 		public const float PetrifiedBonus = 1.5f;                  // user-set: "deal 50% more damage to jade petrified enemies"
 		public const int JadeCost = 10, GlassCost = 15;

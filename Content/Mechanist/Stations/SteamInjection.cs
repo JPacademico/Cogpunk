@@ -16,7 +16,7 @@ namespace Cogpunk.Content.Mechanist.Stations
 	/// </summary>
 	public class SteamInjection : CogpunkBuff
 	{
-		public const int SteamMaxBonus = 10;
+		public const int SteamMaxBonus = 15;           // 10, +5 (user, 2026-11-26: "increase amount of max steam that all max steam increasing itens give in 5 points")
 		public const int CostReductionPercent = 5;
 
 		public override LocalizedText Description => base.Description.WithFormatArgs(SteamMaxBonus, CostReductionPercent);

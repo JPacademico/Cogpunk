@@ -720,7 +720,7 @@ def main():
     if only is None or "sweep" in only:
         sweep(200)
     if only is None or "island" in only:
-        island_png(os.path.join(args.out, "2026-11-23_coghaven-palace.png"), args.font, args.seed)   # (2026-11-17: a third chest
+        island_png(os.path.join(args.out, "2026-11-26_coghaven-palace.png"), args.font, args.seed)   # (2026-11-26: the gate and pavilion posts open; 2026-11-17: a third chest
         # in the Main Hall gallery; 2026-11-16: the
         # Jade Vault under the Main Hall, the Locked Pagoda Chest; before: 2026-11-12_coghaven-island-chests.png)
     if only is None or "underside" in only:

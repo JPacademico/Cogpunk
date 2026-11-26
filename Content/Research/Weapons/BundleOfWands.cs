@@ -21,16 +21,16 @@ namespace Cogpunk.Content.Research.Weapons
 	/// 3377: Amethyst 15 / 6 / 3.25, Topaz 16 / 6.5 / 3.5, Sapphire 18 / 7.5 / 4, Emerald 19 / 8 / 4.25, Ruby 21 / 9 / 4.75,
 	/// Diamond 23 / 9.5 / 5.5, Amber 21 / 9 / 4.75: damage / speed / knockback), spread over +-<see cref="SpreadDegrees"/>.
 	/// A bolt deals <see cref="Item.damage"/> x its staff's damage / 19 (the seven's average), so the tooltip's damage is the
-	/// average bolt and damage bonuses reach every bolt. The Boomstick's use time (decompiled 964: 40), 28 mana.</para>
+	/// average bolt and damage bonuses reach every bolt. The Boomstick's use time (decompiled 964: 40), 25 mana (28 until 0.2.1).</para>
 	/// <para>Balance (docs/balance/weapons.csv): user-set 2026-11-19, "should be stronger when all five projectiles hit with
 	/// at least 112 dps": 15 a bolt on average, 5 bolts every 40 ticks = 118.1 eff DPS when all hit (+69% on the Water Bolt,
-	/// 69.7); paid for with 28 mana a shot (42 a second against the Water Bolt's 35) and the spread (bolts miss at range).</para>
+	/// 69.7); paid for with 25 mana a shot (37.5 a second against the Water Bolt's 35) and the spread (bolts miss at range).</para>
 	/// <para>D2: the random gems and spread are rolled on the owner's client (<c>Shoot</c> runs there), the bolts are vanilla
 	/// projectiles synced as usual. D1: the gem order is shuffled in a reused array.</para>
 	/// </summary>
 	public class BundleOfWands : CogpunkItem
 	{
-		public const int Damage = 15, UseTime = 40, Mana = 28, Bolts = 5, RopeCost = 10;   // 15: user-set "at least 112 dps" (2026-11-19)
+		public const int Damage = 17, UseTime = 40, Mana = 25, Bolts = 5, RopeCost = 10;   // 15: user-set "at least 112 dps" (2026-11-19); +12% (16.8) 2026-11-26; mana 28 -> 25 user-set 2026-11-26 (0.2.1)
 		public const float Knockback = 4.5f, SpreadDegrees = 9f, AverageStaffDamage = 19f, MuzzleOffset = 48f;
 
 		/// <summary>The seven pre-Hardmode gem staffs (the recipe, and what <see cref="ResearchPlayer"/> watches for).</summary>

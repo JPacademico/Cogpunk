@@ -19,7 +19,7 @@ namespace Cogpunk.Content.Mechanist.Accessories
 	public class PolishedCog : CogpunkItem
 	{
 		public const int OverheatSpeedBonus = 20;          // percent
-		public const int CogCost = 50;
+		public const int CogCost = 60;                     // 50 -> 60, x1.2 (user, 2026-11-26)
 
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(OverheatSpeedBonus);
 

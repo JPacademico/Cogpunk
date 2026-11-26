@@ -18,6 +18,7 @@ namespace Cogpunk.Content.Combinator.Combination
 		Summon,
 		AlreadyCombined,
 		DifferentClass,
+		Artifact,                                  // 2026-11-26: "artifact weapons cant be combined on the combinator"
 	}
 
 	/// <summary>
@@ -61,6 +62,9 @@ namespace Cogpunk.Content.Combinator.Combination
 			}
 			if (CombinedWeapon.IsCombined(item) || CombinedWeapon.IsProxy(item)) {
 				return CombinationRefusal.AlreadyCombined;
+			}
+			if (Core.Systems.CogpunkSets.IsArtifactType(item.type)) {
+				return CombinationRefusal.Artifact;          // user, 2026-11-26: "artifact weapons cant be combined on the combinator"
 			}
 			if (!IsWeapon(item)) {
 				return CombinationRefusal.NotAWeapon;

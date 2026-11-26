@@ -75,7 +75,7 @@ namespace Cogpunk.Content.Scrap.Weapons
 			CreateRecipe()
 				.AddIngredient<RustedCog>()
 				.AddIngredient(ItemID.Topaz)
-				.AddIngredient<RustedMetal>(4)
+				.AddIngredient<RustedMetal>(5)                         // 4 -> 5, x1.2 rounded (user, 2026-11-26)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

@@ -144,8 +144,8 @@ namespace Cogpunk.Content.Coghaven.NPCs
 
 		public override void SetDefaults() {
 			Cogpunk.Content.Banners.EnemyBanners.SetBanner(this);         // its banner (2026-11-25)
-			NPC.width = 72;                                 // the chest plates, the inner shoulders and the head (D4: matched hitbox;
-			                                                // 56 until 2026-11-25 cut through the chest: tools/check_hitboxes.py)
+			NPC.width = 46;                                 // his torso in profile and his head (D4: matched hitbox; 72 while he
+			                                                // faced the screen, until the sideways redesign of 2026-11-26b)
 			NPC.height = 104;
 			SetExpertStats(Life, ContactDamage, Defense);
 			NPC.knockBackResist = 0f;
@@ -333,7 +333,7 @@ namespace Cogpunk.Content.Coghaven.NPCs
 				return;
 			}
 			Vector2 palm = Palm(aim);
-			Lighting.AddLight(palm, 0.1f, 0.55f, 0.35f);
+			Lighting.AddLight(palm, 0.12f, 0.6f, 0.22f);          // the emerald glow (v3, 2026-11-26b)
 			if (Main.rand.NextBool(3) && CogpunkClientConfig.RollEffect()) {
 				Vector2 from = palm + Main.rand.NextVector2CircularEdge(18f, 18f);
 				if (SafeSpawn.TryNewDust(from - new Vector2(2f), 4, 4, DustID.GreenTorch, out Dust d)) {

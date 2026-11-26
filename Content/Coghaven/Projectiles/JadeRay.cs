@@ -93,7 +93,7 @@ namespace Cogpunk.Content.Coghaven.Projectiles
 			Vector2 dir = Direction;
 			float length = Length;
 			for (float d = 0f; d <= length; d += 64f) {      // at most 13 lights (800 px / 64)
-				Lighting.AddLight(Start + dir * d, 0.12f * fade, 0.6f * fade, 0.4f * fade);
+				Lighting.AddLight(Start + dir * d, 0.14f * fade, 0.62f * fade, 0.24f * fade);   // the emerald glow (2026-11-26b)
 			}
 		}
 

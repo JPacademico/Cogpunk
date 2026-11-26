@@ -31,6 +31,7 @@ namespace Cogpunk.Content.Combinator.Items
 		private static Asset<Texture2D> beam, aura;
 
 		public override void SetStaticDefaults() {
+			Cogpunk.Core.Systems.CogpunkSets.NeverStolen[Type] = true;        // a once-only drop: no thief takes it (2026-11-26)
 			Item.ResearchUnlockCount = 1;
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			ItemID.Sets.ItemIconPulse[Type] = true;

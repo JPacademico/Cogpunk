@@ -9,10 +9,10 @@ using Terraria.ModLoader;
 namespace Cogpunk.Content.Junkyard.Weapons
 {
 	/// <summary>
-	/// The Metal Wrench's riposte is ready (a parry landed): the next swing deals x<see cref="MetalWrench.RiposteMultiplier"/>.
+	/// The Metal Wrench's riposte is ready (a parry landed): the next swing deals x<see cref="WrenchParry.RiposteMultiplier"/>.
 	/// <see cref="MetalWrenchPlayer"/> gives it, spends it on the next swing and takes it off when that swing ends, so other
 	/// clients (vanilla syncs the buff list) see the sparks of a ready riposte and of the riposte swing
-	/// (<see cref="MetalWrench.MeleeEffects"/>). A glint of brass now and then at the hand while it waits.
+	/// (the weapon's <c>MeleeEffects</c>). A glint of brass now and then at the hand while it waits.
 	/// </summary>
 	public class WrenchRiposteBuff : CogpunkBuff
 	{
@@ -33,7 +33,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 		}
 
 		public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare) {
-			tip = Description.Format(MetalWrench.RiposteMultiplier);
+			tip = Description.Format(WrenchParry.RiposteMultiplier);
 		}
 	}
 }

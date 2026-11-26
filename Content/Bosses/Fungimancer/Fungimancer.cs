@@ -195,7 +195,7 @@ namespace Cogpunk.Content.Bosses.Fungimancer
 			NPC.value = Item.buyPrice(gold: 15);
 			NPC.SpawnWithHigherTime(30);
 			if (!Main.dedServ) {
-				Music = MusicID.Boss3;
+				Music = MusicID.Boss4;                       // vanilla's "Boss 4" until his own track (user, 2026-11-26)
 			}
 		}
 

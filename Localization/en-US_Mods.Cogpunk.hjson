@@ -244,6 +244,16 @@ Items: {
 		Tooltip: A glob of the Junkyard's tar. Still warm.
 	}
 
+	Cogfish: {
+		DisplayName: Cogfish
+		Tooltip: Its cog keeps turning, even out of the tar
+	}
+
+	TarImmunityPotion: {
+		DisplayName: Tar Immunity Potion
+		Tooltip: Makes you immune to the Tar Plague
+	}
+
 	CondensedTar: {
 		DisplayName: Condensed Tar
 		Tooltip: Four drops of tar, boiled down until they hold their shape.
@@ -416,7 +426,6 @@ Items: {
 			'''
 			Mana costs are paid with steam first, and with mana once the steam runs out
 			Immunity to Overheat
-			{0}% increased steam regeneration
 			Steam weapons draw mana once the steam runs out, at 2 mana a steam (their steam bonuses halved)
 			Spending steam or mana holds both from refilling
 			'It fell from no eye. The tar wept it'
@@ -466,15 +475,7 @@ Items: {
 
 	MetalWrench: {
 		DisplayName: Metal Wrench
-		Tooltip:
-			'''
-			{0}% more damage to mechanical enemies
-			Right click to parry for {4} steam: for {1} second, an enemy attack clangs off the wrench and does nothing
-			A parry readies a riposte: your next swing deals {3}x damage
-			A riposte on a boss or a mini-boss slows down time for a moment
-			The parry needs {2} seconds to recover
-			'Every problem looks like a loose bolt'
-			'''
+		Tooltip: "{0}% more damage to mechanical enemies\nSlams down towards the cursor\n'Every problem looks like a loose bolt'"
 	}
 
 	Tarmancer: {
@@ -1245,7 +1246,7 @@ Items: {
 		Tooltip:
 			'''
 			Summons a jade bat to fight for you
-			Using it again makes the spirit grow instead: a jade beetle, a jade golem, then a jade loong
+			Using it again makes the spirit grow instead: a jade beetle, a floating jade golem arm, then a jade loong
 			Once it is a loong, the next use calls a new bat
 			'''
 	}
@@ -1268,6 +1269,11 @@ Buffs: {
 	MiceBotBuff: {
 		DisplayName: Mice-bot
 		Description: A clockwork mouse is biting your enemies
+	}
+
+	TarImmunity: {
+		DisplayName: Tar Immunity
+		Description: Immune to the Tar Plague
 	}
 
 	TarPlague: {
@@ -2186,6 +2192,8 @@ DropConditions: {
 
 	CombinatorFirstKill: Only from the first defeat in a world
 	ManualFirstKill: Once per world, on the first defeat: one for every player in the fight
+	LizardGem: The gem its crystals grew
+	Twinkling: With Twinkling researched
 }
 
 Events: {
@@ -2315,6 +2323,7 @@ Combinator: {
 		Summon: Summon weapons can't be combined
 		AlreadyCombined: Combined weapons can't be combined again
 		DifferentClass: Both weapons must be of the same class
+		Artifact: Artifacts can't be combined
 	}
 
 	Trait: {
@@ -2387,6 +2396,7 @@ Research: {
 		Potions: "{0} different potions"
 		Foods: "{0} different foods"
 		VoodooDoll: "{0} {$ItemName.GuideVoodooDoll} or {$ItemName.ClothierVoodooDoll}"
+		RustedCogs: "{0} Rusted Cogs"
 	}
 	Nodes: {
 		TheBasics: {
@@ -2565,6 +2575,22 @@ Research: {
 			DisplayName: "Who is he?"
 			Description: "Someone has been watching the stones...\nThe Last Ghedalari can move into your world"
 		}
+		PassiveIncome: {
+			DisplayName: "Passive Income"
+			Description: "Your piggy bank makes a copper coin every second"
+		}
+		Twinkling: {
+			DisplayName: "Twinkling"
+			Description: "Crystal lizards grow rarer gems on their backs and drop more gold"
+		}
+		YouBrokeIt: {
+			DisplayName: "You Broke It!"
+			Description: "Reforging an item with a negative modifier costs 40% less"
+		}
+		BuildTerraria2: {
+			DisplayName: "Build Terraria 2, make no mistakes."
+			Description: "Negative modifiers come up less often when you reforge"
+		}
 	}
 	Tasks: {
 		Angler5: "Five quests done for the Angler"
@@ -2594,6 +2620,7 @@ Research: {
 		NewTownNPCWho: "A new kind of townsfolk moved in: {0}"
 		PlayerKill: "Defeated another player"
 		PiggyBank: "Saved coins in a piggy bank"
+		Artifact: "Found an artifact: {0}"
 	}
 	Events: {
 		GoblinArmy: "the Goblin Army"
@@ -2613,6 +2640,7 @@ Research: {
 	Tabs: {
 		Main: Ancient Research
 		Mystery: Mystery of the Past
+		Artifacts: Artifacts
 	}
 	Hints: {
 		AlchemyTable: "A secret yet to be revealed: an alchemist's table holds the key"
@@ -2625,6 +2653,10 @@ Research: {
 		KillsProgress: "Enemies defeated: {0} / {1}"
 		Crate: "A secret yet to be revealed: fish up a crate"
 		WhoIsHe: "A secret yet to be revealed: someone must touch a Fundamental Stone"
+		PiggyBank: "A secret yet to be revealed: open a piggy bank"
+		CrystalLizard: "A secret yet to be revealed: catch a crystal lizard before it digs away"
+		Reforge: "A secret yet to be revealed: reforge an item"
+		Artifact: "An artifact not yet found: every world hides one of each"
 	}
 	DoubleBrew: Double brew!
 	Seasoned: Ingredients saved!
@@ -2632,6 +2664,19 @@ Research: {
 	CoinCost: "Costs {0}"
 	Groups: {
 		Either: "{0} or {1}"
+	}
+}
+
+Artifacts: {
+	Tag: "Artifact: one per world"
+	OneAccessory: "Only one artifact accessory can be worn at a time"
+	Found: "Found"
+	Lore: {
+		ArtifactJadeCursedGlaives:
+			'''
+			Twin blades of a jade-shaper, cursed by the stone they shaped.
+			They surface only from those already turned to jade.
+			'''
 	}
 }
 
