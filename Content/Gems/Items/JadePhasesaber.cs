@@ -1,3 +1,4 @@
+using Cogpunk.Core.Combat;
 using Cogpunk.Core.Templates;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -32,10 +33,43 @@ namespace Cogpunk.Content.Gems.Items
 			Item.width = 40;
 			Item.height = 40;
 			Item.autoReuse = true;
-			Item.useTurn = true;
+			Item.useTurn = false;                           // 0.2.3: a directional swing faces the cursor (a turn mid-swing would mirror it)
 			Item.UseSound = SoundID.Item15;
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.sellPrice(gold: 1);
+		}
+
+		// --- the swing (0.2.3: directional, user rule 2026-11-26: "our melee weapons for the mod must have directional swings that
+		// actualy track cursor position"; Core/Combat/DirectionalSwing). The sprite measured along its diagonal from the corner the
+		// game draws it from (game px at scale 1): the hilt and guard to 16, the jade blade from 16 to the tip at 54, 9 px either side with the guard
+		// (JadePhasesaber.png, 40 x 40)
+		public const float GripFromCorner = 6f, BladeFrom = 16f, BladeTo = 54f, BladeRadius = 9f;
+
+		/// <summary>Vanilla's arc turned to the cursor (<see cref="DirectionalSwing"/>): the wielder turned to the cursor's side as
+		/// each swing starts, the arm along the blade, the grip in the hand; the game still draws the sprite. Every side, from the
+		/// synced use and aim.</summary>
+		public override void UseStyle(Player player, Rectangle heldItemFrame) {
+			float aim = DirectionalSwing.Aim(player);
+			DirectionalSwing.PoseHeld(player, DirectionalSwing.VanillaArc(DirectionalSwing.Done(player)) + aim, GripFromCorner,
+				player.GetAdjustedItemScale(Item));
+			DirectionalSwing.Note(player);
+		}
+
+		/// <summary>The drawn blade's bounds (vanilla cuts grass and pots with it); the hits are <see cref="CanMeleeAttackCollideWithNPC"/>.</summary>
+		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox) {
+			float scale = player.GetAdjustedItemScale(Item);
+			if (DirectionalSwing.HeldBladeBounds(player, BladeFrom * scale, BladeTo * scale, BladeRadius * scale, out Rectangle bounds)) {
+				hitbox = bounds;
+			}
+			else {
+				noHitbox = true;
+			}
+		}
+
+		/// <summary>The blade as drawn, swept from the last tick.</summary>
+		public override bool? CanMeleeAttackCollideWithNPC(Rectangle meleeAttackHitbox, Player player, NPC target) {
+			float scale = player.GetAdjustedItemScale(Item);
+			return DirectionalSwing.HeldBladeSweepHits(player, BladeFrom * scale, BladeTo * scale, BladeRadius * scale, target.Hitbox);
 		}
 
 		public override Color? GetAlpha(Color lightColor) => Color.White;

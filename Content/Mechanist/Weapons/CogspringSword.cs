@@ -30,20 +30,24 @@ namespace Cogpunk.Content.Mechanist.Weapons
 	/// <list type="bullet">
 	/// <item><b>Left click</b>: vanilla's sword swing (user, 2026-11-26, 0.2.2: "Cogspring sword should have normal sword terraria
 	/// animations for its basic attack, and also a bit quicker use time for the basic attack. add a phantom slash trail for the
-	/// swings as it is a visual rule for our melee weapons"; the Firesaw's wind-up, slash and overshoot until then): the game
-	/// swings and draws it as any sword (use style Swing, the item sprite in the hand), its lights drawn over it and a green
-	/// phantom slash under it (<see cref="CogspringLayer"/>, <see cref="CogspringTrailLayer"/>). <see cref="Damage"/> a hit
-	/// every <see cref="UseTime"/> ticks (34 before): 62.4 effective DPS, the Volcano's own (decompiled Item 121: 40 damage, use
-	/// time 40); 55.1 before, 11.8% under it. The hits follow the drawn blade (<see cref="BladeHitsHeld"/>), swept from the
-	/// last tick. <see cref="Steam"/> steam a swing.</item>
+	/// swings as it is a visual rule for our melee weapons"; the Firesaw's wind-up, slash and overshoot until then), turned to
+	/// the cursor (0.2.3, user: "the cogspring sword basic attack isnt changing direction and its only attacking to the side the
+	/// player is looking instead off tranking the cursor"; <see cref="DirectionalSwing"/>): vanilla's arc and timing plus the
+	/// aim, the wielder turned to the cursor's side as each swing starts, the arm along the blade and the grip in the hand;
+	/// the game draws the sprite, its lights over it and a green phantom slash under it (<see cref="CogspringLayer"/>,
+	/// <see cref="CogspringTrailLayer"/>). <see cref="Damage"/> a hit every <see cref="UseTime"/> ticks (34 before): 62.4
+	/// effective DPS, the Volcano's own (decompiled Item 121: 40 damage, use time 40); 55.1 before, 11.8% under it. The hits
+	/// follow the drawn blade (<see cref="DirectionalSwing.HeldBladeSweepHits"/>), swept from the last tick. <see cref="Steam"/>
+	/// steam a swing.</item>
 	/// <item><b>Right click, held</b>: the blade raised behind the head, its core lighting up as the charge builds over
 	/// <see cref="ChargeTicks"/> ticks; let go and it comes down in a fast slam (<see cref="CogspringSlam"/>), 1x to
 	/// <see cref="MaxMultiplier"/>x the sword's damage by the charge. <see cref="SlamSteam"/> steam, paid as the charge
 	/// starts. A fully charged slam that kills an enemy slows time for everyone (the Metal Wrench's slow motion, through
 	/// its <see cref="MetalClash"/>).</item>
 	/// </list>
-	/// <para>D2: the swing is vanilla's item use (every client swings it from the synced use; <see cref="CogspringPlayer"/> keeps
-	/// each player's last angles for the trail and the hits); the charge is a player projectile whose ai carries the state,
+	/// <para>D2: the swing is vanilla's item use (every client swings it from the synced use; its aim comes with
+	/// <see cref="DirectionalAimPacket"/>, and <see cref="DirectionalSwing"/> keeps each player's last angles for the trail and the
+	/// hits); the charge is a player projectile whose ai carries the state,
 	/// the charge and the timer, so every client poses and draws it and the server sees the same slam. D1: arithmetic only,
 	/// a fixed ring of angles a player, textures cached on clients. D0: non-finite poses ignored (<see cref="SwingPose"/>),
 	/// spawns through <see cref="SafeSpawn"/>, the charge's life finite (a held charge lets go by itself after
@@ -66,8 +70,9 @@ namespace Cogpunk.Content.Mechanist.Weapons
 		public const int Size = 80, GripX = 12, GripY = 66;
 		// measured along the axis from the hand (game px at scale 1): the core from 18, the tip at 88, 8 px either side
 		public const float BladeStart = 18f, Reach = 88f, BladeRadius = 8f;
-		/// <summary>Vanilla holds a swung sprite by its bottom-left corner, on the blade's axis 18 px behind the grip: the same
-		/// blade measured from there (the charged slam, posed by <see cref="SwingPose"/>, keeps the grip in the hand).</summary>
+		/// <summary>The game draws a swung sprite from its bottom-left corner, on the blade's axis 18 px behind the grip: the same
+		/// blade measured from there. The swing puts the grip in the hand (<see cref="DirectionalSwing.PoseHeld"/>), as the charged
+		/// slam does (<see cref="SwingPose"/>).</summary>
 		public const float CornerToGrip = 18f, HeldBladeStart = BladeStart + CornerToGrip, HeldReach = Reach + CornerToGrip;
 
 		private static readonly SoundStyle SwingSound = SoundID.Item1 with { Pitch = -0.2f, Volume = 0.85f, PitchVariance = 0.15f };
@@ -97,49 +102,36 @@ namespace Cogpunk.Content.Mechanist.Weapons
 		protected override bool CanUseMechanist(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<CogspringSlam>()] <= 0;
 
 		// ------------------------------------------------------------------------------------------------------------
-		// The swing (vanilla's, 0.2.2)
+		// The swing (vanilla's arc, 0.2.2; turned to the cursor, 0.2.3)
 		// ------------------------------------------------------------------------------------------------------------
 
 		/// <summary>Runs after vanilla has posed the swing this tick (decompiled <c>ItemCheck_ApplyUseStyle</c>, then
-		/// <c>ItemLoader.UseStyle</c>): its angle noted for the trail and the hits, on every side.</summary>
+		/// <c>ItemLoader.UseStyle</c>), on every side: vanilla's arc plus the aim (<see cref="DirectionalSwing"/>), the arm along
+		/// the blade and the grip in the hand (the game still draws the sprite, from <c>itemLocation</c> and <c>itemRotation</c>),
+		/// then the angle noted for the trail and the swept hits.</summary>
 		public override void UseStyle(Player player, Rectangle heldItemFrame) {
-			player.GetModPlayer<CogspringPlayer>().Note(player);
+			float aim = DirectionalSwing.Aim(player);
+			float facing = DirectionalSwing.VanillaArc(DirectionalSwing.Done(player)) + aim;
+			DirectionalSwing.PoseHeld(player, facing, CornerToGrip, player.GetAdjustedItemScale(Item));
+			DirectionalSwing.Note(player);
 		}
 
 		/// <summary>The blade's bounds this tick (vanilla cuts grass and pots with it); the real test is
 		/// <see cref="CanMeleeAttackCollideWithNPC"/>.</summary>
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox) {
 			float scale = player.GetAdjustedItemScale(Item);
-			Vector2 dir = SwingPose.HeldBladeDirection(player, player.itemRotation);
-			Vector2 a = player.itemLocation + dir * (HeldBladeStart * scale);
-			Vector2 b = player.itemLocation + dir * (HeldReach * scale);
-			if (!MathSafety.IsFinite(a) || !MathSafety.IsFinite(b)) {
-				noHitbox = true;
-				return;
+			if (DirectionalSwing.HeldBladeBounds(player, HeldBladeStart * scale, HeldReach * scale, BladeRadius * scale, out Rectangle bounds)) {
+				hitbox = bounds;
 			}
-			float r = BladeRadius * scale;
-			int left = (int)(MathF.Min(a.X, b.X) - r), top = (int)(MathF.Min(a.Y, b.Y) - r);
-			hitbox = new Rectangle(left, top, (int)(MathF.Abs(a.X - b.X) + 2f * r), (int)(MathF.Abs(a.Y - b.Y) + 2f * r));
+			else {
+				noHitbox = true;
+			}
 		}
 
 		/// <summary>The drawn blade as a capsule at this tick's angle, half a tick and a tick back (no enemy slips between poses).</summary>
 		public override bool? CanMeleeAttackCollideWithNPC(Rectangle meleeAttackHitbox, Player player, NPC target) {
 			float scale = player.GetAdjustedItemScale(Item);
-			CogspringPlayer swing = player.GetModPlayer<CogspringPlayer>();
-			float now = player.itemRotation;
-			float before = swing.Rotation(1, now);
-			Rectangle box = target.Hitbox;
-			return BladeHitsHeld(player, now, scale, box) || BladeHitsHeld(player, (now + before) * 0.5f, scale, box)
-				|| BladeHitsHeld(player, before, scale, box);
-		}
-
-		/// <summary>The blade vanilla draws at <paramref name="itemRotation"/> (held by its corner at <c>itemLocation</c>) touches
-		/// <paramref name="box"/>.</summary>
-		public static bool BladeHitsHeld(Player player, float itemRotation, float scale, Rectangle box) {
-			Vector2 dir = SwingPose.HeldBladeDirection(player, itemRotation);
-			Vector2 a = player.itemLocation + dir * (HeldBladeStart * scale);
-			Vector2 b = player.itemLocation + dir * (HeldReach * scale);
-			return SwingPose.CapsuleHitsRect(a, b, BladeRadius * scale, box);
+			return DirectionalSwing.HeldBladeSweepHits(player, HeldBladeStart * scale, HeldReach * scale, BladeRadius * scale, target.Hitbox);
 		}
 
 		/// <summary>The charged slam's blade, posed by <see cref="SwingPose"/> at <paramref name="facing"/> (the grip in the hand).</summary>
@@ -184,45 +176,13 @@ namespace Cogpunk.Content.Mechanist.Weapons
 	}
 
 	/// <summary>
-	/// The Cogspring Sword's swing angles (0.2.2: vanilla's swing; the last <see cref="History"/> ticks of its
-	/// <c>itemRotation</c>, for the phantom slash and the swept hits) and its right click (the Bandit's Dream's pattern: caught
-	/// before the item check, so it is no item use): on a press it pays the slam's steam and raises the blade
-	/// (<see cref="CogspringSlam"/>, which holds the charge while the button is held). D2: every side notes every player's swing
-	/// from the synced use; the owner starts the slam and the projectile carries it to everyone. D1: one small ring a player,
-	/// made on its first swing.
+	/// The Cogspring Sword's right click (the Bandit's Dream's pattern: caught before the item check, so it is no item use): on
+	/// a press it pays the slam's steam and raises the blade (<see cref="CogspringSlam"/>, which holds the charge while the button
+	/// is held). D2: the owner starts it; the projectile carries it to everyone. (The swing's angles live in
+	/// <see cref="DirectionalSwingPlayer"/> since 0.2.3.)
 	/// </summary>
 	public sealed class CogspringPlayer : ModPlayer
 	{
-		public const int History = 12;
-
-		private float[] rotations;
-		private int head, noted, lastAnimation;
-
-		/// <summary>Ticks of this swing noted so far (at most <see cref="History"/>).</summary>
-		public int Noted => noted;
-
-		/// <summary>Every side, every tick of a swing (from <see cref="CogspringSword.UseStyle"/>): this tick's angle.</summary>
-		public void Note(Player player) {
-			rotations ??= new float[History];
-			if (player.ItemAnimationJustStarted || player.itemAnimation > lastAnimation) {
-				noted = 0;                                    // a new swing (the animation started again): nothing behind it yet
-			}
-			lastAnimation = player.itemAnimation;
-			head = (head + 1) % History;
-			rotations[head] = player.itemRotation;
-			noted = Math.Min(noted + 1, History);
-		}
-
-		/// <summary>The swing's <c>itemRotation</c> <paramref name="ticksBack"/> ticks ago (no further back than its first tick);
-		/// <paramref name="fallback"/> before anything is noted.</summary>
-		public float Rotation(int ticksBack, float fallback) {
-			if (rotations == null || noted <= 0) {
-				return fallback;
-			}
-			int k = Math.Clamp(ticksBack, 0, noted - 1);
-			return rotations[(head - k + History) % History];
-		}
-
 		public override bool PreItemCheck() {
 			if (Player.whoAmI != Main.myPlayer || Player.HeldItem?.ModItem is not CogspringSword sword) {
 				return true;
@@ -550,7 +510,7 @@ namespace Cogpunk.Content.Mechanist.Weapons
 	/// crescents, each <see cref="TrailStep"/> longer (art/mechanist/make_cogspring_art.py); the one nearest the sweep is turned
 	/// onto the blade, mirrored for a counter-clockwise sweep (a swing facing left), and added onto what is behind it (alpha 0
 	/// under premultiplied blending: light, never a dark smear), fuller the faster the blade turns. D1: one draw; the angles come
-	/// from <see cref="CogspringPlayer"/>'s ring. D0: textures never touched on a server; a missing one or a non-finite sweep
+	/// from <see cref="DirectionalSwing"/>'s ring. D0: textures never touched on a server; a missing one or a non-finite sweep
 	/// draws nothing.
 	/// </summary>
 	public sealed class CogspringTrailLayer : PlayerDrawLayer
@@ -586,13 +546,12 @@ namespace Cogpunk.Content.Mechanist.Weapons
 				return;
 			}
 			Player player = drawInfo.drawPlayer;
-			CogspringPlayer swing = player.GetModPlayer<CogspringPlayer>();
-			int back = Math.Min(TrailTicks, swing.Noted - 1);
+			int back = Math.Min(TrailTicks, DirectionalSwing.Noted(player) - 1);
 			if (back < 1) {
 				return;
 			}
 			Vector2 now = SwingPose.HeldBladeDirection(player, player.itemRotation);
-			Vector2 then = SwingPose.HeldBladeDirection(player, swing.Rotation(back, player.itemRotation));
+			Vector2 then = SwingPose.HeldBladeDirection(player, DirectionalSwing.Rotation(player, back, player.itemRotation));
 			float sweep = MathF.Atan2(then.X * now.Y - then.Y * now.X, Vector2.Dot(then, now));   // + clockwise on screen
 			float span = MathF.Abs(sweep);
 			if (!float.IsFinite(span) || span < TrailMin) {

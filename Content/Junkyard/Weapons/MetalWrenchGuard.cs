@@ -41,6 +41,10 @@ namespace Cogpunk.Content.Junkyard.Weapons
 			Projectile.hide = true;                        // drawn by the player as heldProj
 			Projectile.timeLeft = WrenchParry.ParryTicks + 2;
 			Projectile.aiStyle = -1;
+			// 0.2.3: it never moves, and vanilla turns a projectile by its velocity after its AI (decompiled Projectile.Update,
+			// AutomaticallyChangesDirection): without this a guard held facing left was drawn facing right (the Jade Cursed
+			// Glaives' bug)
+			Projectile.manualDirectionChange = true;
 		}
 
 		public override bool? CanDamage() => false;
@@ -60,7 +64,7 @@ namespace Cogpunk.Content.Junkyard.Weapons
 				SoundEngine.PlaySound(SoundID.Item1 with { Pitch = -0.6f, Volume = 0.6f }, player.Center);
 			}
 			player.heldProj = Projectile.whoAmI;
-			Projectile.direction = Projectile.spriteDirection = player.direction;
+			Projectile.direction = Projectile.spriteDirection = player.direction;   // kept: manualDirectionChange (SetDefaults)
 			float raise = MathHelper.Clamp(age / (float)RaiseTicks, 0f, 1f);
 			raise = 1f - (1f - raise) * (1f - raise);
 			float arm = MathHelper.Lerp(0.6f, ArmAngle, raise) - MathHelper.PiOver2;

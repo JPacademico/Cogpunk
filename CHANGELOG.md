@@ -4,6 +4,32 @@ Every update batch raises `version` in `build.txt` and adds an entry here, newes
 fixes and tweaks only the patch (user, 2026-11-26: "every following update batch and implementation should increase the
 version of our mod so we keep traceability for updates"). Balance rows: `docs/balance/*.csv`; proofs: `docs/media/`.
 
+## 0.2.3 (2026-11-26)
+
+Fixes from the user's in-game test of 0.2.2 (a recording: the glaive slashes always faced right; the Cogspring Sword swung
+only to the side the player faced), and the user's rule: "our melee weapons for the mod must have directional swings that
+actualy track cursor position (like the diretional melee, and not like base terraria limited left and right locked swing
+position)".
+
+### Fixes
+- **Jade Cursed Glaives** finally slash to the left. The cause, found by decompiling: after a projectile's AI, the game sets
+  its facing from its speed (right when it isn't moving left), and the slash never moves, so it was put back to facing
+  right every tick after it had turned left. That is why 0.2.0's and 0.2.2's aiming changes showed nothing. The slash now
+  keeps its own facing and is drawn from its aim. The same latent bug is fixed on the Metal Wrench's parry guard (unused for
+  now).
+
+### Changed
+- **Directional melee** (`Core/Combat/DirectionalSwing`): each swing turns the player to the cursor's side as it starts,
+  and its arc turns toward the cursor's height and follows it through the swing (up to 75 degrees up or down). The hits
+  follow the drawn blade. In multiplayer the aim is sent with each swing.
+  - **Cogspring Sword**: vanilla's arc and timing turned to the cursor, the grip in the hand, its lights and phantom slash
+    with it.
+  - **Macuahuitl, Jade Phaseblade, Jade Phasesaber**: the same (the Phasesaber no longer turns with the movement keys in
+    mid-swing).
+  - **Firesaw**: its own alternating slashes, turned to the cursor.
+  - Not turned: the Metal Wrench's ground slam (it already faces the cursor's side; its strike is the ground at your feet)
+    and the Jade Claws (a digging tool).
+
 ## 0.2.2 (2026-11-26)
 
 Fixes and tweaks from the user's playtest list (a patch: no new items).

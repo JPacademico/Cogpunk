@@ -5,6 +5,13 @@ melee attack for melee weapons (it should affect default terraria and our mod we
 animations, some mods already does this but i want our mod to have natively (research logic and verify applicability
 first)."
 
+> **Status (0.2.3, 2026-11-26):** directional swings are now a rule for Cogpunk's own melee weapons (user: "our melee weapons
+> for the mod must have directional swings that actualy track cursor position"), built as §3.2-3.4 propose in
+> `Core/Combat/DirectionalSwing.cs` (the aim, its packet, the pose, the swept hits) for the Cogspring Sword, the Macuahuitl, the
+> Jade Phaseblade and Phasesaber and the Firesaw. Two differences from the proposal: the aim follows the cursor through the swing
+> (eased), not only at its first tick, and a cursor behind the player counts by its height. Vanilla's own weapons are still
+> untouched (phase A of §6 is not done).
+
 This page is the research and the applicability check, not an implementation: nothing below is in the mod yet except
 `Core/Combat/SwingPose.cs` and the Metal Wrench's slam, which were built for the same request's item 7 and are the working
 proof of the core technique. Every vanilla fact was read from tModLoader v2026.08.3.0 decompiled with `ilspycmd`

@@ -1,3 +1,4 @@
+using Cogpunk.Core.Combat;
 using Cogpunk.Content.Junkyard.Items;
 using Cogpunk.Core.Configs;
 using Cogpunk.Core.Safety;
@@ -58,6 +59,39 @@ namespace Cogpunk.Content.Junkyard.Weapons
 			Item.height = 40;
 			Item.value = Item.sellPrice(silver: 40);
 			Item.rare = ItemRarityID.Green;
+		}
+
+		// --- the swing (0.2.3: directional, user rule 2026-11-26: "our melee weapons for the mod must have directional swings that
+		// actualy track cursor position"; Core/Combat/DirectionalSwing). The sprite measured along its diagonal from the corner the
+		// game draws it from (game px at scale 1): the wrapped handle and its strap loop to 26, the paddle and its obsidian teeth from 26 to the tip at 91,
+		// 15 px either side (Macuahuitl.png, 68 x 68)
+		public const float GripFromCorner = 12f, BladeFrom = 26f, BladeTo = 91f, BladeRadius = 15f;
+
+		/// <summary>Vanilla's arc turned to the cursor (<see cref="DirectionalSwing"/>): the wielder turned to the cursor's side as
+		/// each swing starts, the arm along the blade, the grip in the hand; the game still draws the sprite. Every side, from the
+		/// synced use and aim.</summary>
+		public override void UseStyle(Player player, Rectangle heldItemFrame) {
+			float aim = DirectionalSwing.Aim(player);
+			DirectionalSwing.PoseHeld(player, DirectionalSwing.VanillaArc(DirectionalSwing.Done(player)) + aim, GripFromCorner,
+				player.GetAdjustedItemScale(Item));
+			DirectionalSwing.Note(player);
+		}
+
+		/// <summary>The drawn blade's bounds (vanilla cuts grass and pots with it); the hits are <see cref="CanMeleeAttackCollideWithNPC"/>.</summary>
+		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox) {
+			float scale = player.GetAdjustedItemScale(Item);
+			if (DirectionalSwing.HeldBladeBounds(player, BladeFrom * scale, BladeTo * scale, BladeRadius * scale, out Rectangle bounds)) {
+				hitbox = bounds;
+			}
+			else {
+				noHitbox = true;
+			}
+		}
+
+		/// <summary>The blade as drawn, swept from the last tick.</summary>
+		public override bool? CanMeleeAttackCollideWithNPC(Rectangle meleeAttackHitbox, Player player, NPC target) {
+			float scale = player.GetAdjustedItemScale(Item);
+			return DirectionalSwing.HeldBladeSweepHits(player, BladeFrom * scale, BladeTo * scale, BladeRadius * scale, target.Hitbox);
 		}
 
 		public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers) {

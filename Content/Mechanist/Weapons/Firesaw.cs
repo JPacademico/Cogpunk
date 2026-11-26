@@ -155,19 +155,25 @@ namespace Cogpunk.Content.Mechanist.Weapons
 			return MathHelper.Lerp(over, to, EaseInOutCubic(SwingPose.Phase(done, OverEnd, SettleEnd)));
 		}
 
-		/// <summary><paramref name="player"/>'s blade angle, <paramref name="ticksBack"/> ticks ago (same swing).</summary>
+		/// <summary><paramref name="player"/>'s blade angle, <paramref name="ticksBack"/> ticks ago (same swing), turned by the
+		/// swing's aim now (0.2.3, <see cref="DirectionalSwing"/>).</summary>
 		public static float SwingAngle(Player player, int ticksBack = 0) {
-			return SwingAngle(Math.Max(0f, Done(player, ticksBack)), player.GetModPlayer<FiresawPlayer>().Upswing);
+			return SwingAngle(Math.Max(0f, Done(player, ticksBack)), player.GetModPlayer<FiresawPlayer>().Upswing) + DirectionalSwing.AimOf(player);
 		}
 
 		/// <summary>True while the blade is on fire (every client: the owner's synced flame is out).</summary>
 		public static bool Burning(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<FiresawFlame>()] > 0
 			|| (player.whoAmI == Main.myPlayer && player.altFunctionUse == 2);
 
+		/// <summary>Every side, every tick of a swing: its curve turned to the cursor (0.2.3, user rule 2026-11-26: "our melee
+		/// weapons for the mod must have directional swings that actualy track cursor position"; <see cref="DirectionalSwing"/>:
+		/// the wielder turned to the cursor's side as each swing starts, the aim following the cursor through it).</summary>
 		public override void UseStyle(Player player, Rectangle heldItemFrame) {
 			float done = Done(player);
 			float prev = Done(player, 1);
-			SwingPose.Apply(player, SwingAngle(done, player.GetModPlayer<FiresawPlayer>().Upswing));
+			float aim = DirectionalSwing.Aim(player);
+			SwingPose.Apply(player, SwingAngle(done, player.GetModPlayer<FiresawPlayer>().Upswing) + aim);
+			DirectionalSwing.Note(player);
 			if (Main.dedServ || !(prev < WindEnd && done >= WindEnd)) {
 				return;
 			}

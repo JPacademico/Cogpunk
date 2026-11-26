@@ -89,6 +89,11 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.timeLeft = 120;
 			Projectile.hide = true;
+			// 0.2.3: vanilla sets a projectile's direction from its velocity after its AI every tick (decompiled
+			// Projectile.Update: `if (AutomaticallyChangesDirection()) direction = velocity.X < 0f ? -1 : 1`), and this one
+			// never moves (velocity zero), so it was forced back to the right after the AI turned it left: the slash was drawn
+			// facing right, whatever the aim. The flag turns that off; the drawing and the hits read the aim itself (Aim) too.
+			Projectile.manualDirectionChange = true;
 		}
 
 		/// <summary>The aim in one float for <c>ai[2]</c>: its sign is the side the cursor is on, its size 2 + the tilt
@@ -216,7 +221,8 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 		/// <summary>x<see cref="JadeCursedGlaives.PetrifiedBonus"/> on an enemy turned to jade (user, 2026-11-17: "the 50% should work for
 		/// the basic glaive slashes as well").</summary>
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
-			modifiers.HitDirectionOverride = Projectile.direction == -1 ? -1 : 1;
+			Aim(Main.player[Projectile.owner], out int dir, out _);
+			modifiers.HitDirectionOverride = dir;
 			if (JadeCurseNPC.Petrified(target)) {
 				modifiers.SourceDamage *= JadeCursedGlaives.PetrifiedBonus;
 			}
@@ -250,8 +256,8 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 			Texture2D sheet = TextureAssets.Projectile[Type].Value;
 			int f = Frame;
 			int s = Math.Clamp(Kind * R.SamplesPerSlash + f % R.FramesPerSlash * 2, 0, R.HubX.Length - 1);
-			bool left = Projectile.direction == -1;
-			Aim(Main.player[Projectile.owner], out _, out float tilt);
+			Aim(Main.player[Projectile.owner], out int dir, out float tilt);
+			bool left = dir == -1;                                  // the aim's side (0.2.3: never Projectile.direction, see SetDefaults)
 			float rotation = left ? -tilt : tilt;                    // the mirrored sweep turns the other way to tilt down
 			// the cell's origin is the wielder's centre; the hub (in the hand) is HubX/HubY from it
 			Vector2 origin = new(left ? R.CellWidth - (R.OriginX + R.HubX[s]) : R.OriginX + R.HubX[s], R.OriginY + R.HubY[s]);
