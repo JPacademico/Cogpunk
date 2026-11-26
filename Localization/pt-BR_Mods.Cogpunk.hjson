@@ -1,12 +1,10 @@
-# Português (Brasil). Mantenha as mesmas chaves do en-US_Mods.Cogpunk.hjson.
+# English (source of truth). tModLoader adds keys for new content here automatically;
+# mirror every new key into pt-BR_Mods.Cogpunk.hjson in the same change.
 
 Configs: {
 	CogpunkClientConfig: {
 		DisplayName: Cogpunk: Configurações do Cliente
-
-		Headers: {
-			Visuals: Visual
-		}
+		Headers.Visuals: Visual
 
 		ScreenShake: {
 			Label: Tremor de tela
@@ -23,15 +21,19 @@ Configs: {
 			Tooltip: Suaviza clarões fortes e efeitos piscantes.
 		}
 	}
+
 	CogpunkServerConfig: {
-		DisplayName: "Cogpunk: Configurações do Mundo"
-		HostOnly: "Só o anfitrião do mundo pode mudar as configurações de mundo do Cogpunk."
-		Headers: {
-			Gameplay: "Jogabilidade"
-		}
+		DisplayName: Cogpunk: Configurações do Mundo
+		HostOnly: Só o anfitrião do mundo pode mudar as configurações de mundo do Cogpunk.
+		Headers.Gameplay: Jogabilidade
+
 		CritKillSlowMotion: {
-			Label: "Câmera lenta em abates críticos"
-			Tooltip: "Matar um inimigo com um acerto crítico desacelera o tempo por 0,33 segundo ao redor dele (cerca de uma tela e meia).\nCada jogador pode ativar isso uma vez a cada 12 segundos. Definido pelo anfitrião do mundo para todos."
+			Label: Câmera lenta em abates críticos
+			Tooltip:
+				'''
+				Matar um inimigo com um acerto crítico desacelera o tempo por 0,33 segundo ao redor dele (cerca de uma tela e meia).
+				Cada jogador pode ativar isso uma vez a cada 12 segundos. Definido pelo anfitrião do mundo para todos.
+				'''
 		}
 	}
 }
@@ -349,7 +351,7 @@ Items: {
 			'''
 		Learned: Investida a vapor aprendida!
 		AlreadyRead: Você já leu este manual
-		DashKey: "Tecla da investida a vapor: {0}"
+		DashKey: Tecla da investida a vapor: {0}
 		DashKeyUnbound: sem tecla (defina em Controles)
 	}
 
@@ -548,7 +550,7 @@ Items: {
 
 	TarnishedBrassBar: {
 		DisplayName: Barra de Latão Manchado
-		Tooltip: 'Polimento não incluso'
+		Tooltip: Polimento não incluso
 	}
 
 	WeatheredPlank: {
@@ -885,7 +887,7 @@ Items: {
 
 	SteamInjector: {
 		DisplayName: Injetor de Vapor
-		Tooltip: "Clique com o botão direito para receber Injeção de Vapor: +{0} de vapor máximo e {1}% a menos de custo de vapor até morrer"
+		Tooltip: Clique com o botão direito para receber Injeção de Vapor: +{0} de vapor máximo e {1}% a menos de custo de vapor até morrer
 	}
 
 	Koi: {
@@ -936,7 +938,7 @@ Items: {
 
 	PagodaChest: {
 		DisplayName: Baú do Pagode
-		Tooltip: ''
+		Tooltip: ""
 	}
 
 	PagodaKey: {
@@ -1125,6 +1127,7 @@ Items: {
 			'O sonho de todo fora da lei: nunca ficar sem balas'
 			'''
 	}
+
 	CogspringSword: {
 		DisplayName: Espada Molamecânica
 		Tooltip:
@@ -1135,6 +1138,7 @@ Items: {
 			'Cada engrenagem bem apertada, cada dente afiado'
 			'''
 	}
+
 	SmokerBook: {
 		DisplayName: Livro Fumegante
 		Tooltip:
@@ -1144,6 +1148,7 @@ Items: {
 			'Ninguém nunca leu estas páginas sem tossir'
 			'''
 	}
+
 	FungimancerBag: {
 		DisplayName: Bolsa de Tesouro (Fungimante)
 		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
@@ -1249,12 +1254,18 @@ Items: {
 			Depois que ele vira um loong, o próximo uso chama um novo morcego
 			'''
 	}
+
 	DemonTable: {
-		DisplayName: "Mesa Demoníaca"
-		Tooltip: "Conta como um altar demoníaco para criação\nNunca se espalha, e os moradores não se incomodam com ela"
+		DisplayName: Mesa Demoníaca
+		Tooltip:
+			'''
+			Conta como um altar demoníaco para criação
+			Nunca se espalha, e os moradores não se incomodam com ela
+			'''
 	}
+
 	Tearstone: {
-		DisplayName: "Pedra-Lágrima"
+		DisplayName: Pedra-Lágrima
 		Tooltip: "{0} de defesa enquanto estiver com a vida cheia"
 	}
 }
@@ -1337,12 +1348,12 @@ Buffs: {
 
 	JadeCurse: {
 		DisplayName: Maldição de Jade
-		Description: "Ataques {0}% mais lentos por acúmulo; vira jade com {1} acúmulos"
+		Description: Ataques {0}% mais lentos por acúmulo; vira jade com {1} acúmulos
 	}
 
 	JadePetrified: {
 		DisplayName: Petrificado em Jade
-		Description: "Congelado em jade: sem se mover, sem atacar"
+		Description: Congelado em jade: sem se mover, sem atacar
 	}
 
 	JadeWard: {
@@ -1381,12 +1392,12 @@ Buffs: {
 
 	IncenseBlessing: {
 		DisplayName: Bênção do Incenso
-		Description: "+{0}% de dano e +{1}% de velocidade de ataque"
+		Description: +{0}% de dano e +{1}% de velocidade de ataque
 	}
 
 	IncenseBurntOut: {
 		DisplayName: Incensário Apagado
-		Description: "O incensário da Maça de Incenso está reacendendo ({0} segundos ao todo)"
+		Description: O incensário da Maça de Incenso está reacendendo ({0} segundos ao todo)
 	}
 
 	JadeFoxBuff: {
@@ -1428,13 +1439,19 @@ Buffs: {
 		DisplayName: Espíritos de Jade
 		Description: Espíritos de jade lutam por você e crescem a cada vez que você os chama
 	}
+
 	Polymorphed: {
-		DisplayName: "Transmutado"
-		Description: "Você é um sapo-cogumelo: só consegue pular por aí\nOutros jogadores podem ferir você"
+		DisplayName: Transmutado
+		Description:
+			'''
+			Você é um sapo-cogumelo: só consegue pular por aí
+			Outros jogadores podem ferir você
+			'''
 	}
+
 	ShellShocked: {
-		DisplayName: "Atordoado"
-		Description: "Seus ouvidos zumbem e você não consegue se mover"
+		DisplayName: Atordoado
+		Description: Seus ouvidos zumbem e você não consegue se mover
 	}
 }
 
@@ -1494,9 +1511,7 @@ NPCs: {
 		Bestiary: O poço de piche do Ferro-Velho é mais velho que o Ferro-Velho. Algo enorme se afogou nele há muito tempo, e o piche guardou seus ossos e aprendeu a movê-los. Ele usa o velho crânio como rosto, arremessa os próprios ossos em quem chega perto, e cada ferida que leva solta piche que sai rastejando sozinho. Só uma minhoca feita de sucata é tentadora o bastante para pescá-lo.
 	}
 
-	TarTyrantBubble: {
-		DisplayName: Bolha de Piche
-	}
+	TarTyrantBubble.DisplayName: Bolha de Piche
 
 	ScrapwormCritter: {
 		DisplayName: Minhoca de Sucata
@@ -1526,6 +1541,22 @@ NPCs: {
 	Friendobo: {
 		DisplayName: Último Ghedalari
 		Bestiary: O último dos ghedalari, um povo antigo que o mundo quase esqueceu. Alto e de pele azul, com longas orelhas voltadas para trás, olhos que brilham sem pupilas e cascos em pernas dobradas para trás, ele ainda veste o ouro do seu povo e carrega a sua lança. Mudou-se assim que o Exército Mecânico parou de marchar, e negocia sucata e os amuletos que despertam as grandes feras.
+
+		TownNPCMood: {
+			// Content: I am content.
+			// NoHome: I hate not having a home.
+			// FarFromHome: I am too far from home.
+			// LoveSpace: I love having so much space.
+			// DislikeCrowded: I dislike how crowded I am.
+			// HateCrowded: I hate how crowded I am.
+			// LikeBiome: I like {BiomeName}.
+			// DislikeBiome: I dislike {BiomeName}.
+			// LoveNPC: I love {NPCName}.
+			// LikeNPC: I like {NPCName}.
+			// DislikeNPC: I dislike {NPCName}.
+			// LikeNPC_Princess: I like {NPCName}.
+			// Princess_LovesNPC: I like {NPCName}.
+		}
 	}
 
 	Cogtuna: {
@@ -1559,14 +1590,13 @@ NPCs: {
 		Bestiary: O condutor da linha que um dia passou sob Westworld, ainda marcando a hora de um trem que saiu dos trilhos há cem anos. O desastre levou suas pernas e a maldição levou o resto; uma turbina aparafusada onde ficavam as pernas bombeia fuligem para mantê-lo no ar, e seu apito ainda chama o trem, e o trem ainda vem. Saia da cidade dele e ele te persegue até o fim da linha.
 	}
 
-	ConductorGhost: {
-		DisplayName: Fantasma Amaldiçoado
-	}
+	ConductorGhost.DisplayName: Fantasma Amaldiçoado
 
 	JadeGolem: {
 		DisplayName: Golem de Jade
 		Bestiary: Uma estátua talhada num único bloco de jade, despertada pelo coração de bronze cravado no peito. Anda devagar e bate como um deslizamento; quando para e ergue o punho, a luz que se junta ali mira onde você estava um instante antes. Continue se movendo, e mova-se de novo quando a linha piscar.
 	}
+
 	RhinoBeetle: {
 		DisplayName: Besouro-Rinoceronte
 		Bestiary: Um besouro-rinoceronte gigante das profundezas da selva, raro e de couraça pesada, com esporos brilhando nos veios da carapaça. Quando ele abaixa o chifre e raspa o chão, vai investir, e o que o chifre pegar ele arremessa longe e para o alto. Subir para longe não adianta: ele sabe voar.
@@ -1579,13 +1609,14 @@ NPCs: {
 
 	Cogscorpion: {
 		DisplayName: Escorpião de Engrenagens
-		Bestiary: "Um guardião do palácio construído como um escorpião, as placas de bronze contornadas de laca vermelha e o ferrão de jade brilhando sobre as costas. Ele corre atrás dos intrusos e os atropela com as garras e o próprio peso."
+		Bestiary: Um guardião do palácio construído como um escorpião, as placas de bronze contornadas de laca vermelha e o ferrão de jade brilhando sobre as costas. Ele corre atrás dos intrusos e os atropela com as garras e o próprio peso.
 	}
 
 	FlyingBuddhaHead: {
 		DisplayName: Cabeça de Buda Voadora
 		Bestiary: A cabeça de uma grande estátua dourada, cortada do corpo e mantida no ar pelas máquinas de Coghaven, com a auréola ainda girando. Ela persegue intrusos em calma perfeita e nunca fere de passagem. Quando abre os olhos, despenca como um sino de templo, e precisa de um momento para se recompor.
 	}
+
 	Mechromancer: {
 		DisplayName: Mecromante
 		Bestiary: Um robô necromante que só anda pela terra sob uma lua vermelha como sangue, embora não tenha pernas para andar. Um crânio de latão sorri na sombra do seu capuz de chifres, suas garras ardem com fogo das almas, e seus olhos mecânicos flutuam ao seu redor sem nunca desviar o olhar de você. Para onde ele aponta, o chão se abre e os mortos saem.
@@ -1608,433 +1639,150 @@ NPCs: {
 		DisplayName: Besouro de Jade
 		Bestiary: Um besouro-rinoceronte copiado em jade a partir de uma das moedas de Jadey. Menor e mais frágil que o da selva, mas seu chifre ainda arremessa o que pega, e ele deixa a maldição dela para trás.
 	}
+
 	Fungimancer: {
-		DisplayName: "Fungimante"
-		Epithet: "O Sábio Esporado"
-		Bestiary: "Um sapo que ficou tanto tempo sentado num cogumelo brilhante que a magia do cogumelo entrou nele, e quase nada além disso. Chovem cogumelos onde ele olha, luz de arco-íris corta o ar, e um arroto dele pode transformar você num sapo. Quando ele erguer as duas mãos, quebre o que cresce entre elas, ou tape os ouvidos. Só desperta quando alguém quebra o mais raro dos cogumelos: o de chapéu arco-íris."
+		DisplayName: Fungimante
+		Epithet: O Sábio Esporado
+		Bestiary: Um sapo que ficou tanto tempo sentado num cogumelo brilhante que a magia do cogumelo entrou nele, e quase nada além disso. Chovem cogumelos onde ele olha, luz de arco-íris corta o ar, e um arroto dele pode transformar você num sapo. Quando ele erguer as duas mãos, quebre o que cresce entre elas, ou tape os ouvidos. Só desperta quando alguém quebra o mais raro dos cogumelos: o de chapéu arco-íris.
 	}
+
 	Toadstool: {
-		DisplayName: "Sapo-Cogumelo"
-		Bestiary: "Um sapo verruguento dos campos de cogumelos brilhantes que cultiva um jardim nas costas. Salta em tudo que se move, e seus esporos deixam a mente girando; explode numa nuvem deles quando morre."
+		DisplayName: Sapo-Cogumelo
+		Bestiary: Um sapo verruguento dos campos de cogumelos brilhantes que cultiva um jardim nas costas. Salta em tudo que se move, e seus esporos deixam a mente girando; explode numa nuvem deles quando morre.
 	}
+
 	CrystalLizard: {
-		DisplayName: "Lagarto de Cristal"
-		Bestiary: "Um lagarto tímido das cavernas profundas, blindado de cristal vivo. Assuste-o e ele dispara; dê a ele cinco batidas de coração e some pela rocha, junto com tudo o que andou guardando."
+		DisplayName: Lagarto de Cristal
+		Bestiary: Um lagarto tímido das cavernas profundas, blindado de cristal vivo. Assuste-o e ele dispara; dê a ele cinco batidas de coração e some pela rocha, junto com tudo o que andou guardando.
 	}
+
 	Driller: {
-		DisplayName: "Perfurador"
-		Bestiary: "Um robô minerador que nunca parou de cavar. Rola atrás de tudo que se move, e quando uma parede ou um degrau atrapalha, simplesmente atravessa."
+		DisplayName: Perfurador
+		Bestiary: Um robô minerador que nunca parou de cavar. Rola atrás de tudo que se move, e quando uma parede ou um degrau atrapalha, simplesmente atravessa.
 	}
-	FloatyMushroom: {
-		DisplayName: "Cogumelo Flutuante"
-	}
-	OrbitMushroom: {
-		DisplayName: "Ovo de Sapo-Cogumelo"
-	}
-	ChannelMushroom: {
-		DisplayName: "Cogumelo Arco-Íris"
-	}
+
+	FloatyMushroom.DisplayName: Cogumelo Flutuante
+	OrbitMushroom.DisplayName: Ovo de Sapo-Cogumelo
+	ChannelMushroom.DisplayName: Cogumelo Arco-Íris
 }
 
-Junkyard: {
-	TarDeath: "{0} afundou no piche."
-}
+Junkyard.TarDeath: "{0} afundou no piche."
 
 Projectiles: {
-	SoulFire: {
-		DisplayName: Alma Perdida
-	}
-
-	JadeRay: {
-		DisplayName: Raio de Jade
-	}
-
-	ScrappybotPet: {
-		DisplayName: Scrappybot
-	}
-
-	ScrapBombProjectile: {
-		DisplayName: Bomba de Sucata
-	}
-
-	ScrapCogProjectile: {
-		DisplayName: Engrenagem de Sucata
-	}
-
-	ScrewdriverProjectile: {
-		DisplayName: Chave de Fenda
-	}
-
-	ScrappyWandBolt: {
-		DisplayName: Faísca de Sucata
-	}
-
-	MiceBotMinion: {
-		DisplayName: Rato-Robô
-	}
-
-	TrashTr0mShockwave: {
-		DisplayName: Onda de Choque
-	}
-
-	TrashTr0mChewedScrap: {
-		DisplayName: Sucata Mastigada
-	}
-
-	TrashTr0mScrapBall: {
-		DisplayName: Bola de Sucata
-	}
-
-	TetanusProjectile: {
-		DisplayName: Tétano
-	}
-
-	ScrapLauncherChunk: {
-		DisplayName: Sucata Mastigada
-	}
-
-	ScrapLauncherBall: {
-		DisplayName: Bola de Sucata
-	}
-
-	ScrapmancerWave: {
-		DisplayName: Onda de Sucata
-	}
-
-	Tr0mheadSentry: {
-		DisplayName: Tr0mhead
-	}
-
-	TarGlob: {
-		DisplayName: Bolota de Piche
-	}
-
-	TrashTr0mCog: {
-		DisplayName: Engrenagem Solta
-	}
-
-	TrapperSpikeBall: {
-		DisplayName: Bola de Espinhos
-	}
-
-	TrapperChainProjectile: {
-		DisplayName: Corrente do Caçador
-	}
-
-	BoombotBlast: {
-		DisplayName: Explosão do Bombobô
-	}
-
-	AlarmoboMinion: {
-		DisplayName: Alarmobô
-	}
-
-	TarTyrantGlob: {
-		DisplayName: Bolha de Piche
-	}
-
-	TarTyrantPuddle: {
-		DisplayName: Poça de Piche
-	}
-
-	TarTyrantBoneSpike: {
-		DisplayName: Espinho Fóssil
-	}
-
-	TarTyrantBackBone: {
-		DisplayName: Osso Arremessado
-	}
-
-	TarTyrantClaw: {
-		DisplayName: Garra de Piche
-	}
-
-	TyrantClaw: {
-		DisplayName: Garra do Tirano
-	}
-
-	MetalWrenchGuard: {
-		DisplayName: Chave Inglesa de Metal
-	}
-
-	MetalClash: {
-		DisplayName: Choque
-	}
-
-	TarSlimeMinion: {
-		DisplayName: Geleia de Piche
-	}
-
-	TarSlimeShot: {
-		DisplayName: Bolota de Piche
-	}
-
-	TyrantSkullBolt: {
-		DisplayName: Crânio de Tirano
-	}
-
-	TarSpray: {
-		DisplayName: Borrifo de Piche
-	}
-
-	TarShowerCharge: {
-		DisplayName: Bola de Piche
-	}
-
-	TarShowerGlob: {
-		DisplayName: Bolota de Piche
-	}
-
-	TarShowerBigGlob: {
-		DisplayName: Bolotona de Piche
-	}
-
-	TarStain: {
-		DisplayName: Mancha de Piche
-	}
-
-	TarWhipProjectile: {
-		DisplayName: Chicote de Piche
-	}
-
-	SplasherWater: {
-		DisplayName: Água
-	}
-
-	SpringPunch: {
-		DisplayName: Soco de Mola
-	}
-
-	RustyBullet: {
-		DisplayName: Bala Enferrujada
-	}
-
-	SheriffStar: {
-		DisplayName: Estrela de Xerife
-	}
-
-	DinamitromBlast: {
-		DisplayName: Explosão de Dinamite
-	}
-
-	SheriffStarMinion: {
-		DisplayName: Estrela de Xerife
-	}
-
-	SheriffsBullet: {
-		DisplayName: Bala do Xerife
-	}
-
-	GhostTrain: {
-		DisplayName: Trem Fantasma
-	}
-
-	ConductorFlame: {
-		DisplayName: Projétil Amaldiçoado
-	}
-
-	GhostRift: {
-		DisplayName: Fenda Fantasma
-	}
-
-	CogLauncherCog: {
-		DisplayName: Engrenagem
-	}
-
-	GhostTrainEngine: {
-		DisplayName: Trem Fantasma
-	}
-
-	GhostTrainWagon: {
-		DisplayName: Vagão do Trem Fantasma
-	}
-
-	JadeBolt: {
-		DisplayName: Raio de Jade
-	}
-
-	FiresawFlame: {
-		DisplayName: Chama da Serra de Fogo
-	}
-
-	DiamondCutterBeam: {
-		DisplayName: Feixe de Diamante
-	}
-
-	BarrelGunFish: {
-		DisplayName: Peixe
-	}
-
-	DragoneteFireBolt: {
-		DisplayName: Bola de Fogo
-	}
-
-
-	CombinatorBlast: {
-		DisplayName: Explosão do Combinador
-	}
-	SoulFireCog: {
-		DisplayName: Engrenagem de Fogo das Almas
-	}
-	MechromancerGrave: {
-		DisplayName: Cova de Fogo das Almas
-	}
-
-	PossessedCogYoyo: {
-		DisplayName: Engrenagem Possuída
-	}
-
-	JadeCoin: {
-		DisplayName: Moeda de Jade
-	}
-
-	JadeyRopeDart: {
-		DisplayName: Dardo de Corda de Jade
-	}
-
-	JadeCursedGround: {
-		DisplayName: Chão Amaldiçoado
-	}
-
-	JadePetrifyZone: {
-		DisplayName: Selo Petrificante
-	}
-
-	JadeShaperWhipProjectile: {
-		DisplayName: Chicote da Molda-Jade
-	}
-
-	JadeGlaiveSlash: {
-		DisplayName: Glaive de Jade
-	}
-
-	JadeGlaiveThrown: {
-		DisplayName: Glaive de Jade
-	}
-
-	FireworkRocket: {
-		DisplayName: Fogos de Artifício
-	}
-
-	CaktiSpike: {
-		DisplayName: Espinho de Cacto
-	}
-
-	IncenseMaceHead: {
-		DisplayName: Maça de Incenso
-	}
-
-	IncenseAura: {
-		DisplayName: Aura de Incenso
-	}
-
-	JadeFoxPet: {
-		DisplayName: Raposa Espiritual de Jade
-	}
-
-	CalcifiedBone: {
-		DisplayName: Osso
-	}
-
-	BanditsSlash: {
-		DisplayName: Sonho do Bandido
-	}
+	SoulFire.DisplayName: Alma Perdida
+	JadeRay.DisplayName: Raio de Jade
+	ScrappybotPet.DisplayName: Scrappybot
+	ScrapBombProjectile.DisplayName: Bomba de Sucata
+	ScrapCogProjectile.DisplayName: Engrenagem de Sucata
+	ScrewdriverProjectile.DisplayName: Chave de Fenda
+	ScrappyWandBolt.DisplayName: Faísca de Sucata
+	MiceBotMinion.DisplayName: Rato-Robô
+	TrashTr0mShockwave.DisplayName: Onda de Choque
+	TrashTr0mChewedScrap.DisplayName: Sucata Mastigada
+	TrashTr0mScrapBall.DisplayName: Bola de Sucata
+	TetanusProjectile.DisplayName: Tétano
+	ScrapLauncherChunk.DisplayName: Sucata Mastigada
+	ScrapLauncherBall.DisplayName: Bola de Sucata
+	ScrapmancerWave.DisplayName: Onda de Sucata
+	Tr0mheadSentry.DisplayName: Tr0mhead
+	TarGlob.DisplayName: Bolota de Piche
+	TrashTr0mCog.DisplayName: Engrenagem Solta
+	TrapperSpikeBall.DisplayName: Bola de Espinhos
+	TrapperChainProjectile.DisplayName: Corrente do Caçador
+	BoombotBlast.DisplayName: Explosão do Bombobô
+	AlarmoboMinion.DisplayName: Alarmobô
+	TarTyrantGlob.DisplayName: Bolha de Piche
+	TarTyrantPuddle.DisplayName: Poça de Piche
+	TarTyrantBoneSpike.DisplayName: Espinho Fóssil
+	TarTyrantBackBone.DisplayName: Osso Arremessado
+	TarTyrantClaw.DisplayName: Garra de Piche
+	TyrantClaw.DisplayName: Garra do Tirano
+	MetalWrenchGuard.DisplayName: Chave Inglesa de Metal
+	MetalClash.DisplayName: Choque
+	TarSlimeMinion.DisplayName: Geleia de Piche
+	TarSlimeShot.DisplayName: Bolota de Piche
+	TyrantSkullBolt.DisplayName: Crânio de Tirano
+	TarSpray.DisplayName: Borrifo de Piche
+	TarShowerCharge.DisplayName: Bola de Piche
+	TarShowerGlob.DisplayName: Bolota de Piche
+	TarShowerBigGlob.DisplayName: Bolotona de Piche
+	TarStain.DisplayName: Mancha de Piche
+	TarWhipProjectile.DisplayName: Chicote de Piche
+	SplasherWater.DisplayName: Água
+	SpringPunch.DisplayName: Soco de Mola
+	RustyBullet.DisplayName: Bala Enferrujada
+	SheriffStar.DisplayName: Estrela de Xerife
+	DinamitromBlast.DisplayName: Explosão de Dinamite
+	SheriffStarMinion.DisplayName: Estrela de Xerife
+	SheriffsBullet.DisplayName: Bala do Xerife
+	GhostTrain.DisplayName: Trem Fantasma
+	ConductorFlame.DisplayName: Projétil Amaldiçoado
+	GhostRift.DisplayName: Fenda Fantasma
+	CogLauncherCog.DisplayName: Engrenagem
+	GhostTrainEngine.DisplayName: Trem Fantasma
+	GhostTrainWagon.DisplayName: Vagão do Trem Fantasma
+	JadeBolt.DisplayName: Raio de Jade
+	FiresawFlame.DisplayName: Chama da Serra de Fogo
+	DiamondCutterBeam.DisplayName: Feixe de Diamante
+	BarrelGunFish.DisplayName: Peixe
+	DragoneteFireBolt.DisplayName: Bola de Fogo
+	CombinatorBlast.DisplayName: Explosão do Combinador
+	SoulFireCog.DisplayName: Engrenagem de Fogo das Almas
+	MechromancerGrave.DisplayName: Cova de Fogo das Almas
+	PossessedCogYoyo.DisplayName: Engrenagem Possuída
+	JadeCoin.DisplayName: Moeda de Jade
+	JadeyRopeDart.DisplayName: Dardo de Corda de Jade
+	JadeCursedGround.DisplayName: Chão Amaldiçoado
+	JadePetrifyZone.DisplayName: Selo Petrificante
+	JadeShaperWhipProjectile.DisplayName: Chicote da Molda-Jade
+	JadeGlaiveSlash.DisplayName: Glaive de Jade
+	JadeGlaiveThrown.DisplayName: Glaive de Jade
+	FireworkRocket.DisplayName: Fogos de Artifício
+	CaktiSpike.DisplayName: Espinho de Cacto
+	IncenseMaceHead.DisplayName: Maça de Incenso
+	IncenseAura.DisplayName: Aura de Incenso
+	JadeFoxPet.DisplayName: Raposa Espiritual de Jade
+	CalcifiedBone.DisplayName: Osso
+	BanditsSlash.DisplayName: Sonho do Bandido
 	CogspringSlam.DisplayName: Golpe Molamecânico
 	SmokerSmoke.DisplayName: Fuligem
-
-	JadeRefractorBeam: {
-		DisplayName: Refrator de Jade
-	}
-
-	JadeCoinCounter: {
-		DisplayName: Moeda de Jade
-	}
-
-	JadeSpirit: {
-		DisplayName: Espírito de Jade
-	}
-
-	JadeSpiritBolt: {
-		DisplayName: Disparo de Jade
-	}
-	SporeCloud: {
-		DisplayName: "Nuvem de Esporos"
-	}
-	RainbowSpore: {
-		DisplayName: "Esporo Arco-Íris"
-	}
-	MushroomMissile: {
-		DisplayName: "Míssil de Cogumelo"
-	}
-	PolymorphBolt: {
-		DisplayName: "Arroto Transmutador"
-	}
-	RainbowLaser: {
-		DisplayName: "Laser Arco-Íris"
-	}
-	ChannelBlast: {
-		DisplayName: "Explosão Arco-Íris"
-	}
+	JadeRefractorBeam.DisplayName: Refrator de Jade
+	JadeCoinCounter.DisplayName: Moeda de Jade
+	JadeSpirit.DisplayName: Espírito de Jade
+	JadeSpiritBolt.DisplayName: Disparo de Jade
+	SporeCloud.DisplayName: Nuvem de Esporos
+	RainbowSpore.DisplayName: Esporo Arco-Íris
+	MushroomMissile.DisplayName: Míssil de Cogumelo
+	PolymorphBolt.DisplayName: Arroto Transmutador
+	RainbowLaser.DisplayName: Laser Arco-Íris
+	ChannelBlast.DisplayName: Explosão Arco-Íris
 }
 
 Tiles: {
-	RustedScrapTile: {
-		MapEntry: Sucata Enferrujada
-	}
-
-	PolishedMetalTile: {
-		MapEntry: Metal Polido
-	}
+	RustedScrapTile.MapEntry: Sucata Enferrujada
+	PolishedMetalTile.MapEntry: Metal Polido
 
 	ScrappyTrunkTile: {
 		MapEntry0: Baú de Sucata
 		MapEntry1: Esconderijo do Ferro-Velho
 	}
 
-	RustPolisherTile: {
-		MapEntry: Polidor de Ferrugem
-	}
-
-	BrassSandstoneTile: {
-		MapEntry: Arenito de Latão
-	}
-
-	TarnishedBrassOreTile: {
-		MapEntry: Minério de Latão Manchado
-	}
-
-	WeatheredPlankTile: {
-		MapEntry: Tábuas Desgastadas
-	}
-
-	TarnishedBrassPlatingTile: {
-		MapEntry: Chapa de Latão Manchado
-	}
+	RustPolisherTile.MapEntry: Polidor de Ferrugem
+	BrassSandstoneTile.MapEntry: Arenito de Latão
+	TarnishedBrassOreTile.MapEntry: Minério de Latão Manchado
+	WeatheredPlankTile.MapEntry: Tábuas Desgastadas
+	TarnishedBrassPlatingTile.MapEntry: Chapa de Latão Manchado
 
 	BrassStrongboxTile: {
 		MapEntry0: Cofre de Latão
 		MapEntry1: Cofre de Latão Trancado
 	}
 
-	JadeBrickTile: {
-		MapEntry: Tijolo de Jade
-	}
-
-	CinnabarLacquerTile: {
-		MapEntry: Laca de Cinábrio
-	}
-
-	BronzeGearworkTile: {
-		MapEntry: Engrenagens de Bronze
-	}
-
-	JadeRoofTile: {
-		MapEntry: Telhas de Jade
-	}
-
-	LiftTurbineTile: {
-		MapEntry: Turbina de Sustentação
-	}
+	JadeBrickTile.MapEntry: Tijolo de Jade
+	CinnabarLacquerTile.MapEntry: Laca de Cinábrio
+	BronzeGearworkTile.MapEntry: Engrenagens de Bronze
+	JadeRoofTile.MapEntry: Telhas de Jade
+	LiftTurbineTile.MapEntry: Turbina de Sustentação
 
 	FundamentalStoneTile: {
 		MapEntry: Pedra Fundamental
@@ -2042,45 +1790,16 @@ Tiles: {
 		SealedSay: Um escudo primordial zumbe em volta da pedra. Seu guardião ainda vive.
 	}
 
-	FundamentalBrickTile: {
-		MapEntry: Tijolo Fundamental
-	}
-
-	FundamentalCoralTile: {
-		MapEntry: Pedra-coral
-	}
-
-	FundamentalRuneTile: {
-		MapEntry: Tijolo Rúnico
-	}
-
-	FundamentalKelpTile: {
-		MapEntry: Alga
-	}
-
-	FundamentalArenaBrickTile: {
-		MapEntry: Tijolo Ancestral
-	}
-
-	FundamentalArenaRuneTile: {
-		MapEntry: Tijolo Rúnico
-	}
-
-	FundamentalRubbleTile: {
-		MapEntry: Escombros
-	}
-
-	BronzeCogTile: {
-		MapEntry: Engrenagem de Bronze
-	}
-
-	PalaceFlagstoneTile: {
-		MapEntry: Lajota do Palácio
-	}
-
-	JadeTile: {
-		MapEntry: Jade
-	}
+	FundamentalBrickTile.MapEntry: Tijolo Fundamental
+	FundamentalCoralTile.MapEntry: Pedra-coral
+	FundamentalRuneTile.MapEntry: Tijolo Rúnico
+	FundamentalKelpTile.MapEntry: Alga
+	FundamentalArenaBrickTile.MapEntry: Tijolo Ancestral
+	FundamentalArenaRuneTile.MapEntry: Tijolo Rúnico
+	FundamentalRubbleTile.MapEntry: Escombros
+	BronzeCogTile.MapEntry: Engrenagem de Bronze
+	PalaceFlagstoneTile.MapEntry: Lajota do Palácio
+	JadeTile.MapEntry: Jade
 
 	FundamentalGlyphTile: {
 		MapEntry: Glifo Rúnico
@@ -2093,13 +1812,8 @@ Tiles: {
 		Hover: Portão Selado ({0}/{1} glifos rúnicos acesos)
 	}
 
-	SteamInjectorTile: {
-		MapEntry: Injetor de Vapor
-	}
-
-	CombinatorTile: {
-		MapEntry: O Combinador
-	}
+	SteamInjectorTile.MapEntry: Injetor de Vapor
+	CombinatorTile.MapEntry: O Combinador
 
 	CoghavenChestTile: {
 		MapEntry0: Baú do Pagode
@@ -2109,20 +1823,11 @@ Tiles: {
 		VaultSealed: Selado
 	}
 
-	VaultGearworkTile: {
-		MapEntry: Engrenagem do Cofre
-	}
-
-	AncientResearchTableTile: {
-		MapEntry: Mesa de Pesquisa Antiga
-	}
+	VaultGearworkTile.MapEntry: Engrenagem do Cofre
+	AncientResearchTableTile.MapEntry: Mesa de Pesquisa Antiga
 	RainbowMushroomTile.MapEntry: Cogumelo Arco-íris
-	DemonTableTile: {
-		MapEntry: "Mesa Demoníaca"
-	}
-	EnemyBannerTile: {
-		MapEntry: "Estandarte"
-	}
+	DemonTableTile.MapEntry: Mesa Demoníaca
+	EnemyBannerTile.MapEntry: Estandarte
 }
 
 WorldGen: {
@@ -2139,42 +1844,37 @@ WorldGen: {
 	SmokerBooks: Escondendo livros fumegantes no Submundo
 }
 
-UI: {
-	BossDefeated: Derrotado
-}
-
-DamageClasses: {
-	MechanistDamage: {
-		DisplayName: dano de mecanista
-	}
-}
+UI.BossDefeated: Derrotado
+DamageClasses.MechanistDamage.DisplayName: dano de mecanista
 
 Mechanist: {
 	SteamCost: Usa {0} de vapor
-	SteamHover: "Vapor: {0}/{1}"
+	SteamHover: Vapor: {0}/{1}
 	NoTank: Sem tanque de vapor!
 	NoTankTooltip: Precisa de um tanque de vapor: use armadura de Mecanista ou um recipiente de vapor
-
 	SteamManaFallback: Ou {0} de mana quando o vapor acabar
-
 	RocketBootsSteam: Gasta {0} de vapor a cada {1} segundo de voo
 }
 
 Biomes: {
 	JunkyardBiome: {
 		DisplayName: O Ferro-Velho
+		// TownNPCDialogueName: the Junkyard Biome
 	}
 
 	OldBrassTownBiome: {
 		DisplayName: Westworld
+		// TownNPCDialogueName: the Old Brass Town Biome
 	}
 
 	CoghavenBiome: {
 		DisplayName: Coghaven
+		// TownNPCDialogueName: the Coghaven Biome
 	}
 
 	FundamentalRuinsBiome: {
 		DisplayName: Ruínas Fundamentais
+		// TownNPCDialogueName: the Fundamental Ruins Biome
 	}
 }
 
@@ -2188,7 +1888,6 @@ Conditions: {
 
 DropConditions: {
 	TrashTr0mFirstKill: Apenas na primeira derrota em cada mundo
-
 	CombinatorFirstKill: Só na primeira derrota num mundo
 	ManualFirstKill: Uma vez por mundo, na primeira derrota: um para cada jogador na luta
 	LizardGem: A gema que cresceu em seus cristais
@@ -2212,110 +1911,53 @@ Events: {
 		Stopped: O Exército Mecânico foi interrompido.
 		Won: O Exército Mecânico será derrotado no próximo tick.
 		NotRunning: O Exército Mecânico não está em andamento.
-		Status: "Exército Mecânico: faltam {0} de {1} ({2}% concluído)."
+		Status: Exército Mecânico: faltam {0} de {1} ({2}% concluído).
 	}
 }
 
-Keybinds: {
-	SteamDash: {
-		DisplayName: Investida a Vapor
-	}
-}
+Keybinds.SteamDash.DisplayName: Investida a Vapor
 
 Secrets: {
 	GateOpened: O portão selado das Ruínas Fundamentais se abre rangendo!
 	StonesAsleep: As Pedras Fundamentais voltam a adormecer...
 	StonesAligned: As cinco Pedras Fundamentais estão despertas.
-	GhedalariKnown: "Ghedalari: {0}"
+	GhedalariKnown: Ghedalari: {0}
 	GhedalariUnknown: Escrita ghedalari. Alguma Pedra Fundamental pode te ensinar esta palavra.
 }
 
-Emotes: {
-	FriendoboEmote: {
-		Command: ghedalari
-	}
-}
+Emotes.FriendoboEmote.Command: ghedalari
 
 Prefixes: {
 	SteamCostLine: "{0}% de custo de vapor"
-
-	Overclocked: {
-		DisplayName: "(Sobrecarregado)"
-	}
-
-	Calibrated: {
-		DisplayName: "(Calibrado)"
-	}
-
-	Efficient: {
-		DisplayName: "(Eficiente)"
-	}
-
-	Engineered: {
-		DisplayName: "(Engenhoso)"
-	}
-
-	Leaky: {
-		DisplayName: "(Furado)"
-	}
-
-	Corroded: {
-		DisplayName: "(Corroído)"
-	}
-
-	Jammed: {
-		DisplayName: "(Emperrado)"
-	}
-
-	Pressurized: {
-		DisplayName: "(Pressurizado)"
-	}
-
-	Hissing: {
-		DisplayName: "(Sibilante)"
-	}
-
-	Geared: {
-		DisplayName: "(Engrenado)"
-	}
-
-	Overdriven: {
-		DisplayName: "(Forçado)"
-	}
-
-	Rattling: {
-		DisplayName: "(Chacoalhante)"
-	}
+	Overclocked.DisplayName: (Sobrecarregado)
+	Calibrated.DisplayName: (Calibrado)
+	Efficient.DisplayName: (Eficiente)
+	Engineered.DisplayName: (Engenhoso)
+	Leaky.DisplayName: (Furado)
+	Corroded.DisplayName: (Corroído)
+	Jammed.DisplayName: (Emperrado)
+	Pressurized.DisplayName: (Pressurizado)
+	Hissing.DisplayName: (Sibilante)
+	Geared.DisplayName: (Engrenado)
+	Overdriven.DisplayName: (Forçado)
+	Rattling.DisplayName: (Chacoalhante)
 }
 
 Combinator: {
 	Title: O Combinador
-
 	Base: Base
-
 	Augment: Aprimoramento
-
 	Product: Produto
-
 	Combine: Combinar
-
 	Separate: Desmontar
-
-	Name: "Nome:"
-
+	Name: Nome:
 	InputTip: Coloque uma arma aqui
-
 	ProductTip: A arma combinada sai aqui. Coloque uma de volta para renomeá-la ou desmontá-la
-
 	StatusEmpty: Coloque uma arma base e uma de aprimoramento
-
 	StatusReady: Fica com {0} de dano, {1} de tempo de uso
-
 	StatusProduct: Renomeie, ou desmonte
-
 	TooltipParts: Combinação de {0} (aprimoramento) e {1} (base)
-
-	TooltipAlt: "Clique direito: o ataque de {0}"
+	TooltipAlt: Clique direito: o ataque de {0}
 
 	Refusal: {
 		NotAWeapon: Só armas podem ser combinadas
@@ -2353,30 +1995,32 @@ Combinator: {
 }
 
 Manuals: {
-	Learned: "Estudado: {0}"
+	Learned: Estudado: {0}
 	AlreadyRead: Você já estudou isto
 }
 
 Research: {
-	Title: "Pesquisa Antiga"
-	Knowledge: "Pontos de conhecimento: {0}"
-	Close: "Fechar"
-	Gained: "Conhecimento adquirido! (+{0}: {1})"
-	GainedShort: "+{0} de conhecimento"
-	Unlocked: "Pesquisado: {0}"
-	Researched: "Pesquisado"
-	Cost: "Custa {0} ponto(s) de conhecimento (você tem {1})"
-	Requires: "Pesquise {0} antes"
-	Takes: "Consome {0} (você tem {1})"
-	ClickToResearch: "Clique para pesquisar"
-	NotYet: "Ainda fora do seu alcance"
-	RecipeCondition: "Pesquisado: {0}"
-	Found: "encontrado"
-	Missing: "faltando"
+	Title: Pesquisa Antiga
+	Knowledge: Pontos de conhecimento: {0}
+	Close: Fechar
+	Gained: Conhecimento adquirido! (+{0}: {1})
+	GainedShort: +{0} de conhecimento
+	Unlocked: Pesquisado: {0}
+	Researched: Pesquisado
+	Cost: Custa {0} ponto(s) de conhecimento (você tem {1})
+	Requires: Pesquise {0} antes
+	Takes: Consome {0} (você tem {1})
+	ClickToResearch: Clique para pesquisar
+	NotYet: Ainda fora do seu alcance
+	RecipeCondition: Pesquisado: {0}
+	Found: encontrado
+	Missing: faltando
+
 	Conditions: {
-		OreTiers: "Minérios básicos coletados: cobre ou estanho ({0}), ferro ou chumbo ({1}), prata ou tungstênio ({2}), ouro ou platina ({3})"
-		Edges: "Bordas do mundo alcançadas: o oceano ({0}), o Ferro-Velho ({1})"
+		OreTiers: Minérios básicos coletados: cobre ou estanho ({0}), ferro ou chumbo ({1}), prata ou tungstênio ({2}), ouro ou platina ({3})
+		Edges: Bordas do mundo alcançadas: o oceano ({0}), o Ferro-Velho ({1})
 	}
+
 	Costs: {
 		AnyOre: "{0} minérios de qualquer tipo"
 		Amethyst: "{0} Ametista"
@@ -2397,115 +2041,143 @@ Research: {
 		VoodooDoll: "{0} {$ItemName.GuideVoodooDoll} ou {$ItemName.ClothierVoodooDoll}"
 		RustedCogs: "{0} Engrenagens Enferrujadas"
 	}
+
 	Nodes: {
 		TheBasics: {
-			DisplayName: "O Básico"
-			Description: "+5% de velocidade de mineração"
+			DisplayName: O Básico
+			Description: +5% de velocidade de mineração
 		}
+
 		MineAndCraft: {
-			DisplayName: "Minerar e Forjar"
-			Description: "Minerar qualquer minério tem 10% de chance de render um a mais"
+			DisplayName: Minerar e Forjar
+			Description: Minerar qualquer minério tem 10% de chance de render um a mais
 		}
+
 		Jogger: {
-			DisplayName: "Corredor"
-			Description: "+3% de velocidade de movimento"
+			DisplayName: Corredor
+			Description: +3% de velocidade de movimento
 		}
+
 		Cogpunker: {
-			DisplayName: "Cogpunker"
-			Description: "+10 de capacidade de vapor"
+			DisplayName: Cogpunker
+			Description: +10 de capacidade de vapor
 		}
+
 		GemPower: {
-			DisplayName: "Poder das Gemas"
-			Description: "Segurando uma arma de gema: +3% de dano, chance de crítico e velocidade de ataque, -3% de custo de mana"
+			DisplayName: Poder das Gemas
+			Description: Segurando uma arma de gema: +3% de dano, chance de crítico e velocidade de ataque, -3% de custo de mana
 		}
+
 		InACaveWithScraps: {
-			DisplayName: "Numa Caverna! Com Sucata!!"
-			Description: "Libera a fabricação da armadura de Sucata"
+			DisplayName: Numa Caverna! Com Sucata!!
+			Description: Libera a fabricação da armadura de Sucata
 		}
+
 		HitTheJoints: {
-			DisplayName: "Acerte as Juntas"
-			Description: "+10% de dano contra máquinas"
+			DisplayName: Acerte as Juntas
+			Description: +10% de dano contra máquinas
 		}
+
 		Mandacaru: {
-			DisplayName: "Mandacaru"
-			Description: "Libera a fabricação do Cak-ti"
+			DisplayName: Mandacaru
+			Description: Libera a fabricação do Cak-ti
 		}
+
 		CausesAutism: {
-			DisplayName: "Causa Autismo"
-			Description: "Libera a fabricação da Vacina Antitetânica"
+			DisplayName: Causa Autismo
+			Description: Libera a fabricação da Vacina Antitetânica
 		}
+
 		Squire: {
-			DisplayName: "Escudeiro"
-			Description: "+1 de defesa"
+			DisplayName: Escudeiro
+			Description: +1 de defesa
 		}
+
 		JustTheTip: {
-			DisplayName: "Só a Pontinha"
-			Description: "Lanças causam 25% mais dano quando acertam no alcance máximo (o fim da estocada)"
+			DisplayName: Só a Pontinha
+			Description: Lanças causam 25% mais dano quando acertam no alcance máximo (o fim da estocada)
 		}
+
 		BundleUp: {
-			DisplayName: "Amarra Tudo!"
-			Description: "Libera a fabricação do Feixe de Varinhas"
+			DisplayName: Amarra Tudo!
+			Description: Libera a fabricação do Feixe de Varinhas
 		}
+
 		HeatManagement: {
-			DisplayName: "Gestão de Calor"
-			Description: "O superaquecimento não te obriga mais a correr: você pode ficar parado"
+			DisplayName: Gestão de Calor
+			Description: O superaquecimento não te obriga mais a correr: você pode ficar parado
 		}
+
 		BringAKnife: {
-			DisplayName: "Leve uma Faca para um Tiroteio"
-			Description: "Libera a fabricação do Sonho do Bandido"
+			DisplayName: Leve uma Faca para um Tiroteio
+			Description: Libera a fabricação do Sonho do Bandido
 		}
+
 		TriggerFinger: {
-			DisplayName: "Dedo no Gatilho"
-			Description: "Cada tiro à distância que erra faz seu próximo acerto à distância causar 25% mais dano (até 4 vezes)"
+			DisplayName: Dedo no Gatilho
+			Description: Cada tiro à distância que erra faz seu próximo acerto à distância causar 25% mais dano (até 4 vezes)
 		}
+
 		DilatedPupils: {
-			DisplayName: "Pupilas Dilatadas"
-			Description: "+5% de chance de acerto crítico à noite, -5% durante o dia"
+			DisplayName: Pupilas Dilatadas
+			Description: +5% de chance de acerto crítico à noite, -5% durante o dia
 		}
+
 		Slimed: {
-			DisplayName: "Gosmado!"
-			Description: "Inimigos que tocam em você ficam gosmados por 5 segundos: grudentos e lentos"
+			DisplayName: Gosmado!
+			Description: Inimigos que tocam em você ficam gosmados por 5 segundos: grudentos e lentos
 		}
+
 		Calcified: {
-			DisplayName: "Calcificado"
-			Description: "Cada inimigo que você derrota arremessa um osso que causa 40 de dano a outro inimigo que acertar"
+			DisplayName: Calcificado
+			Description: Cada inimigo que você derrota arremessa um osso que causa 40 de dano a outro inimigo que acertar
 		}
+
 		AlchemyInitiate: {
 			DisplayName: Iniciado em Alquimia
 			Description: Poções que você prepara têm 10% de chance de sair em dobro
 		}
+
 		FulfillingConcoction: {
 			DisplayName: Concocção Saciante
 			Description: Beber uma poção deixa você Bem Alimentado por 5 minutos (uma refeição melhor é mantida)
 		}
+
 		EfficientFuel: {
 			DisplayName: Combustível Eficiente
-			Description: "-5% de custo de vapor"
+			Description: -5% de custo de vapor
 		}
+
 		Reconstructed: {
 			DisplayName: Reconstruído
 			Description: Desbloqueia a criação de Ossos Perdidos, uma montaria de esqueleto de raptor
 		}
+
 		Seasoning: {
 			DisplayName: Tempero
 			Description: Cozinhar tem 10% de chance de poupar os ingredientes
 		}
+
 		ProperMeal: {
 			DisplayName: Refeição de Verdade
 			Description: Desbloqueia quatro refeições, uma para cada classe
 		}
+
 		GreenIsGood: {
 			DisplayName: Verde = Bom
 			Description: Matar um inimigo transformado em jade cura 20 de vida; enquanto você está transformado em jade, recebe 20% menos dano
 		}
+
 		GreenDiamond: {
 			DisplayName: Diamante Verde
 			Description: Desbloqueia a criação do Refrator de Jade
 		}
+
 		MadScience: {
 			DisplayName: Ciência Maluca
-			Description: "+5% de velocidade de ataque com armas combinadas"
+			Description: +5% de velocidade de ataque com armas combinadas
 		}
+
 		SigilFleur: {
 			DisplayName: Sigilo da Flor-de-lis
 			Description:
@@ -2514,6 +2186,7 @@ Research: {
 				Traduz as runas da Pedra Fundamental que traz este sigilo
 				'''
 		}
+
 		SigilSun: {
 			DisplayName: Sigilo do Sol
 			Description:
@@ -2522,6 +2195,7 @@ Research: {
 				Traduz as runas da Pedra Fundamental que traz este sigilo
 				'''
 		}
+
 		SigilMountain: {
 			DisplayName: Sigilo da Montanha
 			Description:
@@ -2530,6 +2204,7 @@ Research: {
 				Traduz as runas da Pedra Fundamental que traz este sigilo
 				'''
 		}
+
 		SigilCross: {
 			DisplayName: Sigilo da Cruz
 			Description:
@@ -2538,6 +2213,7 @@ Research: {
 				Traduz as runas da Pedra Fundamental que traz este sigilo
 				'''
 		}
+
 		SigilWave: {
 			DisplayName: Sigilo da Onda
 			Description:
@@ -2546,33 +2222,48 @@ Research: {
 				Traduz as runas da Pedra Fundamental que traz este sigilo
 				'''
 		}
+
 		Rgbt: {
 			DisplayName: RGBT
 			Description: Desbloqueia a criação do Manto Arco-Íris
 		}
+
 		JadeMenagerie: {
 			DisplayName: Bestiário de Jade
 			Description: Desbloqueia a criação da Moeda de Jade
 		}
+
 		LaceUp: {
-			DisplayName: "Amarre os Cadarços"
-			Description: "Desbloqueia a criação de {$ItemName.Aglet} e {$ItemName.AnkletoftheWind} num altar demoníaco"
+			DisplayName: Amarre os Cadarços
+			Description: Desbloqueia a criação de {$ItemName.Aglet} e {$ItemName.AnkletoftheWind} num altar demoníaco
 		}
+
 		UnholyCarpentry: {
-			DisplayName: "Marcenaria Profana"
-			Description: "Desbloqueia a criação da Mesa Demoníaca: um altar demoníaco para levar para casa"
+			DisplayName: Marcenaria Profana
+			Description: Desbloqueia a criação da Mesa Demoníaca: um altar demoníaco para levar para casa
 		}
+
 		BadLuckProtection: {
-			DisplayName: "Proteção contra Azar"
-			Description: "Desbloqueia a criação dos itens raros de um inimigo a partir do estandarte dele num altar demoníaco\n(um estandarte; dois para os itens mais raros)"
+			DisplayName: Proteção contra Azar
+			Description:
+				'''
+				Desbloqueia a criação dos itens raros de um inimigo a partir do estandarte dele num altar demoníaco
+				(um estandarte; dois para os itens mais raros)
+				'''
 		}
+
 		CrateExpectations: {
-			DisplayName: "Grandes Caixas-pectativas"
-			Description: "Desbloqueia a criação do equipamento de uma caixa a partir de 5 dessa caixa num altar demoníaco"
+			DisplayName: Grandes Caixas-pectativas
+			Description: Desbloqueia a criação do equipamento de uma caixa a partir de 5 dessa caixa num altar demoníaco
 		}
+
 		WhoIsHe: {
-			DisplayName: "Quem é ele?"
-			Description: "Alguém anda observando as pedras...\nO Último Ghedalari pode se mudar para o seu mundo"
+			DisplayName: Quem é ele?
+			Description:
+				'''
+				Alguém anda observando as pedras...
+				O Último Ghedalari pode se mudar para o seu mundo
+				'''
 		}
 		PassiveIncome: {
 			DisplayName: "Renda Passiva"
@@ -2591,27 +2282,28 @@ Research: {
 			Description: "Modificadores negativos aparecem com menos frequência ao reforjar"
 		}
 	}
+
 	Tasks: {
-		Angler5: "Cinco missões feitas para o Pescador"
-		CoralChest: "Saqueou um baú de coral"
-		Platinum10: "Juntou 10 moedas de platina"
-		SkyIsland: "Chegou a uma ilha nas nuvens"
-		Marble: "Encontrou uma caverna de mármore"
-		Granite: "Encontrou uma caverna de granito"
-		PinkSlime: "Derrotou um slime rosa"
-		Gnome: "Derrotou um gnomo"
-		TravelingMerchant: "Comprou do Mercador Viajante"
-		Combinator: "Usou o Combinador"
-		FallenStar: "Pegou uma estrela cadente"
-		Town10: "Dez moradores com casa"
-		FundamentalStone1: "Leu a primeira Pedra Fundamental"
-		FundamentalStone2: "Leu a segunda Pedra Fundamental"
-		FundamentalStone3: "Leu a terceira Pedra Fundamental"
-		FundamentalStone4: "Leu a quarta Pedra Fundamental"
-		FundamentalStone5: "Leu a quinta Pedra Fundamental"
-		Boss: "Primeira derrota de {0} neste mundo"
-		Event: "Primeira vitória sobre {0} neste mundo"
-		GlowingMushroom: "Encontrou um campo de cogumelos brilhantes"
+		Angler5: Cinco missões feitas para o Pescador
+		CoralChest: Saqueou um baú de coral
+		Platinum10: Juntou 10 moedas de platina
+		SkyIsland: Chegou a uma ilha nas nuvens
+		Marble: Encontrou uma caverna de mármore
+		Granite: Encontrou uma caverna de granito
+		PinkSlime: Derrotou um slime rosa
+		Gnome: Derrotou um gnomo
+		TravelingMerchant: Comprou do Mercador Viajante
+		Combinator: Usou o Combinador
+		FallenStar: Pegou uma estrela cadente
+		Town10: Dez moradores com casa
+		FundamentalStone1: Leu a primeira Pedra Fundamental
+		FundamentalStone2: Leu a segunda Pedra Fundamental
+		FundamentalStone3: Leu a terceira Pedra Fundamental
+		FundamentalStone4: Leu a quarta Pedra Fundamental
+		FundamentalStone5: Leu a quinta Pedra Fundamental
+		Boss: Primeira derrota de {0} neste mundo
+		Event: Primeira vitória sobre {0} neste mundo
+		GlowingMushroom: Encontrou um campo de cogumelos brilhantes
 		DemonAltar: O primeiro altar demoníaco do mundo destruído
 		EvilHeart: "O primeiro Orbe das Sombras ou Coração Carmesim do mundo destruído"
 		Diamond: "Encontrou um diamante"
@@ -2621,26 +2313,30 @@ Research: {
 		PiggyBank: "Guardou moedas num cofrinho"
 		Artifact: "Encontrou um artefato: {0}"
 	}
+
 	Events: {
-		GoblinArmy: "o Exército Goblin"
-		FrostLegion: "a Legião Congelada"
-		PirateInvasion: "a Invasão Pirata"
-		MartianMadness: "a Loucura Marciana"
-		OldOnesArmy1: "o Exército do Ancião (nível 1)"
-		OldOnesArmy2: "o Exército do Ancião (nível 2)"
-		OldOnesArmy3: "o Exército do Ancião (nível 3)"
-		PumpkinMoon: "a Lua de Abóbora (sua última onda)"
-		FrostMoon: "a Lua Congelada (sua última onda)"
+		GoblinArmy: o Exército Goblin
+		FrostLegion: a Legião Congelada
+		PirateInvasion: a Invasão Pirata
+		MartianMadness: a Loucura Marciana
+		OldOnesArmy1: o Exército do Ancião (nível 1)
+		OldOnesArmy2: o Exército do Ancião (nível 2)
+		OldOnesArmy3: o Exército do Ancião (nível 3)
+		PumpkinMoon: a Lua de Abóbora (sua última onda)
+		FrostMoon: a Lua Congelada (sua última onda)
 	}
-	KnowledgeExpanded: "Conhecimento expandido!"
-	KnowledgeName: "Pontos de conhecimento"
-	DragHint: "Arraste para explorar"
-	Teaser: "Um segredo ainda por revelar: um grande inimigo precisa cair antes"
+
+	KnowledgeExpanded: Conhecimento expandido!
+	KnowledgeName: Pontos de conhecimento
+	DragHint: Arraste para explorar
+	Teaser: Um segredo ainda por revelar: um grande inimigo precisa cair antes
+
 	Tabs: {
 		Main: Pesquisa Ancestral
 		Mystery: Mistério do Passado
 		Artifacts: Artefatos
 	}
+
 	Hints: {
 		AlchemyTable: "Um segredo ainda por revelar: uma mesa de alquimista guarda a chave"
 		CookingPot: "Um segredo ainda por revelar: uma panela de cozinhar guarda a chave"
@@ -2657,13 +2353,12 @@ Research: {
 		Reforge: "Um segredo ainda por revelar: reforje um item"
 		Artifact: "Um artefato ainda não encontrado: cada mundo esconde um de cada"
 	}
+
 	DoubleBrew: Poção em dobro!
 	Seasoned: Ingredientes poupados!
-	GemRobeGroup: "Qualquer Manto de Gema"
-	CoinCost: "Custa {0}"
-	Groups: {
-		Either: "{0} ou {1}"
-	}
+	GemRobeGroup: Qualquer Manto de Gema
+	CoinCost: Custa {0}
+	Groups.Either: "{0} ou {1}"
 }
 
 Artifacts: {
@@ -2680,11 +2375,15 @@ Artifacts: {
 }
 
 Banners: {
-	Name: "Estandarte de {0}"
-	Tooltip: "Jogadores próximos recebem um bônus contra: {0}"
+	Name: Estandarte de {0}
+	Tooltip: Jogadores próximos recebem um bônus contra: {0}
 }
 
 Equipment: {
-	SlotName: "Espaço Cogpunk"
-	SlotLocked: "Espaço Cogpunk (trancado)\nUma forma de destrancá-lo virá numa atualização futura"
+	SlotName: Espaço Cogpunk
+	SlotLocked:
+		'''
+		Espaço Cogpunk (trancado)
+		Uma forma de destrancá-lo virá numa atualização futura
+		'''
 }

@@ -4,10 +4,7 @@
 Configs: {
 	CogpunkClientConfig: {
 		DisplayName: Cogpunk: Client Settings
-
-		Headers: {
-			Visuals: Visuals
-		}
+		Headers.Visuals: Visuals
 
 		ScreenShake: {
 			Label: Screen shake
@@ -24,15 +21,19 @@ Configs: {
 			Tooltip: Tones down bright flashes and strobing effects.
 		}
 	}
+
 	CogpunkServerConfig: {
-		DisplayName: "Cogpunk: World Settings"
-		HostOnly: "Only the world's host can change Cogpunk's world settings."
-		Headers: {
-			Gameplay: "Gameplay"
-		}
+		DisplayName: Cogpunk: World Settings
+		HostOnly: Only the world's host can change Cogpunk's world settings.
+		Headers.Gameplay: Gameplay
+
 		CritKillSlowMotion: {
-			Label: "Slow motion on critical kills"
-			Tooltip: "Killing an enemy with a critical hit slows time for 0.33 seconds around it (about one and a half screens).\nEach player can trigger it once every 12 seconds. Set by the world's host for everyone."
+			Label: Slow motion on critical kills
+			Tooltip:
+				'''
+				Killing an enemy with a critical hit slows time for 0.33 seconds around it (about one and a half screens).
+				Each player can trigger it once every 12 seconds. Set by the world's host for everyone.
+				'''
 		}
 	}
 }
@@ -350,7 +351,7 @@ Items: {
 			'''
 		Learned: Steam dash learned!
 		AlreadyRead: You have already read this manual
-		DashKey: "Steam dash key: {0}"
+		DashKey: Steam dash key: {0}
 		DashKeyUnbound: unbound (set it in Controls)
 	}
 
@@ -549,7 +550,7 @@ Items: {
 
 	TarnishedBrassBar: {
 		DisplayName: Tarnished Brass Bar
-		Tooltip: 'Polish not included'
+		Tooltip: Polish not included
 	}
 
 	WeatheredPlank: {
@@ -886,7 +887,7 @@ Items: {
 
 	SteamInjector: {
 		DisplayName: Steam Injector
-		Tooltip: "Right click it for Steam Injection: +{0} maximum steam and {1}% less steam cost until you die"
+		Tooltip: Right click it for Steam Injection: +{0} maximum steam and {1}% less steam cost until you die
 	}
 
 	Koi: {
@@ -937,7 +938,7 @@ Items: {
 
 	PagodaChest: {
 		DisplayName: Pagoda Chest
-		Tooltip: ''
+		Tooltip: ""
 	}
 
 	PagodaKey: {
@@ -1126,6 +1127,7 @@ Items: {
 			'Every outlaw's dream: never run out of bullets'
 			'''
 	}
+
 	CogspringSword: {
 		DisplayName: Cogspring Sword
 		Tooltip:
@@ -1136,6 +1138,7 @@ Items: {
 			'Every cog wound tight, every tooth sharp'
 			'''
 	}
+
 	SmokerBook: {
 		DisplayName: Smoker Book
 		Tooltip:
@@ -1145,6 +1148,7 @@ Items: {
 			'Its pages have never once been read without coughing'
 			'''
 	}
+
 	FungimancerBag: {
 		DisplayName: Treasure Bag (Fungimancer)
 		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
@@ -1250,12 +1254,18 @@ Items: {
 			Once it is a loong, the next use calls a new bat
 			'''
 	}
+
 	DemonTable: {
-		DisplayName: "Demon Table"
-		Tooltip: "Counts as a demon altar for crafting\nIt never spreads, and townsfolk don't mind it"
+		DisplayName: Demon Table
+		Tooltip:
+			'''
+			Counts as a demon altar for crafting
+			It never spreads, and townsfolk don't mind it
+			'''
 	}
+
 	Tearstone: {
-		DisplayName: "Tearstone"
+		DisplayName: Tearstone
 		Tooltip: "{0} defense while at full health"
 	}
 }
@@ -1382,12 +1392,12 @@ Buffs: {
 
 	IncenseBlessing: {
 		DisplayName: Incense Blessing
-		Description: "+{0}% damage and +{1}% attack speed"
+		Description: +{0}% damage and +{1}% attack speed
 	}
 
 	IncenseBurntOut: {
 		DisplayName: Burnt-out Censer
-		Description: "The Incense Mace's censer is rekindling ({0} seconds in all)"
+		Description: The Incense Mace's censer is rekindling ({0} seconds in all)
 	}
 
 	JadeFoxBuff: {
@@ -1429,13 +1439,19 @@ Buffs: {
 		DisplayName: Jade Spirits
 		Description: Jade spirits fight for you, and grow each time you call them
 	}
+
 	Polymorphed: {
-		DisplayName: "Polymorphed"
-		Description: "You are a toadstool: you can only hop around\nOther players can hurt you"
+		DisplayName: Polymorphed
+		Description:
+			'''
+			You are a toadstool: you can only hop around
+			Other players can hurt you
+			'''
 	}
+
 	ShellShocked: {
-		DisplayName: "Shell-Shocked"
-		Description: "Your ears are ringing and you can't move"
+		DisplayName: Shell-Shocked
+		Description: Your ears are ringing and you can't move
 	}
 }
 
@@ -1495,9 +1511,7 @@ NPCs: {
 		Bestiary: The Junkyard's tar pool is older than the Junkyard. Something enormous drowned in it long ago, and the tar kept its bones and learned to move them. It wears the old skull as a face, flings its own bones at whatever comes near, and every wound it takes sheds tar that crawls off on its own. Only a worm made of scrap is tempting enough to fish it out.
 	}
 
-	TarTyrantBubble: {
-		DisplayName: Tar Bubble
-	}
+	TarTyrantBubble.DisplayName: Tar Bubble
 
 	ScrapwormCritter: {
 		DisplayName: Scrapworm
@@ -1527,6 +1541,22 @@ NPCs: {
 	Friendobo: {
 		DisplayName: Last Ghedalari
 		Bestiary: The last of the Ghedalari, an ancient people the world has all but forgotten. Tall and blue-skinned, with long swept-back ears, eyes that glow without pupils and hooves on legs bent backwards, he still wears his people's gold and carries their spear. He moved in once the Mech Army stopped marching, and he trades in scrap and in the trinkets that wake the great beasts.
+
+		TownNPCMood: {
+			Content: I am content.
+			NoHome: I hate not having a home.
+			FarFromHome: I am too far from home.
+			LoveSpace: I love having so much space.
+			DislikeCrowded: I dislike how crowded I am.
+			HateCrowded: I hate how crowded I am.
+			LikeBiome: I like {BiomeName}.
+			DislikeBiome: I dislike {BiomeName}.
+			LoveNPC: I love {NPCName}.
+			LikeNPC: I like {NPCName}.
+			DislikeNPC: I dislike {NPCName}.
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
+		}
 	}
 
 	Cogtuna: {
@@ -1560,14 +1590,13 @@ NPCs: {
 		Bestiary: The conductor of the line that once ran under Westworld, still keeping time for a train that left the rails a hundred years ago. The crash took his legs and the curse took the rest; a turbine bolted where his legs were pumps soot to keep him aloft, and his whistle still calls the train, and the train still comes. Leave his town and he will chase you to the end of the line.
 	}
 
-	ConductorGhost: {
-		DisplayName: Cursed Ghost
-	}
+	ConductorGhost.DisplayName: Cursed Ghost
 
 	JadeGolem: {
 		DisplayName: Jade Golem
 		Bestiary: A statue carved from a single block of jade and woken by the bronze heart set in its chest. It walks slowly and hits like a landslide; when it stops and raises its fist, the light gathering there aims where you stood a moment ago. Keep moving, and move again when the line blinks.
 	}
+
 	RhinoBeetle: {
 		DisplayName: Rhino Beetle
 		Bestiary: A giant rhinoceros beetle of the deep jungle, rarely seen and heavily armoured, spores glowing in the veins of its shell. When it lowers its horn and scrapes the ground it will charge, and whatever its horn catches it hurls away and up into the air. Climbing out of reach will not save you: it can fly.
@@ -1580,13 +1609,14 @@ NPCs: {
 
 	Cogscorpion: {
 		DisplayName: Cogscorpion
-		Bestiary: "A palace guardian built like a scorpion, its bronze plates edged in red lacquer and its jade sting glowing over its back. It runs down intruders and rams them with its claws and bulk."
+		Bestiary: A palace guardian built like a scorpion, its bronze plates edged in red lacquer and its jade sting glowing over its back. It runs down intruders and rams them with its claws and bulk.
 	}
 
 	FlyingBuddhaHead: {
 		DisplayName: Flying Buddha Head
 		Bestiary: The head of a great golden statue, cut from its body and kept aloft by Coghaven's machinery, its halo still turning. It drifts after intruders in perfect calm and never strikes in passing. When its eyes open, it drops like a temple bell, and needs a moment to collect itself.
 	}
+
 	Mechromancer: {
 		DisplayName: Mechromancer
 		Bestiary: A robot necromancer that only walks the earth under a blood-red moon, though it has no legs to walk with. A brass skull grins out of the shadow of its horned hood, its claws burn with soul fire, and its mechanical eyes drift around it, never once looking away from you. Where it points, the ground opens and the dead climb out.
@@ -1609,433 +1639,150 @@ NPCs: {
 		DisplayName: Jade Beetle
 		Bestiary: A rhino beetle copied in jade from one of Jadey's coins. Smaller and more brittle than the jungle's own, but its horn still throws whatever it catches, and it leaves her curse behind.
 	}
+
 	Fungimancer: {
-		DisplayName: "Fungimancer"
-		Epithet: "The Spore-Addled Sage"
-		Bestiary: "A frog who sat on a glowing mushroom so long that the mushroom's magic soaked into it, and very little else did. Mushrooms rain wherever it looks, rainbow light cuts the air, and a burp from it can turn you into a toad. When it raises both hands, break what grows between them, or cover your ears. It only wakes when someone breaks the rarest mushroom of all: the rainbow-capped one."
+		DisplayName: Fungimancer
+		Epithet: The Spore-Addled Sage
+		Bestiary: A frog who sat on a glowing mushroom so long that the mushroom's magic soaked into it, and very little else did. Mushrooms rain wherever it looks, rainbow light cuts the air, and a burp from it can turn you into a toad. When it raises both hands, break what grows between them, or cover your ears. It only wakes when someone breaks the rarest mushroom of all: the rainbow-capped one.
 	}
+
 	Toadstool: {
-		DisplayName: "Toadstool"
-		Bestiary: "A warty toad of the glowing mushroom fields that grows a garden on its back. It leaps at whatever moves, and its spores leave the mind spinning; it bursts into a cloud of them when it dies."
+		DisplayName: Toadstool
+		Bestiary: A warty toad of the glowing mushroom fields that grows a garden on its back. It leaps at whatever moves, and its spores leave the mind spinning; it bursts into a cloud of them when it dies.
 	}
+
 	CrystalLizard: {
-		DisplayName: "Crystal Lizard"
-		Bestiary: "A timid lizard of the deep caves, armoured in living crystal. Startle it and it bolts; give it five heartbeats and it is gone into the rock, along with everything it has been hoarding."
+		DisplayName: Crystal Lizard
+		Bestiary: A timid lizard of the deep caves, armoured in living crystal. Startle it and it bolts; give it five heartbeats and it is gone into the rock, along with everything it has been hoarding.
 	}
+
 	Driller: {
-		DisplayName: "Driller"
-		Bestiary: "A mining bot that never stopped digging. It rolls after anything that moves, and when a wall or a ledge is in the way it simply goes through."
+		DisplayName: Driller
+		Bestiary: A mining bot that never stopped digging. It rolls after anything that moves, and when a wall or a ledge is in the way it simply goes through.
 	}
-	FloatyMushroom: {
-		DisplayName: "Drifting Mushroom"
-	}
-	OrbitMushroom: {
-		DisplayName: "Toadstool Egg"
-	}
-	ChannelMushroom: {
-		DisplayName: "Rainbow Mushroom"
-	}
+
+	FloatyMushroom.DisplayName: Drifting Mushroom
+	OrbitMushroom.DisplayName: Toadstool Egg
+	ChannelMushroom.DisplayName: Rainbow Mushroom
 }
 
-Junkyard: {
-	TarDeath: "{0} sank into the tar."
-}
+Junkyard.TarDeath: "{0} sank into the tar."
 
 Projectiles: {
-	SoulFire: {
-		DisplayName: Lost Soul
-	}
-
-	JadeRay: {
-		DisplayName: Jade Ray
-	}
-
-	ScrappybotPet: {
-		DisplayName: Scrappybot
-	}
-
-	ScrapBombProjectile: {
-		DisplayName: Scrap Bomb
-	}
-
-	ScrapCogProjectile: {
-		DisplayName: Scrap Cog
-	}
-
-	ScrewdriverProjectile: {
-		DisplayName: Screwdriver
-	}
-
-	ScrappyWandBolt: {
-		DisplayName: Scrappy Spark
-	}
-
-	MiceBotMinion: {
-		DisplayName: Mice-bot
-	}
-
-	TrashTr0mShockwave: {
-		DisplayName: Shockwave
-	}
-
-	TrashTr0mChewedScrap: {
-		DisplayName: Chewed Scrap
-	}
-
-	TrashTr0mScrapBall: {
-		DisplayName: Scrap Ball
-	}
-
-	TetanusProjectile: {
-		DisplayName: Tetanus
-	}
-
-	ScrapLauncherChunk: {
-		DisplayName: Chewed Scrap
-	}
-
-	ScrapLauncherBall: {
-		DisplayName: Scrap Ball
-	}
-
-	ScrapmancerWave: {
-		DisplayName: Junk Shockwave
-	}
-
-	Tr0mheadSentry: {
-		DisplayName: Tr0mhead
-	}
-
-	TarGlob: {
-		DisplayName: Tar Glob
-	}
-
-	TrashTr0mCog: {
-		DisplayName: Loose Cog
-	}
-
-	TrapperSpikeBall: {
-		DisplayName: Spike Ball
-	}
-
-	TrapperChainProjectile: {
-		DisplayName: Trapper Chain
-	}
-
-	BoombotBlast: {
-		DisplayName: Boombot Blast
-	}
-
-	AlarmoboMinion: {
-		DisplayName: Alarmobô
-	}
-
-	TarTyrantGlob: {
-		DisplayName: Tar Glob
-	}
-
-	TarTyrantPuddle: {
-		DisplayName: Tar Puddle
-	}
-
-	TarTyrantBoneSpike: {
-		DisplayName: Fossil Spike
-	}
-
-	TarTyrantBackBone: {
-		DisplayName: Flung Bone
-	}
-
-	TarTyrantClaw: {
-		DisplayName: Tar Claw
-	}
-
-	TyrantClaw: {
-		DisplayName: Tyrant Claw
-	}
-
-	MetalWrenchGuard: {
-		DisplayName: Metal Wrench
-	}
-
-	MetalClash: {
-		DisplayName: Clash
-	}
-
-	TarSlimeMinion: {
-		DisplayName: Tar Slime
-	}
-
-	TarSlimeShot: {
-		DisplayName: Tar Glob
-	}
-
-	TyrantSkullBolt: {
-		DisplayName: Tyrant Skull
-	}
-
-	TarSpray: {
-		DisplayName: Tar Spray
-	}
-
-	TarShowerCharge: {
-		DisplayName: Tar Ball
-	}
-
-	TarShowerGlob: {
-		DisplayName: Tar Glob
-	}
-
-	TarShowerBigGlob: {
-		DisplayName: Big Tar Glob
-	}
-
-	TarStain: {
-		DisplayName: Tar Stain
-	}
-
-	TarWhipProjectile: {
-		DisplayName: Tar Whip
-	}
-
-	SplasherWater: {
-		DisplayName: Water
-	}
-
-	SpringPunch: {
-		DisplayName: Spring Punch
-	}
-
-	RustyBullet: {
-		DisplayName: Rusty Bullet
-	}
-
-	SheriffStar: {
-		DisplayName: Sheriff Star
-	}
-
-	DinamitromBlast: {
-		DisplayName: Dynamite Blast
-	}
-
-	SheriffStarMinion: {
-		DisplayName: Sheriff Star
-	}
-
-	SheriffsBullet: {
-		DisplayName: Sheriff's Bullet
-	}
-
-	GhostTrain: {
-		DisplayName: Ghost Train
-	}
-
-	ConductorFlame: {
-		DisplayName: Cursed Bolt
-	}
-
-	GhostRift: {
-		DisplayName: Ghost Rift
-	}
-
-	CogLauncherCog: {
-		DisplayName: Cog
-	}
-
-	GhostTrainEngine: {
-		DisplayName: Ghost Train
-	}
-
-	GhostTrainWagon: {
-		DisplayName: Ghost Train Wagon
-	}
-
-	JadeBolt: {
-		DisplayName: Jade Bolt
-	}
-
-	FiresawFlame: {
-		DisplayName: Firesaw Flame
-	}
-
-	DiamondCutterBeam: {
-		DisplayName: Diamond Beam
-	}
-
-	BarrelGunFish: {
-		DisplayName: Fish
-	}
-
-	DragoneteFireBolt: {
-		DisplayName: Fire Bolt
-	}
-
-
-	CombinatorBlast: {
-		DisplayName: Combinator Burst
-	}
-	SoulFireCog: {
-		DisplayName: Soul Fire Cog
-	}
-	MechromancerGrave: {
-		DisplayName: Soul Fire Grave
-	}
-
-	PossessedCogYoyo: {
-		DisplayName: Possessed Cog
-	}
-
-	JadeCoin: {
-		DisplayName: Jade Coin
-	}
-
-	JadeyRopeDart: {
-		DisplayName: Jade Rope Dart
-	}
-
-	JadeCursedGround: {
-		DisplayName: Cursed Ground
-	}
-
-	JadePetrifyZone: {
-		DisplayName: Petrifying Seal
-	}
-
-	JadeShaperWhipProjectile: {
-		DisplayName: Jade-shaper Whip
-	}
-
-	JadeGlaiveSlash: {
-		DisplayName: Jade Glaive
-	}
-
-	JadeGlaiveThrown: {
-		DisplayName: Jade Glaive
-	}
-
-	FireworkRocket: {
-		DisplayName: Firework
-	}
-
-	CaktiSpike: {
-		DisplayName: Cactus Spike
-	}
-
-	IncenseMaceHead: {
-		DisplayName: Incense Mace
-	}
-
-	IncenseAura: {
-		DisplayName: Incense Aura
-	}
-
-	JadeFoxPet: {
-		DisplayName: Jade Spirit Fox
-	}
-
-	CalcifiedBone: {
-		DisplayName: Bone
-	}
-
-	BanditsSlash: {
-		DisplayName: Bandit's Dream
-	}
+	SoulFire.DisplayName: Lost Soul
+	JadeRay.DisplayName: Jade Ray
+	ScrappybotPet.DisplayName: Scrappybot
+	ScrapBombProjectile.DisplayName: Scrap Bomb
+	ScrapCogProjectile.DisplayName: Scrap Cog
+	ScrewdriverProjectile.DisplayName: Screwdriver
+	ScrappyWandBolt.DisplayName: Scrappy Spark
+	MiceBotMinion.DisplayName: Mice-bot
+	TrashTr0mShockwave.DisplayName: Shockwave
+	TrashTr0mChewedScrap.DisplayName: Chewed Scrap
+	TrashTr0mScrapBall.DisplayName: Scrap Ball
+	TetanusProjectile.DisplayName: Tetanus
+	ScrapLauncherChunk.DisplayName: Chewed Scrap
+	ScrapLauncherBall.DisplayName: Scrap Ball
+	ScrapmancerWave.DisplayName: Junk Shockwave
+	Tr0mheadSentry.DisplayName: Tr0mhead
+	TarGlob.DisplayName: Tar Glob
+	TrashTr0mCog.DisplayName: Loose Cog
+	TrapperSpikeBall.DisplayName: Spike Ball
+	TrapperChainProjectile.DisplayName: Trapper Chain
+	BoombotBlast.DisplayName: Boombot Blast
+	AlarmoboMinion.DisplayName: Alarmobô
+	TarTyrantGlob.DisplayName: Tar Glob
+	TarTyrantPuddle.DisplayName: Tar Puddle
+	TarTyrantBoneSpike.DisplayName: Fossil Spike
+	TarTyrantBackBone.DisplayName: Flung Bone
+	TarTyrantClaw.DisplayName: Tar Claw
+	TyrantClaw.DisplayName: Tyrant Claw
+	MetalWrenchGuard.DisplayName: Metal Wrench
+	MetalClash.DisplayName: Clash
+	TarSlimeMinion.DisplayName: Tar Slime
+	TarSlimeShot.DisplayName: Tar Glob
+	TyrantSkullBolt.DisplayName: Tyrant Skull
+	TarSpray.DisplayName: Tar Spray
+	TarShowerCharge.DisplayName: Tar Ball
+	TarShowerGlob.DisplayName: Tar Glob
+	TarShowerBigGlob.DisplayName: Big Tar Glob
+	TarStain.DisplayName: Tar Stain
+	TarWhipProjectile.DisplayName: Tar Whip
+	SplasherWater.DisplayName: Water
+	SpringPunch.DisplayName: Spring Punch
+	RustyBullet.DisplayName: Rusty Bullet
+	SheriffStar.DisplayName: Sheriff Star
+	DinamitromBlast.DisplayName: Dynamite Blast
+	SheriffStarMinion.DisplayName: Sheriff Star
+	SheriffsBullet.DisplayName: Sheriff's Bullet
+	GhostTrain.DisplayName: Ghost Train
+	ConductorFlame.DisplayName: Cursed Bolt
+	GhostRift.DisplayName: Ghost Rift
+	CogLauncherCog.DisplayName: Cog
+	GhostTrainEngine.DisplayName: Ghost Train
+	GhostTrainWagon.DisplayName: Ghost Train Wagon
+	JadeBolt.DisplayName: Jade Bolt
+	FiresawFlame.DisplayName: Firesaw Flame
+	DiamondCutterBeam.DisplayName: Diamond Beam
+	BarrelGunFish.DisplayName: Fish
+	DragoneteFireBolt.DisplayName: Fire Bolt
+	CombinatorBlast.DisplayName: Combinator Burst
+	SoulFireCog.DisplayName: Soul Fire Cog
+	MechromancerGrave.DisplayName: Soul Fire Grave
+	PossessedCogYoyo.DisplayName: Possessed Cog
+	JadeCoin.DisplayName: Jade Coin
+	JadeyRopeDart.DisplayName: Jade Rope Dart
+	JadeCursedGround.DisplayName: Cursed Ground
+	JadePetrifyZone.DisplayName: Petrifying Seal
+	JadeShaperWhipProjectile.DisplayName: Jade-shaper Whip
+	JadeGlaiveSlash.DisplayName: Jade Glaive
+	JadeGlaiveThrown.DisplayName: Jade Glaive
+	FireworkRocket.DisplayName: Firework
+	CaktiSpike.DisplayName: Cactus Spike
+	IncenseMaceHead.DisplayName: Incense Mace
+	IncenseAura.DisplayName: Incense Aura
+	JadeFoxPet.DisplayName: Jade Spirit Fox
+	CalcifiedBone.DisplayName: Bone
+	BanditsSlash.DisplayName: Bandit's Dream
 	CogspringSlam.DisplayName: Cogspring Slam
 	SmokerSmoke.DisplayName: Soot
-
-	JadeRefractorBeam: {
-		DisplayName: Jade Refractor
-	}
-
-	JadeCoinCounter: {
-		DisplayName: Jade Coin
-	}
-
-	JadeSpirit: {
-		DisplayName: Jade Spirit
-	}
-
-	JadeSpiritBolt: {
-		DisplayName: Jade Bolt
-	}
-	SporeCloud: {
-		DisplayName: "Spore Cloud"
-	}
-	RainbowSpore: {
-		DisplayName: "Rainbow Spore"
-	}
-	MushroomMissile: {
-		DisplayName: "Mushroom Missile"
-	}
-	PolymorphBolt: {
-		DisplayName: "Polymorph Burp"
-	}
-	RainbowLaser: {
-		DisplayName: "Rainbow Laser"
-	}
-	ChannelBlast: {
-		DisplayName: "Rainbow Blast"
-	}
+	JadeRefractorBeam.DisplayName: Jade Refractor
+	JadeCoinCounter.DisplayName: Jade Coin
+	JadeSpirit.DisplayName: Jade Spirit
+	JadeSpiritBolt.DisplayName: Jade Bolt
+	SporeCloud.DisplayName: Spore Cloud
+	RainbowSpore.DisplayName: Rainbow Spore
+	MushroomMissile.DisplayName: Mushroom Missile
+	PolymorphBolt.DisplayName: Polymorph Burp
+	RainbowLaser.DisplayName: Rainbow Laser
+	ChannelBlast.DisplayName: Rainbow Blast
 }
 
 Tiles: {
-	RustedScrapTile: {
-		MapEntry: Rusted Scrap
-	}
-
-	PolishedMetalTile: {
-		MapEntry: Polished Metal
-	}
+	RustedScrapTile.MapEntry: Rusted Scrap
+	PolishedMetalTile.MapEntry: Polished Metal
 
 	ScrappyTrunkTile: {
 		MapEntry0: Scrappy Trunk
 		MapEntry1: Junkyard Cache
 	}
 
-	RustPolisherTile: {
-		MapEntry: Rust Polisher
-	}
-
-	BrassSandstoneTile: {
-		MapEntry: Brass Sandstone
-	}
-
-	TarnishedBrassOreTile: {
-		MapEntry: Tarnished Brass Ore
-	}
-
-	WeatheredPlankTile: {
-		MapEntry: Weathered Planks
-	}
-
-	TarnishedBrassPlatingTile: {
-		MapEntry: Tarnished Brass Plating
-	}
+	RustPolisherTile.MapEntry: Rust Polisher
+	BrassSandstoneTile.MapEntry: Brass Sandstone
+	TarnishedBrassOreTile.MapEntry: Tarnished Brass Ore
+	WeatheredPlankTile.MapEntry: Weathered Planks
+	TarnishedBrassPlatingTile.MapEntry: Tarnished Brass Plating
 
 	BrassStrongboxTile: {
 		MapEntry0: Brass Strongbox
 		MapEntry1: Locked Brass Strongbox
 	}
 
-	JadeBrickTile: {
-		MapEntry: Jade Brick
-	}
-
-	CinnabarLacquerTile: {
-		MapEntry: Cinnabar Lacquer
-	}
-
-	BronzeGearworkTile: {
-		MapEntry: Bronze Gearwork
-	}
-
-	JadeRoofTile: {
-		MapEntry: Jade Roof Tiles
-	}
-
-	LiftTurbineTile: {
-		MapEntry: Lift Turbine
-	}
+	JadeBrickTile.MapEntry: Jade Brick
+	CinnabarLacquerTile.MapEntry: Cinnabar Lacquer
+	BronzeGearworkTile.MapEntry: Bronze Gearwork
+	JadeRoofTile.MapEntry: Jade Roof Tiles
+	LiftTurbineTile.MapEntry: Lift Turbine
 
 	FundamentalStoneTile: {
 		MapEntry: Fundamental Stone
@@ -2043,45 +1790,16 @@ Tiles: {
 		SealedSay: A primordial shield hums around the stone. Its guardian still lives.
 	}
 
-	FundamentalBrickTile: {
-		MapEntry: Fundamental Brick
-	}
-
-	FundamentalCoralTile: {
-		MapEntry: Coralstone
-	}
-
-	FundamentalRuneTile: {
-		MapEntry: Rune Brick
-	}
-
-	FundamentalKelpTile: {
-		MapEntry: Kelp
-	}
-
-	FundamentalArenaBrickTile: {
-		MapEntry: Ancient Brick
-	}
-
-	FundamentalArenaRuneTile: {
-		MapEntry: Rune Brick
-	}
-
-	FundamentalRubbleTile: {
-		MapEntry: Rubble
-	}
-
-	BronzeCogTile: {
-		MapEntry: Bronze Cog
-	}
-
-	PalaceFlagstoneTile: {
-		MapEntry: Palace Flagstone
-	}
-
-	JadeTile: {
-		MapEntry: Jade
-	}
+	FundamentalBrickTile.MapEntry: Fundamental Brick
+	FundamentalCoralTile.MapEntry: Coralstone
+	FundamentalRuneTile.MapEntry: Rune Brick
+	FundamentalKelpTile.MapEntry: Kelp
+	FundamentalArenaBrickTile.MapEntry: Ancient Brick
+	FundamentalArenaRuneTile.MapEntry: Rune Brick
+	FundamentalRubbleTile.MapEntry: Rubble
+	BronzeCogTile.MapEntry: Bronze Cog
+	PalaceFlagstoneTile.MapEntry: Palace Flagstone
+	JadeTile.MapEntry: Jade
 
 	FundamentalGlyphTile: {
 		MapEntry: Rune Glyph
@@ -2094,13 +1812,8 @@ Tiles: {
 		Hover: Sealed Gate ({0}/{1} rune glyphs lit)
 	}
 
-	SteamInjectorTile: {
-		MapEntry: Steam Injector
-	}
-
-	CombinatorTile: {
-		MapEntry: The Combinator
-	}
+	SteamInjectorTile.MapEntry: Steam Injector
+	CombinatorTile.MapEntry: The Combinator
 
 	CoghavenChestTile: {
 		MapEntry0: Pagoda Chest
@@ -2110,20 +1823,11 @@ Tiles: {
 		VaultSealed: Sealed
 	}
 
-	VaultGearworkTile: {
-		MapEntry: Vault Gearwork
-	}
-
-	AncientResearchTableTile: {
-		MapEntry: Ancient Research Table
-	}
+	VaultGearworkTile.MapEntry: Vault Gearwork
+	AncientResearchTableTile.MapEntry: Ancient Research Table
 	RainbowMushroomTile.MapEntry: Rainbow Mushroom
-	DemonTableTile: {
-		MapEntry: "Demon Table"
-	}
-	EnemyBannerTile: {
-		MapEntry: "Banner"
-	}
+	DemonTableTile.MapEntry: Demon Table
+	EnemyBannerTile.MapEntry: Banner
 }
 
 WorldGen: {
@@ -2140,42 +1844,37 @@ WorldGen: {
 	SmokerBooks: Hiding smoky books in the Underworld
 }
 
-UI: {
-	BossDefeated: Defeated
-}
-
-DamageClasses: {
-	MechanistDamage: {
-		DisplayName: mechanist damage
-	}
-}
+UI.BossDefeated: Defeated
+DamageClasses.MechanistDamage.DisplayName: mechanist damage
 
 Mechanist: {
 	SteamCost: Uses {0} steam
-	SteamHover: "Steam: {0}/{1}"
+	SteamHover: Steam: {0}/{1}
 	NoTank: No steam tank!
 	NoTankTooltip: Needs a steam tank: wear Mechanist armor or a steam container
-
 	SteamManaFallback: Or {0} mana once the steam runs out
-
 	RocketBootsSteam: Burns {0} steam every {1} seconds of flight
 }
 
 Biomes: {
 	JunkyardBiome: {
 		DisplayName: The Junkyard
+		TownNPCDialogueName: the Junkyard Biome
 	}
 
 	OldBrassTownBiome: {
 		DisplayName: Westworld
+		TownNPCDialogueName: the Old Brass Town Biome
 	}
 
 	CoghavenBiome: {
 		DisplayName: Coghaven
+		TownNPCDialogueName: the Coghaven Biome
 	}
 
 	FundamentalRuinsBiome: {
 		DisplayName: Fundamental Ruins
+		TownNPCDialogueName: the Fundamental Ruins Biome
 	}
 }
 
@@ -2189,7 +1888,6 @@ Conditions: {
 
 DropConditions: {
 	TrashTr0mFirstKill: Only from the first defeat in a world
-
 	CombinatorFirstKill: Only from the first defeat in a world
 	ManualFirstKill: Once per world, on the first defeat: one for every player in the fight
 	LizardGem: The gem its crystals grew
@@ -2213,110 +1911,53 @@ Events: {
 		Stopped: The Mech Army has been stopped.
 		Won: The Mech Army will be defeated next tick.
 		NotRunning: The Mech Army isn't running.
-		Status: "Mech Army: {0} of {1} left ({2}% cleared)."
+		Status: Mech Army: {0} of {1} left ({2}% cleared).
 	}
 }
 
-Keybinds: {
-	SteamDash: {
-		DisplayName: Steam Dash
-	}
-}
+Keybinds.SteamDash.DisplayName: Steam Dash
 
 Secrets: {
 	GateOpened: The sealed gate of the Fundamental Ruins grinds open!
 	StonesAsleep: The Fundamental Stones fall back asleep...
 	StonesAligned: All five Fundamental Stones are awake.
-	GhedalariKnown: "Ghedalari: {0}"
+	GhedalariKnown: Ghedalari: {0}
 	GhedalariUnknown: Ghedalari script. Some Fundamental Stone may teach you this word.
 }
 
-Emotes: {
-	FriendoboEmote: {
-		Command: ghedalari
-	}
-}
+Emotes.FriendoboEmote.Command: ghedalari
 
 Prefixes: {
 	SteamCostLine: "{0}% steam cost"
-
-	Overclocked: {
-		DisplayName: Overclocked
-	}
-
-	Calibrated: {
-		DisplayName: Calibrated
-	}
-
-	Efficient: {
-		DisplayName: Efficient
-	}
-
-	Engineered: {
-		DisplayName: Engineered
-	}
-
-	Leaky: {
-		DisplayName: Leaky
-	}
-
-	Corroded: {
-		DisplayName: Corroded
-	}
-
-	Jammed: {
-		DisplayName: Jammed
-	}
-
-	Pressurized: {
-		DisplayName: Pressurized
-	}
-
-	Hissing: {
-		DisplayName: Hissing
-	}
-
-	Geared: {
-		DisplayName: Geared
-	}
-
-	Overdriven: {
-		DisplayName: Overdriven
-	}
-
-	Rattling: {
-		DisplayName: Rattling
-	}
+	Overclocked.DisplayName: Overclocked
+	Calibrated.DisplayName: Calibrated
+	Efficient.DisplayName: Efficient
+	Engineered.DisplayName: Engineered
+	Leaky.DisplayName: Leaky
+	Corroded.DisplayName: Corroded
+	Jammed.DisplayName: Jammed
+	Pressurized.DisplayName: Pressurized
+	Hissing.DisplayName: Hissing
+	Geared.DisplayName: Geared
+	Overdriven.DisplayName: Overdriven
+	Rattling.DisplayName: Rattling
 }
 
 Combinator: {
 	Title: The Combinator
-
 	Base: Base
-
 	Augment: Augment
-
 	Product: Product
-
 	Combine: Combine
-
 	Separate: Take apart
-
-	Name: "Name:"
-
+	Name: Name:
 	InputTip: Put a weapon here
-
 	ProductTip: The combined weapon comes out here. Put one back to rename it or take it apart
-
 	StatusEmpty: Put a base and an augment weapon in
-
 	StatusReady: Makes {0} damage, {1} use time
-
 	StatusProduct: Rename it, or take it apart
-
 	TooltipParts: Combination of {0} (augment) and {1} (base)
-
-	TooltipAlt: "Right click: the attack of {0}"
+	TooltipAlt: Right click: the attack of {0}
 
 	Refusal: {
 		NotAWeapon: Only weapons can be combined
@@ -2354,30 +1995,32 @@ Combinator: {
 }
 
 Manuals: {
-	Learned: "Studied: {0}"
+	Learned: Studied: {0}
 	AlreadyRead: You have already studied this
 }
 
 Research: {
-	Title: "Ancient Research"
-	Knowledge: "Knowledge points: {0}"
-	Close: "Close"
-	Gained: "Gained knowledge! (+{0}: {1})"
-	GainedShort: "+{0} knowledge"
-	Unlocked: "Researched: {0}"
-	Researched: "Researched"
-	Cost: "Costs {0} knowledge point(s) (you have {1})"
-	Requires: "Research {0} first"
-	Takes: "Takes {0} (you have {1})"
-	ClickToResearch: "Click to research"
-	NotYet: "Not within your reach yet"
-	RecipeCondition: "Researched: {0}"
-	Found: "found"
-	Missing: "missing"
+	Title: Ancient Research
+	Knowledge: Knowledge points: {0}
+	Close: Close
+	Gained: Gained knowledge! (+{0}: {1})
+	GainedShort: +{0} knowledge
+	Unlocked: Researched: {0}
+	Researched: Researched
+	Cost: Costs {0} knowledge point(s) (you have {1})
+	Requires: Research {0} first
+	Takes: Takes {0} (you have {1})
+	ClickToResearch: Click to research
+	NotYet: Not within your reach yet
+	RecipeCondition: Researched: {0}
+	Found: found
+	Missing: missing
+
 	Conditions: {
-		OreTiers: "Base ores collected: copper or tin ({0}), iron or lead ({1}), silver or tungsten ({2}), gold or platinum ({3})"
-		Edges: "World edges reached: the ocean ({0}), the Junkyard ({1})"
+		OreTiers: Base ores collected: copper or tin ({0}), iron or lead ({1}), silver or tungsten ({2}), gold or platinum ({3})
+		Edges: World edges reached: the ocean ({0}), the Junkyard ({1})
 	}
+
 	Costs: {
 		AnyOre: "{0} ores of any kind"
 		Amethyst: "{0} Amethyst"
@@ -2398,115 +2041,143 @@ Research: {
 		VoodooDoll: "{0} {$ItemName.GuideVoodooDoll} or {$ItemName.ClothierVoodooDoll}"
 		RustedCogs: "{0} Rusted Cogs"
 	}
+
 	Nodes: {
 		TheBasics: {
-			DisplayName: "The Basics"
-			Description: "+5% mining speed"
+			DisplayName: The Basics
+			Description: +5% mining speed
 		}
+
 		MineAndCraft: {
-			DisplayName: "Mine and Craft"
-			Description: "Mining any ore has a 10% chance to give one more"
+			DisplayName: Mine and Craft
+			Description: Mining any ore has a 10% chance to give one more
 		}
+
 		Jogger: {
-			DisplayName: "Jogger"
-			Description: "+3% movement speed"
+			DisplayName: Jogger
+			Description: +3% movement speed
 		}
+
 		Cogpunker: {
-			DisplayName: "Cogpunker"
-			Description: "+10 steam capacity"
+			DisplayName: Cogpunker
+			Description: +10 steam capacity
 		}
+
 		GemPower: {
-			DisplayName: "Gem Power"
-			Description: "While holding a gem weapon: +3% damage, critical strike chance and attack speed, -3% mana cost"
+			DisplayName: Gem Power
+			Description: While holding a gem weapon: +3% damage, critical strike chance and attack speed, -3% mana cost
 		}
+
 		InACaveWithScraps: {
-			DisplayName: "In a Cave! With Scraps!!"
-			Description: "Unlocks crafting the Scrap armor"
+			DisplayName: In a Cave! With Scraps!!
+			Description: Unlocks crafting the Scrap armor
 		}
+
 		HitTheJoints: {
-			DisplayName: "Hit the Joints"
-			Description: "+10% damage against machines"
+			DisplayName: Hit the Joints
+			Description: +10% damage against machines
 		}
+
 		Mandacaru: {
-			DisplayName: "Mandacaru"
-			Description: "Unlocks crafting the Cak-ti"
+			DisplayName: Mandacaru
+			Description: Unlocks crafting the Cak-ti
 		}
+
 		CausesAutism: {
-			DisplayName: "Causes Autism"
-			Description: "Unlocks crafting the Tetanus Shot"
+			DisplayName: Causes Autism
+			Description: Unlocks crafting the Tetanus Shot
 		}
+
 		Squire: {
-			DisplayName: "Squire"
-			Description: "+1 defense"
+			DisplayName: Squire
+			Description: +1 defense
 		}
+
 		JustTheTip: {
-			DisplayName: "Just the Tip"
-			Description: "Spears deal 25% more damage when they hit at full reach (the end of the thrust)"
+			DisplayName: Just the Tip
+			Description: Spears deal 25% more damage when they hit at full reach (the end of the thrust)
 		}
+
 		BundleUp: {
-			DisplayName: "Bundle Up!"
-			Description: "Unlocks crafting the Bundle of Wands"
+			DisplayName: Bundle Up!
+			Description: Unlocks crafting the Bundle of Wands
 		}
+
 		HeatManagement: {
-			DisplayName: "Heat Management"
-			Description: "Overheating no longer keeps you running: you can stand still"
+			DisplayName: Heat Management
+			Description: Overheating no longer keeps you running: you can stand still
 		}
+
 		BringAKnife: {
-			DisplayName: "Bring a Knife to a Gunfight"
-			Description: "Unlocks crafting the Bandit's Dream"
+			DisplayName: Bring a Knife to a Gunfight
+			Description: Unlocks crafting the Bandit's Dream
 		}
+
 		TriggerFinger: {
-			DisplayName: "Trigger Finger"
-			Description: "Each ranged shot that misses makes your next ranged hit deal 25% more damage (up to 4 times)"
+			DisplayName: Trigger Finger
+			Description: Each ranged shot that misses makes your next ranged hit deal 25% more damage (up to 4 times)
 		}
+
 		DilatedPupils: {
-			DisplayName: "Dilated Pupils"
-			Description: "+5% critical strike chance at night, -5% during the day"
+			DisplayName: Dilated Pupils
+			Description: +5% critical strike chance at night, -5% during the day
 		}
+
 		Slimed: {
-			DisplayName: "Slimed!"
-			Description: "Enemies that touch you are slimed for 5 seconds: sticky and slow"
+			DisplayName: Slimed!
+			Description: Enemies that touch you are slimed for 5 seconds: sticky and slow
 		}
+
 		Calcified: {
-			DisplayName: "Calcified"
-			Description: "Every enemy you defeat throws a bone that deals 40 damage to another enemy it hits"
+			DisplayName: Calcified
+			Description: Every enemy you defeat throws a bone that deals 40 damage to another enemy it hits
 		}
+
 		AlchemyInitiate: {
 			DisplayName: Alchemy Initiate
 			Description: Potions you brew have a 10% chance to come out doubled
 		}
+
 		FulfillingConcoction: {
 			DisplayName: Fulfilling Concoction
 			Description: Drinking a potion makes you Well Fed for 5 minutes (a better meal is kept)
 		}
+
 		EfficientFuel: {
 			DisplayName: Efficient Fuel
-			Description: "-5% steam cost"
+			Description: -5% steam cost
 		}
+
 		Reconstructed: {
 			DisplayName: Reconstructed
 			Description: Unlocks crafting Missing Bones, a raptor skeleton mount
 		}
+
 		Seasoning: {
 			DisplayName: Seasoning
 			Description: Cooking has a 10% chance to keep its ingredients
 		}
+
 		ProperMeal: {
 			DisplayName: Proper Meal
 			Description: Unlocks cooking four meals, one for each class
 		}
+
 		GreenIsGood: {
 			DisplayName: Green = Good
 			Description: Killing an enemy turned to jade heals 20 life; while you are turned to jade you take 20% less damage
 		}
+
 		GreenDiamond: {
 			DisplayName: Green Diamond
 			Description: Unlocks crafting the Jade Refractor
 		}
+
 		MadScience: {
 			DisplayName: Mad Science
-			Description: "+5% attack speed with combined weapons"
+			Description: +5% attack speed with combined weapons
 		}
+
 		SigilFleur: {
 			DisplayName: Sigil of the Fleur
 			Description:
@@ -2515,6 +2186,7 @@ Research: {
 				Translates the runes on the Fundamental Stone that bears this sigil
 				'''
 		}
+
 		SigilSun: {
 			DisplayName: Sigil of the Sun
 			Description:
@@ -2523,6 +2195,7 @@ Research: {
 				Translates the runes on the Fundamental Stone that bears this sigil
 				'''
 		}
+
 		SigilMountain: {
 			DisplayName: Sigil of the Mountain
 			Description:
@@ -2531,6 +2204,7 @@ Research: {
 				Translates the runes on the Fundamental Stone that bears this sigil
 				'''
 		}
+
 		SigilCross: {
 			DisplayName: Sigil of the Cross
 			Description:
@@ -2539,6 +2213,7 @@ Research: {
 				Translates the runes on the Fundamental Stone that bears this sigil
 				'''
 		}
+
 		SigilWave: {
 			DisplayName: Sigil of the Wave
 			Description:
@@ -2547,33 +2222,48 @@ Research: {
 				Translates the runes on the Fundamental Stone that bears this sigil
 				'''
 		}
+
 		Rgbt: {
 			DisplayName: RGBT
 			Description: Unlocks crafting the Rainbow Robe
 		}
+
 		JadeMenagerie: {
 			DisplayName: Jade Menagerie
 			Description: Unlocks crafting the Jade Coin
 		}
+
 		LaceUp: {
-			DisplayName: "Lace Up"
-			Description: "Unlocks crafting the {$ItemName.Aglet} and the {$ItemName.AnkletoftheWind} at a demon altar"
+			DisplayName: Lace Up
+			Description: Unlocks crafting the {$ItemName.Aglet} and the {$ItemName.AnkletoftheWind} at a demon altar
 		}
+
 		UnholyCarpentry: {
-			DisplayName: "Unholy Carpentry"
-			Description: "Unlocks crafting the Demon Table: a demon altar you can carry home"
+			DisplayName: Unholy Carpentry
+			Description: Unlocks crafting the Demon Table: a demon altar you can carry home
 		}
+
 		BadLuckProtection: {
-			DisplayName: "Bad Luck Protection"
-			Description: "Unlocks crafting an enemy's rare drops from its banner at a demon altar\n(one banner; two for the rarest drops)"
+			DisplayName: Bad Luck Protection
+			Description:
+				'''
+				Unlocks crafting an enemy's rare drops from its banner at a demon altar
+				(one banner; two for the rarest drops)
+				'''
 		}
+
 		CrateExpectations: {
-			DisplayName: "Crate Expectations"
-			Description: "Unlocks crafting a crate's equipment from 5 of that crate at a demon altar"
+			DisplayName: Crate Expectations
+			Description: Unlocks crafting a crate's equipment from 5 of that crate at a demon altar
 		}
+
 		WhoIsHe: {
-			DisplayName: "Who is he?"
-			Description: "Someone has been watching the stones...\nThe Last Ghedalari can move into your world"
+			DisplayName: Who is he?
+			Description:
+				'''
+				Someone has been watching the stones...
+				The Last Ghedalari can move into your world
+				'''
 		}
 		PassiveIncome: {
 			DisplayName: "Passive Income"
@@ -2592,27 +2282,28 @@ Research: {
 			Description: "Negative modifiers come up less often when you reforge"
 		}
 	}
+
 	Tasks: {
-		Angler5: "Five quests done for the Angler"
-		CoralChest: "Looted a coral chest"
-		Platinum10: "Saved up 10 platinum coins"
-		SkyIsland: "Reached a cloud island"
-		Marble: "Found a marble cave"
-		Granite: "Found a granite cave"
-		PinkSlime: "Defeated a pink slime"
-		Gnome: "Defeated a gnome"
-		TravelingMerchant: "Bought from the Traveling Merchant"
-		Combinator: "Used the Combinator"
-		FallenStar: "Picked up a fallen star"
-		Town10: "Ten townsfolk housed"
-		FundamentalStone1: "Read the first Fundamental Stone"
-		FundamentalStone2: "Read the second Fundamental Stone"
-		FundamentalStone3: "Read the third Fundamental Stone"
-		FundamentalStone4: "Read the fourth Fundamental Stone"
-		FundamentalStone5: "Read the fifth Fundamental Stone"
-		Boss: "First defeat of {0} in this world"
-		Event: "First clear of {0} in this world"
-		GlowingMushroom: "Found a glowing mushroom field"
+		Angler5: Five quests done for the Angler
+		CoralChest: Looted a coral chest
+		Platinum10: Saved up 10 platinum coins
+		SkyIsland: Reached a cloud island
+		Marble: Found a marble cave
+		Granite: Found a granite cave
+		PinkSlime: Defeated a pink slime
+		Gnome: Defeated a gnome
+		TravelingMerchant: Bought from the Traveling Merchant
+		Combinator: Used the Combinator
+		FallenStar: Picked up a fallen star
+		Town10: Ten townsfolk housed
+		FundamentalStone1: Read the first Fundamental Stone
+		FundamentalStone2: Read the second Fundamental Stone
+		FundamentalStone3: Read the third Fundamental Stone
+		FundamentalStone4: Read the fourth Fundamental Stone
+		FundamentalStone5: Read the fifth Fundamental Stone
+		Boss: First defeat of {0} in this world
+		Event: First clear of {0} in this world
+		GlowingMushroom: Found a glowing mushroom field
 		DemonAltar: The world's first demon altar smashed
 		EvilHeart: "The world's first Shadow Orb or Crimson Heart smashed"
 		Diamond: "Found a diamond"
@@ -2622,26 +2313,30 @@ Research: {
 		PiggyBank: "Saved coins in a piggy bank"
 		Artifact: "Found an artifact: {0}"
 	}
+
 	Events: {
-		GoblinArmy: "the Goblin Army"
-		FrostLegion: "the Frost Legion"
-		PirateInvasion: "the Pirate Invasion"
-		MartianMadness: "Martian Madness"
-		OldOnesArmy1: "the Old One's Army (tier 1)"
-		OldOnesArmy2: "the Old One's Army (tier 2)"
-		OldOnesArmy3: "the Old One's Army (tier 3)"
-		PumpkinMoon: "the Pumpkin Moon (its last wave)"
-		FrostMoon: "the Frost Moon (its last wave)"
+		GoblinArmy: the Goblin Army
+		FrostLegion: the Frost Legion
+		PirateInvasion: the Pirate Invasion
+		MartianMadness: Martian Madness
+		OldOnesArmy1: the Old One's Army (tier 1)
+		OldOnesArmy2: the Old One's Army (tier 2)
+		OldOnesArmy3: the Old One's Army (tier 3)
+		PumpkinMoon: the Pumpkin Moon (its last wave)
+		FrostMoon: the Frost Moon (its last wave)
 	}
-	KnowledgeExpanded: "Knowledge expanded!"
-	KnowledgeName: "Knowledge points"
-	DragHint: "Drag to look around"
-	Teaser: "A secret yet to be revealed: a great foe must fall first"
+
+	KnowledgeExpanded: Knowledge expanded!
+	KnowledgeName: Knowledge points
+	DragHint: Drag to look around
+	Teaser: A secret yet to be revealed: a great foe must fall first
+
 	Tabs: {
 		Main: Ancient Research
 		Mystery: Mystery of the Past
 		Artifacts: Artifacts
 	}
+
 	Hints: {
 		AlchemyTable: "A secret yet to be revealed: an alchemist's table holds the key"
 		CookingPot: "A secret yet to be revealed: a cooking pot holds the key"
@@ -2658,13 +2353,12 @@ Research: {
 		Reforge: "A secret yet to be revealed: reforge an item"
 		Artifact: "An artifact not yet found: every world hides one of each"
 	}
+
 	DoubleBrew: Double brew!
 	Seasoned: Ingredients saved!
-	GemRobeGroup: "Any Gem Robe"
-	CoinCost: "Costs {0}"
-	Groups: {
-		Either: "{0} or {1}"
-	}
+	GemRobeGroup: Any Gem Robe
+	CoinCost: Costs {0}
+	Groups.Either: "{0} or {1}"
 }
 
 Artifacts: {
@@ -2682,10 +2376,14 @@ Artifacts: {
 
 Banners: {
 	Name: "{0} Banner"
-	Tooltip: "Nearby players get a bonus against: {0}"
+	Tooltip: Nearby players get a bonus against: {0}
 }
 
 Equipment: {
-	SlotName: "Cogpunk Slot"
-	SlotLocked: "Cogpunk Slot (locked)\nA way to unlock it is coming in a future update"
+	SlotName: Cogpunk Slot
+	SlotLocked:
+		'''
+		Cogpunk Slot (locked)
+		A way to unlock it is coming in a future update
+		'''
 }
