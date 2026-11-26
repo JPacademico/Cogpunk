@@ -4,6 +4,39 @@ Every update batch raises `version` in `build.txt` and adds an entry here, newes
 fixes and tweaks only the patch (user, 2026-11-26: "every following update batch and implementation should increase the
 version of our mod so we keep traceability for updates"). Balance rows: `docs/balance/*.csv`; proofs: `docs/media/`.
 
+## 0.2.2 (2026-11-26)
+
+Fixes and tweaks from the user's playtest list (a patch: no new items).
+
+### Fixes
+- **Jade Cursed Glaives**: the slashes follow the cursor through the whole swing, on either side, and the wielder turns to
+  face them (user: "the jade cursed glaive attacks are still not full dinamic tracking the player cursor (for example its
+  never properly attacking for the left)"). The aim was taken once as each slash started and the body kept facing wherever
+  it walked, so a slash behind the player swung out of the wrong shoulder. The throw turns the player to its side too.
+- **Overheated players** keep their speed when they turn (user: "remove speed deceleration from turning left or right when a
+  player is overheated so he cannot bypass the obligatory moving by switching direction quickly"): a new direction pressed
+  while overheated turns the speed round at once (at most the run speed), so quick turns no longer keep a player still.
+  Heat Management (standing still allowed) is unchanged.
+- **Trash-Tr0m's slam wave** climbs 8 tiles (3) and drops 10 (6) to the nearest surface, and runs 1920 px, a screen's
+  width (1008 before) (user: "so it does not vanishes and actualy reaches a full screen of range").
+
+### Changed
+- **Cogspring Sword**: its basic attack is vanilla's sword swing, drawn by the game, with its lights on it and a green
+  phantom slash behind it (user: "normal sword terraria animations ... a bit quicker use time ... add a phantom slash trail
+  for the swings as it is a visual rule for our melee weapons"); use time 30 (34). The hits follow the drawn blade. Its
+  swings now match the Volcano's DPS (62.4) instead of sitting 12% under it. The charged slam is unchanged.
+- **Jade Refractor**: a 1 second wind-up before the laser comes out (user: "jade refractor is to instant ... no steam cost
+  for the wind up"): jade motes drawn into the lens, its star growing, a rising whine, the beam's line flickering in its
+  last fifth of a second, then a flash. No hits and no steam during it; it only starts when the tank could pay a shot.
+- **The Basics** (research): unlocked by obtaining any crafting table, and the step is met for everyone in a world once
+  anyone there has one (user: "the player has to just to obtain a crafting table, and make it global"). One ore of each base
+  tier until now. Still unlocked at the research table, for free.
+- **Cog-launcher**: 4 steam a shot (7) (user: "decrease steam cost for the cog launcher by 3").
+- **Trash-Tr0m**: 5900 life in Expert (4900; Classic 2950, Master 7522) (user: "increase trashtr0m boss health"; +20%, my
+  call on the amount).
+- **Jade Coin**: every form +20% (the coin 15 -> 18: bat 18, beetle 26, golem's arm 36, loong 41) (user: "increase jade
+  coin summons damage"; the amount my call).
+
 ## 0.2.1 (2026-11-26)
 
 ### Changed

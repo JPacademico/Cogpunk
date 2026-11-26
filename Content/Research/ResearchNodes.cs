@@ -100,7 +100,9 @@ namespace Cogpunk.Content.Research
 	/// player to have collected at least one of every base pre hardmode minerals (the nuggets not the bars, hellstone/demonite
 	/// not included), and rewards with + 5% mining speed". My reading: the four tiers of ore, either of each pair (copper or
 	/// tin, iron or lead, silver or tungsten, gold or platinum: a world only has one of each); "obligatory initial": every
-	/// other node needs it first (without a line: none was asked for).</item>
+	/// other node needs it first (without a line: none was asked for). <b>0.2.2</b> (user, 2026-11-26): "the player has to just
+	/// to obtain a crafting table, and make it global": any crafting table (<see cref="ResearchItems.IsWorkBench"/>) had by the
+	/// character, or by anyone in the world (<see cref="ResearchWorld.WorkBench"/>); still unlocked at the table, for free.</item>
 	/// <item><b>Mine and Craft</b>: "requires 10 of any ore and gives the player a chance to double nugget while mining any ore
 	/// (10%)" (<see cref="ResearchGlobalTile"/>). The 10 ores are taken (any ore items, mixed). Cost: 1 knowledge point (my
 	/// call: the user gave none).</item>
@@ -192,12 +194,16 @@ namespace Cogpunk.Content.Research
 
 		public override void PostSetupContent() {
 			ResearchGlobalTile.BuildOreTable();
+			ResearchItems.BuildBenchTable();
 			all.Clear();
 			byName.Clear();
 			Add(new ResearchNode {
 				Name = TheBasics, Column = 0, Row = 0, Cost = 0, IconItem = ItemID.CopperPickaxe,
-				Condition = static p => p.GetModPlayer<ResearchPlayer>().AllOreTiers,
-				ConditionText = static p => ResearchPlayer.OreTiersText(p),
+				// 0.2.2 (user, 2026-11-26: "make so for to unlock "the basics" node, the player has to just to obtain a crafting table,
+				// and make it global"): a crafting table had by this character or by anyone in this world (a world flag, as Bundle
+				// Up!'s and Who is he?'s "global" reveals); one ore of each base tier until then
+				Condition = static p => p.GetModPlayer<ResearchPlayer>().HasWorkBench || ResearchWorld.WorkBench,
+				ConditionText = static p => ResearchPlayer.WorkBenchText(p),
 				Passive = static p => p.pickSpeed -= BasicsMiningSpeed,
 			});
 			Add(new ResearchNode {
@@ -567,13 +573,44 @@ namespace Cogpunk.Content.Research
 		public override void Unload() {
 			all.Clear();
 			byName.Clear();
+			ResearchItems.ClearBenchTable();
 		}
 	}
 
 	/// <summary>Which items are ores (any item that places a tile vanilla flags as an ore, <c>TileID.Sets.Ore</c>: vanilla's and
-	/// other mods' ores alike), and the four base pre-Hardmode tiers for <see cref="ResearchNodes.TheBasics"/>.</summary>
+	/// other mods' ores alike), the four base pre-Hardmode tiers (The Basics' old step), and which are crafting tables
+	/// (<see cref="IsWorkBench"/>: The Basics' step since 0.2.2).</summary>
 	public static class ResearchItems
 	{
+		private static bool[] bench = Array.Empty<bool>();
+
+		/// <summary>"A crafting table" (0.2.2, user 2026-11-26: "for to unlock "the basics" node, the player has to just to obtain
+		/// a crafting table"): an item that places a Work Bench (any of vanilla's styles, <c>TileID.WorkBenches</c>) or another
+		/// mod's bench (a tile that counts as one: its <c>ModTile.AdjTiles</c> holds <c>TileID.WorkBenches</c>).</summary>
+		public static bool IsWorkBench(int type) => type > 0 && type < bench.Length && bench[type];
+
+		/// <summary>Once, after every mod's content is in (<see cref="ResearchNodes.PostSetupContent"/>).</summary>
+		public static void BuildBenchTable() {
+			bool[] table = new bool[ItemLoader.ItemCount];
+			for (int type = 1; type < table.Length; type++) {
+				if (!ContentSamples.ItemsByType.TryGetValue(type, out Item sample)) {
+					continue;
+				}
+				int t = sample.createTile;
+				if (t == TileID.WorkBenches) {
+					table[type] = true;
+				}
+				else if (t >= TileID.Count && TileLoader.GetTile(t)?.AdjTiles is int[] adj && Array.IndexOf(adj, (int)TileID.WorkBenches) >= 0) {
+					table[type] = true;
+				}
+			}
+			bench = table;
+		}
+
+		public static void ClearBenchTable() {
+			bench = Array.Empty<bool>();
+		}
+
 		public static bool IsOre(Item item) {
 			if (item == null || item.IsAir) {
 				return false;

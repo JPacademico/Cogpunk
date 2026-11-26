@@ -48,7 +48,7 @@ namespace Cogpunk.Content.Research
 
 		private static readonly HashSet<string> paid = new();
 		private static bool noted;
-		private static int gemStaffsFlag = -1, stoneTouchedFlag = -1, ghedalariFlag = -1;
+		private static int gemStaffsFlag = -1, stoneTouchedFlag = -1, ghedalariFlag = -1, benchFlag = -1;
 		/// <summary>Every kind of town NPC that has lived in this world (by type; saved by name): a respawn is never "new".</summary>
 		private static bool[] townSeen = Array.Empty<bool>();
 		private static bool orbSeen;                              // the server pushed the world data for a smashed orb once
@@ -68,10 +68,16 @@ namespace Cogpunk.Content.Research
 		/// when any player in the world has the node (their unlocked nodes are synced to it); a world flag (saved, synced).</summary>
 		public static bool GhedalariInvited => WorldFlagSystem.Get(ghedalariFlag);
 
+		/// <summary>Someone in this world has had a crafting table (0.2.2, user 2026-11-26: "for to unlock "the basics" node, the
+		/// player has to just to obtain a crafting table, and make it global"): The Basics' step is met for everyone here
+		/// (<see cref="ResearchPlayer.HasWorkBench"/> for the character's own); a world flag (saved, synced).</summary>
+		public static bool WorkBench => WorldFlagSystem.Get(benchFlag);
+
 		public override void Load() {
 			gemStaffsFlag = WorldFlagSystem.Register("AllGemStaffs");
 			stoneTouchedFlag = WorldFlagSystem.Register("StoneTouched");
 			ghedalariFlag = WorldFlagSystem.Register("GhedalariInvited");
+			benchFlag = WorldFlagSystem.Register("WorkBenchObtained");
 		}
 
 		public override void PostSetupContent() {
@@ -104,6 +110,18 @@ namespace Cogpunk.Content.Research
 		}
 
 		internal static int StoneTouchedFlagIndex => stoneTouchedFlag;
+
+		internal static int WorkBenchFlagIndex => benchFlag;
+
+		/// <summary>The owner's client: its player has had a crafting table. Singleplayer sets the flag; a client asks the server
+		/// (<see cref="WorkBenchPacket"/>).</summary>
+		public static void ReportWorkBench() {
+			if (Main.netMode == NetmodeID.MultiplayerClient) {
+				ModContent.GetInstance<WorkBenchPacket>().Send();
+				return;
+			}
+			SetFlag(benchFlag);
+		}
 
 		/// <summary>The owner's client: its player has had all seven gem staffs. Singleplayer sets the flag; a client asks the
 		/// server (<see cref="GemStaffsPacket"/>).</summary>
@@ -477,6 +495,25 @@ namespace Cogpunk.Content.Research
 				return;
 			}
 			ResearchWorld.SetFlag(ResearchWorld.StoneTouchedFlagIndex);
+		}
+	}
+
+	/// <summary>A client's player has had a crafting table (client -> server; no payload; 0.2.2): the server sets
+	/// <see cref="ResearchWorld.WorkBench"/> (once; later ones are ignored). Only from an active player (D0 rule 7).</summary>
+	public sealed class WorkBenchPacket : CogpunkPacket
+	{
+		public void Send() {
+			if (Main.netMode != NetmodeID.MultiplayerClient) {
+				return;
+			}
+			Begin().Send();
+		}
+
+		public override void Receive(BinaryReader reader, int sender) {
+			if (Main.netMode != NetmodeID.Server || sender < 0 || sender >= Main.maxPlayers || !Main.player[sender].active) {
+				return;
+			}
+			ResearchWorld.SetFlag(ResearchWorld.WorkBenchFlagIndex);
 		}
 	}
 

@@ -49,8 +49,8 @@ namespace Cogpunk.Content.Research
 		private byte gemStaffs;                                  // bit k: Weapons.BundleOfWands.StaffItems[k] had at some point
 		private byte found;                                      // FoundAlchemy | FoundCooking | FoundStone (2026-11-24), saved
 		private const byte FoundAlchemy = 1, FoundCooking = 2, FoundStone = 4, FoundRobe = 8, FoundCrate = 16;
-		private byte found2;                                     // FoundPiggy | FoundReforge | FoundLizard (2026-11-26), saved
-		private const byte FoundPiggy = 1, FoundReforge = 2, FoundLizard = 4;
+		private byte found2;                                     // FoundPiggy | FoundReforge | FoundLizard (2026-11-26) | FoundBench (0.2.2), saved
+		private const byte FoundPiggy = 1, FoundReforge = 2, FoundLizard = 4, FoundBench = 8;
 		private int incomeTicks;                                 // Passive Income: ticks towards the next copper coin (owner)
 		private bool artifactFound;                              // a record of the Artifacts tab is filled (or its task earned)
 		/// <summary>Enemies this character has killed (counted on its own client, saved; 2026-11-25: Bad Luck Protection's
@@ -59,6 +59,7 @@ namespace Cogpunk.Content.Research
 		public int Kills;
 		private const int MaxKills = 1_000_000_000;              // D0: never overflows
 		private bool reportedStaffs;                             // this session: the world was told (Bundle Up!)
+		private bool reportedBench;                              // this session: the world was told (The Basics, 0.2.2)
 		private int quietTicks;                                  // a manual's own chat line covers the reveals it causes
 		private bool announceReveal;                             // a reveal was kept since the last "Knowledge expanded!"
 		private int missStacks;                                  // Trigger Finger: ranged shots missed since the last hit (owner)
@@ -73,6 +74,11 @@ namespace Cogpunk.Content.Research
 		private const int MaxDistinctKinds = 50;                // a Distinct cost can't count more kinds than the 50 slots hold
 
 		public bool AllOreTiers => (oreTiers & 0xF) == 0xF;
+
+		/// <summary>Has had a crafting table (any Work Bench, <see cref="ResearchItems.IsWorkBench"/>) in the inventory or on the
+		/// cursor: The Basics' step since 0.2.2 (user, 2026-11-26: "the player has to just to obtain a crafting table, and make it
+		/// global": the world is told too, <see cref="ResearchWorld.WorkBench"/>); saved.</summary>
+		public bool HasWorkBench => (found2 & FoundBench) != 0;
 		public bool ReachedBothEdges => (edges & 3) == 3;
 		/// <summary>Has had every pre-Hardmode gem staff (at some point: <see cref="Weapons.BundleOfWands.StaffItems"/>).</summary>
 		public bool AllGemStaffs => (gemStaffs & 0x7F) == 0x7F;
@@ -604,6 +610,13 @@ namespace Cogpunk.Content.Research
 				reportedStaffs = true;                               // once a session: the server sets it for the world
 				ResearchWorld.ReportAllGemStaffs();
 			}
+			if (!HasWorkBench && Main.mouseItem != null && !Main.mouseItem.IsAir) {
+				Collected(Main.mouseItem.type);                      // a bench just crafted waits on the cursor
+			}
+			if (HasWorkBench && !reportedBench && !ResearchWorld.WorkBench) {
+				reportedBench = true;                                // once a session: the server sets it for the world (0.2.2)
+				ResearchWorld.ReportWorkBench();
+			}
 			if (Player.ZoneMarble) {
 				Grant(KnowledgeTasks.Marble);
 			}
@@ -694,9 +707,14 @@ namespace Cogpunk.Content.Research
 			}
 		}
 
-		/// <summary>A base ore tier collected (<see cref="ResearchNodes.TheBasics"/>), a gem staff had (Bundle Up!), or a Diamond
-		/// (user, 2026-11-25: "after geting a diamond for the first time").</summary>
+		/// <summary>A crafting table had (<see cref="ResearchNodes.TheBasics"/>, 0.2.2), a base ore tier collected (its step until
+		/// then, kept in saves), a gem staff had (Bundle Up!), or a Diamond (user, 2026-11-25: "after geting a diamond for the
+		/// first time").</summary>
 		private void Collected(int type) {
+			if ((found2 & FoundBench) == 0 && ResearchItems.IsWorkBench(type)) {
+				found2 |= FoundBench;                                // The Basics' step (0.2.2)
+				MarkDirty();
+			}
 			if (type == ItemID.Diamond) {
 				Grant(KnowledgeTasks.Diamond);                   // once per character (Grant keeps the task)
 			}
@@ -876,6 +894,7 @@ namespace Cogpunk.Content.Research
 			}
 			missStacks = 0;
 			reportedStaffs = false;                              // a new world: tell it too
+			reportedBench = false;
 			CheckReveals();                                      // keep whatever this world reveals at once
 			if (gotBook) {
 				return;
@@ -992,6 +1011,12 @@ namespace Cogpunk.Content.Research
 			ResearchPlayer r = p.GetModPlayer<ResearchPlayer>();
 			return Language.GetTextValue("Mods.Cogpunk.Research.Conditions.OreTiers", Mark((r.oreTiers & 1) != 0), Mark((r.oreTiers & 2) != 0),
 				Mark((r.oreTiers & 4) != 0), Mark((r.oreTiers & 8) != 0));
+		}
+
+		/// <summary>The Basics' step (0.2.2): a crafting table, yours or anyone's in this world.</summary>
+		public static string WorkBenchText(Player p) {
+			bool done = p.GetModPlayer<ResearchPlayer>().HasWorkBench || ResearchWorld.WorkBench;
+			return Language.GetTextValue("Mods.Cogpunk.Research.Conditions.WorkBench", Mark(done));
 		}
 
 		public static string EdgesText(Player p) {

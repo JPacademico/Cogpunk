@@ -19,7 +19,10 @@ namespace Cogpunk.Content.Research.Weapons
 	/// <see cref="JadeRefractorBeam.HitInterval"/> ticks it cuts the first <see cref="DiamondCutterBeam.MaxTargets"/> enemies along
 	/// it, ignoring <see cref="DiamondCutterBeam.ArmorIgnore"/> of their defense (the cutter's, kept: "a direct upgrade"), lays
 	/// the jade curse (on an enemy's first hit and every <see cref="JadeRefractorBeam.CurseEvery"/>rd after) and deals x<see cref="PetrifiedBonus"/>
-	/// to an enemy turned to jade. Each use (<see cref="UseTime"/> ticks, repeated while held) costs <see cref="Cost"/> steam.
+	/// to an enemy turned to jade. Each use (<see cref="UseTime"/> ticks, repeated while held) costs <see cref="Cost"/> steam, but
+	/// the beam first winds up for <see cref="JadeRefractorBeam.WindUpTicks"/> ticks (0.2.2, user 2026-11-26: "jade refractor is to
+	/// instant, add a 1 second wind up animation before the laser comes out (no steam cost for the wind up)"), and its uses
+	/// cost nothing (<see cref="SteamCostFor"/>).
 	/// <para>Recipe (the amounts my calls): the Diamond Cutter, <see cref="JadeCost"/> Jade and <see cref="GlassCost"/> Glass at
 	/// an anvil, locked until the node is researched (<see cref="ResearchRecipes"/>). Balance (D3; docs/balance/weapons.csv):
 	/// T4 (after Jadey, whose manual teaches it). A far-range Mechanist weapon (user, 2026-11-24: "mechanist weapons should be
@@ -52,6 +55,19 @@ namespace Cogpunk.Content.Research.Weapons
 		}
 
 		public override int SteamCost => Cost;
+
+		/// <summary>The wind-up is free (user, 2026-11-26, 0.2.2: "add a 1 second wind up animation before the laser comes out (no
+		/// steam cost for the wind up)"): the uses before the beam is out cost nothing (<see cref="JadeRefractorBeam.WindingUp"/>).</summary>
+		public override int SteamCostFor(Player player) => JadeRefractorBeam.WindingUp(player) ? 0 : Cost;
+
+		/// <summary>The owner: a wind-up only starts (or goes on) when the tank could pay the shots after it: no tank, the hint;
+		/// too little steam, the overheat (as before the wind-up, when the first use paid).</summary>
+		protected override bool CanUseMechanist(Player player) {
+			if (player.whoAmI != Main.myPlayer || !JadeRefractorBeam.WindingUp(player)) {
+				return true;
+			}
+			return player.GetModPlayer<SteamPlayer>().CanPayAttack(ApplyPrefix(Cost, PrefixSteamMultiplier));
+		}
 
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(DiamondCutterBeam.MaxTargets,
 			(int)System.Math.Round(DiamondCutterBeam.ArmorIgnore * 100f), (int)System.Math.Round((PetrifiedBonus - 1f) * 100f));

@@ -476,7 +476,12 @@ Items: {
 
 	MetalWrench: {
 		DisplayName: Metal Wrench
-		Tooltip: "{0}% more damage to mechanical enemies\nSlams down towards the cursor\n'Every problem looks like a loose bolt'"
+		Tooltip:
+			'''
+			{0}% more damage to mechanical enemies
+			Slams down towards the cursor
+			'Every problem looks like a loose bolt'
+			'''
 	}
 
 	Tarmancer: {
@@ -1179,6 +1184,7 @@ Items: {
 		Tooltip:
 			'''
 			Hold to keep a thin jade laser on the cursor that cuts the first {0} enemies it meets
+			Charges for a second before the laser comes out; the charge costs no steam
 			Ignores {1}% of enemy defense and lays the jade curse
 			Deals {2}% more damage to enemies turned to jade
 			'''
@@ -2018,6 +2024,7 @@ Research: {
 
 	Conditions: {
 		OreTiers: Base ores collected: copper or tin ({0}), iron or lead ({1}), silver or tungsten ({2}), gold or platinum ({3})
+		WorkBench: A crafting table obtained, by you or anyone in this world ({0})
 		Edges: World edges reached: the ocean ({0}), the Junkyard ({1})
 	}
 
@@ -2265,21 +2272,25 @@ Research: {
 				The Last Ghedalari can move into your world
 				'''
 		}
+
 		PassiveIncome: {
-			DisplayName: "Passive Income"
-			Description: "Your piggy bank makes a copper coin every second"
+			DisplayName: Passive Income
+			Description: Your piggy bank makes a copper coin every second
 		}
+
 		Twinkling: {
-			DisplayName: "Twinkling"
-			Description: "Crystal lizards grow rarer gems on their backs and drop more gold"
+			DisplayName: Twinkling
+			Description: Crystal lizards grow rarer gems on their backs and drop more gold
 		}
+
 		YouBrokeIt: {
-			DisplayName: "You Broke It!"
-			Description: "Reforging an item with a negative modifier costs 40% less"
+			DisplayName: You Broke It!
+			Description: Reforging an item with a negative modifier costs 40% less
 		}
+
 		BuildTerraria2: {
-			DisplayName: "Build Terraria 2, make no mistakes."
-			Description: "Negative modifiers come up less often when you reforge"
+			DisplayName: Build Terraria 2, make no mistakes.
+			Description: Negative modifiers come up less often when you reforge
 		}
 	}
 
@@ -2305,13 +2316,13 @@ Research: {
 		Event: First clear of {0} in this world
 		GlowingMushroom: Found a glowing mushroom field
 		DemonAltar: The world's first demon altar smashed
-		EvilHeart: "The world's first Shadow Orb or Crimson Heart smashed"
-		Diamond: "Found a diamond"
-		NewTownNPC: "A new kind of townsfolk moved in"
-		NewTownNPCWho: "A new kind of townsfolk moved in: {0}"
-		PlayerKill: "Defeated another player"
-		PiggyBank: "Saved coins in a piggy bank"
-		Artifact: "Found an artifact: {0}"
+		EvilHeart: The world's first Shadow Orb or Crimson Heart smashed
+		Diamond: Found a diamond
+		NewTownNPC: A new kind of townsfolk moved in
+		NewTownNPCWho: A new kind of townsfolk moved in: {0}
+		PlayerKill: Defeated another player
+		PiggyBank: Saved coins in a piggy bank
+		Artifact: Found an artifact: {0}
 	}
 
 	Events: {
@@ -2338,20 +2349,20 @@ Research: {
 	}
 
 	Hints: {
-		AlchemyTable: "A secret yet to be revealed: an alchemist's table holds the key"
-		CookingPot: "A secret yet to be revealed: a cooking pot holds the key"
-		Combinator: "A secret yet to be revealed: fuse a weapon at the Combinator"
-		Stone: "A secret yet to be revealed: read the Fundamental Stone that bears this sigil"
-		GemRobe: "A secret yet to be revealed: own a gem robe"
-		EvilHeart: "A secret yet to be revealed: a Shadow Orb or a Crimson Heart must break somewhere in this world"
-		Kills: "A secret yet to be revealed: defeat 300 enemies"
-		KillsProgress: "Enemies defeated: {0} / {1}"
-		Crate: "A secret yet to be revealed: fish up a crate"
-		WhoIsHe: "A secret yet to be revealed: someone must touch a Fundamental Stone"
-		PiggyBank: "A secret yet to be revealed: open a piggy bank"
-		CrystalLizard: "A secret yet to be revealed: catch a crystal lizard before it digs away"
-		Reforge: "A secret yet to be revealed: reforge an item"
-		Artifact: "An artifact not yet found: every world hides one of each"
+		AlchemyTable: A secret yet to be revealed: an alchemist's table holds the key
+		CookingPot: A secret yet to be revealed: a cooking pot holds the key
+		Combinator: A secret yet to be revealed: fuse a weapon at the Combinator
+		Stone: A secret yet to be revealed: read the Fundamental Stone that bears this sigil
+		GemRobe: A secret yet to be revealed: own a gem robe
+		EvilHeart: A secret yet to be revealed: a Shadow Orb or a Crimson Heart must break somewhere in this world
+		Kills: A secret yet to be revealed: defeat 300 enemies
+		KillsProgress: Enemies defeated: {0} / {1}
+		Crate: A secret yet to be revealed: fish up a crate
+		WhoIsHe: A secret yet to be revealed: someone must touch a Fundamental Stone
+		PiggyBank: A secret yet to be revealed: open a piggy bank
+		CrystalLizard: A secret yet to be revealed: catch a crystal lizard before it digs away
+		Reforge: A secret yet to be revealed: reforge an item
+		Artifact: An artifact not yet found: every world hides one of each
 	}
 
 	DoubleBrew: Double brew!
@@ -2362,16 +2373,14 @@ Research: {
 }
 
 Artifacts: {
-	Tag: "Artifact: one per world"
-	OneAccessory: "Only one artifact accessory can be worn at a time"
-	Found: "Found"
-	Lore: {
-		ArtifactJadeCursedGlaives:
-			'''
-			Twin blades of a jade-shaper, cursed by the stone they shaped.
-			They surface only from those already turned to jade.
-			'''
-	}
+	Tag: Artifact: one per world
+	OneAccessory: Only one artifact accessory can be worn at a time
+	Found: Found
+	Lore.ArtifactJadeCursedGlaives:
+		'''
+		Twin blades of a jade-shaper, cursed by the stone they shaped.
+		They surface only from those already turned to jade.
+		'''
 }
 
 Banners: {

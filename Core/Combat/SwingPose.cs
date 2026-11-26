@@ -67,6 +67,20 @@ namespace Cogpunk.Core.Combat
 			return d;
 		}
 
+		/// <summary>The blade's unit direction in the world for a swung sprite (pointing to its top right) drawn as vanilla draws
+		/// a held swing at <paramref name="itemRotation"/> (decompiled <c>DrawPlayer_27_HeldItem</c>: about its bottom-left
+		/// corner, bottom-right and flipped facing left, top corner and flipped vertically under reversed gravity): along
+		/// <c>itemRotation - pi/4</c> facing right, <c>itemRotation - 3pi/4</c> facing left, the base angle mirrored under
+		/// reversed gravity. For vanilla's own swing (useStyle Swing), whose sprite is held by that corner at <c>itemLocation</c>.</summary>
+		public static Vector2 HeldBladeDirection(Player player, float itemRotation) {
+			float baseAngle = player.direction == -1 ? -3f * MathHelper.PiOver4 : -MathHelper.PiOver4;
+			if (player.gravDir == -1f) {
+				baseAngle = -baseAngle;
+			}
+			float a = baseAngle + itemRotation;
+			return new Vector2(MathF.Cos(a), MathF.Sin(a));
+		}
+
 		/// <summary>The point <paramref name="along"/> px out along the blade and <paramref name="below"/> px to its lower
 		/// side (the clockwise side facing right: the side vanilla's swing sprites hang their edge on).</summary>
 		public static Vector2 BladePoint(Player player, Vector2 hand, float facing, float along, float below) {

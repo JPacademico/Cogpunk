@@ -33,8 +33,9 @@ namespace Cogpunk.Content.Research.Summons
 	public class JadeCoin : CogpunkItem
 	{
 		/// <summary>The bat's bite (user, 2026-11-26: "jade coin base bat summon should be stronger as 10 damage is too low": 10
-		/// until then, now 15); the other forms keep their hits through <see cref="JadeSpirit.FormDamage"/>.</summary>
-		public const int Damage = 15, UseTime = 36, ManaCost = 10;
+		/// until then, then 15; 0.2.2, the same day: "increase jade coin summons damage", 18, +20% on every form, my call on the
+		/// amount); the other forms scale with it through <see cref="JadeSpirit.FormDamage"/> (18, 26, 36, 41).</summary>
+		public const int Damage = 18, UseTime = 36, ManaCost = 10;
 
 		public override void SetStaticDefaults() {
 			ItemID.Sets.GamepadWholeScreenUseRange[Type] = true;

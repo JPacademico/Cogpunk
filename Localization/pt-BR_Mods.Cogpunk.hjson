@@ -476,7 +476,12 @@ Items: {
 
 	MetalWrench: {
 		DisplayName: Chave Inglesa de Metal
-		Tooltip: "{0}% a mais de dano contra inimigos mecânicos\nGolpeia o chão na direção do cursor\n'Todo problema parece um parafuso solto'"
+		Tooltip:
+			'''
+			{0}% a mais de dano contra inimigos mecânicos
+			Golpeia o chão na direção do cursor
+			'Todo problema parece um parafuso solto'
+			'''
 	}
 
 	Tarmancer: {
@@ -1179,6 +1184,7 @@ Items: {
 		Tooltip:
 			'''
 			Segure para manter um fino laser de jade no cursor que corta os primeiros {0} inimigos que encontra
+			Carrega por um segundo antes de o laser sair; a carga não gasta vapor
 			Ignora {1}% da defesa inimiga e lança a maldição de jade
 			Causa {2}% a mais de dano a inimigos transformados em jade
 			'''
@@ -2018,6 +2024,7 @@ Research: {
 
 	Conditions: {
 		OreTiers: Minérios básicos coletados: cobre ou estanho ({0}), ferro ou chumbo ({1}), prata ou tungstênio ({2}), ouro ou platina ({3})
+		WorkBench: Uma bancada de trabalho obtida, por você ou por qualquer um neste mundo ({0})
 		Edges: Bordas do mundo alcançadas: o oceano ({0}), o Ferro-Velho ({1})
 	}
 
@@ -2265,21 +2272,25 @@ Research: {
 				O Último Ghedalari pode se mudar para o seu mundo
 				'''
 		}
+
 		PassiveIncome: {
-			DisplayName: "Renda Passiva"
-			Description: "Seu cofrinho cria uma moeda de cobre a cada segundo"
+			DisplayName: Renda Passiva
+			Description: Seu cofrinho cria uma moeda de cobre a cada segundo
 		}
+
 		Twinkling: {
-			DisplayName: "Cintilante"
-			Description: "Lagartos de cristal crescem gemas mais raras nas costas e soltam mais ouro"
+			DisplayName: Cintilante
+			Description: Lagartos de cristal crescem gemas mais raras nas costas e soltam mais ouro
 		}
+
 		YouBrokeIt: {
-			DisplayName: "Você Quebrou!"
-			Description: "Reforjar um item com modificador negativo custa 40% menos"
+			DisplayName: Você Quebrou!
+			Description: Reforjar um item com modificador negativo custa 40% menos
 		}
+
 		BuildTerraria2: {
-			DisplayName: "Faça o Terraria 2, sem erros."
-			Description: "Modificadores negativos aparecem com menos frequência ao reforjar"
+			DisplayName: Faça o Terraria 2, sem erros.
+			Description: Modificadores negativos aparecem com menos frequência ao reforjar
 		}
 	}
 
@@ -2305,13 +2316,13 @@ Research: {
 		Event: Primeira vitória sobre {0} neste mundo
 		GlowingMushroom: Encontrou um campo de cogumelos brilhantes
 		DemonAltar: O primeiro altar demoníaco do mundo destruído
-		EvilHeart: "O primeiro Orbe das Sombras ou Coração Carmesim do mundo destruído"
-		Diamond: "Encontrou um diamante"
-		NewTownNPC: "Um novo tipo de morador se mudou"
-		NewTownNPCWho: "Um novo tipo de morador se mudou: {0}"
-		PlayerKill: "Derrotou outro jogador"
-		PiggyBank: "Guardou moedas num cofrinho"
-		Artifact: "Encontrou um artefato: {0}"
+		EvilHeart: O primeiro Orbe das Sombras ou Coração Carmesim do mundo destruído
+		Diamond: Encontrou um diamante
+		NewTownNPC: Um novo tipo de morador se mudou
+		NewTownNPCWho: Um novo tipo de morador se mudou: {0}
+		PlayerKill: Derrotou outro jogador
+		PiggyBank: Guardou moedas num cofrinho
+		Artifact: Encontrou um artefato: {0}
 	}
 
 	Events: {
@@ -2338,20 +2349,20 @@ Research: {
 	}
 
 	Hints: {
-		AlchemyTable: "Um segredo ainda por revelar: uma mesa de alquimista guarda a chave"
-		CookingPot: "Um segredo ainda por revelar: uma panela de cozinhar guarda a chave"
-		Combinator: "Um segredo ainda por revelar: funda uma arma no Combinador"
-		Stone: "Um segredo ainda por revelar: leia a Pedra Fundamental que traz este sigilo"
-		GemRobe: "Um segredo ainda por revelar: tenha um manto de gema"
-		EvilHeart: "Um segredo ainda por revelar: um Orbe das Sombras ou um Coração Carmesim precisa quebrar em algum lugar deste mundo"
-		Kills: "Um segredo ainda por revelar: derrote 300 inimigos"
-		KillsProgress: "Inimigos derrotados: {0} / {1}"
-		Crate: "Um segredo ainda por revelar: pesque uma caixa"
-		WhoIsHe: "Um segredo ainda por revelar: alguém precisa tocar uma Pedra Fundamental"
-		PiggyBank: "Um segredo ainda por revelar: abra um cofrinho"
-		CrystalLizard: "Um segredo ainda por revelar: pegue um lagarto de cristal antes que ele cave para longe"
-		Reforge: "Um segredo ainda por revelar: reforje um item"
-		Artifact: "Um artefato ainda não encontrado: cada mundo esconde um de cada"
+		AlchemyTable: Um segredo ainda por revelar: uma mesa de alquimista guarda a chave
+		CookingPot: Um segredo ainda por revelar: uma panela de cozinhar guarda a chave
+		Combinator: Um segredo ainda por revelar: funda uma arma no Combinador
+		Stone: Um segredo ainda por revelar: leia a Pedra Fundamental que traz este sigilo
+		GemRobe: Um segredo ainda por revelar: tenha um manto de gema
+		EvilHeart: Um segredo ainda por revelar: um Orbe das Sombras ou um Coração Carmesim precisa quebrar em algum lugar deste mundo
+		Kills: Um segredo ainda por revelar: derrote 300 inimigos
+		KillsProgress: Inimigos derrotados: {0} / {1}
+		Crate: Um segredo ainda por revelar: pesque uma caixa
+		WhoIsHe: Um segredo ainda por revelar: alguém precisa tocar uma Pedra Fundamental
+		PiggyBank: Um segredo ainda por revelar: abra um cofrinho
+		CrystalLizard: Um segredo ainda por revelar: pegue um lagarto de cristal antes que ele cave para longe
+		Reforge: Um segredo ainda por revelar: reforje um item
+		Artifact: Um artefato ainda não encontrado: cada mundo esconde um de cada
 	}
 
 	DoubleBrew: Poção em dobro!
@@ -2362,16 +2373,14 @@ Research: {
 }
 
 Artifacts: {
-	Tag: "Artefato: um por mundo"
-	OneAccessory: "Só um acessório artefato pode ser usado por vez"
-	Found: "Encontrado"
-	Lore: {
-		ArtifactJadeCursedGlaives:
-			'''
-			Lâminas gêmeas de um moldador de jade, amaldiçoadas pela pedra que moldaram.
-			Só surgem daqueles que já viraram jade.
-			'''
-	}
+	Tag: Artefato: um por mundo
+	OneAccessory: Só um acessório artefato pode ser usado por vez
+	Found: Encontrado
+	Lore.ArtifactJadeCursedGlaives:
+		'''
+		Lâminas gêmeas de um moldador de jade, amaldiçoadas pela pedra que moldaram.
+		Só surgem daqueles que já viraram jade.
+		'''
 }
 
 Banners: {

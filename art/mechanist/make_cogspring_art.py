@@ -19,6 +19,8 @@ Outputs (Content/Mechanist/Weapons/):
     CogspringSword.png        the sword, 80x80: the item and the sprite drawn in the hand
     CogspringSword_Glow.png   its lights alone (the core, the hilt's lamps, the edge line), drawn full-bright in game,
                               brighter as the charge builds
+    CogspringTrail.png        the phantom slash (0.2.2): TRAIL_FRAMES green crescents, each TRAIL_STEP degrees longer,
+                              pivoting on the sprite's bottom-left corner (where vanilla holds a swung item), drawn added
 Constants the game uses (CogspringSword.cs): the grip (GRIP_S on the axis: the swing's pivot), the blade's span.
 """
 import argparse
@@ -32,7 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "oldbrasstown"))
 sys.path.insert(0, os.path.join(HERE, "..", "bosses", "trashtr0m"))
 from westbots import RAMP  # noqa: E402
-from make_trashtr0m_art import export, to_image  # noqa: E402
+from make_trashtr0m_art import export, to_image, vertical  # noqa: E402
 
 OUT = "Content/Mechanist/Weapons/"
 SIZE = 40                          # the frame (1x)
@@ -194,12 +196,71 @@ def sword():
     return px, glow
 
 
+# --- the phantom slash (0.2.2, user 2026-11-26: "add a phantom slash trail for the swings as it is a visual rule for our
+# melee weapons"): the Firesaw's crescents (make_firesaw_art.py), pivoting where vanilla holds a swung sprite, its bottom-left
+# corner on the blade's axis (the swing is vanilla's since 0.2.2), in the core's green light. Distances along the axis from
+# the corner: (s + 40) / sqrt(2) at 1x, so the core's middle (s -9) is 21.9 and the tip (s 35) 53.0.
+TRAIL_FRAMES = 8
+TRAIL_STEP = 12                   # degrees: frame k spans (k + 1) * TRAIL_STEP (CogspringTrailLayer.TrailStep)
+TRAIL_PAD = 2
+TRAIL_IN = 22.0                   # 1x: from the core out
+TRAIL_OUT = 53.5                  # 1x: the tip's track
+PHANTOM = [GH[1], GH[2], GH[3], GH[4], GH[5]]        # dark to bright: the core's green light
+
+
+def trail_geometry():
+    """(width, height, pivot x, pivot y) of a crescent frame, in 1x pixels: the longest tail reaches back past the pivot."""
+    span = math.radians(TRAIL_FRAMES * TRAIL_STEP)
+    left = int(math.ceil(max(0.0, -TRAIL_OUT * math.cos(span)))) + TRAIL_PAD
+    w = left + int(math.ceil(TRAIL_OUT)) + TRAIL_PAD
+    top = int(math.ceil(TRAIL_OUT)) + TRAIL_PAD
+    h = top + TRAIL_PAD
+    return w, h, left, top
+
+
+def crescent(k):
+    """Frame k: the crescent spanning (k + 1) * TRAIL_STEP degrees behind a blade lying along +x from the pivot (a clockwise
+    sweep on screen leaves it counter-clockwise behind the blade). Bright at the blade and towards the tip (the tip moves
+    fastest), thinning from the inside and fading along the tail; every pixel a ramp colour (drawn added in game)."""
+    w, h, px0, py0 = trail_geometry()
+    span = math.radians((k + 1) * TRAIL_STEP)
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    p = img.load()
+    for y in range(h):
+        for x in range(w):
+            dx, dy = x + 0.5 - px0, y + 0.5 - py0
+            r = math.hypot(dx, dy)
+            ang = math.atan2(-dy, dx)                    # counter-clockwise from the blade (screen y is down)
+            if ang < -0.02 or ang > span or r > TRAIL_OUT:
+                continue
+            u = max(0.0, ang) / span                     # 0 at the blade, 1 at the tail's end
+            inner = TRAIL_IN + (TRAIL_OUT - TRAIL_IN) * 0.8 * u ** 0.9
+            if r < inner:
+                continue
+            depth = (r - TRAIL_IN) / max(1.0, TRAIL_OUT - TRAIL_IN)
+            level = (1.0 - u) ** 1.1 * (0.15 + 0.85 * depth ** 1.6)
+            if r > TRAIL_OUT - 1.3 and u < 0.55:         # the rim the tip draws: a bright line, fading along the tail
+                level = max(level, 1.0 - u * 0.9)
+            if ang * r < 1.2 and u < 0.2:                # the blade's own edge
+                level = max(level, 0.8 * depth + 0.2)
+            n = len(PHANTOM)
+            idx = int(level * n + 0.15)
+            if idx <= 0:
+                continue
+            p[x, y] = PHANTOM[min(n, idx) - 1] + (255,)
+    return img
+
+
 def export_all():
     px, glow = sword()
     img = to_image(px, 0, 0, SIZE, SIZE)
     gl = to_image(glow, 0, 0, SIZE, SIZE)
     export(img, OUT + "CogspringSword.png")
     export(gl, OUT + "CogspringSword_Glow.png")
+    export(vertical([crescent(k) for k in range(TRAIL_FRAMES)]), OUT + "CogspringTrail.png")
+    w, h, tx, ty = trail_geometry()
+    print("trail: frame %dx%d 1x = TrailW %d, TrailH %d (game px); pivot (%d, %d) 1x = TrailPivotX %d, TrailPivotY %d"
+          % (w, h, 2 * w, 2 * h, tx, ty, 2 * tx, 2 * ty))
     gx, gy = (AXIS + GRIP_S) / 2.0, (AXIS - GRIP_S) / 2.0
     tip = max(((x, y) for (x, y) in px), key=lambda q: q[0] - q[1])
     reach = math.hypot(tip[0] - gx, tip[1] - gy) * 2

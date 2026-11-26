@@ -26,7 +26,8 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 	/// redrawn in Cogpunk's jade, gilt and steel).
 	/// <list type="bullet">
 	/// <item>Left click: a diagonal slash (<see cref="JadeGlaiveSlash"/>) aimed at the cursor (2026-11-26: the whole X turns towards
-	/// it, up or down, on the cursor's side), the glaives taking turns, one down-and-across (""),
+	/// it, up or down, on the cursor's side; 0.2.2: it follows the cursor through the whole swing, either side, and turns the
+	/// wielder to face it), the glaives taking turns, one down-and-across (""),
 	/// the other up-and-across ("/"), so two slashes cross in an X in front of the wielder; a jade wave runs ahead of the blade to
 	/// 3 tiles past the Blade of Grass's reach (the hits reach as far); each hit adds a jade curse stack
 	/// (<see cref="Gems.JadeCurseNPC.Hit"/>; three turn a basic enemy to jade) and deals x<see cref="PetrifiedBonus"/> to an enemy
@@ -117,6 +118,7 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
 			if (player.altFunctionUse == 2) {
 				Vector2 aim = velocity.SafeNormalize(new Vector2(player.direction, 0f));
+				player.ChangeDir(aim.X < 0f ? -1 : 1);             // thrown from the side it flies to (the owner; synced with the player)
 				if (SafeSpawn.TryNewProjectile(source, player.MountedCenter, aim * JadeGlaiveThrown.ThrowSpeed, ModContent.ProjectileType<JadeGlaiveThrown>(),
 						damage, knockback, out _, player.whoAmI)) {
 					player.GetModPlayer<SteamPlayer>().Spend(ThrowSteamCost);   // CanUseItem checked it (Shoot runs on the owner)

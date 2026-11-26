@@ -53,10 +53,10 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 	/// the <see cref="LostKey"/> that opens the cache, which stays shut (no longer wakes it) from then on. Loot:
 	/// <see cref="TrashTr0mLoot"/>.</para>
 	/// <para>Stats (user-set 2026-10-26, docs/balance/bosses.csv), <b>Expert</b> values like every Cogpunk number
-	/// (user directive 2026-10-27, <see cref="ExpertStats"/>): 4900 life (user-set 5000 until the user's 2026-11-18 band, 10-35% over its
-	/// tier's vanilla boss: the Eye of Cthulhu + 35%), +35% of that per extra player; contact 50, slam
-	/// 120, spat scrap 50, scrap ball 100, cog 25. Classic gets half, Master 1.5x (life: 6248, vanilla's 0.85 boss
-	/// adjustment). A spat player falls far enough for up to 200 fall damage (absolute, every mode).</para>
+	/// (user directive 2026-10-27, <see cref="ExpertStats"/>): 5900 life (0.2.2, user 2026-11-26: "increase trashtr0m boss
+	/// health", +20%, my call on the amount; 4900 from the user's 2026-11-18 band, 10-35% over its tier's vanilla boss, and
+	/// user-set 5000 before that), +35% of that per extra player; contact 50, slam 120, spat scrap 50, scrap ball 100, cog 25.
+	/// Classic gets half, Master 1.5x (life: 7522, vanilla's 0.85 boss adjustment). A spat player falls far enough for up to 200 fall damage (absolute, every mode).</para>
 	/// <para>Hitboxes (TrashTr0m.Hitboxes.cs): contact damage and hits use silhouette strips measured from the sprites,
 	/// not the whole NPC rectangle.</para>
 	/// <para>D2: <see cref="StateMachineNPC"/> keeps state and timer in <c>ai[0]</c>/<c>ai[1]</c>; <c>ai[2]</c> is the
@@ -87,9 +87,10 @@ namespace Cogpunk.Content.Bosses.TrashTr0m
 		}
 
 		// --- stats (docs/balance/bosses.csv): Expert values (ExpertStats: Classic half, Master 1.5x) ---------------------
-		// single player; Classic 2450, Master 6248 (x1.5 x vanilla's 0.85). 2026-11-18 (user: every boss 10-35% over its tier's vanilla boss, by difficulty):
-		// the Eye of Cthulhu's 3640 + 35% (it was 5000, +37%; my call: the first boss but a dense one, kept at the band's top)
-		public const int ExpertLife = 4900;
+		// single player; Classic 2950, Master 7522 (x1.5 x vanilla's 0.85). 0.2.2 (user, 2026-11-26: "increase trashtr0m boss
+		// health"): 4900 -> 5900, +20% (my call on the amount), the Eye of Cthulhu's 3640 + 62%: past the 2026-11-18 band
+		// (10-35% over the tier's vanilla boss, where it sat at the top with 4900) by the user's newer word
+		public const int ExpertLife = 5900;
 		public const float LifePerExtraPlayer = 0.35f;     // +35% of the mode's base life per additional player
 		public const int BaseDefense = 12;
 		public const int ExpertContactDamage = 50;         // Classic 25, Master 75

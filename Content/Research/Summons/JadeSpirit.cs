@@ -57,9 +57,10 @@ namespace Cogpunk.Content.Research.Summons
 		public enum Form { None = 0, Bat = 1, Beetle = 2, Golem = 3, Loong = 4 }
 
 		public const int StagesPerSpirit = 4, MaxSpirits = 10;
-		/// <summary>Per form (index = <see cref="Form"/>): hit damage over the coin's (15: 15, 22, 30, 34) and the ticks between
-		/// hits on one enemy. The eff DPS a slot: 23.4 (bat, 2026-11-26: the user's buff; 15.6 before), 15.3 (beetle), 15.6 (the
-		/// arm), 15.6 (the loong): the Imp Staff's 15.6, each form still more in all than the one before.</summary>
+		/// <summary>Per form (index = <see cref="Form"/>): hit damage over the coin's (18: 18, 26, 36, 41; 15, 22, 30, 34 until
+		/// 0.2.2's +20%, user 2026-11-26: "increase jade coin summons damage") and the ticks between hits on one enemy. The eff DPS
+		/// a slot: 28.1 (bat), 18.0 (beetle), 18.7 (the arm), 18.8 (the loong): 15-20% over the Imp Staff's 15.6 for the forms
+		/// that share their slots, each form still more in all than the one before.</summary>
 		public static readonly float[] FormDamage = { 0f, 1f, 22f / 15f, 30f / 15f, 34f / 15f };
 		public static readonly int[] FormCooldown = { 20, 40, 45, 40, 34 };
 		public static readonly int[] FormWidth = { 24, 28, 52, 32, 28 }, FormHeight = { 24, 24, 32, 32, 28 };   // the arm: its shoulder

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,18 +40,31 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 	/// (<see cref="PackAim"/>), and the arm, the blade's hits and the drawn frame all turn by the tilt about the hand. Turning the
 	/// frame is the one runtime rotation of a pre-rendered sprite here, asked for by the user (vanilla turns every swung
 	/// weapon the same way).</para>
-	/// <para>D2: the owner's projectile; its kind, length (<c>ai[1]</c>: the use's <c>itemAnimationMax</c>) and aim are synced, its
-	/// age counts on every side, and it follows its owner's synced position. D0: it dies with its owner, its use, or its
-	/// length; every table read is clamped. D1: no allocation; textures cached on clients.</para>
+	/// <para><b>Tracks the cursor through the swing</b> (user, 2026-11-26, 0.2.2: "the jade cursed glaive attacks are still not
+	/// full dinamic tracking the player cursor (for example its never properly attacking for the left)"): the aim was taken once,
+	/// as the slash was spawned, and the wielder kept facing wherever it last walked, so a slash to its back swung out of the
+	/// wrong shoulder with the X drawn behind the body. Now the owner turns the slash towards the cursor every tick
+	/// (<see cref="AimFollow"/> of the way to its tilt, the side at once) and every side turns the wielder to the slash's side
+	/// (<c>ChangeDir</c>, from the synced aim), as vanilla's held projectiles do.</para>
+	/// <para>D2: the owner's projectile; its kind, length (<c>ai[1]</c>: the use's <c>itemAnimationMax</c>) and aim (<c>ai[2]</c>,
+	/// sent at once when it changes side, else at most every <see cref="AimSyncTicks"/> ticks when it turned more than
+	/// <see cref="AimSyncTilt"/>) are synced, its age counts on every side, and it follows its owner's synced position. D0: it
+	/// dies with its owner, its use, or its length; every table read is clamped; a non-finite cursor is ignored. D1: no
+	/// allocation; textures cached on clients.</para>
 	/// </summary>
 	public class JadeGlaiveSlash : CogpunkProjectile
 	{
 		public const float BladeRadius = 10f;
+		public const float AimFollow = 0.5f;               // of the way to the cursor's tilt a tick (2026-11-26, 0.2.2)
+		public const int AimSyncTicks = 3;
+		public const float AimSyncTilt = 0.04f;            // radians
 		private static Asset<Texture2D> trail;
 
 		private int Kind => Projectile.ai[0] >= 0.5f ? 1 : 0;
 		private float Length => Math.Max(1f, Projectile.ai[1]);
 		private ref float Age => ref Projectile.localAI[0];
+		private ref float SinceSync => ref Projectile.localAI[1];
+		private float sentAim;                             // the owner: the aim last sent to the others
 
 		public override void SetStaticDefaults() {
 			if (!Main.dedServ && ModContent.HasAsset(Texture + "_Trail")) {
@@ -122,6 +136,33 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 
 		private int Frame => Kind * R.FramesPerSlash + Math.Clamp((int)(Progress * R.FramesPerSlash), 0, R.FramesPerSlash - 1);
 
+		public override void OnSpawn(IEntitySource source) {
+			sentAim = Projectile.ai[2];                    // the spawn carried it to everyone
+		}
+
+		/// <summary>The owner: the slash turned towards the cursor (its side at once, its tilt <see cref="AimFollow"/> of the way),
+		/// sent to the others when it changes side or has turned enough.</summary>
+		private void TrackCursor(Player owner) {
+			Vector2 to = Main.MouseWorld - owner.MountedCenter;
+			if (!MathSafety.IsFinite(to) || to.LengthSquared() < 1f) {
+				return;
+			}
+			int side = to.X < 0f ? -1 : 1;
+			float want = MathF.Atan2(to.Y, MathF.Abs(to.X));
+			float a = Projectile.ai[2];
+			float tilt = a == 0f || !float.IsFinite(a) ? want : MathHelper.Clamp(MathF.Abs(a) - 2f, -MathHelper.PiOver2, MathHelper.PiOver2);
+			tilt = MathHelper.Clamp(MathHelper.Lerp(tilt, want, AimFollow), -MathHelper.PiOver2, MathHelper.PiOver2);
+			float packed = side * (2f + tilt);
+			Projectile.ai[2] = packed;
+			SinceSync++;
+			bool flipped = (packed < 0f) != (sentAim < 0f);
+			if (flipped || (SinceSync >= AimSyncTicks && MathF.Abs(MathF.Abs(packed) - MathF.Abs(sentAim)) > AimSyncTilt)) {
+				sentAim = packed;
+				SinceSync = 0f;
+				Projectile.netUpdate = true;
+			}
+		}
+
 		public override void AI() {
 			Player owner = Main.player[Projectile.owner];
 			if (!owner.active || owner.dead || owner.CCed || (Age > 1f && owner.itemAnimation <= 0) || Age > Length + 1f) {
@@ -129,8 +170,12 @@ namespace Cogpunk.Content.Bosses.Jadey.Weapons
 				return;
 			}
 			Age++;
+			if (Projectile.owner == Main.myPlayer) {
+				TrackCursor(owner);
+			}
 			Aim(owner, out int dir, out float tilt);
 			Projectile.direction = Projectile.spriteDirection = dir;
+			owner.ChangeDir(dir);                          // every side: the wielder faces the slash (front arm, X before the body)
 			owner.heldProj = Projectile.whoAmI;
 			Sample(Progress, out Vector2 hub, out Vector2 _);
 			Vector2 toHub = Turn(new Vector2(hub.X - R.ShoulderX, hub.Y - R.ShoulderY), tilt, dir);   // the arm turns on the shoulder

@@ -82,6 +82,7 @@ namespace Cogpunk.Content.Mechanist
 		private int paidItemType = -1;                 // the last mana payment (OnConsumeMana): which item, and the steam it took
 		private int paidSteam;
 		private bool lastPaidWithMana;                 // the last steam cost (Spend) was paid in mana (the Serene Tear's fallback)
+		private int heldDir;                           // overheated, the owner: the way held (or forced) last tick; 0 when not overheated
 		private static LocalizedText noTankText;
 
 		/// <summary>The gauge is shown while steam matters: a Mechanist weapon in hand, Mechanist gear on, a tank that isn't
@@ -408,22 +409,42 @@ namespace Cogpunk.Content.Mechanist
 		}
 
 		/// <summary>Overheated: the player can't stop. With no direction held they keep running the way they face; they can
-		/// still turn by holding the other way. The research node Heat Management lets them stand still (user, 2026-11-23: "the
-		/// ability to stay still when overheated (not obligatory to move)"). Owner only (SetControls runs for the local player,
-		/// decompiled Player.Update).</summary>
+		/// still turn by holding the other way, and a turn keeps its speed (0.2.2, user 2026-11-26: "remove speed deceleration
+		/// from turning left or right when a player is overheated so he cannot bypass the obligatory moving by switching direction
+		/// quickly causing it to loose speed": vanilla's run brakes against the old way first, decompiled
+		/// <c>Player.HorizontalMovement</c>, so quick turns kept the player near a standstill). On the tick a new direction is
+		/// pressed, the speed is turned round to it (at most the run speed: a dash's speed isn't carried), before vanilla's
+		/// movement runs. The research node Heat Management lets them stand still (user, 2026-11-23: "the ability to stay still
+		/// when overheated (not obligatory to move)"), and turning brakes again with it. Owner only (SetControls runs for the
+		/// local player before its movement, decompiled Player.Update); the velocity reaches the others with the player's sync.</summary>
 		public override void SetControls() {
 			if (!Overheated || Player.whoAmI != Main.myPlayer || Player.dead
 				|| Player.GetModPlayer<Research.ResearchPlayer>().Has(Research.ResearchNodes.HeatManagement)) {
+				heldDir = 0;
 				return;
 			}
+			int held = Player.controlRight && !Player.controlLeft ? 1 : Player.controlLeft && !Player.controlRight ? -1 : 0;
 			if (!Player.controlLeft && !Player.controlRight) {
 				if (Player.direction < 0) {
 					Player.controlLeft = true;
+					held = -1;
 				}
 				else {
 					Player.controlRight = true;
+					held = 1;
 				}
 			}
+			if (held != 0 && heldDir != 0 && held != heldDir && Player.velocity.X * held < 0f && CanCarryTurn()) {
+				float cap = Math.Max(Player.maxRunSpeed, Player.accRunSpeed);
+				Player.velocity.X = held * Math.Min(Math.Abs(Player.velocity.X), cap);
+			}
+			heldDir = held;
+		}
+
+		/// <summary>Running on its own feet: no mount, hook, pulley or hold that moves the player instead.</summary>
+		private bool CanCarryTurn() {
+			return !Player.mount.Active && Player.grappling[0] < 0 && !Player.pulley && !Player.frozen && !Player.webbed && !Player.stoned
+				&& !Player.tongued && float.IsFinite(Player.velocity.X);
 		}
 
 		/// <summary>Client effects while overheated (every client sees the buff): steam hissing out of the player.</summary>
