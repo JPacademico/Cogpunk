@@ -1326,8 +1326,8 @@ Items: {
 		TrackingNone: Not tracking any mineral
 		TrackingFound: Tracking: {0} (vein located)
 		TrackingMissing: Tracking: {0} (no nearby vein found)
-		FoundChat: "Ore GPS: locked onto a vein of {0}."
-		MissingChat: "Ore GPS: no vein of {0} ({1}+ blocks) found in range."
+		FoundChat: Ore GPS: locked onto a vein of {0}.
+		MissingChat: Ore GPS: no vein of {0} ({1}+ blocks) found in range.
 		Cleared: Ore GPS turned off.
 	}
 

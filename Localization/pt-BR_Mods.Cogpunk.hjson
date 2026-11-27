@@ -1326,8 +1326,8 @@ Items: {
 		TrackingNone: Nenhum mineral selecionado
 		TrackingFound: Rastreando: {0} (veio localizado)
 		TrackingMissing: Rastreando: {0} (nenhum veio próximo)
-		FoundChat: "GPS de Minério: apontando para um veio de {0}."
-		MissingChat: "GPS de Minério: nenhum veio de {0} ({1}+ blocos) encontrado no alcance."
+		FoundChat: GPS de Minério: apontando para um veio de {0}.
+		MissingChat: GPS de Minério: nenhum veio de {0} ({1}+ blocos) encontrado no alcance.
 		Cleared: GPS de Minério desligado.
 	}
 
