@@ -4,6 +4,11 @@ Every update batch raises `version` in `build.txt` and adds an entry here, newes
 fixes and tweaks only the patch (user, 2026-11-26: "every following update batch and implementation should increase the
 version of our mod so we keep traceability for updates"). Balance rows: `docs/balance/*.csv`; proofs: `docs/media/`.
 
+## 0.2.4 (2026-11-26)
+
+### Changed
+- **Driller**: 96 life (240) and 19 contact damage (48) in Expert, -60% (user: "its too tanky", then "reduce by 60% as cut by 60%"); it spawns a third less often underground (weight 0.12 -> 0.08; user: "too common ... reduce his spawn chance a bit", the amount my call).
+
 ## 0.2.3 (2026-11-26)
 
 Fixes from the user's in-game test of 0.2.2 (a recording: the glaive slashes always faced right; the Cogspring Sword swung

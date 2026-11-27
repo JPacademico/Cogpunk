@@ -1,6 +1,6 @@
 displayName = Cogpunk (Alpha)
 author = Pitico
-version = 0.2.3
+version = 0.2.4
 hideCode = false
 hideResources = false
 includeSource = true

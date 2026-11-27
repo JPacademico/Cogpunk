@@ -49,14 +49,14 @@ namespace Cogpunk.Content.Underground.NPCs
 	{
 		private enum Phase { Roll, Bore, Drill }
 
-		public const int Life = 240, ContactDamage = 48, Defense = 14;
+		public const int Life = 96, ContactDamage = 19, Defense = 14;   // 0.2.4 (user, 2026-11-26: cut by 60%): 240 -> 96, 48 -> 19 (19.2)
 		public const float KnockbackResist = 0.25f;
 		public const float RollSpeed = 2.4f, RollAccel = 0.08f, JumpSpeed = 6.5f;
 		public const int StuckTicks = 90, StrandedTicks = 150, FarRows = 8;
 		public const int BoreTicks = 24, MinDrillTicks = 40, MaxDrillTicks = 6 * 60, DrillSyncTicks = 12;
 		public const float DrillSpeed = 5f, DrillAccel = 0.12f, DrillTurn = 0.06f;
 		public const float SurfaceRange = 6f * 16f, SightRange = 18f * 16f;
-		public const float SpawnWeight = 0.12f;
+		public const float SpawnWeight = 0.08f;                  // 0.2.4 (user: "too common to spawn underground ... reduce his spawn chance a bit"): 0.12 -> 0.08
 
 		private static Asset<Texture2D> glow, drillSheet, drillGlow;
 
