@@ -1,4 +1,5 @@
 using System;
+using Cogpunk.Content.Research;
 using Cogpunk.Content.Scrap.Items;
 using Cogpunk.Core.Configs;
 using Cogpunk.Core.Safety;
@@ -49,7 +50,7 @@ namespace Cogpunk.Content.Underground.NPCs
 	{
 		private enum Phase { Roll, Bore, Drill }
 
-		public const int Life = 96, ContactDamage = 19, Defense = 14;   // 0.2.4 (user, 2026-11-26: cut by 60%): 240 -> 96, 48 -> 19 (19.2)
+		public const int Life = 96, ContactDamage = 19, Defense = 8;    // 0.2.4: Life 240 -> 96, ContactDamage 48 -> 19; 0.2.5 (user, 2026-11-27: reduce armor): Defense 14 -> 8
 		public const float KnockbackResist = 0.25f;
 		public const float RollSpeed = 2.4f, RollAccel = 0.08f, JumpSpeed = 6.5f;
 		public const int StuckTicks = 90, StrandedTicks = 150, FarRows = 8;
@@ -116,9 +117,43 @@ namespace Cogpunk.Content.Underground.NPCs
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
-			npcLoot.Add(new OneFromRulesRule(1, ItemDropRule.Common(ItemID.CopperOre, 1, 3, 6), ItemDropRule.Common(ItemID.TinOre, 1, 3, 6),
+			LeadingConditionRule basicOres = new(new WithoutDrillerPlusCondition());
+			basicOres.OnSuccess(new OneFromRulesRule(1, ItemDropRule.Common(ItemID.CopperOre, 1, 3, 6), ItemDropRule.Common(ItemID.TinOre, 1, 3, 6),
 				ItemDropRule.Common(ItemID.IronOre, 1, 3, 6), ItemDropRule.Common(ItemID.LeadOre, 1, 3, 6)));
+			npcLoot.Add(basicOres);
+
+			// 0.3.0 (user, 2026-11-27: "driller+ ... make so drillers drop better ores and has chance to drop gems now")
+			LeadingConditionRule upgraded = new(new DrillerPlusCondition());
+			upgraded.OnSuccess(new OneFromRulesRule(1, ItemDropRule.Common(ItemID.SilverOre, 1, 4, 7), ItemDropRule.Common(ItemID.TungstenOre, 1, 4, 7),
+				ItemDropRule.Common(ItemID.GoldOre, 1, 4, 7), ItemDropRule.Common(ItemID.PlatinumOre, 1, 4, 7)));
+			upgraded.OnSuccess(new OneFromRulesRule(2,
+				ItemDropRule.Common(ItemID.Amethyst, 1, 1, 2), ItemDropRule.Common(ItemID.Topaz, 1, 1, 2),
+				ItemDropRule.Common(ItemID.Sapphire, 1, 1, 2), ItemDropRule.Common(ItemID.Emerald, 1, 1, 2),
+				ItemDropRule.Common(ItemID.Ruby, 1, 1, 2), ItemDropRule.Common(ItemID.Diamond, 1, 1, 2),
+				ItemDropRule.Common(ItemID.Amber, 1, 1, 2), ItemDropRule.Common(ModContent.ItemType<Gems.Items.Jade>(), 1, 1, 2)));
+			npcLoot.Add(upgraded);
+
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RustedCog>(), 2, 1, 2));
+		}
+
+		private sealed class DrillerPlusCondition : IItemDropRuleCondition
+		{
+			public bool CanDrop(DropAttemptInfo info) => info.player != null && info.player.active
+				&& info.player.GetModPlayer<ResearchPlayer>().Has(ResearchNodes.DrillerPlus);
+
+			public bool CanShowItemDropInUI() => true;
+
+			public string GetConditionDescription() => Terraria.Localization.Language.GetTextValue("Mods.Cogpunk.DropConditions.DrillerPlus");
+		}
+
+		private sealed class WithoutDrillerPlusCondition : IItemDropRuleCondition
+		{
+			public bool CanDrop(DropAttemptInfo info) => info.player == null || !info.player.active
+				|| !info.player.GetModPlayer<ResearchPlayer>().Has(ResearchNodes.DrillerPlus);
+
+			public bool CanShowItemDropInUI() => true;
+
+			public string GetConditionDescription() => null;
 		}
 
 		protected override void UpdateState() {

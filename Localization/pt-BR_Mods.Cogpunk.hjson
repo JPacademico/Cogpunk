@@ -1274,6 +1274,71 @@ Items: {
 		DisplayName: Pedra-Lágrima
 		Tooltip: "{0} de defesa enquanto estiver com a vida cheia"
 	}
+
+	Sparkler: {
+		DisplayName: Espalha-Faísca
+		Tooltip: Dispara um cone de {0} faíscas vivas como uma escopeta
+	}
+
+	Flintsword: {
+		DisplayName: Espada de Pederneira
+		Tooltip: Solta uma faísca viva sempre que a lâmina acerta um inimigo
+	}
+
+	HandMadeGun: {
+		DisplayName: Arma Caseira
+		Tooltip:
+			'''
+			Dispara um projétil rápido e preciso que ricocheteia uma vez nas paredes
+			{0}% de chance de falhar e cuspir uma faísca no lugar
+			'''
+	}
+
+	SpareHelmet: {
+		DisplayName: Capacete Sobressalente
+		Tooltip: Aumenta o dano e a chance de acerto crítico em {0}%
+		SetBonus: Libera uma rajada de faíscas de {0} de dano ao sofrer dano
+	}
+
+	SpareVest: {
+		DisplayName: Colete Sobressalente
+		Tooltip:
+			'''
+			Aumenta a mana máxima em {0}
+			+{1} de vapor máximo
+			'''
+	}
+
+	SpareBoots: {
+		DisplayName: Botas Sobressalentes
+		Tooltip: "{0}% de aumento na velocidade de movimento"
+	}
+
+	OreGps: {
+		DisplayName: GPS de Minério
+		Tooltip:
+			'''
+			Use para escolher um minério do pré-Modo Difícil ou uma gema
+			Aponta para o veio mais próximo com {0} ou mais blocos
+			'''
+		MenuTitle: GPS de Minério — Escolha um Veio
+		TurnOff: Parar de rastrear
+		TrackingNone: Nenhum mineral selecionado
+		TrackingFound: Rastreando: {0} (veio localizado)
+		TrackingMissing: Rastreando: {0} (nenhum veio próximo)
+		FoundChat: "GPS de Minério: apontando para um veio de {0}."
+		MissingChat: "GPS de Minério: nenhum veio de {0} ({1}+ blocos) encontrado no alcance."
+		Cleared: GPS de Minério desligado.
+	}
+
+	DrillerExtractor: {
+		DisplayName: Extrator Perfurador
+		Tooltip:
+			'''
+			Extrai automaticamente Limo, Neve Mole, Fóssil do Deserto e Sucata Enferrujada ao minerar
+			'Arrancado direto do bico de um perfurador das cavernas'
+			'''
+	}
 }
 
 Buffs: {
@@ -1762,6 +1827,8 @@ Projectiles: {
 	PolymorphBolt.DisplayName: Arroto Transmutador
 	RainbowLaser.DisplayName: Laser Arco-Íris
 	ChannelBlast.DisplayName: Explosão Arco-Íris
+	HandMadeBullet.DisplayName: Balote Caseiro
+	DrillerExtractorProjectile.DisplayName: Extrator Perfurador
 }
 
 Tiles: {
@@ -1898,6 +1965,7 @@ DropConditions: {
 	ManualFirstKill: Uma vez por mundo, na primeira derrota: um para cada jogador na luta
 	LizardGem: A gema que cresceu em seus cristais
 	Twinkling: Com Cintilante pesquisado
+	DrillerPlus: Com Perfurador+ pesquisado
 }
 
 Events: {
@@ -2292,6 +2360,56 @@ Research: {
 			DisplayName: Faça o Terraria 2, sem erros.
 			Description: Modificadores negativos aparecem com menos frequência ao reforjar
 		}
+
+		XRay: {
+			DisplayName: Raio-X
+			Description: Desbloqueia a criação do GPS de Minério
+		}
+
+		DrillerPlus: {
+			DisplayName: Perfurador+
+			Description: Perfuradores deixam cair minérios melhores e têm chance de soltar gemas
+		}
+
+		PreHardmodeDrill: {
+			DisplayName: Furadeira no Pré-Hardmode?!
+			Description: Desbloqueia a criação do Extrator Perfurador
+		}
+
+		CanOpener: {
+			DisplayName: Abridor de Latas
+			Description: +3 de penetração de armadura
+		}
+
+		Sparkling: {
+			DisplayName: Faiscante!
+			Description: Aumenta bastante a chance de suas faíscas deixarem os inimigos em chamas
+		}
+
+		BetterSparks: {
+			DisplayName: Faíscas Melhores
+			Description: Aumenta o alcance e a duração das faíscas em 1 segundo antes de sumirem
+		}
+
+		InducedCombustion: {
+			DisplayName: Combustão Induzida
+			Description: Inimigos derrotados explodem em 2 a 4 faíscas ao redor
+		}
+
+		Consumerism: {
+			DisplayName: Consumismo
+			Description: Obter acessórios raros que não vêm de chefes faz o Mercador passar a vendê-los para todos no mundo
+		}
+
+		RealEstateSpeculation: {
+			DisplayName: Especulação Imobiliária
+			Description: Seu cofrinho gera mais 1 moeda de cobre por segundo para cada morador com casa
+		}
+
+		FreeMarket: {
+			DisplayName: Livre Mercado
+			Description: Reduz os preços das lojas em 20% e aumenta o valor de venda dos itens em 20%
+		}
 	}
 
 	Tasks: {
@@ -2323,7 +2441,13 @@ Research: {
 		PlayerKill: Derrotou outro jogador
 		PiggyBank: Guardou moedas num cofrinho
 		Artifact: Encontrou um artefato: {0}
+		Driller: Derrotou um Perfurador
+		Coghawk: Derrotou um Falcão-Engrenagem
+		LifeCrystal: Obteve um Cristal de Vida
 	}
+
+	StartHere: COMECE AQUI — DESBLOQUEIE PRIMEIRO
+	BasicsNotice: Comece aqui! Desbloqueie este nó primeiro para liberar o restante da árvore de pesquisa.
 
 	Events: {
 		GoblinArmy: o Exército Goblin

@@ -501,10 +501,17 @@ namespace Cogpunk.Content.Research.UI
 				if (over) {
 					hovered = k;
 				}
+				bool isBasics = node.Name == ResearchNodes.TheBasics;
+				if (isBasics) {
+					DrawBasicsPedestal(sb, px, r, state);
+				}
 				DrawNode(sb, px, r, state, over, k == flashNode ? flashTicks : 0);
 				Color tint = state == 0 ? new Color(120, 120, 130) : Color.White;
 				if (!DrawIconTexture(sb, k, r, tint) && !DrawGlyph(sb, node.IconGlyph, r, tint)) {
 					ItemSlot.DrawItemIcon(icons[k], ItemSlot.Context.InventoryItem, sb, r.Center.ToVector2(), 1f, 32f, tint);
+				}
+				if (isBasics && state != 2) {
+					DrawBasicsCallout(sb, px, r, state == 1);
 				}
 			}
 			Utils.DrawBorderString(sb, Language.GetTextValue("Mods.Cogpunk.Research.DragHint"), new Vector2(area.X + 10f, area.Bottom - 26f),
@@ -613,6 +620,60 @@ namespace Cogpunk.Content.Research.UI
 			}
 		}
 
+		/// <summary>Ornate double-rimmed root frame and corner brackets around <see cref="ResearchNodes.TheBasics"/> so it
+		/// stands out as the keystone node of the tree (user, 2026-11-27).</summary>
+		private static void DrawBasicsPedestal(SpriteBatch sb, Texture2D px, Rectangle r, int state) {
+			float pulse = 0.65f + 0.35f * MathF.Sin(Main.GlobalTimeWrappedHourly * 4.5f);
+			Color outer = state == 2 ? new Color(223, 185, 78)
+				: state == 1 ? Color.Lerp(new Color(140, 201, 176), new Color(223, 185, 78), pulse)
+				: Color.Lerp(new Color(184, 138, 51), new Color(238, 210, 110), pulse);
+			Rectangle frame = new(r.X - 6, r.Y - 6, r.Width + 12, r.Height + 12);
+			if (state != 2) {
+				Rectangle halo = new(r.X - 10, r.Y - 10, r.Width + 20, r.Height + 20);
+				sb.Draw(px, halo, new Color(223, 185, 78, 0) * (0.18f + 0.18f * pulse));
+			}
+			sb.Draw(px, frame, new Color(21, 22, 28));
+			sb.Draw(px, new Rectangle(frame.X + 2, frame.Y + 2, frame.Width - 4, 2), outer);
+			sb.Draw(px, new Rectangle(frame.X + 2, frame.Bottom - 4, frame.Width - 4, 2), outer);
+			sb.Draw(px, new Rectangle(frame.X + 2, frame.Y + 2, 2, frame.Height - 4), outer);
+			sb.Draw(px, new Rectangle(frame.Right - 4, frame.Y + 2, 2, frame.Height - 4), outer);
+			// Corner brackets (6x6 brass accents)
+			Color corner = new(238, 210, 110);
+			sb.Draw(px, new Rectangle(frame.X - 2, frame.Y - 2, 8, 2), corner);
+			sb.Draw(px, new Rectangle(frame.X - 2, frame.Y - 2, 2, 8), corner);
+			sb.Draw(px, new Rectangle(frame.Right - 6, frame.Y - 2, 8, 2), corner);
+			sb.Draw(px, new Rectangle(frame.Right, frame.Y - 2, 2, 8), corner);
+			sb.Draw(px, new Rectangle(frame.X - 2, frame.Bottom, 8, 2), corner);
+			sb.Draw(px, new Rectangle(frame.X - 2, frame.Bottom - 6, 2, 8), corner);
+			sb.Draw(px, new Rectangle(frame.Right - 6, frame.Bottom, 8, 2), corner);
+			sb.Draw(px, new Rectangle(frame.Right, frame.Bottom - 6, 2, 8), corner);
+		}
+
+		/// <summary>Bouncing pointer arrow and localized "START HERE" badge below <see cref="ResearchNodes.TheBasics"/> while it
+		/// has not yet been researched, so players immediately see it must be unlocked first.</summary>
+		private static void DrawBasicsCallout(SpriteBatch sb, Texture2D px, Rectangle r, bool ready) {
+			int bounce = ((int)(MathF.Sin(Main.GlobalTimeWrappedHourly * 5f) * 3f)) & ~1;
+			int tipX = r.Center.X & ~1;
+			int tipY = (r.Bottom + 10 + bounce) & ~1;
+			Color arrowCol = ready ? new Color(140, 228, 88) : new Color(238, 210, 110);
+			for (int row = 0; row < 5; row++) {
+				int half = row * 2;
+				sb.Draw(px, new Rectangle(tipX - half - 2, tipY + row * 2, half * 2 + 4, 2), new Color(21, 22, 28));
+				sb.Draw(px, new Rectangle(tipX - half, tipY + row * 2, half * 2, 2), arrowCol);
+			}
+			string label = Language.GetTextValue("Mods.Cogpunk.Research.StartHere");
+			Vector2 size = Terraria.GameContent.FontAssets.MouseText.Value.MeasureString(label) * 0.78f;
+			int pillW = ((int)size.X + 16) & ~1;
+			int pillH = 22;
+			Rectangle pill = new(tipX - pillW / 2, tipY + 12, pillW, pillH);
+			sb.Draw(px, pill, new Color(21, 22, 28) * 0.92f);
+			sb.Draw(px, new Rectangle(pill.X, pill.Y, pill.Width, 2), arrowCol);
+			sb.Draw(px, new Rectangle(pill.X, pill.Bottom - 2, pill.Width, 2), arrowCol);
+			sb.Draw(px, new Rectangle(pill.X, pill.Y, 2, pill.Height), arrowCol);
+			sb.Draw(px, new Rectangle(pill.Right - 2, pill.Y, 2, pill.Height), arrowCol);
+			Utils.DrawBorderString(sb, label, new Vector2(pill.Center.X, pill.Center.Y + 2f), arrowCol, 0.78f, 0.5f, 0.5f);
+		}
+
 		/// <summary>A curved arrow from <paramref name="a"/> to <paramref name="b"/>: a quadratic curve of 2 px dots and a head of
 		/// dots at its end; from the top of a node below to the bottom of one above, or side to side between nodes on one row
 		/// (2026-11-24: Alchemy Initiate and Fulfilling Concoction sit side by side).</summary>
@@ -670,6 +731,9 @@ namespace Cogpunk.Content.Research.UI
 			}
 			builder.Append("[c/DFB94E:").Append(node.DisplayName.Value).Append(']').Append('\n');
 			builder.Append(node.Description.Value).Append('\n');
+			if (node.Name == ResearchNodes.TheBasics && !r.Has(node)) {
+				builder.Append("[c/EED26E:").Append(Language.GetTextValue("Mods.Cogpunk.Research.BasicsNotice")).Append(']').Append('\n');
+			}
 			if (r.Has(node)) {
 				string done = node.Record ? "Mods.Cogpunk.Artifacts.Found" : "Mods.Cogpunk.Research.Researched";
 				builder.Append('\n').Append("[c/8CE458:").Append(Language.GetTextValue(done)).Append(']');

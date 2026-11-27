@@ -48,7 +48,9 @@ namespace Cogpunk.Content.Research
 
 		private static readonly HashSet<string> paid = new();
 		private static bool noted;
-		private static int gemStaffsFlag = -1, stoneTouchedFlag = -1, ghedalariFlag = -1, benchFlag = -1;
+		private static int gemStaffsFlag = -1, stoneTouchedFlag = -1, ghedalariFlag = -1, benchFlag = -1, consumerismFlag = -1;
+		/// <summary>Consumerism accessories unlocked in this world (bit k: <see cref="ResearchConsumerism.StockItems"/>[k]; saved by name).</summary>
+		private static uint consumerismMask;
 		/// <summary>Every kind of town NPC that has lived in this world (by type; saved by name): a respawn is never "new".</summary>
 		private static bool[] townSeen = Array.Empty<bool>();
 		private static bool orbSeen;                              // the server pushed the world data for a smashed orb once
@@ -73,11 +75,19 @@ namespace Cogpunk.Content.Research
 		/// (<see cref="ResearchPlayer.HasWorkBench"/> for the character's own); a world flag (saved, synced).</summary>
 		public static bool WorkBench => WorldFlagSystem.Get(benchFlag);
 
+		/// <summary>Someone in this world has researched Consumerism (0.4.0, user 2026-11-27): accessories obtained by players in
+		/// this world stock the Merchant's shop for everyone here.</summary>
+		public static bool ConsumerismActive => WorldFlagSystem.Get(consumerismFlag);
+
+		/// <summary>Bitmask of <see cref="ResearchConsumerism.StockItems"/> unlocked in this world's Merchant shop.</summary>
+		public static uint ConsumerismMask => consumerismMask;
+
 		public override void Load() {
 			gemStaffsFlag = WorldFlagSystem.Register("AllGemStaffs");
 			stoneTouchedFlag = WorldFlagSystem.Register("StoneTouched");
 			ghedalariFlag = WorldFlagSystem.Register("GhedalariInvited");
 			benchFlag = WorldFlagSystem.Register("WorkBenchObtained");
+			consumerismFlag = WorldFlagSystem.Register("ConsumerismActive");
 		}
 
 		public override void PostSetupContent() {
@@ -144,10 +154,51 @@ namespace Cogpunk.Content.Research
 			}
 		}
 
+		/// <summary>The owner's client: reports Consumerism accessories this character has obtained.</summary>
+		public static void ReportConsumerism(uint mask) {
+			mask &= ResearchConsumerism.ValidMask;
+			if (mask == 0u) {
+				return;
+			}
+			if (Main.netMode == NetmodeID.MultiplayerClient) {
+				ModContent.GetInstance<ConsumerismPacket>().Send(mask);
+				return;
+			}
+			UnlockConsumerism(mask);
+		}
+
+		/// <summary>The server (or singleplayer): adds newly unlocked Consumerism accessories and syncs world data on change.</summary>
+		public static void UnlockConsumerism(uint mask) {
+			if (Main.netMode == NetmodeID.MultiplayerClient) {
+				return;
+			}
+			uint added = (mask & ResearchConsumerism.ValidMask) & ~consumerismMask;
+			bool flagChanged = consumerismFlag >= 0 && !WorldFlagSystem.Get(consumerismFlag);
+			if (flagChanged) {
+				WorldFlagSystem.Flag(consumerismFlag) = true;
+			}
+			if (added == 0u && !flagChanged) {
+				return;
+			}
+			consumerismMask |= added;
+			if (Main.netMode == NetmodeID.Server) {
+				NetMessage.SendData(MessageID.WorldData);
+			}
+		}
+
+		public override void NetSend(BinaryWriter writer) {
+			writer.Write(consumerismMask);
+		}
+
+		public override void NetReceive(BinaryReader reader) {
+			consumerismMask = reader.ReadUInt32() & ResearchConsumerism.ValidMask;
+		}
+
 		public override void ClearWorld() {
 			paid.Clear();
 			noted = false;
 			orbSeen = false;
+			consumerismMask = 0u;
 			Array.Clear(townSeen);
 		}
 
@@ -164,10 +215,14 @@ namespace Cogpunk.Content.Research
 			if (town.Count > 0) {
 				tag["TownSeen"] = town;
 			}
+			if (consumerismMask != 0u) {
+				tag["ConsumerismUnlocked"] = ResearchConsumerism.ToSavedNames(consumerismMask);
+			}
 		}
 
 		public override void LoadWorldData(TagCompound tag) {
 			paid.Clear();
+			consumerismMask = 0u;
 			Array.Clear(townSeen);
 			if (tag.ContainsKey("ResearchPaid")) {
 				foreach (string s in tag.GetList<string>("ResearchPaid")) {
@@ -188,6 +243,9 @@ namespace Cogpunk.Content.Research
 					}
 				}
 			}
+			if (tag.ContainsKey("ConsumerismUnlocked")) {
+				consumerismMask = ResearchConsumerism.FromSavedNames(tag.GetList<string>("ConsumerismUnlocked"));
+			}
 		}
 
 		/// <summary>An NPC type from its saved name (<see cref="KnowledgeTasks.NameOf"/>): vanilla's internal name or Mod/Name;
@@ -202,9 +260,10 @@ namespace Cogpunk.Content.Research
 			return ModContent.TryFind(name, out ModNPC modNPC) ? modNPC.Type : 0;
 		}
 
-		/// <summary>A town NPC whose first arrival pays (user, 2026-11-25): not the Guide (every world starts with him) nor the
-		/// Travelling Merchant (he comes and goes), not the Old Man, not a town pet or a town slime.</summary>
-		private static bool IsResident(NPC npc) {
+		/// <summary>A town NPC whose first arrival pays (user, 2026-11-25) and who counts for Real Estate Speculation (0.4.0): not
+		/// the Guide (every world starts with him) nor the Travelling Merchant (he comes and goes), not the Old Man, not a town pet
+		/// or a town slime.</summary>
+		public static bool IsResident(NPC npc) {
 			int t = npc.type;
 			return npc.townNPC && t > NPCID.None && t != NPCID.Guide && t != NPCID.TravellingMerchant && t != NPCID.OldMan
 				&& !(t < NPCID.Sets.IsTownPet.Length && NPCID.Sets.IsTownPet[t]) && !(t < NPCID.Sets.IsTownSlime.Length && NPCID.Sets.IsTownSlime[t]);
@@ -323,6 +382,14 @@ namespace Cogpunk.Content.Research
 					}
 				}
 			}
+			if (!ConsumerismActive) {
+				foreach (Player player in Main.ActivePlayers) {
+					if (player.GetModPlayer<ResearchPlayer>().Has(ResearchNodes.Consumerism)) {
+						SetFlag(consumerismFlag);                    // Consumerism researched: accessories stock the Merchant
+						break;
+					}
+				}
+			}
 		}
 
 		/// <summary>The server (or singleplayer), every poll: town NPCs of a kind this world has never had (user, 2026-11-25: one
@@ -390,7 +457,7 @@ namespace Cogpunk.Content.Research
 	/// </summary>
 	public sealed class ResearchGrantPacket : CogpunkPacket
 	{
-		public enum Kind : byte { Boss, Event, PinkSlime, Gnome, DemonAltar, EvilHeart, NewTownNPC }
+		public enum Kind : byte { Boss, Event, PinkSlime, Gnome, DemonAltar, EvilHeart, NewTownNPC, Driller, Coghawk }
 
 		/// <summary>The server (or singleplayer): every player in the world.</summary>
 		public static void ToAll(Kind kind, int arg) {
@@ -474,6 +541,12 @@ namespace Cogpunk.Content.Research
 							r.Grant(key, Language.GetTextValue("Mods.Cogpunk.Research.Tasks.NewTownNPCWho", Lang.GetNPCNameValue(arg)));
 						}
 					}
+					break;
+				case Kind.Driller:
+					r.Grant(KnowledgeTasks.Driller);
+					break;
+				case Kind.Coghawk:
+					r.Grant(KnowledgeTasks.Coghawk);
 					break;
 			}
 		}
@@ -590,7 +663,8 @@ namespace Cogpunk.Content.Research
 				|| (t > NPCID.None && t < NPCID.Sets.ShouldBeCountedAsBoss.Length && NPCID.Sets.ShouldBeCountedAsBoss[t])
 				|| t == NPCID.EaterofWorldsHead || t == NPCID.EaterofWorldsBody || t == NPCID.EaterofWorldsTail
 				|| t == NPCID.Retinazer || t == NPCID.Spazmatism || t == NPCID.MoonLordCore || t == NPCID.GolemHead || t == NPCID.Golem
-				|| t == NPCID.MartianSaucerCore || t == NPCID.WallofFlesh;
+				|| t == NPCID.MartianSaucerCore || t == NPCID.WallofFlesh
+				|| t == ModContent.NPCType<Underground.NPCs.Driller>() || t == ModContent.NPCType<Desert.NPCs.Coghawk>();
 		}
 
 		public override void OnKill(NPC npc) {
@@ -605,6 +679,12 @@ namespace Cogpunk.Content.Research
 			}
 			else if (npc.type == NPCID.Gnome) {
 				ResearchGrantPacket.ToPlayer(npc.lastInteraction, ResearchGrantPacket.Kind.Gnome);
+			}
+			else if (!npc.SpawnedFromStatue && npc.type == ModContent.NPCType<Underground.NPCs.Driller>()) {
+				ResearchGrantPacket.ToPlayer(npc.lastInteraction, ResearchGrantPacket.Kind.Driller);
+			}
+			else if (!npc.SpawnedFromStatue && npc.type == ModContent.NPCType<Desert.NPCs.Coghawk>()) {
+				ResearchGrantPacket.ToPlayer(npc.lastInteraction, ResearchGrantPacket.Kind.Coghawk);
 			}
 		}
 	}

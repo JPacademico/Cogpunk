@@ -1,4 +1,5 @@
 using System;
+using Cogpunk.Core.Hooks;
 using Cogpunk.Core.Safety;
 using Terraria;
 using Terraria.ID;
@@ -6,11 +7,36 @@ using Terraria.ModLoader;
 
 namespace Cogpunk.Content.Research
 {
-	/// <summary>Coins into a bank, as vanilla counts them (Passive Income, 2026-11-26).</summary>
+	/// <summary>Coins into a bank, as vanilla counts them (Passive Income, 2026-11-26; Real Estate Speculation, 0.4.0).</summary>
 	public static class ResearchEconomy
 	{
 		/// <summary>Coins of a kind that make one of the next (vanilla's <c>Player.DoCoins</c>: 100).</summary>
 		public const int CoinsPerNext = 100;
+		/// <summary>D0 cap on copper coins generated per second so even modded NPC crowds keep the loop bounded.</summary>
+		public const int MaxCopperPerSecond = 100;
+
+		/// <summary>"Real Estate Speculation" (user-set 2026-11-27, 0.4.0: "makes so the piggy bank generates one more copper per
+		/// second per housed town npcs (guide, traveling merchant, and pets do not count)"): housed resident town NPCs.</summary>
+		public static int HousedResidents() {
+			int n = 0;
+			foreach (NPC npc in Main.ActiveNPCs) {
+				if (!npc.homeless && ResearchWorld.IsResident(npc)) {
+					n++;
+				}
+			}
+			return n;
+		}
+
+		/// <summary>Adds <paramref name="count"/> Copper Coins into <paramref name="bank"/>, rolling stacks of 100 into the next
+		/// coin tier and stopping cleanly if the bank fills.</summary>
+		public static void AddCopper(Item[] bank, int count) {
+			int capped = Math.Clamp(count, 0, MaxCopperPerSecond);
+			for (int i = 0; i < capped; i++) {
+				if (!AddCoin(bank, ItemID.CopperCoin)) {
+					break;
+				}
+			}
+		}
 
 		/// <summary>One coin of <paramref name="coinType"/> (Copper to Platinum) into <paramref name="bank"/>: onto a stack of it
 		/// with room, else into an empty slot; a stack of copper, silver or gold that reaches 100 turns into one coin of the next

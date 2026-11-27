@@ -72,63 +72,52 @@ VD = RAMP["frog"]                                    # rough jade: the dull gree
 WHITE = RAMP["steam"][3]
 COLUMNS = 3                                          # 33 tall cells: one column would pass the 2048 px texture limit
 
-# --- proportions (1x art px, y up negative, the origin on the ground under the hips; v3: in profile, facing left) ----------
-HIP_NEAR, HIP_FAR = (-2.0, -19.0), (2.2, -19.4)
-THIGH, SHIN = 8.6, 8.2
-ANKLE_Y = -4.6
-SHOULDER_NEAR, SHOULDER_FAR = (-2.5, -40.5), (4.0, -41.5)
-UPPER, FORE, FIST = 11.0, 12.0, 6.4
-HEAD_AT = (-16.0, -56.0)                             # the head stencil's top-left in the body's own space (sunk between the shoulders)
-CHEST = (-4.0, -35.0, 10.0, 10.5)                    # the torso: the chest bulging forward ...
-BACK = (4.5, -36.0, 8.8, 10.0)                       # ... the hump behind ...
-WAIST = [(-11.5, -32.0), (10.5, -32.0), (9.5, -22.5), (-10.5, -22.5)]   # ... and the waist under them
-PLATE = 3.8                                          # the stone plates' size (art px across)
+# --- proportions (1x art px, y up negative, the origin on the ground under the hips; v3: in profile, facing left;
+# 0.4.0, user 2026-11-27: "jade golem enemy should be 25% smaller in size": scaled by SIZE = 0.75) --------------------------
+SIZE = 0.75
+HIP_NEAR, HIP_FAR = (-1.5, -14.25), (1.65, -14.55)
+THIGH, SHIN = 6.45, 6.15
+ANKLE_Y = -3.45
+SHOULDER_NEAR, SHOULDER_FAR = (-1.9, -30.4), (3.0, -31.1)
+UPPER, FORE, FIST = 8.25, 9.0, 4.8
+HEAD_AT = (-12.0, -42.0)                             # 12x19 Moai head stencil's top-left in body space
+CHEST = (-3.0, -26.25, 7.5, 7.9)                     # the torso: the chest bulging forward ...
+BACK = (3.4, -27.0, 6.6, 7.5)                        # ... the hump behind ...
+WAIST = [(-8.6, -24.0), (7.9, -24.0), (7.1, -16.9), (-7.9, -16.9)]   # ... and the waist under them
+PLATE = 3.0                                          # the stone plates' size (art px across)
 AIM_MIN, AIM_STEP, AIM_FRAMES = -90, 5, 37           # degrees below "forward"; -90 straight up, +90 straight down
 ARM_COLUMNS = 8                                      # the aiming arm's own sheet (2026-11-10b): 37 cells in 8 columns
 JADE_LO, JADE_HI = 1, 4
 
-# --- hand-placed parts ----------------------------------------------------------------------------------------------------
-# The Moai head in profile (facing left, lit from the top-left): a flat top, a heavy brow jutting forward over a deep socket
-# with one glowing eye, a long nose, a jutting lip and chin, a beard of rough stone in tiers. a..f jade 0..5, p..s rough
-# jade 0..3, E and g the eye's glow (white, jade 5). Stamped after the finishing pass.
-HEAD_ART = ["....aaaaaaaaa...",
-            "...aefeeedddca..",
-            "..aefeeeddddcba.",
-            "..aeeeedddddcba.",
-            ".aeeeedddddccba.",
-            "afffeedddddccba.",
-            "abbbbbbcdddccba.",
-            ".abgEbbcdddccba.",
-            ".abbbbcddddccba.",
-            "..adbcdddddccba.",
-            ".aedcdddddcccba.",
-            "aeeddddddcccba..",
-            "afeddddddcccba..",
-            "aedcccccccccba..",
-            ".abbbcccccccba..",
-            "..aeddcccccba...",
-            ".abbbbbccccba...",
-            ".aeddddcccba....",
-            "..aeddccccba....",
-            "..psrrrqqqp.....",
-            "..psrrrqqp......",
-            "...psrrqqp......",
-            "...pqqqqp.......",
-            "....psqp........",
-            ".....pp........."]
-# The core in the belt's disc (a bronze rim round a glowing jade heart, seen side on). Digits are gilt shades; u jade 3;
-# v, w, X glow (jade 4, jade 5, white).
+# --- hand-placed parts (scaled 25% smaller: 12x19 Moai head, 5x5 core disc) ------------------------------------------------
+HEAD_ART = ["...aaaaaaa..",
+            "..aefeeddba.",
+            ".aefeedddcba",
+            ".aeeeeddccba",
+            "affeeeddccba",
+            "abbbbcddccba",
+            ".agEbcdcccba",
+            ".abbbcddccba",
+            "..adbcdcccba",
+            ".aedcdcccba.",
+            "afeddccccba.",
+            "aedccccccba.",
+            ".abbbccccba.",
+            ".aeddcccba..",
+            "..abbbccba..",
+            "..psrrqqp...",
+            "..psrrqp....",
+            "...pqqp.....",
+            "....pp......"]
 HEART = [".464.",
          "47vw6",
-         "5wXw7",
-         "5wXv6",
+         "5wXv7",
          "47vw5",
          ".353."]
 GLOWING = set("vwX")
-# Pale veins in the stone and carved cracks (body space): (x, y) chains drawn light (veins) or dark with a lit lip.
-VEINS = [[(-11, -38), (-10, -37), (-9, -37)], [(6, -41), (7, -40), (7, -39)], [(-6, -27), (-5, -26), (-4, -26)]]
-CRACKS = [[(2, -30), (3, -29), (3, -28), (4, -27)], [(-8, -43), (-7, -42)], [(10, -34), (11, -33)]]
-CRYSTALS = [(7.6, -43.4, 8.0, 2.6, 1.8), (11.8, -40.6, 6.2, 2.2, 2.8), (4.4, -44.6, 5.0, 2.0, 0.9)]   # base x, y, height, half width, lean
+VEINS = [[(-8, -29), (-7, -28), (-6, -28)], [(4, -31), (5, -30), (5, -29)], [(-5, -20), (-4, -19), (-3, -19)]]
+CRACKS = [[(1, -22), (2, -21), (2, -20)], [(-6, -32), (-5, -31)], [(7, -25), (8, -24)]]
+CRYSTALS = [(5.7, -32.5, 6.0, 2.0, 1.4), (8.8, -30.5, 4.7, 1.7, 2.1), (3.3, -33.5, 3.8, 1.5, 0.7)]
 
 
 # Jade's mottling: each Ghost shade swapped for the Verdigris shade nearest it in lightness (5-6 L* apart, so the
@@ -250,7 +239,7 @@ def stamp_heart(cv, glow, x0, y0):
 
 
 class Pose:
-    def __init__(self, bob=0, near_foot=(-5.0, 0.0), far_foot=(5.4, 0.0), near_hand=(0.0, 0.0), far_hand=(0.0, 0.0), aim=None):
+    def __init__(self, bob=0, near_foot=(-3.8, 0.0), far_foot=(4.0, 0.0), near_hand=(0.0, 0.0), far_hand=(0.0, 0.0), aim=None):
         self.bob = bob
         self.near_foot, self.far_foot = near_foot, far_foot      # (x, lift) of each ankle
         self.near_hand, self.far_hand = near_hand, far_hand      # hand offsets from the hanging rest point
@@ -258,22 +247,22 @@ class Pose:
 
 
 # ------------------------------------------------------------------------------------------------------------------------
-# Parts
+# Parts (scaled by SIZE = 0.75)
 # ------------------------------------------------------------------------------------------------------------------------
 def foot_block(cv, ankle, depth):
     """A block foot of rough jade with split toes, under the ankle (toes forward, left)."""
     ax, ay = ankle
-    sole = ay + 4.6
+    sole = ay + 3.45
     shade = flat(1, bevel=False) if depth else face((-0.5, -0.6, 0.7), lo=1, hi=3, ramp_len=4, fixed=True)
-    fin = cv.part(Xf(), Poly([(ax - 5.6, ay - 1.6), (ax + 3.6, ay - 1.8), (ax + 4.4, sole), (ax - 7.4, sole), (ax - 7.0, ay + 1.0)]),
+    fin = cv.part(Xf(), Poly([(ax - 4.2, ay - 1.2), (ax + 2.7, ay - 1.35), (ax + 3.3, sole), (ax - 5.6, sole), (ax - 5.2, ay + 0.8)]),
                   "frog", shade, rust=0.0)
     if depth == 0:
-        for tx in (ax - 5.0, ax - 2.6):              # the toes' splits
-            for ty in (sole - 1.6, sole - 0.6):
+        for tx in (ax - 3.8, ax - 2.0):              # the toes' splits
+            for ty in (sole - 1.2, sole - 0.5):
                 q = P(Xf(), (tx, ty))
                 if q in fin:
                     cv.put(q[0], q[1], VD[0])
-        q = P(Xf(), (ax - 6.0, ay + 0.2))
+        q = P(Xf(), (ax - 4.5, ay + 0.2))
         if q in fin:
             cv.put(q[0], q[1], VD[3])                # the toes' lit tip
 
@@ -281,34 +270,30 @@ def foot_block(cv, ankle, depth):
 def leg(cv, hip, foot, depth):
     ankle = (foot[0], ANKLE_Y - foot[1])
     knee, ankle = ik(hip, ankle, THIGH, SHIN, -1)
-    thigh = limb(cv, hip, knee, 5.4, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
-    shin = limb(cv, knee, ankle, 4.8, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
+    thigh = limb(cv, hip, knee, 4.1, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
+    shin = limb(cv, knee, ankle, 3.6, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
     if depth == 0:
         limb_mottle(cv, thigh, hip, knee, 11)
         limb_mottle(cv, shin, knee, ankle, 13)
-        limb_rings(cv, thigh, hip, knee)
-        limb_rings(cv, shin, knee, ankle, offset=0.6)
+        limb_rings(cv, thigh, hip, knee, spacing=2.8)
+        limb_rings(cv, shin, knee, ankle, spacing=2.8, offset=0.5)
     foot_block(cv, ankle, depth)
     if depth == 0:                                    # the kneecap catching the light
-        q = P(Xf(), (knee[0] - 1.6, knee[1] - 0.6))
+        q = P(Xf(), (knee[0] - 1.2, knee[1] - 0.5))
         cv.put(q[0], q[1], JD[4])
         cv.put(q[0] + 1, q[1], JD[3])
     return knee
 
 
-# --- the open hands (2026-11-10b, user: "the hands of the jade golem should be an open palm hand and the jade laser has to
-# come out from the hand"; they were knuckled fists) ----------------------------------------------------------------------
-PALM_OFF = 3.4                                       # the palm's centre past the wrist, along the forearm
-PALM_DEPTH, PALM_SPAN = 3.4, 5.6                     # aimed: the palm's half-thickness along the arm, its half-width across
-HANG_LEN, HANG_SPAN = 4.2, 4.4                       # hanging: the palm's half-length down the arm, its half-width
-FINGER_R = 1.7
-# aimed: four fingers up off the palm's top edge (across the arm), fanned towards the aim: (base along the arm, fan angle
-# in degrees towards the aim, length); the palm faces the aim and the ray leaves its face
-AIM_FINGERS = ((-2.4, -30.0, 4.8), (-0.8, -10.0, 6.0), (0.8, 10.0, 6.2), (2.4, 30.0, 5.0))
-# hanging: three fingers down off the palm, slightly spread, and the thumb on the front: (base across, fan angle, length)
-HANG_FINGERS = ((-2.0, -12.0, 5.2), (0.0, 2.0, 6.2), (2.0, 16.0, 5.4))
-PALM_FRONT = PALM_DEPTH + 1.2                        # the ray leaves the palm's face this far past the palm's centre
-PALM_REACH = UPPER + FORE + PALM_OFF + PALM_FRONT    # the shoulder to that point (1x px), the same at every angle
+# --- the open hands (scaled by SIZE = 0.75) ------------------------------------------------------------------------------
+PALM_OFF = 2.6
+PALM_DEPTH, PALM_SPAN = 2.6, 4.2
+HANG_LEN, HANG_SPAN = 3.2, 3.3
+FINGER_R = 1.35
+AIM_FINGERS = ((-1.8, -30.0, 3.6), (-0.6, -10.0, 4.5), (0.6, 10.0, 4.7), (1.8, 30.0, 3.8))
+HANG_FINGERS = ((-1.5, -12.0, 3.9), (0.0, 2.0, 4.7), (1.5, 16.0, 4.0))
+PALM_FRONT = PALM_DEPTH + 1.0
+PALM_REACH = UPPER + FORE + PALM_OFF + PALM_FRONT
 
 
 def rotate_towards(n, u, deg):
@@ -327,37 +312,37 @@ def open_hand(cv, glow, wrist, u, front, depth, aimed):
     turn = math.degrees(math.atan2(u[1], u[0]))
     xf = Xf.pose(turn, (0.0, 0.0), palm)             # local x along the arm, local y across it
     if aimed:
-        shade = flat(2, bevel=False) if depth else dome(-1.4, -2.0, 5.2, lo=JADE_LO, hi=JADE_HI + 1, fixed=True)
+        shade = flat(2, bevel=False) if depth else dome(-1.1, -1.5, 4.0, lo=JADE_LO, hi=JADE_HI + 1, fixed=True)
         inner = cv.part(xf, Ellipse(0.0, 0.0, PALM_DEPTH, PALM_SPAN), "emerald", shade, rust=0.0)
         for (t, fan, ln) in AIM_FINGERS:
-            base = (palm[0] + n[0] * (PALM_SPAN - 1.2) + u[0] * t, palm[1] + n[1] * (PALM_SPAN - 1.2) + u[1] * t)
+            base = (palm[0] + n[0] * (PALM_SPAN - 0.9) + u[0] * t, palm[1] + n[1] * (PALM_SPAN - 0.9) + u[1] * t)
             d = rotate_towards(n, u, fan)
             limb(cv, base, (base[0] + d[0] * ln, base[1] + d[1] * ln), FINGER_R, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
         tb = (palm[0] - n[0] * PALM_SPAN * 0.35 + u[0] * PALM_DEPTH * 0.5, palm[1] - n[1] * PALM_SPAN * 0.35 + u[1] * PALM_DEPTH * 0.5)
         td = rotate_towards((-n[0], -n[1]), u, 55.0)
-        limb(cv, tb, (tb[0] + td[0] * 4.4, tb[1] + td[1] * 4.4), FINGER_R, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
+        limb(cv, tb, (tb[0] + td[0] * 3.3, tb[1] + td[1] * 3.3), FINGER_R, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
     else:
-        shade = flat(2, bevel=False) if depth else dome(-1.8, -1.6, 5.0, lo=JADE_LO, hi=JADE_HI + 1, fixed=True)
+        shade = flat(2, bevel=False) if depth else dome(-1.4, -1.2, 3.8, lo=JADE_LO, hi=JADE_HI + 1, fixed=True)
         inner = cv.part(xf, Ellipse(0.0, 0.0, HANG_LEN, HANG_SPAN), "emerald", shade, rust=0.0)
         across = (front[0] - u[0] * (front[0] * u[0] + front[1] * u[1]), front[1] - u[1] * (front[0] * u[0] + front[1] * u[1]))
         la = math.hypot(*across) or 1.0
         across = (across[0] / la, across[1] / la)    # the hand's front, square to the arm
         for (t, fan, ln) in HANG_FINGERS:
-            base = (palm[0] + u[0] * (HANG_LEN - 1.0) + across[0] * t, palm[1] + u[1] * (HANG_LEN - 1.0) + across[1] * t)
+            base = (palm[0] + u[0] * (HANG_LEN - 0.8) + across[0] * t, palm[1] + u[1] * (HANG_LEN - 0.8) + across[1] * t)
             d = rotate_towards(u, across, fan)
             limb(cv, base, (base[0] + d[0] * ln, base[1] + d[1] * ln), FINGER_R, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
-        tb = (palm[0] + across[0] * (HANG_SPAN - 0.8) - u[0] * 0.6, palm[1] + across[1] * (HANG_SPAN - 0.8) - u[1] * 0.6)
+        tb = (palm[0] + across[0] * (HANG_SPAN - 0.6) - u[0] * 0.5, palm[1] + across[1] * (HANG_SPAN - 0.6) - u[1] * 0.5)
         td = rotate_towards(across, u, 40.0)
-        limb(cv, tb, (tb[0] + td[0] * 4.0, tb[1] + td[1] * 4.0), FINGER_R, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
+        limb(cv, tb, (tb[0] + td[0] * 3.0, tb[1] + td[1] * 3.0), FINGER_R, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
     if depth == 0:
         limb_mottle(cv, inner, wrist, palm, 23)
         if aimed:                                    # the rune slit on the palm's face, where the ray comes out
-            for t, col in ((-1.8, JD[5]), (-0.6, WHITE), (0.6, WHITE), (1.8, JD[5])):
-                q = P(Xf(), (palm[0] + u[0] * (PALM_DEPTH - 0.6) + n[0] * t, palm[1] + u[1] * (PALM_DEPTH - 0.6) + n[1] * t))
+            for t, col in ((-1.3, JD[5]), (-0.4, WHITE), (0.5, WHITE), (1.4, JD[5])):
+                q = P(Xf(), (palm[0] + u[0] * (PALM_DEPTH - 0.5) + n[0] * t, palm[1] + u[1] * (PALM_DEPTH - 0.5) + n[1] * t))
                 cv.put_glow(q[0], q[1], col)
                 glow.put_glow(q[0], q[1], col)
         else:                                        # a rune in the palm, dimly glowing
-            q = P(Xf(), (palm[0] + across[0] * 0.4, palm[1] + across[1] * 0.4))
+            q = P(Xf(), (palm[0] + across[0] * 0.3, palm[1] + across[1] * 0.3))
             cv.put_glow(q[0], q[1], JD[5])
             glow.put_glow(q[0], q[1], JD[5])
     muzzle = (palm[0] + u[0] * PALM_FRONT, palm[1] + u[1] * PALM_FRONT)
@@ -369,7 +354,7 @@ def arm(cv, glow, shoulder, depth, hand_off=(0.0, 0.0), aim=None):
     degrees below forward, palm out. Returns the palm's centre and where the ray leaves it (the palm's face)."""
     sx, sy = shoulder
     if aim is None:                                  # v3: in profile, both arms hang a little forward, elbows back
-        rest = (sx - 3.0 + hand_off[0], sy + 20.4 + hand_off[1])
+        rest = (sx - 2.25 + hand_off[0], sy + 15.3 + hand_off[1])
         elbow, wrist = ik(shoulder, rest, UPPER, FORE, 1)
         u = (wrist[0] - elbow[0], wrist[1] - elbow[1])
         ln = math.hypot(*u) or 1.0
@@ -381,26 +366,24 @@ def arm(cv, glow, shoulder, depth, hand_off=(0.0, 0.0), aim=None):
         elbow = (sx + u[0] * UPPER, sy + u[1] * UPPER)
         wrist = (elbow[0] + u[0] * FORE, elbow[1] + u[1] * FORE)
         front = u
-    upper = limb(cv, shoulder, elbow, 4.8, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
-    fore = limb(cv, elbow, wrist, 5.8, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
+    upper = limb(cv, shoulder, elbow, 3.6, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
+    fore = limb(cv, elbow, wrist, 4.4, "emerald", depth, lo=JADE_LO, hi=JADE_HI)
     if depth == 0:
         limb_mottle(cv, upper, shoulder, elbow, 17)
         limb_mottle(cv, fore, elbow, wrist, 19)
-        limb_rings(cv, upper, shoulder, elbow, offset=2.0)
-        limb_rings(cv, fore, elbow, wrist, spacing=3.2)
-    # the stone band round the wrist, its runes glowing (v3: the reference's rune bands; near arm only: a far rune would
-    # flicker, D4 rule 17)
-    b0 = (wrist[0] - u[0] * 4.6, wrist[1] - u[1] * 4.6)
-    b1 = (wrist[0] - u[0] * 1.8, wrist[1] - u[1] * 1.8)
-    limb(cv, b0, b1, 6.4, "frog", depth, lo=1, hi=4)
+        limb_rings(cv, upper, shoulder, elbow, spacing=2.8, offset=1.5)
+        limb_rings(cv, fore, elbow, wrist, spacing=2.5)
+    b0 = (wrist[0] - u[0] * 3.5, wrist[1] - u[1] * 3.5)
+    b1 = (wrist[0] - u[0] * 1.35, wrist[1] - u[1] * 1.35)
+    limb(cv, b0, b1, 4.8, "frog", depth, lo=1, hi=4)
     if depth == 0:
         n = (-u[1], u[0])
         mb = ((b0[0] + b1[0]) * 0.5, (b0[1] + b1[1]) * 0.5)
-        for t, col in ((-2.6, JD[5]), (-0.8, WHITE), (1.0, JD[5]), (2.8, JD[5])):
+        for t, col in ((-1.9, JD[5]), (-0.6, WHITE), (0.7, JD[5]), (2.0, JD[5])):
             q = P(Xf(), (mb[0] + n[0] * t, mb[1] + n[1] * t))
             cv.put_glow(q[0], q[1], col)
             glow.put_glow(q[0], q[1], col)
-    palm, muzzle = open_hand(cv, glow, wrist, u, front, depth, aim is not None)   # the hand over the bracelet's end
+    palm, muzzle = open_hand(cv, glow, wrist, u, front, depth, aim is not None)
     return palm, muzzle
 
 
@@ -408,11 +391,11 @@ def boulder(cv, at, depth, seed_crack=None):
     """A shoulder boulder in its own space, placed by whole pixels (its marks ride with it, D4 rule 17)."""
     ox, oy = int(round(at[0])), int(round(at[1]))
     xf = Xf.pose(0.0, (0.0, 0.0), (ox, oy))
-    shade = flat(2, bevel=False) if depth else dome(-2.0, -3.0, 7.0, lo=JADE_LO, hi=JADE_HI, gain=1.3, fixed=True)
-    inner = cv.part(xf, Ellipse(0.0, 0.0, 6.4, 5.6), "emerald", shade, rust=0.0)
+    shade = flat(2, bevel=False) if depth else dome(-1.5, -2.2, 5.2, lo=JADE_LO, hi=JADE_HI, gain=1.3, fixed=True)
+    inner = cv.part(xf, Ellipse(0.0, 0.0, 4.8, 4.2), "emerald", shade, rust=0.0)
     if depth == 0:
         mottle(cv, inner, ox, oy, 7)
-        for (dx, dy, c) in ((-3, -3, JD[5]), (-2, -3, JD[4]), (-3, -2, JD[4]), (1, 1, JD[1]), (2, 2, JD[1]), (2, 1, JD[3])):
+        for (dx, dy, c) in ((-2, -2, JD[5]), (-1, -2, JD[4]), (-2, -1, JD[4]), (1, 1, JD[1]), (1, 0, JD[3])):
             q = P(xf, (dx + 0.5, dy + 0.5))
             if q in inner:
                 cv.put(q[0], q[1], c)
@@ -426,9 +409,8 @@ def body(mid, glow, p):
 
     def at(x, y):
         return P(bx, (x, y))
-    # the torso: the chest bulging forward, the hump behind, the waist under them, carved into plates
     torso = Union(Ellipse(*CHEST), Ellipse(*BACK), Poly(WAIST))
-    shade = stone_plates(dome(CHEST[0] - 4.5, CHEST[1] - 6.5, 18.0, lo=JADE_LO, hi=JADE_HI, gain=1.3, bias=0.15, fixed=True), PLATE, 3)
+    shade = stone_plates(dome(CHEST[0] - 3.4, CHEST[1] - 4.9, 13.5, lo=JADE_LO, hi=JADE_HI, gain=1.3, bias=0.15, fixed=True), PLATE, 3)
     tin = mid.part(bx, torso, "emerald", shade, shadow=(1, 1), rust=0.0)
     mottle(mid, tin, 0, oy, 3, density=0.26)
     for chain in VEINS:
@@ -443,32 +425,28 @@ def body(mid, glow, p):
                 mid.put(q[0], q[1], JD[0])
                 if (q[0] + 1, q[1]) in tin:
                     mid.put(q[0] + 1, q[1], JD[3])
-    # the skirt: three leaves of rough stone hanging from the belt over the hips, each split from the next by a seam
-    for k, pts in enumerate(([(-12.2, -21.4), (-5.2, -21.4), (-5.8, -17.0), (-8.4, -13.0), (-11.6, -16.6)],
-                             [(-5.6, -21.4), (2.2, -21.4), (1.6, -16.4), (-1.6, -12.4), (-5.2, -16.2)],
-                             [(1.8, -21.4), (10.6, -21.4), (9.8, -17.2), (6.4, -13.6), (2.6, -16.8)])):
+    for k, pts in enumerate(([(-9.2, -16.0), (-3.9, -16.0), (-4.4, -12.8), (-6.3, -9.8), (-8.7, -12.5)],
+                             [(-4.2, -16.0), (1.65, -16.0), (1.2, -12.3), (-1.2, -9.3), (-3.9, -12.2)],
+                             [(1.35, -16.0), (8.0, -16.0), (7.4, -12.9), (4.8, -10.2), (2.0, -12.6)])):
         mid.part(bx, Poly(pts), "frog", face((-0.4, -0.5, 0.75), lo=2 + (k == 1), hi=5, ramp_len=8, fixed=True), rust=0.0)
-    # (each leaf pointed, as the reference's skirt of stone leaves)
-    # the bronze belt over the waist's bottom, its rivets, and the disc in front that holds his core
-    belt = mid.part(bx, box(-12.0, -25.0, 11.4, -21.0), "gilt", face((-0.4, -0.7, 0.65), lo=3, hi=7, ramp_len=10, fixed=True), rust=0.0)
-    ry = at(0.0, -23.0)[1]
+    belt = mid.part(bx, box(-9.0, -18.8, 8.6, -15.8), "gilt", face((-0.4, -0.7, 0.65), lo=3, hi=7, ramp_len=10, fixed=True), rust=0.0)
+    ry = at(0.0, -17.3)[1]
     for (x, y) in belt:
-        if y == ry and x % 4 == 0:
-            mid.put(x, y, G[9])                       # rivets
+        if y == ry and x % 3 == 0:
+            mid.put(x, y, G[9])
             if (x + 1, y + 1) in belt:
                 mid.put(x + 1, y + 1, G[2])
-    mid.part(bx, Ellipse(-12.6, -23.0, 2.6, 3.4), "gilt", dome(-13.4, -24.4, 3.4, lo=3, hi=8, gain=1.4, fixed=True), rust=0.0)
-    # the crystals on his back
+    mid.part(bx, Ellipse(-9.5, -17.3, 2.0, 2.6), "gilt", dome(-10.1, -18.3, 2.6, lo=3, hi=8, gain=1.4, fixed=True), rust=0.0)
     for (bxx, byy, h, w, lean) in CRYSTALS:
         cin = mid.part(bx, Poly([(bxx - w, byy), (bxx + lean, byy - h), (bxx + w, byy)]), "emerald",
                        face((-0.6, -0.5, 0.6), lo=3, hi=5, ramp_len=7, gain=1.35, fixed=True), rust=0.0)
         for (x, y) in cin:
             ly = y - oy + 0.5
             axis = bxx + lean * (byy - ly) / h
-            if x + 0.5 > axis + 0.4:
-                mid.put(x, y, JD[2])                  # the shadowed facet
-            elif x + 0.5 > axis - 0.8:
-                mid.put(x, y, JD[6])                  # the ridge catching the light
+            if x + 0.5 > axis + 0.3:
+                mid.put(x, y, JD[2])
+            elif x + 0.5 > axis - 0.6:
+                mid.put(x, y, JD[6])
     return ((SHOULDER_NEAR[0], SHOULDER_NEAR[1] + oy), (SHOULDER_FAR[0], SHOULDER_FAR[1] + oy))
 
 
@@ -491,26 +469,23 @@ def frame(p):
         finish(cv)
     hx, hy = P(Xf(), (HEAD_AT[0], HEAD_AT[1] + p.bob))
     stamp_head(mid, glow, hx, hy)
-    cx, cy = P(Xf(), (-15.0, -26.0 + p.bob))
+    cx, cy = P(Xf(), (-11.5, -19.5 + p.bob))
     stamp_heart(mid, glow, cx, cy)                   # the core in the belt's disc
     return far, mid, near, glow, muzzle
 
 
 # ------------------------------------------------------------------------------------------------------------------------
-# Animation: the Jaeger's walk
+# Animation: the Jaeger's walk (scaled by SIZE = 0.75)
 # ------------------------------------------------------------------------------------------------------------------------
 WALK = 16
-WALK_STEP = 1.5                                      # 1x px a planted foot slides back per frame (= the root motion)
-STRIDE = WALK_STEP * WALK / 2                        # 12 px a step
+WALK_STEP = 1.125                                    # 1x px a planted foot slides back per frame (9 px stride)
+STRIDE = WALK_STEP * WALK / 2
 HALF = STRIDE / 2.0
-LIFT = 5.0
-FOOT_NEAR_X, FOOT_FAR_X = -1.6, 1.8                  # the feet's tracks (v3: in profile, one under the other)
-ARM_SWING = 0.0                                      # 2026-11-09 (user): no arm swing in the walk (was 4.0)
-
+LIFT = 3.8
+FOOT_NEAR_X, FOOT_FAR_X = -1.2, 1.4
+ARM_SWING = 0.0
 
 def foot_cycle(f):
-    """(x, lift) of a foot at walk frame f: planted for frames 0..8 sliding back WALK_STEP a frame (heel strike at -HALF
-    on frame 0, toe-off at +HALF on frame 8), then swung forward through an arc."""
     f %= WALK
     half = WALK // 2
     if f <= half:
@@ -523,7 +498,7 @@ def walk_pose(f):
     nx, nl = foot_cycle(f)
     fx, fl = foot_cycle(f + WALK // 2)
     phase = 2.0 * math.pi * f / WALK
-    bob = -int(round(2.0 * abs(math.sin(phase))))    # lowest at each heel strike, up through mid-stance (whole px)
+    bob = -int(round(1.4 * abs(math.sin(phase))))
     swing = ARM_SWING * math.cos(phase)
     return Pose(bob=bob, near_foot=(FOOT_NEAR_X + nx, nl), far_foot=(FOOT_FAR_X + fx, fl),
                 near_hand=(swing, -abs(swing) * 0.4), far_hand=(-swing, -abs(swing) * 0.4))
@@ -531,11 +506,11 @@ def walk_pose(f):
 
 def idle_pose(k):
     breathe = (0, -1, -1, 0)[k]
-    return Pose(bob=breathe, near_foot=(FOOT_NEAR_X - 4.0, 0.0), far_foot=(FOOT_FAR_X + 3.6, 0.0), near_hand=(0.6, breathe * 0.5),
-                far_hand=(1.4, breathe * 0.5))
+    return Pose(bob=breathe, near_foot=(FOOT_NEAR_X - 3.0, 0.0), far_foot=(FOOT_FAR_X + 2.7, 0.0), near_hand=(0.5, breathe * 0.5),
+                far_hand=(1.0, breathe * 0.5))
 
 
-STANCE = dict(near_foot=(FOOT_NEAR_X - 5.0, 0.0), far_foot=(FOOT_FAR_X + 4.6, 0.0), far_hand=(3.0, -1.0))
+STANCE = dict(near_foot=(FOOT_NEAR_X - 3.8, 0.0), far_foot=(FOOT_FAR_X + 3.5, 0.0), far_hand=(2.2, -0.8))
 FRAMES = ([("Walk%d" % k, walk_pose(k)) for k in range(WALK)]
           + [("Idle%d" % k, idle_pose(k)) for k in range(4)]
           + [("Aim", Pose(aim="body", **STANCE))])
@@ -637,9 +612,9 @@ def gores():
     head_cv = Canvas()
     stamp_head(head_cv, Canvas(), 0, 0)
     hand = Canvas()
-    arm(hand, Canvas(), (-6.0, -20.0), 0)
+    arm(hand, Canvas(), (-4.5, -15.0), 0)
     finish(hand)
-    hand_px = {q: c for q, c in hand.px.items() if q[1] >= -6}
+    hand_px = {q: c for q, c in hand.px.items() if q[1] >= -5}
     heart = Canvas()
     stamp_heart(heart, Canvas(), 0, 0)
     crystal = Canvas()

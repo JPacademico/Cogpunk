@@ -45,13 +45,18 @@ namespace Cogpunk.Content.Furniture
 			return trinkets;
 		}
 
-		/// <summary>Empties <paramref name="chest"/> and fills it with a fresh trunk roll.</summary>
-		public static void Fill(Chest chest, UnifiedRandom rand, List<int> trinkets) {
+		/// <summary>Empties <paramref name="chest"/> and fills it with a fresh trunk roll. Since 0.4.0 (user, 2026-11-27: "make it
+		/// so golden and rust underground chests allways contain a crystal heart"), underground trunks always hold a
+		/// <c>LifeCrystal</c>.</summary>
+		public static void Fill(Chest chest, UnifiedRandom rand, List<int> trinkets, bool underground = false) {
 			for (int i = 0; i < chest.item.Length; i++) {
 				chest.item[i] ??= new Item();
 				chest.item[i].TurnToAir();
 			}
 			int slot = 0;
+			if (underground) {
+				Add(chest, ref slot, ItemID.LifeCrystal, 1);
+			}
 			if (trinkets.Count > 0) {
 				Add(chest, ref slot, trinkets[rand.Next(trinkets.Count)], 1);
 			}

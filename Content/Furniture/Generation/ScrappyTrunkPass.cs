@@ -33,27 +33,79 @@ namespace Cogpunk.Content.Furniture.Generation
 			List<int> trinkets = ScrappyTrunkLoot.CollectTrinkets();
 			int candidates = 0;
 			int replaced = 0;
+			int goldHearts = 0;
 			for (int i = 0; i < Main.maxChests; i++) {
 				if (i % 256 == 0) {
 					progress.Set(i / (double)Main.maxChests);
 				}
 				Chest chest = Main.chest[i];
-				if (chest == null || !WoodenChests.IsPlain(chest.x, chest.y)) {
+				if (chest == null) {
 					continue;
 				}
-				candidates++;
-				if (WorldGen.genRand.Next(100) >= ReplaceChance) {
-					continue;
+				bool underground = chest.y >= (int)Main.worldSurface && chest.y < Main.UnderworldLayer;
+				if (WoodenChests.IsPlain(chest.x, chest.y)) {
+					candidates++;
+					if (WorldGen.genRand.Next(100) >= ReplaceChance) {
+						continue;
+					}
+					for (int dx = 0; dx < 2; dx++) {
+						for (int dy = 0; dy < 2; dy++) {
+							Main.tile[chest.x + dx, chest.y + dy].TileType = trunk;   // bounds checked by WoodenChests.IsPlain
+						}
+					}
+					ScrappyTrunkLoot.Fill(chest, WorldGen.genRand, trinkets, underground);
+					replaced++;
 				}
-				for (int dx = 0; dx < 2; dx++) {
-					for (int dy = 0; dy < 2; dy++) {
-						Main.tile[chest.x + dx, chest.y + dy].TileType = trunk;   // bounds checked by WoodenChests.IsPlain
+				else if (underground && IsUndergroundGoldChest(chest.x, chest.y) && EnsureLifeCrystal(chest)) {
+					goldHearts++;
+				}
+			}
+			SafeLog.Info("WorldGen.ScrappyTrunks", $"Scrappy Trunks: {replaced} of {candidates} Wooden Chests replaced; {goldHearts} underground Gold Chests stocked with Life Crystals.");
+		}
+
+		/// <summary>0.4.0 (user, 2026-11-27: "make it so golden and rust underground chests allways contain a crystal heart"):
+		/// unlocked underground Gold Chests (<c>TileID.Containers</c> style 1) and Dead Man's Chests (<c>TileID.Containers2</c>
+		/// style 4), never Dungeon Locked Gold Chests (style 2).</summary>
+		private static bool IsUndergroundGoldChest(int x, int y) {
+			for (int dx = 0; dx < 2; dx++) {
+				for (int dy = 0; dy < 2; dy++) {
+					if (!TileSafety.TryGetTile(x + dx, y + dy, out Tile tile, TileSafety.EditMargin) || !tile.HasTile) {
+						return false;
+					}
+					int style = tile.TileFrameX / WoodenChests.ChestStyleWidth;
+					bool gold = (tile.TileType == TileID.Containers && style == UndergroundChests.GoldStyle)
+						|| (tile.TileType == TileID.Containers2 && style == 4);
+					if (!gold) {
+						return false;
 					}
 				}
-				ScrappyTrunkLoot.Fill(chest, WorldGen.genRand, trinkets);
-				replaced++;
 			}
-			SafeLog.Info("WorldGen.ScrappyTrunks", $"Scrappy Trunks: {replaced} of {candidates} Wooden Chests replaced.");
+			return true;
+		}
+
+		private static bool EnsureLifeCrystal(Chest chest) {
+			if (chest?.item == null) {
+				return false;
+			}
+			int empty = -1;
+			for (int s = 0; s < chest.item.Length; s++) {
+				Item it = chest.item[s];
+				if (it == null || it.IsAir) {
+					if (empty < 0) {
+						empty = s;
+					}
+				}
+				else if (it.type == ItemID.LifeCrystal) {
+					return false;
+				}
+			}
+			if (empty < 0) {
+				return false;
+			}
+			chest.item[empty] ??= new Item();
+			chest.item[empty].SetDefaults(ItemID.LifeCrystal);
+			chest.item[empty].stack = 1;
+			return true;
 		}
 	}
 

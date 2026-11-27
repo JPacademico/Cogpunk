@@ -144,9 +144,8 @@ namespace Cogpunk.Content.Coghaven.NPCs
 
 		public override void SetDefaults() {
 			Cogpunk.Content.Banners.EnemyBanners.SetBanner(this);         // its banner (2026-11-25)
-			NPC.width = 46;                                 // his torso in profile and his head (D4: matched hitbox; 72 while he
-			                                                // faced the screen, until the sideways redesign of 2026-11-26b)
-			NPC.height = 104;
+			NPC.width = 34;                                 // 0.4.0 (user, 2026-11-27: 25% smaller): 46 x 104 -> 34 x 78
+			NPC.height = 78;
 			SetExpertStats(Life, ContactDamage, Defense);
 			NPC.knockBackResist = 0f;
 			NPC.HitSound = SoundID.NPCHit41;

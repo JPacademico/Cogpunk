@@ -60,6 +60,12 @@ namespace Cogpunk.Content.Research
 		/// <summary>"putting coins on the piggy bank for the first time (individualy)".</summary>
 		public const string PiggyBank = "PiggyBank";
 
+		// 0.3.0 (user, 2026-11-27: "killing a driller for the first time rewards a knowledge point, killing a coghawk for the first time should also rewards one")
+		public const string Driller = "Driller", Coghawk = "Coghawk";
+
+		// 0.4.0 (user, 2026-11-27: "make it so getting a heart crystal for the first time rewards a knowledge point")
+		public const string LifeCrystal = "LifeCrystal";
+
 		/// <summary>A boss or mini-boss by its canonical NPC type (the Twins and the Eater of Worlds count once).</summary>
 		public static string Boss(int type) => "Boss:" + NameOf(type);
 

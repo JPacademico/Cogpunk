@@ -1274,6 +1274,71 @@ Items: {
 		DisplayName: Tearstone
 		Tooltip: "{0} defense while at full health"
 	}
+
+	Sparkler: {
+		DisplayName: Sparkler
+		Tooltip: Blasts a shotgun cone of {0} live sparks
+	}
+
+	Flintsword: {
+		DisplayName: Flintsword
+		Tooltip: Strikes off a live spark whenever the blade hits an enemy
+	}
+
+	HandMadeGun: {
+		DisplayName: Hand-made Gun
+		Tooltip:
+			'''
+			Fires a quick, pinpoint slug that ricochets once off walls
+			{0}% chance to misfire and cough out a spark instead
+			'''
+	}
+
+	SpareHelmet: {
+		DisplayName: Spare Helmet
+		Tooltip: Increases damage and critical strike chance by {0}%
+		SetBonus: Releases a burst of {0}-damage sparks when taking damage
+	}
+
+	SpareVest: {
+		DisplayName: Spare Vest
+		Tooltip:
+			'''
+			Increases maximum mana by {0}
+			+{1} max steam
+			'''
+	}
+
+	SpareBoots: {
+		DisplayName: Spare Boots
+		Tooltip: "{0}% increased movement speed"
+	}
+
+	OreGps: {
+		DisplayName: Ore GPS
+		Tooltip:
+			'''
+			Use to pick a pre-Hardmode ore or gem
+			Points toward the nearest vein of {0} or more blocks
+			'''
+		MenuTitle: Ore GPS — Choose a Vein to Track
+		TurnOff: Stop tracking
+		TrackingNone: Not tracking any mineral
+		TrackingFound: Tracking: {0} (vein located)
+		TrackingMissing: Tracking: {0} (no nearby vein found)
+		FoundChat: "Ore GPS: locked onto a vein of {0}."
+		MissingChat: "Ore GPS: no vein of {0} ({1}+ blocks) found in range."
+		Cleared: Ore GPS turned off.
+	}
+
+	DrillerExtractor: {
+		DisplayName: Driller Extractor
+		Tooltip:
+			'''
+			Automatically extracts Silt, Slush, Desert Fossil, and Rusted Scrap as you mine them
+			'Salvaged straight off a cavern driller's nose'
+			'''
+	}
 }
 
 Buffs: {
@@ -1762,6 +1827,8 @@ Projectiles: {
 	PolymorphBolt.DisplayName: Polymorph Burp
 	RainbowLaser.DisplayName: Rainbow Laser
 	ChannelBlast.DisplayName: Rainbow Blast
+	HandMadeBullet.DisplayName: Hand-made Slug
+	DrillerExtractorProjectile.DisplayName: Driller Extractor
 }
 
 Tiles: {
@@ -1898,6 +1965,7 @@ DropConditions: {
 	ManualFirstKill: Once per world, on the first defeat: one for every player in the fight
 	LizardGem: The gem its crystals grew
 	Twinkling: With Twinkling researched
+	DrillerPlus: With Driller+ researched
 }
 
 Events: {
@@ -2292,6 +2360,56 @@ Research: {
 			DisplayName: Build Terraria 2, make no mistakes.
 			Description: Negative modifiers come up less often when you reforge
 		}
+
+		XRay: {
+			DisplayName: X-Ray
+			Description: Unlocks crafting of the Ore GPS
+		}
+
+		DrillerPlus: {
+			DisplayName: Driller+
+			Description: Drillers drop higher-tier ores and have a chance to drop gems
+		}
+
+		PreHardmodeDrill: {
+			DisplayName: Pre-Hardmode Drill?!
+			Description: Unlocks crafting of the Driller Extractor
+		}
+
+		CanOpener: {
+			DisplayName: Can Opener
+			Description: +3 armor penetration
+		}
+
+		Sparkling: {
+			DisplayName: Sparkling!
+			Description: Greatly increases the chance for your sparks to set enemies on fire
+		}
+
+		BetterSparks: {
+			DisplayName: Better Sparks
+			Description: Increases spark range and lifetime so sparks take 1 second longer to vanish
+		}
+
+		InducedCombustion: {
+			DisplayName: Induced Combustion
+			Description: Defeated enemies burst into 2-4 damaging sparks around them
+		}
+
+		Consumerism: {
+			DisplayName: Consumerism
+			Description: Obtaining rare non-boss exploration accessories adds them to the Merchant's shop for everyone in this world
+		}
+
+		RealEstateSpeculation: {
+			DisplayName: Real Estate Speculation
+			Description: Your piggy bank generates 1 extra copper coin per second for each housed resident town NPC
+		}
+
+		FreeMarket: {
+			DisplayName: Free Market
+			Description: Reduces shop prices by 20% and increases item sell prices by 20%
+		}
 	}
 
 	Tasks: {
@@ -2323,7 +2441,13 @@ Research: {
 		PlayerKill: Defeated another player
 		PiggyBank: Saved coins in a piggy bank
 		Artifact: Found an artifact: {0}
+		Driller: Defeated a Driller
+		Coghawk: Defeated a Coghawk
+		LifeCrystal: Obtained a Crystal Heart
 	}
+
+	StartHere: START HERE — UNLOCK FIRST
+	BasicsNotice: Start here! Unlock this node first to open the rest of the research tree.
 
 	Events: {
 		GoblinArmy: the Goblin Army

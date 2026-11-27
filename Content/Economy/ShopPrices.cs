@@ -27,15 +27,24 @@ namespace Cogpunk.Content.Economy
 		/// <summary>+60% (user-set).</summary>
 		public const float Markup = 1.6f;
 
-		/// <summary>Only NPCs that can keep a shop: town NPCs and the ones that act like them (the Skeleton Merchant); never the
-		/// Tavernkeep (user-set).</summary>
+		/// <summary>Only NPCs that can keep a shop: town NPCs and the ones that act like them (the Skeleton Merchant).</summary>
 		public override bool AppliesToEntity(NPC entity, bool lateInstantiation) =>
-			lateInstantiation && entity.isLikeATownNPC && entity.type != NPCID.DD2Bartender;
+			lateInstantiation && entity.isLikeATownNPC;
 
 		public override void ModifyActiveShop(NPC npc, string shopName, Item[] items) {
 			if (items == null) {
 				return;
 			}
+			if (npc.type == NPCID.Merchant) {
+				Research.ResearchConsumerism.FillMerchantShop(items);
+			}
+			bool applyMarkup = npc.type != NPCID.DD2Bartender;
+			bool freeMarket = Main.myPlayer >= 0 && Main.myPlayer < Main.maxPlayers && Main.LocalPlayer != null
+				&& Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<Research.ResearchPlayer>().Has(Research.ResearchNodes.FreeMarket);
+			if (!applyMarkup && !freeMarket) {
+				return;
+			}
+			double factor = (applyMarkup ? Markup : 1.0) * (freeMarket ? 1.0 - Research.ResearchNodes.FreeMarketShopDiscount : 1.0);
 			for (int i = 0; i < items.Length; i++) {
 				Item item = items[i];
 				if (item == null || item.IsAir || item.shopSpecialCurrency != -1) {
@@ -45,7 +54,7 @@ namespace Cogpunk.Content.Economy
 				if (price <= 0) {
 					continue;
 				}
-				item.shopCustomPrice = Raise(price);
+				item.shopCustomPrice = Math.Max(1, (int)Math.Min(int.MaxValue, Math.Round(price * factor)));
 			}
 		}
 

@@ -4,6 +4,50 @@ Every update batch raises `version` in `build.txt` and adds an entry here, newes
 fixes and tweaks only the patch (user, 2026-11-26: "every following update batch and implementation should increase the
 version of our mod so we keep traceability for updates"). Balance rows: `docs/balance/*.csv`; proofs: `docs/media/`.
 
+## 0.4.0 (2026-11-27)
+
+Jade Golem size adjustment, Life Crystal progression guarantees, and seven new research nodes across mechanical combat, spark builds, and co-op economy.
+
+### Added
+- **Knowledge task (`LifeCrystal`)**: obtaining a Crystal Heart for the first time grants 1 knowledge point per character.
+- **Can Opener** (secret node, 1 knowledge point): reveals after defeating 10 mechanical enemies and grants **+3 armor penetration** across all classes.
+- **Spark secret research chain** (1 knowledge point each, connected 1 -> 2 -> 3, revealed after defeating an enemy with a spark projectile):
+  1. **Sparkling!**: adds an extra 75% ignite roll (4 s *On Fire!* / *Frostburn*) to spark projectiles, raising Wand of Sparking sparks from 50% to 87.5% and non-igniting sparks to 75%.
+  2. **Better Sparks**: increases spark range and extends spark lifetime by +1.0 second (+60 ticks) before vanishing.
+  3. **Induced Combustion**: enemies defeated by the player burst into 2–4 random non-chaining sparks around them (15 base generic damage each).
+- **Economy research chain** (1 knowledge point each, connected from **Passive Income** -> 1 -> 2 -> 3):
+  1. **Consumerism**: obtaining must-have/rare non-boss exploration accessories (Hermes/Flurry/Sailfish/Dunerider Boots, Cloud/Blizzard/Sandstorm/Tsunami in a Bottle, Lucky Horseshoe, Shiny Red Balloon, Black Belt, Tabi, Climbing Claws, Shoe Spikes, Aglet, Anklet of the Wind, Water Walking Boots, Ice Skates, Lava Charm, Feral Claws, Band of Regeneration, Cobalt Shield, or their tinkered upgrades) permanently adds them to the Merchant's shop in that world so other players can buy them.
+  2. **Real Estate Speculation**: your Piggy Bank generates +1 extra Copper Coin per second per housed resident town NPC (Guide, Traveling Merchant, Old Man, town pets, and town slimes excluded).
+  3. **Free Market**: reduces coin shop prices by 20% and increases item sell prices by 20%.
+
+### Changed
+- **Jade Golem**: redrawn 25% smaller (`46×104` -> `34×78` hitbox, multiplane sheets, arm sheets, gores, and banner regenerated at 75% scale).
+- **Underground chests**: underground Golden Chests (including Dead Man's Chests) and underground Scrappy Trunks now always contain a guaranteed Crystal Heart (`LifeCrystal`).
+
+## 0.3.0 (2026-11-27)
+
+Early-game progression batch (user: "after some testing with some friends i think the early game needs more resources to speed progression"): three T0 Rusted Cog weapons, the Spare armor set, clearer onboarding for The Basics in the research tree, knowledge rewards for Driller and Coghawk kills, and the 3-node Driller research chain (`X-Ray` -> `Driller+` -> `Pre-Hardmode Drill?!`).
+
+### Added
+- **Sparkler** (Mechanist, T0): 2 steam per blast, fires a shotgun cone of 4 Wand of Sparking sparks at 13 damage each and 3% base crit; crafted with 3 Rusted Cogs + 3 Copper/Tin Bars at an Anvil.
+- **Flintsword** (Melee, T0): Platinum Broadsword-tier directional broadsword with a warm flint phantom slash trail that strikes off a live spark on every enemy hit; crafted with 2 Rusted Cogs + 4 Iron/Lead Bars at an Anvil.
+- **Hand-made Gun** (Ranged, T0): fires a fast, zero-spread slug (18 damage + bullet) that bounces once off walls, with a 10% misfire chance to sputter out a short-range spark instead; crafted with 1 Rusted Cog + 4 Copper/Tin Bars at an Anvil.
+- **Spare Armor** (`Spare Helmet`, `Spare Vest`, `Spare Boots`, T0): 3/3/3 = 9 defense (matching Iron armor's total), crafted at a Work Bench from Wood armor + 2/4/3 Rusted Cogs with spinning brass cogs; helmet +3% damage & crit, vest +10 max mana & +10 max steam (an immediate starter steam tank), boots +12% movement speed; full set releases a 5-spark damaging burst when taking damage.
+- **Knowledge tasks**: first kill of a **Driller** and first kill of a **Coghawk** each grant 1 knowledge point per character.
+- **Driller research chain** (1 knowledge point each, connected 1 -> 2 -> 3, revealed after killing a Driller):
+  1. **X-Ray**: unlocks **Ore GPS** (4 Rusted Cogs + 2 Copper/Tin Bars at an Anvil), which opens an icon picker for any pre-Hardmode ore or gem (including Tarnished Brass and Jade) and points the Mysterious Map's compass arrow at the nearest clump of 6+ connected blocks.
+  2. **Driller+**: upgrades Drillers killed by the player to drop 4-7 Silver/Tungsten/Gold/Platinum Ore instead of Copper/Tin/Iron/Lead, plus a 50% chance for 1-2 random gems.
+  3. **Pre-Hardmode Drill?!**: unlocks **Driller Extractor** (4 Gold/Platinum Bars + 6 Rusted Cogs at an Anvil), the fastest pre-Hardmode mining tool (use time 8, 59% Platinum pickaxe power) which automatically extracts Silt, Slush, Desert Fossil, Rusted Scrap, and any extractable block as you mine it.
+
+### Changed
+- **Research UI (`The Basics`)**: given a double-rimmed brass root pedestal with corner brackets, pulsing aura, tooltip notice, and a bouncing `START HERE — UNLOCK FIRST` callout badge while locked so players immediately see it unlocks access to the rest of the tree.
+
+## 0.2.5 (2026-11-27)
+
+### Changed
+- **Driller**: defense 8 (14) in Expert, -43% (user: "reduce armor of the 'driller' enemy").
+- **Coghawk**: 80 life (100) in Expert, -20%, and desert surface spawn weight 0.12 (0.15), -20% (user: "reduce health and spawn chance (slightly) of the 'coghawk' enemy").
+
 ## 0.2.4 (2026-11-26)
 
 ### Changed

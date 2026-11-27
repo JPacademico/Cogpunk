@@ -49,8 +49,11 @@ namespace Cogpunk.Content.Research
 		private byte gemStaffs;                                  // bit k: Weapons.BundleOfWands.StaffItems[k] had at some point
 		private byte found;                                      // FoundAlchemy | FoundCooking | FoundStone (2026-11-24), saved
 		private const byte FoundAlchemy = 1, FoundCooking = 2, FoundStone = 4, FoundRobe = 8, FoundCrate = 16;
-		private byte found2;                                     // FoundPiggy | FoundReforge | FoundLizard (2026-11-26) | FoundBench (0.2.2), saved
-		private const byte FoundPiggy = 1, FoundReforge = 2, FoundLizard = 4, FoundBench = 8;
+		private byte found2;                                     // FoundPiggy | FoundReforge | FoundLizard (2026-11-26) | FoundBench (0.2.2) | FoundSparkKill (0.4.0), saved
+		private const byte FoundPiggy = 1, FoundReforge = 2, FoundLizard = 4, FoundBench = 8, FoundSparkKill = 16;
+		private byte mechKills;                                  // 0.4.0: mechanical enemies defeated (CanOpener reveals at 10), saved
+		private uint consumerismSeen;                            // 0.4.0: Consumerism accessories obtained by this character (saved by name)
+		private uint reportedConsumerism;                        // this session: bits already reported to ResearchWorld
 		private int incomeTicks;                                 // Passive Income: ticks towards the next copper coin (owner)
 		private bool artifactFound;                              // a record of the Artifacts tab is filled (or its task earned)
 		/// <summary>Enemies this character has killed (counted on its own client, saved; 2026-11-25: Bad Luck Protection's
@@ -116,6 +119,16 @@ namespace Cogpunk.Content.Research
 		/// "?" until a player kills a cristal lizard"); saved.</summary>
 		public bool KilledCrystalLizard => (found2 & FoundLizard) != 0;
 
+		/// <summary>Has killed an enemy with a spark projectile (0.4.0, user 2026-11-27: reveals Sparkling! -> Better Sparks ->
+		/// Induced Combustion); saved.</summary>
+		public bool KilledWithSpark => (found2 & FoundSparkKill) != 0;
+
+		/// <summary>Mechanical enemies defeated by this character (0.4.0, user 2026-11-27: Can Opener reveals at 10); saved.</summary>
+		public int MechKills => mechKills;
+
+		/// <summary>Bitmask of <see cref="ResearchConsumerism.StockItems"/> obtained by this character (0.4.0).</summary>
+		public uint ConsumerismSeen => consumerismSeen;
+
 		/// <summary>The window's Artifacts tab shows (user, 2026-11-26: "Picking an artifact for the first time ... unlocks a new tab
 		/// on the ancient research table called "Artifacts""): this character has found an artifact.</summary>
 		public bool ArtifactsTab => artifactFound;
@@ -161,6 +174,9 @@ namespace Cogpunk.Content.Research
 			gemStaffs = 0;
 			found = 0;
 			found2 = 0;
+			mechKills = 0;
+			consumerismSeen = 0u;
+			reportedConsumerism = 0u;
 			incomeTicks = 0;
 			artifactFound = false;
 			Kills = 0;
@@ -423,13 +439,30 @@ namespace Cogpunk.Content.Research
 			}
 			Calcify(target, proj.type);
 			GreenIsGoodKill(target);
+			ResearchSparks.BurstOnKill(Player, target, proj, damageDone);
+			CheckSparkKill(proj, target, damageDone);
 			CountKill(target, damageDone);
 		}
 
 		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone) {
 			Calcify(target, -1);
 			GreenIsGoodKill(target);
+			ResearchSparks.BurstOnKill(Player, target, null, damageDone);
 			CountKill(target, damageDone);
+		}
+
+		private void CheckSparkKill(Projectile proj, NPC target, int damageDone) {
+			if (Player.whoAmI != Main.myPlayer || (found2 & FoundSparkKill) != 0 || proj == null || target == null
+				|| damageDone <= 0 || !ResearchSparks.IsSpark(proj.type)) {
+				return;
+			}
+			NPC root = target.realLife >= 0 && target.realLife < Main.maxNPCs && Main.npc[target.realLife].active ? Main.npc[target.realLife] : target;
+			if (root.life > 0 || root.life + damageDone <= 0 || root.SpawnedFromStatue || !Core.Combat.CritKillSlowMotion.Counts(root)) {
+				return;
+			}
+			found2 |= FoundSparkKill;
+			MarkDirty();
+			CheckRevealsNow();
 		}
 
 		/// <summary>The owner's client: the hit that took an enemy's last life (its life was above 0 before this hit's damage;
@@ -445,6 +478,13 @@ namespace Cogpunk.Content.Research
 			Kills++;
 			if (Kills % 25 == 0 || Kills == ResearchNodes.BadLuckKills) {
 				MarkDirty();                                     // saved in batches, not every kill
+			}
+			if (mechKills < byte.MaxValue && Core.Systems.CogpunkSets.IsMechanical(root)) {
+				mechKills++;
+				MarkDirty();
+				if (mechKills == ResearchNodes.CanOpenerKills) {
+					CheckRevealsNow();
+				}
 			}
 			if (root.type == ModContent.NPCType<Underground.NPCs.CrystalLizard>() && (found2 & FoundLizard) == 0) {
 				found2 |= FoundLizard;                           // Twinkling's "?" (2026-11-26)
@@ -643,6 +683,9 @@ namespace Cogpunk.Content.Research
 			if (!Earned(KnowledgeTasks.PiggyBank) && Utils.CoinsCount(out _, Player.bank.item, noSlots) > 0) {
 				Grant(KnowledgeTasks.PiggyBank);
 			}
+			if (!Earned(KnowledgeTasks.LifeCrystal) && Player.ConsumedLifeCrystals > 0) {
+				Grant(KnowledgeTasks.LifeCrystal);
+			}
 			if (Player.ZoneBeach) {
 				edges |= 1;
 			}
@@ -655,15 +698,20 @@ namespace Cogpunk.Content.Research
 					Collected(it.type);
 				}
 			}
-			if ((found & FoundRobe) == 0) {
-				for (int i = 0; i < Player.armor.Length && i < 20; i++) {
-					Item it = Player.armor[i];
-					if (it != null && !it.IsAir && ResearchRecipes.IsGemRobe(it.type)) {
+			for (int i = 0; i < Player.armor.Length && i < 20; i++) {
+				Item it = Player.armor[i];
+				if (it != null && !it.IsAir) {
+					NoteConsumerism(it.type);
+					if ((found & FoundRobe) == 0 && ResearchRecipes.IsGemRobe(it.type)) {
 						found |= FoundRobe;
 						MarkDirty();
-						break;
 					}
 				}
+			}
+			if ((Has(ResearchNodes.Consumerism) || ResearchWorld.ConsumerismActive)
+				&& (consumerismSeen & ~ResearchWorld.ConsumerismMask & ~reportedConsumerism) != 0u) {
+				reportedConsumerism |= consumerismSeen;
+				ResearchWorld.ReportConsumerism(consumerismSeen);
 			}
 		}
 
@@ -718,6 +766,10 @@ namespace Cogpunk.Content.Research
 			if (type == ItemID.Diamond) {
 				Grant(KnowledgeTasks.Diamond);                   // once per character (Grant keeps the task)
 			}
+			if (type == ItemID.LifeCrystal) {
+				Grant(KnowledgeTasks.LifeCrystal);               // 0.4.0: first Heart Crystal obtained
+			}
+			NoteConsumerism(type);
 			if ((found & FoundRobe) == 0 && ResearchRecipes.IsGemRobe(type)) {
 				found |= FoundRobe;                                  // RGBT's reveal (2026-11-24)
 				MarkDirty();
@@ -816,6 +868,14 @@ namespace Cogpunk.Content.Research
 		/// own"): the owner's client, every <see cref="ResearchNodes.PassiveIncomeTicks"/> ticks in a world, one Copper Coin into the
 		/// piggy bank (<c>Player.bank</c>, which the Money Trough opens too), coins stacked up as vanilla counts them (100 of a coin
 		/// make one of the next); nothing when the bank has no room. The bank is the character's own data, saved with it (D2).</summary>
+		private void NoteConsumerism(int itemType) {
+			uint bits = ResearchConsumerism.BitsForItem(itemType);
+			if ((bits & ~consumerismSeen) != 0u) {
+				consumerismSeen |= bits;
+				MarkDirty();
+			}
+		}
+
 		private void PassiveIncome() {
 			if (!Has(ResearchNodes.PassiveIncome)) {
 				incomeTicks = 0;
@@ -825,7 +885,8 @@ namespace Cogpunk.Content.Research
 				return;
 			}
 			incomeTicks = 0;
-			ResearchEconomy.AddCoin(Player.bank.item, ItemID.CopperCoin);
+			int coins = 1 + (Has(ResearchNodes.RealEstateSpeculation) ? ResearchEconomy.HousedResidents() : 0);
+			ResearchEconomy.AddCopper(Player.bank.item, coins);
 		}
 
 		/// <summary>The owner: an item was just reforged at the Goblin Tinkerer (<see cref="ResearchReforge"/>): You broke it!'s
@@ -895,6 +956,7 @@ namespace Cogpunk.Content.Research
 			missStacks = 0;
 			reportedStaffs = false;                              // a new world: tell it too
 			reportedBench = false;
+			reportedConsumerism = 0u;
 			CheckReveals();                                      // keep whatever this world reveals at once
 			if (gotBook) {
 				return;
@@ -918,6 +980,12 @@ namespace Cogpunk.Content.Research
 				tag["Found2"] = found2;
 				tag["GotBook"] = gotBook;
 				tag["Kills"] = Kills;
+				if (mechKills > 0) {
+					tag["MechKills"] = mechKills;
+				}
+				if (consumerismSeen != 0u) {
+					tag["ConsumerismSeen"] = ResearchConsumerism.ToSavedNames(consumerismSeen);
+				}
 			}
 		}
 
@@ -934,6 +1002,11 @@ namespace Cogpunk.Content.Research
 				found2 = tag.GetByte("Found2");
 				gotBook = tag.GetBool("GotBook");
 				Kills = Math.Clamp(tag.GetInt("Kills"), 0, MaxKills);
+				mechKills = tag.GetByte("MechKills");
+				consumerismSeen = tag.ContainsKey("ConsumerismSeen")
+					? ResearchConsumerism.FromSavedNames(tag.GetList<string>("ConsumerismSeen"))
+					: 0u;
+				reportedConsumerism = 0u;
 				for (int k = 0; k < Secrets.FundamentalStones.Count; k++) {
 					if (earned.Contains(KnowledgeTasks.StoneKey(k))) {
 						found |= FoundStone;                         // read a stone before the tab existed: it shows

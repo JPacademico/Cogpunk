@@ -10,6 +10,7 @@ using Cogpunk.Content.Gems.Items;
 using Cogpunk.Content.Junkyard.Weapons;
 using Cogpunk.Content.Mechanist.Weapons;
 using Cogpunk.Content.OldBrassTown.Weapons;
+using Cogpunk.Content.Research.Items;
 using Cogpunk.Content.Research.Weapons;
 using Cogpunk.Content.Scrap.Weapons;
 using Cogpunk.Core.Combat;
@@ -125,6 +126,8 @@ namespace Cogpunk.Content.Combinator.Combination
 			Register(ModContent.ItemType<Cakti>(), Saver(Cakti.AmmoSaveChance));      // 2026-11-17: the Minishark's saving
 			Register(ModContent.ItemType<FireworkCannon>(), new CombinatorTrait(TraitKind.AreaBurst, FireworkRocket.BurstRadius, 0.5f),
 				new CombinatorTrait(TraitKind.Stun, 1f / FireworkRocket.StunOneIn, d: FireworkRocket.StunTicks));          // its fireworks burst and stun
+			Register(ModContent.ItemType<Sparkler>(), Debuff(BuffID.OnFire, 120, 0.5f));                                    // 0.3.0: its sparks ignite
+			Register(ModContent.ItemType<Flintsword>(), Debuff(BuffID.OnFire, 120, 0.5f));                                  // 0.3.0: its flint sparks ignite
 
 			// --- every other weapon, of any mod: its own declaration, else what its projectile tells -------------------------
 			var declared = new List<CombinatorTrait>(4);
@@ -179,6 +182,8 @@ namespace Cogpunk.Content.Combinator.Combination
 			nameof(IncenseMace),                           // 2026-11-18: its aura is its own right click's
 			nameof(BundleOfWands),                         // 2026-11-18: its five-bolt burst is its own attack (kept as the augment)
 			nameof(JadeClaws),                             // 2026-11-24: a digging claw, nothing to lend
+			nameof(HandMadeGun),                           // 0.3.0: its bounce and misfire belong to its own shot
+			nameof(DrillerExtractor),                      // 0.3.0: a drill, nothing to lend
 		};
 
 		public override void Unload() {

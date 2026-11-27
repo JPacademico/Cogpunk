@@ -21,6 +21,10 @@ namespace Cogpunk.Core.Hooks
 		/// <summary>60% less (user-set).</summary>
 		public const double SellFactor = 0.4;
 
+		/// <summary>Optional content-side multiplier on a player's sell price (e.g. Free Market's +20%), kept as a delegate so
+		/// Core stays free of Content references.</summary>
+		public static Func<Player, double> PlayerSellMultiplier;
+
 		public override void Load() {
 			try {
 				On_Player.GetItemExpectedPrice += LowerSellPrice;
@@ -30,11 +34,19 @@ namespace Cogpunk.Core.Hooks
 			}
 		}
 
+		public override void Unload() {
+			PlayerSellMultiplier = null;
+		}
+
 		private static void LowerSellPrice(On_Player.orig_GetItemExpectedPrice orig, Player self, Item item, out long calcForSelling,
 			out long calcForBuying) {
 			orig(self, item, out calcForSelling, out calcForBuying);
 			if (item != null && item.shopSpecialCurrency == -1 && calcForSelling > 0) {
-				calcForSelling = Math.Max(1L, (long)Math.Round(calcForSelling * SellFactor));
+				double factor = SellFactor;
+				if (self != null && PlayerSellMultiplier != null) {
+					factor *= PlayerSellMultiplier(self);
+				}
+				calcForSelling = Math.Max(1L, (long)Math.Round(calcForSelling * factor));
 			}
 		}
 	}

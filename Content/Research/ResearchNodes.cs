@@ -132,7 +132,22 @@ namespace Cogpunk.Content.Research
 			LaceUp = "LaceUp", UnholyCarpentry = "UnholyCarpentry", BadLuckProtection = "BadLuckProtection",
 			CrateExpectations = "CrateExpectations", WhoIsHe = "WhoIsHe",
 			// 2026-11-26 (the 0.2.0 batch)
-			PassiveIncome = "PassiveIncome", Twinkling = "Twinkling", YouBrokeIt = "YouBrokeIt", BuildTerraria2 = "BuildTerraria2";
+			PassiveIncome = "PassiveIncome", Twinkling = "Twinkling", YouBrokeIt = "YouBrokeIt", BuildTerraria2 = "BuildTerraria2",
+			// 2026-11-27 (0.3.0: Driller research chain)
+			XRay = "XRay", DrillerPlus = "DrillerPlus", PreHardmodeDrill = "PreHardmodeDrill",
+			// 2026-11-27 (0.4.0: mech armor pen, spark chain, economy chain)
+			CanOpener = "CanOpener",
+			Sparkling = "Sparkling", BetterSparks = "BetterSparks", InducedCombustion = "InducedCombustion",
+			Consumerism = "Consumerism", RealEstateSpeculation = "RealEstateSpeculation", FreeMarket = "FreeMarket";
+		public const int CanOpenerKills = 10;                  // user-set: reveals after defeating 10 mech enemies
+		public const int CanOpenerArmorPen = 3;                // user-set: +3 armor penetration
+		public const float SparklingIgniteChance = 0.75f;      // Sparkling!: extra 75% roll to set enemies on fire
+		public const int SparklingFireTicks = 240;             // 4 s On Fire! / Frostburn
+		public const int BetterSparksExtraTicks = 60;          // user-set: +1 second to vanish
+		public const int CombustionMinSparks = 2, CombustionMaxSparks = 4; // user-set: 2-4 sparks around dying enemy
+		public const int CombustionSparkDamage = 15;           // generic base damage per death-burst spark
+		public const float FreeMarketShopDiscount = 0.20f;     // user-set: -20% shop prices
+		public const double FreeMarketSellBonus = 0.20;        // user-set: +20% sell prices
 		/// <summary>"Passive Income" (user-set 2026-11-26: "makes so the player piggy bank generates a copper coin inside it per
 		/// second on its own"): <see cref="PassiveIncomeTicks"/> between coins.</summary>
 		public const int PassiveIncomeTicks = 60;
@@ -194,7 +209,10 @@ namespace Cogpunk.Content.Research
 
 		public override void PostSetupContent() {
 			ResearchGlobalTile.BuildOreTable();
+			Items.DrillerExtractorGlobalTile.BuildExtractTable();
 			ResearchItems.BuildBenchTable();
+			Core.Hooks.SellPriceHooks.PlayerSellMultiplier = static p =>
+				p.GetModPlayer<ResearchPlayer>().Has(FreeMarket) ? 1.0 + FreeMarketSellBonus : 1.0;
 			all.Clear();
 			byName.Clear();
 			Add(new ResearchNode {
@@ -519,6 +537,68 @@ namespace Cogpunk.Content.Research
 					Reveal = p => p.GetModPlayer<ResearchPlayer>().Earned(key),
 				});
 			}
+			// 2026-11-27 (0.3.0); appended at the end so existing node sync indices stay unchanged (SKILL §3.11)
+			Add(new ResearchNode {
+				Name = XRay, Column = -1, Row = -2, Cost = 1, IconItem = ModContent.ItemType<Items.OreGps>(),
+				Requires = new[] { TheBasics },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().Earned(KnowledgeTasks.Driller),
+				Recipes = new[] { ModContent.ItemType<Items.OreGps>() },
+			});
+			Add(new ResearchNode {
+				Name = DrillerPlus, Column = -2, Row = -2, Cost = 1, IconItem = ItemID.GoldOre,
+				Requires = new[] { XRay }, Links = new[] { XRay },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().Earned(KnowledgeTasks.Driller),
+			});
+			Add(new ResearchNode {
+				Name = PreHardmodeDrill, Column = -3, Row = -2, Cost = 1, IconItem = ModContent.ItemType<Items.DrillerExtractor>(),
+				Requires = new[] { DrillerPlus }, Links = new[] { DrillerPlus },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().Earned(KnowledgeTasks.Driller),
+				Recipes = new[] { ModContent.ItemType<Items.DrillerExtractor>() },
+			});
+			// 2026-11-27 (0.4.0); appended at the end so existing node sync indices stay unchanged (SKILL §3.11)
+			Add(new ResearchNode {
+				// "add a secret node that reveals after defeating 10 mech enemies. it should cost a knowledge point and increase armor penetration by 3."
+				Name = CanOpener, Column = -3, Row = -1, Cost = 1, IconItem = ItemID.SharkToothNecklace,
+				Requires = new[] { TheBasics },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().MechKills >= CanOpenerKills,
+				Passive = static p => p.GetArmorPenetration(DamageClass.Generic) += CanOpenerArmorPen,
+			});
+			Add(new ResearchNode {
+				// Spark chain 1/3: "sparkling! that increases chance for sparks to set the enemy on fire"
+				Name = Sparkling, Column = -1, Row = -3, Cost = 1, IconItem = ItemID.WandofSparking,
+				Requires = new[] { TheBasics },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().KilledWithSpark,
+			});
+			Add(new ResearchNode {
+				// Spark chain 2/3: "better sparks that increase spark lifetime/range (so it takes 1 more seconds to vanish)"
+				Name = BetterSparks, Column = 0, Row = -3, Cost = 1, IconItem = ItemID.Torch,
+				Requires = new[] { Sparkling }, Links = new[] { Sparkling },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().KilledWithSpark,
+			});
+			Add(new ResearchNode {
+				// Spark chain 3/3: "induced combustion that makes so enemies burst sparks when killed (2-4 sparks arround it at random)"
+				Name = InducedCombustion, Column = 1, Row = -3, Cost = 1, IconItem = ItemID.LivingFireBlock,
+				Requires = new[] { BetterSparks }, Links = new[] { BetterSparks },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().KilledWithSpark,
+			});
+			Add(new ResearchNode {
+				// Economy chain 1/3 from Passive Income: "consumerism"
+				Name = Consumerism, Column = 3, Row = -2, Cost = 1, IconItem = ItemID.HermesBoots,
+				Requires = new[] { PassiveIncome }, Links = new[] { PassiveIncome },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().UsedPiggyBank || p.GetModPlayer<ResearchPlayer>().Has(PassiveIncome),
+			});
+			Add(new ResearchNode {
+				// Economy chain 2/3: "real estate speculation"
+				Name = RealEstateSpeculation, Column = 4, Row = -2, Cost = 1, IconItem = ItemID.GoldBrick,
+				Requires = new[] { Consumerism }, Links = new[] { Consumerism },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().UsedPiggyBank || p.GetModPlayer<ResearchPlayer>().Has(PassiveIncome),
+			});
+			Add(new ResearchNode {
+				// Economy chain 3/3: "free market"
+				Name = FreeMarket, Column = 5, Row = -2, Cost = 1, IconItem = ItemID.DiscountCard,
+				Requires = new[] { RealEstateSpeculation }, Links = new[] { RealEstateSpeculation },
+				Reveal = static p => p.GetModPlayer<ResearchPlayer>().UsedPiggyBank || p.GetModPlayer<ResearchPlayer>().Has(PassiveIncome),
+			});
 		}
 
 		/// <summary>An artifact's record node's name (its item's class name with a prefix; saved: never rename).</summary>
@@ -574,6 +654,8 @@ namespace Cogpunk.Content.Research
 			all.Clear();
 			byName.Clear();
 			ResearchItems.ClearBenchTable();
+			ResearchSparks.ClearCache();
+			Core.Hooks.SellPriceHooks.PlayerSellMultiplier = null;
 		}
 	}
 

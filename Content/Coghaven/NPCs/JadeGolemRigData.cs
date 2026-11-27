@@ -8,20 +8,20 @@ namespace Cogpunk.Content.Coghaven.NPCs
 	/// plane and under the near one.</summary>
 	public static class JadeGolemRigData
 	{
-		public const int CellWidth = 68, CellHeight = 118, OriginX = 34, OriginY = 116, Frames = 21, Columns = 3;
+		public const int CellWidth = 52, CellHeight = 88, OriginX = 26, OriginY = 86, Frames = 21, Columns = 3;
 		public const int Walk = 0, WalkFrames = 16, Idle = 16, IdleFrames = 4, AimBody = 20;
 		public const int ArmFrames = 37, ArmMinDegrees = -90, ArmStepDegrees = 5, ArmColumns = 8;
 		/// <summary>The arm sheets' cells: the arm's reach only; their origin is the same ground point (below the cell).</summary>
-		public const int ArmCellWidth = 94, ArmCellHeight = 136, ArmOriginX = 74, ArmOriginY = 150;
+		public const int ArmCellWidth = 70, ArmCellHeight = 102, ArmOriginX = 56, ArmOriginY = 112;
 		/// <summary>The near shoulder, game px from the origin (left-facing): the aim is measured from here.</summary>
-		public const int ShoulderX = -5, ShoulderY = -81;
+		public const int ShoulderX = -4, ShoulderY = -61;
 		/// <summary>Game px from the shoulder, along the arm, to where the ray leaves the open palm (every angle).</summary>
-		public const float PalmReach = 62.0f;
+		public const float PalmReach = 46.9f;
 		/// <summary>Game px a planted foot slides back per walk frame: the walk frame advances with this much distance
 		/// walked, so the planted foot never slips (the Jaeger's root motion).</summary>
-		public const int WalkStep = 3;
+		public const int WalkStep = 2;
 		/// <summary>Where the ray leaves the palm in each arm frame, game px from the origin (left-facing).</summary>
-		public static readonly int[] MuzzleX = { -5, -10, -16, -21, -26, -31, -36, -41, -45, -49, -52, -56, -59, -61, -63, -65, -66, -67, -67, -67, -66, -65, -63, -61, -59, -56, -52, -49, -45, -41, -36, -31, -26, -21, -16, -10, -5 };
-		public static readonly int[] MuzzleY = { -143, -143, -142, -141, -139, -137, -135, -132, -128, -125, -121, -117, -112, -107, -102, -97, -92, -86, -81, -76, -70, -65, -60, -55, -50, -45, -41, -37, -34, -30, -27, -25, -23, -21, -20, -19, -19 };
+		public static readonly int[] MuzzleX = { -4, -8, -12, -16, -20, -24, -27, -31, -34, -37, -40, -42, -44, -46, -48, -49, -50, -51, -51, -51, -50, -49, -48, -46, -44, -42, -40, -37, -34, -31, -27, -24, -20, -16, -12, -8, -4 };
+		public static readonly int[] MuzzleY = { -108, -108, -107, -106, -105, -103, -101, -99, -97, -94, -91, -88, -84, -81, -77, -73, -69, -65, -61, -57, -53, -49, -45, -41, -37, -34, -31, -28, -25, -22, -20, -18, -17, -15, -15, -14, -14 };
 	}
 }

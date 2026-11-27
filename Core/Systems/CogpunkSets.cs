@@ -26,7 +26,7 @@ namespace Cogpunk.Core.Systems
 				NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeSaw, NPCID.PrimeVice, NPCID.PrimeLaser,
 				NPCID.MartianProbe, NPCID.MartianDrone, NPCID.MartianTurret, NPCID.MartianWalker,
 				NPCID.MartianSaucer, NPCID.MartianSaucerCannon, NPCID.MartianSaucerTurret, NPCID.MartianSaucerCore,
-				NPCID.ElfCopter);
+				NPCID.ElfCopter, NPCID.DeadlySphere);
 
 		/// <summary>
 		/// Items that generated Scrappy Trunks can hold as their prize (see <c>Content/Furniture/ScrappyTrunkLoot</c>).

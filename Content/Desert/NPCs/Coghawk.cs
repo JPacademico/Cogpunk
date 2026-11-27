@@ -41,7 +41,7 @@ namespace Cogpunk.Content.Desert.NPCs
 	{
 		private enum Phase { Hover, Windup, Swoop, Recover }
 
-		public const int Life = 100, ContactDamage = 36, Defense = 6;   // Expert
+		public const int Life = 80, ContactDamage = 36, Defense = 6;    // Expert; 0.2.5 (user, 2026-11-27: reduce health slightly): 100 -> 80
 		public const int Width = 36, Height = 26;
 		public const float KnockbackResist = 0.7f;
 		public const float HoverHeight = 10f * 16f, HoverSide = 8f * 16f;
@@ -56,7 +56,7 @@ namespace Cogpunk.Content.Desert.NPCs
 		public const int RecoverTicks = 40;
 		public const int GroundSearchTiles = 8;
 		public const int FlapTicks = 5, ScreechTicks = 4;
-		public const float SpawnWeight = 0.15f;
+		public const float SpawnWeight = 0.12f;                         // 0.2.5 (user, 2026-11-27: reduce spawn chance slightly): 0.15 -> 0.12
 		public const int HawkEyeOdds = 10;                 // 10% (user-set 2026-11-04)
 
 		private static Asset<Texture2D> far, near, glow;
